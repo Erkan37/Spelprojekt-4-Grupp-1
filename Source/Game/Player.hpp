@@ -7,6 +7,7 @@ namespace Utils
 }
 
 class LevelScene;
+class AnimationComponent;
 
 class Player : public GameObject
 {

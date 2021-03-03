@@ -7,6 +7,7 @@
 #include "Player.hpp"
 
 #include "SpriteComponent.h"
+#include "AnimationComponent.hpp"
 #include "PhysicsComponent.h"
 
 Player::Player(LevelScene* aLevelScene)
@@ -19,6 +20,11 @@ Player::Player(LevelScene* aLevelScene)
 	sprite->SetSpritePath("Sprites/Tommy.dds");
 	sprite->SetSize({ 70.0f, 70.0f });
 	sprite->SetZIndex(500);
+
+	AnimationComponent* animation = AddComponent<AnimationComponent>();
+	animation->SetSprite(sprite);
+	animation->SetAnimation(&Animation(false, false, false, 0, 8, 8, 0.15f, "Sprites/TommyAnim.dds", 512, 512));
+	sprite->SetSize({ 70.0f, 70.0f });
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
 	physics->SetCanCollide(true);
