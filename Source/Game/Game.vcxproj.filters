@@ -25,9 +25,6 @@
     <Filter Include="Utils\Math">
       <UniqueIdentifier>{f232bb47-0b66-4bc2-aac0-12a1314c5724}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utils\Containers">
-      <UniqueIdentifier>{8ec71d54-0338-49d8-829a-56f1b6b5792a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Rendering">
       <UniqueIdentifier>{887f4871-d7cf-4a0a-acc1-9315bc0ff2cd}</UniqueIdentifier>
     </Filter>
@@ -91,47 +88,11 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="LevelScene.h" />
-    <ClInclude Include="Line.hpp">
-      <Filter>Utils\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="LineVolume.hpp">
-      <Filter>Utils\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix.hpp">
-      <Filter>Utils\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix3x3.hpp">
-      <Filter>Utils\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix4x4.hpp">
-      <Filter>Utils\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Plane.hpp">
-      <Filter>Utils\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="PlaneVolume.hpp">
-      <Filter>Utils\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Vector4.hpp">
-      <Filter>Utils\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector.hpp">
       <Filter>Utils\Math</Filter>
     </ClInclude>
     <ClInclude Include="Vector2.hpp">
       <Filter>Utils\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.hpp">
-      <Filter>Utils\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="VectorOnStack.h">
-      <Filter>Utils\Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="DoublyLinkedList.hpp">
-      <Filter>Utils\Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="DoublyLinkedListNode.hpp">
-      <Filter>Utils\Containers</Filter>
     </ClInclude>
     <ClInclude Include="RenderCommand.hpp">
       <Filter>Core\Rendering</Filter>
@@ -150,6 +111,12 @@
     </ClInclude>
     <ClInclude Include="Player.hpp">
       <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="InputWrapper.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +171,12 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="InputWrapper.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -9,6 +9,7 @@
 #include <windows.h>
 #include <thread>
 #include "../External/Headers/CU/Utilities.h"
+#include "InputWrapper.h"
 
 using namespace std::placeholders;
 
@@ -57,7 +58,7 @@ CGame::~CGame()
 
 LRESULT CGame::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	if (myGameWorld.myInput->UpdateEvents(message, wParam, lParam))
+	if (myGameWorld.myInput->GetInput()->UpdateEvents(message, wParam, lParam))
 	{
 		return 0;
 	}
@@ -141,7 +142,7 @@ void CGame::UpdateCallBack()
 	myTimer->Update();
 	myRenderer.Render();
 #ifndef _RETAIL
-	if (myGameWorld.Input()->GetKeyJustDown(Keys::F1Key))
+	if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::F1Key))
 	{
 		myDebugger.Toggle();
 	}

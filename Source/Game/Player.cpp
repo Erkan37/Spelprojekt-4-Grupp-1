@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "../External/Headers/CU/Utilities.h"
 #include "GameWorld.h"
+#include "InputWrapper.h"
 
 #include "LevelScene.h"
 
@@ -68,7 +69,7 @@ void Player::Update(const float& aDeltaTime)
 
 void Player::CheckJump(const float& aDeltaTime)
 {
-	if (myInputHandler->GetKeyJustDown(Keys::WKey))
+	if (myInputHandler->GetInput()->GetKeyJustDown(Keys::WKey))
 	{
 		if (myHasLanded && GetComponent<PhysicsComponent>()->GetVelocityY() == 0.0f)
 		{
@@ -86,11 +87,11 @@ void Player::CheckJump(const float& aDeltaTime)
 void Player::CheckMove(const float& aDeltaTime)
 {
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
-	if (myInputHandler->GetKeyDown(Keys::DKey))
+	if (myInputHandler->GetInput()->GetKeyDown(Keys::DKey))
 	{
 		GetComponent<PhysicsComponent>()->SetVelocityX(Utils::Lerp(physics->GetVelocityX(), myMaxSpeed, myAcceleration * aDeltaTime));
 	}
-	else if (myInputHandler->GetKeyDown(Keys::AKey))
+	else if (myInputHandler->GetInput()->GetKeyDown(Keys::AKey))
 	{
 		GetComponent<PhysicsComponent>()->SetVelocityX(Utils::Lerp(physics->GetVelocityX(), -myMaxSpeed, myAcceleration * aDeltaTime));
 	}

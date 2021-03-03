@@ -7,6 +7,7 @@ namespace Utils
 }
 
 class CGame;
+class InputWrapper;
 
 #include "LevelScene.h"
 
@@ -35,7 +36,7 @@ public:
 	{
 		return myTotalTime;
 	}
-	inline Utils::Input* Input()
+	inline std::shared_ptr<InputWrapper> Input()
 	{
 		return myInput;
 	}
@@ -47,8 +48,9 @@ public:
 private:
 	/*** System ***/
 	Utils::Timer* myTimer;
-	Utils::Input* myInput;
+	//Utils::Input* myInput;
 	CGame* myGame;
+	std::shared_ptr<InputWrapper> myInput;
 	float myDeltaTime;
 	float myTotalTime;
 

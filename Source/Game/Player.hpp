@@ -1,11 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-namespace Utils
-{
-	class Input;
-}
-
+class InputWrapper;
 class LevelScene;
 class AnimationComponent;
 
@@ -24,7 +20,7 @@ public:
 	void Landed() override;
 
 private:
-	Utils::Input* myInputHandler;
+	std::shared_ptr<InputWrapper> myInputHandler;
 
 	float myMaxSpeed;
 
