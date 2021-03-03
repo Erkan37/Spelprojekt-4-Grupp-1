@@ -7,7 +7,7 @@
 #include "GameObject.h"
 #include "GameWorld.h"
 #include "SpriteComponent.h";
-#include "Utilities.h"
+#include "../External/Headers/CU/Utilities.h"
 
 AnimationComponent::AnimationComponent()
 	: myTimer(0.0f),

@@ -10,7 +10,7 @@
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
 #include "GameWorld.h"
-#include "Utilities.h"
+#include "../External/Headers/CU/Utilities.h"
 
 PhysicsManager::PhysicsManager()
 	: myColliders(std::vector<ColliderComponent*>())

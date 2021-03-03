@@ -6,7 +6,7 @@
 #include "Scene.h"
 #include "Game.h"
 #include "GameObject.h"
-#include "Utilities.h"
+#include "../External/Headers/CU/Utilities.h"
 
 std::vector<Scene*> Scene::ourScenes = std::vector<Scene*>();
 

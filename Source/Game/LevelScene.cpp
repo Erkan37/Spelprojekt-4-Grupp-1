@@ -8,7 +8,7 @@
 #include "ColliderComponent.h"
 #include "SpriteComponent.h"
 
-#include "Utilities.h"
+#include "../External/Headers/CU/Utilities.h"
 
 #include "Player.hpp"
 

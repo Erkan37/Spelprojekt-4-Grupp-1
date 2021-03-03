@@ -13,7 +13,7 @@
 // I/O
 #include "Keys.h"
 #include <math.h>
-#include "Utilities.h"
+#include "../External/Headers/CU/Utilities.h"
 
 CGameWorld* CGameWorld::ourInstance = nullptr;
 

@@ -7,7 +7,7 @@
 #include "Game.h"
 #include "GameObject.h"
 
-#include "Utilities.h"
+#include "../External/Headers/CU/Utilities.h"
 #include <random>
 
 Camera::Camera()

@@ -4,8 +4,8 @@
 
 #pragma once
 #include "Component.hpp"
-#include "Vector2.hpp"
-#include "Vector4.hpp"
+#include "../External/Headers/CU/Vector2.hpp"
+#include "../External/Headers/CU/Vector4.hpp"
 #include <string>
 
 class SpritebatchComponent;

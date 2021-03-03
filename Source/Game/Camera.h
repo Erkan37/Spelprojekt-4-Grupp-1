@@ -3,7 +3,7 @@
 */
 
 #pragma once
-#include "Vector2.hpp"
+#include "../External/Headers/CU/Vector2.hpp"
 
 class GameObject;
 

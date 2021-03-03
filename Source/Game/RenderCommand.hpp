@@ -3,8 +3,8 @@
 */
 
 #pragma once
-#include "Vector2.hpp"
-#include "Vector4.hpp"
+#include "../External/Headers/CU/Vector2.hpp"
+#include "../External/Headers/CU/Vector4.hpp"
 
 enum EBlendState : int;
 enum ESamplerFilter : int;
