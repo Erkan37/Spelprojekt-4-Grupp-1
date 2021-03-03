@@ -32,7 +32,6 @@ public:
 	bool GetHasBeenDisplayedOnce();
 
 private:
-
 	SpriteComponent* mySprite;
 	Animation* myNextAnimation;
 

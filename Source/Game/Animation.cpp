@@ -15,10 +15,13 @@ Animation::Animation()
 	mySpriteIndex(0),
 	myAnimationFrameCount(1),
 	myColumns(1),
-	myUpdateTime(0.15f)
+	myUpdateTime(0.15f),
+	mySpriteComponent(nullptr),
+	myBoundsX(0),
+	myBoundsY(0)
 {}
 
-Animation::Animation(const bool aIsBackwards, const bool aIsDisplayedOnce, const bool aIsBoomerang, const int aSpriteIndex, const int aAnimationFrames, const int aColumns, const float& aUpdateTime, const std::string& aSpritePath, const int aBoundsX, const int aBoundsY)
+Animation::Animation(const bool aIsBackwards, const bool aIsDisplayedOnce, const bool aIsBoomerang, const int aSpriteIndex, const int aAnimationFrames, const int aColumns, const float& aUpdateTime, SpriteComponent* aSprite, const int aBoundsX, const int aBoundsY)
 	:
 	myIsBackwards(aIsBackwards),
 	myDisplayOnce(aIsDisplayedOnce),
@@ -27,7 +30,7 @@ Animation::Animation(const bool aIsBackwards, const bool aIsDisplayedOnce, const
 	myAnimationFrameCount(aAnimationFrames),
 	myColumns(aColumns),
 	myUpdateTime(aUpdateTime),
-	mySprite(aSpritePath),
+	mySpriteComponent(aSprite),
 	myBoundsX(aBoundsX),
 	myBoundsY(aBoundsY)
 {}

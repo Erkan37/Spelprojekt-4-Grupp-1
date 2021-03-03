@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Animation.hpp"
 
 namespace Utils
 {
@@ -23,7 +24,11 @@ public:
 
 	void Landed() override;
 
+	void AnimationState();
+
 private:
+	Animation myAnimations[3];
+
 	Utils::Input* myInputHandler;
 
 	float myMaxSpeed;
@@ -33,6 +38,8 @@ private:
 
 	float myJumpVelocity;
 	float myDoubleJumpVelocity;
+
+	int myCurrentAnimationIndex;
 
 	bool myHasLanded;
 	bool myHasDoubleJumped;

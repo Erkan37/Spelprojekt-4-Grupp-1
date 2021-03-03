@@ -70,6 +70,7 @@ void AnimationComponent::SetAnimation(SpriteComponent* aSpriteComponent, const i
 	myNextAnimation = nullptr;
 
 	mySprite = aSpriteComponent;
+	mySprite->Activate();
 
 	mySpriteIndex = 0;
 
@@ -175,7 +176,10 @@ void AnimationComponent::Update(Transform& aTransform, GameObject& aGameObject)
 
 void AnimationComponent::SetAnimation(Animation* aAnimation)
 {
-	mySprite->SetSpritePath(aAnimation->mySprite);
+	//mySprite->SetSpritePath(aAnimation->mySprite);
+	mySprite->Deactivate();
+	mySprite = aAnimation->mySpriteComponent;
+	mySprite->Activate();
 	myBoundsX = aAnimation->myBoundsX;
 	myBoundsY = aAnimation->myBoundsY;
 	SetAnimation(mySprite, aAnimation->myAnimationFrameCount, aAnimation->myColumns, aAnimation->myUpdateTime);
