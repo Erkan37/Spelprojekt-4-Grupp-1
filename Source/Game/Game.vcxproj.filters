@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Precompiled">
+      <UniqueIdentifier>{b07bafa4-d21c-4674-8f50-96a0b05e15ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{7764ff83-1773-4a79-99a9-898ed2fe5e69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{5924a757-b55e-4923-9132-d2cb54cc1b6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Component">
+      <UniqueIdentifier>{989c31b3-455f-4cbc-9121-991d32f5fb8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Scene">
+      <UniqueIdentifier>{5c1ac5c8-b004-4355-a702-f4f95d434be5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{837c7803-3428-49fd-9faf-7cf97dd82432}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects">
+      <UniqueIdentifier>{c02803fd-e7f3-41bf-8998-569b38d1eeed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\Math">
+      <UniqueIdentifier>{f232bb47-0b66-4bc2-aac0-12a1314c5724}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\Containers">
+      <UniqueIdentifier>{8ec71d54-0338-49d8-829a-56f1b6b5792a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Rendering">
+      <UniqueIdentifier>{887f4871-d7cf-4a0a-acc1-9315bc0ff2cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Debug">
+      <UniqueIdentifier>{5265d12a-2dd2-4501-96ad-de389c8167a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Animation">
+      <UniqueIdentifier>{9aa78b19-76b7-4dc4-af82-6c21b0a7a03f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWorld.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Keys.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.hpp">
+      <Filter>Core\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.hpp">
+      <Filter>Core\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Core\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Core\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsManager.h">
+      <Filter>Core\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpritebatchComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelScene.h" />
+    <ClInclude Include="Line.hpp">
+      <Filter>Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="LineVolume.hpp">
+      <Filter>Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.hpp">
+      <Filter>Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix3x3.hpp">
+      <Filter>Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4x4.hpp">
+      <Filter>Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.hpp">
+      <Filter>Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaneVolume.hpp">
+      <Filter>Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4.hpp">
+      <Filter>Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.hpp">
+      <Filter>Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.hpp">
+      <Filter>Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.hpp">
+      <Filter>Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorOnStack.h">
+      <Filter>Utils\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="DoublyLinkedList.hpp">
+      <Filter>Utils\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="DoublyLinkedListNode.hpp">
+      <Filter>Utils\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderCommand.hpp">
+      <Filter>Core\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Core\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Debugger.h">
+      <Filter>Core\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.hpp">
+      <Filter>Components\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationComponent.hpp">
+      <Filter>Components\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.hpp">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GameWorld.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Core\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Core\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsManager.cpp">
+      <Filter>Core\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SpritebatchComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelScene.cpp" />
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Core\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Debugger.cpp">
+      <Filter>Core\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Components\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationComponent.cpp">
+      <Filter>Components\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
