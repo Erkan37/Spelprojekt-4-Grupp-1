@@ -20,6 +20,6 @@ private:
     GameObject* myPlayer;
     GameObject* myBackground;
 
-    std::vector<GameObject*> myGrounds;
+    GameObject* myGround;
 };
 

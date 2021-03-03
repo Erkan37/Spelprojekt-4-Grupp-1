@@ -12,11 +12,11 @@
 
 #include "Player.hpp"
 
-#include "nlohmann/json.hpp"
-#include <fstream>
-
 LevelScene::LevelScene()
-	: myPlayer(nullptr)
+	: 
+	myPlayer(nullptr)
+	, myGround(nullptr)
+	, myBackground(nullptr)
 	, Scene()
 {}
 
@@ -31,29 +31,21 @@ void LevelScene::Load()
 	sprite->SetSpritePath("Sprites/Background.png");
 	sprite->SetSize({ 3840.0f, 2160.0f });
 
-	std::ifstream platformsFile = std::ifstream("JSON/platformsTest.json");
-	nlohmann::json platforms = nlohmann::json::parse(platformsFile);
+	myGround = new GameObject(this);
+	myGround->SetPosition({ 0.0f, 1080.0f });
+	myGround->SetPivot({ 0.0f, 1.0f });
 
-	for (auto platform : platforms["platforms"])
-	{
-		myGrounds.push_back(new GameObject(this));
-		myGrounds[myGrounds.size() - 1]->SetPosition({ platform["position"]["x"].get<float>(), platform["position"]["y"].get<float>() });
-		myGrounds[myGrounds.size() - 1]->SetPivot({ 0.0f, 1.0f });
+	SpriteComponent* gsprite = myGround->AddComponent<SpriteComponent>();
+	gsprite->SetSpritePath("Sprites/Platform.dds");
+	gsprite->SetSize({ 1920.0f, 200.0f });
 
-		SpriteComponent* gsprite = myGrounds[myGrounds.size() - 1]->AddComponent<SpriteComponent>();
-		gsprite->SetSpritePath("Sprites/Platform.dds");
-		gsprite->SetSize({ platform["size"]["x"].get<float>(), platform["size"]["y"].get<float>() });
+	PhysicsComponent* gphys = myGround->AddComponent<PhysicsComponent>();
+	gphys->SetCanCollide(true);
+	gphys->SetIsStatic(true);
 
-		PhysicsComponent* gphys = myGrounds[myGrounds.size() - 1]->AddComponent<PhysicsComponent>();
-		gphys->SetCanCollide(true);
-		gphys->SetIsStatic(true);
-
-		ColliderComponent* collider = myGrounds[myGrounds.size() - 1]->AddComponent<ColliderComponent>();
-		collider->SetPosition({ platform["size"]["x"].get<float>() / 2.0f, -platform["size"]["y"].get<float>() / 2.0f });
-		collider->SetSize(gsprite->GetSize());
-	}
-
-	platformsFile.close();
+	ColliderComponent* collider = myGround->AddComponent<ColliderComponent>();
+	collider->SetPosition({ 1920.0f / 2.0f, -200.0f / 2.0f });
+	collider->SetSize(gsprite->GetSize());
 
 	Scene::Load();
 }
