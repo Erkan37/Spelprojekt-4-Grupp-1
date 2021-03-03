@@ -9,13 +9,15 @@
 #include <tga2d/sprite/sprite.h>
 #include <tga2d/sprite/sprite_batch.h>
 
-inline void UpdateSprite(Tga2D::CSprite* aSprite, const v2f& aPos, const v2f& aSize, const v2f& aPivot, const float& aRot, const v4f& aColor)
+inline void UpdateSprite(Tga2D::CSprite* aSprite, const v2f& aPos, const v2f& aSize, const v2f& aPivot, const float& aRot, const v4f& aColor, const v4f& aRect)
 {
 	aSprite->SetPosition(aPos);
 	aSprite->SetSizeRelativeToScreen(aSize);
 	aSprite->SetPivot(aPivot);
 	aSprite->SetRotation(aRot);
 	aSprite->SetColor(Tga2D::CColor(aColor.x, aColor.y, aColor.z, aColor.w));
+
+	aSprite->SetTextureRect(aRect.x, aRect.y, aRect.z, aRect.w);
 }
 
 Renderer::Renderer()
@@ -48,7 +50,7 @@ void Renderer::Render()
 		{
 			Tga2D::CSprite* sprite = (Tga2D::CSprite*)com.myTarget;
 
-			UpdateSprite(sprite, com.myPosition, com.mySize, com.myPivot, com.myRotation, com.myColor);
+			UpdateSprite(sprite, com.myPosition, com.mySize, com.myPivot, com.myRotation, com.myColor, com.myRect);
 
 			sprite->Render();
 

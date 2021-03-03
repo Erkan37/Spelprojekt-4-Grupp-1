@@ -104,7 +104,8 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 		{ (mySize.x / height) * zoom, ((mySize.y) / height) * zoom },
 		aTransform.myPivot,
 		aTransform.myRotation + myRelativeRotation,
-		v4f(myColor.x, myColor.y, myColor.z, myColor.w * alpha)
+		v4f(myColor.x, myColor.y, myColor.z, myColor.w * alpha),
+		myRect
 	};
 	CGameWorld::GetInstance()->Game()->GetRenderer().PushRenderCommand(command);
 }

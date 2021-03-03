@@ -27,4 +27,5 @@ struct RenderCommand
 	v2f myPivot;
 	float myRotation;
 	v4f myColor;
+	v4f myRect;
 };
