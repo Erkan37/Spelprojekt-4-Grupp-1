@@ -18,6 +18,7 @@ public:
     void Update(const float& aDeltaTime, const float& aTotalTime) override;
 private:
     GameObject* myPlayer;
+    GameObject* myBackground;
 
     std::vector<GameObject*> myGrounds;
 };

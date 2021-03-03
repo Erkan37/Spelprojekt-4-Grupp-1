@@ -24,6 +24,13 @@ void LevelScene::Load()
 {
 	myPlayer = new Player(this);
 
+	myBackground = new GameObject(this);
+	myBackground->SetPosition({1080.0f, 540});
+
+	SpriteComponent* sprite = myBackground->AddComponent<SpriteComponent>();
+	sprite->SetSpritePath("Sprites/Background.png");
+	sprite->SetSize({ 3840.0f, 2160.0f });
+
 	std::ifstream platformsFile = std::ifstream("JSON/platformsTest.json");
 	nlohmann::json platforms = nlohmann::json::parse(platformsFile);
 
