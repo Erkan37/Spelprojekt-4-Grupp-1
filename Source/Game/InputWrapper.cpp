@@ -1,7 +1,7 @@
 #include <memory>
 #include "stdafx.h"
-
 #include "InputWrapper.h"
+
 #include "../External/Headers/CU/Utilities.h"
 
 InputWrapper::InputWrapper()
@@ -26,4 +26,9 @@ void InputWrapper::Update()
 std::shared_ptr<Utils::Input> InputWrapper::GetInput()
 {
 	return myInput;
+}
+
+std::shared_ptr<Controller> InputWrapper::GetController()
+{
+	return myController;
 }

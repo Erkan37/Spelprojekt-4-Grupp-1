@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "Controller.h"
 
+#pragma comment(lib, "Xinput9_1_0.lib")
+#pragma comment(lib, "XInput.lib")
+
 #define XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE  7849
 #define XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE 8689
 #define XINPUT_GAMEPAD_TRIGGER_THRESHOLD    30
@@ -125,22 +128,22 @@ bool Controller::IsButtonPressed(Button aButton)
 			return false;
 		}
 	}
-
-	return false;
+	else
+	{
+		return false;
+	}
 }
 
 bool Controller::IsRightTriggerActive()
 {
 	if (myCurrentControllerState.Gamepad.bRightTrigger) { return true; }
 	else { return false; }
-	return false;
 }
 
 bool Controller::IsLeftTriggerActive()
 {
 	if (myCurrentControllerState.Gamepad.bLeftTrigger) { return true; }
 	else { return false; }
-	return false;
 }
 
 

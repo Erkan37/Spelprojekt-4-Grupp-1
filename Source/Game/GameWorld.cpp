@@ -5,6 +5,7 @@
 // Core
 #include "Game.h"
 #include "GameObject.h"
+#include "InputWrapper.h"
 
 // Scene
 #include "Scene.h"

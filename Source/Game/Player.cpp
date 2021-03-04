@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "../External/Headers/CU/Utilities.h"
 #include "GameWorld.h"
+#include "InputWrapper.h"
+#include "Controller.h"
 
 #include "LevelScene.h"
 
@@ -90,7 +92,7 @@ void Player::Update(const float& aDeltaTime)
 
 void Player::CheckJump(const float& aDeltaTime)
 {
-	if (myInputHandler->GetInput()->GetKeyJustDown(Keys::WKey))
+	if (myInputHandler->GetInput()->GetKeyJustDown(Keys::WKey) || myInputHandler->GetController()->IsButtonPressed(Controller::Button::Circle))
 	{
 		if (myHasLanded && GetComponent<PhysicsComponent>()->GetVelocityY() == 0.0f)
 		{

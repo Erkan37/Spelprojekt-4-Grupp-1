@@ -1,7 +1,6 @@
 #pragma once
 #include "Controller.h"
 
-
 namespace Utils
 {
 	class Input;

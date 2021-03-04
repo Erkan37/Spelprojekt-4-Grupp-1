@@ -1,7 +1,6 @@
 #pragma once
 
 #include "LevelScene.h"
-#include "InputWrapper.h"
 
 namespace Utils
 {
@@ -10,7 +9,7 @@ namespace Utils
 }
 
 class CGame;
-
+class InputWrapper;
 
 class CGameWorld
 {

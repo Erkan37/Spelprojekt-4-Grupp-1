@@ -3,6 +3,7 @@
 #include <tga2d/sprite/sprite.h>
 #include <tga2d/text/text.h>
 #include "Game.h"
+#include "InputWrapper.h"
 
 
 #include <tga2d/error/error_manager.h>
@@ -29,9 +30,6 @@ std::wstring BUILD_NAME = L"Release";
 #pragma comment(lib,"TGA2D_Retail.lib")
 std::wstring BUILD_NAME = L"Retail";
 #endif // DEBUG
-
-#pragma comment(lib, "XInput.lib")
-#pragma comment(lib, "XInput9_1_0.lib")
 
 CGame::CGame()
 	: myGameWorld(this)
