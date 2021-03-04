@@ -7,6 +7,7 @@ namespace Utils
 	class Input;
 }
 
+class InputWrapper;
 class LevelScene;
 class AnimationComponent;
 
@@ -29,7 +30,7 @@ public:
 private:
 	Animation myAnimations[3];
 
-	Utils::Input* myInputHandler;
+	std::shared_ptr<InputWrapper> myInputHandler;
 
 	float myMaxSpeed;
 

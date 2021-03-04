@@ -90,7 +90,7 @@ void Player::Update(const float& aDeltaTime)
 
 void Player::CheckJump(const float& aDeltaTime)
 {
-	if (myInputHandler->GetKeyJustDown(Keys::WKey))
+	if (myInputHandler->GetInput()->GetKeyJustDown(Keys::WKey))
 	{
 		if (myHasLanded && GetComponent<PhysicsComponent>()->GetVelocityY() == 0.0f)
 		{
@@ -113,14 +113,14 @@ void Player::CheckMove(const float& aDeltaTime)
 {
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 
-	if (myInputHandler->GetKeyJustDown(Keys::DKey))
+	if (myInputHandler->GetInput()->GetKeyJustDown(Keys::DKey))
 	{
 		for (Animation& animation : myAnimations)
 		{
 			animation.mySpriteComponent->SetSizeX(70.0f);
 		}
 	}
-	else if (myInputHandler->GetKeyJustDown(Keys::AKey))
+	else if (myInputHandler->GetInput()->GetKeyJustDown(Keys::AKey))
 	{
 		for (Animation& animation : myAnimations)
 		{
@@ -128,11 +128,11 @@ void Player::CheckMove(const float& aDeltaTime)
 		}
 	}
 
-	if (myInputHandler->GetKeyDown(Keys::DKey))
+	if (myInputHandler->GetInput()->GetKeyDown(Keys::DKey))
 	{
 		GetComponent<PhysicsComponent>()->SetVelocityX(Utils::Lerp(physics->GetVelocityX(), myMaxSpeed, myAcceleration * aDeltaTime));
 	}
-	else if (myInputHandler->GetKeyDown(Keys::AKey))
+	else if (myInputHandler->GetInput()->GetKeyDown(Keys::AKey))
 	{
 		GetComponent<PhysicsComponent>()->SetVelocityX(Utils::Lerp(physics->GetVelocityX(), -myMaxSpeed, myAcceleration * aDeltaTime));
 	}
