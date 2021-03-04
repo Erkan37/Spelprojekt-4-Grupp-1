@@ -15,6 +15,8 @@ BashAbility::BashAbility(LevelScene* aLevelScene)
 	myDashDistance = {};
 	myRadiusFromDash = {};
 	myButtonHold = {};
+	myDelayTimer = {};
+	myTimer = {};
 }
 
 BashAbility::~BashAbility()
@@ -23,6 +25,7 @@ BashAbility::~BashAbility()
 
 void BashAbility::Init()
 {
+	myDelayTimer = 0.3f;
 	myRadiusFromDash = true;
 	myDashSpeed = 50.f;
 	myDashDistance = { 500.f, 500.f };
@@ -30,7 +33,9 @@ void BashAbility::Init()
 
 void BashAbility::Update(const float& aDeltaTime)
 {
-	if (myDashAbilityActive)
+	myTimer += aDeltaTime;
+
+	if (myDashAbilityActive && myTimer > myDelayTimer)
 	{
 		UseBashAbility(aDeltaTime);
 	}
@@ -63,6 +68,7 @@ void BashAbility::UseBashAbility(const float& aDeltaTime)
 		myPhysics->SetVelocity(myPhysics->GetVelocity() + calculatedDash);
 		myButtonHold = true;
 		myDashAbilityActive = false;
+		myTimer = {};
 	}
 }
 

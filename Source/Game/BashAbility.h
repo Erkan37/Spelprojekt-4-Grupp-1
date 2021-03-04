@@ -31,6 +31,9 @@ private:
 	bool myDashAbilityActive;
 	bool myButtonHold;
 	bool myRadiusFromDash;
+
+	float myTimer;
+	float myDelayTimer;
 	float myDashSpeed;
 	v2f myDashDistance;
 
