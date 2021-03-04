@@ -5,7 +5,6 @@
 // Core
 #include "Game.h"
 #include "GameObject.h"
-#include "InputWrapper.h"
 
 // Scene
 #include "Scene.h"
@@ -21,13 +20,12 @@ CGameWorld* CGameWorld::ourInstance = nullptr;
 CGameWorld::CGameWorld(CGame* aGame)
 	: myGame(aGame)
 	, myTimer(new Utils::Timer())
-	/*
-	, myInput(new Utils::Input())*/
 	, myDeltaTime(0.0f)
 	, myTotalTime(0.0f)
 	, myLevelScene(LevelScene())
 {
 	myInput = std::make_shared<InputWrapper>();
+	myInput->Init();
 
 	if (!ourInstance)
 	{
@@ -46,7 +44,7 @@ CGameWorld::~CGameWorld()
 	myLevelScene.Unload();
 }
 
-void CGameWorld::Init()  
+void CGameWorld::Init()
 {
 	myLevelScene.Activate();
 }
@@ -54,7 +52,6 @@ void CGameWorld::Init()
 void CGameWorld::Update()
 {
 	myInput->Update();
-
 	myTimer->Update();
 	myDeltaTime = myTimer->GetDeltaTime();
 	myTotalTime = myTimer->GetTotalTime();

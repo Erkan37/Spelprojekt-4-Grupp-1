@@ -133,21 +133,23 @@ bool Controller::IsRightTriggerActive()
 {
 	if (myCurrentControllerState.Gamepad.bRightTrigger) { return true; }
 	else { return false; }
+	return false;
 }
 
 bool Controller::IsLeftTriggerActive()
 {
 	if (myCurrentControllerState.Gamepad.bLeftTrigger) { return true; }
 	else { return false; }
+	return false;
 }
 
 
-Tga2D::Vector2f Controller::GetLeftThumbStick() const
+v2f Controller::GetLeftThumbStick() const
 {
 	return myLeftThumbStick;
 }
 
-Tga2D::Vector2f Controller::GetRightThumbStick() const
+v2f Controller::GetRightThumbStick() const
 {
 	return myRightThumbStick;
 }

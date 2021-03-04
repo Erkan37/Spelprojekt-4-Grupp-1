@@ -4,12 +4,12 @@
 #include <tga2d/text/text.h>
 #include "Game.h"
 
+
 #include <tga2d/error/error_manager.h>
 
 #include <windows.h>
 #include <thread>
 #include "../External/Headers/CU/Utilities.h"
-#include "InputWrapper.h"
 
 using namespace std::placeholders;
 
@@ -29,6 +29,9 @@ std::wstring BUILD_NAME = L"Release";
 #pragma comment(lib,"TGA2D_Retail.lib")
 std::wstring BUILD_NAME = L"Retail";
 #endif // DEBUG
+
+#pragma comment(lib, "XInput.lib")
+#pragma comment(lib, "XInput9_1_0.lib")
 
 CGame::CGame()
 	: myGameWorld(this)

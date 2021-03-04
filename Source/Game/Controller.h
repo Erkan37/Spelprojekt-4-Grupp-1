@@ -1,4 +1,5 @@
 #pragma once
+#include "../External/Headers/CU/Vector2.hpp"
 #include <Xinput.h>
 
 class Controller
@@ -32,6 +33,7 @@ public:
 	};
 
 	Controller();
+	~Controller() = default;
 
 	void Init();
 
@@ -47,8 +49,8 @@ public:
 	bool IsControllerActive();
 	bool CheckActiveController();
 
-	Tga2D::Vector2f GetLeftThumbStick() const;
-	Tga2D::Vector2f GetRightThumbStick() const;
+	v2f GetLeftThumbStick() const;
+	v2f GetRightThumbStick() const;
 
 	float LeftThumbStickPull() const;
 	float RightThumbStickPull() const;
@@ -72,8 +74,8 @@ private:
 	bool myLastFrameActive;
 	bool myLastButtonReleased;
 
-	Tga2D::Vector2f myLeftThumbStick;
-	Tga2D::Vector2f myRightThumbStick;
+	v2f myLeftThumbStick;
+	v2f myRightThumbStick;
 
 	void UpdateLeftThumbStick(XINPUT_STATE& aState);
 	void UpdateRightThumbStick(XINPUT_STATE& aState);

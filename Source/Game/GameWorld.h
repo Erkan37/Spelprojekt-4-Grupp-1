@@ -1,5 +1,8 @@
 #pragma once
 
+#include "LevelScene.h"
+#include "InputWrapper.h"
+
 namespace Utils
 {
 	class Timer;
@@ -7,9 +10,7 @@ namespace Utils
 }
 
 class CGame;
-class InputWrapper;
 
-#include "LevelScene.h"
 
 class CGameWorld
 {
