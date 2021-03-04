@@ -139,7 +139,7 @@ void Player::UpdateCoyoteTime(const float& aDeltaTime)
 void Player::TryLetJumpWhenLanding(const float& aYDistance)
 {
 	const float distancePerJumpWhenLandingTime = GetComponent<PhysicsComponent>()->GetVelocityY() * myJumpWhenLandingTime;
-	if (aYDistance < distancePerJumpWhenLandingTime)
+	if (aYDistance < distancePerJumpWhenLandingTime && aYDistance > 0)
 	{
 		myCanJumpWhenLanding = true;		
 	}
