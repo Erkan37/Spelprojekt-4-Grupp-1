@@ -11,7 +11,7 @@ class Animation
 {
 public:
 	Animation();
-	Animation(const bool aIsBackwards, const bool aIsDisplayedOnce, const bool aIsBoomerang, const int aSpriteIndex, const int aAnimationFrames, const int aColumns, const float& aUpdateTime, const std::string& aSpritePath, const int aBoundsX, const int aBoundsY);
+	Animation(const bool aIsBackwards, const bool aIsDisplayedOnce, const bool aIsBoomerang, const int aSpriteIndex, const int aAnimationFrames, const int aColumns, const float& aUpdateTime, SpriteComponent* aSprite, const int aBoundsX, const int aBoundsY);
 
 	bool myIsBackwards;
 	bool myDisplayOnce;
@@ -27,6 +27,6 @@ public:
 
 	float myUpdateTime;
 
-	std::string mySprite;
+	SpriteComponent* mySpriteComponent;
 };
 

@@ -1,7 +1,12 @@
 #pragma once
 #include "GameObject.h"
+#include "Animation.hpp"
 
-class InputWrapper;
+namespace Utils
+{
+	class Input;
+}
+
 class LevelScene;
 class AnimationComponent;
 
@@ -19,8 +24,12 @@ public:
 
 	void Landed() override;
 
+	void AnimationState();
+
 private:
-	std::shared_ptr<InputWrapper> myInputHandler;
+	Animation myAnimations[3];
+
+	Utils::Input* myInputHandler;
 
 	float myMaxSpeed;
 
@@ -29,6 +38,8 @@ private:
 
 	float myJumpVelocity;
 	float myDoubleJumpVelocity;
+
+	int myCurrentAnimationIndex;
 
 	bool myHasLanded;
 	bool myHasDoubleJumped;

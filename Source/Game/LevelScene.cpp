@@ -32,19 +32,19 @@ void LevelScene::Load()
 	sprite->SetSize({ 3840.0f, 2160.0f });
 
 	myGround = new GameObject(this);
-	myGround->SetPosition({ 0.0f, 1080.0f });
+	myGround->SetPosition({ 600.0f, 1080.0f });
 	myGround->SetPivot({ 0.0f, 1.0f });
 
 	SpriteComponent* gsprite = myGround->AddComponent<SpriteComponent>();
 	gsprite->SetSpritePath("Sprites/Platform.dds");
-	gsprite->SetSize({ 1920.0f, 200.0f });
+	gsprite->SetSize({ 800.0f, 200.0f });
 
 	PhysicsComponent* gphys = myGround->AddComponent<PhysicsComponent>();
 	gphys->SetCanCollide(true);
 	gphys->SetIsStatic(true);
 
 	ColliderComponent* collider = myGround->AddComponent<ColliderComponent>();
-	collider->SetPosition({ 1920.0f / 2.0f, -200.0f / 2.0f });
+	collider->SetPosition({ 800.0f / 2.0f, -200.0f / 2.0f });
 	collider->SetSize(gsprite->GetSize());
 
 	Scene::Load();
