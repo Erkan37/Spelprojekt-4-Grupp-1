@@ -20,6 +20,32 @@ Player::Player(LevelScene* aLevelScene)
 {
 	SetPosition({ 960.0f, 540.0f });
 
+	InitAnimations();
+
+	InitCollider();
+
+	CGameWorld* world = CGameWorld::GetInstance();
+	myInputHandler = world->Input();
+
+	myMaxSpeed = 400.0f;
+
+	myAcceleration = 4.0f;
+	myRetardation = 20.0f;
+
+	myHasLanded = true;
+	myHasDoubleJumped = false;
+
+	myAirCoyoteTime = 0.2f;
+	myAirCoyoteTimer = 0.2f;
+
+	myJumpVelocity = 450.0f;
+	myDoubleJumpVelocity = 300.0f;
+
+	myCurrentAnimationIndex = 0;
+}
+
+void Player::InitAnimations()
+{
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
 	spriteIdle->SetSpritePath("Sprites/TommyIdle.dds");
 	spriteIdle->SetSize({ 70.0f, 70.0f });
@@ -45,29 +71,16 @@ Player::Player(LevelScene* aLevelScene)
 	animation->SetSprite(spriteIdle);
 	animation->SetAnimation(&myAnimations[0]);
 	spriteIdle->SetSize({ 70.0f, 70.0f });
+}
 
+void Player::InitCollider()
+{
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
 	physics->SetCanCollide(true);
 	physics->SetIsStatic(false);
 	physics->SetApplyGravity(true);
 
-	physics->CreateColliderFromSprite(spriteIdle, this);
-
-	CGameWorld* world = CGameWorld::GetInstance();
-	myInputHandler = world->Input();
-
-	myMaxSpeed = 400.0f;
-
-	myAcceleration = 4.0f;
-	myRetardation = 20.0f;
-
-	myHasLanded = true;
-	myHasDoubleJumped = false;
-
-	myJumpVelocity = 450.0f;
-	myDoubleJumpVelocity = 300.0f;
-
-	myCurrentAnimationIndex = 0;
+	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
 }
 
 Player::~Player()
@@ -83,6 +96,7 @@ void Player::Update(const float& aDeltaTime)
 	{
 		CheckMove(aDeltaTime);
 		CheckJump();
+		UpdateCoyoteTime(aDeltaTime);
 	}
 
 	AnimationState();
@@ -94,7 +108,7 @@ void Player::CheckJump()
 {
 	if (myInputHandler->IsJumping())
 	{
-		if (myHasLanded && GetComponent<PhysicsComponent>()->GetVelocityY() == 0.0f)
+		if (myHasLanded && (GetComponent<PhysicsComponent>()->GetVelocityY() == 0.0f || myAirCoyoteTimer > 0))
 		{
 			GetComponent<PhysicsComponent>()->SetVelocityY(-myJumpVelocity);
 			GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
@@ -108,6 +122,14 @@ void Player::CheckJump()
 			myCurrentAnimationIndex = 2;
 			myHasDoubleJumped = true;
 		}
+	}
+}
+
+void Player::UpdateCoyoteTime(const float& aDeltaTime)
+{
+	if (GetComponent<PhysicsComponent>()->GetVelocityY() > 0)
+	{
+		myAirCoyoteTimer -= aDeltaTime;
 	}
 }
 
@@ -135,6 +157,7 @@ void Player::Landed(const int& aOverlapY)
 {
 	if (aOverlapY < 0)
 	{
+		myAirCoyoteTimer = myAirCoyoteTime;
 		myHasLanded = true;
 		myHasDoubleJumped = false;
 	}

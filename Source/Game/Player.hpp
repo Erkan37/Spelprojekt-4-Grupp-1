@@ -17,9 +17,14 @@ public:
 	Player(LevelScene* aLevelScene);
 	~Player();
 
+	void InitAnimations();
+	void InitCollider();
+
 	void Update(const float& aDeltaTime) override;
 
 	void CheckJump();
+
+	void UpdateCoyoteTime(const float& aDeltaTime);
 
 	void CheckMove(const float& aDeltaTime);
 
@@ -31,6 +36,9 @@ private:
 	Animation myAnimations[3];
 
 	std::shared_ptr<InputWrapper> myInputHandler;
+
+	float myAirCoyoteTime;
+	float myAirCoyoteTimer;
 
 	float myMaxSpeed;
 
