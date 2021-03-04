@@ -89,6 +89,7 @@ void LevelScene::Update(const float& aDeltaTime, const float& aTotalTime)
 {
 	CGameWorld* world = CGameWorld::GetInstance();
 	Utils::Input* input = world->Input();
+	input;
 
 	Scene::Update(aDeltaTime, aTotalTime);
 }

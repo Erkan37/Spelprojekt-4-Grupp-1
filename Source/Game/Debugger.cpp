@@ -66,13 +66,13 @@ void Debugger::Update(const float& aDeltaTime)
 
 	char memUsedStr[32];
 	char memUsedMbStr [32];
-	sprintf(memUsedStr, "%i KB", memUsed);
-	sprintf(memUsedMbStr, " (%i MB)", memUsedMb);
-	strcat(memUsedStr, memUsedMbStr);
+	sprintf_s(memUsedStr, "%i KB", memUsed);
+	sprintf_s(memUsedMbStr, " (%i MB)", memUsedMb);
+	strcat_s(memUsedStr, memUsedMbStr);
 
 	/* Heap Allocations */
 	char allocsStr[32];
-	sprintf(allocsStr, "%u", globalAllocCounter);
+	sprintf_s(allocsStr, "%u", globalAllocCounter);
 	globalAllocCounter = 0Ui32;
 
 	/* ImGui */

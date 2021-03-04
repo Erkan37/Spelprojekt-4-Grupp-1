@@ -46,6 +46,7 @@ void GameObject::Init()
 }
 void GameObject::Update(const float& aDeltaTime)
 {
+	aDeltaTime;
 	for (Component*& comp : myComponents)
 	{
 		if (comp != nullptr)

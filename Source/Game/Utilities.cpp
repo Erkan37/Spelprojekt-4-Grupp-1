@@ -218,6 +218,8 @@ Input::Input()
 
 bool Input::UpdateEvents(UINT message, WPARAM wParam, LPARAM lParam)
 {
+    lParam;
+
     switch (message)
     {
         case WM_KEYDOWN:
