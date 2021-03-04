@@ -95,6 +95,8 @@ void AnimationComponent::SetBoomerang(const bool aIsBoomerang)
 
 void AnimationComponent::Update(Transform& aTransform, GameObject& aGameObject)
 {
+	aGameObject;
+
 	if (myHasBeenDisplayed && myDisplayOnce)
 	{
 		return;
