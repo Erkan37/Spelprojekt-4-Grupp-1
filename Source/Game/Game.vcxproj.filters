@@ -112,12 +112,14 @@
     <ClInclude Include="Player.hpp">
       <Filter>Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Platform.h" />
     <ClInclude Include="Controller.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="InputWrapper.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Game Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -173,12 +175,14 @@
     <ClCompile Include="Player.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Controller.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="InputWrapper.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Game Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
