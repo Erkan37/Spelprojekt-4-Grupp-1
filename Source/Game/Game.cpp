@@ -69,6 +69,11 @@ LRESULT CGame::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	hWnd;
 	switch (message)
 	{
+	case WM_SIZE: 
+	{
+		SetResolution(LOWORD(lParam), HIWORD(lParam));
+		return 0;
+	}
 		// this message is read when the window is closed
 	case WM_DESTROY:
 	{
@@ -98,16 +103,21 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 	MONITORINFO info;
 	info.cbSize = sizeof(MONITORINFO);
 	GetMonitorInfo(monitor, &info);
+
+#ifdef _DEBUG
+	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Overlapped;
+#endif // DEBUG
+#ifdef _RETAIL
 	int monitorWidth = info.rcMonitor.right - info.rcMonitor.left;
 	int monitorHeight = info.rcMonitor.bottom - info.rcMonitor.top;
+	createParameters.myWindowHeight = monitorHeight;
+	createParameters.myWindowWidth = monitorWidth;
+	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Borderless;
+#endif // RETAIL
 
 	createParameters.myTargetHeight = Config::height;
 	createParameters.myTargetWidth = Config::width;
-	createParameters.myWindowHeight = monitorHeight;
-	createParameters.myWindowWidth = monitorWidth;
 	createParameters.myClearColor = Tga2D::CColor(0.0f, 0.0f, 0.0f, 1.0f);
-	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Borderless;
-	//createParameters.myPreferedMultiSamplingQuality = Tga2D::EMultiSamplingQuality_High;
 	createParameters.myActivateDebugSystems = 0;
 
 	if (!Tga2D::CEngine::Start(createParameters))
@@ -116,7 +126,6 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 		system("pause");
 		return false;
 	}
-
 	myActive = false;
 
 	// End of program

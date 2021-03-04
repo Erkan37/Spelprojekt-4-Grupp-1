@@ -507,6 +507,8 @@ void Tga2D::CMeshNode::RenderInt(std::vector<class CTexture*>& someTextures, Mat
 
 void Tga2D::CMeshNode::SetMap(const EShaderMap aMapType, const char* aPath)
 {
+	aMapType;
+
 	CTexture* texture = CEngine::GetInstance()->GetTextureManager().GetTexture(aPath);
 	if (texture->myIsFailedTexture == false)
 	{

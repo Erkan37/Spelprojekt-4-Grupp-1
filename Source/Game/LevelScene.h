@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include <vector>
+#include "Platform.h"
 
 class GameObject;
 
@@ -18,8 +19,6 @@ public:
     void Update(const float& aDeltaTime, const float& aTotalTime) override;
 private:
     GameObject* myPlayer;
-    GameObject* myBackground;
 
-    GameObject* myGround;
 };
 

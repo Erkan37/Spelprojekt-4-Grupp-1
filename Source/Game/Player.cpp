@@ -82,7 +82,7 @@ void Player::Update(const float& aDeltaTime)
 	if (physics)
 	{
 		CheckMove(aDeltaTime);
-		CheckJump(aDeltaTime);
+		CheckJump();
 	}
 
 	AnimationState();
@@ -90,7 +90,7 @@ void Player::Update(const float& aDeltaTime)
 	GameObject::Update(aDeltaTime);
 }
 
-void Player::CheckJump(const float& aDeltaTime)
+void Player::CheckJump()
 {
 	if (myInputHandler->GetInput()->GetKeyJustDown(Keys::WKey) || myInputHandler->GetController()->IsButtonPressed(Controller::Button::Circle))
 	{

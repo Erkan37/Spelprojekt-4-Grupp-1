@@ -6,7 +6,7 @@
 #include "AnimationComponent.hpp"
 #include "GameObject.h"
 #include "GameWorld.h"
-#include "SpriteComponent.h";
+#include "SpriteComponent.h"
 #include "../External/Headers/CU/Utilities.h"
 
 AnimationComponent::AnimationComponent()
@@ -22,8 +22,8 @@ AnimationComponent::AnimationComponent()
 	myColumns(0),
 	mySpriteIndex(0),
 	mySprite(nullptr),
-	myBoundsX(0.0f),
-	myBoundsY(0.0f)
+	myBoundsX(0),
+	myBoundsY(0)
 {}
 
 AnimationComponent::AnimationComponent(SpriteComponent* aSpriteComponent, const int& aAnimationFrameCount, const int& aColumns, const float& aUpdateTime, const int aBoundsX, const int aBoundsY)
@@ -95,6 +95,9 @@ void AnimationComponent::SetBoomerang(const bool aIsBoomerang)
 
 void AnimationComponent::Update(Transform& aTransform, GameObject& aGameObject)
 {
+	aTransform;
+	aGameObject;
+
 	if (myHasBeenDisplayed && myDisplayOnce)
 	{
 		return;

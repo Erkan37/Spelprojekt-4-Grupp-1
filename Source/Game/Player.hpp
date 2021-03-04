@@ -19,7 +19,7 @@ public:
 
 	void Update(const float& aDeltaTime) override;
 
-	void CheckJump(const float& aDeltaTime);
+	void CheckJump();
 
 	void CheckMove(const float& aDeltaTime);
 
