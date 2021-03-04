@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Animation.hpp"
+#include "BashAbility.h"
 
 namespace Utils
 {
@@ -36,6 +37,7 @@ private:
 	Animation myAnimations[3];
 
 	std::shared_ptr<InputWrapper> myInputHandler;
+	std::unique_ptr<BashAbility> myBashAbility;
 
 	float myAirCoyoteTime;
 	float myAirCoyoteTimer;

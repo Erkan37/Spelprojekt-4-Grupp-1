@@ -42,6 +42,9 @@ Player::Player(LevelScene* aLevelScene)
 	myDoubleJumpVelocity = 300.0f;
 
 	myCurrentAnimationIndex = 0;
+
+	myBashAbility = std::make_unique<BashAbility>();
+	myBashAbility->AddPlayerPhysics(std::shared_ptr<Player>(this));
 }
 
 void Player::InitAnimations()
@@ -90,6 +93,7 @@ Player::~Player()
 
 void Player::Update(const float& aDeltaTime)
 {
+	myBashAbility->Update();
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 
 	if (physics)
