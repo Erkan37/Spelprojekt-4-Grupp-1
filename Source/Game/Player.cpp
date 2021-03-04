@@ -43,7 +43,7 @@ Player::Player(LevelScene* aLevelScene)
 
 	myCurrentAnimationIndex = 0;
 
-	myBashAbility = std::make_unique<BashAbility>();
+	myBashAbility = std::make_unique<BashAbility>(aLevelScene);
 	myBashAbility->AddPlayerPhysics(std::shared_ptr<PhysicsComponent>(GetComponent<PhysicsComponent>()));
 	myBashAbility->AddInputWrapper(myInputHandler);
 }
@@ -94,7 +94,7 @@ Player::~Player()
 
 void Player::Update(const float& aDeltaTime)
 {
-	myBashAbility->Update();
+	myBashAbility->Update(aDeltaTime);
 
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 

@@ -86,7 +86,15 @@ bool InputWrapper::IsJumping()
 
 bool InputWrapper::IsDashing()
 {
-	if (GetInput()->GetKeyJustDown(Keys::SHIFTKey) || GetController()->IsButtonPressed(Controller::Button::Square))
+	if (GetInput()->GetKeyDown(Keys::SHIFTKey) || GetController()->IsButtonHoldDown(Controller::Button::Square))
+		return true;
+	else
+		return false;
+}
+
+bool InputWrapper::IsDashingReleased()
+{
+	if (GetInput()->GetKeyJustUp(Keys::SHIFTKey) || GetController()->IsButtonPressed(Controller::Button::Square))
 		return true;
 	else
 		return false;

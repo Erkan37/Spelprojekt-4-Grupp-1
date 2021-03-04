@@ -1,10 +1,8 @@
 #pragma once
 #include "Controller.h"
+#include "../External/Headers/CU/Utilities.h"
 
-namespace Utils
-{
-	class Input;
-}
+
 
 class InputWrapper
 {
@@ -29,6 +27,7 @@ public:
 	bool IsMovingRight();
 	bool IsJumping();
 	bool IsDashing();
+	bool IsDashingReleased();
 	
 
 	std::shared_ptr<Utils::Input> GetInput();
