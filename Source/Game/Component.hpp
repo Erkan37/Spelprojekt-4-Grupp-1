@@ -15,7 +15,7 @@ public:
 	Component(const Component& aComponent) = default;
 	virtual ~Component() = default;
 
-	virtual void Init(Transform& aTransform, GameObject& aGameObject) {};
-	virtual void Update(Transform& aTransform, GameObject& aGameObject) {};
-	virtual void Render(Transform& aTransform, GameObject& aGameObject) {};
+	virtual void Init(Transform& aTransform, GameObject& aGameObject) { aTransform; aGameObject; };
+	virtual void Update(Transform& aTransform, GameObject& aGameObject) { aTransform; aGameObject; };
+	virtual void Render(Transform& aTransform, GameObject& aGameObject) { aTransform; aGameObject; };
 };
