@@ -27,7 +27,8 @@ Timer& Timer::Update()
 
 const float Timer::GetDeltaTime() const
 {
-    return (float)(myCurrentTime - myLastUpdate) * (float)ourInverseNanoSecondsToSeconds;
+    constexpr float maxDeltaTime = 0.20f;
+    return Utils::Min((float)(myCurrentTime - myLastUpdate) * (float)ourInverseNanoSecondsToSeconds, maxDeltaTime);
 }
 
 const double Timer::GetTotalTime() const
