@@ -46,7 +46,7 @@ Player::Player(LevelScene* aLevelScene)
 
 	myCanJumpWhenLanding = false;
 	myWillJumpWhenLanding = false;
-	myJumpWhenLandingTime = 0.1f;
+	myJumpWhenLandingTime = 0.075f;
 }
 
 void Player::InitAnimations()
