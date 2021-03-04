@@ -131,10 +131,13 @@ void Player::CheckMove(const float& aDeltaTime)
 	}
 }
 
-void Player::Landed()
+void Player::Landed(const int& aOverlapY)
 {
-	myHasLanded = true;
-	myHasDoubleJumped = false;
+	if (aOverlapY < 0)
+	{
+		myHasLanded = true;
+		myHasDoubleJumped = false;
+	}
 }
 
 void Player::AnimationState()

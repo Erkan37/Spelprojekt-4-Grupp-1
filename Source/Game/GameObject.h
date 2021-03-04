@@ -39,7 +39,7 @@ public:
 	GameObject& SetRotation(const float& aRotation);
 	GameObject& SetPivot(const v2f& aPivot);
 
-	virtual void Landed(){}
+	virtual void Landed(const int& aOverlapY){}
 
 	virtual GameObject& Destroy();
 

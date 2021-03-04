@@ -23,7 +23,7 @@ public:
 
 	void CheckMove(const float& aDeltaTime);
 
-	void Landed() override;
+	void Landed(const int& aOverlapY) override;
 
 	void AnimationState();
 
