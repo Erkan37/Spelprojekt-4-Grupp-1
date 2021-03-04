@@ -85,6 +85,8 @@ LRESULT CGame::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 {
+	aVersion;
+
 	Tga2D::SEngineCreateParameters createParameters;
 
 	createParameters.myInitFunctionToCall = [this] {InitCallBack(); };

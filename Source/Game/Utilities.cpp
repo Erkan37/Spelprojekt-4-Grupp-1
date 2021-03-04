@@ -208,6 +208,9 @@ const std::string Input::ourUndefined = "Undefined";
 Input::Input()
     : myMouseIsCaptured(false)
 {
+    myLastMousePosition = { 0, 0 };
+    myMousePosition = { 0, 0 };
+
     for (int index = 0; index != static_cast<int>(Keys::ClearKey); ++index)
     {
         myKeyMap[static_cast<Keys>(index)] = false;
@@ -218,6 +221,8 @@ Input::Input()
 
 bool Input::UpdateEvents(UINT message, WPARAM wParam, LPARAM lParam)
 {
+    lParam;
+
     switch (message)
     {
         case WM_KEYDOWN:

@@ -39,8 +39,8 @@ private:
 	int myAnimationFrameCount;
 	int myColumns;
 
-	int myBoundsX;
-	int myBoundsY;
+	uint32_t myBoundsX;
+	uint32_t myBoundsY;
 
 	float myTimer;
 	float myUpdateTime;

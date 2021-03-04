@@ -6,7 +6,7 @@
 #include "AnimationComponent.hpp"
 #include "GameObject.h"
 #include "GameWorld.h"
-#include "SpriteComponent.h";
+#include "SpriteComponent.h"
 #include "../External/Headers/CU/Utilities.h"
 
 AnimationComponent::AnimationComponent()
@@ -22,8 +22,8 @@ AnimationComponent::AnimationComponent()
 	myColumns(0),
 	mySpriteIndex(0),
 	mySprite(nullptr),
-	myBoundsX(0.0f),
-	myBoundsY(0.0f)
+	myBoundsX(0),
+	myBoundsY(0)
 {}
 
 AnimationComponent::AnimationComponent(SpriteComponent* aSpriteComponent, const int& aAnimationFrameCount, const int& aColumns, const float& aUpdateTime, const int aBoundsX, const int aBoundsY)
@@ -50,7 +50,9 @@ AnimationComponent::AnimationComponent(SpriteComponent* aSpriteComponent, const 
 	myAnimationFrameCount = aAnimationFrameCount;
 	myColumns = aColumns;
 
-	mySprite->SetSpriteRectPixel(0.0f, 0.0f, myBoundsX, myBoundsY);
+	uint32_t anX = 0;
+	uint32_t aY = 0;
+	mySprite->SetSpriteRectPixel(anX, aY, myBoundsX, myBoundsY);
 }
 
 void AnimationComponent::SetSprite(SpriteComponent* aSpriteComponent)
@@ -80,7 +82,9 @@ void AnimationComponent::SetAnimation(SpriteComponent* aSpriteComponent, const i
 	myAnimationFrameCount = aAnimationFrameCount;
 	myColumns = aColumns;
 
-	mySprite->SetSpriteRectPixel(0.0f, 0.0f, myBoundsX, myBoundsY);
+	uint32_t anX = 0;
+	uint32_t aY = 0;
+	mySprite->SetSpriteRectPixel(anX, aY, myBoundsX, myBoundsY);
 }
 
 void AnimationComponent::SetDisplayOnce(const bool aIsDisplayedOnce)
@@ -96,6 +100,7 @@ void AnimationComponent::SetBoomerang(const bool aIsBoomerang)
 void AnimationComponent::Update(Transform& aTransform, GameObject& aGameObject)
 {
 	aGameObject;
+	aTransform;
 
 	if (myHasBeenDisplayed && myDisplayOnce)
 	{
@@ -163,13 +168,13 @@ void AnimationComponent::Update(Transform& aTransform, GameObject& aGameObject)
 			}
 		}
 
-		const float xOffset = static_cast<float>(mySpriteIndex % myColumns) * myBoundsX;
-		const float yOffset = static_cast<float>(mySpriteIndex / myColumns) * myBoundsY;
+		const uint32_t xOffset = static_cast<uint32_t>(mySpriteIndex % myColumns) * myBoundsX;
+		const uint32_t yOffset = static_cast<uint32_t>(mySpriteIndex / myColumns) * myBoundsY;
 
 		const v2f imageSize = mySprite->GetImageSize();
 
-		const float xTexel = 1.0f / imageSize.x;
-		const float yTexel = 1.0f / imageSize.y;
+		const uint32_t xTexel = static_cast<uint32_t>(1.0f / imageSize.x);
+		const uint32_t yTexel = static_cast<uint32_t>(1.0f / imageSize.y);
 
 		myTimer = myUpdateTime;
 		mySprite->SetSpriteRectPixel(xTexel + xOffset, yTexel + yOffset, xOffset + myBoundsX - xTexel, yOffset + myBoundsY - yTexel);
@@ -190,8 +195,8 @@ void AnimationComponent::SetAnimation(Animation* aAnimation)
 	myIsBackwards = aAnimation->myIsBackwards;
 	myDisplayOnce = aAnimation->myDisplayOnce;
 
-	const float xOffset = static_cast<float>(mySpriteIndex % myColumns) * myBoundsX;
-	const float yOffset = static_cast<float>(mySpriteIndex / myColumns) * myBoundsY;
+	const uint32_t xOffset = static_cast<uint32_t>(mySpriteIndex % myColumns) * myBoundsX;
+	const uint32_t yOffset = static_cast<uint32_t>(mySpriteIndex / myColumns) * myBoundsY;
 
 	mySprite->SetSpriteRectPixel(xOffset, yOffset, xOffset + myBoundsX, yOffset + myBoundsY);
 }

@@ -61,18 +61,18 @@ void Debugger::Update(const float& aDeltaTime)
 	constexpr double inverse1024 = 1.0 / 1024;
 	constexpr double inverse1024sqr = inverse1024 * inverse1024;
 
-	int memUsed = (int)(memCounter.WorkingSetSize) * inverse1024;
-	int memUsedMb = (int)(memCounter.WorkingSetSize) * inverse1024sqr;
+	int memUsed = static_cast<int>((memCounter.WorkingSetSize) * inverse1024);
+	int memUsedMb = static_cast<int>((memCounter.WorkingSetSize) * inverse1024sqr);
 
 	char memUsedStr[32];
 	char memUsedMbStr [32];
-	sprintf(memUsedStr, "%i KB", memUsed);
-	sprintf(memUsedMbStr, " (%i MB)", memUsedMb);
-	strcat(memUsedStr, memUsedMbStr);
+	sprintf_s(memUsedStr, "%i KB", memUsed);
+	sprintf_s(memUsedMbStr, " (%i MB)", memUsedMb);
+	strcat_s(memUsedStr, memUsedMbStr);
 
 	/* Heap Allocations */
 	char allocsStr[32];
-	sprintf(allocsStr, "%u", globalAllocCounter);
+	sprintf_s(allocsStr, "%u", globalAllocCounter);
 	globalAllocCounter = 0Ui32;
 
 	/* ImGui */

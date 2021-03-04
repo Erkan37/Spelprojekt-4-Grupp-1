@@ -15,7 +15,7 @@ public:
     void Activate() override;
     void Deactivate() override;
 
-    void Update(const float& aDeltaTime, const float& aTotalTime) override;
+    void Update(const float& aDeltaTime) override;
 private:
     GameObject* myPlayer;
     GameObject* myBackground;
