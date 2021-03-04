@@ -156,6 +156,7 @@
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Plane.hpp" />
     <ClInclude Include="PlaneVolume.hpp" />
+    <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="RenderCommand.hpp" />
     <ClInclude Include="Renderer.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="LevelScene.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
+    <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />

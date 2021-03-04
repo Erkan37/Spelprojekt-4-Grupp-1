@@ -80,7 +80,7 @@ void Player::Update(const float& aDeltaTime)
 	if (physics)
 	{
 		CheckMove(aDeltaTime);
-		CheckJump(aDeltaTime);
+		CheckJump();
 	}
 
 	AnimationState();
@@ -88,7 +88,7 @@ void Player::Update(const float& aDeltaTime)
 	GameObject::Update(aDeltaTime);
 }
 
-void Player::CheckJump(const float& aDeltaTime)
+void Player::CheckJump()
 {
 	if (myInputHandler->GetKeyJustDown(Keys::WKey))
 	{

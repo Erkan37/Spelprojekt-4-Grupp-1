@@ -151,6 +151,7 @@
     <ClInclude Include="Player.hpp">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Platform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -205,5 +206,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Platform.cpp" />
   </ItemGroup>
 </Project>

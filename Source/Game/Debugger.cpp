@@ -42,12 +42,12 @@ void Debugger::Update(const float& aDeltaTime)
 	/* FPS */
 	int FPS = (int)(1.0f / aDeltaTime);
 	char FPSString[32];
-	sprintf(FPSString, "%i", FPS);
+	sprintf_s(FPSString, "%i", FPS);
 
 	/* Draw Calls */
 	int drawCalls = Tga2D::CEngine::GetInstance()->GetDrawCalls();
 	char drawCallsString[32];
-	sprintf(drawCallsString, "%i", drawCalls);
+	sprintf_s(drawCallsString, "%i", drawCalls);
 
 	/* Memory Usage */
 	PROCESS_MEMORY_COUNTERS memCounter;
@@ -66,13 +66,13 @@ void Debugger::Update(const float& aDeltaTime)
 
 	char memUsedStr[32];
 	char memUsedMbStr [32];
-	sprintf(memUsedStr, "%i KB", memUsed);
-	sprintf(memUsedMbStr, " (%i MB)", memUsedMb);
-	strcat(memUsedStr, memUsedMbStr);
+	sprintf_s(memUsedStr, "%i KB", memUsed);
+	sprintf_s(memUsedMbStr, " (%i MB)", memUsedMb);
+	strcat_s(memUsedStr, memUsedMbStr);
 
 	/* Heap Allocations */
 	char allocsStr[32];
-	sprintf(allocsStr, "%u", globalAllocCounter);
+	sprintf_s(allocsStr, "%u", globalAllocCounter);
 	globalAllocCounter = 0Ui32;
 
 	/* ImGui */

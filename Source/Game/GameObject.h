@@ -23,7 +23,7 @@ public:
 	virtual void Update(const float& aDeltaTime);
 	virtual void Render();
 
-	virtual void OnCollision(GameObject* anObject) {}
+	virtual void OnCollision(GameObject* anObject) { anObject;  }
 
 	/* Transform */
 	const Transform& GetTransform() const;

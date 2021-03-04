@@ -36,6 +36,9 @@ void SpritebatchComponent::Init()
 
 void SpritebatchComponent::Render(Transform& aTransform, GameObject& aGameObject)
 {
+	aTransform;
+	aGameObject;
+
 	CGameWorld::GetInstance()->Game()->GetRenderer().PushRenderCommand(
 	{
 		RenderCommand::Type::Batch,

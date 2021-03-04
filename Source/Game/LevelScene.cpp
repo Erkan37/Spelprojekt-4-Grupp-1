@@ -19,8 +19,6 @@
 LevelScene::LevelScene()
 	: 
 	myPlayer(nullptr)
-	, myGround(nullptr)
-	, myBackground(nullptr)
 	, Scene()
 {}
 
@@ -28,10 +26,10 @@ void LevelScene::Load()
 {
 	myPlayer = new Player(this);
 
-	myBackground = new GameObject(this);
-	myBackground->SetPosition({1080.0f, 540});
+	GameObject* background = new GameObject(this);
+	background->SetPosition({1080.0f, 540});
 
-	SpriteComponent* sprite = myBackground->AddComponent<SpriteComponent>();
+	SpriteComponent* sprite = background->AddComponent<SpriteComponent>();
 	sprite->SetSpritePath("Sprites/Background.png");
 	sprite->SetSize({ 3840.0f, 2160.0f });
 
@@ -49,21 +47,8 @@ void LevelScene::Load()
 		const float sizeX = (*itr)["Size"]["X"].GetFloat();
 		const float sizeY = (*itr)["Size"]["Y"].GetFloat();
 
-		myGround = new GameObject(this);
-		myGround->SetPosition({ positionX, positionY });
-		myGround->SetPivot({ 0.0f, 1.0f });
-
-		SpriteComponent* gsprite = myGround->AddComponent<SpriteComponent>();
-		gsprite->SetSpritePath("Sprites/Platform.dds");
-		gsprite->SetSize({ sizeX, sizeY });
-
-		PhysicsComponent* gphys = myGround->AddComponent<PhysicsComponent>();
-		gphys->SetCanCollide(true);
-		gphys->SetIsStatic(true);
-
-		ColliderComponent* collider = myGround->AddComponent<ColliderComponent>();
-		collider->SetPosition({ sizeX / 2.0f, -sizeY / 2.0f });
-		collider->SetSize(gsprite->GetSize());
+		Platform* ground = new Platform(this);
+		ground->Init(v2f(sizeX, sizeY), v2f(sizeX, sizeY), v2f(positionX, positionY));
 	}
 
 	preProdPlatformsFile.close();
@@ -89,6 +74,7 @@ void LevelScene::Update(const float& aDeltaTime, const float& aTotalTime)
 {
 	CGameWorld* world = CGameWorld::GetInstance();
 	Utils::Input* input = world->Input();
+	input;
 
 	Scene::Update(aDeltaTime, aTotalTime);
 }
