@@ -10,6 +10,8 @@
 #include "AnimationComponent.hpp"
 #include "PhysicsComponent.h"
 
+#include "imgui.h"
+
 Player::Player(LevelScene* aLevelScene)
 	:
 	GameObject(aLevelScene)
@@ -149,12 +151,12 @@ void Player::Landed()
 void Player::AnimationState()
 {
 	AnimationComponent* animation = GetComponent<AnimationComponent>();
-	if (Utils::Abs(GetComponent<PhysicsComponent>()->GetVelocityX()) <= 100.0f && myHasLanded && myCurrentAnimationIndex != 0)
+	if (Utils::Abs(GetComponent<PhysicsComponent>()->GetVelocityX()) <= 50.0f && myHasLanded && myCurrentAnimationIndex != 0)
 	{
 		animation->SetAnimation(&myAnimations[0]);
 		myCurrentAnimationIndex = 0;
 	}
-	else if (Utils::Abs(GetComponent<PhysicsComponent>()->GetVelocityX()) > 100.0f && myHasLanded && myCurrentAnimationIndex != 1)
+	else if (Utils::Abs(GetComponent<PhysicsComponent>()->GetVelocityX()) > 50.0f && myHasLanded && myCurrentAnimationIndex != 1)
 	{
 		animation->SetAnimation(&myAnimations[1]);
 		myCurrentAnimationIndex = 1;
