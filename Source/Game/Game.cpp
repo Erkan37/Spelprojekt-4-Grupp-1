@@ -154,8 +154,8 @@ void CGame::InitCallBack()
 void CGame::UpdateCallBack()
 {
 	myTimer->Update();
-	myRenderer.Render();
 	myGameWorld.Update();
+	myRenderer.Render();
 	myGameWorld.Render();
 	myRenderer.IncrementLogicCounter();
 
