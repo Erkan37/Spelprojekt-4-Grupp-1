@@ -42,12 +42,12 @@ void Debugger::Update(const float& aDeltaTime)
 	/* FPS */
 	int FPS = (int)(1.0f / aDeltaTime);
 	char FPSString[32];
-	sprintf(FPSString, "%i", FPS);
+	sprintf_s(FPSString, "%i", FPS);
 
 	/* Draw Calls */
 	int drawCalls = Tga2D::CEngine::GetInstance()->GetDrawCalls();
 	char drawCallsString[32];
-	sprintf(drawCallsString, "%i", drawCalls);
+	sprintf_s(drawCallsString, "%i", drawCalls);
 
 	/* Memory Usage */
 	PROCESS_MEMORY_COUNTERS memCounter;
