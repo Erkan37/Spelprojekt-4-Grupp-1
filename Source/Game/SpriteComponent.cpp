@@ -47,6 +47,9 @@ SpriteComponent::~SpriteComponent()
 /* Component Overrides */
 void SpriteComponent::Init(Transform & aTransform, GameObject& aGameObject)
 {
+	aTransform;
+	aGameObject;
+
 	if (myIsPartOfBatch) return;
 	mySprite = new Tga2D::CSprite(mySpritePath.c_str());
 	mySprite->SetBlendState(myBlendState);

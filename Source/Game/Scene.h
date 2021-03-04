@@ -20,12 +20,12 @@ public:
 	virtual void Activate();
 	virtual void Deactivate();
 
-	virtual void Update(const float& aDeltaTime, const float& aTotalTime);
+	virtual void Update(const float& aDeltaTime);
 	virtual void Render();
 
 	struct Manager
 	{
-		static void Update(const float& aDeltaTime, const float& aTotalTime);
+		static void Update(const float& aDeltaTime);
 		static void Render();
 	};
 

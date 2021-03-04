@@ -74,10 +74,8 @@ void Scene::Deactivate()
 	}
 }
 
-void Scene::Update(const float& aDeltaTime, const float& aTotalTime)
+void Scene::Update(const float& aDeltaTime)
 {
-	aTotalTime;
-
 	for (size_t index = 0U; index < myGameObjects.size(); ++index)
 	{
 		GameObject*& object = myGameObjects[index];
@@ -93,7 +91,6 @@ void Scene::Update(const float& aDeltaTime, const float& aTotalTime)
 	}
 
 	myPhysics.PhysicsUpdate(aDeltaTime, myGameObjects);
-
 	myCamera.Update(aDeltaTime);
 }
 
@@ -108,13 +105,13 @@ void Scene::Render()
 	}
 }
 
-void Scene::Manager::Update(const float& aDeltaTime, const float& aTotalTime)
+void Scene::Manager::Update(const float& aDeltaTime)
 {
 	for (Scene*& scene : ourScenes)
 	{
 		if (scene->IsActive())
 		{
-			scene->Update(aDeltaTime, aTotalTime);
+			scene->Update(aDeltaTime);
 		}
 	}
 }

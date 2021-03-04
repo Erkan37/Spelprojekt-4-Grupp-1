@@ -38,6 +38,8 @@ ColliderComponent::~ColliderComponent()
 
 void ColliderComponent::Init(Transform & aTransform, GameObject & aGameObject)
 {
+	aTransform;
+
 	myGameObject = &aGameObject;
 
 	Scene* scene = myGameObject->GetScene();
