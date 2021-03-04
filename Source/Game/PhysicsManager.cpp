@@ -109,9 +109,6 @@ void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObje
 
 					if (Utils::Abs(overlapX) > Utils::Abs(overlapY))
 					{
-						object1->Landed(overlapY1);
-						object2->Landed(overlapY2);
-
 						if (!obj1Static)
 						{
 							object1->SetPositionY(object1->GetPositionY() - overlapY);
@@ -122,6 +119,9 @@ void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObje
 							object2->SetPositionY(object2->GetPositionY() + overlapY);
 							object2Physics->SetVelocityY(0.0f);
 						}
+
+						object1->Landed(overlapY1);
+						object2->Landed(overlapY2);
 					}
 					else
 					{
