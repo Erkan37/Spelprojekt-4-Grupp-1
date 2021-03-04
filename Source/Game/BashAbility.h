@@ -1,9 +1,10 @@
 #pragma once
 
+class InputWrapper;
 class Player;
 class PhysicsComponent;
 
-class BashAbility
+class BashAbility : public GameObject
 {
 public:
 	BashAbility();
@@ -13,12 +14,12 @@ public:
 	void Update();
 	void Render();
 
-	void AddPlayerPhysics(std::shared_ptr<Player> aPlayer);
-
+	void AddPlayerPhysics(const std::shared_ptr<PhysicsComponent> somePhysics);
+	void AddInputWrapper(const std::shared_ptr<InputWrapper> aInputWrapper);
 
 private:
-	std::shared_ptr<Player> myPlayer;
-	PhysicsComponent* myPlayerPhysic;
+	std::shared_ptr<PhysicsComponent> myPhysics;
+	std::shared_ptr<InputWrapper> myInput;
 
 };
 

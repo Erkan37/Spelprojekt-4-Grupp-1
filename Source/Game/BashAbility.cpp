@@ -2,6 +2,7 @@
 #include "Player.hpp"
 #include "BashAbility.h"
 #include "PhysicsComponent.h"
+#include "InputWrapper.h"
 
 BashAbility::BashAbility()
 {
@@ -13,10 +14,10 @@ void BashAbility::Init()
 
 void BashAbility::Update()
 {
-	PhysicsComponent* physics = myPlayer->GetComponent<PhysicsComponent>();
-
-
-	physics->SetVelocityX(physics->GetVelocity().x + 1.f);
+	if (myInput->IsDashing())
+	{
+		myPhysics->SetVelocityX(myPhysics->GetVelocity().x + 10.f);
+	}
 
 }
 
@@ -24,7 +25,12 @@ void BashAbility::Render()
 {
 }
 
-void BashAbility::AddPlayerPhysics(std::shared_ptr<Player> aPlayer)
+void BashAbility::AddPlayerPhysics(std::shared_ptr<PhysicsComponent> somePhysics)
 {
-	myPlayer = aPlayer;
+	myPhysics = somePhysics;
+}
+
+void BashAbility::AddInputWrapper(const std::shared_ptr<InputWrapper> aInputWrapper)
+{
+	myInput = aInputWrapper;
 }
