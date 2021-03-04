@@ -47,8 +47,11 @@ void LevelScene::Load()
 		const float sizeX = (*itr)["Size"]["X"].GetFloat();
 		const float sizeY = (*itr)["Size"]["Y"].GetFloat();
 
+		const float spriteSizeX = (*itr)["SpriteSize"]["X"].GetFloat();
+		const float spriteSizeY = (*itr)["SpriteSize"]["Y"].GetFloat();
+
 		Platform* ground = new Platform(this);
-		ground->Init(v2f(sizeX, sizeY), v2f(sizeX, sizeY), v2f(positionX, positionY));
+		ground->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY));
 	}
 
 	preProdPlatformsFile.close();
