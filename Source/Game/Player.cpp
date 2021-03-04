@@ -105,7 +105,6 @@ void Player::Update(const float& aDeltaTime)
 	}
 
 	AnimationState();
-
 	GameObject::Update(aDeltaTime);
 }
 
