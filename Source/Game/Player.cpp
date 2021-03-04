@@ -115,28 +115,15 @@ void Player::CheckMove(const float& aDeltaTime)
 {
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 
-	if (myInputHandler->GetInput()->GetKeyJustDown(Keys::DKey))
-	{
-		for (Animation& animation : myAnimations)
-		{
-			animation.mySpriteComponent->SetSizeX(70.0f);
-		}
-	}
-	else if (myInputHandler->GetInput()->GetKeyJustDown(Keys::AKey))
-	{
-		for (Animation& animation : myAnimations)
-		{
-			animation.mySpriteComponent->SetSizeX(-70.0f);
-		}
-	}
-
 	if (myInputHandler->IsMovingRight())
 	{
 		GetComponent<PhysicsComponent>()->SetVelocityX(Utils::Lerp(physics->GetVelocityX(), myMaxSpeed, myAcceleration * aDeltaTime));
+		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(70.0f);
 	}
 	else if (myInputHandler->IsMovingLeft())
 	{
 		GetComponent<PhysicsComponent>()->SetVelocityX(Utils::Lerp(physics->GetVelocityX(), -myMaxSpeed, myAcceleration * aDeltaTime));
+		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-70.0f);
 	}
 	else
 	{
