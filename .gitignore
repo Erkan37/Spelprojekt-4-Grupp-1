@@ -33,3 +33,4 @@ Temp/
 #Project/Bin/Launcher_Debug.exe
 Project/Bin/Launcher_Debug.idb
 Project/Lib/Game_Debug.lib
+*.psd
