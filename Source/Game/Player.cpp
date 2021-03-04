@@ -30,23 +30,23 @@ Player::Player(LevelScene* aLevelScene)
 
 	myMaxSpeed = 400.0f;
 
-	myAcceleration = 4.0f;
+	myAcceleration = 6.0f;
 	myRetardation = 20.0f;
 
 	myHasLanded = true;
 	myHasDoubleJumped = false;
 
-	myAirCoyoteTime = 0.2f;
-	myAirCoyoteTimer = 0.2f;
+	myAirCoyoteTime = 0.1f;
+	myAirCoyoteTimer = myAirCoyoteTime;
 
-	myJumpVelocity = 450.0f;
-	myDoubleJumpVelocity = 450.0f;
+	myJumpVelocity = 600.0f;
+	myDoubleJumpVelocity = 600.0f;
 
 	myCurrentAnimationIndex = 0;
 
 	myCanJumpWhenLanding = false;
 	myWillJumpWhenLanding = false;
-	myJumpWhenLandingTime = 0.2f;
+	myJumpWhenLandingTime = 0.1f;
 }
 
 void Player::InitAnimations()
