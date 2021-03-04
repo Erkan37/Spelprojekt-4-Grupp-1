@@ -76,8 +76,6 @@ void Scene::Deactivate()
 
 void Scene::Update(const float& aDeltaTime)
 {
-	aTotalTime;
-
 	for (size_t index = 0U; index < myGameObjects.size(); ++index)
 	{
 		GameObject*& object = myGameObjects[index];
