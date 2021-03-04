@@ -40,6 +40,7 @@ public:
 	void Update();
 
 	bool IsButtonPressed(Button aButton);
+	bool IsButtonHoldDown(Button aButton);
 
 	bool IsRightTriggerActive();
 	bool IsLeftTriggerActive();

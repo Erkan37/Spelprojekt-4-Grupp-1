@@ -34,19 +34,19 @@ public: bool ActiveButton(Controller::Button aButton)
 		switch (aButton)
 		{
 		case Controller::Button::Cross: { if (myCross) return false; else { myCross = true; return true; break; } }
-		case Controller::Button::Circle: { if (myCircle) return false; else { myCircle = true; break; } }
-		case Controller::Button::Triangle: { if (myTriangle) return false; else { myTriangle = true; break; } }
-		case Controller::Button::Square: { if (mySquare) return false; else { mySquare = true; break; } }
-		case Controller::Button::DPadDown: { if (myDpadDown) return false; else { myDpadDown = true; break; } }
-		case Controller::Button::DPadLeft: { if (myDpadLeft) return false; else { myDpadLeft = true; break; } }
-		case Controller::Button::DPadRight: { if (myDpadRight) return false; else { myDpadRight = true; break; } }
-		case Controller::Button::DPadUp: { if (myDpadUp) return false; else { myDpadUp = true; break; } }
-		case Controller::Button::LShoulder: { if (myLShoulder) return false; else { myLShoulder = true; break; } }
-		case Controller::Button::RShoulder: { if (myRShoulder) return false; else { myRShoulder = true; break; } }
-		case Controller::Button::LThumbStick: { if (myLThumbStick) return false; else { myLThumbStick = true; break; } }
-		case Controller::Button::RThumbStick: {	if (myRThumbStick) return false; else { myRThumbStick = true; break; } }
-		case Controller::Button::Start: { if (myStart) return false; else { myStart = true; break; } }
-		case Controller::Button::Back: { if (myBack) return false; else { myBack = true; break; } }
+		case Controller::Button::Circle: { if (myCircle) return false; else { myCircle = true; return true; break; } }
+		case Controller::Button::Triangle: { if (myTriangle) return false; else { myTriangle = true; return true; break; } }
+		case Controller::Button::Square: { if (mySquare) return false; else { mySquare = true; return true; break; } }
+		case Controller::Button::DPadDown: { if (myDpadDown) return false; else { myDpadDown = true; return true; break; } }
+		case Controller::Button::DPadLeft: { if (myDpadLeft) return false; else { myDpadLeft = true; return true; break; } }
+		case Controller::Button::DPadRight: { if (myDpadRight) return false; else { myDpadRight = true; return true; break; } }
+		case Controller::Button::DPadUp: { if (myDpadUp) return false; else { myDpadUp = true; return true; break; } }
+		case Controller::Button::LShoulder: { if (myLShoulder) return false; else { myLShoulder = true; return true; break; } }
+		case Controller::Button::RShoulder: { if (myRShoulder) return false; else { myRShoulder = true; return true; break; } }
+		case Controller::Button::LThumbStick: { if (myLThumbStick) return false; else { myLThumbStick = true; return true; break; } }
+		case Controller::Button::RThumbStick: {	if (myRThumbStick) return false; else { myRThumbStick = true; return true; break; } }
+		case Controller::Button::Start: { if (myStart) return false; else { myStart = true; return true; break; } }
+		case Controller::Button::Back: { if (myBack) return false; else { myBack = true; return true; break; } }
 		default: break;
 		}
 	}
@@ -138,6 +138,16 @@ bool Controller::IsButtonPressed(Button aButton)
 	}
 }
 
+bool Controller::IsButtonHoldDown(Button aButton)
+{
+	if (IsControllerActive())
+	{
+		return (myCurrentControllerState.Gamepad.wButtons & static_cast<WORD>(aButton)) != 0;
+	}
+	else
+		return false;
+}
+
 bool Controller::IsRightTriggerActive()
 {
 	if (myCurrentControllerState.Gamepad.bRightTrigger) { return true; }
@@ -153,22 +163,34 @@ bool Controller::IsLeftTriggerActive()
 
 v2f Controller::GetLeftThumbStick() const
 {
-	return myLeftThumbStick;
+	if (myActiveController)
+		return myLeftThumbStick;
+	else
+		return v2f(0, 0);
 }
 
 v2f Controller::GetRightThumbStick() const
 {
-	return myRightThumbStick;
+	if (myActiveController)
+		return myRightThumbStick;
+	else
+		return v2f(0, 0);
 }
 
 float Controller::LeftThumbStickPull() const
 {
-	return myleftThumbStickPull;
+	if (myActiveController)
+		return myleftThumbStickPull;
+	else
+		return float(0.f);
 }
 
 float Controller::RightThumbStickPull() const
 {
-	return myRightThumbStickPull;
+	if (myActiveController)
+		return myRightThumbStickPull;
+	else
+		return float(0.f);
 }
 
 void Controller::SetRightThumbActive(bool aActiveStatement)
