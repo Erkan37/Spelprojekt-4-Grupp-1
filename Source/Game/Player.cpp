@@ -92,7 +92,7 @@ void Player::Update(const float& aDeltaTime)
 
 void Player::CheckJump()
 {
-	if (myInputHandler->GetInput()->GetKeyJustDown(Keys::WKey) || myInputHandler->GetController()->IsButtonPressed(Controller::Button::Circle))
+	if (myInputHandler->IsJumping())
 	{
 		if (myHasLanded && GetComponent<PhysicsComponent>()->GetVelocityY() == 0.0f)
 		{
@@ -130,11 +130,11 @@ void Player::CheckMove(const float& aDeltaTime)
 		}
 	}
 
-	if (myInputHandler->GetInput()->GetKeyDown(Keys::DKey))
+	if (myInputHandler->IsMovingRight())
 	{
 		GetComponent<PhysicsComponent>()->SetVelocityX(Utils::Lerp(physics->GetVelocityX(), myMaxSpeed, myAcceleration * aDeltaTime));
 	}
-	else if (myInputHandler->GetInput()->GetKeyDown(Keys::AKey))
+	else if (myInputHandler->IsMovingLeft())
 	{
 		GetComponent<PhysicsComponent>()->SetVelocityX(Utils::Lerp(physics->GetVelocityX(), -myMaxSpeed, myAcceleration * aDeltaTime));
 	}

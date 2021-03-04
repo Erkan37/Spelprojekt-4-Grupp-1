@@ -141,23 +141,14 @@
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Debugger.h" />
-    <ClInclude Include="DoublyLinkedList.hpp" />
-    <ClInclude Include="DoublyLinkedListNode.hpp" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="InputWrapper.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="LevelScene.h" />
-    <ClInclude Include="Line.hpp" />
-    <ClInclude Include="LineVolume.hpp" />
-    <ClInclude Include="Matrix.hpp" />
-    <ClInclude Include="Matrix3x3.hpp" />
-    <ClInclude Include="Matrix4x4.hpp" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
-    <ClInclude Include="Plane.hpp" />
-    <ClInclude Include="PlaneVolume.hpp" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="RenderCommand.hpp" />
@@ -170,11 +161,8 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="Utilities.h" />
-    <ClInclude Include="Vector.hpp" />
     <ClInclude Include="Vector2.hpp" />
-    <ClInclude Include="Vector3.hpp" />
     <ClInclude Include="Vector4.hpp" />
-    <ClInclude Include="VectorOnStack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
