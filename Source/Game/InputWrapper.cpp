@@ -20,7 +20,76 @@ void InputWrapper::Init()
 void InputWrapper::Update()
 {
 	myInput->Update();
-	myController->CheckActiveController();
+	myController->Update();
+}
+
+float InputWrapper::GetLeftPullForce()
+{
+	return std::abs(myController->LeftThumbStickPull());
+}
+
+float InputWrapper::GetRightPullForce()
+{
+	return std::abs(myController->RightThumbStickPull());
+}
+
+v2f InputWrapper::GetLeftStickMovement()
+{
+	return myController->GetLeftThumbStick();
+}
+
+v2f InputWrapper::GetRightStickMovement()
+{
+	return myController->GetRightThumbStick();
+}
+
+bool InputWrapper::IsMovingUp()
+{
+	if (myInput->GetKeyDown(Keys::WKey))
+		return true;
+	else
+		return false;
+}
+
+bool InputWrapper::IsMovingLeft()
+{
+	if (myInput->GetKeyDown(Keys::AKey))
+		return true;
+	else
+		return false;
+}
+
+bool InputWrapper::IsMovingDown()
+{
+	if (myInput->GetKeyDown(Keys::SKey))
+		return true;
+	else
+		return false;
+}
+
+bool InputWrapper::IsMovingRight()
+{
+	if (myInput->GetKeyDown(Keys::DKey))
+		return true;
+	else
+		return false;
+}
+
+
+bool InputWrapper::IsJumping()
+{
+	if (GetInput()->GetKeyJustDown(Keys::SPACEBAR) || GetController()->IsButtonPressed(Controller::Button::Cross))
+		return true;
+	else
+		return false;
+}
+
+bool InputWrapper::IsDashing()
+{
+	if (GetInput()->GetKeyJustDown(Keys::SHIFTKey) || GetController()->IsButtonPressed(Controller::Button::Square))
+		return true;
+	else
+		return false;
 }
 
 std::shared_ptr<Utils::Input> InputWrapper::GetInput()

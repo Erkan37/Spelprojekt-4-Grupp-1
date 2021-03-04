@@ -99,19 +99,23 @@ void Controller::Init()
 
 void Controller::Update()
 {
-	ZeroMemory(&myCurrentControllerState, sizeof(XINPUT_STATE));
-	XInputGetState(myControllerID, &myCurrentControllerState);
-
-	if (myCurrentControllerState.dwPacketNumber != 0)
+	if (IsControllerActive())
 	{
-		UpdateLeftThumbStick(myCurrentControllerState);
-		UpdateRightThumbStick(myCurrentControllerState);
+		ZeroMemory(&myCurrentControllerState, sizeof(XINPUT_STATE));
+		XInputGetState(myControllerID, &myCurrentControllerState);
+
+		if (myCurrentControllerState.dwPacketNumber != 0)
+		{
+			UpdateLeftThumbStick(myCurrentControllerState);
+			UpdateRightThumbStick(myCurrentControllerState);
+		}
+		else
+		{
+			myActiveController = false;
+		}
 	}
 	else
-	{
-		myActiveController = false;
-	}
-	
+		CheckActiveController();
 }
 
 bool Controller::IsButtonPressed(Button aButton)
