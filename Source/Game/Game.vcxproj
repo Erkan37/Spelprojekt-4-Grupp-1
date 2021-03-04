@@ -139,12 +139,14 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Component.hpp" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="Debugger.h" />
     <ClInclude Include="DoublyLinkedList.hpp" />
     <ClInclude Include="DoublyLinkedListNode.hpp" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWorld.h" />
+    <ClInclude Include="InputWrapper.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="LevelScene.h" />
     <ClInclude Include="Line.hpp" />
@@ -179,10 +181,12 @@
     <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
+    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Debugger.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWorld.cpp" />
+    <ClCompile Include="InputWrapper.cpp" />
     <ClCompile Include="LevelScene.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
