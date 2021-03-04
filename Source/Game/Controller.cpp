@@ -47,7 +47,7 @@ public: bool ActiveButton(Controller::Button aButton)
 		case Controller::Button::RThumbStick: {	if (myRThumbStick) return false; else { myRThumbStick = true; return true; break; } }
 		case Controller::Button::Start: { if (myStart) return false; else { myStart = true; return true; break; } }
 		case Controller::Button::Back: { if (myBack) return false; else { myBack = true; return true; break; } }
-		default: break;
+		default: return false; break;
 		}
 	}
 

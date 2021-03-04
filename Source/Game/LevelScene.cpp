@@ -72,7 +72,5 @@ void LevelScene::Deactivate()
 
 void LevelScene::Update(const float& aDeltaTime)
 {
-	CGameWorld* world = CGameWorld::GetInstance();
-
 	Scene::Update(aDeltaTime);
 }
