@@ -12,6 +12,8 @@
 #include "GameWorld.h"
 #include "../External/Headers/CU/Utilities.h"
 
+#include "Player.hpp"
+
 PhysicsManager::PhysicsManager()
 	: myColliders(std::vector<ColliderComponent*>())
 {}
@@ -75,16 +77,24 @@ void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObje
 					continue;
 				}
 
-				const v2f obj1size = collider1->GetSize();
-				const v2f obj2size = collider2->GetSize();
+				const v2f obj1Size = collider1->GetSize();
+				const v2f obj2Size = collider2->GetSize();
 
-				const v2f obj1min = object1->GetPosition() + collider1->GetPosition() - (obj1size * .5f);
-				const v2f obj1max = obj1min + obj1size;
-				const v2f obj2min = object2->GetPosition() + collider2->GetPosition() - (obj2size * .5f);
-				const v2f obj2max = obj2min + obj2size;
+				const v2f obj1min = object1->GetPosition() + collider1->GetPosition() - (obj1Size * .5f);
+				const v2f obj1max = obj1min + obj1Size;
+				const v2f obj2min = object2->GetPosition() + collider2->GetPosition() - (obj2Size * .5f);
+				const v2f obj2max = obj2min + obj2Size;
 
 				const bool xAxisOverlap = obj1min.x <= obj2max.x && obj1max.x >= obj2min.x;
 				const bool yAxisOverlap = obj1min.y <= obj2max.y && obj1max.y >= obj2min.y;
+
+				const float xInsensitivity = 5.0f;
+				if (obj1min.x + xInsensitivity < obj2max.x && obj1max.x - xInsensitivity > obj2min.x)
+				{
+					const float yDifference = obj2min.y - obj1max.y;
+					TryLetJumpWhenLanding(object1, yDifference);
+					TryLetJumpWhenLanding(object2, yDifference);
+				}
 
 				if (xAxisOverlap && yAxisOverlap)
 				{
@@ -106,6 +116,7 @@ void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObje
 
 					const bool& obj1Static = physics->GetIsStatic();
 					const bool& obj2Static = object2Physics->GetIsStatic();
+
 
 					if (Utils::Abs(overlapX) > Utils::Abs(overlapY))
 					{
@@ -139,5 +150,14 @@ void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObje
 				}
 			}
 		}
+	}
+}
+
+const void PhysicsManager::TryLetJumpWhenLanding(GameObject* aObject, const float& aYDistance)
+{
+	Player* player = dynamic_cast<Player*>(aObject);
+	if (player)
+	{
+		player->TryLetJumpWhenLanding(aYDistance);
 	}
 }

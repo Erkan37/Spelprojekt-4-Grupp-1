@@ -11,6 +11,7 @@
 #include "SpriteComponent.h"
 #include "AnimationComponent.hpp"
 #include "PhysicsComponent.h"
+#include "ColliderComponent.h"
 
 #include "imgui.h"
 
@@ -39,9 +40,13 @@ Player::Player(LevelScene* aLevelScene)
 	myAirCoyoteTimer = 0.2f;
 
 	myJumpVelocity = 450.0f;
-	myDoubleJumpVelocity = 300.0f;
+	myDoubleJumpVelocity = 450.0f;
 
 	myCurrentAnimationIndex = 0;
+
+	myCanJumpWhenLanding = false;
+	myWillJumpWhenLanding = false;
+	myJumpWhenLandingTime = 0.2f;
 }
 
 void Player::InitAnimations()
@@ -108,19 +113,18 @@ void Player::CheckJump()
 {
 	if (myInputHandler->IsJumping())
 	{
+		if (myCanJumpWhenLanding && !myHasLanded && GetComponent<PhysicsComponent>()->GetVelocityY() >= 0.0f)
+		{
+			myWillJumpWhenLanding = true;
+		}
+
 		if (myHasLanded && (GetComponent<PhysicsComponent>()->GetVelocityY() == 0.0f || myAirCoyoteTimer > 0))
 		{
-			GetComponent<PhysicsComponent>()->SetVelocityY(-myJumpVelocity);
-			GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
-			myCurrentAnimationIndex = 2;
-			myHasLanded = false;
+			Jump();
 		}
 		else if (!myHasDoubleJumped)
 		{
-			GetComponent<PhysicsComponent>()->SetVelocityY(Utils::Min(GetComponent<PhysicsComponent>()->GetVelocityY() - myDoubleJumpVelocity, -myDoubleJumpVelocity));
-			GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
-			myCurrentAnimationIndex = 2;
-			myHasDoubleJumped = true;
+			DoubleJump();
 		}
 	}
 }
@@ -133,24 +137,67 @@ void Player::UpdateCoyoteTime(const float& aDeltaTime)
 	}
 }
 
+void Player::TryLetJumpWhenLanding(const float& aYDistance)
+{
+	const float distancePerJumpWhenLandingTime = GetComponent<PhysicsComponent>()->GetVelocityY() * myJumpWhenLandingTime;
+	if (aYDistance < distancePerJumpWhenLandingTime)
+	{
+		myCanJumpWhenLanding = true;		
+	}
+	else
+	{
+		myCanJumpWhenLanding = false;
+	}
+}
+
 void Player::CheckMove(const float& aDeltaTime)
 {
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 
 	if (myInputHandler->IsMovingRight())
 	{
-		GetComponent<PhysicsComponent>()->SetVelocityX(Utils::Lerp(physics->GetVelocityX(), myMaxSpeed, myAcceleration * aDeltaTime));
-		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(70.0f);
+		GoRight(aDeltaTime);
 	}
 	else if (myInputHandler->IsMovingLeft())
 	{
-		GetComponent<PhysicsComponent>()->SetVelocityX(Utils::Lerp(physics->GetVelocityX(), -myMaxSpeed, myAcceleration * aDeltaTime));
-		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-70.0f);
+		GoLeft(aDeltaTime);
 	}
 	else
 	{
 		GetComponent<PhysicsComponent>()->SetVelocityX(Utils::Lerp(physics->GetVelocityX(), 0.0f, myRetardation * aDeltaTime));
 	}
+}
+
+void Player::GoRight(const float& aDeltaTime)
+{
+	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
+	GetComponent<PhysicsComponent>()->SetVelocityX(Utils::Lerp(physics->GetVelocityX(), myMaxSpeed, myAcceleration * aDeltaTime));
+	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(70.0f);
+}
+
+void Player::GoLeft(const float& aDeltaTime)
+{
+	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
+	GetComponent<PhysicsComponent>()->SetVelocityX(Utils::Lerp(physics->GetVelocityX(), -myMaxSpeed, myAcceleration * aDeltaTime));
+	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-70.0f);
+}
+
+void Player::Jump()
+{
+	GetComponent<PhysicsComponent>()->SetVelocityY(-myJumpVelocity);
+	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
+	myCurrentAnimationIndex = 2;
+	myHasLanded = false;
+	myWillJumpWhenLanding = false;
+}
+
+void Player::DoubleJump()
+{
+	GetComponent<PhysicsComponent>()->SetVelocityY(-myDoubleJumpVelocity);
+	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
+	myCurrentAnimationIndex = 2;
+	myHasDoubleJumped = true;
+	myWillJumpWhenLanding = false;
 }
 
 void Player::Landed(const int& aOverlapY)
@@ -160,6 +207,11 @@ void Player::Landed(const int& aOverlapY)
 		myAirCoyoteTimer = myAirCoyoteTime;
 		myHasLanded = true;
 		myHasDoubleJumped = false;
+
+		if (myWillJumpWhenLanding)
+		{
+			Jump();
+		}
 	}
 }
 
