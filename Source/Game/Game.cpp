@@ -110,8 +110,8 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 #ifdef _RETAIL
 	int monitorWidth = info.rcMonitor.right - info.rcMonitor.left;
 	int monitorHeight = info.rcMonitor.bottom - info.rcMonitor.top;
-	createParameters.myWindowHeight = monitorHeight;
-	createParameters.myWindowWidth = monitorWidth;
+	createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight);
+	createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth);
 	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Borderless;
 #endif // RETAIL
 
