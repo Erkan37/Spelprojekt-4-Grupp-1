@@ -70,11 +70,11 @@ void LevelScene::Deactivate()
 	GetCamera().StopFollowing();
 }
 
-void LevelScene::Update(const float& aDeltaTime, const float& aTotalTime)
+void LevelScene::Update(const float& aDeltaTime)
 {
 	CGameWorld* world = CGameWorld::GetInstance();
 	Utils::Input* input = world->Input();
 	input;
 
-	Scene::Update(aDeltaTime, aTotalTime);
+	Scene::Update(aDeltaTime);
 }

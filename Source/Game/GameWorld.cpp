@@ -58,9 +58,8 @@ void CGameWorld::Update()
 
 	myTimer->Update();
 	myDeltaTime = myTimer->GetDeltaTime();
-	myTotalTime = myTimer->GetTotalTime();
 
-	Scene::Manager::Update(myDeltaTime, myTotalTime);
+	Scene::Manager::Update(myDeltaTime);
 }
 
 void CGameWorld::Render()
