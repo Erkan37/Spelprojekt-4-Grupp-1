@@ -67,6 +67,11 @@ LRESULT CGame::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	hWnd;
 	switch (message)
 	{
+	case WM_SIZE: 
+	{
+		SetResolution(LOWORD(lParam), HIWORD(lParam));
+		return 0;
+	}
 		// this message is read when the window is closed
 	case WM_DESTROY:
 	{
