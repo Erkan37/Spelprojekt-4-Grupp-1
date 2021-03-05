@@ -226,6 +226,8 @@ void Player::Landed(const int& aOverlapY)
 		myHasLanded = true;
 		myHasDoubleJumped = false;
 
+		myBashAbility->ResetVelocity(true, true);
+
 		if (myWillJumpWhenFalling)
 		{
 			Jump();
@@ -233,13 +235,13 @@ void Player::Landed(const int& aOverlapY)
 	}
 
 	myCurrentVelocity.y = 0.0f;
-	myBashAbility->ResetVelocity(true, true);
+	myBashAbility->ResetVelocity(false, true);
 }
 
 void Player::SideCollision(const int& aOverlapX)
 {
 	myCurrentVelocity.x = 0.0f;
-	myBashAbility->ResetVelocity(true, true);
+	myBashAbility->ResetVelocity(true, false);
 }
 
 void Player::ResetVelocity()
