@@ -29,7 +29,7 @@ BashAbility::~BashAbility()
 void BashAbility::Init()
 {
 	myAcceleration = 10.0f;
-	myRetardation = 3.0f;
+	myRetardation = 1.0f;
 	myDashTimer = 0.5f;
 	myDelayTimer = 0.3f;
 	myRadiusFromDash = true;
@@ -109,7 +109,9 @@ void BashAbility::ImGuiUpdate()
 {
 	ImGui::Begin("Dash", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
 
-	ImGui::SliderFloat("Dash Distance X: ", &myDashSpeed, 0.0f, 3000.0f);
+	ImGui::SliderFloat("Acceleration: ", &myAcceleration, 0.0f, 100.0f);
+	ImGui::SliderFloat("Retardation: ", &myRetardation, 0.0f, 5.0f);
+	ImGui::SliderFloat("Dash Speed: ", &myDashSpeed, 0.0f, 3000.0f);
 
 	ImGui::End();
 }
