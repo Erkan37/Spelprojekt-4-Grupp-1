@@ -95,7 +95,7 @@ void BashAbility::DashUse(const float& aDeltaTime)
 	Tga2D::CEngine::GetInstance()->GetErrorManager().InfoPrint(std::to_string(dash.x).c_str());
 	myCalculatedDash = { dash.x + myDashSpeed * aDeltaTime, dash.y + myDashSpeed * aDeltaTime };
 
-	myPhysics->SetVelocity({ 0.f, 0.f });
+	//myPhysics->SetVelocity({ 0.f, 0.f });
 	myVelocityMovement = true;
 	myDashAbilityActive = {};
 	myFreezingTime = {};
