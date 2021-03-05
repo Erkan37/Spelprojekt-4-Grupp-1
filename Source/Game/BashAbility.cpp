@@ -6,7 +6,7 @@
 #include "LevelScene.h"
 
 
-BashAbility::BashAbility(LevelScene* aLevelScene) 
+BashAbility::BashAbility(LevelScene* aLevelScene)
 	:
 	GameObject(aLevelScene)
 {
@@ -33,7 +33,6 @@ void BashAbility::Init()
 	myDashTimer = 0.5f;
 	myDelayTimer = 0.3f;
 	myRadiusFromDash = true;
-	myVelocityMovement = false;
 	myDashSpeed = 1000.f;
 	myAspectRatioFactorY = Tga2D::CEngine::GetInstance()->GetWindowSize().x / Tga2D::CEngine::GetInstance()->GetWindowSize().y;
 }
@@ -50,6 +49,10 @@ void BashAbility::Update(const float& aDeltaTime)
 	UpdateBashVelocity(aDeltaTime);
 
 	CheckButtonPress();
+
+#ifdef _DEBUG
+	ImGuiUpdate();
+#endif //DEBUG
 }
 
 void BashAbility::UpdateBashVelocity(const float& aDeltaTime)
@@ -102,6 +105,15 @@ void BashAbility::AddTimer(Utils::Timer* aTimer)
 	myTimerInput = aTimer;
 }
 
+void BashAbility::ImGuiUpdate()
+{
+	ImGui::Begin("Dash", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
+
+	ImGui::SliderFloat("Dash Distance X: ", &myDashSpeed, 0.0f, 3000.0f);
+
+	ImGui::End();
+}
+
 bool BashAbility::FreezeTime()
 {
 	myTimerInput->SetFreezeTime(myFreezingTime);
@@ -119,7 +131,6 @@ void BashAbility::DashUse(const float& aDeltaTime)
 	myPlayer->ReactivateDoubleJump();
 	ResetVelocity();
 
-	//myPhysics->SetVelocity({ 0.f, 0.f });
 	myVelocityMovement = true;
 	myDashAbilityActive = {};
 	myFreezingTime = {};
@@ -136,23 +147,6 @@ void BashAbility::UseBashAbility(const float& aDeltaTime)
 	FreezeTime();
 }
 
-//void BashAbility::DashMovement(const float& adeltaTime)
-//{
-//	if (myDashTimer > myTimer)
-//	{
-//		myCalculatedDash.x = Utils::Lerp(myCalculatedDash.x, 0.f, myAcceleration * adeltaTime);
-//		myCalculatedDash.y = Utils::Lerp(myCalculatedDash.y, 0.f, myAcceleration * adeltaTime);
-//
-//		Tga2D::CEngine::GetInstance()->GetErrorManager().InfoPrint(std::to_string(myCalculatedDash.x).c_str());
-//
-//		myPhysics->SetDashVelocity(myCalculatedDash);
-//	}
-//	else
-//	{
-//		myPhysics->SetDashVelocity({ 0.f, 0.f });
-//		myVelocityMovement = false;
-//	}
-//}
 
 void BashAbility::CheckButtonPress()
 {

@@ -9,7 +9,6 @@ namespace Utils
 class LevelScene;
 class InputWrapper;
 class Player;
-class PhysicsComponent;
 
 class BashAbility : public GameObject
 {
@@ -30,6 +29,8 @@ public:
 	void AddPlayerRelation(Player* aPlayer);
 	void AddInputWrapper(const std::shared_ptr<InputWrapper> aInputWrapper);
 	void AddTimer(Utils::Timer* aTimer);
+
+	void ImGuiUpdate();
 
 private:
 	std::shared_ptr<InputWrapper> myInput;
@@ -58,7 +59,6 @@ private:
 	bool FreezeTime();
 	void DashUse(const float& aDeltaTime);
 	void UseBashAbility(const float& aDeltaTime);
-	//void DashMovement(const float& adeltaTime);
 	void CheckButtonPress();
 
 };
