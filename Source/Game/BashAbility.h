@@ -22,13 +22,14 @@ public:
 	void Update(const float& aDeltaTime);
 	void Render();
 
-	void AddPlayerPhysics(const std::shared_ptr<PhysicsComponent> somePhysics);
+	void AddPlayerPhysics(PhysicsComponent* somePhysics);
 	void AddInputWrapper(const std::shared_ptr<InputWrapper> aInputWrapper);
 	void AddTimer(Utils::Timer* aTimer);
 
 private:
-	std::shared_ptr<PhysicsComponent> myPhysics;
 	std::shared_ptr<InputWrapper> myInput;
+	
+	PhysicsComponent* myPhysics;
 	Utils::Timer* myTimerInput;
 
 	bool myFreezingTime;

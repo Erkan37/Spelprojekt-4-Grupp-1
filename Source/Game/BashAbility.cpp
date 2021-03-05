@@ -57,7 +57,7 @@ void BashAbility::Render()
 {
 }
 
-void BashAbility::AddPlayerPhysics(std::shared_ptr<PhysicsComponent> somePhysics)
+void BashAbility::AddPlayerPhysics(PhysicsComponent* somePhysics)
 {
 	myPhysics = somePhysics;
 }

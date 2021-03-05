@@ -48,6 +48,12 @@ Player::Player(LevelScene* aLevelScene)
 
 	myCanJumpWhenFalling = false;
 	myWillJumpWhenFalling = false;
+
+	myBashAbility = std::make_unique<BashAbility>(aLevelScene);
+	myBashAbility->Init();
+	myBashAbility->AddInputWrapper(world->Input());
+	myBashAbility->AddPlayerPhysics(GetComponent<PhysicsComponent>());
+	myBashAbility->AddTimer(world->GetTimer());
 }
 
 void Player::InitAnimations()
@@ -96,6 +102,7 @@ Player::~Player()
 
 void Player::Update(const float& aDeltaTime)
 {
+	myBashAbility->Update(aDeltaTime);
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 
 	if (physics)
