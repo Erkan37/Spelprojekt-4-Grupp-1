@@ -41,6 +41,8 @@ void BashAbility::Update(const float& aDeltaTime)
 {
 	myTimer += aDeltaTime;
 
+	myVelocityMovement = false;
+
 	if (myDashAbilityActive && myTimer > myDelayTimer)
 	{
 		UseBashAbility(aDeltaTime);
