@@ -26,7 +26,7 @@ public:
 
 	void UpdateCoyoteTime(const float& aDeltaTime);
 
-	void TryLetJumpWhenLanding(const float& aYDistance);
+	void TryLetJumpWhenFalling(const float& aYDistance);
 
 	void CheckMove(const float& aDeltaTime);
 
@@ -39,6 +39,8 @@ public:
 	void Landed(const int& aOverlapY) override;
 
 	void AnimationState();
+
+	void ImGuiUpdate();
 
 private:
 	Animation myAnimations[3];
@@ -56,14 +58,14 @@ private:
 	float myJumpVelocity;
 	float myDoubleJumpVelocity;
 
-	float myJumpWhenLandingTime;
+	float myJumpWhenFallingTime;
 
 	int myCurrentAnimationIndex;
 
 	bool myHasLanded;
 	bool myHasDoubleJumped;
 
-	bool myCanJumpWhenLanding;
-	bool myWillJumpWhenLanding;
+	bool myCanJumpWhenFalling;
+	bool myWillJumpWhenFalling;
 };
 

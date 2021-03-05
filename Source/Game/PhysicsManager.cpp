@@ -92,8 +92,8 @@ void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObje
 				if (obj1min.x + xInsensitivity < obj2max.x && obj1max.x - xInsensitivity > obj2min.x)
 				{
 					const float yDifference = obj2min.y - obj1max.y;
-					TryLetJumpWhenLanding(object1, yDifference);
-					TryLetJumpWhenLanding(object2, yDifference);
+					TryLetJumpWhenFalling(object1, yDifference);
+					TryLetJumpWhenFalling(object2, yDifference);
 				}
 
 				if (xAxisOverlap && yAxisOverlap)
@@ -153,11 +153,11 @@ void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObje
 	}
 }
 
-const void PhysicsManager::TryLetJumpWhenLanding(GameObject* aObject, const float& aYDistance)
+const void PhysicsManager::TryLetJumpWhenFalling(GameObject* aObject, const float& aYDistance)
 {
 	Player* player = dynamic_cast<Player*>(aObject);
 	if (player)
 	{
-		player->TryLetJumpWhenLanding(aYDistance);
+		player->TryLetJumpWhenFalling(aYDistance);
 	}
 }

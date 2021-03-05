@@ -33,20 +33,21 @@ Player::Player(LevelScene* aLevelScene)
 	myAcceleration = 6.0f;
 	myRetardation = 20.0f;
 
-	myHasLanded = true;
-	myHasDoubleJumped = false;
-
 	myAirCoyoteTime = 0.1f;
 	myAirCoyoteTimer = myAirCoyoteTime;
 
 	myJumpVelocity = 600.0f;
 	myDoubleJumpVelocity = 600.0f;
 
+	myJumpWhenFallingTime = 0.075f;
+
 	myCurrentAnimationIndex = 0;
 
-	myCanJumpWhenLanding = false;
-	myWillJumpWhenLanding = false;
-	myJumpWhenLandingTime = 0.075f;
+	myHasLanded = true;
+	myHasDoubleJumped = false;
+
+	myCanJumpWhenFalling = false;
+	myWillJumpWhenFalling = false;
 }
 
 void Player::InitAnimations()
@@ -106,15 +107,20 @@ void Player::Update(const float& aDeltaTime)
 
 	AnimationState();
 	GameObject::Update(aDeltaTime);
+
+
+#ifdef _DEBUG
+	ImGuiUpdate();
+#endif //DEBUG
 }
 
 void Player::CheckJump()
 {
 	if (myInputHandler->IsJumping())
 	{
-		if (myCanJumpWhenLanding && !myHasLanded && GetComponent<PhysicsComponent>()->GetVelocityY() >= 0.0f)
+		if (myCanJumpWhenFalling && !myHasLanded && GetComponent<PhysicsComponent>()->GetVelocityY() >= 0.0f)
 		{
-			myWillJumpWhenLanding = true;
+			myWillJumpWhenFalling = true;
 		}
 
 		if (myHasLanded && (GetComponent<PhysicsComponent>()->GetVelocityY() == 0.0f || myAirCoyoteTimer > 0))
@@ -136,16 +142,16 @@ void Player::UpdateCoyoteTime(const float& aDeltaTime)
 	}
 }
 
-void Player::TryLetJumpWhenLanding(const float& aYDistance)
+void Player::TryLetJumpWhenFalling(const float& aYDistance)
 {
-	const float distancePerJumpWhenLandingTime = GetComponent<PhysicsComponent>()->GetVelocityY() * myJumpWhenLandingTime;
+	const float distancePerJumpWhenLandingTime = GetComponent<PhysicsComponent>()->GetVelocityY() * myJumpWhenFallingTime;
 	if (aYDistance < distancePerJumpWhenLandingTime && aYDistance > 0)
 	{
-		myCanJumpWhenLanding = true;		
+		myCanJumpWhenFalling = true;		
 	}
 	else
 	{
-		myCanJumpWhenLanding = false;
+		myCanJumpWhenFalling = false;
 	}
 }
 
@@ -187,7 +193,7 @@ void Player::Jump()
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
 	myCurrentAnimationIndex = 2;
 	myHasLanded = false;
-	myWillJumpWhenLanding = false;
+	myWillJumpWhenFalling = false;
 }
 
 void Player::DoubleJump()
@@ -196,7 +202,7 @@ void Player::DoubleJump()
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
 	myCurrentAnimationIndex = 2;
 	myHasDoubleJumped = true;
-	myWillJumpWhenLanding = false;
+	myWillJumpWhenFalling = false;
 }
 
 void Player::Landed(const int& aOverlapY)
@@ -207,7 +213,7 @@ void Player::Landed(const int& aOverlapY)
 		myHasLanded = true;
 		myHasDoubleJumped = false;
 
-		if (myWillJumpWhenLanding)
+		if (myWillJumpWhenFalling)
 		{
 			Jump();
 		}
@@ -227,4 +233,19 @@ void Player::AnimationState()
 		animation->SetAnimation(&myAnimations[1]);
 		myCurrentAnimationIndex = 1;
 	}
+}
+
+void Player::ImGuiUpdate()
+{
+	ImGui::Begin("Player", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
+
+	ImGui::SliderFloat("Max Speed", &myMaxSpeed, 0.0f, 2000.0f);
+	ImGui::SliderFloat("Acceleration", &myAcceleration, 0.0f, 100.0f);
+	ImGui::SliderFloat("Retardation", &myRetardation, 0.0f, 100.0f);
+	ImGui::SliderFloat("Coyote Time", &myAirCoyoteTime, 0.0f, 1.0f);
+	ImGui::SliderFloat("Jump Velocity", &myJumpVelocity, 0.0f, 2000.0f);
+	ImGui::SliderFloat("Double Jump Velocity", &myDoubleJumpVelocity, 0.0f, 2000.0f);
+	ImGui::SliderFloat("Jump When Falling Time", &myJumpWhenFallingTime, 0.0f, 1.0f);
+
+	ImGui::End();
 }

@@ -21,7 +21,7 @@ public:
 	void PhysicsUpdate(const float& aDeltaTime, std::vector<GameObject*>& gameObjects);
 	static constexpr float ourGravity = 1200.0f;
 
-	const void TryLetJumpWhenLanding(GameObject* aObject, const float& aYDistance);
+	const void TryLetJumpWhenFalling(GameObject* aObject, const float& aYDistance);
 
 private:
 	std::vector<ColliderComponent*> myColliders;
