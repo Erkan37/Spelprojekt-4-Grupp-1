@@ -45,16 +45,24 @@ void BashAbility::Update(const float& aDeltaTime)
 	{
 		UseBashAbility(aDeltaTime);
 	}
-	if (myVelocityMovement)
+	/*if (myVelocityMovement)
 	{
 		DashMovement(aDeltaTime);
-	}
+	}*/
 
 	CheckButtonPress();
 }
 
 void BashAbility::Render()
 {
+}
+
+v2f BashAbility::GetVelocity()
+{
+	if (myVelocityMovement)
+		return myCalculatedDash;
+	else
+		return v2f(0.f, 0.f);
 }
 
 void BashAbility::AddPlayerPhysics(PhysicsComponent* somePhysics)
@@ -100,21 +108,23 @@ void BashAbility::UseBashAbility(const float& aDeltaTime)
 	FreezeTime();
 }
 
-void BashAbility::DashMovement(const float& adeltaTime)
-{
-	if (myDashTimer > myTimer)
-	{
-		myCalculatedDash.x = Utils::Lerp(myCalculatedDash.x, 0.f, myAcceleration * adeltaTime);
-		myCalculatedDash.y = Utils::Lerp(myCalculatedDash.y, 0.f, myAcceleration * adeltaTime);
-
-		myPhysics->SetDashVelocity(myCalculatedDash);
-	}
-	else
-	{
-		myPhysics->SetDashVelocity({ 0.f, 0.f });
-		myVelocityMovement = false;
-	}
-}
+//void BashAbility::DashMovement(const float& adeltaTime)
+//{
+//	if (myDashTimer > myTimer)
+//	{
+//		myCalculatedDash.x = Utils::Lerp(myCalculatedDash.x, 0.f, myAcceleration * adeltaTime);
+//		myCalculatedDash.y = Utils::Lerp(myCalculatedDash.y, 0.f, myAcceleration * adeltaTime);
+//
+//		Tga2D::CEngine::GetInstance()->GetErrorManager().InfoPrint(std::to_string(myCalculatedDash.x).c_str());
+//
+//		myPhysics->SetDashVelocity(myCalculatedDash);
+//	}
+//	else
+//	{
+//		myPhysics->SetDashVelocity({ 0.f, 0.f });
+//		myVelocityMovement = false;
+//	}
+//}
 
 void BashAbility::CheckButtonPress()
 {

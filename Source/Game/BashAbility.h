@@ -22,6 +22,8 @@ public:
 	void Update(const float& aDeltaTime);
 	void Render();
 
+	v2f GetVelocity();
+
 	void AddPlayerPhysics(PhysicsComponent* somePhysics);
 	void AddInputWrapper(const std::shared_ptr<InputWrapper> aInputWrapper);
 	void AddTimer(Utils::Timer* aTimer);
@@ -50,7 +52,7 @@ private:
 	bool FreezeTime();
 	void DashUse(const float& aDeltaTime);
 	void UseBashAbility(const float& aDeltaTime);
-	void DashMovement(const float& adeltaTime);
+	//void DashMovement(const float& adeltaTime);
 	void CheckButtonPress();
 
 };
