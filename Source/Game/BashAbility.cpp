@@ -112,7 +112,7 @@ void BashAbility::DashUse(const float& aDeltaTime)
 {
 	v2f leftStickPosition = myInput->GetLeftStickMovement();
 	v2f dash = { leftStickPosition.x, leftStickPosition.y };
-	Tga2D::CEngine::GetInstance()->GetErrorManager().InfoPrint(std::to_string(dash.x).c_str());
+	//Tga2D::CEngine::GetInstance()->GetErrorManager().InfoPrint(std::to_string(dash.x).c_str());
 	myDashDirection = dash.GetNormalized();
 
 	myPlayer->ResetVelocity();
