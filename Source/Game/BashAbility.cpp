@@ -12,7 +12,6 @@ BashAbility::BashAbility(LevelScene* aLevelScene)
 {
 	myDashAbilityActive = {};
 	myDashSpeed = {};
-	myDashDistance = {};
 	myRadiusFromDash = {};
 	myButtonHold = {};
 	myDelayTimer = {};
@@ -29,30 +28,48 @@ BashAbility::~BashAbility()
 
 void BashAbility::Init()
 {
-	myAcceleration = 0.2f;
+	myAcceleration = 10.0f;
+	myRetardation = 3.0f;
 	myDashTimer = 0.5f;
 	myDelayTimer = 0.3f;
 	myRadiusFromDash = true;
-	myDashSpeed = 1.f;
-	myDashDistance = { 2000.f, 2000.f };
+	myVelocityMovement = false;
+	myDashSpeed = 1000.f;
+	myAspectRatioFactorY = Tga2D::CEngine::GetInstance()->GetWindowSize().x / Tga2D::CEngine::GetInstance()->GetWindowSize().y;
 }
 
 void BashAbility::Update(const float& aDeltaTime)
 {
 	myTimer += aDeltaTime;
 
-	myVelocityMovement = false;
-
-	if (myDashAbilityActive && myTimer > myDelayTimer)
+	if (myDashAbilityActive)
 	{
 		UseBashAbility(aDeltaTime);
 	}
-	/*if (myVelocityMovement)
-	{
-		DashMovement(aDeltaTime);
-	}*/
+
+	UpdateBashVelocity(aDeltaTime);
 
 	CheckButtonPress();
+}
+
+void BashAbility::UpdateBashVelocity(const float& aDeltaTime)
+{
+	if (myVelocityMovement)
+	{
+		myCurrentDashVelocity.x = Utils::Lerp(myCurrentDashVelocity.x, myDashDirection.x * myDashSpeed, myAcceleration * aDeltaTime);
+		myCurrentDashVelocity.y = Utils::Lerp(myCurrentDashVelocity.y, myDashDirection.y * myDashSpeed, myAcceleration * aDeltaTime) * myAspectRatioFactorY;
+
+		if (Utils::Abs(myCurrentDashVelocity.x) + 1.0f >= Utils::Abs(myDashDirection.x * myDashSpeed) || (Utils::Abs(myCurrentDashVelocity.y) + 1.0f) * myAspectRatioFactorY >= Utils::Abs(myDashDirection.y * myDashSpeed) * myAspectRatioFactorY)
+		{
+			myVelocityMovement = false;
+			std::cout << "Bash reached max velocity!\n";
+		}
+	}
+	else
+	{
+		myCurrentDashVelocity.x = Utils::Lerp(myCurrentDashVelocity.x, 0.0f, myRetardation * aDeltaTime);
+		myCurrentDashVelocity.y = Utils::Lerp(myCurrentDashVelocity.y, 0.0f, myRetardation * aDeltaTime);
+	}
 }
 
 void BashAbility::Render()
@@ -61,15 +78,25 @@ void BashAbility::Render()
 
 v2f BashAbility::GetVelocity()
 {
-	if (myVelocityMovement)
-		return myCalculatedDash;
-	else
-		return v2f(0.f, 0.f);
+	return myCurrentDashVelocity;
 }
 
-void BashAbility::AddPlayerPhysics(PhysicsComponent* somePhysics)
+void BashAbility::ResetVelocity(const bool aResetX, const bool aResetY)
 {
-	myPhysics = somePhysics;
+	if (aResetX)
+	{
+		myCurrentDashVelocity.x = 0;
+	}
+
+	if (aResetY)
+	{
+		myCurrentDashVelocity.y = 0;
+	}
+}
+
+void BashAbility::AddPlayerRelation(Player* aPlayer)
+{
+	myPlayer = aPlayer;
 }
 
 void BashAbility::AddInputWrapper(const std::shared_ptr<InputWrapper> aInputWrapper)
@@ -91,9 +118,11 @@ bool BashAbility::FreezeTime()
 void BashAbility::DashUse(const float& aDeltaTime)
 {
 	v2f leftStickPosition = myInput->GetLeftStickMovement();
-	v2f dash = { leftStickPosition.x * myDashDistance.x, leftStickPosition.y * myDashDistance.y };
+	v2f dash = { leftStickPosition.x, leftStickPosition.y };
 	Tga2D::CEngine::GetInstance()->GetErrorManager().InfoPrint(std::to_string(dash.x).c_str());
-	myCalculatedDash = { dash.x + myDashSpeed * aDeltaTime, dash.y + myDashSpeed * aDeltaTime };
+	myDashDirection = dash.GetNormalized();
+
+	myPlayer->ResetVelocity();
 
 	//myPhysics->SetVelocity({ 0.f, 0.f });
 	myVelocityMovement = true;
@@ -105,7 +134,9 @@ void BashAbility::DashUse(const float& aDeltaTime)
 void BashAbility::UseBashAbility(const float& aDeltaTime)
 {
 	if (myButtonHold == false)
+	{
 		DashUse(aDeltaTime);
+	}
 
 	FreezeTime();
 }

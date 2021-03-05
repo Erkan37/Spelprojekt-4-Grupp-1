@@ -20,18 +20,21 @@ public:
 	void Init();
 
 	void Update(const float& aDeltaTime);
+	void UpdateBashVelocity(const float& aDeltaTime);
 	void Render();
 
 	v2f GetVelocity();
 
-	void AddPlayerPhysics(PhysicsComponent* somePhysics);
+	void ResetVelocity(const bool aResetX, const bool aResetY);
+
+	void AddPlayerRelation(Player* aPlayer);
 	void AddInputWrapper(const std::shared_ptr<InputWrapper> aInputWrapper);
 	void AddTimer(Utils::Timer* aTimer);
 
 private:
 	std::shared_ptr<InputWrapper> myInput;
 	
-	PhysicsComponent* myPhysics;
+	Player* myPlayer;
 	Utils::Timer* myTimerInput;
 
 	bool myFreezingTime;
@@ -45,9 +48,12 @@ private:
 	float myDelayTimer;
 	float myDashSpeed;
 	float myAcceleration;
+	float myRetardation;
 
-	v2f myCalculatedDash;
-	v2f myDashDistance;
+	float myAspectRatioFactorY;
+
+	v2f myDashDirection;
+	v2f myCurrentDashVelocity;
 
 	bool FreezeTime();
 	void DashUse(const float& aDeltaTime);

@@ -38,6 +38,9 @@ public:
 	void DoubleJump();
 
 	void Landed(const int& aOverlapY) override;
+	void SideCollision(const int& aOverlapX) override;
+
+	void ResetVelocity();
 
 	void AnimationState();
 

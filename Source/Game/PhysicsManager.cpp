@@ -164,6 +164,9 @@ void PhysicsManager::OverlapCalculation(GameObject* aObj1, GameObject* aObj2, Ph
 			aObj2->SetPositionX(aObj2->GetPositionX() + overlapX);
 			aObj2Physics->SetVelocityX(0.0f);
 		}
+
+		aObj1->SideCollision(overlapX1);
+		aObj2->SideCollision(overlapX2);
 	}
 }
 

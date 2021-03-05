@@ -40,6 +40,7 @@ public:
 	GameObject& SetPivot(const v2f& aPivot);
 
 	virtual void Landed(const int& aOverlapY) { aOverlapY; }
+	virtual void SideCollision(const int& aOverlapX) { aOverlapX; }
 
 	virtual GameObject& Destroy();
 

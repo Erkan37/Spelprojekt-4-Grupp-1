@@ -52,7 +52,7 @@ Player::Player(LevelScene* aLevelScene)
 	myBashAbility = std::make_unique<BashAbility>(aLevelScene);
 	myBashAbility->Init();
 	myBashAbility->AddInputWrapper(world->Input());
-	myBashAbility->AddPlayerPhysics(GetComponent<PhysicsComponent>());
+	myBashAbility->AddPlayerRelation(this);
 	myBashAbility->AddTimer(world->GetTimer());
 }
 
@@ -224,6 +224,21 @@ void Player::Landed(const int& aOverlapY)
 			Jump();
 		}
 	}
+
+	myCurrentVelocity.y = 0.0f;
+	myBashAbility->ResetVelocity(false, true);
+}
+
+void Player::SideCollision(const int& aOverlapX)
+{
+	myCurrentVelocity.x = 0.0f;
+	myBashAbility->ResetVelocity(true, false);
+}
+
+void Player::ResetVelocity()
+{
+	myCurrentVelocity.x = 0;
+	myCurrentVelocity.y = 0;
 }
 
 void Player::AnimationState()
@@ -247,7 +262,7 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 	myCurrentVelocity.y += PhysicsManager::ourGravity * aDeltaTime;
 	
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
-	physics->SetVelocity(myCurrentVelocity);
+	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity());
 }
 
 void Player::ImGuiUpdate()
