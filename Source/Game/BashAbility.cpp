@@ -62,7 +62,7 @@ void BashAbility::UpdateBashVelocity(const float& aDeltaTime)
 		myCurrentDashVelocity.x = Utils::Lerp(myCurrentDashVelocity.x, myDashDirection.x * myDashSpeed, myAcceleration * aDeltaTime);
 		myCurrentDashVelocity.y = Utils::Lerp(myCurrentDashVelocity.y, myDashDirection.y * myDashSpeed, myAcceleration * aDeltaTime) * myAspectRatioFactorY;
 
-		if (Utils::Abs(myCurrentDashVelocity.x) + 1.0f >= Utils::Abs(myDashDirection.x * myDashSpeed) || (Utils::Abs(myCurrentDashVelocity.y) + 1.0f) * myAspectRatioFactorY >= Utils::Abs(myDashDirection.y * myDashSpeed) * myAspectRatioFactorY)
+		if (Utils::Abs(myCurrentDashVelocity.x) + 1.0f >= Utils::Abs(myDashDirection.x * myDashSpeed) && (Utils::Abs(myCurrentDashVelocity.y) + 1.0f) * myAspectRatioFactorY >= Utils::Abs(myDashDirection.y * myDashSpeed) * myAspectRatioFactorY)
 		{
 			myVelocityMovement = false;
 		}
