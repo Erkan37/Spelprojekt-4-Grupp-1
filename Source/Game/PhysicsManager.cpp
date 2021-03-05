@@ -35,6 +35,7 @@ void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObje
 			physics->SetVelocityY(physics->GetVelocityY() + ourGravity * aDeltaTime);
 		}
 
+		obj->SetPosition(obj->GetPosition() + (physics->GetDashVelocity() * aDeltaTime));
 		obj->SetPosition(obj->GetPosition() + (physics->GetVelocity() * aDeltaTime));
 	}
 

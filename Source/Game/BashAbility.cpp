@@ -17,6 +17,10 @@ BashAbility::BashAbility(LevelScene* aLevelScene)
 	myButtonHold = {};
 	myDelayTimer = {};
 	myTimer = {};
+	myDashTimer = {};
+	myFreezingTime = {};
+	myVelocityMovement = {};
+	myAcceleration = {};
 }
 
 BashAbility::~BashAbility()
@@ -25,10 +29,12 @@ BashAbility::~BashAbility()
 
 void BashAbility::Init()
 {
+	myAcceleration = 0.2f;
+	myDashTimer = 0.5f;
 	myDelayTimer = 0.3f;
 	myRadiusFromDash = true;
-	myDashSpeed = 50.f;
-	myDashDistance = { 500.f, 500.f };
+	myDashSpeed = 1.f;
+	myDashDistance = { 2000.f, 2000.f };
 }
 
 void BashAbility::Update(const float& aDeltaTime)
@@ -38,6 +44,10 @@ void BashAbility::Update(const float& aDeltaTime)
 	if (myDashAbilityActive && myTimer > myDelayTimer)
 	{
 		UseBashAbility(aDeltaTime);
+	}
+	if (myVelocityMovement)
+	{
+		DashMovement(aDeltaTime);
 	}
 
 	CheckButtonPress();
@@ -57,18 +67,52 @@ void BashAbility::AddInputWrapper(const std::shared_ptr<InputWrapper> aInputWrap
 	myInput = aInputWrapper;
 }
 
+void BashAbility::AddTimer(Utils::Timer* aTimer)
+{
+	myTimerInput = aTimer;
+}
+
+bool BashAbility::FreezeTime()
+{
+	myTimerInput->SetFreezeTime(myFreezingTime);
+	return myFreezingTime;
+}
+
+void BashAbility::DashUse(const float& aDeltaTime)
+{
+	v2f leftStickPosition = myInput->GetLeftStickMovement();
+	v2f dash = { leftStickPosition.x * myDashDistance.x, leftStickPosition.y * myDashDistance.y };
+	Tga2D::CEngine::GetInstance()->GetErrorManager().InfoPrint(std::to_string(dash.x).c_str());
+	myCalculatedDash = { dash.x + myDashSpeed * aDeltaTime, dash.y + myDashSpeed * aDeltaTime };
+
+	myPhysics->SetVelocity({ 0.f, 0.f });
+	myVelocityMovement = true;
+	myDashAbilityActive = {};
+	myFreezingTime = {};
+	myTimer = {};
+}
+
 void BashAbility::UseBashAbility(const float& aDeltaTime)
 {
-	if (myInput->GetLeftPullForce() && myButtonHold == false)
-	{
-		v2f leftStickPosition = myInput->GetLeftStickMovement();
-		v2f dash = { leftStickPosition.x * myDashDistance.x, leftStickPosition.y * myDashDistance.y };
+	if (myButtonHold == false)
+		DashUse(aDeltaTime);
 
-		v2f calculatedDash = { dash.x + myDashSpeed * aDeltaTime, dash.y + myDashSpeed * aDeltaTime };
-		myPhysics->SetVelocity(myPhysics->GetVelocity() + calculatedDash);
-		myButtonHold = true;
-		myDashAbilityActive = false;
-		myTimer = {};
+	FreezeTime();
+}
+
+void BashAbility::DashMovement(const float& adeltaTime)
+{
+	if (myDashTimer > myTimer)
+	{
+		myCalculatedDash.x = Utils::Lerp(myCalculatedDash.x, 0.f, myAcceleration * adeltaTime);
+		myCalculatedDash.y = Utils::Lerp(myCalculatedDash.y, 0.f, myAcceleration * adeltaTime);
+
+		myPhysics->SetDashVelocity(myCalculatedDash);
+	}
+	else
+	{
+		myPhysics->SetDashVelocity({ 0.f, 0.f });
+		myVelocityMovement = false;
 	}
 }
 
@@ -78,6 +122,7 @@ void BashAbility::CheckButtonPress()
 	{
 		myButtonHold = true;
 		myDashAbilityActive = true;
+		myFreezingTime = true;
 	}
 	else
 		myButtonHold = false;

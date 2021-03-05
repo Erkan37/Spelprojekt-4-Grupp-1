@@ -20,11 +20,11 @@ CGameWorld* CGameWorld::ourInstance = nullptr;
 
 CGameWorld::CGameWorld(CGame* aGame)
 	: myGame(aGame)
-	, myTimer(new Utils::Timer())
 	, myDeltaTime(0.0f)
 	, myTotalTime(0.0f)
 	, myLevelScene(LevelScene())
 {
+	myTimer = std::make_unique<Utils::Timer>();
 	myInput = std::make_shared<InputWrapper>();
 	myInput->Init();
 
@@ -36,12 +36,6 @@ CGameWorld::CGameWorld(CGame* aGame)
 
 CGameWorld::~CGameWorld() 
 {
-	if (myTimer)
-	{
-		delete myTimer;
-		myTimer = nullptr;
-	}
-
 	myLevelScene.Unload();
 }
 

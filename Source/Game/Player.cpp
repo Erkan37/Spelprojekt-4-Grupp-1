@@ -46,6 +46,7 @@ Player::Player(LevelScene* aLevelScene)
 	myBashAbility = std::make_unique<BashAbility>(aLevelScene);
 	myBashAbility->AddPlayerPhysics(std::shared_ptr<PhysicsComponent>(GetComponent<PhysicsComponent>()));
 	myBashAbility->AddInputWrapper(myInputHandler);
+	myBashAbility->AddTimer(world->GetTimer());
 }
 
 void Player::InitAnimations()

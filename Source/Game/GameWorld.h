@@ -40,6 +40,10 @@ public:
 	{
 		return myInput;
 	}
+	inline Utils::Timer* GetTimer()
+	{
+		return myTimer.get();
+	}
 	inline CGame* Game()
 	{
 		return myGame;
@@ -47,10 +51,9 @@ public:
 
 private:
 	/*** System ***/
-	Utils::Timer* myTimer;
-	//Utils::Input* myInput;
-	CGame* myGame;
+	std::unique_ptr<Utils::Timer> myTimer;
 	std::shared_ptr<InputWrapper> myInput;
+	CGame* myGame;
 	float myDeltaTime;
 	float myTotalTime;
 

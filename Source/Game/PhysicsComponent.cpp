@@ -42,6 +42,11 @@ const float& PhysicsComponent::GetVelocityY() const
 	return myVelocity.y;
 }
 
+const v2f& PhysicsComponent::GetDashVelocity() const
+{
+	return myDashVelocity;
+}
+
 PhysicsComponent& PhysicsComponent::SetApplyGravity(const bool& aApplyGravity)
 {
 	myApplyGravity = aApplyGravity;
@@ -75,6 +80,13 @@ PhysicsComponent& PhysicsComponent::SetVelocityX(const float& aVelocity)
 PhysicsComponent& PhysicsComponent::SetVelocityY(const float& aVelocity)
 {
 	myVelocity.y = aVelocity;
+
+	return *this;
+}
+
+PhysicsComponent& PhysicsComponent::SetDashVelocity(const v2f& aVelocity)
+{
+	myDashVelocity = aVelocity;
 
 	return *this;
 }

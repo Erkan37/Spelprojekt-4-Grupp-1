@@ -15,7 +15,9 @@ Timer::Timer()
     , myStartTime(myClock.now().time_since_epoch().count())
     , myLastUpdate(myStartTime)
     , myCurrentTime(myStartTime)
-{}
+{
+    myFreezeTime = {};
+}
 
 Timer& Timer::Update()
 {
@@ -27,13 +29,21 @@ Timer& Timer::Update()
 
 const float Timer::GetDeltaTime() const
 {
-    constexpr float maxDeltaTime = 0.20f;
-    return Utils::Min((float)(myCurrentTime - myLastUpdate) * (float)ourInverseNanoSecondsToSeconds, maxDeltaTime);
+    if (myFreezeTime == false)
+    {
+        constexpr float maxDeltaTime = 0.20f;
+        return Utils::Min((float)(myCurrentTime - myLastUpdate) * (float)ourInverseNanoSecondsToSeconds, maxDeltaTime);
+    }
 }
 
 const double Timer::GetTotalTime() const
 {
     return (double)(myCurrentTime - myStartTime) * ourInverseNanoSecondsToSeconds;
+}
+
+const void Timer::SetFreezeTime(const bool aFreezeState)
+{
+    myFreezeTime = aFreezeState;
 }
 
 const std::map<Keys, std::string> Input::ourKeyToString =
