@@ -1,5 +1,5 @@
 /*
-*	Author: Elia Rönning
+*	Author: Elia Rï¿½nning
 */
 
 #include "stdafx.h"
@@ -18,28 +18,9 @@ PhysicsManager::PhysicsManager()
 	: myColliders(std::vector<ColliderComponent*>())
 {}
 
-void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObject*>& gameObjects)
+void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObject*>& aGameObjects)
 {
-	for (GameObject* obj : gameObjects)
-	{
-		if (!obj || !obj->IsActive())
-		{
-			continue;
-		}
-		PhysicsComponent* physics = obj->GetComponent<PhysicsComponent>();
-		if (!physics || physics->GetIsStatic())
-		{
-			continue;
-		}
-
-		if (physics->GetApplyGravity())
-		{
-			physics->SetVelocityY(physics->GetVelocityY() + ourGravity * aDeltaTime);
-		}
-
-		obj->SetPosition(obj->GetPosition() + (physics->GetDashVelocity() * aDeltaTime));
-		obj->SetPosition(obj->GetPosition() + (physics->GetVelocity() * aDeltaTime));
-	}
+	UpdateGravity(aDeltaTime, aGameObjects);
 
 	for (int index = 0U; index < static_cast<int>(myColliders.size()); ++index)
 	{
@@ -78,78 +59,110 @@ void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObje
 					continue;
 				}
 
-				const v2f obj1Size = collider1->GetSize();
-				const v2f obj2Size = collider2->GetSize();
-
-				const v2f obj1min = object1->GetPosition() + collider1->GetPosition() - (obj1Size * .5f);
-				const v2f obj1max = obj1min + obj1Size;
-				const v2f obj2min = object2->GetPosition() + collider2->GetPosition() - (obj2Size * .5f);
-				const v2f obj2max = obj2min + obj2Size;
-
-				const bool xAxisOverlap = obj1min.x <= obj2max.x && obj1max.x >= obj2min.x;
-				const bool yAxisOverlap = obj1min.y <= obj2max.y && obj1max.y >= obj2min.y;
-
-				const float xInsensitivity = 5.0f;
-				if (obj1min.x + xInsensitivity < obj2max.x && obj1max.x - xInsensitivity > obj2min.x)
-				{
-					const float yDifference = obj2min.y - obj1max.y;
-					TryLetJumpWhenFalling(object1, yDifference);
-					TryLetJumpWhenFalling(object2, yDifference);
-				}
-
-				if (xAxisOverlap && yAxisOverlap)
-				{
-					object1->OnCollision(object2);
-					object2->OnCollision(object1);
-
-					if (!object2Physics->GetCanCollide() || !physics->GetCanCollide())
-					{
-						continue;
-					}
-
-					const float overlapX1 = obj1max.x - obj2min.x;
-					const float overlapX2 = obj1min.x - obj2max.x;
-					const float overlapX = Utils::Abs(overlapX1) < Utils::Abs(overlapX2) ? overlapX1 : overlapX2;
-
-					const float overlapY1 = obj1min.y - obj2max.y;
-					const float overlapY2 = obj1max.y - obj2min.y;
-					const float overlapY = Utils::Abs(overlapY1) < Utils::Abs(overlapY2) ? overlapY1 : overlapY2;
-
-					const bool& obj1Static = physics->GetIsStatic();
-					const bool& obj2Static = object2Physics->GetIsStatic();
-
-
-					if (Utils::Abs(overlapX) > Utils::Abs(overlapY))
-					{
-						if (!obj1Static)
-						{
-							object1->SetPositionY(object1->GetPositionY() - overlapY);
-							physics->SetVelocityY(0.0f);
-						}
-						if (!obj2Static)
-						{
-							object2->SetPositionY(object2->GetPositionY() + overlapY);
-							object2Physics->SetVelocityY(0.0f);
-						}
-
-						object1->Landed(overlapY1);
-						object2->Landed(overlapY2);
-					}
-					else
-					{
-						if (!obj1Static)
-						{
-							object1->SetPositionX(object1->GetPositionX() - overlapX);
-							physics->SetVelocityX(0.0f);
-						}
-						if (!obj2Static)
-						{
-							object2->SetPositionX(object2->GetPositionX() + overlapX);
-							object2Physics->SetVelocityX(0.0f);
-						}
-					}
-				}
+				CheckOverlap(object1, object2, physics, object2Physics, collider1, collider2);
 			}
+		}
+	}
+}
+
+void PhysicsManager::UpdateGravity(const float& aDeltaTime, std::vector<GameObject*>& aGameObjects)
+{
+	for (GameObject* obj : aGameObjects)
+	{
+		if (!obj || !obj->IsActive())
+		{
+			continue;
+		}
+		PhysicsComponent* physics = obj->GetComponent<PhysicsComponent>();
+		if (!physics || physics->GetIsStatic())
+		{
+			continue;
+		}
+
+		if (physics->GetApplyGravity())
+		{
+			physics->SetVelocityY(physics->GetVelocityY() + ourGravity * aDeltaTime);
+		}
+
+		obj->SetPosition(obj->GetPosition() + (physics->GetVelocity() * aDeltaTime));
+	}
+}
+
+void PhysicsManager::CheckOverlap(GameObject* aObj1, GameObject* aObj2, PhysicsComponent* aObj1Physics, PhysicsComponent* aObj2Physics, ColliderComponent* aCollider1, ColliderComponent* aCollider2)
+{
+	const v2f obj1Size = aCollider1->GetSize();
+	const v2f obj2Size = aCollider2->GetSize();
+
+	const v2f obj1min = aObj1->GetPosition() + aCollider1->GetPosition() - (obj1Size * .5f);
+	const v2f obj1max = obj1min + obj1Size;
+	const v2f obj2min = aObj2->GetPosition() + aCollider2->GetPosition() - (obj2Size * .5f);
+	const v2f obj2max = obj2min + obj2Size;
+
+	const bool xAxisOverlap = obj1min.x <= obj2max.x && obj1max.x >= obj2min.x;
+	const bool yAxisOverlap = obj1min.y <= obj2max.y && obj1max.y >= obj2min.y;
+
+	const float xInsensitivity = 5.0f;
+	if (obj1min.x + xInsensitivity < obj2max.x && obj1max.x - xInsensitivity > obj2min.x)
+	{
+		const float yDifference = obj2min.y - obj1max.y;
+		TryLetJumpWhenFalling(aObj1, yDifference);
+		TryLetJumpWhenFalling(aObj2, yDifference);
+	}
+
+	if (xAxisOverlap && yAxisOverlap)
+	{
+		aObj1->OnCollision(aObj2);
+		aObj2->OnCollision(aObj1);
+		OverlapCalculation(aObj1, aObj2, aObj1Physics, aObj2Physics, obj1min, obj1max, obj2min, obj2max);
+	}
+}
+
+void PhysicsManager::OverlapCalculation(GameObject* aObj1, GameObject* aObj2, PhysicsComponent* aObj1Physics, PhysicsComponent* aObj2Physics, const v2f& aObj1Min, const v2f& aObj1Max, const v2f& aObj2Min, const v2f& aObj2Max)
+{
+	if (!aObj2Physics->GetCanCollide() || !aObj1Physics->GetCanCollide())
+	{
+		return;
+	}
+
+	const float overlapX1 = aObj1Max.x - aObj2Min.x;
+	const float overlapX2 = aObj1Min.x - aObj2Max.x;
+	const float overlapX = Utils::Abs(overlapX1) < Utils::Abs(overlapX2) ? overlapX1 : overlapX2;
+
+	const float overlapY1 = aObj1Min.y - aObj2Max.y;
+	const float overlapY2 = aObj1Max.y - aObj2Min.y;
+	const float overlapY = Utils::Abs(overlapY1) < Utils::Abs(overlapY2) ? overlapY1 : overlapY2;
+
+	const bool& obj1Static = aObj1Physics->GetIsStatic();
+	const bool& obj2Static = aObj2Physics->GetIsStatic();
+
+
+	if (Utils::Abs(overlapX) > Utils::Abs(overlapY))
+	{
+		if (!obj1Static)
+		{
+			aObj1->SetPositionY(aObj1->GetPositionY() - overlapY);
+			aObj1Physics->SetVelocityY(0.0f);
+		}
+		if (!obj2Static)
+		{
+			aObj2->SetPositionY(aObj2->GetPositionY() + overlapY);
+			aObj2Physics->SetVelocityY(0.0f);
+		}
+
+		aObj1->Landed(overlapY1);
+		aObj2->Landed(overlapY2);
+	}
+	else
+	{
+		if (!obj1Static)
+		{
+			aObj1->SetPositionX(aObj1->GetPositionX() - overlapX);
+			aObj1Physics->SetVelocityX(0.0f);
+		}
+		if (!obj2Static)
+		{
+			aObj2->SetPositionX(aObj2->GetPositionX() + overlapX);
+			aObj2Physics->SetVelocityX(0.0f);
 		}
 	}
 }
