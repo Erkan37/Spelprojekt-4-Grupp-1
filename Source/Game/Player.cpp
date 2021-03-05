@@ -183,12 +183,22 @@ void Player::CheckMove(const float& aDeltaTime)
 
 void Player::GoRight(const float& aDeltaTime)
 {
+	if (myCurrentVelocity.x < 0)
+	{
+		myCurrentVelocity.x = 0.0f;
+	}
+
 	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, myMaxRunningSpeed, myAcceleration * aDeltaTime);
 	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(70.0f);
 }
 
 void Player::GoLeft(const float& aDeltaTime)
 {
+	if (myCurrentVelocity.x > 0)
+	{
+		myCurrentVelocity.x = 0.0f;
+	}
+
 	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, -myMaxRunningSpeed, myAcceleration * aDeltaTime);
 	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-70.0f);
 }
