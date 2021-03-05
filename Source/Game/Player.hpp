@@ -41,6 +41,8 @@ public:
 
 	void AnimationState();
 
+	void UpdatePlayerVelocity(const float& aDeltaTime);
+
 	void ImGuiUpdate();
 
 private:
@@ -49,10 +51,12 @@ private:
 	std::shared_ptr<InputWrapper> myInputHandler;
 	std::unique_ptr<BashAbility> myBashAbility;
 
+	v2f myCurrentVelocity;
+
 	float myAirCoyoteTime;
 	float myAirCoyoteTimer;
 
-	float myMaxSpeed;
+	float myMaxRunningSpeed;
 
 	float myAcceleration;
 	float myRetardation;

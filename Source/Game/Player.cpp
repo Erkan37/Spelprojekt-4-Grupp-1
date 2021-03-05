@@ -28,7 +28,7 @@ Player::Player(LevelScene* aLevelScene)
 	CGameWorld* world = CGameWorld::GetInstance();
 	myInputHandler = world->Input();
 
-	myMaxSpeed = 400.0f;
+	myMaxRunningSpeed = 400.0f;
 
 	myAcceleration = 6.0f;
 	myRetardation = 20.0f;
@@ -110,6 +110,7 @@ void Player::Update(const float& aDeltaTime)
 		CheckMove(aDeltaTime);
 		CheckJump();
 		UpdateCoyoteTime(aDeltaTime);
+		UpdatePlayerVelocity(aDeltaTime);
 	}
 
 	AnimationState();
@@ -176,27 +177,25 @@ void Player::CheckMove(const float& aDeltaTime)
 	}
 	else
 	{
-		GetComponent<PhysicsComponent>()->SetVelocityX(Utils::Lerp(physics->GetVelocityX(), 0.0f, myRetardation * aDeltaTime));
+		myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, 0.0f, myRetardation * aDeltaTime);
 	}
 }
 
 void Player::GoRight(const float& aDeltaTime)
 {
-	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
-	GetComponent<PhysicsComponent>()->SetVelocityX(Utils::Lerp(physics->GetVelocityX(), myMaxSpeed, myAcceleration * aDeltaTime));
+	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, myMaxRunningSpeed, myAcceleration * aDeltaTime);
 	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(70.0f);
 }
 
 void Player::GoLeft(const float& aDeltaTime)
 {
-	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
-	GetComponent<PhysicsComponent>()->SetVelocityX(Utils::Lerp(physics->GetVelocityX(), -myMaxSpeed, myAcceleration * aDeltaTime));
+	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, -myMaxRunningSpeed, myAcceleration * aDeltaTime);
 	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-70.0f);
 }
 
 void Player::Jump()
 {
-	GetComponent<PhysicsComponent>()->SetVelocityY(-myJumpVelocity);
+	myCurrentVelocity.y = -myJumpVelocity;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
 	myCurrentAnimationIndex = 2;
 	myHasLanded = false;
@@ -205,7 +204,7 @@ void Player::Jump()
 
 void Player::DoubleJump()
 {
-	GetComponent<PhysicsComponent>()->SetVelocityY(-myDoubleJumpVelocity);
+	myCurrentVelocity.y = -myDoubleJumpVelocity;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
 	myCurrentAnimationIndex = 2;
 	myHasDoubleJumped = true;
@@ -230,23 +229,32 @@ void Player::Landed(const int& aOverlapY)
 void Player::AnimationState()
 {
 	AnimationComponent* animation = GetComponent<AnimationComponent>();
-	if (Utils::Abs(GetComponent<PhysicsComponent>()->GetVelocityX()) <= 50.0f && myHasLanded && myCurrentAnimationIndex != 0)
+	if (Utils::Abs(myCurrentVelocity.x) <= 50.0f && myHasLanded && myCurrentAnimationIndex != 0)
 	{
 		animation->SetAnimation(&myAnimations[0]);
 		myCurrentAnimationIndex = 0;
 	}
-	else if (Utils::Abs(GetComponent<PhysicsComponent>()->GetVelocityX()) > 50.0f && myHasLanded && myCurrentAnimationIndex != 1)
+	else if (Utils::Abs(myCurrentVelocity.x) > 50.0f && myHasLanded && myCurrentAnimationIndex != 1)
 	{
 		animation->SetAnimation(&myAnimations[1]);
 		myCurrentAnimationIndex = 1;
 	}
 }
 
+void Player::UpdatePlayerVelocity(const float& aDeltaTime)
+{
+
+	myCurrentVelocity.y += PhysicsManager::ourGravity * aDeltaTime;
+	
+	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
+	physics->SetVelocity(myCurrentVelocity);
+}
+
 void Player::ImGuiUpdate()
 {
 	ImGui::Begin("Player", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
 
-	ImGui::SliderFloat("Max Speed", &myMaxSpeed, 0.0f, 2000.0f);
+	ImGui::SliderFloat("Max Speed", &myMaxRunningSpeed, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Acceleration", &myAcceleration, 0.0f, 100.0f);
 	ImGui::SliderFloat("Retardation", &myRetardation, 0.0f, 100.0f);
 	ImGui::SliderFloat("Coyote Time", &myAirCoyoteTime, 0.0f, 1.0f);
