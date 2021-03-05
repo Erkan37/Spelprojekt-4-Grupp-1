@@ -62,7 +62,6 @@ void BashAbility::UpdateBashVelocity(const float& aDeltaTime)
 		if (Utils::Abs(myCurrentDashVelocity.x) + 1.0f >= Utils::Abs(myDashDirection.x * myDashSpeed) || (Utils::Abs(myCurrentDashVelocity.y) + 1.0f) * myAspectRatioFactorY >= Utils::Abs(myDashDirection.y * myDashSpeed) * myAspectRatioFactorY)
 		{
 			myVelocityMovement = false;
-			std::cout << "Bash reached max velocity!\n";
 		}
 	}
 	else
@@ -81,17 +80,11 @@ v2f BashAbility::GetVelocity()
 	return myCurrentDashVelocity;
 }
 
-void BashAbility::ResetVelocity(const bool aResetX, const bool aResetY)
+void BashAbility::ResetVelocity()
 {
-	if (aResetX)
-	{
-		myCurrentDashVelocity.x = 0;
-	}
-
-	if (aResetY)
-	{
-		myCurrentDashVelocity.y = 0;
-	}
+	myCurrentDashVelocity.x = 0;
+	myCurrentDashVelocity.y = 0;
+	myVelocityMovement = false;
 }
 
 void BashAbility::AddPlayerRelation(Player* aPlayer)

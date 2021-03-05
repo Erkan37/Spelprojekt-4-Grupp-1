@@ -226,13 +226,13 @@ void Player::Landed(const int& aOverlapY)
 	}
 
 	myCurrentVelocity.y = 0.0f;
-	myBashAbility->ResetVelocity(false, true);
+	myBashAbility->ResetVelocity();
 }
 
 void Player::SideCollision(const int& aOverlapX)
 {
 	myCurrentVelocity.x = 0.0f;
-	myBashAbility->ResetVelocity(true, false);
+	myBashAbility->ResetVelocity();
 }
 
 void Player::ResetVelocity()
