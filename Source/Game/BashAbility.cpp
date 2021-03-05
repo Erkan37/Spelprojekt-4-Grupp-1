@@ -83,10 +83,18 @@ v2f BashAbility::GetVelocity()
 	return myCurrentDashVelocity;
 }
 
-void BashAbility::ResetVelocity()
+void BashAbility::ResetVelocity(const bool aResetX, const bool aResetY)
 {
-	myCurrentDashVelocity.x = 0;
-	myCurrentDashVelocity.y = 0;
+	if (aResetX)
+	{
+		myCurrentDashVelocity.x = 0;
+	}
+
+	if (aResetY)
+	{
+		myCurrentDashVelocity.y = 0;
+	}
+	
 	myVelocityMovement = false;
 }
 
@@ -131,7 +139,7 @@ void BashAbility::DashUse(const float& aDeltaTime)
 
 	myPlayer->ResetVelocity();
 	myPlayer->ReactivateDoubleJump();
-	ResetVelocity();
+	ResetVelocity(true, true);
 
 	myVelocityMovement = true;
 	myDashAbilityActive = {};

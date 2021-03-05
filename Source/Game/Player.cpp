@@ -200,6 +200,7 @@ void Player::Jump()
 	myCurrentAnimationIndex = 2;
 	myHasLanded = false;
 	myWillJumpWhenFalling = false;
+	myBashAbility->ResetVelocity(false, true);
 }
 
 void Player::DoubleJump()
@@ -209,6 +210,7 @@ void Player::DoubleJump()
 	myCurrentAnimationIndex = 2;
 	myHasDoubleJumped = true;
 	myWillJumpWhenFalling = false;
+	myBashAbility->ResetVelocity(false, true);
 }
 
 void Player::ReactivateDoubleJump()
@@ -231,13 +233,13 @@ void Player::Landed(const int& aOverlapY)
 	}
 
 	myCurrentVelocity.y = 0.0f;
-	myBashAbility->ResetVelocity();
+	myBashAbility->ResetVelocity(true, true);
 }
 
 void Player::SideCollision(const int& aOverlapX)
 {
 	myCurrentVelocity.x = 0.0f;
-	myBashAbility->ResetVelocity();
+	myBashAbility->ResetVelocity(true, true);
 }
 
 void Player::ResetVelocity()

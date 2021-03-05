@@ -24,7 +24,7 @@ public:
 
 	v2f GetVelocity();
 
-	void ResetVelocity();
+	void ResetVelocity(const bool aResetX, const bool aResetY);
 
 	void AddPlayerRelation(Player* aPlayer);
 	void AddInputWrapper(const std::shared_ptr<InputWrapper> aInputWrapper);
