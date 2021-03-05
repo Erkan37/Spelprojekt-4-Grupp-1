@@ -68,9 +68,9 @@ void Renderer::Render()
 	}
 
 	buffer.clear();
-	++myCounter;
 
-	while (myCounter > myLogicCounter);
+	++myCounter;
+	//while (myCounter > myLogicCounter);
 }
 
 void Renderer::PushRenderCommand(const RenderCommand& aRenderCommand)
