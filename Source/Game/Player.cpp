@@ -211,6 +211,11 @@ void Player::DoubleJump()
 	myWillJumpWhenFalling = false;
 }
 
+void Player::ReactivateDoubleJump()
+{
+	myHasDoubleJumped = false;
+}
+
 void Player::Landed(const int& aOverlapY)
 {
 	if (aOverlapY < 0)

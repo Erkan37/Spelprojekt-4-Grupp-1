@@ -116,6 +116,7 @@ void BashAbility::DashUse(const float& aDeltaTime)
 	myDashDirection = dash.GetNormalized();
 
 	myPlayer->ResetVelocity();
+	myPlayer->ReactivateDoubleJump();
 	ResetVelocity();
 
 	//myPhysics->SetVelocity({ 0.f, 0.f });
