@@ -121,6 +121,10 @@
     <ClInclude Include="Platform.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="BashAbility.h" />
+    <ClInclude Include="Ledge.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -182,6 +186,10 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Platform.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="BashAbility.cpp" />
+    <ClCompile Include="Ledge.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
   </ItemGroup>

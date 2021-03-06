@@ -16,6 +16,8 @@
 
 #include "Player.hpp"
 
+#include "Ledge.h"
+
 LevelScene::LevelScene()
 	: 
 	myPlayer(nullptr)
@@ -38,6 +40,18 @@ void LevelScene::Load()
 
 	rapidjson::Document preProdPlatforms;
 	preProdPlatforms.ParseStream(preProdPlatformsStream);
+
+	for (rapidjson::Value::ConstValueIterator itr = preProdPlatforms["Ledges"].Begin(); itr != preProdPlatforms["Ledges"].End(); ++itr)
+	{
+		const float positionX = (*itr)["Position"]["X"].GetFloat();
+		const float positionY = (*itr)["Position"]["Y"].GetFloat();
+
+		const float sizeX = (*itr)["Size"]["X"].GetFloat();
+		const float sizeY = (*itr)["Size"]["Y"].GetFloat();
+
+		Ledge* ledge = new Ledge(this);
+		ledge->Init(v2f(positionX, positionY), v2f(sizeX, sizeY));
+	}
 
 	for (rapidjson::Value::ConstValueIterator itr = preProdPlatforms["Platforms"].Begin(); itr != preProdPlatforms["Platforms"].End(); ++itr)
 	{

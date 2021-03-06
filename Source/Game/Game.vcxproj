@@ -147,6 +147,7 @@
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="InputWrapper.h" />
     <ClInclude Include="Keys.h" />
+    <ClInclude Include="Ledge.h" />
     <ClInclude Include="LevelScene.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="InputWrapper.cpp" />
+    <ClCompile Include="Ledge.cpp" />
     <ClCompile Include="LevelScene.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
