@@ -61,7 +61,7 @@ namespace Utils
         const float GetDeltaTime() const;
         const double GetTotalTime() const;
 
-        const void SetFreezeTime(const bool aFreezeState);
+        void SetTimeScale(const float& aTimeScale);
 
     private:
         static constexpr int ourNanoSecondsToSeconds = 1000000000;
@@ -71,7 +71,7 @@ namespace Utils
         const uint64_t myStartTime;
         uint64_t myLastUpdate;
         uint64_t myCurrentTime;
-        bool myFreezeTime;
+        float myTimeScale;
     };
 
     template<typename T, size_t size, typename counterType = uint16_t, bool safeMode = true>

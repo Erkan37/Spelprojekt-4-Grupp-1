@@ -17,7 +17,7 @@ BashAbility::BashAbility(LevelScene* aLevelScene)
 	myDelayTimer = {};
 	myTimer = {};
 	myDashTimer = {};
-	myFreezingTime = {};
+	myTimeScale = 0.05f;
 	myVelocityMovement = {};
 	myAcceleration = {};
 }
@@ -32,6 +32,7 @@ void BashAbility::Init()
 	myRetardation = 1.0f;
 	myDashTimer = 0.5f;
 	myDelayTimer = 0.3f;
+	myTimeScale = 0.1f;
 	myRadiusFromDash = true;
 	myDashSpeed = 1000.f;
 	myAspectRatioFactorY = Tga2D::CEngine::GetInstance()->GetWindowSize().x / Tga2D::CEngine::GetInstance()->GetWindowSize().y;
@@ -124,10 +125,9 @@ void BashAbility::ImGuiUpdate()
 	ImGui::End();
 }
 
-bool BashAbility::FreezeTime()
+void BashAbility::FreezeTime()
 {
-	myTimerInput->SetFreezeTime(myFreezingTime);
-	return myFreezingTime;
+	myTimerInput->SetTimeScale(myTimeScale);
 }
 
 void BashAbility::DashUse(const float& aDeltaTime)
@@ -143,7 +143,7 @@ void BashAbility::DashUse(const float& aDeltaTime)
 
 	myVelocityMovement = true;
 	myDashAbilityActive = {};
-	myFreezingTime = {};
+	myTimerInput->SetTimeScale(1.0f);
 	myTimer = {};
 }
 
@@ -153,8 +153,6 @@ void BashAbility::UseBashAbility(const float& aDeltaTime)
 	{
 		DashUse(aDeltaTime);
 	}
-
-	FreezeTime();
 }
 
 
@@ -164,7 +162,7 @@ void BashAbility::CheckButtonPress()
 	{
 		myButtonHold = true;
 		myDashAbilityActive = true;
-		myFreezingTime = true;
+		FreezeTime();
 	}
 	else
 		myButtonHold = false;

@@ -38,7 +38,7 @@ private:
 	Player* myPlayer;
 	Utils::Timer* myTimerInput;
 
-	bool myFreezingTime;
+	float myTimeScale;
 	bool myDashAbilityActive;
 	bool myButtonHold;
 	bool myRadiusFromDash;
@@ -56,7 +56,7 @@ private:
 	v2f myDashDirection;
 	v2f myCurrentDashVelocity;
 
-	bool FreezeTime();
+	void FreezeTime();
 	void DashUse(const float& aDeltaTime);
 	void UseBashAbility(const float& aDeltaTime);
 	void CheckButtonPress();
