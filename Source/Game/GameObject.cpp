@@ -125,6 +125,16 @@ GameObject& GameObject::SetPivot(const v2f& aPivot)
 	return *this;
 }
 
+void GameObject::SetIsLedge(const bool aIsLedge)
+{
+	myIsLedge = aIsLedge;
+}
+
+const bool GameObject::GetIsLedge()
+{
+	return myIsLedge;
+}
+
 GameObject& GameObject::Destroy()
 {
 	myTransform.myShouldBeDestroyed = true;

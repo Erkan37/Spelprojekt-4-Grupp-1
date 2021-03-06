@@ -42,6 +42,9 @@ public:
 	virtual void Landed(const int& aOverlapY) { aOverlapY; }
 	virtual void SideCollision(const int& aOverlapX) { aOverlapX; }
 
+	void SetIsLedge(const bool aIsLedge);
+	const bool GetIsLedge();
+
 	virtual GameObject& Destroy();
 
 	/* Other Setters & Getters */
@@ -84,4 +87,5 @@ protected:
 
 	Scene* myScene;
 	bool myIsActive; 
+	bool myIsLedge;
 };

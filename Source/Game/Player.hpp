@@ -48,6 +48,8 @@ public:
 
 	void UpdatePlayerVelocity(const float& aDeltaTime);
 
+	void OnCollision(GameObject* anObject) override;
+
 	void ImGuiUpdate();
 
 private:
@@ -78,5 +80,7 @@ private:
 
 	bool myCanJumpWhenFalling;
 	bool myWillJumpWhenFalling;
+
+	bool myTouchedLedge;
 };
 

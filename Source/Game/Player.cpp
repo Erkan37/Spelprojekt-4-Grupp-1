@@ -49,6 +49,8 @@ Player::Player(LevelScene* aLevelScene)
 	myCanJumpWhenFalling = false;
 	myWillJumpWhenFalling = false;
 
+	myTouchedLedge = false;
+
 	myBashAbility = std::make_unique<BashAbility>(aLevelScene);
 	myBashAbility->Init();
 	myBashAbility->AddInputWrapper(world->Input());
@@ -111,6 +113,7 @@ void Player::Update(const float& aDeltaTime)
 		CheckJump();
 		UpdateCoyoteTime(aDeltaTime);
 		UpdatePlayerVelocity(aDeltaTime);
+		myTouchedLedge = false;
 	}
 
 	AnimationState();
@@ -135,7 +138,7 @@ void Player::CheckJump()
 		{
 			Jump();
 		}
-		else if (!myHasDoubleJumped)
+		else if (!myHasDoubleJumped || myTouchedLedge)
 		{
 			DoubleJump();
 		}
@@ -282,6 +285,14 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 	
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity());
+}
+
+void Player::OnCollision(GameObject* anObject)
+{
+	if (anObject->GetIsLedge())
+	{
+		myTouchedLedge = true;
+	}
 }
 
 void Player::ImGuiUpdate()
