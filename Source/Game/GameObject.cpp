@@ -11,6 +11,7 @@
 
 GameObject::GameObject(Scene* aScene)
 	: myIsActive(false)
+	, myZIndex(0)
 	, myScene(aScene)
 	, myTransform(Transform())
 	, myComponents(std::vector<Component*>())
@@ -123,6 +124,17 @@ GameObject& GameObject::SetPivot(const v2f& aPivot)
 	myTransform.myPivot = aPivot;
 
 	return *this;
+}
+
+void GameObject::SetZIndex(const int aZIndex)
+{
+	myZIndex = aZIndex;
+	myScene->SortGameObjects();
+}
+
+const int GameObject::GetZIndex()
+{
+	return myZIndex;
 }
 
 void GameObject::SetIsLedge(const bool aIsLedge)

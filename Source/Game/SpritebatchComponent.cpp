@@ -8,7 +8,6 @@
 #include <tga2d/sprite/sprite_batch.h>
 #include "Game.h"
 #include "GameWorld.h"
-#include "RenderCommand.hpp"
 
 SpritebatchComponent::SpritebatchComponent()
 	: myBatch(nullptr)
@@ -39,14 +38,7 @@ void SpritebatchComponent::Render(Transform& aTransform, GameObject& aGameObject
 	aTransform;
 	aGameObject;
 
-	CGameWorld::GetInstance()->Game()->GetRenderer().PushRenderCommand(
-	{
-		RenderCommand::Type::Batch,
-		myBatch,
-		0,
-		myBlendState,
-		mySamplerFilter
-	});
+	myBatch->Render();
 }
 
 SpritebatchComponent& SpritebatchComponent::SetSpritePath(const std::string& aSpritePath)

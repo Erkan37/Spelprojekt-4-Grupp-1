@@ -39,6 +39,9 @@ public:
 	GameObject& SetRotation(const float& aRotation);
 	GameObject& SetPivot(const v2f& aPivot);
 
+	void SetZIndex(const int aZIndex);
+	const int GetZIndex();
+
 	virtual void Landed(const int& aOverlapY) { aOverlapY; }
 	virtual void SideCollision(const int& aOverlapX) { aOverlapX; }
 
@@ -86,6 +89,9 @@ protected:
 	std::vector<Component*> myComponents;
 
 	Scene* myScene;
+	
+	int myZIndex;
+
 	bool myIsActive; 
 	bool myIsLedge;
 };

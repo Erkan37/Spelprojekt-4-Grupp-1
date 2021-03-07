@@ -23,6 +23,8 @@ public:
 	virtual void Update(const float& aDeltaTime);
 	virtual void Render();
 
+	void SortGameObjects();
+
 	struct Manager
 	{
 		static void Update(const float& aDeltaTime);
@@ -32,9 +34,10 @@ public:
 	inline Scene& PushGameObject(GameObject* anObject)
 	{
 		myGameObjects.push_back(anObject);
-
+		SortGameObjects();
 		return *this;
 	}
+
 	inline bool RemoveGameObject(GameObject* anObject)
 	{
 		for (size_t index = 0U; index < myGameObjects.size(); ++index)

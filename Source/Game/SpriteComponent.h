@@ -28,6 +28,9 @@ public:
 
     /* Component Overrides */
     void Init(Transform& aTransform, GameObject& aGameObject) override;
+
+    void UpdateSprite(Tga2D::CSprite* aSprite, const v2f& aPos, const v2f& aSize, const v2f& aPivot, const float& aRot, const v4f& aColor, const v4f& aRect);
+
     void Render(Transform& aTransform, GameObject& aGameObject) override;
 
     /* Sprite */

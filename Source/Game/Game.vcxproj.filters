@@ -25,9 +25,6 @@
     <Filter Include="Utils\Math">
       <UniqueIdentifier>{f232bb47-0b66-4bc2-aac0-12a1314c5724}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Rendering">
-      <UniqueIdentifier>{887f4871-d7cf-4a0a-acc1-9315bc0ff2cd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Debug">
       <UniqueIdentifier>{5265d12a-2dd2-4501-96ad-de389c8167a0}</UniqueIdentifier>
     </Filter>
@@ -94,12 +91,6 @@
     <ClInclude Include="Vector2.hpp">
       <Filter>Utils\Math</Filter>
     </ClInclude>
-    <ClInclude Include="RenderCommand.hpp">
-      <Filter>Core\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Core\Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="Debugger.h">
       <Filter>Core\Debug</Filter>
     </ClInclude>
@@ -164,9 +155,6 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="LevelScene.cpp" />
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Core\Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="Debugger.cpp">
       <Filter>Core\Debug</Filter>
     </ClCompile>

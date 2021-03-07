@@ -2,7 +2,6 @@
 #include <fstream>
 #include <string>
 #include "GameWorld.h"
-#include "Renderer.h"
 
 #ifndef _RETAIL
 #include "Debugger.h"
@@ -33,7 +32,6 @@ public:
 	bool Init(const std::wstring& aVersion = L"", HWND aHWND = nullptr);
 
 	static void SetResolution(const uint16_t& aWidth, const uint16_t& aHeight);
-	Renderer& GetRenderer();
 
 private:
 	void InitCallBack();
@@ -41,7 +39,6 @@ private:
 	LRESULT WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	CGameWorld myGameWorld;
-	Renderer myRenderer;
 	std::thread* myThread;
 	std::atomic<bool> myActive;
 

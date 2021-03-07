@@ -8,6 +8,8 @@
 #include "GameObject.h"
 #include "../External/Headers/CU/Utilities.h"
 
+#include <algorithm>
+
 std::vector<Scene*> Scene::ourScenes = std::vector<Scene*>();
 
 Scene::Scene()
@@ -114,6 +116,14 @@ void Scene::Manager::Update(const float& aDeltaTime)
 			scene->Update(aDeltaTime);
 		}
 	}
+}
+
+void Scene::SortGameObjects()
+{
+	std::sort(myGameObjects.begin(), myGameObjects.end(), [](GameObject* object, GameObject* comparedObject)
+	{
+		return object->GetZIndex() < comparedObject->GetZIndex();
+	});
 }
 
 void Scene::Manager::Render()

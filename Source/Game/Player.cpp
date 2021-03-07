@@ -19,6 +19,7 @@ Player::Player(LevelScene* aLevelScene)
 	:
 	GameObject(aLevelScene)
 {
+	SetZIndex(500);
 	SetPosition({ 960.0f, 540.0f });
 
 	InitAnimations();
@@ -63,18 +64,15 @@ void Player::InitAnimations()
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
 	spriteIdle->SetSpritePath("Sprites/TommyIdle.dds");
 	spriteIdle->SetSize({ 70.0f, 70.0f });
-	spriteIdle->SetZIndex(500);
 
 	SpriteComponent* spriteRun = AddComponent<SpriteComponent>();
 	spriteRun->SetSpritePath("Sprites/TommyRun.dds");
 	spriteRun->SetSize({ 70.0f, 70.0f });
-	spriteRun->SetZIndex(500);
 	spriteRun->Deactivate();
 
 	SpriteComponent* spriteJump = AddComponent<SpriteComponent>();
 	spriteJump->SetSpritePath("Sprites/TommyJump.dds");
 	spriteJump->SetSize({ 70.0f, 70.0f });
-	spriteJump->SetZIndex(500);
 	spriteJump->Deactivate();
 
 	myAnimations[0] = Animation(false, false, true, 0, 3, 3, 0.15f, spriteIdle, 512, 512);
@@ -233,7 +231,7 @@ void Player::ReactivateDoubleJump()
 
 void Player::Landed(const int& aOverlapY)
 {
-	if (aOverlapY < 0)
+	if (aOverlapY > 0)
 	{
 		myAirCoyoteTimer = myAirCoyoteTime;
 		myHasLanded = true;

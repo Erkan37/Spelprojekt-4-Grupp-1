@@ -153,8 +153,6 @@
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.hpp" />
-    <ClInclude Include="RenderCommand.hpp" />
-    <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SpritebatchComponent.h" />
@@ -184,7 +182,6 @@
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SpritebatchComponent.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />

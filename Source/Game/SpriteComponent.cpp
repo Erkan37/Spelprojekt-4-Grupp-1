@@ -55,6 +55,18 @@ void SpriteComponent::Init(Transform & aTransform, GameObject& aGameObject)
 	mySprite->SetBlendState(myBlendState);
 }
 
+void SpriteComponent::UpdateSprite(Tga2D::CSprite* aSprite, const v2f& aPos, const v2f& aSize, const v2f& aPivot, const float& aRot, const v4f& aColor, const v4f& aRect)
+{
+	aSprite->SetPosition(aPos);
+	aSprite->SetSizeRelativeToScreen(aSize);
+	aSprite->SetPivot(aPivot);
+	aSprite->SetRotation(aRot);
+	aSprite->SetColor(Tga2D::CColor(aColor.x, aColor.y, aColor.z, aColor.w));
+
+	aSprite->SetTextureRect(aRect.x, aRect.y, aRect.z, aRect.w);
+}
+
+
 void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 {
 	if (mySprite == nullptr || !myIsActive)
@@ -87,9 +99,15 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 			return;
 		}
 
+
 		offset = cameraPosition * -1.0f;
 
 		alpha *= camera.GetAlpha();
+
+		const v2f position = v2f((aTransform.myPosition.x + myRelativePosition.x + offset.x) / width * zoom, (aTransform.myPosition.y + myRelativePosition.y + offset.y) / height * zoom);
+		const v2f size = v2f((mySize.x / height) * zoom, ((mySize.y) / height) * zoom);
+		const v4f color = v4f(myColor.x, myColor.y, myColor.z, myColor.w * alpha);
+		UpdateSprite(mySprite, position, size, aTransform.myPivot, aTransform.myRotation + myRelativeRotation, myColor, myRect);
 	}
 
 	if (myIsPartOfBatch)
@@ -97,20 +115,7 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 		return;
 	}
 
-	const RenderCommand command = {
-		RenderCommand::Type::Sprite,
-		mySprite,
-		myZIndex,
-		myBlendState,
-		mySamplerFilter,
-		{ (aTransform.myPosition.x + myRelativePosition.x + offset.x) / Config::width * zoom, (aTransform.myPosition.y + myRelativePosition.y + offset.y) / Config::height * zoom },
-		{ (mySize.x / height) * zoom, ((mySize.y) / height) * zoom },
-		aTransform.myPivot,
-		aTransform.myRotation + myRelativeRotation,
-		v4f(myColor.x, myColor.y, myColor.z, myColor.w * alpha),
-		myRect
-	};
-	CGameWorld::GetInstance()->Game()->GetRenderer().PushRenderCommand(command);
+	mySprite->Render();
 }
 
 /* Sprite */
