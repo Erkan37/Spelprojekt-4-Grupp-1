@@ -112,9 +112,13 @@ void Player::Update(const float& aDeltaTime)
 
 	if (physics)
 	{
-		CheckMove(aDeltaTime);
-		CheckJump();
-		UpdateCoyoteTime(aDeltaTime);
+		if (!myBashAbility->GetIsBashing())
+		{
+			CheckMove(aDeltaTime);
+			CheckJump();
+			UpdateCoyoteTime(aDeltaTime);
+		}
+
 		UpdatePlayerVelocity(aDeltaTime);
 
 		if (myIsLerpingToPosition)
@@ -210,6 +214,11 @@ void Player::GoRight(const float& aDeltaTime)
 		myCurrentVelocity.x = 0.0f;
 	}
 
+	if (myBashAbility->GetVelocity().x < 0)
+	{
+		myBashAbility->ResetVelocity(true, false);
+	}
+
 	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, myMaxRunningSpeed, myAcceleration * aDeltaTime);
 	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(70.0f);
 }
@@ -219,6 +228,11 @@ void Player::GoLeft(const float& aDeltaTime)
 	if (myCurrentVelocity.x > 0)
 	{
 		myCurrentVelocity.x = 0.0f;
+	}
+
+	if (myBashAbility->GetVelocity().x > 0)
+	{
+		myBashAbility->ResetVelocity(true, false);
 	}
 
 	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, -myMaxRunningSpeed, myAcceleration * aDeltaTime);
@@ -339,6 +353,11 @@ void Player::GrabLedge(const v2f& aLedgeSnapPosition)
 void Player::LeaveLedge()
 {
 	myGrabbedLedge = false;
+}
+
+const bool Player::GetLedgeIsGrabbed()
+{
+	return myGrabbedLedge;
 }
 
 void Player::LerpToPosition(const v2f& aPosition, const float& aDeltaTime)

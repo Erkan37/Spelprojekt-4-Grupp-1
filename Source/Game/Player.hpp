@@ -52,6 +52,7 @@ public:
 
 	void GrabLedge(const v2f& aLedgeSnapPosition);
 	void LeaveLedge();
+	const bool GetLedgeIsGrabbed();
 
 	void LerpToPosition(const v2f& aPosition, const float& aDeltaTime);
 

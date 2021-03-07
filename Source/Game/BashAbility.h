@@ -30,6 +30,8 @@ public:
 	void AddInputWrapper(const std::shared_ptr<InputWrapper> aInputWrapper);
 	void AddTimer(Utils::Timer* aTimer);
 
+	const bool GetIsBashing();
+
 	void ImGuiUpdate();
 
 private:
@@ -42,10 +44,10 @@ private:
 	bool myDashAbilityActive;
 	bool myButtonHold;
 	bool myRadiusFromDash;
-	bool myVelocityMovement;
+	bool myIsBashing;
 
 	float myTimer;
-	float myDashTimer;
+	float myDashDuration;
 	float myDelayTimer;
 	float myDashSpeed;
 	float myAcceleration;

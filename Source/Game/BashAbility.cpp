@@ -15,10 +15,10 @@ BashAbility::BashAbility(LevelScene* aLevelScene)
 	myRadiusFromDash = {};
 	myButtonHold = {};
 	myDelayTimer = {};
-	myTimer = {};
-	myDashTimer = {};
+	myDashDuration = 1.0f;
+	myTimer = myDashDuration;
 	myTimeScale = 0.05f;
-	myVelocityMovement = {};
+	myIsBashing = false;
 	myAcceleration = {};
 }
 
@@ -30,7 +30,7 @@ void BashAbility::Init()
 {
 	myAcceleration = 10.0f;
 	myRetardation = 1.0f;
-	myDashTimer = 0.5f;
+	myDashDuration = 0.5f;
 	myDelayTimer = 0.3f;
 	myTimeScale = 0.1f;
 	myRadiusFromDash = true;
@@ -40,8 +40,6 @@ void BashAbility::Init()
 
 void BashAbility::Update(const float& aDeltaTime)
 {
-	myTimer += aDeltaTime;
-
 	if (myDashAbilityActive)
 	{
 		UseBashAbility(aDeltaTime);
@@ -58,20 +56,19 @@ void BashAbility::Update(const float& aDeltaTime)
 
 void BashAbility::UpdateBashVelocity(const float& aDeltaTime)
 {
-	if (myVelocityMovement)
+	myTimer -= aDeltaTime;
+	if (myTimer > 0)
 	{
 		myCurrentDashVelocity.x = Utils::Lerp(myCurrentDashVelocity.x, myDashDirection.x * myDashSpeed, myAcceleration * aDeltaTime);
 		myCurrentDashVelocity.y = Utils::Lerp(myCurrentDashVelocity.y, myDashDirection.y * myDashSpeed, myAcceleration * aDeltaTime) * myAspectRatioFactorY;
-
-		if (Utils::Abs(myCurrentDashVelocity.x) + 1.0f >= Utils::Abs(myDashDirection.x * myDashSpeed) && (Utils::Abs(myCurrentDashVelocity.y) + 1.0f) * myAspectRatioFactorY >= Utils::Abs(myDashDirection.y * myDashSpeed) * myAspectRatioFactorY)
-		{
-			myVelocityMovement = false;
-		}
+		myIsBashing = true;
 	}
-	else
+	else if(myTimer <= 0)
 	{
+		myTimer = 0;
 		myCurrentDashVelocity.x = Utils::Lerp(myCurrentDashVelocity.x, 0.0f, myRetardation * aDeltaTime);
 		myCurrentDashVelocity.y = Utils::Lerp(myCurrentDashVelocity.y, 0.0f, myRetardation * aDeltaTime);
+		myIsBashing = false;
 	}
 }
 
@@ -94,9 +91,8 @@ void BashAbility::ResetVelocity(const bool aResetX, const bool aResetY)
 	if (aResetY)
 	{
 		myCurrentDashVelocity.y = 0;
+		myTimer = 0.0f;
 	}
-	
-	myVelocityMovement = false;
 }
 
 void BashAbility::AddPlayerRelation(Player* aPlayer)
@@ -121,6 +117,7 @@ void BashAbility::ImGuiUpdate()
 	ImGui::SliderFloat("Acceleration: ", &myAcceleration, 0.0f, 100.0f);
 	ImGui::SliderFloat("Retardation: ", &myRetardation, 0.0f, 5.0f);
 	ImGui::SliderFloat("Dash Speed: ", &myDashSpeed, 0.0f, 3000.0f);
+	ImGui::SliderFloat("Dash Duration: ", &myDashDuration, 0.0f, 10.0f);
 
 	ImGui::End();
 }
@@ -141,10 +138,9 @@ void BashAbility::DashUse(const float& aDeltaTime)
 	myPlayer->ReactivateDoubleJump();
 	ResetVelocity(true, true);
 
-	myVelocityMovement = true;
 	myDashAbilityActive = {};
 	myTimerInput->SetTimeScale(1.0f);
-	myTimer = {};
+	myTimer = myDashDuration;
 }
 
 void BashAbility::UseBashAbility(const float& aDeltaTime)
@@ -158,6 +154,11 @@ void BashAbility::UseBashAbility(const float& aDeltaTime)
 
 void BashAbility::CheckButtonPress()
 {
+	if (myPlayer->GetLedgeIsGrabbed())
+	{
+		return;
+	}
+
 	if (myInput->IsDashing() && myRadiusFromDash)
 	{
 		myButtonHold = true;
@@ -166,4 +167,9 @@ void BashAbility::CheckButtonPress()
 	}
 	else
 		myButtonHold = false;
+}
+
+const bool BashAbility::GetIsBashing()
+{
+	return myIsBashing;
 }
