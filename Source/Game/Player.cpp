@@ -241,7 +241,7 @@ void Player::LedgeJump()
 {
 	myEnteredLedge = false;
 
-	if (!myInputHandler->IsMovingDown())
+	if (!myInputHandler->GetInput()->GetKeyDown(Keys::SKey) && myInputHandler->GetController()->GetLeftThumbStick().y < 0.3f)
 	{
 		myCurrentVelocity.y = -myDoubleJumpVelocity * 0.6f;
 	}
