@@ -362,6 +362,17 @@ const bool Player::GetLedgeIsGrabbed()
 
 void Player::LerpToPosition(const v2f& aPosition, const float& aDeltaTime)
 {
+	/*
+	if (myTransform.myPosition.x > aPosition.x)
+	{
+		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-70.0f);
+	}
+	else if(myTransform.myPosition.x < aPosition.x)
+	{
+		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(70.0f);
+	}
+	*/
+
 	myTransform.myPosition.x = Utils::Lerp(myTransform.myPosition.x, aPosition.x, myLerpToPositionAcceleration * aDeltaTime);
 	myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, aPosition.y, myLerpToPositionAcceleration * aDeltaTime);
 }
