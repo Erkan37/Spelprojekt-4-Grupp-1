@@ -240,8 +240,17 @@ void Player::DoubleJump()
 void Player::LedgeJump()
 {
 	myEnteredLedge = false;
-	DoubleJump();
-	myCurrentVelocity.y = -myDoubleJumpVelocity * 0.6f;
+
+	if (!myInputHandler->IsMovingDown())
+	{
+		myCurrentVelocity.y = -myDoubleJumpVelocity * 0.6f;
+	}
+	
+	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
+	myCurrentAnimationIndex = 2;
+	myHasDoubleJumped = false;
+	myWillJumpWhenFalling = false;
+	myBashAbility->ResetVelocity(false, true);
 }
 
 void Player::ReactivateDoubleJump()
