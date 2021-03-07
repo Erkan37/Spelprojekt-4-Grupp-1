@@ -2,6 +2,7 @@
 #include "GameObject.h"
 
 class Scene;
+class Player;
 
 class Ledge : public GameObject
 {
@@ -11,8 +12,17 @@ public:
 
 	void Init(const v2f& aPosition, const v2f& aSize);
 
-private:
+	void Update(const float& aDeltaTime) override;
 
+	void OnCollision(GameObject* aGameObject) override;
+
+	const bool GetPlayerEntered();
+
+private:
+	Player* myPlayer;
+
+	bool myPlayerEntered;
+	bool myPlayerIsInThisFrame;
 
 };
 

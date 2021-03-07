@@ -11,6 +11,7 @@ namespace Utils
 class InputWrapper;
 class LevelScene;
 class AnimationComponent;
+class Ledge;
 
 class Player : public GameObject
 {
@@ -36,6 +37,7 @@ public:
 
 	void Jump();
 	void DoubleJump();
+	void LedgeJump();
 
 	void ReactivateDoubleJump();
 
@@ -48,7 +50,8 @@ public:
 
 	void UpdatePlayerVelocity(const float& aDeltaTime);
 
-	void OnCollision(GameObject* anObject) override;
+	void EnterLedge();
+	void LeaveLedge();
 
 	void ImGuiUpdate();
 
@@ -81,6 +84,6 @@ private:
 	bool myCanJumpWhenFalling;
 	bool myWillJumpWhenFalling;
 
-	bool myTouchedLedge;
+	bool myEnteredLedge;
 };
 

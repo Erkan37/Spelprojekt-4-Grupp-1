@@ -13,6 +13,8 @@
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
 
+#include "Ledge.h"
+
 #include "imgui.h"
 
 Player::Player(LevelScene* aLevelScene)
@@ -50,7 +52,7 @@ Player::Player(LevelScene* aLevelScene)
 	myCanJumpWhenFalling = false;
 	myWillJumpWhenFalling = false;
 
-	myTouchedLedge = false;
+	myEnteredLedge = false;
 
 	myBashAbility = std::make_unique<BashAbility>(aLevelScene);
 	myBashAbility->Init();
@@ -90,7 +92,7 @@ void Player::InitCollider()
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
 	physics->SetCanCollide(true);
 	physics->SetIsStatic(false);
-	physics->SetApplyGravity(true);
+	physics->SetApplyGravity(false);
 
 	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
 }
@@ -111,7 +113,6 @@ void Player::Update(const float& aDeltaTime)
 		CheckJump();
 		UpdateCoyoteTime(aDeltaTime);
 		UpdatePlayerVelocity(aDeltaTime);
-		myTouchedLedge = false;
 	}
 
 	AnimationState();
@@ -136,9 +137,13 @@ void Player::CheckJump()
 		{
 			Jump();
 		}
-		else if (!myHasDoubleJumped || myTouchedLedge)
+		else if (!myHasDoubleJumped)
 		{
 			DoubleJump();
+		}
+		else if (myEnteredLedge)
+		{
+			LedgeJump();
 		}
 	}
 }
@@ -224,6 +229,12 @@ void Player::DoubleJump()
 	myBashAbility->ResetVelocity(false, true);
 }
 
+void Player::LedgeJump()
+{
+	DoubleJump();
+	myCurrentVelocity.y = -myDoubleJumpVelocity / 2.0f;
+}
+
 void Player::ReactivateDoubleJump()
 {
 	myHasDoubleJumped = false;
@@ -279,18 +290,25 @@ void Player::AnimationState()
 void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 {
 
-	myCurrentVelocity.y += PhysicsManager::ourGravity * aDeltaTime;
+	if (!myEnteredLedge)
+	{
+		myCurrentVelocity.y += PhysicsManager::ourGravity * aDeltaTime;
+	}
 	
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity());
 }
 
-void Player::OnCollision(GameObject* anObject)
+void Player::EnterLedge()
 {
-	if (anObject->GetIsLedge())
-	{
-		myTouchedLedge = true;
-	}
+	myEnteredLedge = true;
+	myCurrentVelocity.y = 0;
+	myBashAbility->ResetVelocity(true, true);
+}
+
+void Player::LeaveLedge()
+{
+	myEnteredLedge = false;
 }
 
 void Player::ImGuiUpdate()

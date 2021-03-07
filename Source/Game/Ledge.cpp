@@ -6,9 +6,14 @@
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
 
+#include "Player.hpp"
+
 Ledge::Ledge(Scene* aLevelScene)
 	:
-	GameObject(aLevelScene)
+	GameObject(aLevelScene),
+	myPlayerEntered(false),
+	myPlayerIsInThisFrame(false),
+	myPlayer(nullptr)
 {
 
 }
@@ -35,7 +40,40 @@ void Ledge::Init(const v2f& aPosition, const v2f& aSize)
 	collider->SetPosition({ -aSize.x / 2.0f, 0.0f });
 	collider->SetSize(aSize);
 
-	SetIsLedge(true);
-
 	GameObject::Init();
+}
+
+void Ledge::Update(const float& aDeltaTime)
+{
+	if (!myPlayerIsInThisFrame)
+	{
+		if (myPlayerEntered)
+		{
+			myPlayer->LeaveLedge();
+		}
+		myPlayerEntered = false;
+	}
+	
+	myPlayerIsInThisFrame = false;
+	GameObject::Update(aDeltaTime);
+}
+
+void Ledge::OnCollision(GameObject* aGameObject)
+{
+	Player* player = dynamic_cast<Player*>(aGameObject);
+	if (player)
+	{
+		myPlayer = player;
+		if (!myPlayerEntered)
+		{
+			player->EnterLedge();
+			myPlayerEntered = true;
+		}
+		myPlayerIsInThisFrame = true;
+	}
+}
+
+const bool Ledge::GetPlayerEntered()
+{
+	return myPlayerEntered;
 }
