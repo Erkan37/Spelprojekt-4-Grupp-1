@@ -8,6 +8,8 @@
 
 #include "Player.hpp"
 
+#include <iostream>
+
 Ledge::Ledge(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene),
@@ -66,8 +68,19 @@ void Ledge::OnCollision(GameObject* aGameObject)
 		myPlayer = player;
 		if (!myPlayerEntered)
 		{
-			player->EnterLedge();
-			myPlayerEntered = true;
+			const float playerBottomY = player->GetPositionY() + player->GetComponent<ColliderComponent>()->GetHeight() / 2.0f;
+			const float ledgeBottomY = myTransform.myPosition.y + GetComponent<ColliderComponent>()->GetHeight();
+			const float ledgeTopY = myTransform.myPosition.y;
+
+			std::cout << playerBottomY << "\n";
+			std::cout << ledgeBottomY << "\n";
+			std::cout << ledgeTopY << "\n\n";
+
+			if (playerBottomY <= ledgeBottomY && playerBottomY >= ledgeTopY)
+			{
+				player->EnterLedge();
+				myPlayerEntered = true;
+			}
 		}
 		myPlayerIsInThisFrame = true;
 	}

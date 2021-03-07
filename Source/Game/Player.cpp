@@ -128,22 +128,25 @@ void Player::CheckJump()
 {
 	if (myInputHandler->IsJumping())
 	{
-		if (myCanJumpWhenFalling && !myHasLanded && GetComponent<PhysicsComponent>()->GetVelocityY() >= 0.0f)
-		{
-			myWillJumpWhenFalling = true;
-		}
-
-		if (myHasLanded && (GetComponent<PhysicsComponent>()->GetVelocityY() == 0.0f || myAirCoyoteTimer > 0))
-		{
-			Jump();
-		}
-		else if (!myHasDoubleJumped)
-		{
-			DoubleJump();
-		}
-		else if (myEnteredLedge)
+		if (myEnteredLedge)
 		{
 			LedgeJump();
+		}
+		else
+		{
+			if (myCanJumpWhenFalling && !myHasLanded && GetComponent<PhysicsComponent>()->GetVelocityY() >= 0.0f)
+			{
+				myWillJumpWhenFalling = true;
+			}
+
+			if (myHasLanded && (GetComponent<PhysicsComponent>()->GetVelocityY() == 0.0f || myAirCoyoteTimer > 0))
+			{
+				Jump();
+			}
+			else if (!myHasDoubleJumped)
+			{
+				DoubleJump();
+			}
 		}
 	}
 }
@@ -231,8 +234,11 @@ void Player::DoubleJump()
 
 void Player::LedgeJump()
 {
+	myEnteredLedge = false;
 	DoubleJump();
 	myCurrentVelocity.y = -myDoubleJumpVelocity / 2.0f;
+
+	std::cout << "LedgeJumped\n";
 }
 
 void Player::ReactivateDoubleJump()
@@ -289,7 +295,6 @@ void Player::AnimationState()
 
 void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 {
-
 	if (!myEnteredLedge)
 	{
 		myCurrentVelocity.y += PhysicsManager::ourGravity * aDeltaTime;
@@ -304,11 +309,13 @@ void Player::EnterLedge()
 	myEnteredLedge = true;
 	myCurrentVelocity.y = 0;
 	myBashAbility->ResetVelocity(true, true);
+	std::cout << "EnteredLedge\n";
 }
 
 void Player::LeaveLedge()
 {
 	myEnteredLedge = false;
+	std::cout << "LeftLedge\n\n";
 }
 
 void Player::ImGuiUpdate()
