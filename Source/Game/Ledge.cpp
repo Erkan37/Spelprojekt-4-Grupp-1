@@ -72,13 +72,19 @@ void Ledge::OnCollision(GameObject* aGameObject)
 			const float ledgeBottomY = myTransform.myPosition.y + GetComponent<ColliderComponent>()->GetHeight();
 			const float ledgeTopY = myTransform.myPosition.y;
 
-			std::cout << playerBottomY << "\n";
-			std::cout << ledgeBottomY << "\n";
-			std::cout << ledgeTopY << "\n\n";
-
-			if (playerBottomY <= ledgeBottomY && playerBottomY >= ledgeTopY)
+			if (playerBottomY <= ledgeBottomY && playerBottomY >= ledgeTopY && player->GetComponent<PhysicsComponent>()->GetVelocityY() > 0)
 			{
-				player->EnterLedge();
+				v2f playerSnapPosition = v2f(0.0f, myTransform.myPosition.y - player->GetComponent<ColliderComponent>()->GetHeight() / 2.0f);
+				if (player->GetPositionX() > myTransform.myPosition.x)
+				{
+					playerSnapPosition.x = myTransform.myPosition.x + player->GetComponent<ColliderComponent>()->GetWidth() / 2.0f;
+				}
+				else if (player->GetPositionX() < myTransform.myPosition.x)
+				{
+					playerSnapPosition.x = myTransform.myPosition.x - player->GetComponent<ColliderComponent>()->GetWidth() / 2.0f;
+				}
+
+				player->EnterLedge(playerSnapPosition);
 				myPlayerEntered = true;
 			}
 		}

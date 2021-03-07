@@ -50,7 +50,7 @@ public:
 
 	void UpdatePlayerVelocity(const float& aDeltaTime);
 
-	void EnterLedge();
+	void EnterLedge(const v2f& aLedgeSnapPosition);
 	void LeaveLedge();
 
 	void ImGuiUpdate();

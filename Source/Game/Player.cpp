@@ -174,6 +174,11 @@ void Player::TryLetJumpWhenFalling(const float& aYDistance)
 
 void Player::CheckMove(const float& aDeltaTime)
 {
+	if (myEnteredLedge)
+	{
+		return;
+	}
+
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 
 	if (myInputHandler->IsMovingRight())
@@ -236,9 +241,7 @@ void Player::LedgeJump()
 {
 	myEnteredLedge = false;
 	DoubleJump();
-	myCurrentVelocity.y = -myDoubleJumpVelocity / 2.0f;
-
-	std::cout << "LedgeJumped\n";
+	myCurrentVelocity.y = -myDoubleJumpVelocity * 0.6f;
 }
 
 void Player::ReactivateDoubleJump()
@@ -304,18 +307,17 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity());
 }
 
-void Player::EnterLedge()
+void Player::EnterLedge(const v2f& aLedgeSnapPosition)
 {
+	SetPosition(aLedgeSnapPosition);
 	myEnteredLedge = true;
 	myCurrentVelocity.y = 0;
 	myBashAbility->ResetVelocity(true, true);
-	std::cout << "EnteredLedge\n";
 }
 
 void Player::LeaveLedge()
 {
 	myEnteredLedge = false;
-	std::cout << "LeftLedge\n\n";
 }
 
 void Player::ImGuiUpdate()
