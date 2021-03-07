@@ -16,8 +16,6 @@ public:
 
 	void OnCollision(GameObject* aGameObject) override;
 
-	const bool GetPlayerEntered();
-
 private:
 	Player* myPlayer;
 

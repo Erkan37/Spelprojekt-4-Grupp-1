@@ -35,6 +35,7 @@ Player::Player(LevelScene* aLevelScene)
 
 	myAcceleration = 6.0f;
 	myRetardation = 20.0f;
+	myLerpToPositionAcceleration = 6.0f;
 
 	myAirCoyoteTime = 0.1f;
 	myAirCoyoteTimer = myAirCoyoteTime;
@@ -52,7 +53,9 @@ Player::Player(LevelScene* aLevelScene)
 	myCanJumpWhenFalling = false;
 	myWillJumpWhenFalling = false;
 
-	myEnteredLedge = false;
+	myGrabbedLedge = false;
+
+	myIsLerpingToPosition = false;
 
 	myBashAbility = std::make_unique<BashAbility>(aLevelScene);
 	myBashAbility->Init();
@@ -113,6 +116,11 @@ void Player::Update(const float& aDeltaTime)
 		CheckJump();
 		UpdateCoyoteTime(aDeltaTime);
 		UpdatePlayerVelocity(aDeltaTime);
+
+		if (myIsLerpingToPosition)
+		{
+			LerpToPosition(myLerpPosition, aDeltaTime);
+		}
 	}
 
 	AnimationState();
@@ -128,7 +136,7 @@ void Player::CheckJump()
 {
 	if (myInputHandler->IsJumping())
 	{
-		if (myEnteredLedge)
+		if (myGrabbedLedge)
 		{
 			LedgeJump();
 		}
@@ -174,7 +182,7 @@ void Player::TryLetJumpWhenFalling(const float& aYDistance)
 
 void Player::CheckMove(const float& aDeltaTime)
 {
-	if (myEnteredLedge)
+	if (myGrabbedLedge)
 	{
 		return;
 	}
@@ -239,13 +247,15 @@ void Player::DoubleJump()
 
 void Player::LedgeJump()
 {
-	myEnteredLedge = false;
+	myGrabbedLedge = false;
 
 	if (!myInputHandler->GetInput()->GetKeyDown(Keys::SKey) && myInputHandler->GetController()->GetLeftThumbStick().y < 0.3f)
 	{
 		myCurrentVelocity.y = -myDoubleJumpVelocity * 0.6f;
 	}
 	
+	myIsLerpingToPosition = false;
+
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
 	myCurrentAnimationIndex = 2;
 	myHasDoubleJumped = false;
@@ -307,7 +317,7 @@ void Player::AnimationState()
 
 void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 {
-	if (!myEnteredLedge)
+	if (!myGrabbedLedge)
 	{
 		myCurrentVelocity.y += PhysicsManager::ourGravity * aDeltaTime;
 	}
@@ -316,17 +326,25 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity());
 }
 
-void Player::EnterLedge(const v2f& aLedgeSnapPosition)
+void Player::GrabLedge(const v2f& aLedgeSnapPosition)
 {
-	SetPosition(aLedgeSnapPosition);
-	myEnteredLedge = true;
+	myIsLerpingToPosition = true;
+	myLerpPosition = aLedgeSnapPosition;
+
+	myGrabbedLedge = true;
 	myCurrentVelocity.y = 0;
 	myBashAbility->ResetVelocity(true, true);
 }
 
 void Player::LeaveLedge()
 {
-	myEnteredLedge = false;
+	myGrabbedLedge = false;
+}
+
+void Player::LerpToPosition(const v2f& aPosition, const float& aDeltaTime)
+{
+	myTransform.myPosition.x = Utils::Lerp(myTransform.myPosition.x, aPosition.x, myLerpToPositionAcceleration * aDeltaTime);
+	myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, aPosition.y, myLerpToPositionAcceleration * aDeltaTime);
 }
 
 void Player::ImGuiUpdate()

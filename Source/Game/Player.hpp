@@ -50,8 +50,10 @@ public:
 
 	void UpdatePlayerVelocity(const float& aDeltaTime);
 
-	void EnterLedge(const v2f& aLedgeSnapPosition);
+	void GrabLedge(const v2f& aLedgeSnapPosition);
 	void LeaveLedge();
+
+	void LerpToPosition(const v2f& aPosition, const float& aDeltaTime);
 
 	void ImGuiUpdate();
 
@@ -63,6 +65,8 @@ private:
 
 	v2f myCurrentVelocity;
 
+	v2f myLerpPosition;
+
 	float myAirCoyoteTime;
 	float myAirCoyoteTimer;
 
@@ -70,6 +74,7 @@ private:
 
 	float myAcceleration;
 	float myRetardation;
+	float myLerpToPositionAcceleration;
 
 	float myJumpVelocity;
 	float myDoubleJumpVelocity;
@@ -84,6 +89,8 @@ private:
 	bool myCanJumpWhenFalling;
 	bool myWillJumpWhenFalling;
 
-	bool myEnteredLedge;
+	bool myGrabbedLedge;
+
+	bool myIsLerpingToPosition;
 };
 
