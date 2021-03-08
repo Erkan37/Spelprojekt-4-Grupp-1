@@ -50,7 +50,7 @@ public:
 
 	void UpdatePlayerVelocity(const float& aDeltaTime);
 
-	void GrabLedge(const v2f& aLedgeSnapPosition);
+	void GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition);
 	void LeaveLedge();
 	const bool GetLedgeIsGrabbed();
 

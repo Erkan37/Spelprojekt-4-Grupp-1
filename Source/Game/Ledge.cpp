@@ -84,7 +84,7 @@ void Ledge::OnCollision(GameObject* aGameObject)
 					playerSnapPosition.x = myTransform.myPosition.x - player->GetComponent<ColliderComponent>()->GetWidth() / 2.0f;
 				}
 
-				player->GrabLedge(playerSnapPosition);
+				player->GrabLedge(playerSnapPosition, myTransform.myPosition);
 				myPlayerEntered = true;
 			}
 		}

@@ -340,10 +340,19 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity());
 }
 
-void Player::GrabLedge(const v2f& aLedgeSnapPosition)
+void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
 {
+	if (myTransform.myPosition.x > aLedgePosition.x)
+	{
+		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-70.0f);
+	}
+	else if (myTransform.myPosition.x < aLedgePosition.x)
+	{
+		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(70.0f);
+	}
+
 	myIsLerpingToPosition = true;
-	myLerpPosition = aLedgeSnapPosition;
+	myLerpPosition = aLedgeLerpPosition;
 
 	myGrabbedLedge = true;
 	myCurrentVelocity.y = 0;
@@ -362,17 +371,6 @@ const bool Player::GetLedgeIsGrabbed()
 
 void Player::LerpToPosition(const v2f& aPosition, const float& aDeltaTime)
 {
-	/*
-	if (myTransform.myPosition.x > aPosition.x)
-	{
-		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-70.0f);
-	}
-	else if(myTransform.myPosition.x < aPosition.x)
-	{
-		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(70.0f);
-	}
-	*/
-
 	myTransform.myPosition.x = Utils::Lerp(myTransform.myPosition.x, aPosition.x, myLerpToPositionAcceleration * aDeltaTime);
 	myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, aPosition.y, myLerpToPositionAcceleration * aDeltaTime);
 }
