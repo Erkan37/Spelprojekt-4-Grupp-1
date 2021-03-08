@@ -41,10 +41,12 @@ private:
 	Utils::Timer* myTimerInput;
 
 	float myTimeScale;
+
 	bool myDashAbilityActive;
 	bool myButtonHold;
 	bool myRadiusFromDash;
 	bool myIsBashing;
+	bool myLMBMousePressed;
 
 	float myTimer;
 	float myDashDuration;
