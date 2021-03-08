@@ -23,6 +23,7 @@ Player::Player(LevelScene* aLevelScene)
 {
 	SetZIndex(500);
 	SetPosition({ 960.0f, 540.0f });
+	mySize = v2f(70.0f, 70.0f);
 
 	InitAnimations();
 
@@ -32,6 +33,7 @@ Player::Player(LevelScene* aLevelScene)
 	myInputHandler = world->Input();
 
 	myMaxRunningSpeed = 400.0f;
+	myRunningAnimationSpeed = 50.0f;
 
 	myAcceleration = 6.0f;
 	myRetardation = 20.0f;
@@ -42,6 +44,7 @@ Player::Player(LevelScene* aLevelScene)
 
 	myJumpVelocity = 600.0f;
 	myDoubleJumpVelocity = 600.0f;
+	myLedgeJumpVelocity = 360.0f;
 
 	myJumpWhenFallingTime = 0.075f;
 
@@ -68,16 +71,16 @@ void Player::InitAnimations()
 {
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
 	spriteIdle->SetSpritePath("Sprites/TommyIdle.dds");
-	spriteIdle->SetSize({ 70.0f, 70.0f });
+	spriteIdle->SetSize(mySize);
 
 	SpriteComponent* spriteRun = AddComponent<SpriteComponent>();
 	spriteRun->SetSpritePath("Sprites/TommyRun.dds");
-	spriteRun->SetSize({ 70.0f, 70.0f });
+	spriteRun->SetSize(mySize);
 	spriteRun->Deactivate();
 
 	SpriteComponent* spriteJump = AddComponent<SpriteComponent>();
 	spriteJump->SetSpritePath("Sprites/TommyJump.dds");
-	spriteJump->SetSize({ 70.0f, 70.0f });
+	spriteJump->SetSize(mySize);
 	spriteJump->Deactivate();
 
 	myAnimations[0] = Animation(false, false, true, 0, 3, 3, 0.15f, spriteIdle, 512, 512);
@@ -87,7 +90,7 @@ void Player::InitAnimations()
 	AnimationComponent* animation = AddComponent<AnimationComponent>();
 	animation->SetSprite(spriteIdle);
 	animation->SetAnimation(&myAnimations[0]);
-	spriteIdle->SetSize({ 70.0f, 70.0f });
+	spriteIdle->SetSize(mySize);
 }
 
 void Player::InitCollider()
@@ -220,7 +223,7 @@ void Player::GoRight(const float& aDeltaTime)
 	}
 
 	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, myMaxRunningSpeed, myAcceleration * aDeltaTime);
-	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(70.0f);
+	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(mySize.x);
 }
 
 void Player::GoLeft(const float& aDeltaTime)
@@ -236,7 +239,7 @@ void Player::GoLeft(const float& aDeltaTime)
 	}
 
 	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, -myMaxRunningSpeed, myAcceleration * aDeltaTime);
-	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-70.0f);
+	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-mySize.x);
 }
 
 void Player::Jump()
@@ -265,7 +268,7 @@ void Player::LedgeJump()
 
 	if (!myInputHandler->GetInput()->GetKeyDown(Keys::SKey) && myInputHandler->GetController()->GetLeftThumbStick().y < 0.3f)
 	{
-		myCurrentVelocity.y = -myDoubleJumpVelocity * 0.6f;
+		myCurrentVelocity.y = -myLedgeJumpVelocity;
 	}
 	
 	myIsLerpingToPosition = false;
@@ -317,12 +320,12 @@ void Player::ResetVelocity()
 void Player::AnimationState()
 {
 	AnimationComponent* animation = GetComponent<AnimationComponent>();
-	if (Utils::Abs(myCurrentVelocity.x) <= 50.0f && myHasLanded && myCurrentAnimationIndex != 0)
+	if (Utils::Abs(myCurrentVelocity.x) <= myRunningAnimationSpeed && myHasLanded && myCurrentAnimationIndex != 0)
 	{
 		animation->SetAnimation(&myAnimations[0]);
 		myCurrentAnimationIndex = 0;
 	}
-	else if (Utils::Abs(myCurrentVelocity.x) > 50.0f && myHasLanded && myCurrentAnimationIndex != 1)
+	else if (Utils::Abs(myCurrentVelocity.x) > myRunningAnimationSpeed && myHasLanded && myCurrentAnimationIndex != 1)
 	{
 		animation->SetAnimation(&myAnimations[1]);
 		myCurrentAnimationIndex = 1;
@@ -344,11 +347,11 @@ void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
 {
 	if (myTransform.myPosition.x > aLedgePosition.x)
 	{
-		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-70.0f);
+		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-mySize.x);
 	}
 	else if (myTransform.myPosition.x < aLedgePosition.x)
 	{
-		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(70.0f);
+		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(mySize.x);
 	}
 
 	myIsLerpingToPosition = true;

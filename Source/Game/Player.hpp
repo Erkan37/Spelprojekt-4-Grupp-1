@@ -68,10 +68,13 @@ private:
 
 	v2f myLerpPosition;
 
+	v2f mySize;
+
 	float myAirCoyoteTime;
 	float myAirCoyoteTimer;
 
 	float myMaxRunningSpeed;
+	float myRunningAnimationSpeed;
 
 	float myAcceleration;
 	float myRetardation;
@@ -79,6 +82,7 @@ private:
 
 	float myJumpVelocity;
 	float myDoubleJumpVelocity;
+	float myLedgeJumpVelocity;
 
 	float myJumpWhenFallingTime;
 
