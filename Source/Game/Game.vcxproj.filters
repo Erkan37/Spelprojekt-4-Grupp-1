@@ -122,6 +122,9 @@
     <ClInclude Include="MovingPlatform.hpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
+    <ClInclude Include="UnstablePlatform.hpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -187,6 +190,9 @@
       <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
     <ClCompile Include="MovingPlatform.cpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClCompile>
+    <ClCompile Include="UnstablePlatform.cpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
   </ItemGroup>

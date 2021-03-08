@@ -8,6 +8,14 @@ class Scene;
 class Platform : public GameObject
 {
 public:
+	enum class ePlatformType
+	{
+		Static,
+		Moving,
+		Unstable,
+		Destructible
+	};
+
 	Platform(Scene* aScene);
 	~Platform();
 
