@@ -103,13 +103,13 @@ void LevelScene::Load()
 				break;
 			case 2:
 				unstablePlatform = new UnstablePlatform(this);
-				unstablePlatform->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY), oneway);
+				unstablePlatform->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY), false);
 				unstablePlatform->SetTimerProperties(destroyTime, respawnTime);
 
 				break;
 			case 3:
 				destructiblePlatform = new DestructiblePlatform(this);
-				destructiblePlatform->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY), oneway);
+				destructiblePlatform->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY), false);
 				break;
 		}
 	}
