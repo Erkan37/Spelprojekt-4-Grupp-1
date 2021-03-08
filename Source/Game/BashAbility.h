@@ -23,6 +23,7 @@ public:
 	void Render();
 
 	v2f GetVelocity();
+	void SetVelocity(const v2f& aDashVelocity);
 
 	void ResetVelocity(const bool aResetX, const bool aResetY);
 

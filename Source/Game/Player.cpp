@@ -404,6 +404,17 @@ void Player::LerpToPosition(const v2f& aPosition, const float& aDeltaTime)
 	myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, aPosition.y, myLerpToPositionAcceleration * aDeltaTime);
 }
 
+void Player::BounceOnDestructibleWall()
+{
+	v2f dashVelocity = myBashAbility->GetVelocity();
+	dashVelocity.x *= -0.8f;
+}
+
+const bool& Player::GetIsBashing()
+{
+	return myBashAbility->GetIsBashing();
+}
+
 void Player::ImGuiUpdate()
 {
 	ImGui::Begin("Player", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);

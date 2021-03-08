@@ -142,6 +142,7 @@
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Debugger.h" />
+    <ClInclude Include="DestructiblePlatform.hpp" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWorld.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Ledge.h" />
     <ClInclude Include="LevelScene.h" />
+    <ClInclude Include="MovingPlatform.hpp" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Platform.h" />
@@ -160,6 +162,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Transform.hpp" />
+    <ClInclude Include="UnstablePlatform.hpp" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector4.hpp" />
@@ -172,12 +175,14 @@
     <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Debugger.cpp" />
+    <ClCompile Include="DestructiblePlatform.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="InputWrapper.cpp" />
     <ClCompile Include="Ledge.cpp" />
     <ClCompile Include="LevelScene.cpp" />
+    <ClCompile Include="MovingPlatform.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Platform.cpp" />
@@ -190,6 +195,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Retail|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="UnstablePlatform.cpp" />
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

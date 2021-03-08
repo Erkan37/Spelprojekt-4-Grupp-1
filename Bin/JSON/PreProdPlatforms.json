@@ -1,4 +1,12 @@
 {
+  "DestroyTime": 1.0,
+  "RespawnTime": 1.0,
+
+  "LedgeSize": {
+    "X": 25,
+    "Y": 5
+  },
+
   "Platforms": [
     {
       "Position": {
@@ -16,7 +24,8 @@
         "Y": 200
       },
 
-      "Moving": true,
+      "Oneway": true,
+      "Type": 1,
       "Speed": 300.0,
 
       "Waypoints": [
@@ -39,9 +48,7 @@
           "X": 1000,
           "Y": 0
         }
-      ],
-
-      "Oneway": true
+      ]
     },
 
     {
@@ -60,9 +67,9 @@
         "Y": 100
       },
 
-      "Moving": false,
+      "Oneway": true,
+      "Type": 0
 
-      "Oneway": true
     },
 
     {
@@ -81,9 +88,9 @@
         "Y": 50
       },
 
-      "Moving": false,
+      "Oneway": false,
+      "Type": 0
 
-      "Oneway": false
     },
 
     {
@@ -102,9 +109,8 @@
         "Y": 50
       },
 
-      "Moving": false,
-
-      "Oneway": false
+      "Oneway": false,
+      "Type": 3
     },
 
     {
@@ -123,9 +129,8 @@
         "Y": 100
       },
 
-      "Moving": false,
-
-      "Oneway": false
+      "Oneway": false,
+      "Type": 2
     },
 
     {
@@ -144,9 +149,8 @@
         "Y": 100
       },
 
-      "Moving": false,
-
-      "Oneway": false
+      "Oneway": false,
+      "Type": 0
     },
 
     {
@@ -165,9 +169,8 @@
         "Y": 50
       },
 
-      "Moving": false,
-
-      "Oneway": false
+      "Oneway": false,
+      "Type": 0
     },
 
     {
@@ -186,17 +189,11 @@
         "Y": 50
       },
 
-      "Moving": false,
-
-      "Oneway": false
+      "Oneway": false,
+      "Type": 0
     }
 
   ],
-
-  "LedgeSize": {
-    "X": 25,
-    "Y": 5
-  },
 
   "Ledges": [
     {

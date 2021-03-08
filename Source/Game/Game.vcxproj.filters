@@ -119,6 +119,15 @@
     <ClInclude Include="Ledge.h">
       <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
+    <ClInclude Include="MovingPlatform.hpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClInclude>
+    <ClInclude Include="UnstablePlatform.hpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClInclude>
+    <ClInclude Include="DestructiblePlatform.hpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -181,6 +190,15 @@
       <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
     <ClCompile Include="Ledge.cpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingPlatform.cpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClCompile>
+    <ClCompile Include="UnstablePlatform.cpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClCompile>
+    <ClCompile Include="DestructiblePlatform.cpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
   </ItemGroup>
