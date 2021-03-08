@@ -84,6 +84,7 @@ private:
 	float myAcceleration;
 	float myRetardation;
 	float myLerpToPositionAcceleration;
+	float myPlatformVelocityRetardation;
 
 	float myJumpVelocity;
 	float myDoubleJumpVelocity;

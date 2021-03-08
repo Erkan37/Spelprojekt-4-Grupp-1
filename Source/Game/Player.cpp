@@ -38,6 +38,7 @@ Player::Player(LevelScene* aLevelScene)
 	myAcceleration = 6.0f;
 	myRetardation = 20.0f;
 	myLerpToPositionAcceleration = 6.0f;
+	myPlatformVelocityRetardation = 1.0f;
 
 	myAirCoyoteTime = 0.1f;
 	myAirCoyoteTimer = myAirCoyoteTime;
@@ -217,6 +218,11 @@ void Player::GoRight(const float& aDeltaTime)
 		myCurrentVelocity.x = 0.0f;
 	}
 
+	if (myPlatformVelocity.x < 0)
+	{
+		myPlatformVelocity.x = 0.0f;
+	}
+
 	if (myBashAbility->GetVelocity().x < 0)
 	{
 		myBashAbility->ResetVelocity(true, false);
@@ -233,6 +239,11 @@ void Player::GoLeft(const float& aDeltaTime)
 		myCurrentVelocity.x = 0.0f;
 	}
 
+	if (myPlatformVelocity.x > 0)
+	{
+		myPlatformVelocity.x = 0.0f;
+	}
+
 	if (myBashAbility->GetVelocity().x > 0)
 	{
 		myBashAbility->ResetVelocity(true, false);
@@ -244,7 +255,7 @@ void Player::GoLeft(const float& aDeltaTime)
 
 void Player::Jump()
 {
-	myCurrentVelocity.y = -myJumpVelocity;
+	myCurrentVelocity.y = -myJumpVelocity + myPlatformVelocity.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
 	myCurrentAnimationIndex = 2;
 	myHasLanded = false;
@@ -254,7 +265,7 @@ void Player::Jump()
 
 void Player::DoubleJump()
 {
-	myCurrentVelocity.y = -myDoubleJumpVelocity;
+	myCurrentVelocity.y = -myDoubleJumpVelocity + myPlatformVelocity.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
 	myCurrentAnimationIndex = 2;
 	myHasDoubleJumped = true;
@@ -349,9 +360,12 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 	{
 		myCurrentVelocity.y += PhysicsManager::ourGravity * aDeltaTime;
 	}
-	
+
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity);
+
+	myPlatformVelocity.x = Utils::Lerp(myPlatformVelocity.x, 0.0f, myPlatformVelocityRetardation * aDeltaTime);
+	myPlatformVelocity.y = Utils::Lerp(myPlatformVelocity.y, 0.0f, myPlatformVelocityRetardation * aDeltaTime);
 }
 
 void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
@@ -396,9 +410,11 @@ void Player::ImGuiUpdate()
 	ImGui::SliderFloat("Max Speed", &myMaxRunningSpeed, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Acceleration", &myAcceleration, 0.0f, 100.0f);
 	ImGui::SliderFloat("Retardation", &myRetardation, 0.0f, 100.0f);
+	ImGui::SliderFloat("Platform Velocity Retardation", &myPlatformVelocityRetardation, 0.0f, 100.0f);
 	ImGui::SliderFloat("Coyote Time", &myAirCoyoteTime, 0.0f, 1.0f);
 	ImGui::SliderFloat("Jump Velocity", &myJumpVelocity, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Double Jump Velocity", &myDoubleJumpVelocity, 0.0f, 2000.0f);
+	ImGui::SliderFloat("Ledge Jump Velocity", &myLedgeJumpVelocity, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Jump When Falling Time", &myJumpWhenFallingTime, 0.0f, 1.0f);
 
 	ImGui::End();
