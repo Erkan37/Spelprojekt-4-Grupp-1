@@ -390,6 +390,7 @@ void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
 void Player::LeaveLedge()
 {
 	myGrabbedLedge = false;
+	myIsLerpingToPosition = false;
 }
 
 const bool Player::GetLedgeIsGrabbed()
