@@ -31,6 +31,9 @@
     <Filter Include="Components\Animation">
       <UniqueIdentifier>{9aa78b19-76b7-4dc4-af82-6c21b0a7a03f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Tileson">
+      <UniqueIdentifier>{336b2f87-5335-469c-8736-0f16ed29d6c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -116,6 +119,12 @@
     <ClInclude Include="Ledge.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="tileson.hpp">
+      <Filter>Core\Tileson</Filter>
+    </ClInclude>
+    <ClInclude Include="TiledMap.h">
+      <Filter>Core\Tileson</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -179,6 +188,9 @@
     <ClCompile Include="BashAbility.cpp" />
     <ClCompile Include="Ledge.cpp">
       <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="TiledMap.cpp">
+      <Filter>Core\Tileson</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
