@@ -119,6 +119,9 @@
     <ClInclude Include="Ledge.h">
       <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
+    <ClInclude Include="MovingPlatform.hpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -181,6 +184,9 @@
       <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
     <ClCompile Include="Ledge.cpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingPlatform.cpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
   </ItemGroup>

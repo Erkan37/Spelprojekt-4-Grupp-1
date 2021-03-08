@@ -18,6 +18,8 @@
 
 #include "Ledge.h"
 
+#include "MovingPlatform.hpp"
+
 LevelScene::LevelScene()
 	: 
 	myPlayer(nullptr)
@@ -67,13 +69,18 @@ void LevelScene::Load()
 		const bool oneway = (*itr)["Oneway"].GetBool();
 		const bool moving = (*itr)["Moving"].GetBool();
 
-		float speed = 0.0f;
-
-		Platform* ground = new Platform(this);
-
-		if (moving)
+		if (!moving)
 		{
-			speed = (*itr)["Speed"].GetFloat();
+			Platform* ground = new Platform(this);
+			ground->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY), oneway);
+		}
+		else
+		{
+			const float speed = (*itr)["Speed"].GetFloat();
+			MovingPlatform* ground = new MovingPlatform(this);
+			ground->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY), oneway);
+			ground->SetSpeed(speed);
+
 			for (rapidjson::Value::ConstValueIterator waypoint = (*itr)["Waypoints"].Begin(); waypoint != (*itr)["Waypoints"].End(); ++waypoint)
 			{
 				const float waypointX = (*waypoint)["X"].GetFloat();
@@ -82,8 +89,6 @@ void LevelScene::Load()
 				ground->AddWaypoint(v2f(waypointX, waypointY));
 			}
 		}
-
-		ground->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY), speed, oneway);
 	}
 
 	preProdPlatformsFile.close();
