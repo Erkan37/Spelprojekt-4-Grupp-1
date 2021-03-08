@@ -59,6 +59,9 @@ public:
 
 	void LerpToPosition(const v2f& aPosition, const float& aDeltaTime);
 
+	void BounceOnDestructibleWall();
+	const bool& GetIsBashing();
+
 	void ImGuiUpdate();
 
 private:

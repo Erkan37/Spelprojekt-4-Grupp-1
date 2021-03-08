@@ -81,6 +81,11 @@ v2f BashAbility::GetVelocity()
 	return myCurrentDashVelocity;
 }
 
+void BashAbility::SetVelocity(const v2f& aDashVelocity)
+{
+	myCurrentDashVelocity = aDashVelocity;
+}
+
 void BashAbility::ResetVelocity(const bool aResetX, const bool aResetY)
 {
 	if (aResetX)

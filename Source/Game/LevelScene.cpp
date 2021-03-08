@@ -20,6 +20,7 @@
 
 #include "MovingPlatform.hpp"
 #include "UnstablePlatform.hpp"
+#include "DestructiblePlatform.hpp"
 
 LevelScene::LevelScene()
 	: 
@@ -47,6 +48,7 @@ void LevelScene::Load()
 	Platform* staticPlatform;
 	MovingPlatform* movingGround;
 	UnstablePlatform* unstablePlatform;
+	DestructiblePlatform* destructiblePlatform;
 
 	const float ledgeSizeX = preProdPlatforms["LedgeSize"]["X"].GetFloat();
 	const float ledgeSizeY = preProdPlatforms["LedgeSize"]["Y"].GetFloat();
@@ -106,6 +108,8 @@ void LevelScene::Load()
 
 				break;
 			case 3:
+				destructiblePlatform = new DestructiblePlatform(this);
+				destructiblePlatform->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY), oneway);
 				break;
 		}
 	}
