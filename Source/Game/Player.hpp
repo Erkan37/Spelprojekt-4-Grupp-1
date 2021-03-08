@@ -46,6 +46,9 @@ public:
 
 	void ResetVelocity();
 
+	const v2f GetPlatformVelocity();
+	void SetPlatformVelocity(const v2f& aPlatformVelocity);
+
 	void AnimationState();
 
 	void UpdatePlayerVelocity(const float& aDeltaTime);
@@ -66,6 +69,8 @@ private:
 
 	v2f myCurrentVelocity;
 
+	v2f myPlatformVelocity;
+
 	v2f myLerpPosition;
 
 	v2f mySize;
@@ -79,6 +84,7 @@ private:
 	float myAcceleration;
 	float myRetardation;
 	float myLerpToPositionAcceleration;
+	float myPlatformVelocityRetardation;
 
 	float myJumpVelocity;
 	float myDoubleJumpVelocity;

@@ -31,6 +31,9 @@
     <Filter Include="Components\Animation">
       <UniqueIdentifier>{9aa78b19-76b7-4dc4-af82-6c21b0a7a03f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Objects\Platforms">
+      <UniqueIdentifier>{1f3f5638-6de1-4c16-b51c-6a68de44fd9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -109,12 +112,12 @@
     <ClInclude Include="InputWrapper.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Platform.h">
-      <Filter>Game Objects</Filter>
-    </ClInclude>
     <ClInclude Include="BashAbility.h" />
+    <ClInclude Include="Platform.h">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClInclude>
     <ClInclude Include="Ledge.h">
-      <Filter>Game Objects</Filter>
+      <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -173,12 +176,12 @@
     <ClCompile Include="InputWrapper.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Game Objects</Filter>
-    </ClCompile>
     <ClCompile Include="BashAbility.cpp" />
+    <ClCompile Include="Platform.cpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClCompile>
     <ClCompile Include="Ledge.cpp">
-      <Filter>Game Objects</Filter>
+      <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

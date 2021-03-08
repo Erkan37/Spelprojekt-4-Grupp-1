@@ -90,5 +90,4 @@ protected:
 	int myZIndex;
 
 	bool myIsActive; 
-	bool myIsLedge;
 };
