@@ -30,7 +30,7 @@ public:
 
 	const void AlmostCollision(GameObject* aObject, const float& aYDistance);
 
-	bool PhysicsManager::OneWayCheck(const float& aInSensitivity, PhysicsComponent* aObj1Physics, PhysicsComponent* aObj2Physics, const v2f& aObj1Min, const v2f& aObj1Max, const v2f& aObj2Min, const v2f& aObj2Max);
+	bool PhysicsManager::OneWayCheck(const float& aInSensitivity, GameObject* aObj1, GameObject* aObj2, const v2f& aObj1Min, const v2f& aObj1Max, const v2f& aObj2Min, const v2f& aObj2Max);
 
 private:
 	std::vector<ColliderComponent*> myColliders;

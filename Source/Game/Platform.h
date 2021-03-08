@@ -22,6 +22,8 @@ public:
 
 	void ClearWaypoints();
 
+	void OnCollision(GameObject* aGameObject) override;
+
 private:
 	std::vector<v2f> myWaypoints;
 	v2f myDirection;

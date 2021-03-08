@@ -103,7 +103,7 @@ void PhysicsManager::CheckOverlap(GameObject* aObj1, GameObject* aObj2, PhysicsC
 
 	const float insensitivity = 5.0f;
 
-	if (OneWayCheck(insensitivity, aObj1Physics, aObj2Physics, obj1min, obj1max, obj2min, obj2max))
+	if (OneWayCheck(insensitivity, aObj1, aObj2, obj1min, obj1max, obj2min, obj2max))
 	{
 		return;
 	}
@@ -185,18 +185,40 @@ const void PhysicsManager::AlmostCollision(GameObject* aObject, const float& aYD
 	}
 }
 
-bool PhysicsManager::OneWayCheck(const float& aInSensitivity, PhysicsComponent* aObj1Physics, PhysicsComponent* aObj2Physics, const v2f& aObj1Min, const v2f& aObj1Max, const v2f& aObj2Min, const v2f& aObj2Max)
+bool PhysicsManager::OneWayCheck(const float& aInSensitivity, GameObject* aObj1, GameObject* aObj2, const v2f& aObj1Min, const v2f& aObj1Max, const v2f& aObj2Min, const v2f& aObj2Max)
 {
-	if (aObj1Physics->GetCollisionType() == PhysicsComponent::eCollisionType::OneWay)
+	if (aObj1->GetComponent<PhysicsComponent>()->GetCollisionType() == PhysicsComponent::eCollisionType::OneWay)
 	{
-		if (aObj2Max.y > aObj1Min.y + aInSensitivity || aObj2Physics->GetVelocityY() < 0)
+		float playerPlatformVelocity = 0;
+
+		Player* player = dynamic_cast<Player*>(aObj2);
+
+		if (player)
+		{
+			playerPlatformVelocity = player->GetPlatformVelocity().y;
+		}
+
+		const float objVelocity = aObj2->GetComponent<PhysicsComponent>()->GetVelocityY() - playerPlatformVelocity;
+		
+		if (aObj2Max.y > aObj1Min.y + aInSensitivity || objVelocity < 0)
 		{
 			return true;
 		}
 	}
-	else if (aObj2Physics->GetCollisionType() == PhysicsComponent::eCollisionType::OneWay)
+	else if (aObj2->GetComponent<PhysicsComponent>()->GetCollisionType() == PhysicsComponent::eCollisionType::OneWay)
 	{
-		if (aObj1Max.y > aObj2Min.y + aInSensitivity || aObj1Physics->GetVelocityY() < 0)
+		float playerPlatformVelocity = 0;
+
+		Player* player = dynamic_cast<Player*>(aObj1);
+
+		if (player)
+		{
+			playerPlatformVelocity = player->GetPlatformVelocity().y;
+		}
+
+		const float objVelocity = aObj1->GetComponent<PhysicsComponent>()->GetVelocityY() - playerPlatformVelocity;
+
+		if (aObj1Max.y > aObj2Min.y + aInSensitivity || objVelocity < 0)
 		{
 			return true;
 		}

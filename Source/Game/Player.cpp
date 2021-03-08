@@ -318,6 +318,16 @@ void Player::ResetVelocity()
 	myCurrentVelocity.y = 0;
 }
 
+const v2f Player::GetPlatformVelocity()
+{
+	return myPlatformVelocity;
+}
+
+void Player::SetPlatformVelocity(const v2f& aPlatformVelocity)
+{
+	myPlatformVelocity = aPlatformVelocity;
+}
+
 void Player::AnimationState()
 {
 	AnimationComponent* animation = GetComponent<AnimationComponent>();
@@ -341,7 +351,7 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 	}
 	
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
-	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity());
+	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity);
 }
 
 void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)

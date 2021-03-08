@@ -7,7 +7,7 @@
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
 
-#include <iostream>
+#include "Player.hpp"
 
 Platform::Platform(Scene* aScene)
 	:
@@ -94,4 +94,13 @@ void Platform::ClearWaypoints()
 {
 	myWaypoints.clear();
 	myCurrentWayPointIndex = 0;
+}
+
+void Platform::OnCollision(GameObject* aGameObject)
+{
+	Player* player = dynamic_cast<Player*>(aGameObject);
+	if (player)
+	{
+		player->SetPlatformVelocity(myDirection * mySpeed);
+	}
 }

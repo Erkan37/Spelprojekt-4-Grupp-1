@@ -46,6 +46,9 @@ public:
 
 	void ResetVelocity();
 
+	const v2f GetPlatformVelocity();
+	void SetPlatformVelocity(const v2f& aPlatformVelocity);
+
 	void AnimationState();
 
 	void UpdatePlayerVelocity(const float& aDeltaTime);
@@ -65,6 +68,8 @@ private:
 	std::unique_ptr<BashAbility> myBashAbility;
 
 	v2f myCurrentVelocity;
+
+	v2f myPlatformVelocity;
 
 	v2f myLerpPosition;
 

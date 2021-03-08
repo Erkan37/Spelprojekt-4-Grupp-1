@@ -41,7 +41,7 @@
         }
       ],
 
-      "Oneway": false
+      "Oneway": true
     },
 
     {
