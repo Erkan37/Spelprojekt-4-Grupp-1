@@ -1,0 +1,15 @@
+{
+  "FilePathArray": [
+    {
+      "FilePath": "Data/LevelData/LevelMaster.json"
+    },
+    {
+      "FilePath": "Data/EnemyData/EnemyMaster.json"
+    },
+    {
+      "FilePath": "Sound/SoundMaster.json"
+    }
+  ],
+
+  "PlayerData": "Data/PlayerData.json"
+}

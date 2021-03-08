@@ -116,6 +116,7 @@
     <ClInclude Include="Ledge.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="DataManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -180,5 +181,6 @@
     <ClCompile Include="Ledge.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
+    <ClCompile Include="DataManager.cpp" />
   </ItemGroup>
 </Project>
