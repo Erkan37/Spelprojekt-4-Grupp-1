@@ -14,7 +14,34 @@
       "Size": {
         "X": 720,
         "Y": 200
-      }
+      },
+
+      "Moving": true,
+      "Speed": 300.0,
+
+      "Waypoints": [
+        {
+          "X": 1000,
+          "Y": 500
+        },
+
+        {
+          "X": 500,
+          "Y": 500
+        },
+
+        {
+          "X": 500,
+          "Y": 0
+        },
+
+        {
+          "X": 1000,
+          "Y": 0
+        }
+      ],
+
+      "Oneway": false
     },
 
     {
@@ -31,7 +58,11 @@
       "Size": {
         "X": 360,
         "Y": 100
-      }
+      },
+
+      "Moving": false,
+
+      "Oneway": true
     },
 
     {
@@ -48,7 +79,11 @@
       "Size": {
         "X": 180,
         "Y": 50
-      }
+      },
+
+      "Moving": false,
+
+      "Oneway": false
     },
 
     {
@@ -65,7 +100,11 @@
       "Size": {
         "X": 180,
         "Y": 50
-      }
+      },
+
+      "Moving": false,
+
+      "Oneway": false
     },
 
     {
@@ -82,7 +121,11 @@
       "Size": {
         "X": 360,
         "Y": 100
-      }
+      },
+
+      "Moving": false,
+
+      "Oneway": false
     },
 
     {
@@ -99,7 +142,11 @@
       "Size": {
         "X": 360,
         "Y": 100
-      }
+      },
+
+      "Moving": false,
+
+      "Oneway": false
     },
 
     {
@@ -116,7 +163,11 @@
       "Size": {
         "X": 180,
         "Y": 50
-      }
+      },
+
+      "Moving": false,
+
+      "Oneway": false
     },
 
     {
@@ -133,7 +184,11 @@
       "Size": {
         "X": 180,
         "Y": 50
-      }
+      },
+
+      "Moving": false,
+
+      "Oneway": false
     }
 
   ],

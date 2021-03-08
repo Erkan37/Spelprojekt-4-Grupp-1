@@ -62,10 +62,28 @@ void LevelScene::Load()
 		const float sizeY = (*itr)["Size"]["Y"].GetFloat();
 
 		const float spriteSizeX = (*itr)["SpriteSize"]["X"].GetFloat();
-		const float spriteSizeY = (*itr)["SpriteSize"]["Y"].GetFloat();
+		const float spriteSizeY = (*itr)["SpriteSize"]["Y"].GetFloat(); 
+
+		const bool oneway = (*itr)["Oneway"].GetBool();
+		const bool moving = (*itr)["Moving"].GetBool();
+
+		float speed = 0.0f;
 
 		Platform* ground = new Platform(this);
-		ground->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY));
+
+		if (moving)
+		{
+			speed = (*itr)["Speed"].GetFloat();
+			for (rapidjson::Value::ConstValueIterator waypoint = (*itr)["Waypoints"].Begin(); waypoint != (*itr)["Waypoints"].End(); ++waypoint)
+			{
+				const float waypointX = (*waypoint)["X"].GetFloat();
+				const float waypointY = (*waypoint)["Y"].GetFloat();
+
+				ground->AddWaypoint(v2f(waypointX, waypointY));
+			}
+		}
+
+		ground->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY), speed, oneway);
 	}
 
 	preProdPlatformsFile.close();

@@ -307,6 +307,7 @@ void Player::Landed(const int& aOverlapY)
 
 void Player::SideCollision(const int& aOverlapX)
 {
+	aOverlapX;
 	myCurrentVelocity.x = 0.0f;
 	myBashAbility->ResetVelocity(true, false);
 }
