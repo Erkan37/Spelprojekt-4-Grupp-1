@@ -11,16 +11,16 @@ public:
 	Enemy(LevelScene* aScene);
 	~Enemy();
 	void Update(const float& aDeltaTime) override;
+private:
 	void Move(const float& aDeltaTime);
 	void SetNextWayPoint();
 	void SetDirection(const v2f& aDestination);
 	std::vector<v2f> myWayPoints; // Get from Tiled.
-	const float mySpeed = 5.0f; //Get from Data
-	v2f mySize = { 1.0f, 1.0f };
+	const float mySpeed = 200; //Get from Json
+	v2f mySize = { 100.0f, 100.0f }; // Get from Json
 	v2f myDestination;
 	v2f myDirection;
-	v2f myPosition;
-	int myCurrentPoint = 0;
+	int myCurrentPoint = 1;
 	Animation myAnimation;
 };
 

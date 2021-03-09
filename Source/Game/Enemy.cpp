@@ -9,10 +9,12 @@
 
 Enemy::Enemy(LevelScene* aScene) : GameObject(aScene)
 {
-	myWayPoints.push_back({ 0.0f, 550.0f });
-	myWayPoints.push_back({ 20.0f, 550.0f });
-	myPosition = myWayPoints[0];
+	myWayPoints.push_back({ 300.0f, 750.0f });
+	myWayPoints.push_back({ 500.0f, 950.0f });
+	myWayPoints.push_back({ 600.0f, 750.0f });
+	myWayPoints.push_back({ 500.0f, 550.0f });
 	myDestination = myWayPoints[1];
+	this->SetPosition(myWayPoints[0]);
 	SetDirection(myDestination);
 
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
@@ -32,6 +34,7 @@ Enemy::Enemy(LevelScene* aScene) : GameObject(aScene)
 	physics->SetApplyGravity(false);
 
 	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
+	this->SetZIndex(400);
 }
 
 Enemy::~Enemy()
@@ -42,8 +45,9 @@ Enemy::~Enemy()
 void Enemy::Update(const float& aDeltaTime)
 {
 	Move(aDeltaTime);
-	PhysicsComponent* physics = this->GetComponent<PhysicsComponent>();
-	if (physics->HasCollidedAtPoint(this, myDestination))
+	SetDirection(myDestination);
+	if (myDestination.x >= this->GetPosition().x && myDestination.x <= this->GetPosition().x + mySize.x &&
+		myDestination.y >= this->GetPosition().y && myDestination.y <= this->GetPosition().y + mySize.y)
 	{
 		SetNextWayPoint();
 	}
@@ -53,28 +57,22 @@ void Enemy::Update(const float& aDeltaTime)
 void Enemy::Move(const float& aDeltaTime)
 {
 	PhysicsComponent* physics = this->GetComponent<PhysicsComponent>();
-	physics->SetVelocity(myDirection * mySpeed * aDeltaTime);
+	physics->SetVelocity(myDirection * mySpeed);
 }
-
 
 
 void Enemy::SetNextWayPoint()
 {
 	++myCurrentPoint;
-	if (myCurrentPoint > myWayPoints.size())
+	if (myCurrentPoint >= myWayPoints.size())
 	{
 		myCurrentPoint = 0;
-		myDestination = myWayPoints[0];
 	}
-	else
-	{
-		myDestination = myWayPoints[myCurrentPoint];
-	}
-	SetDirection(myDestination);
+	myDestination = myWayPoints[myCurrentPoint];
 }
 
 void Enemy::SetDirection(const v2f& aDestination)
 {
-	myDirection = aDestination - myPosition;
+	myDirection = aDestination - this->GetPosition();
 	myDirection.Normalize();
 }
