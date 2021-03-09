@@ -157,9 +157,6 @@
     <ClInclude Include="PlatformFactory.hpp">
       <Filter>Factories</Filter>
     </ClInclude>
-    <ClInclude Include="Background.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="DeadlyPlatform.hpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
@@ -259,9 +256,6 @@
     </ClCompile>
     <ClCompile Include="PlatformFactory.cpp">
       <Filter>Factories</Filter>
-    </ClCompile>
-    <ClCompile Include="Background.cpp">
-      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="DeadlyPlatform.cpp">
       <Filter>Game Objects\Platforms</Filter>
