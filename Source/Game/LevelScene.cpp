@@ -33,12 +33,8 @@ void LevelScene::Load()
 	Collectible* collectible = new Collectible(this);
 	collectible->Init(v2f(500.0f, 500.0f), Collectible::eCollectibleType::Easy);
 
-	GameObject* background = new GameObject(this);
-	background->SetPosition({1080.0f, 540});
-
-	SpriteComponent* sprite = background->AddComponent<SpriteComponent>();
-	sprite->SetSpritePath("Sprites/Background.png");
-	sprite->SetSize({ 3840.0f, 2160.0f });
+	myBackground = std::make_unique<Background>(this);
+	myBackground->AddPlayerRelation(myPlayer);
 
 	PlatformFactory platformFactory;
 	platformFactory.ReadPlatforms(this, "JSON/PreProdPlatforms.json");
