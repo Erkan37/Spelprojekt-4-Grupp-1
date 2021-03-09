@@ -15,6 +15,7 @@
 #include <fstream>
 
 #include "Player.hpp"
+#include "Enemy.h"
 
 #include "Ledge.h"
 
@@ -27,7 +28,7 @@ LevelScene::LevelScene()
 void LevelScene::Load()
 {
 	myPlayer = new Player(this);
-
+	myEnemy = new Enemy(this);
 	GameObject* background = new GameObject(this);
 	background->SetPosition({1080.0f, 540});
 

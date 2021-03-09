@@ -47,6 +47,16 @@ const v2f& PhysicsComponent::GetDashVelocity() const
 	return myDashVelocity;
 }
 
+const bool PhysicsComponent::HasCollidedAtPoint(GameObject* aGameObject, const v2f aPoint)
+{
+	ColliderComponent* collider = aGameObject->GetComponent<ColliderComponent>();
+	if (aPoint.x >= collider->GetPosition().x + collider->GetWidth() && aPoint.y <= collider->GetPosition().y + collider->GetHeight())
+	{
+		return true;
+	}
+	return false;
+}
+
 PhysicsComponent& PhysicsComponent::SetApplyGravity(const bool& aApplyGravity)
 {
 	myApplyGravity = aApplyGravity;

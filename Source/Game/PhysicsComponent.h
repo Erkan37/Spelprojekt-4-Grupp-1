@@ -24,6 +24,7 @@ public:
     const float& GetVelocityX() const;
     const float& GetVelocityY() const;
     const v2f& GetDashVelocity() const;
+    const bool HasCollidedAtPoint(GameObject* aGameObject, const v2f aPoint);
 
     PhysicsComponent& SetApplyGravity(const bool& aApplyGravity);
     PhysicsComponent& SetIsStatic(const bool& aIsStatic);
