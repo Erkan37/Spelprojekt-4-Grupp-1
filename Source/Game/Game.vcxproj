@@ -154,6 +154,7 @@
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Platform.h" />
+    <ClInclude Include="PlatformFactory.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="PlatformFactory.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SpritebatchComponent.cpp" />
