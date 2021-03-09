@@ -4,7 +4,7 @@
 #include <tga2d/text/text.h>
 #include "Game.h"
 #include "InputWrapper.h"
-
+#include "DataManager.h"
 
 #include <tga2d/error/error_manager.h>
 
@@ -136,6 +136,8 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 
 void CGame::InitCallBack()
 {
+	DataManager::GetInstance().InitData();
+
 	myGameWorld.Init();
 	/*
 	myThread = new std::thread([&]()

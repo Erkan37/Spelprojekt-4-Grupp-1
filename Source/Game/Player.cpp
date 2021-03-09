@@ -32,6 +32,8 @@ Player::Player(LevelScene* aLevelScene)
 	CGameWorld* world = CGameWorld::GetInstance();
 	myInputHandler = world->Input();
 
+	//myJsonData = &DataManager::GetInstance().GetDataStruct(DataEnum::player);
+
 	myMaxRunningSpeed = 400.0f;
 	myRunningAnimationSpeed = 50.0f;
 

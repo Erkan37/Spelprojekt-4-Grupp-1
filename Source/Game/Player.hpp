@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Animation.hpp"
 #include "BashAbility.h"
+#include "DataManager.h"
 
 namespace Utils
 {
@@ -97,5 +98,7 @@ private:
 	bool myGrabbedLedge;
 
 	bool myIsLerpingToPosition;
+
+	Data *myJsonData;
 };
 
