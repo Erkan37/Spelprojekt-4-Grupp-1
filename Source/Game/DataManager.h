@@ -10,8 +10,8 @@ enum class DataEnum
 };
 struct Data
 {
-//protected:
-	virtual ~Data() = 0;
+	Data() = default;
+	virtual ~Data() {};
 };
 struct PlayerData : public Data
 {
@@ -30,8 +30,6 @@ struct EnemyData : public Data
 	{}
 };
 
-
-
 class DataManager
 {
 public:
@@ -45,17 +43,11 @@ public:
 	void operator=(const DataManager&) = delete;
 	~DataManager() = default;
 
-
-	void InitData();
-
-	Data& GetDataStruct(const DataEnum aDataEnum);
+	PlayerData& GetDataStruct(const DataEnum aDataEnum);
 	void SetDataStruct(const DataEnum aDataEnum);
-
-	//rapidjson::Document& GetLevelData();
 
 private:
 	DataManager();
-	//static DataManager myInstance;
 	void ReadFileIntoDocument(std::string aFilePath, rapidjson::Document& anOutDoc);
 
 	PlayerData myPlayerData;

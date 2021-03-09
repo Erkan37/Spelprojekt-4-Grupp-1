@@ -99,6 +99,6 @@ private:
 
 	bool myIsLerpingToPosition;
 
-	Data *myJsonData;
+	PlayerData *myJsonData = new PlayerData();
 };
 

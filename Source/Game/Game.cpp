@@ -136,8 +136,6 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 
 void CGame::InitCallBack()
 {
-	DataManager::GetInstance().InitData();
-
 	myGameWorld.Init();
 	/*
 	myThread = new std::thread([&]()

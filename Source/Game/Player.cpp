@@ -32,9 +32,9 @@ Player::Player(LevelScene* aLevelScene)
 	CGameWorld* world = CGameWorld::GetInstance();
 	myInputHandler = world->Input();
 
-	//myJsonData = &DataManager::GetInstance().GetDataStruct(DataEnum::player);
+	myJsonData = &DataManager::GetInstance().GetDataStruct(DataEnum::player);
+	myMaxRunningSpeed = myJsonData->myMaxSpeed;
 
-	myMaxRunningSpeed = 400.0f;
 	myRunningAnimationSpeed = 50.0f;
 
 	myAcceleration = 6.0f;
@@ -383,6 +383,12 @@ void Player::LerpToPosition(const v2f& aPosition, const float& aDeltaTime)
 void Player::ImGuiUpdate()
 {
 	ImGui::Begin("Player", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
+
+	if (ImGui::Button("Save to JSON"))
+	{
+		std::cout << "This works \n";
+		DataManager::GetInstance().SetDataStruct(DataEnum::player);
+	}
 
 	ImGui::SliderFloat("Max Speed", &myMaxRunningSpeed, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Acceleration", &myAcceleration, 0.0f, 100.0f);

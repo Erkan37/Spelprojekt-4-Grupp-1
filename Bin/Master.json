@@ -2,6 +2,6 @@
   "LevelData": [
 
   ],
-  "EnemyData": "Data/EnemyData/EnemyMaster.json",
-  "PlayerData": "Data/PlayerData.json"
+  "EnemyData": "JSON/Enemies.json",
+  "PlayerData": "JSON/Player.json"
 }

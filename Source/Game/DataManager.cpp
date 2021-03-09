@@ -4,7 +4,7 @@
 #include <sstream>
 #include <cassert>
 
-void DataManager::InitData()
+DataManager::DataManager()
 {
 	//Assign MasterDoc
 	ReadFileIntoDocument("Master.json", myMasterDoc);
@@ -16,8 +16,9 @@ void DataManager::InitData()
 	//Assign Player Values
 	myPlayerData.myAcceleration = myPlayerDoc["Acceleration"].GetFloat();
 	myPlayerData.myMaxSpeed = myPlayerDoc["MaxSpeed"].GetFloat();
-
 }
+
+
 void DataManager::SetDataStruct(const DataEnum aDataEnum)
 {
 	switch (aDataEnum)
@@ -29,6 +30,7 @@ void DataManager::SetDataStruct(const DataEnum aDataEnum)
 		ReadFileIntoDocument(playerDataPath, myPlayerDoc);
 
 		myPlayerDoc["Acceleration"].Set(myPlayerData.myAcceleration);
+		myPlayerDoc["MaxSpeed"].Set(myPlayerData.myMaxSpeed);
 	}
 	break;
 
@@ -38,7 +40,7 @@ void DataManager::SetDataStruct(const DataEnum aDataEnum)
 	}
 }
 
-Data& DataManager::GetDataStruct(const DataEnum aDataEnum)
+PlayerData& DataManager::GetDataStruct(const DataEnum aDataEnum)
 {
 	switch (aDataEnum)
 	{
