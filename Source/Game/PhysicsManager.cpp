@@ -20,7 +20,7 @@ PhysicsManager::PhysicsManager()
 
 void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObject*>& aGameObjects)
 {
-	UpdateGravity(aDeltaTime, aGameObjects);
+	UpdateObjectVelocity(aDeltaTime, aGameObjects);
 
 	for (int index = 0U; index < static_cast<int>(myColliders.size()); ++index)
 	{
@@ -65,7 +65,7 @@ void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObje
 	}
 }
 
-void PhysicsManager::UpdateGravity(const float& aDeltaTime, std::vector<GameObject*>& aGameObjects)
+void PhysicsManager::UpdateObjectVelocity(const float& aDeltaTime, std::vector<GameObject*>& aGameObjects)
 {
 	for (GameObject* obj : aGameObjects)
 	{

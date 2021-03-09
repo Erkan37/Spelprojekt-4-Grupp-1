@@ -43,6 +43,9 @@
     <Filter Include="Game Objects\Player">
       <UniqueIdentifier>{a63a465f-ee69-4ce1-9363-0feb06d15477}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Factories">
+      <UniqueIdentifier>{c0d9319b-1946-4f61-a32a-8e60fc15a157}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -145,6 +148,9 @@
     <ClInclude Include="Collectible.hpp">
       <Filter>Game Objects\Collectibles</Filter>
     </ClInclude>
+    <ClInclude Include="PlatformFactory.hpp">
+      <Filter>Factories</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -225,6 +231,9 @@
     </ClCompile>
     <ClCompile Include="Collectible.cpp">
       <Filter>Game Objects\Collectibles</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformFactory.cpp">
+      <Filter>Factories</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
