@@ -20,6 +20,8 @@
 #include "DeadlyPlatform.hpp"
 #include "PlatformFactory.hpp"
 
+#include "Collectible.hpp"
+
 LevelScene::LevelScene()
 	: 
 	myPlayer(nullptr)
@@ -29,6 +31,8 @@ LevelScene::LevelScene()
 void LevelScene::Load()
 {
 	myPlayer = new Player(this);
+	Collectible* collectible = new Collectible(this);
+	collectible->Init(v2f(500.0f, 500.0f), Collectible::eCollectibleType::Easy);
 
 	GameObject* background = new GameObject(this);
 	background->SetPosition({1080.0f, 540});
