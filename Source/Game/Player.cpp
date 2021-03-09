@@ -22,8 +22,8 @@ Player::Player(LevelScene* aLevelScene)
 	GameObject(aLevelScene)
 {
 	SetZIndex(500);
-	SetPosition({ 960.0f, 540.0f });
-	mySpawnPosition = v2f(960.0f, 540.0f);
+	SetPosition({ 700.0f, 640.0f });
+	mySpawnPosition = v2f(700.0f, 640.0f);
 	mySize = v2f(70.0f, 70.0f);
 
 	InitAnimations();
