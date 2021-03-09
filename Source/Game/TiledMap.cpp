@@ -11,9 +11,12 @@ bool TiledMap::Load(const std::string& aPath)
 
 	if (map->getStatus() != tson::ParseStatus::OK)
 	{
-		ERROR_PRINT("map load failed: %s", map->getStatusMessage().c_str());
+		ERROR_PRINT("map load failed", map->getStatusMessage().c_str());
 		return false;
 	}
+	
+	assert(map->getSize().x > 0);
+	assert(map->getSize().y > 0);
 
-	return false;
+	return true;
 }
