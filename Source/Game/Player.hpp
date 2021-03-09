@@ -64,6 +64,8 @@ public:
 
 	void Kill();
 
+	void BashCollision(const float& aBashRadius, const v2f& aPosition) override;
+
 	void ImGuiUpdate();
 
 private:

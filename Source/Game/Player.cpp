@@ -135,7 +135,6 @@ void Player::Update(const float& aDeltaTime)
 	AnimationState();
 	GameObject::Update(aDeltaTime);
 
-
 #ifdef _DEBUG
 	ImGuiUpdate();
 #endif //DEBUG
@@ -419,6 +418,14 @@ const bool& Player::GetIsBashing()
 void Player::Kill()
 {
 	SetPosition(mySpawnPosition);
+}
+
+void Player::BashCollision(const float& aBashRadius, const v2f& aPosition)
+{
+	if (aBashRadius * aBashRadius >= (aPosition - GetPosition()).LengthSqr())
+	{
+		myBashAbility->ActivateBash();
+	}
 }
 
 void Player::ImGuiUpdate()

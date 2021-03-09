@@ -182,6 +182,9 @@
     <ClInclude Include="Background.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="BashComponent.hpp">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -287,6 +290,9 @@
     </ClCompile>
     <ClCompile Include="Background.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="BashComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
