@@ -143,6 +143,7 @@
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="DeadlyPlatform.hpp" />
     <ClInclude Include="Debugger.h" />
     <ClInclude Include="DestructiblePlatform.hpp" />
     <ClInclude Include="Game.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="Collectible.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="DeadlyPlatform.cpp" />
     <ClCompile Include="Debugger.cpp" />
     <ClCompile Include="DestructiblePlatform.cpp" />
     <ClCompile Include="Game.cpp" />

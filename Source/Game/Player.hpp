@@ -62,6 +62,8 @@ public:
 	void BounceOnDestructibleWall();
 	const bool& GetIsBashing();
 
+	void Kill();
+
 	void ImGuiUpdate();
 
 private:
@@ -77,6 +79,8 @@ private:
 	v2f myLerpPosition;
 
 	v2f mySize;
+
+	v2f mySpawnPosition;
 
 	float myAirCoyoteTime;
 	float myAirCoyoteTimer;

@@ -5,6 +5,7 @@
 #include "MovingPlatform.hpp"
 #include "UnstablePlatform.hpp"
 #include "DestructiblePlatform.hpp"
+#include "DeadlyPlatform.hpp"
 
 #include "Ledge.h"
 
@@ -74,6 +75,9 @@ void PlatformFactory::ReadPlatforms(Scene* aLevelScene, const std::string& aFile
 		case 3:
 			CreateDestructiblePlatform(aLevelScene, v2f(positionX, positionY), v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY));
 			break;
+		case 4:
+			CreateDeadlyPlatform(aLevelScene, v2f(positionX, positionY), v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY));
+			break;
 		}
 	}
 
@@ -109,4 +113,11 @@ DestructiblePlatform* PlatformFactory::CreateDestructiblePlatform(Scene* aLevelS
 	DestructiblePlatform* destructiblePlatform = new DestructiblePlatform(aLevelScene);
 	destructiblePlatform->Init(v2f(aCollisionSize.x, aCollisionSize.y), v2f(aSpriteSize.x, aSpriteSize.y), v2f(aPosition.x, aPosition.y), false);
 	return destructiblePlatform;
+}
+
+DeadlyPlatform* PlatformFactory::CreateDeadlyPlatform(Scene* aLevelScene, const v2f& aPosition, const v2f& aCollisionSize, const v2f& aSpriteSize)
+{
+	DeadlyPlatform* deadlyPlatform = new DeadlyPlatform(aLevelScene);
+	deadlyPlatform->Init(v2f(aCollisionSize.x, aCollisionSize.y), v2f(aSpriteSize.x, aSpriteSize.y), v2f(aPosition.x, aPosition.y), false);
+	return deadlyPlatform;
 }
