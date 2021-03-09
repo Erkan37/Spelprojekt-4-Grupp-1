@@ -128,6 +128,7 @@
     <ClInclude Include="DestructiblePlatform.hpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
+    <ClInclude Include="TiledMap.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -201,5 +202,6 @@
     <ClCompile Include="DestructiblePlatform.cpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
+    <ClCompile Include="TiledMap.cpp" />
   </ItemGroup>
 </Project>

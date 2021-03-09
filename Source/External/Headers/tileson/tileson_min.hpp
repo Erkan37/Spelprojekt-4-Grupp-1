@@ -33,6 +33,7 @@
 // This is the minimal version of Tileson. You will have to provide your own version of json11.hpp and make sure it's included before anything
 // Tileson related.
 //#include "external/json11.hpp"
+#include "json11.hpp"
 
 
 /*** Start of inlined file: tileson_parser.hpp ***/
