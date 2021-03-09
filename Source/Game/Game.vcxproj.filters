@@ -160,8 +160,8 @@
     <ClInclude Include="Background.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="BashComponent.hpp">
-      <Filter>Components</Filter>
+    <ClInclude Include="DeadlyPlatform.hpp">
+      <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
     <ClInclude Include="TiledMap.h" />
     <ClInclude Include="PlatformFactory.hpp">
@@ -263,8 +263,8 @@
     <ClCompile Include="Background.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="BashComponent.cpp">
-      <Filter>Components</Filter>
+    <ClCompile Include="DeadlyPlatform.cpp">
+      <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
     <ClCompile Include="TiledMap.cpp" />
     <ClCompile Include="PlatformFactory.cpp">
