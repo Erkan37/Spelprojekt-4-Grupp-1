@@ -28,7 +28,7 @@ void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 	myType = aType;
 
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/Collectible.dds"); //Get correst image depending on type
+	spriteIdle->SetSpritePath("Sprites/Collectible.dds"); //Get correct image depending on type
 	spriteIdle->SetSize(v2f(100.0f, 100.0f)); //Get size from data manager instead
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
