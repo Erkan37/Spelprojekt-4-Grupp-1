@@ -13,6 +13,12 @@ class PhysicsComponent :
     public Component
 {
 public:
+    enum class eCollisionType
+    {
+        OneWay,
+        TwoWay
+    };
+
     PhysicsComponent(bool aApplyGravity = false, bool aIsStatic = false);
     PhysicsComponent(const PhysicsComponent& aComponent) = default;
     ~PhysicsComponent() = default;
@@ -24,6 +30,9 @@ public:
     const float& GetVelocityX() const;
     const float& GetVelocityY() const;
     const v2f& GetDashVelocity() const;
+
+    const eCollisionType GetCollisionType();
+    void SetCollisionType(const eCollisionType& aCollisionType);
 
     PhysicsComponent& SetApplyGravity(const bool& aApplyGravity);
     PhysicsComponent& SetIsStatic(const bool& aIsStatic);
@@ -39,6 +48,8 @@ public:
 private:
     v2f myVelocity;
     v2f myDashVelocity;
+
+    eCollisionType myCollisionType;
 
     bool myApplyGravity;
     bool myIsStatic;

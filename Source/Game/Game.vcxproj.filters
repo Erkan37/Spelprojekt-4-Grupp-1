@@ -31,8 +31,8 @@
     <Filter Include="Components\Animation">
       <UniqueIdentifier>{9aa78b19-76b7-4dc4-af82-6c21b0a7a03f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Tileson">
-      <UniqueIdentifier>{336b2f87-5335-469c-8736-0f16ed29d6c9}</UniqueIdentifier>
+    <Filter Include="Game Objects\Platforms">
+      <UniqueIdentifier>{1f3f5638-6de1-4c16-b51c-6a68de44fd9d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -112,18 +112,21 @@
     <ClInclude Include="InputWrapper.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Platform.h">
-      <Filter>Game Objects</Filter>
-    </ClInclude>
     <ClInclude Include="BashAbility.h" />
+    <ClInclude Include="Platform.h">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClInclude>
     <ClInclude Include="Ledge.h">
-      <Filter>Game Objects</Filter>
+      <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
-    <ClInclude Include="tileson.hpp">
-      <Filter>Core\Tileson</Filter>
+    <ClInclude Include="MovingPlatform.hpp">
+      <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
-    <ClInclude Include="TiledMap.h">
-      <Filter>Core\Tileson</Filter>
+    <ClInclude Include="UnstablePlatform.hpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClInclude>
+    <ClInclude Include="DestructiblePlatform.hpp">
+      <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -182,15 +185,21 @@
     <ClCompile Include="InputWrapper.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Game Objects</Filter>
-    </ClCompile>
     <ClCompile Include="BashAbility.cpp" />
-    <ClCompile Include="Ledge.cpp">
-      <Filter>Game Objects</Filter>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
-    <ClCompile Include="TiledMap.cpp">
-      <Filter>Core\Tileson</Filter>
+    <ClCompile Include="Ledge.cpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingPlatform.cpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClCompile>
+    <ClCompile Include="UnstablePlatform.cpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClCompile>
+    <ClCompile Include="DestructiblePlatform.cpp">
+      <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
