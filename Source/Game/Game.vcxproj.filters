@@ -37,6 +37,12 @@
     <Filter Include="Factories">
       <UniqueIdentifier>{66cb8abd-58bc-48cb-9d27-17191a46b4b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Objects\Collectibles">
+      <UniqueIdentifier>{16440345-a01a-4c7e-bc7e-6598b66bea8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Player">
+      <UniqueIdentifier>{a63a465f-ee69-4ce1-9363-0feb06d15477}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -106,16 +112,12 @@
     <ClInclude Include="AnimationComponent.hpp">
       <Filter>Components\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Player.hpp">
-      <Filter>Game Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Controller.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="InputWrapper.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="BashAbility.h" />
     <ClInclude Include="Platform.h">
       <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
@@ -134,6 +136,15 @@
     <ClInclude Include="TiledMap.h" />
     <ClInclude Include="PlatformFactory.hpp">
       <Filter>Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="BashAbility.h">
+      <Filter>Game Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.hpp">
+      <Filter>Game Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Collectible.hpp">
+      <Filter>Game Objects\Collectibles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -183,16 +194,12 @@
     <ClCompile Include="AnimationComponent.cpp">
       <Filter>Components\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Game Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="InputWrapper.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="BashAbility.cpp" />
     <ClCompile Include="Platform.cpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
@@ -211,6 +218,15 @@
     <ClCompile Include="TiledMap.cpp" />
     <ClCompile Include="PlatformFactory.cpp">
       <Filter>Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="BashAbility.cpp">
+      <Filter>Game Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Collectible.cpp">
+      <Filter>Game Objects\Collectibles</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
