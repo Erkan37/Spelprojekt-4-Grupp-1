@@ -89,27 +89,6 @@
       },
 
       "Oneway": false,
-      "Type": 0
-
-    },
-
-    {
-      "Position": {
-        "X": 1400,
-        "Y": 750
-      },
-
-      "SpriteSize": {
-        "X": 200,
-        "Y": 50
-      },
-
-      "Size": {
-        "X": 180,
-        "Y": 50
-      },
-
-      "Oneway": false,
       "Type": 3
     },
 

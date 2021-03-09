@@ -9,6 +9,7 @@ public:
 	void OnCollision(GameObject* aGameObject) override;
 
 private:
+	bool myWasDestroyed;
 
 };
 

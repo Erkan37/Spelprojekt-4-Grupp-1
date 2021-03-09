@@ -9,23 +9,29 @@
 
 DestructiblePlatform::DestructiblePlatform(Scene* aLevelScene)
 	:
-	Platform(aLevelScene)
+	Platform(aLevelScene),
+	myWasDestroyed(false)
 {
 
 }
 
 void DestructiblePlatform::OnCollision(GameObject* aGameObject)
 {
-	Player* player = dynamic_cast<Player*>(aGameObject);
-	if (player)
+	if (!myWasDestroyed)
 	{
-		if (player->GetIsBashing())
+		Player* player = dynamic_cast<Player*>(aGameObject);
+		if (player)
 		{
-			GetComponent<PhysicsComponent>()->SetCanCollide(false);
-			GetComponent<SpriteComponent>()->Deactivate();
-			player->BounceOnDestructibleWall();
-		}
-	}
+			if (player->GetIsBashing())
+			{
+				GetComponent<PhysicsComponent>()->SetCanCollide(false);
+				GetComponent<SpriteComponent>()->Deactivate(); //Actually, play animation;
+				player->BounceOnDestructibleWall();
 
-	Platform::OnCollision(aGameObject);
+				myWasDestroyed = true;
+			}
+		}
+
+		Platform::OnCollision(aGameObject);
+	}
 }
