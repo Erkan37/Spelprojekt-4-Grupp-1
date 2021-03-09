@@ -34,8 +34,17 @@
     <Filter Include="Game Objects\Platforms">
       <UniqueIdentifier>{1f3f5638-6de1-4c16-b51c-6a68de44fd9d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Tileson">
+      <UniqueIdentifier>{f0781a0c-d56a-4858-93a3-aa363f8a151e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Collectibles">
+      <UniqueIdentifier>{16440345-a01a-4c7e-bc7e-6598b66bea8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Player">
+      <UniqueIdentifier>{a63a465f-ee69-4ce1-9363-0feb06d15477}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Factories">
-      <UniqueIdentifier>{66cb8abd-58bc-48cb-9d27-17191a46b4b7}</UniqueIdentifier>
+      <UniqueIdentifier>{c0d9319b-1946-4f61-a32a-8e60fc15a157}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -106,16 +115,12 @@
     <ClInclude Include="AnimationComponent.hpp">
       <Filter>Components\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Player.hpp">
-      <Filter>Game Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Controller.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="InputWrapper.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="BashAbility.h" />
     <ClInclude Include="Platform.h">
       <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
@@ -131,8 +136,26 @@
     <ClInclude Include="DestructiblePlatform.hpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
+    <ClInclude Include="TiledMap.h">
+      <Filter>Core\Tileson</Filter>
+    </ClInclude>
+    <ClInclude Include="BashAbility.h">
+      <Filter>Game Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.hpp">
+      <Filter>Game Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Collectible.hpp">
+      <Filter>Game Objects\Collectibles</Filter>
+    </ClInclude>
     <ClInclude Include="PlatformFactory.hpp">
       <Filter>Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="BashComponent.hpp">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -182,16 +205,12 @@
     <ClCompile Include="AnimationComponent.cpp">
       <Filter>Components\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Game Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="InputWrapper.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="BashAbility.cpp" />
     <ClCompile Include="Platform.cpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
@@ -207,8 +226,26 @@
     <ClCompile Include="DestructiblePlatform.cpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
+    <ClCompile Include="TiledMap.cpp">
+      <Filter>Core\Tileson</Filter>
+    </ClCompile>
+    <ClCompile Include="BashAbility.cpp">
+      <Filter>Game Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Collectible.cpp">
+      <Filter>Game Objects\Collectibles</Filter>
+    </ClCompile>
     <ClCompile Include="PlatformFactory.cpp">
       <Filter>Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="BashComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -23,6 +23,7 @@ Player::Player(LevelScene* aLevelScene)
 {
 	SetZIndex(500);
 	SetPosition({ 960.0f, 540.0f });
+	mySpawnPosition = v2f(960.0f, 540.0f);
 	mySize = v2f(70.0f, 70.0f);
 
 	InitAnimations();
@@ -413,6 +414,11 @@ void Player::BounceOnDestructibleWall()
 const bool& Player::GetIsBashing()
 {
 	return myBashAbility->GetIsBashing();
+}
+
+void Player::Kill()
+{
+	SetPosition(mySpawnPosition);
 }
 
 void Player::ImGuiUpdate()

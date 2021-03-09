@@ -66,7 +66,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)tga2dcore\;$(SolutionDir)tga2dcore\imgui-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)External\Headers\;$(SolutionDir)tga2dcore\;$(SolutionDir)tga2dcore\imgui-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -91,7 +91,7 @@
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(SolutionDir)tga2dcore\;$(SolutionDir)tga2dcore\imgui-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)External\Headers\;$(SolutionDir)tga2dcore\;$(SolutionDir)tga2dcore\imgui-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MinimalRebuild>false</MinimalRebuild>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -117,7 +117,7 @@
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>$(SolutionDir)tga2dcore\;$(SolutionDir)tga2dcore\imgui-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)External\Headers\;$(SolutionDir)tga2dcore\;$(SolutionDir)tga2dcore\imgui-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MinimalRebuild>false</MinimalRebuild>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -136,8 +136,11 @@
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="AnimationComponent.hpp" />
+    <ClInclude Include="Background.h" />
     <ClInclude Include="BashAbility.h" />
+    <ClInclude Include="BashComponent.hpp" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collectible.hpp" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Controller.h" />
@@ -162,6 +165,7 @@
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TiledMap.h" />
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="UnstablePlatform.hpp" />
     <ClInclude Include="Utilities.h" />
@@ -171,8 +175,11 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationComponent.cpp" />
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="BashAbility.cpp" />
+    <ClCompile Include="BashComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collectible.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Debugger.cpp" />
@@ -197,6 +204,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Retail|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TiledMap.cpp" />
     <ClCompile Include="UnstablePlatform.cpp" />
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
