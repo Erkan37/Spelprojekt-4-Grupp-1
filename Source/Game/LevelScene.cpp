@@ -27,13 +27,8 @@ LevelScene::LevelScene()
 void LevelScene::Load()
 {
 	myPlayer = new Player(this);
-
-	GameObject* background = new GameObject(this);
-	background->SetPosition({1080.0f, 540});
-
-	SpriteComponent* sprite = background->AddComponent<SpriteComponent>();
-	sprite->SetSpritePath("Sprites/Background.png");
-	sprite->SetSize({ 3840.0f, 2160.0f });
+	myBackground = std::make_unique<Background>(this);
+	myBackground->AddPlayerRelation(myPlayer);
 
 	std::ifstream preProdPlatformsFile("JSON/PreProdPlatforms.json");
 	rapidjson::IStreamWrapper preProdPlatformsStream(preProdPlatformsFile);

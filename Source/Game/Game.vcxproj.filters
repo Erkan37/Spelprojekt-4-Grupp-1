@@ -116,6 +116,9 @@
     <ClInclude Include="Ledge.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -179,6 +182,9 @@
     <ClCompile Include="BashAbility.cpp" />
     <ClCompile Include="Ledge.cpp">
       <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
