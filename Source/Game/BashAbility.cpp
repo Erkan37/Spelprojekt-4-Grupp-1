@@ -20,6 +20,7 @@ BashAbility::BashAbility(LevelScene* aLevelScene)
 	myTimeScale = 0.05f;
 	myIsBashing = false;
 	myAcceleration = {};
+	myLMBMousePressed = {};
 }
 
 BashAbility::~BashAbility()
@@ -81,6 +82,11 @@ v2f BashAbility::GetVelocity()
 	return myCurrentDashVelocity;
 }
 
+void BashAbility::SetVelocity(const v2f& aDashVelocity)
+{
+	myCurrentDashVelocity = aDashVelocity;
+}
+
 void BashAbility::ResetVelocity(const bool aResetX, const bool aResetY)
 {
 	if (aResetX)
@@ -129,10 +135,7 @@ void BashAbility::FreezeTime()
 
 void BashAbility::DashUse(const float& aDeltaTime)
 {
-	v2f leftStickPosition = myInput->GetLeftStickMovement();
-	v2f dash = { leftStickPosition.x, leftStickPosition.y };
-	//Tga2D::CEngine::GetInstance()->GetErrorManager().InfoPrint(std::to_string(dash.x).c_str());
-	myDashDirection = dash.GetNormalized();
+	myDashDirection = myInput->GetAxisMovement();;
 
 	myPlayer->ResetVelocity();
 	myPlayer->ReactivateDoubleJump();
@@ -165,8 +168,10 @@ void BashAbility::CheckButtonPress()
 		myDashAbilityActive = true;
 		FreezeTime();
 	}
-	else
+	else if (myInput->IsDashingReleased())
 		myButtonHold = false;
+
+
 }
 
 const bool BashAbility::GetIsBashing()

@@ -23,6 +23,7 @@ public:
 	void Render();
 
 	v2f GetVelocity();
+	void SetVelocity(const v2f& aDashVelocity);
 
 	void ResetVelocity(const bool aResetX, const bool aResetY);
 
@@ -41,10 +42,12 @@ private:
 	Utils::Timer* myTimerInput;
 
 	float myTimeScale;
+
 	bool myDashAbilityActive;
 	bool myButtonHold;
 	bool myRadiusFromDash;
 	bool myIsBashing;
+	bool myLMBMousePressed;
 
 	float myTimer;
 	float myDashDuration;

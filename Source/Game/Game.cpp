@@ -137,18 +137,6 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 void CGame::InitCallBack()
 {
 	myGameWorld.Init();
-	/*
-	myThread = new std::thread([&]()
-	{
-		while (myActive)
-		{
-			myGameWorld.Update();
-			myGameWorld.Render();
-			myRenderer.IncrementLogicCounter();
-			while (myRenderer.GetLogicCounter() > myRenderer.GetRenderCounter() && myActive);
-		}
-	});
-	*/
 }
 
 void CGame::UpdateCallBack()
@@ -156,6 +144,11 @@ void CGame::UpdateCallBack()
 	myTimer->Update();
 	myGameWorld.Update();
 	myGameWorld.Render();
+
+	if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::ESCKey))
+	{
+		PostQuitMessage(0);
+	}
 
 #ifndef _RETAIL
 	if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::F1Key))

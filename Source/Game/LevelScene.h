@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include <vector>
 #include "Platform.h"
+#include "BackGround.h"
 
 class GameObject;
 
@@ -20,6 +21,7 @@ public:
 private:
     GameObject* myPlayer;
     GameObject* myEnemy;
+    std::unique_ptr<Background> myBackground;
 
 };
 

@@ -10,14 +10,17 @@
 
 #include "../External/Headers/CU/Utilities.h"
 
-#include "../External/Headers/rapidjson/document.h"
-#include "../External/Headers/rapidjson/istreamwrapper.h"
-#include <fstream>
-
 #include "Player.hpp"
 #include "Enemy.h"
 
 #include "Ledge.h"
+
+#include "MovingPlatform.hpp"
+#include "UnstablePlatform.hpp"
+#include "DestructiblePlatform.hpp"
+#include "PlatformFactory.hpp"
+
+#include "Collectible.hpp"
 
 LevelScene::LevelScene()
 	: 
@@ -68,8 +71,14 @@ void LevelScene::Load()
 		Platform* ground = new Platform(this);
 		ground->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY));
 	}
+	Collectible* collectible = new Collectible(this);
+	collectible->Init(v2f(500.0f, 500.0f), Collectible::eCollectibleType::Easy);
 
-	preProdPlatformsFile.close();
+	myBackground = std::make_unique<Background>(this);
+	myBackground->AddPlayerRelation(myPlayer);
+
+	PlatformFactory platformFactory;
+	platformFactory.ReadPlatforms(this, "JSON/PreProdPlatforms.json");
 
 	Scene::Load();
 }
