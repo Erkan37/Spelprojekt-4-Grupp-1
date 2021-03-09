@@ -10,10 +10,6 @@
 
 #include "../External/Headers/CU/Utilities.h"
 
-#include "../External/Headers/rapidjson/document.h"
-#include "../External/Headers/rapidjson/istreamwrapper.h"
-#include <fstream>
-
 #include "Player.hpp"
 
 #include "Ledge.h"
@@ -21,6 +17,7 @@
 #include "MovingPlatform.hpp"
 #include "UnstablePlatform.hpp"
 #include "DestructiblePlatform.hpp"
+#include "PlatformFactory.hpp"
 
 LevelScene::LevelScene()
 	: 
@@ -39,82 +36,8 @@ void LevelScene::Load()
 	sprite->SetSpritePath("Sprites/Background.png");
 	sprite->SetSize({ 3840.0f, 2160.0f });
 
-	std::ifstream preProdPlatformsFile("JSON/PreProdPlatforms.json");
-	rapidjson::IStreamWrapper preProdPlatformsStream(preProdPlatformsFile);
-
-	rapidjson::Document preProdPlatforms;
-	preProdPlatforms.ParseStream(preProdPlatformsStream);
-
-	Platform* staticPlatform;
-	MovingPlatform* movingGround;
-	UnstablePlatform* unstablePlatform;
-	DestructiblePlatform* destructiblePlatform;
-
-	const float ledgeSizeX = preProdPlatforms["LedgeSize"]["X"].GetFloat();
-	const float ledgeSizeY = preProdPlatforms["LedgeSize"]["Y"].GetFloat();
-
-	const float destroyTime = preProdPlatforms["DestroyTime"].GetFloat();
-	const float respawnTime = preProdPlatforms["RespawnTime"].GetFloat();
-
-	for (rapidjson::Value::ConstValueIterator itr = preProdPlatforms["Ledges"].Begin(); itr != preProdPlatforms["Ledges"].End(); ++itr)
-	{
-		const float positionX = (*itr)["Position"]["X"].GetFloat();
-		const float positionY = (*itr)["Position"]["Y"].GetFloat();
-
-		Ledge* ledge = new Ledge(this);
-		ledge->Init(v2f(positionX, positionY), v2f(ledgeSizeX, ledgeSizeY));
-	}
-
-	for (rapidjson::Value::ConstValueIterator itr = preProdPlatforms["Platforms"].Begin(); itr != preProdPlatforms["Platforms"].End(); ++itr)
-	{
-		const float positionX = (*itr)["Position"]["X"].GetFloat();
-		const float positionY = (*itr)["Position"]["Y"].GetFloat();
-
-		const float sizeX = (*itr)["Size"]["X"].GetFloat();
-		const float sizeY = (*itr)["Size"]["Y"].GetFloat();
-
-		const float spriteSizeX = (*itr)["SpriteSize"]["X"].GetFloat();
-		const float spriteSizeY = (*itr)["SpriteSize"]["Y"].GetFloat(); 
-
-		const bool oneway = (*itr)["Oneway"].GetBool();
-		const int type = (*itr)["Type"].GetInt();
-
-		float speed = 0;
-
-		switch (type)
-		{
-			case 0:
-				staticPlatform = new Platform(this);
-				staticPlatform->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY), oneway);
-				break;
-			case 1:
-				speed = (*itr)["Speed"].GetFloat();
-				movingGround = new MovingPlatform(this);
-				movingGround->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY), oneway);
-				movingGround->SetSpeed(speed);
-
-				for (rapidjson::Value::ConstValueIterator waypoint = (*itr)["Waypoints"].Begin(); waypoint != (*itr)["Waypoints"].End(); ++waypoint)
-				{
-					const float waypointX = (*waypoint)["X"].GetFloat();
-					const float waypointY = (*waypoint)["Y"].GetFloat();
-
-					movingGround->AddWaypoint(v2f(waypointX, waypointY));
-				}
-				break;
-			case 2:
-				unstablePlatform = new UnstablePlatform(this);
-				unstablePlatform->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY), false);
-				unstablePlatform->SetTimerProperties(destroyTime, respawnTime);
-
-				break;
-			case 3:
-				destructiblePlatform = new DestructiblePlatform(this);
-				destructiblePlatform->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY), false);
-				break;
-		}
-	}
-
-	preProdPlatformsFile.close();
+	PlatformFactory platformFactory;
+	platformFactory.ReadPlatforms(this, "JSON/PreProdPlatforms.json");
 
 	Scene::Load();
 }
