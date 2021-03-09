@@ -20,13 +20,15 @@ Collectible::~Collectible()
 
 }
 
-void Collectible::Init(const v2f& aPosition)
+void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 {
 	SetZIndex(400);
 	SetPosition(aPosition);
 
+	myType = aType;
+
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/Collectible.dds");
+	spriteIdle->SetSpritePath("Sprites/Collectible.dds"); //Get correst image depending on type
 	spriteIdle->SetSize(v2f(100.0f, 100.0f)); //Get size from data manager instead
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
@@ -34,7 +36,7 @@ void Collectible::Init(const v2f& aPosition)
 	physics->SetIsStatic(false);
 	physics->SetApplyGravity(false);
 
-	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
+	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this); //Get collision size from data manager
 }
 
 void Collectible::OnCollision(GameObject* aGameObject)
