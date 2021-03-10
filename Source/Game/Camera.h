@@ -56,6 +56,8 @@ public:
 	const bool& HasBounds() const;
 	const v2f& GetBounds() const;
 	const v2f& GetBoundSize() const;
+	const bool GetActive() const;
+	void SetActive();
 
 	/* Camera Shake */
 	bool IsShaking() const;
@@ -71,6 +73,7 @@ public:
 private:
 	Camera& ShakeUpdate(const float& aDeltaTime);
 
+	bool myCameraActive;
 	float myX;
 	float myY;
 	float myAlpha;
