@@ -28,8 +28,9 @@ AudioManager::~AudioManager() = default;
 void AudioManager::Init()
 {
 	myAudioOut = std::make_unique<Tga2D::AudioOut>();
-	SetMusicVolume(1.f);
-	SetSFXVolume(1.f);
+	SetMusicVolume(0.5f);
+	SetSFXVolume(0.5f);
+	PlayMusic("Sounds/Music/04 - Pushing Onwards.mp3", 0.025f);
 }
 
 void AudioManager::SetMusicVolume(float aVolume)
