@@ -17,7 +17,7 @@
 
 void PlatformFactory::ReadPlatforms(Scene* aLevelScene, const std::string& aFilePath)
 {
-	std::ifstream platformsFile("JSON/PreProdPlatforms.json");
+	std::ifstream platformsFile(aFilePath);
 	rapidjson::IStreamWrapper platformsStream(platformsFile);
 
 	rapidjson::Document platforms;
@@ -29,29 +29,29 @@ void PlatformFactory::ReadPlatforms(Scene* aLevelScene, const std::string& aFile
 	const float destroyTime = platforms["DestroyTime"].GetFloat();
 	const float respawnTime = platforms["RespawnTime"].GetFloat();
 
-	for (rapidjson::Value::ConstValueIterator itr = platforms["Ledges"].Begin(); itr != platforms["Ledges"].End(); ++itr)
+	for (rapidjson::Value::ConstValueIterator ledges = platforms["Ledges"].Begin(); ledges != platforms["Ledges"].End(); ++ledges)
 	{
-		const float positionX = (*itr)["Position"]["X"].GetFloat();
-		const float positionY = (*itr)["Position"]["Y"].GetFloat();
+		const float positionX = (*ledges)["Position"]["X"].GetFloat();
+		const float positionY = (*ledges)["Position"]["Y"].GetFloat();
 
 		Ledge* ledge = new Ledge(aLevelScene);
 		ledge->Init(v2f(positionX, positionY), v2f(ledgeSizeX, ledgeSizeY));
 	}
 
-	for (rapidjson::Value::ConstValueIterator itr = platforms["Platforms"].Begin(); itr != platforms["Platforms"].End(); ++itr)
+	for (rapidjson::Value::ConstValueIterator platform = platforms["Platforms"].Begin(); platform != platforms["Platforms"].End(); ++platform)
 	{
-		const float positionX = (*itr)["Position"]["X"].GetFloat();
-		const float positionY = (*itr)["Position"]["Y"].GetFloat();
+		const float positionX = (*platform)["Position"]["X"].GetFloat();
+		const float positionY = (*platform)["Position"]["Y"].GetFloat();
 
-		const float sizeX = (*itr)["Size"]["X"].GetFloat();
-		const float sizeY = (*itr)["Size"]["Y"].GetFloat();
+		const float sizeX = (*platform)["Size"]["X"].GetFloat();
+		const float sizeY = (*platform)["Size"]["Y"].GetFloat();
 
-		const float spriteSizeX = (*itr)["SpriteSize"]["X"].GetFloat();
-		const float spriteSizeY = (*itr)["SpriteSize"]["Y"].GetFloat();
+		const float spriteSizeX = (*platform)["SpriteSize"]["X"].GetFloat();
+		const float spriteSizeY = (*platform)["SpriteSize"]["Y"].GetFloat();
 
-		const bool oneway = (*itr)["Oneway"].GetBool();
+		const bool oneway = (*platform)["Oneway"].GetBool();
 
-		const int type = (*itr)["Type"].GetInt();
+		const int type = (*platform)["Type"].GetInt();
 
 		float speed = 0;
 		std::vector<v2f> wayPoints;
@@ -62,12 +62,12 @@ void PlatformFactory::ReadPlatforms(Scene* aLevelScene, const std::string& aFile
 			CreateStaticPlatform(aLevelScene, v2f(positionX, positionY), v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), oneway);
 			break;
 		case 1:
-			for (rapidjson::Value::ConstValueIterator waypoint = (*itr)["Waypoints"].Begin(); waypoint != (*itr)["Waypoints"].End(); ++waypoint)
+			for (rapidjson::Value::ConstValueIterator waypoint = (*platform)["Waypoints"].Begin(); waypoint != (*platform)["Waypoints"].End(); ++waypoint)
 			{
 				wayPoints.push_back(v2f((*waypoint)["X"].GetFloat(), (*waypoint)["Y"].GetFloat()));
 			}
 
-			speed = (*itr)["Speed"].GetFloat();
+			speed = (*platform)["Speed"].GetFloat();
 
 			CreateMovingPlatform(aLevelScene, v2f(positionX, positionY), v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), wayPoints, speed);
 			break;

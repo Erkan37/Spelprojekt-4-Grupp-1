@@ -185,6 +185,12 @@
     <ClInclude Include="BashComponent.hpp">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="BashableObject.hpp">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="BashableObjectFactory.hpp">
+      <Filter>Factories</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -293,6 +299,12 @@
     </ClCompile>
     <ClCompile Include="BashComponent.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BashableObject.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="BashableObjectFactory.cpp">
+      <Filter>Factories</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

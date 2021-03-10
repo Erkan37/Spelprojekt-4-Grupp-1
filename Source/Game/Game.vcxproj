@@ -138,6 +138,8 @@
     <ClInclude Include="AnimationComponent.hpp" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="BashAbility.h" />
+    <ClInclude Include="BashableObject.hpp" />
+    <ClInclude Include="BashableObjectFactory.hpp" />
     <ClInclude Include="BashComponent.hpp" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collectible.hpp" />
@@ -178,6 +180,8 @@
     <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="BashAbility.cpp" />
+    <ClCompile Include="BashableObject.cpp" />
+    <ClCompile Include="BashableObjectFactory.cpp" />
     <ClCompile Include="BashComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collectible.cpp" />

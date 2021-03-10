@@ -21,6 +21,7 @@ BashAbility::BashAbility(LevelScene* aLevelScene)
 	myIsBashing = false;
 	myAcceleration = {};
 	myLMBMousePressed = {};
+	myBashObject = nullptr;
 }
 
 BashAbility::~BashAbility()
@@ -49,8 +50,6 @@ void BashAbility::Update(const float& aDeltaTime)
 	UpdateBashVelocity(aDeltaTime);
 
 	CheckButtonPress();
-
-	myCanBeActivated = false;
 
 #ifdef _DEBUG
 	ImGuiUpdate();
@@ -146,6 +145,9 @@ void BashAbility::DashUse(const float& aDeltaTime)
 	myDashAbilityActive = {};
 	myTimerInput->SetTimeScale(1.0f);
 	myTimer = myDashDuration;
+
+	myBashObject->OnBashed();
+	myBashObject = nullptr;
 }
 
 void BashAbility::UseBashAbility(const float& aDeltaTime)
@@ -164,7 +166,7 @@ void BashAbility::CheckButtonPress()
 		return;
 	}
 
-	if (myInput->IsDashing() && myCanBeActivated)
+	if (myInput->IsDashing() && myBashObject)
 	{
 		myButtonHold = true;
 		myDashAbilityActive = true;
@@ -181,7 +183,7 @@ const bool BashAbility::GetIsBashing()
 	return myIsBashing;
 }
 
-void BashAbility::ActivateBash()
+void BashAbility::ActivateBash(GameObject* aGameObject)
 {
-	myCanBeActivated = true;
+	myBashObject = aGameObject;
 }
