@@ -166,6 +166,7 @@ void BashAbility::UseBashAbility(const float& aDeltaTime)
 	if (myButtonHold == false || myMaxDashDurationTimer <= 0)
 	{
 		DashUse(aDeltaTime);
+		myPlayer->EndLerp();
 	}
 }
 

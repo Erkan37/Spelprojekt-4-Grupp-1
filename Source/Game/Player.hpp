@@ -59,6 +59,8 @@ public:
 	const bool GetLedgeIsGrabbed();
 
 	void LerpToPosition(const v2f& aPosition, const float& aDeltaTime);
+	void SetLerpPosition(const v2f& aPosition);
+	void EndLerp();
 
 	void BounceOnDestructibleWall();
 	const bool& GetIsBashing();
@@ -74,6 +76,8 @@ private:
 
 	std::shared_ptr<InputWrapper> myInputHandler;
 	std::unique_ptr<BashAbility> myBashAbility;
+
+	Utils::Timer* myTimerInput;
 
 	v2f myCurrentVelocity;
 

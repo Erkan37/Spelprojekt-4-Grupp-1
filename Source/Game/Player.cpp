@@ -65,6 +65,8 @@ Player::Player(LevelScene* aLevelScene)
 
 	myIsLerpingToPosition = false;
 
+	myTimerInput = world->GetTimer();
+
 	myBashAbility = std::make_unique<BashAbility>(aLevelScene);
 	myBashAbility->Init();
 	myBashAbility->AddInputWrapper(world->Input());
@@ -382,8 +384,7 @@ void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
 		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(mySize.x);
 	}
 
-	myIsLerpingToPosition = true;
-	myLerpPosition = aLedgeLerpPosition;
+	SetLerpPosition(aLedgeLerpPosition);
 
 	myGrabbedLedge = true;
 	myCurrentVelocity.y = 0;
@@ -403,8 +404,25 @@ const bool Player::GetLedgeIsGrabbed()
 
 void Player::LerpToPosition(const v2f& aPosition, const float& aDeltaTime)
 {
-	myTransform.myPosition.x = Utils::Lerp(myTransform.myPosition.x, aPosition.x, myLerpToPositionAcceleration * aDeltaTime);
-	myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, aPosition.y, myLerpToPositionAcceleration * aDeltaTime);
+	const float timeScale = myTimerInput->GetTimeScale();;
+
+	myTimerInput->SetTimeScale(1.0f);
+
+	myTransform.myPosition.x = Utils::Lerp(myTransform.myPosition.x, aPosition.x, myLerpToPositionAcceleration * myTimerInput->GetDeltaTime());
+	myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, aPosition.y, myLerpToPositionAcceleration * myTimerInput->GetDeltaTime());
+
+	myTimerInput->SetTimeScale(timeScale);
+}
+
+void Player::SetLerpPosition(const v2f& aPosition)
+{
+	myLerpPosition = aPosition;
+	myIsLerpingToPosition = true;
+}
+
+void Player::EndLerp()
+{
+	myIsLerpingToPosition = false;
 }
 
 void Player::BounceOnDestructibleWall()
@@ -431,6 +449,7 @@ void Player::BashCollision(GameObject* aGameObject, BashComponent* aBashComponen
 		{
 			aGameObject->OnStartBashed();
 			myBashAbility->ActivateBash(aGameObject);
+			SetLerpPosition(aGameObject->GetPosition());
 		}
 	}
 }
