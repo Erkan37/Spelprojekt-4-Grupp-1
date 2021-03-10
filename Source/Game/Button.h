@@ -18,9 +18,14 @@ public:
 	void Update(const float& aDeltaTime) override;
 	void OnCollision(GameObject* myGameObject) override;
 
+	bool GetActiveButton();
+
 
 private:
-	Animation myAnimations[2];
+	Animation myAnimation[2];
+
+	bool myButtonActive;
+	bool myHasCollided;
 
 	void InitButton(v2f aButtonPosition);
 

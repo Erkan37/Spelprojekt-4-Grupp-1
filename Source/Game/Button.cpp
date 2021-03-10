@@ -13,6 +13,8 @@ Button::Button(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene)
 {
+	myHasCollided = {};
+	myButtonActive = {};
 	InitButton(aLevelScene->GetCamera().GetPosition());
 }
 
@@ -26,7 +28,13 @@ void Button::Init()
 
 void Button::Update(const float& aDeltaTime)
 {
-
+	GameObject::Update(aDeltaTime);
+	
+	if (myHasCollided && myButtonActive == false)
+	{
+		myButtonActive = true;
+		GetComponent<AnimationComponent>()->ContinueToNextAnimation();
+	}
 }
 
 void Button::InitButton(v2f aButtonPosition)
@@ -39,7 +47,7 @@ void Button::InitButton(v2f aButtonPosition)
 
 	SpriteComponent* sprite2 = AddComponent<SpriteComponent>();
 	sprite2->SetRelativePosition(aButtonPosition);
-	sprite2->SetSpritePath("Sprites/Collectible.dds");
+	sprite2->SetSpritePath("Sprites/TommyIdle.dds");
 	sprite2->SetSize(v2f(100.0f, 50.0f));
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
@@ -48,12 +56,14 @@ void Button::InitButton(v2f aButtonPosition)
 	physics->SetApplyGravity(false);
 	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this); //Get collision size from data manager
 
-	myAnimations[0] = Animation(false, false, false, 0, 3, 3, 0.15f, sprite, 512, 512);
-	myAnimations[1] = Animation(false, false, false, 0, 4, 4, 0.15f, sprite2, 512, 512);
+	myAnimation[0] = Animation(false, false, true, 0, 1, 1, 1.f, sprite, 512, 512);
+	myAnimation[1] = Animation(false, false, true, 0, 3, 3, 1.f, sprite2, 512, 512);
 
 	AnimationComponent* animation = AddComponent<AnimationComponent>();
 	animation->SetSprite(sprite);
-	animation->SetAnimation(&myAnimations[0]);
+	animation->SetAnimation(&myAnimation[0]);
+
+	animation->SetNextAnimation(&myAnimation[1]);
 
 	GameObject::Init();
 }
@@ -64,7 +74,11 @@ void Button::OnCollision(GameObject* myGameObject)
 
 	if (player != NULL)
 	{
-		GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[1]);;
+		myHasCollided = true;
 	}
+}
 
+bool Button::GetActiveButton()
+{
+	return myButtonActive;
 }
