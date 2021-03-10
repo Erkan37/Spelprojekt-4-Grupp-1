@@ -73,16 +73,16 @@ void Background::ResizeBackground()
 void Background::MoveBackground()
 {
 	v2f backgroundSpeedOne;
-	backgroundSpeedOne = { (myStartingCameraPos.x - myPlayer->GetPosition().x) * (myOrignalSpeed * myBackgroundSpeedOneX),
-						   (myStartingCameraPos.y - myPlayer->GetPosition().y) * (myOrignalSpeed * myBackgroundSpeedOneY) };
+	backgroundSpeedOne = { (myStartingCameraPos.x - myCamera->GetPosition().x) * (myOrignalSpeed * myBackgroundSpeedOneX),
+						   (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOrignalSpeed * myBackgroundSpeedOneY) };
 
 	v2f backgroundSpeedTwo;
-	backgroundSpeedTwo = { (myStartingCameraPos.x - myPlayer->GetPosition().x) * (myOrignalSpeed * myBackgroundSpeedTwoX),
-						   (myStartingCameraPos.y - myPlayer->GetPosition().y) * (myOrignalSpeed * myBackgroundSpeedTwoY) };
+	backgroundSpeedTwo = { (myStartingCameraPos.x - myCamera->GetPosition().x) * (myOrignalSpeed * myBackgroundSpeedTwoX),
+						   (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOrignalSpeed * myBackgroundSpeedTwoY) };
 
 	v2f backgroundSpeedThree;
-	backgroundSpeedThree = { (myStartingCameraPos.x - myPlayer->GetPosition().x) * (myOrignalSpeed * myBackgroundSpeedThreeX),
-							 (myStartingCameraPos.y - myPlayer->GetPosition().y) * (myOrignalSpeed * myBackgroundSpeedThreeY) };
+	backgroundSpeedThree = { (myStartingCameraPos.x - myCamera->GetPosition().x) * (myOrignalSpeed * myBackgroundSpeedThreeX),
+							 (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOrignalSpeed * myBackgroundSpeedThreeY) };
 
 	myBackgroundSprite1->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedOne);
 	myBackgroundSprite2->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedTwo);
