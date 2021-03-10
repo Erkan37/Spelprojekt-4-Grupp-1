@@ -9,32 +9,22 @@
 
 Enemy::Enemy(LevelScene* aScene) : GameObject(aScene)
 {
-	myWayPoints.push_back({ 300.0f, 750.0f });
-	myWayPoints.push_back({ 500.0f, 950.0f });
-	myWayPoints.push_back({ 600.0f, 750.0f });
-	myWayPoints.push_back({ 500.0f, 550.0f });
+	myWayPoints.push_back({ 0.0f, 0.0f });
+	myDestination = myWayPoints[0];
+	this->SetPosition(myWayPoints[0]);
+	SetDirection(myDestination);
+	InitAnimations();
+	InitCollider();
+}
+
+Enemy::Enemy(Scene* aScene, const std::vector<v2f>& someCoordinates) : GameObject(aScene)
+{
+	myWayPoints = someCoordinates;
 	myDestination = myWayPoints[1];
 	this->SetPosition(myWayPoints[0]);
 	SetDirection(myDestination);
-
-	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/TempEnemy.dds");
-	spriteIdle->SetSize(mySize);
-
-	//myAnimation = Animation(false, false, true, 1, 1, 1, 0.15f, spriteIdle, 512, 512);
-
-	//AnimationComponent* animation = AddComponent<AnimationComponent>();
-	//animation->SetSprite(spriteIdle);
-	//animation->SetAnimation(&myAnimation);
-	//spriteIdle->SetSize(mySize);
-
-	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
-	physics->SetCanCollide(true);
-	physics->SetIsStatic(false);
-	physics->SetApplyGravity(false);
-
-	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
-	this->SetZIndex(400);
+	InitAnimations();
+	InitCollider();
 }
 
 Enemy::~Enemy()
@@ -52,6 +42,32 @@ void Enemy::Update(const float& aDeltaTime)
 		SetNextWayPoint();
 	}
 	GameObject::Update(aDeltaTime);
+}
+
+void Enemy::InitAnimations()
+{
+	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
+	spriteIdle->SetSpritePath("Sprites/TempEnemy.dds");
+	spriteIdle->SetSize(mySize);
+
+	//myAnimation = Animation(false, false, true, 1, 1, 1, 0.15f, spriteIdle, 512, 512);
+
+	//AnimationComponent* animation = AddComponent<AnimationComponent>();
+	//animation->SetSprite(spriteIdle);
+	//animation->SetAnimation(&myAnimation);
+	//spriteIdle->SetSize(mySize);
+
+	this->SetZIndex(400);
+}
+
+void Enemy::InitCollider()
+{
+	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
+	physics->SetCanCollide(true);
+	physics->SetIsStatic(false);
+	physics->SetApplyGravity(false);
+
+	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
 }
 
 void Enemy::Move(const float& aDeltaTime)
