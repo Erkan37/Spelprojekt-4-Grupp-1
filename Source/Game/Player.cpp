@@ -74,6 +74,8 @@ Player::Player(LevelScene* aLevelScene)
 	myBashAbility->AddTimer(world->GetTimer());
 
 	InitVibrations();
+
+	InitShakes();
 }
 
 void Player::InitAnimations()
@@ -121,7 +123,22 @@ void Player::InitVibrations()
 	myLandVibrationLength = 0.15f;
 
 	mySpringsVibrationStrength = 55000;
-	mySpringsVibrationLength = 0.5f;
+	mySpringsVibrationLength = 0.3f;
+}
+
+void Player::InitShakes()
+{
+	myDieShakeDuration = 1.0f;
+	myDieShakeIntensity = 2.0f;
+	myDieShakeDropOff = 1.0f;
+
+	myLandingShakeDuration = 0.5f;
+	myLandingShakeIntensity = 0.8f;
+	myLandingShakeDropOff = 1.0f;
+
+	mySpringShakeDuration = 1.0f;
+	mySpringShakeIntensity = 1.0f;
+	mySpringShakeDropOff = 1.0f;
 }
 
 Player::~Player()
@@ -321,6 +338,7 @@ void Player::Landed(const int& aOverlapY)
 	if (!myHasLanded)
 	{
 		myInputHandler->GetController()->Vibrate(myLandVibrationStrength, myLandVibrationStrength, myLandVibrationLength);
+		myScene->GetCamera().Shake(myLandingShakeDuration, myLandingShakeIntensity, myLandingShakeDropOff);
 	}
 
 	if (aOverlapY > 0)
@@ -456,7 +474,9 @@ const bool& Player::GetIsBashing()
 
 void Player::Kill()
 {
+	myScene->GetCamera().Shake(myDieShakeDuration, myDieShakeIntensity, myDieShakeDropOff);
 	myInputHandler->GetController()->Vibrate(myDieVibrationStrength, myDieVibrationStrength, myDieVibrationLength);
+
 	SetPosition(mySpawnPosition);
 
 	ResetVelocity();
@@ -493,6 +513,7 @@ void Player::ImGuiUpdate()
 	ImGui::SliderFloat("Ledge Jump Velocity", &myLedgeJumpVelocity, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Jump When Falling Time", &myJumpWhenFallingTime, 0.0f, 1.0f);
 
+	ImGui::Text("Vibrations");
 	ImGui::SliderInt("Die Vibration Strength", &myDieVibrationStrength, 0, 65000);
 	ImGui::SliderInt("Land Vibration Strength", &myLandVibrationStrength, 0, 65000);
 	ImGui::SliderInt("Springs Vibration Strength", &mySpringsVibrationStrength, 0, 65000);
@@ -500,6 +521,19 @@ void Player::ImGuiUpdate()
 	ImGui::SliderFloat("Die Vibration Length", &myDieVibrationLength, 0.0f, 10.0f);
 	ImGui::SliderFloat("Land Vibration Length", &myLandVibrationLength, 0.0f, 10.0f);
 	ImGui::SliderFloat("Springs Vibration Length", &mySpringsVibrationLength, 0.0f, 10.0f);
+
+	ImGui::Text("Camera Shake");
+	ImGui::SliderFloat("Die Shake Duration", &myDieShakeDuration, 0.0f, 10.0f);
+	ImGui::SliderFloat("Die Shake Intensity", &myDieShakeIntensity, 0.0f, 10.0f);
+	ImGui::SliderFloat("Die Shake DropOff", &myDieShakeDropOff, 0.0f, 10.0f);
+
+	ImGui::SliderFloat("Land Shake Duration", &myLandingShakeDuration, 0.0f, 10.0f);
+	ImGui::SliderFloat("Land Shake Intensity", &myLandingShakeIntensity, 0.0f, 10.0f);
+	ImGui::SliderFloat("Land Shake DropOff", &myLandingShakeDropOff, 0.0f, 10.0f);
+
+	ImGui::SliderFloat("Spring Shake Duration", &mySpringShakeDuration, 0.0f, 10.0f);
+	ImGui::SliderFloat("Spring Shake Intensity", &mySpringShakeIntensity, 0.0f, 10.0f);
+	ImGui::SliderFloat("Spring Shake DropOff", &mySpringShakeDropOff, 0.0f, 10.0f);
 
 	ImGui::End();
 }

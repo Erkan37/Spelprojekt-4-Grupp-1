@@ -63,6 +63,10 @@ private:
 	int myVibrationStrength;
 	float myVibrationLength;
 
+	float myDashShakeDuration;
+	float myDashShakeIntensity;
+	float myDashShakeDropOff;
+
 	float myAspectRatioFactorY;
 
 	v2f myDashDirection;
