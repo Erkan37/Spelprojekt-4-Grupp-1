@@ -24,6 +24,7 @@
 #include "BashableObjectFactory.hpp"
 
 #include "Collectible.hpp"
+#include "Enemy.h"
 
 LevelScene::LevelScene()
 	: 
@@ -34,6 +35,7 @@ LevelScene::LevelScene()
 void LevelScene::Load()
 {
 	myPlayer = new Player(this);
+	myEnemy = new Enemy(this);
 	Collectible* collectible = new Collectible(this);
 	collectible->Init(v2f(500.0f, 500.0f), Collectible::eCollectibleType::Easy);
 

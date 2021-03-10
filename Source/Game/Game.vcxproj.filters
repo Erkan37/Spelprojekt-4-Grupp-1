@@ -55,6 +55,9 @@
     <Filter Include="Factories">
       <UniqueIdentifier>{c0d9319b-1946-4f61-a32a-8e60fc15a157}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Objects\Enemy">
+      <UniqueIdentifier>{0ac25968-84f0-46c9-92de-0ed27d04be1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -191,6 +194,9 @@
     <ClInclude Include="BashableObjectFactory.hpp">
       <Filter>Factories</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Game Objects\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -305,6 +311,9 @@
     </ClCompile>
     <ClCompile Include="BashableObjectFactory.cpp">
       <Filter>Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Game Objects\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
