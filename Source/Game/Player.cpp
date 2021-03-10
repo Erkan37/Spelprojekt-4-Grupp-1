@@ -12,6 +12,7 @@
 #include "AnimationComponent.hpp"
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
+#include "BashComponent.hpp"
 
 #include "Ledge.h"
 
@@ -420,11 +421,15 @@ void Player::Kill()
 	SetPosition(mySpawnPosition);
 }
 
-void Player::BashCollision(const float& aBashRadius, const v2f& aPosition)
+void Player::BashCollision(GameObject* aGameObject, BashComponent* aBashComponent)
 {
-	if (aBashRadius * aBashRadius >= (aPosition - GetPosition()).LengthSqr())
+	if (aBashComponent->GetRadius() * aBashComponent->GetRadius() >= (aGameObject->GetPosition() - GetPosition()).LengthSqr())
 	{
-		myBashAbility->ActivateBash();
+		if (myInputHandler->IsDashing())
+		{
+			aGameObject->OnStartBashed();
+			myBashAbility->ActivateBash(aGameObject);
+		}
 	}
 }
 

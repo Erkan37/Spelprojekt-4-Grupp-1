@@ -237,11 +237,11 @@ void PhysicsManager::CheckBashCollision(GameObject* aObj1, GameObject* aObj2)
 
 	if (obj1BashComponent)
 	{
-		aObj2->BashCollision(obj1BashComponent->GetRadius(), aObj1->GetPosition());
+		aObj2->BashCollision(aObj1, obj1BashComponent);
 	}
 
 	if (obj2BashComponent)
 	{
-		aObj1->BashCollision(obj2BashComponent->GetRadius(), aObj2->GetPosition());
+		aObj1->BashCollision(aObj2, obj2BashComponent);
 	}
 }

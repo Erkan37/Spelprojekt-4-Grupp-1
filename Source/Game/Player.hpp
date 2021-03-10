@@ -12,6 +12,7 @@ class InputWrapper;
 class LevelScene;
 class AnimationComponent;
 class Ledge;
+class BashComponent;
 
 class Player : public GameObject
 {
@@ -64,7 +65,7 @@ public:
 
 	void Kill();
 
-	void BashCollision(const float& aBashRadius, const v2f& aPosition) override;
+	void BashCollision(GameObject* aGameObject, BashComponent* aBashComponent) override;
 
 	void ImGuiUpdate();
 
