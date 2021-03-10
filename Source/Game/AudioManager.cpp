@@ -58,8 +58,8 @@ void AudioManager::PlayMusic(const std::string & anAudioPath, float aVolume, boo
 
 	if (!IsPlaying(anAudioPath))
 	{
-		float volume = myMusicVolume * aVolume;
-		myAudioOut->Stop(anAudioPath, true);
+		const float volume = myMusicVolume * aVolume;
+		Stop(anAudioPath);
 		myAudioOut->PlayMusic(anAudioPath, aShouldLoop, channel);
 		myAudioOut->SetVolume(channel, volume);
 	}
@@ -74,7 +74,7 @@ void AudioManager::PlaySFX(const std::string & anAudioPath, float aVolume, bool 
 {
 	Tga2D::AudioOut::Handle channel;
 
-	float volume = mySFXVolume * aVolume;
+	const float volume = mySFXVolume * aVolume;
 	myAudioOut->Play(anAudioPath, false, channel);
 	myAudioOut->SetVolume(channel, volume);
 
