@@ -1,15 +1,14 @@
 #include "stdafx.h"
 #include "MovingPlatform.hpp"
-
 #include "Player.hpp"
 
 MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	:
 	Platform(aLevelScene),
 	mySpeed(0.0f),
-	myCurrentWayPointIndex(0)
+	myCurrentWayPointIndex(0),
+	myButton(aLevelScene)
 {
-
 }
 
 void MovingPlatform::Update(const float& aDeltaTime)
@@ -66,7 +65,7 @@ void MovingPlatform::ClearWaypoints()
 
 void MovingPlatform::OnCollision(GameObject* aGameObject)
 {
-	Player* player = dynamic_cast<Player*>(aGameObject);
+ 	Player* player = dynamic_cast<Player*>(aGameObject);
 	if (player)
 	{
 		player->SetPlatformVelocity(myDirection * mySpeed);

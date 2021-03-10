@@ -1,5 +1,6 @@
 #pragma once
 #include "Platform.h"
+#include "Button.h"
 
 class MovingPlatform : public Platform
 {
@@ -20,6 +21,7 @@ public:
 	void OnCollision(GameObject* aGameObject) override;
 
 private:
+	Button myButton;
 	std::vector<v2f> myWaypoints;
 	v2f myDirection;
 
