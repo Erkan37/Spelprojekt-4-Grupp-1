@@ -185,6 +185,9 @@
     <ClInclude Include="BashComponent.hpp">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="AudioManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -293,6 +296,9 @@
     </ClCompile>
     <ClCompile Include="BashComponent.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
