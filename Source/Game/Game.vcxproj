@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="AnimationComponent.hpp" />
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="BashAbility.h" />
     <ClInclude Include="BashableObject.hpp" />
@@ -179,6 +180,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationComponent.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="BashAbility.cpp" />
     <ClCompile Include="BashableObject.cpp" />
