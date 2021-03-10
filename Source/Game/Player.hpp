@@ -22,6 +22,7 @@ public:
 
 	void InitAnimations();
 	void InitCollider();
+	void InitVibrations();
 
 	void Update(const float& aDeltaTime) override;
 
@@ -108,9 +109,18 @@ private:
 
 	float myJumpWhenFallingTime;
 
+	float myDieVibrationLength;
+	float myLandVibrationLength;
+	float mySpringsVibrationLength;
+
+	int myDieVibrationStrength;
+	int myLandVibrationStrength;
+	int mySpringsVibrationStrength;
+
 	int myCurrentAnimationIndex;
 
 	bool myHasLanded;
+	bool myHasLandedVibration;
 	bool myHasDoubleJumped;
 
 	bool myCanJumpWhenFalling;

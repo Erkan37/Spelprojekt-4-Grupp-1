@@ -72,6 +72,8 @@ Player::Player(LevelScene* aLevelScene)
 	myBashAbility->AddInputWrapper(world->Input());
 	myBashAbility->AddPlayerRelation(this);
 	myBashAbility->AddTimer(world->GetTimer());
+
+	InitVibrations();
 }
 
 void Player::InitAnimations()
@@ -108,6 +110,18 @@ void Player::InitCollider()
 	physics->SetApplyGravity(false);
 
 	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
+}
+
+void Player::InitVibrations()
+{
+	myDieVibrationStrength = 65000;
+	myDieVibrationLength = 0.5f;
+
+	myLandVibrationStrength = 60000;
+	myLandVibrationLength = 0.15f;
+
+	mySpringsVibrationStrength = 55000;
+	mySpringsVibrationLength = 0.5f;
 }
 
 Player::~Player()
@@ -273,6 +287,7 @@ void Player::DoubleJump()
 	myCurrentVelocity.y = -myDoubleJumpVelocity + myPlatformVelocity.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
 	myCurrentAnimationIndex = 2;
+	myHasLanded = false;
 	myHasDoubleJumped = true;
 	myWillJumpWhenFalling = false;
 	myBashAbility->ResetVelocity(false, true);
@@ -303,13 +318,16 @@ void Player::ReactivateDoubleJump()
 
 void Player::Landed(const int& aOverlapY)
 {
+	if (!myHasLanded)
+	{
+		myInputHandler->GetController()->Vibrate(myLandVibrationStrength, myLandVibrationStrength, myLandVibrationLength);
+	}
+
 	if (aOverlapY > 0)
 	{
 		myAirCoyoteTimer = myAirCoyoteTime;
 		myHasLanded = true;
 		myHasDoubleJumped = false;
-
-		myBashAbility->ResetVelocity(true, true);
 
 		if (myWillJumpWhenFalling)
 		{
@@ -438,7 +456,12 @@ const bool& Player::GetIsBashing()
 
 void Player::Kill()
 {
+	myInputHandler->GetController()->Vibrate(myDieVibrationStrength, myDieVibrationStrength, myDieVibrationLength);
 	SetPosition(mySpawnPosition);
+
+	ResetVelocity();
+	myBashAbility->ResetVelocity(true, true);
+	myPlatformVelocity = v2f();
 }
 
 void Player::BashCollision(GameObject* aGameObject, BashComponent* aBashComponent)
@@ -469,6 +492,14 @@ void Player::ImGuiUpdate()
 	ImGui::SliderFloat("Max Fall Speed", &myMaxFallSpeed, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Ledge Jump Velocity", &myLedgeJumpVelocity, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Jump When Falling Time", &myJumpWhenFallingTime, 0.0f, 1.0f);
+
+	ImGui::SliderInt("Die Vibration Strength", &myDieVibrationStrength, 0, 65000);
+	ImGui::SliderInt("Land Vibration Strength", &myLandVibrationStrength, 0, 65000);
+	ImGui::SliderInt("Springs Vibration Strength", &mySpringsVibrationStrength, 0, 65000);
+
+	ImGui::SliderFloat("Die Vibration Length", &myDieVibrationLength, 0.0f, 10.0f);
+	ImGui::SliderFloat("Land Vibration Length", &myLandVibrationLength, 0.0f, 10.0f);
+	ImGui::SliderFloat("Springs Vibration Length", &mySpringsVibrationLength, 0.0f, 10.0f);
 
 	ImGui::End();
 }

@@ -46,9 +46,9 @@ void CGameWorld::Init()
 
 void CGameWorld::Update()
 {
-	myInput->Update();
 	myTimer->Update();
 	myDeltaTime = myTimer->GetDeltaTime();
+	myInput->Update(myDeltaTime);
 
 	Scene::Manager::Update(myDeltaTime);
 }

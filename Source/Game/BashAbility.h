@@ -60,6 +60,9 @@ private:
 	float myAcceleration;
 	float myRetardation;
 
+	int myVibrationStrength;
+	float myVibrationLength;
+
 	float myAspectRatioFactorY;
 
 	v2f myDashDirection;

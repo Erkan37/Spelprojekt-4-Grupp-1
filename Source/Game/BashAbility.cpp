@@ -23,6 +23,9 @@ BashAbility::BashAbility(LevelScene* aLevelScene)
 	myAcceleration = {};
 	myLMBMousePressed = {};
 	myBashObject = nullptr;
+
+	myVibrationStrength = 60000;
+	myVibrationLength = 0.25f;
 }
 
 BashAbility::~BashAbility()
@@ -127,6 +130,8 @@ void BashAbility::ImGuiUpdate()
 	ImGui::SliderFloat("Dash Speed: ", &myDashSpeed, 0.0f, 3000.0f);
 	ImGui::SliderFloat("Dash Duration: ", &myDashDuration, 0.0f, 10.0f);
 	ImGui::SliderFloat("Max Dash Duration: ", &myMaxDashDuration, 0.0f, 10.0f);
+	ImGui::SliderInt("Vibration Strength: ", &myVibrationStrength, 0, 65000);
+	ImGui::SliderFloat("Vibration Length: ", &myVibrationLength, 0.0f, 1.0f);
 
 	ImGui::End();
 }
@@ -143,6 +148,8 @@ void BashAbility::DashUse(const float& aDeltaTime)
 	{
 		myDashDirection = v2f(0.0f, -1.0f);
 	}
+
+	myInput->GetController()->Vibrate(myVibrationStrength, myVibrationStrength, myVibrationLength);
 
 	myPlayer->ResetVelocity();
 	myPlayer->ReactivateDoubleJump();
