@@ -33,7 +33,7 @@ Player::Player(LevelScene* aLevelScene)
 	myInputHandler = world->Input();
 
 	myJsonData = &DataManager::GetInstance().GetDataStruct(DataEnum::player);
-	myMaxRunningSpeed = myJsonData->myMaxSpeed;
+	//myMaxRunningSpeed = myJsonData->myMaxSpeed;
 
 	myRunningAnimationSpeed = 50.0f;
 
@@ -224,7 +224,7 @@ void Player::GoRight(const float& aDeltaTime)
 		myBashAbility->ResetVelocity(true, false);
 	}
 
-	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, myMaxRunningSpeed, myAcceleration * aDeltaTime);
+	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, myJsonData->myMaxSpeed, myAcceleration * aDeltaTime);
 	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(mySize.x);
 }
 
@@ -240,7 +240,7 @@ void Player::GoLeft(const float& aDeltaTime)
 		myBashAbility->ResetVelocity(true, false);
 	}
 
-	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, -myMaxRunningSpeed, myAcceleration * aDeltaTime);
+	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, -myJsonData->myMaxSpeed, myAcceleration * aDeltaTime);
 	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-mySize.x);
 }
 
@@ -386,11 +386,10 @@ void Player::ImGuiUpdate()
 
 	if (ImGui::Button("Save to JSON"))
 	{
-		std::cout << "This works \n";
 		DataManager::GetInstance().SetDataStruct(DataEnum::player);
 	}
 
-	ImGui::SliderFloat("Max Speed", &myMaxRunningSpeed, 0.0f, 2000.0f);
+	ImGui::SliderFloat("Max Speed", &myJsonData->myMaxSpeed, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Acceleration", &myAcceleration, 0.0f, 100.0f);
 	ImGui::SliderFloat("Retardation", &myRetardation, 0.0f, 100.0f);
 	ImGui::SliderFloat("Coyote Time", &myAirCoyoteTime, 0.0f, 1.0f);
