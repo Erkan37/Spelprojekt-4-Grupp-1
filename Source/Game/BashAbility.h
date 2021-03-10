@@ -54,7 +54,8 @@ private:
 
 	float myTimer;
 	float myDashDuration;
-	float myDelayTimer;
+	float myMaxDashDuration;
+	float myMaxDashDurationTimer;
 	float myDashSpeed;
 	float myAcceleration;
 	float myRetardation;

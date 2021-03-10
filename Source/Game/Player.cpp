@@ -49,6 +49,8 @@ Player::Player(LevelScene* aLevelScene)
 	myDoubleJumpVelocity = 600.0f;
 	myLedgeJumpVelocity = 360.0f;
 
+	myMaxFallSpeed = 700.0f;
+
 	myJumpWhenFallingTime = 0.075f;
 
 	myCurrentAnimationIndex = 0;
@@ -359,7 +361,7 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 {
 	if (!myGrabbedLedge)
 	{
-		myCurrentVelocity.y += PhysicsManager::ourGravity * aDeltaTime;
+		myCurrentVelocity.y = Utils::Min(myCurrentVelocity.y + PhysicsManager::ourGravity * aDeltaTime, myMaxFallSpeed);
 	}
 
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
@@ -425,7 +427,7 @@ void Player::BashCollision(GameObject* aGameObject, BashComponent* aBashComponen
 {
 	if (aBashComponent->GetRadius() * aBashComponent->GetRadius() >= (aGameObject->GetPosition() - GetPosition()).LengthSqr())
 	{
-		if (myInputHandler->IsDashing())
+		if (myInputHandler->IsDashing() && !myBashAbility->GetIsBashing())
 		{
 			aGameObject->OnStartBashed();
 			myBashAbility->ActivateBash(aGameObject);
@@ -444,6 +446,7 @@ void Player::ImGuiUpdate()
 	ImGui::SliderFloat("Coyote Time", &myAirCoyoteTime, 0.0f, 1.0f);
 	ImGui::SliderFloat("Jump Velocity", &myJumpVelocity, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Double Jump Velocity", &myDoubleJumpVelocity, 0.0f, 2000.0f);
+	ImGui::SliderFloat("Max Fall Speed", &myMaxFallSpeed, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Ledge Jump Velocity", &myLedgeJumpVelocity, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Jump When Falling Time", &myJumpWhenFallingTime, 0.0f, 1.0f);
 

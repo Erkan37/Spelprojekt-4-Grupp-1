@@ -100,6 +100,8 @@ private:
 	float myDoubleJumpVelocity;
 	float myLedgeJumpVelocity;
 
+	float myMaxFallSpeed;
+
 	float myJumpWhenFallingTime;
 
 	int myCurrentAnimationIndex;
