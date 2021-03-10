@@ -12,6 +12,7 @@
 #include "AnimationComponent.hpp"
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
+#include "BashComponent.hpp"
 
 #include "Ledge.h"
 
@@ -48,6 +49,8 @@ Player::Player(LevelScene* aLevelScene)
 	myDoubleJumpVelocity = 600.0f;
 	myLedgeJumpVelocity = 360.0f;
 
+	myMaxFallSpeed = 700.0f;
+
 	myJumpWhenFallingTime = 0.075f;
 
 	myCurrentAnimationIndex = 0;
@@ -61,6 +64,8 @@ Player::Player(LevelScene* aLevelScene)
 	myGrabbedLedge = false;
 
 	myIsLerpingToPosition = false;
+
+	myTimerInput = world->GetTimer();
 
 	myBashAbility = std::make_unique<BashAbility>(aLevelScene);
 	myBashAbility->Init();
@@ -358,7 +363,7 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 {
 	if (!myGrabbedLedge)
 	{
-		myCurrentVelocity.y += PhysicsManager::ourGravity * aDeltaTime;
+		myCurrentVelocity.y = Utils::Min(myCurrentVelocity.y + PhysicsManager::ourGravity * aDeltaTime, myMaxFallSpeed);
 	}
 
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
@@ -379,8 +384,7 @@ void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
 		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(mySize.x);
 	}
 
-	myIsLerpingToPosition = true;
-	myLerpPosition = aLedgeLerpPosition;
+	SetLerpPosition(aLedgeLerpPosition);
 
 	myGrabbedLedge = true;
 	myCurrentVelocity.y = 0;
@@ -400,8 +404,25 @@ const bool Player::GetLedgeIsGrabbed()
 
 void Player::LerpToPosition(const v2f& aPosition, const float& aDeltaTime)
 {
-	myTransform.myPosition.x = Utils::Lerp(myTransform.myPosition.x, aPosition.x, myLerpToPositionAcceleration * aDeltaTime);
-	myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, aPosition.y, myLerpToPositionAcceleration * aDeltaTime);
+	const float timeScale = myTimerInput->GetTimeScale();;
+
+	myTimerInput->SetTimeScale(1.0f);
+
+	myTransform.myPosition.x = Utils::Lerp(myTransform.myPosition.x, aPosition.x, myLerpToPositionAcceleration * myTimerInput->GetDeltaTime());
+	myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, aPosition.y, myLerpToPositionAcceleration * myTimerInput->GetDeltaTime());
+
+	myTimerInput->SetTimeScale(timeScale);
+}
+
+void Player::SetLerpPosition(const v2f& aPosition)
+{
+	myLerpPosition = aPosition;
+	myIsLerpingToPosition = true;
+}
+
+void Player::EndLerp()
+{
+	myIsLerpingToPosition = false;
 }
 
 void Player::BounceOnDestructibleWall()
@@ -420,11 +441,16 @@ void Player::Kill()
 	SetPosition(mySpawnPosition);
 }
 
-void Player::BashCollision(const float& aBashRadius, const v2f& aPosition)
+void Player::BashCollision(GameObject* aGameObject, BashComponent* aBashComponent)
 {
-	if (aBashRadius * aBashRadius >= (aPosition - GetPosition()).LengthSqr())
+	if (aBashComponent->GetRadius() * aBashComponent->GetRadius() >= (aGameObject->GetPosition() - GetPosition()).LengthSqr())
 	{
-		myBashAbility->ActivateBash();
+		if (myInputHandler->IsDashing() && !myBashAbility->GetIsBashing())
+		{
+			aGameObject->OnStartBashed();
+			myBashAbility->ActivateBash(aGameObject);
+			SetLerpPosition(aGameObject->GetPosition());
+		}
 	}
 }
 
@@ -435,10 +461,12 @@ void Player::ImGuiUpdate()
 	ImGui::SliderFloat("Max Speed", &myMaxRunningSpeed, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Acceleration", &myAcceleration, 0.0f, 100.0f);
 	ImGui::SliderFloat("Retardation", &myRetardation, 0.0f, 100.0f);
+	ImGui::SliderFloat("Lerp Acceleration", &myLerpToPositionAcceleration, 0.0f, 100.0f);
 	ImGui::SliderFloat("Platform Velocity Retardation", &myPlatformVelocityRetardation, 0.0f, 100.0f);
 	ImGui::SliderFloat("Coyote Time", &myAirCoyoteTime, 0.0f, 1.0f);
 	ImGui::SliderFloat("Jump Velocity", &myJumpVelocity, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Double Jump Velocity", &myDoubleJumpVelocity, 0.0f, 2000.0f);
+	ImGui::SliderFloat("Max Fall Speed", &myMaxFallSpeed, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Ledge Jump Velocity", &myLedgeJumpVelocity, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Jump When Falling Time", &myJumpWhenFallingTime, 0.0f, 1.0f);
 
