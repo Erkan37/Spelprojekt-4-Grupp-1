@@ -23,8 +23,10 @@
 #include "BashableObject.hpp"
 #include "BashableObjectFactory.hpp"
 
-#include "Collectible.hpp"
+#include "EnemyFactory.h"
 #include "Enemy.h"
+
+#include "Collectible.hpp"
 
 LevelScene::LevelScene()
 	: 
@@ -35,7 +37,10 @@ LevelScene::LevelScene()
 void LevelScene::Load()
 {
 	myPlayer = new Player(this);
-	myEnemy = new Enemy(this);
+
+	EnemyFactory enemyFactory;
+	enemyFactory.ReadEnemies(this, "JSON/AlfaEnemies.json");
+
 	Collectible* collectible = new Collectible(this);
 	collectible->Init(v2f(500.0f, 500.0f), Collectible::eCollectibleType::Easy);
 

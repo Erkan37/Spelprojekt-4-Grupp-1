@@ -9,9 +9,12 @@ class Enemy : public GameObject
 {
 public:
 	Enemy(LevelScene* aScene);
+	Enemy(Scene* aScene, const std::vector<v2f>& someCoordinates);
 	~Enemy();
 	void Update(const float& aDeltaTime) override;
 private:
+	void InitAnimations();
+	void InitCollider();
 	void Move(const float& aDeltaTime);
 	void SetNextWayPoint();
 	void SetDirection(const v2f& aDestination);
