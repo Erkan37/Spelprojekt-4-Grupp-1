@@ -191,6 +191,9 @@
     <ClInclude Include="BashableObjectFactory.hpp">
       <Filter>Factories</Filter>
     </ClInclude>
+    <ClInclude Include="AudioManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -305,6 +308,9 @@
     </ClCompile>
     <ClCompile Include="BashableObjectFactory.cpp">
       <Filter>Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
