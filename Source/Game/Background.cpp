@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "LevelScene.h"
 #include "Player.hpp"
+#include "AudioManager.h"
 
 Background::Background(LevelScene* aLevelScene) 
 	:
