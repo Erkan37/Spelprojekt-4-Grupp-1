@@ -21,6 +21,9 @@
 #include "DeadlyPlatform.hpp"
 #include "PlatformFactory.hpp"
 
+#include "BashableObject.hpp"
+#include "BashableObjectFactory.hpp"
+
 #include "Collectible.hpp"
 
 LevelScene::LevelScene()
@@ -80,6 +83,9 @@ void LevelScene::Load()
 
 	PlatformFactory platformFactory;
 	platformFactory.ReadPlatforms(this, "JSON/PreProdPlatforms.json");
+
+	BashableObjectFactory bashableObjectFactory;
+	bashableObjectFactory.ReadBashableObjects(this, "JSON/AlfaBashableObjects.json");
 
 	Scene::Load();
 }

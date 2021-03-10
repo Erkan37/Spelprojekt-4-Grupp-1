@@ -33,13 +33,14 @@ public:
 
 	const bool GetIsBashing();
 
-	void ActivateBash();
+	void ActivateBash(GameObject* aGameObject);
 
 	void ImGuiUpdate();
 
 private:
 	std::shared_ptr<InputWrapper> myInput;
 	
+	GameObject* myBashObject;
 	Player* myPlayer;
 	Utils::Timer* myTimerInput;
 
@@ -50,11 +51,11 @@ private:
 	bool myRadiusFromDash;
 	bool myIsBashing;
 	bool myLMBMousePressed;
-	bool myCanBeActivated;
 
 	float myTimer;
 	float myDashDuration;
-	float myDelayTimer;
+	float myMaxDashDuration;
+	float myMaxDashDurationTimer;
 	float myDashSpeed;
 	float myAcceleration;
 	float myRetardation;

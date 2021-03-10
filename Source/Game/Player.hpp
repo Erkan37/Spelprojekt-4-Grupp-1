@@ -12,6 +12,7 @@ class InputWrapper;
 class LevelScene;
 class AnimationComponent;
 class Ledge;
+class BashComponent;
 
 class Player : public GameObject
 {
@@ -58,13 +59,15 @@ public:
 	const bool GetLedgeIsGrabbed();
 
 	void LerpToPosition(const v2f& aPosition, const float& aDeltaTime);
+	void SetLerpPosition(const v2f& aPosition);
+	void EndLerp();
 
 	void BounceOnDestructibleWall();
 	const bool& GetIsBashing();
 
 	void Kill();
 
-	void BashCollision(const float& aBashRadius, const v2f& aPosition) override;
+	void BashCollision(GameObject* aGameObject, BashComponent* aBashComponent) override;
 
 	void ImGuiUpdate();
 
@@ -73,6 +76,8 @@ private:
 
 	std::shared_ptr<InputWrapper> myInputHandler;
 	std::unique_ptr<BashAbility> myBashAbility;
+
+	Utils::Timer* myTimerInput;
 
 	v2f myCurrentVelocity;
 
@@ -98,6 +103,8 @@ private:
 	float myJumpVelocity;
 	float myDoubleJumpVelocity;
 	float myLedgeJumpVelocity;
+
+	float myMaxFallSpeed;
 
 	float myJumpWhenFallingTime;
 
