@@ -44,6 +44,7 @@ public:
 
 	virtual void Landed(const int& aOverlapY) { aOverlapY; }
 	virtual void SideCollision(const int& aOverlapX) { aOverlapX; }
+	virtual void BashCollision(const float& aBashRadius, const v2f& aPosition) { }
 
 	virtual GameObject& Destroy();
 

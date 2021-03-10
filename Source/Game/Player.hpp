@@ -62,6 +62,10 @@ public:
 	void BounceOnDestructibleWall();
 	const bool& GetIsBashing();
 
+	void Kill();
+
+	void BashCollision(const float& aBashRadius, const v2f& aPosition) override;
+
 	void ImGuiUpdate();
 
 private:
@@ -77,6 +81,8 @@ private:
 	v2f myLerpPosition;
 
 	v2f mySize;
+
+	v2f mySpawnPosition;
 
 	float myAirCoyoteTime;
 	float myAirCoyoteTimer;

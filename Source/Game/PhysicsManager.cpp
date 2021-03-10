@@ -9,6 +9,7 @@
 #include "GameObject.h"
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
+#include "BashComponent.hpp"
 #include "GameWorld.h"
 #include "../External/Headers/CU/Utilities.h"
 
@@ -102,6 +103,8 @@ void PhysicsManager::CheckOverlap(GameObject* aObj1, GameObject* aObj2, PhysicsC
 	const bool yAxisOverlap = obj1min.y <= obj2max.y && obj1max.y >= obj2min.y;
 
 	const float insensitivity = 5.0f;
+
+	CheckBashCollision(aObj1, aObj2);
 
 	if (OneWayCheck(insensitivity, aObj1, aObj2, obj1min, obj1max, obj2min, obj2max))
 	{
@@ -225,4 +228,20 @@ bool PhysicsManager::OneWayCheck(const float& aInSensitivity, GameObject* aObj1,
 	}
 
 	return false;
+}
+
+void PhysicsManager::CheckBashCollision(GameObject* aObj1, GameObject* aObj2)
+{
+	BashComponent* obj1BashComponent = aObj1->GetComponent<BashComponent>();
+	BashComponent* obj2BashComponent = aObj2->GetComponent<BashComponent>();
+
+	if (obj1BashComponent)
+	{
+		aObj2->BashCollision(obj1BashComponent->GetRadius(), aObj1->GetPosition());
+	}
+
+	if (obj2BashComponent)
+	{
+		aObj1->BashCollision(obj2BashComponent->GetRadius(), aObj2->GetPosition());
+	}
 }

@@ -50,6 +50,8 @@ void BashAbility::Update(const float& aDeltaTime)
 
 	CheckButtonPress();
 
+	myCanBeActivated = false;
+
 #ifdef _DEBUG
 	ImGuiUpdate();
 #endif //DEBUG
@@ -162,7 +164,7 @@ void BashAbility::CheckButtonPress()
 		return;
 	}
 
-	if (myInput->IsDashing() && myRadiusFromDash)
+	if (myInput->IsDashing() && myCanBeActivated)
 	{
 		myButtonHold = true;
 		myDashAbilityActive = true;
@@ -177,4 +179,9 @@ void BashAbility::CheckButtonPress()
 const bool BashAbility::GetIsBashing()
 {
 	return myIsBashing;
+}
+
+void BashAbility::ActivateBash()
+{
+	myCanBeActivated = true;
 }

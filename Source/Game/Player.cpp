@@ -22,7 +22,8 @@ Player::Player(LevelScene* aLevelScene)
 	GameObject(aLevelScene)
 {
 	SetZIndex(500);
-	SetPosition({ 960.0f, 540.0f });
+	SetPosition({ 700.0f, 640.0f });
+	mySpawnPosition = v2f(700.0f, 640.0f);
 	mySize = v2f(70.0f, 70.0f);
 
 	InitAnimations();
@@ -133,7 +134,6 @@ void Player::Update(const float& aDeltaTime)
 
 	AnimationState();
 	GameObject::Update(aDeltaTime);
-
 
 #ifdef _DEBUG
 	ImGuiUpdate();
@@ -413,6 +413,19 @@ void Player::BounceOnDestructibleWall()
 const bool& Player::GetIsBashing()
 {
 	return myBashAbility->GetIsBashing();
+}
+
+void Player::Kill()
+{
+	SetPosition(mySpawnPosition);
+}
+
+void Player::BashCollision(const float& aBashRadius, const v2f& aPosition)
+{
+	if (aBashRadius * aBashRadius >= (aPosition - GetPosition()).LengthSqr())
+	{
+		myBashAbility->ActivateBash();
+	}
 }
 
 void Player::ImGuiUpdate()

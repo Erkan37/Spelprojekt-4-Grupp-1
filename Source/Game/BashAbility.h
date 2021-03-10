@@ -33,6 +33,8 @@ public:
 
 	const bool GetIsBashing();
 
+	void ActivateBash();
+
 	void ImGuiUpdate();
 
 private:
@@ -48,6 +50,7 @@ private:
 	bool myRadiusFromDash;
 	bool myIsBashing;
 	bool myLMBMousePressed;
+	bool myCanBeActivated;
 
 	float myTimer;
 	float myDashDuration;

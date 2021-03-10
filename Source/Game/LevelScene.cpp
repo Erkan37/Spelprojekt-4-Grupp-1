@@ -18,6 +18,7 @@
 #include "MovingPlatform.hpp"
 #include "UnstablePlatform.hpp"
 #include "DestructiblePlatform.hpp"
+#include "DeadlyPlatform.hpp"
 #include "PlatformFactory.hpp"
 
 #include "Collectible.hpp"

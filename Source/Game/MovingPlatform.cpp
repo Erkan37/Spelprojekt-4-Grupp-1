@@ -55,6 +55,7 @@ void MovingPlatform::SetWaypoints(const std::vector<v2f>& aWaypoints)
 {
 	myWaypoints = aWaypoints;
 	myCurrentWayPointIndex = 0;
+	SetPosition(myWaypoints[myCurrentWayPointIndex]);
 }
 
 void MovingPlatform::ClearWaypoints()

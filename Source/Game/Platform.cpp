@@ -6,6 +6,7 @@
 #include "SpriteComponent.h"
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
+#include "BashComponent.hpp"
 
 #include "Player.hpp"
 
@@ -42,6 +43,9 @@ void Platform::Init(const v2f& aSize, const v2f& aSpriteSize, const v2f& aPositi
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
 	collider->SetPosition({ aSpriteSize.x / 2.0f, aSpriteSize.y / 2.0f });
 	collider->SetSize(aSize);
+
+	BashComponent* bashComponent = AddComponent<BashComponent>();
+	bashComponent->SetRadius(200.0f);
 
 	GameObject::Init();
 }
