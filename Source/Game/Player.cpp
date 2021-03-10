@@ -72,6 +72,10 @@ Player::Player(LevelScene* aLevelScene)
 	myBashAbility->AddInputWrapper(world->Input());
 	myBashAbility->AddPlayerRelation(this);
 	myBashAbility->AddTimer(world->GetTimer());
+
+	InitVibrations();
+
+	InitShakes();
 }
 
 void Player::InitAnimations()
@@ -108,6 +112,33 @@ void Player::InitCollider()
 	physics->SetApplyGravity(false);
 
 	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
+}
+
+void Player::InitVibrations()
+{
+	myDieVibrationStrength = 65000;
+	myDieVibrationLength = 0.5f;
+
+	myLandVibrationStrength = 60000;
+	myLandVibrationLength = 0.15f;
+
+	mySpringsVibrationStrength = 55000;
+	mySpringsVibrationLength = 0.3f;
+}
+
+void Player::InitShakes()
+{
+	myDieShakeDuration = 1.0f;
+	myDieShakeIntensity = 2.0f;
+	myDieShakeDropOff = 1.0f;
+
+	myLandingShakeDuration = 0.5f;
+	myLandingShakeIntensity = 0.8f;
+	myLandingShakeDropOff = 1.0f;
+
+	mySpringShakeDuration = 1.0f;
+	mySpringShakeIntensity = 1.0f;
+	mySpringShakeDropOff = 1.0f;
 }
 
 Player::~Player()
@@ -273,6 +304,7 @@ void Player::DoubleJump()
 	myCurrentVelocity.y = -myDoubleJumpVelocity + myPlatformVelocity.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
 	myCurrentAnimationIndex = 2;
+	myHasLanded = false;
 	myHasDoubleJumped = true;
 	myWillJumpWhenFalling = false;
 	myBashAbility->ResetVelocity(false, true);
@@ -303,13 +335,17 @@ void Player::ReactivateDoubleJump()
 
 void Player::Landed(const int& aOverlapY)
 {
+	if (!myHasLanded)
+	{
+		myInputHandler->GetController()->Vibrate(myLandVibrationStrength, myLandVibrationStrength, myLandVibrationLength);
+		myScene->GetCamera().Shake(myLandingShakeDuration, myLandingShakeIntensity, myLandingShakeDropOff);
+	}
+
 	if (aOverlapY > 0)
 	{
 		myAirCoyoteTimer = myAirCoyoteTime;
 		myHasLanded = true;
 		myHasDoubleJumped = false;
-
-		myBashAbility->ResetVelocity(true, true);
 
 		if (myWillJumpWhenFalling)
 		{
@@ -438,7 +474,14 @@ const bool& Player::GetIsBashing()
 
 void Player::Kill()
 {
+	myScene->GetCamera().Shake(myDieShakeDuration, myDieShakeIntensity, myDieShakeDropOff);
+	myInputHandler->GetController()->Vibrate(myDieVibrationStrength, myDieVibrationStrength, myDieVibrationLength);
+
 	SetPosition(mySpawnPosition);
+
+	ResetVelocity();
+	myBashAbility->ResetVelocity(true, true);
+	myPlatformVelocity = v2f();
 }
 
 void Player::BashCollision(GameObject* aGameObject, BashComponent* aBashComponent)
@@ -469,6 +512,28 @@ void Player::ImGuiUpdate()
 	ImGui::SliderFloat("Max Fall Speed", &myMaxFallSpeed, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Ledge Jump Velocity", &myLedgeJumpVelocity, 0.0f, 2000.0f);
 	ImGui::SliderFloat("Jump When Falling Time", &myJumpWhenFallingTime, 0.0f, 1.0f);
+
+	ImGui::Text("Vibrations");
+	ImGui::SliderInt("Die Vibration Strength", &myDieVibrationStrength, 0, 65000);
+	ImGui::SliderInt("Land Vibration Strength", &myLandVibrationStrength, 0, 65000);
+	ImGui::SliderInt("Springs Vibration Strength", &mySpringsVibrationStrength, 0, 65000);
+
+	ImGui::SliderFloat("Die Vibration Length", &myDieVibrationLength, 0.0f, 10.0f);
+	ImGui::SliderFloat("Land Vibration Length", &myLandVibrationLength, 0.0f, 10.0f);
+	ImGui::SliderFloat("Springs Vibration Length", &mySpringsVibrationLength, 0.0f, 10.0f);
+
+	ImGui::Text("Camera Shake");
+	ImGui::SliderFloat("Die Shake Duration", &myDieShakeDuration, 0.0f, 10.0f);
+	ImGui::SliderFloat("Die Shake Intensity", &myDieShakeIntensity, 0.0f, 10.0f);
+	ImGui::SliderFloat("Die Shake DropOff", &myDieShakeDropOff, 0.0f, 10.0f);
+
+	ImGui::SliderFloat("Land Shake Duration", &myLandingShakeDuration, 0.0f, 10.0f);
+	ImGui::SliderFloat("Land Shake Intensity", &myLandingShakeIntensity, 0.0f, 10.0f);
+	ImGui::SliderFloat("Land Shake DropOff", &myLandingShakeDropOff, 0.0f, 10.0f);
+
+	ImGui::SliderFloat("Spring Shake Duration", &mySpringShakeDuration, 0.0f, 10.0f);
+	ImGui::SliderFloat("Spring Shake Intensity", &mySpringShakeIntensity, 0.0f, 10.0f);
+	ImGui::SliderFloat("Spring Shake DropOff", &mySpringShakeDropOff, 0.0f, 10.0f);
 
 	ImGui::End();
 }

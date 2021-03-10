@@ -23,6 +23,13 @@ BashAbility::BashAbility(LevelScene* aLevelScene)
 	myAcceleration = {};
 	myLMBMousePressed = {};
 	myBashObject = nullptr;
+
+	myVibrationStrength = 60000;
+	myVibrationLength = 0.25f;
+
+	myDashShakeDuration = 0.5f;
+	myDashShakeIntensity = 0.5f;
+	myDashShakeDropOff = 0.5f;
 }
 
 BashAbility::~BashAbility()
@@ -128,6 +135,15 @@ void BashAbility::ImGuiUpdate()
 	ImGui::SliderFloat("Dash Duration: ", &myDashDuration, 0.0f, 10.0f);
 	ImGui::SliderFloat("Max Dash Duration: ", &myMaxDashDuration, 0.0f, 10.0f);
 
+	ImGui::Text("Vibration");
+	ImGui::SliderInt("Vibration Strength: ", &myVibrationStrength, 0, 65000);
+	ImGui::SliderFloat("Vibration Length: ", &myVibrationLength, 0.0f, 1.0f);
+
+	ImGui::Text("Camera Shake");
+	ImGui::SliderFloat("Dash Shake Duration: ", &myDashShakeDuration, 0.0f, 10.0f);
+	ImGui::SliderFloat("Dash Shake Intensity: ", &myDashShakeIntensity, 0.0f, 10.0f);
+	ImGui::SliderFloat("Dash Shake DropOff: ", &myDashShakeDropOff, 0.0f, 10.0f);
+
 	ImGui::End();
 }
 
@@ -143,6 +159,9 @@ void BashAbility::DashUse(const float& aDeltaTime)
 	{
 		myDashDirection = v2f(0.0f, -1.0f);
 	}
+
+	myScene->GetCamera().Shake(myDashShakeDuration, myDashShakeIntensity, myDashShakeDropOff);
+	myInput->GetController()->Vibrate(myVibrationStrength, myVibrationStrength, myVibrationLength);
 
 	myPlayer->ResetVelocity();
 	myPlayer->ReactivateDoubleJump();

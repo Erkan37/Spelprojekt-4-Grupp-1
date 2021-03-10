@@ -22,6 +22,8 @@ public:
 
 	void InitAnimations();
 	void InitCollider();
+	void InitVibrations();
+	void InitShakes();
 
 	void Update(const float& aDeltaTime) override;
 
@@ -108,9 +110,34 @@ private:
 
 	float myJumpWhenFallingTime;
 
+	//Camera Shake
+	float myDieShakeDuration;
+	float myDieShakeIntensity;
+	float myDieShakeDropOff;
+
+	float myLandingShakeDuration;
+	float myLandingShakeIntensity;
+	float myLandingShakeDropOff;
+
+	float mySpringShakeDuration;
+	float mySpringShakeIntensity;
+	float mySpringShakeDropOff;
+	//End of Camera Shake
+
+	//Vibration
+	float myDieVibrationLength;
+	float myLandVibrationLength;
+	float mySpringsVibrationLength;
+
+	int myDieVibrationStrength;
+	int myLandVibrationStrength;
+	int mySpringsVibrationStrength;
+	//End of Vibration
+
 	int myCurrentAnimationIndex;
 
 	bool myHasLanded;
+	bool myHasLandedVibration;
 	bool myHasDoubleJumped;
 
 	bool myCanJumpWhenFalling;
