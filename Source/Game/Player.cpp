@@ -25,7 +25,7 @@ Player::Player(LevelScene* aLevelScene)
 	SetZIndex(500);
 	SetPosition({ 700.0f, 640.0f });
 	mySpawnPosition = v2f(700.0f, 640.0f);
-	mySize = v2f(70.0f, 70.0f);
+	mySize = v2f(16.0f, 16.0f);
 
 	InitAnimations();
 
@@ -85,7 +85,7 @@ void Player::InitAnimations()
 	spriteIdle->SetSize(mySize);
 
 	SpriteComponent* spriteRun = AddComponent<SpriteComponent>();
-	spriteRun->SetSpritePath("Sprites/TommyRun.dds");
+	spriteRun->SetSpritePath("Sprites/Characters/SpritePlayerRun.dds");
 	spriteRun->SetSize(mySize);
 	spriteRun->Deactivate();
 
@@ -95,7 +95,7 @@ void Player::InitAnimations()
 	spriteJump->Deactivate();
 
 	myAnimations[0] = Animation(false, false, true, 0, 3, 3, 0.15f, spriteIdle, 512, 512);
-	myAnimations[1] = Animation(false, false, false, 0, 4, 4, 0.15f, spriteRun, 512, 512);
+	myAnimations[1] = Animation(false, false, false, 0, 12, 12, 0.05f, spriteRun, 16, 16);
 	myAnimations[2] = Animation(false, true, false, 0, 3, 3, 0.15f, spriteJump, 512, 512);
 
 	AnimationComponent* animation = AddComponent<AnimationComponent>();
