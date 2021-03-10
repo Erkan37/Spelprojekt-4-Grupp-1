@@ -25,7 +25,10 @@ public:
 	float GetMusicVolume() const;
 	float GetSFXVolume() const;
 
-	void Play(const std::string& anAudioPath, float aVolume = 1.0f, bool aShouldLoop = false);
+	void PlayMusic(const std::string& anAudioPath, float aVolume = 1.0f, bool aShouldLoop = true);
+	void PlaySFX(const std::string& anAudioPath, float aVolume = 1.0f, bool aShouldLoop = false);
+
+
 	void Stop(const std::string& anAudioPath);
 
 	bool IsPlaying(const std::string& anAudioPath);
@@ -35,6 +38,8 @@ public:
 private:
 
 	std::unique_ptr<Tga2D::AudioOut> myAudioOut;
+	float myMusicVolume;
+	float mySFXVolume;
 
 };
 

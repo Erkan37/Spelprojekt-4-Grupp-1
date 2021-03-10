@@ -118,7 +118,4 @@ void Background::CreateBackgrounds(LevelScene* aLevelScene)
 	myBackgroundSprite3->SetSpritePath(myBackgroundPath3);
 
 	ResizeBackground();
-
-	AudioManager::GetInstance()->Play("lonely.mp3");
-	AudioManager::GetInstance()->Play("dead.mp3");
 }

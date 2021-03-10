@@ -15,7 +15,12 @@ const std::unique_ptr<AudioManager>& AudioManager::GetInstance()
 	return ourInstance;
 }
 
-AudioManager::AudioManager() = default;
+AudioManager::AudioManager()
+{
+	myAudioOut = {};
+	mySFXVolume = {};
+	myMusicVolume = {};
+};
 
 AudioManager::~AudioManager() = default;
 
@@ -23,42 +28,41 @@ AudioManager::~AudioManager() = default;
 void AudioManager::Init()
 {
 	myAudioOut = std::make_unique<Tga2D::AudioOut>();
+	SetMusicVolume(1.f);
+	SetSFXVolume(1.f);
 }
-
-//void AudioManager::SetMasterVolume(float aVolume)
-//{
-//	const DWORD volume = static_cast<DWORD>(std::clamp(aVolume, 0.0f, 1.0f) * 10000.0f);
-//	BASS_SetConfig(BASS_CONFIG_GVOL_SAMPLE, volume);
-//}
 
 void AudioManager::SetMusicVolume(float aVolume)
 {
-	const DWORD volume = static_cast<DWORD>(std::clamp(aVolume, 0.0f, 1.0f) * 10000.0f);
-	BASS_SetConfig(BASS_CONFIG_GVOL_MUSIC, volume);
+	myMusicVolume = std::clamp(aVolume, 0.f, 1.f);
 }
 
 void AudioManager::SetSFXVolume(float aVolume)
 {
-	const DWORD volume = static_cast<DWORD>(std::clamp(aVolume, 0.0f, 1.0f) * 10000.0f);
-	BASS_SetConfig(BASS_CONFIG_GVOL_SAMPLE, volume);
+	mySFXVolume = std::clamp(aVolume, 0.f, 1.f);
 }
 
 float AudioManager::GetMusicVolume() const
 {
-	return static_cast<float>(BASS_GetConfig(BASS_CONFIG_GVOL_MUSIC)) / 10000.0f;
+	return myMusicVolume;
 }
 
 float AudioManager::GetSFXVolume() const
 {
-	return static_cast<float>(BASS_GetConfig(BASS_CONFIG_GVOL_SAMPLE)) / 10000.0f;
+	return mySFXVolume;
 }
 
-void AudioManager::Play(const std::string& anAudioPath, float aVolume, bool aShouldLoop)
+void AudioManager::PlayMusic(const std::string & anAudioPath, float aVolume, bool aShouldLoop)
 {
-	Tga2D::AudioOut::Handle channel;
+	Tga2D::AudioOut::Handle channel = {};
 
-	myAudioOut->Play(anAudioPath, false, channel);
-	myAudioOut->SetVolume(channel, aVolume);
+	if (!IsPlaying(anAudioPath))
+	{
+		float volume = myMusicVolume * aVolume;
+		myAudioOut->Stop(anAudioPath, true);
+		myAudioOut->PlayMusic(anAudioPath, aShouldLoop, channel);
+		myAudioOut->SetVolume(channel, volume);
+	}
 
 	if (aShouldLoop)
 	{
@@ -66,12 +70,26 @@ void AudioManager::Play(const std::string& anAudioPath, float aVolume, bool aSho
 	}
 }
 
-void AudioManager::Stop(const std::string& anAudioPath)
+void AudioManager::PlaySFX(const std::string & anAudioPath, float aVolume, bool aShouldLoop)
+{
+	Tga2D::AudioOut::Handle channel;
+
+	float volume = mySFXVolume * aVolume;
+	myAudioOut->Play(anAudioPath, false, channel);
+	myAudioOut->SetVolume(channel, volume);
+
+	if (aShouldLoop)
+	{
+		BASS_ChannelFlags(channel, BASS_SAMPLE_LOOP, BASS_SAMPLE_LOOP);
+	}
+}
+
+void AudioManager::Stop(const std::string & anAudioPath)
 {
 	myAudioOut->Stop(anAudioPath, true);
 }
 
-bool AudioManager::IsPlaying(const std::string& anAudioPath)
+bool AudioManager::IsPlaying(const std::string & anAudioPath)
 {
 	return Tga2D::audio_helpers::IsNowPlaying(*myAudioOut, anAudioPath);
 }
