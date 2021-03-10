@@ -34,6 +34,7 @@ Camera::Camera()
 
 	, myZoom(1.0f)
 	, myInverseZoom(1.0f)
+	, myCameraActive(false)
 {}
 
 void Camera::Update(const float& aDeltaTime)
@@ -46,6 +47,8 @@ void Camera::Update(const float& aDeltaTime)
 			Utils::Lerp<float>(myX, targetPos.x - (static_cast<float>(Config::width) * myInverseZoom) * .5f, myLerp.x * aDeltaTime),
 			Utils::Lerp<float>(myY, targetPos.y - (static_cast<float>(Config::height) * myInverseZoom) * .5f, myLerp.y * aDeltaTime)
 		});
+
+		SetActive();
 	}
 
 	if (myIsShaking)
@@ -191,6 +194,8 @@ Camera& Camera::SetLerpY(const float& aY)
 	return *this;
 }
 
+
+
 Camera& Camera::StartFollowing(GameObject* aGameObject, const v2f& aLerp, const v2f& anOffset)
 {
 	myUseStaticTarget = false;
@@ -258,6 +263,17 @@ const v2f& Camera::GetBounds() const
 const v2f& Camera::GetBoundSize() const
 {
 	return myBoundSize;
+}
+
+const bool Camera::GetActive() const
+{
+	return myCameraActive;
+}
+
+void Camera::SetActive()
+{
+	if (!myCameraActive)
+		myCameraActive = true;
 }
 
 /* Camera Shake */
