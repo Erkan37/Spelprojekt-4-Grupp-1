@@ -37,8 +37,7 @@ private:
 	float myMinRadiusFromTarget;
 	float myIdleMovementSpeed;
 	float myIdleMovementDistance;
-
-	Utils::Timer* myTimer;
+	float myTimeOffset;
 
 	eCollectibleType myType;
 	bool myWasCollected;

@@ -166,6 +166,7 @@
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PlatformFactory.hpp" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="Random.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SpritebatchComponent.h" />

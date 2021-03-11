@@ -206,6 +206,9 @@
     <ClInclude Include="Button.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Random.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

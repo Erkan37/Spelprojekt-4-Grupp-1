@@ -11,6 +11,8 @@
 
 #include "GameWorld.h"
 
+#include "Random.hpp"
+
 Collectible::Collectible(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene),
@@ -19,6 +21,7 @@ Collectible::Collectible(Scene* aLevelScene)
 	myIdleMovementSpeed(5.0f),
 	myIdleMovementDistance(25.0f),
 	myMinRadiusFromTarget(25.0f),
+	myTimeOffset(0.0f),
 	myType(eCollectibleType::Easy),
 	myWasCollected(false)
 {
@@ -35,9 +38,11 @@ void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 	SetZIndex(400);
 	SetPosition(aPosition);
 
-	myType = aType;
+	myTargetPosition = aPosition;
 
-	myTimer = CGameWorld::GetInstance()->GetTimer();
+	myTimeOffset = Utils::RandomFloat(0.0f, 6.0f);
+
+	myType = aType;
 
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
 	spriteIdle->SetSpritePath("Sprites/Collectible.dds"); //Get correct image depending on type
@@ -53,6 +58,14 @@ void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 
 void Collectible::Update(const float& aDeltaTime)
 {
+	constexpr float tau = 6.283185307f;
+
+	myTimeOffset += aDeltaTime;
+	if (myTimeOffset > tau)
+	{
+		myTimeOffset -= tau;
+	}
+
 	if (myTarget)
 	{
 		if (myMinRadiusFromTarget * myMinRadiusFromTarget < (myTarget->GetPosition() - myTransform.myPosition).LengthSqr())
@@ -62,11 +75,11 @@ void Collectible::Update(const float& aDeltaTime)
 				myTargetPosition = myTarget->GetPosition() + v2f(0.0f, -myMinRadiusFromTarget);
 			}
 		}
-
-		const float offset = sin(myTimer->GetTotalTime() * myIdleMovementSpeed) * myIdleMovementDistance;
-		myTransform.myPosition.x = Utils::Lerp(myTransform.myPosition.x, myTargetPosition.x, mySpeed * aDeltaTime);
-		myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, myTargetPosition.y + offset, mySpeed * aDeltaTime);
 	}
+
+	const float offset = sin(myTimeOffset * myIdleMovementSpeed) * myIdleMovementDistance;
+	myTransform.myPosition.x = Utils::Lerp(myTransform.myPosition.x, myTargetPosition.x, mySpeed * aDeltaTime);
+	myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, myTargetPosition.y + offset, mySpeed * aDeltaTime);
 
 #ifdef _DEBUG
 	ImGuiUpdate();

@@ -44,6 +44,9 @@ void LevelScene::Load()
 	Collectible* collectible = new Collectible(this);
 	collectible->Init(v2f(500.0f, 500.0f), Collectible::eCollectibleType::Easy);
 
+	Collectible* collectible2 = new Collectible(this);
+	collectible2->Init(v2f(900.0f, 500.0f), Collectible::eCollectibleType::Easy);
+
 	myBackground = std::make_unique<Background>(this);
 	myBackground->AddPlayerRelation(myPlayer);
 
