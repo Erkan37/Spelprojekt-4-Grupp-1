@@ -31,6 +31,24 @@
     <Filter Include="Components\Animation">
       <UniqueIdentifier>{9aa78b19-76b7-4dc4-af82-6c21b0a7a03f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Objects\Platforms">
+      <UniqueIdentifier>{e2b23fe0-06e8-4791-9ea8-c1f82c826936}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Factories">
+      <UniqueIdentifier>{e7e24941-f0ae-407d-8a4e-81ef057dca72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Player">
+      <UniqueIdentifier>{b6a26983-a2c1-47d8-9398-26a3b0f444a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Bashcomponent">
+      <UniqueIdentifier>{3540eb8d-12ca-4afa-84c3-3c0d415e7cce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Collectibles">
+      <UniqueIdentifier>{a4f7f987-62c3-4d46-9d8e-7926227ec1b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Enemy">
+      <UniqueIdentifier>{b81bf88e-c38b-4500-9b40-6cafb1fc95f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -100,23 +118,67 @@
     <ClInclude Include="AnimationComponent.hpp">
       <Filter>Components\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Player.hpp">
-      <Filter>Game Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Controller.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="InputWrapper.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Platform.h">
-      <Filter>Game Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="BashAbility.h" />
-    <ClInclude Include="Ledge.h">
-      <Filter>Game Objects</Filter>
-    </ClInclude>
     <ClInclude Include="DataManager.h" />
+    <ClInclude Include="Platform.h">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClInclude>
+    <ClInclude Include="DeadlyPlatform.hpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClInclude>
+    <ClInclude Include="DestructiblePlatform.hpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingPlatform.hpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClInclude>
+    <ClInclude Include="UnstablePlatform.hpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.hpp">
+      <Filter>Game Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="BashAbility.h">
+      <Filter>Game Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="BashableObjectFactory.hpp">
+      <Filter>Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyFactory.h">
+      <Filter>Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformFactory.hpp">
+      <Filter>Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="BashComponent.hpp">
+      <Filter>Components\Bashcomponent</Filter>
+    </ClInclude>
+    <ClInclude Include="BashableObject.hpp">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Collectible.hpp">
+      <Filter>Game Objects\Collectibles</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Game Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyProjectile.h">
+      <Filter>Game Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Ledge.h">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="TiledMap.h" />
+    <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="Background.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -165,22 +227,66 @@
     <ClCompile Include="AnimationComponent.cpp">
       <Filter>Components\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Game Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="InputWrapper.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Game Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="BashAbility.cpp" />
-    <ClCompile Include="Ledge.cpp">
-      <Filter>Game Objects</Filter>
-    </ClCompile>
     <ClCompile Include="DataManager.cpp" />
+    <ClCompile Include="Platform.cpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadlyPlatform.cpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClCompile>
+    <ClCompile Include="DestructiblePlatform.cpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingPlatform.cpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClCompile>
+    <ClCompile Include="UnstablePlatform.cpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="BashAbility.cpp">
+      <Filter>Game Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="BashableObjectFactory.cpp">
+      <Filter>Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyFactory.cpp">
+      <Filter>Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformFactory.cpp">
+      <Filter>Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="BashComponent.cpp">
+      <Filter>Components\Bashcomponent</Filter>
+    </ClCompile>
+    <ClCompile Include="BashableObject.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Collectible.cpp">
+      <Filter>Game Objects\Collectibles</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Game Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyProjectile.cpp">
+      <Filter>Game Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Ledge.cpp">
+      <Filter>Game Objects\Platforms</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="TiledMap.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="Background.cpp" />
   </ItemGroup>
 </Project>
