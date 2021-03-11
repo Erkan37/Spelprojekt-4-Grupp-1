@@ -200,6 +200,9 @@
     <ClInclude Include="AudioManager.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyFactory.h">
+      <Filter>Factories</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -320,6 +323,9 @@
     </ClCompile>
     <ClCompile Include="AudioManager.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyFactory.cpp">
+      <Filter>Factories</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
