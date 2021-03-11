@@ -24,8 +24,8 @@ struct PlayerData : public Data
 struct EnemyData : public Data
 {
 	EnemyData() = default;
-	int myHealth;
 	float myMoveSpeed;
+	int myHealth;
 	~EnemyData() override
 	{}
 };
@@ -43,17 +43,20 @@ public:
 	void operator=(const DataManager&) = delete;
 	~DataManager() = default;
 
-	PlayerData& GetDataStruct(const DataEnum aDataEnum);
+	Data& GetDataStruct(const DataEnum aDataEnum);
 	void SetDataStruct(const DataEnum aDataEnum);
 
 private:
+	//Private Methods
 	DataManager();
 	void ReadFileIntoDocument(std::string aFilePath, rapidjson::Document& anOutDoc);
 
+	//Master Document
+	rapidjson::Document myMasterDoc;
+
+	//Data Structs
 	PlayerData myPlayerData;
 	EnemyData myEnemyData;
 	std::vector<rapidjson::Document> myLevelVector;
-
-	rapidjson::Document myMasterDoc;
 
 };

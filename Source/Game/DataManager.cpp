@@ -3,10 +3,8 @@
 #include <fstream>
 #include <sstream>
 #include <cassert>
-
 #include <rapidjson/ostreamwrapper.h>
 #include <rapidjson/writer.h>
-#include <iostream>
 
 DataManager::DataManager()
 {
@@ -24,49 +22,41 @@ DataManager::DataManager()
 
 void DataManager::SetDataStruct(const DataEnum aDataEnum)
 {
+	rapidjson::Document tempDoc;
+	std::string tempDataPath;
+
 	switch (aDataEnum)
 	{
 	case DataEnum::player:
 	{
-		std::string playerDataPath = myMasterDoc["PlayerData"].GetString();
-		rapidjson::Document myPlayerDoc;
-		ReadFileIntoDocument(playerDataPath, myPlayerDoc);
+		tempDataPath = myMasterDoc["PlayerData"].GetString();
+		ReadFileIntoDocument(tempDataPath, tempDoc);
 
-		rapidjson::StringBuffer buffer{};
-		rapidjson::Writer<rapidjson::StringBuffer> writer{ buffer };
-		myPlayerDoc.Accept(writer);
-
-		myPlayerDoc["MaxSpeed"].SetFloat(myPlayerData.myMaxSpeed);
-
-		std::ofstream ofs{ playerDataPath };
-		if (!ofs.is_open())
-		{
-			std::cout << "Could not open file for writing!\n";
-		}
-
-		rapidjson::OStreamWrapper osw{ ofs };
-		rapidjson::Writer<rapidjson::OStreamWrapper> writer2{ osw };
-		myPlayerDoc.Accept(writer2);
-
-
-		//rapidjson::Value v = rapidjson::Value(myPlayerDoc.GetObjectW());
-		//v["MaxSpeed"].SetFloat(myPlayerData.myMaxSpeed);
-		//std::ofstream o(playerDataPath);
-
-		//rapidjson::Writer writer = rapidjson::Writer(myPlayerDoc);
-		//writer.
-
-		//myPlayerDoc["Acceleration"].SetFloat(myPlayerData.myAcceleration);
-		//myPlayerDoc["MaxSpeed"].SetFloat(myPlayerData.myMaxSpeed);
+		// Lägg till alla varibler som ska uppdateras här:
+		tempDoc["MaxSpeed"].SetFloat(myPlayerData.myMaxSpeed);
 	}
 	break;
+	case DataEnum::enemy:
+	{
+		tempDataPath = myMasterDoc["EnemyData"].GetString();
+		ReadFileIntoDocument(tempDataPath, tempDoc);
 
+		// Lägg till alla varibler som ska uppdateras här:
 
+	}
+	break;
 	default:
+		assert((false) && "Invalid Enum given to DataManager::SetDataStruct().");
 		break;
 	}
+
+	//Accepterar Input till Json filen.
+	std::ofstream ofs{ tempDataPath };
+	rapidjson::OStreamWrapper osw{ ofs };
+	rapidjson::Writer<rapidjson::OStreamWrapper> writer{ osw };
+	tempDoc.Accept(writer);
 }
-PlayerData& DataManager::GetDataStruct(const DataEnum aDataEnum)
+Data& DataManager::GetDataStruct(const DataEnum aDataEnum)
 {
 	switch (aDataEnum)
 	{
@@ -75,10 +65,17 @@ PlayerData& DataManager::GetDataStruct(const DataEnum aDataEnum)
 		return myPlayerData;
 	}
 	break;
-
-
+	case DataEnum::enemy:
+	{
+		return myEnemyData;
+	}
+	break;
 	default:
-		break;
+	{
+		assert((false) && "Invalid Enum given to DataManager::GetDataStruct().");
+		return Data();
+	}
+	break;
 	}
 }
 
@@ -91,3 +88,5 @@ void DataManager::ReadFileIntoDocument(std::string aFilePath, rapidjson::Documen
 	anOutDoc.Parse(outString.c_str());
 	dataFile.close();
 }
+
+// Constructors är bara här för att undvika varningar. Initializera gärna variablerna här.

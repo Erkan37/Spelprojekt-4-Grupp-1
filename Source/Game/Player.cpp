@@ -21,6 +21,7 @@ Player::Player(LevelScene* aLevelScene)
 	:
 	GameObject(aLevelScene)
 {
+
 	SetZIndex(500);
 	SetPosition({ 960.0f, 540.0f });
 	mySize = v2f(70.0f, 70.0f);
@@ -32,8 +33,7 @@ Player::Player(LevelScene* aLevelScene)
 	CGameWorld* world = CGameWorld::GetInstance();
 	myInputHandler = world->Input();
 
-	myJsonData = &DataManager::GetInstance().GetDataStruct(DataEnum::player);
-	//myMaxRunningSpeed = myJsonData->myMaxSpeed;
+	myJsonData = dynamic_cast<PlayerData*>(&DataManager::GetInstance().GetDataStruct(DataEnum::player));
 
 	myRunningAnimationSpeed = 50.0f;
 
