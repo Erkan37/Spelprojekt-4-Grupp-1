@@ -5,11 +5,13 @@
 #include "Camera.h"
 #include "LevelScene.h"
 #include "Player.hpp"
+#include "AudioManager.h"
 
 Background::Background(LevelScene* aLevelScene) 
 	:
 	GameObject(aLevelScene)
 {
+	myOrignalSpeed = {};
 	myBackgroundSpeedOneX = {};
 	myBackgroundSpeedTwoX = {};
 	myBackgroundSpeedThreeX = {};
@@ -34,11 +36,16 @@ void Background::Update(const float& aDeltaTime)
 void Background::AddPlayerRelation(GameObject* aPlayer)
 {
 	myPlayer = aPlayer;
-	myPlayerStartingPosition = myPlayer->GetPosition();
 }
 
 void Background::UpdateBackground()
 {
+	if (myCamera->GetActive() && myAddedCameraPos == false)
+	{
+		myStartingCameraPos = myCamera->GetPosition();
+		myAddedCameraPos = true;
+	}
+
 	float renderSizeX = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
 	float renderSizeY = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
 
@@ -67,16 +74,16 @@ void Background::ResizeBackground()
 void Background::MoveBackground()
 {
 	v2f backgroundSpeedOne;
-	backgroundSpeedOne = { (myPlayerStartingPosition.x - myPlayer->GetPosition().x) * myBackgroundSpeedOneX, 
-						   (myPlayerStartingPosition.y - myPlayer->GetPosition().y) * myBackgroundSpeedOneY };
+	backgroundSpeedOne = { (myStartingCameraPos.x - myCamera->GetPosition().x) * (myOrignalSpeed * myBackgroundSpeedOneX),
+						   (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOrignalSpeed * myBackgroundSpeedOneY) };
 
 	v2f backgroundSpeedTwo;
-	backgroundSpeedTwo = { (myPlayerStartingPosition.x - myPlayer->GetPosition().x) * myBackgroundSpeedTwoX, 
-						   (myPlayerStartingPosition.y - myPlayer->GetPosition().y) * myBackgroundSpeedTwoY };
+	backgroundSpeedTwo = { (myStartingCameraPos.x - myCamera->GetPosition().x) * (myOrignalSpeed * myBackgroundSpeedTwoX),
+						   (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOrignalSpeed * myBackgroundSpeedTwoY) };
 
 	v2f backgroundSpeedThree;
-	backgroundSpeedThree = { (myPlayerStartingPosition.x - myPlayer->GetPosition().x) * myBackgroundSpeedThreeX, 
-							 (myPlayerStartingPosition.y - myPlayer->GetPosition().y) * myBackgroundSpeedThreeY };
+	backgroundSpeedThree = { (myStartingCameraPos.x - myCamera->GetPosition().x) * (myOrignalSpeed * myBackgroundSpeedThreeX),
+							 (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOrignalSpeed * myBackgroundSpeedThreeY) };
 
 	myBackgroundSprite1->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedOne);
 	myBackgroundSprite2->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedTwo);
@@ -89,11 +96,12 @@ void Background::LoadJson(LevelScene* aLevelScene)
 	myBackgroundPath2 = "Sprites/tga_logo.dds";
 	myBackgroundPath3 = "Sprites/Tommy.dds";
 	myBackgroundSpeedOneX = 0.f;
-	myBackgroundSpeedTwoX = 0.02f;
-	myBackgroundSpeedThreeX = 0.06f;
+	myBackgroundSpeedTwoX = 0.05f;
+	myBackgroundSpeedThreeX = 0.3f;
 	myBackgroundSpeedOneY = 0.f;
 	myBackgroundSpeedTwoY = 0.f;
 	myBackgroundSpeedThreeY = 0.f;
+	myOrignalSpeed = 0.2f;
 }
 
 void Background::CreateBackgrounds(LevelScene* aLevelScene)

@@ -20,6 +20,7 @@ public:
     void Update(const float& aDeltaTime) override;
 private:
     GameObject* myPlayer;
+    GameObject* myEnemy;
     std::unique_ptr<Background> myBackground;
 
 };

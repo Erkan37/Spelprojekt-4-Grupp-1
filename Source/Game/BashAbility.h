@@ -33,11 +33,14 @@ public:
 
 	const bool GetIsBashing();
 
+	void ActivateBash(GameObject* aGameObject);
+
 	void ImGuiUpdate();
 
 private:
 	std::shared_ptr<InputWrapper> myInput;
 	
+	GameObject* myBashObject;
 	Player* myPlayer;
 	Utils::Timer* myTimerInput;
 
@@ -51,10 +54,18 @@ private:
 
 	float myTimer;
 	float myDashDuration;
-	float myDelayTimer;
+	float myMaxDashDuration;
+	float myMaxDashDurationTimer;
 	float myDashSpeed;
 	float myAcceleration;
 	float myRetardation;
+
+	int myVibrationStrength;
+	float myVibrationLength;
+
+	float myDashShakeDuration;
+	float myDashShakeIntensity;
+	float myDashShakeDropOff;
 
 	float myAspectRatioFactorY;
 

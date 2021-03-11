@@ -5,6 +5,7 @@
 #include "MovingPlatform.hpp"
 #include "UnstablePlatform.hpp"
 #include "DestructiblePlatform.hpp"
+#include "DeadlyPlatform.hpp"
 
 #include "Ledge.h"
 
@@ -12,9 +13,11 @@
 #include "../External/Headers/rapidjson/istreamwrapper.h"
 #include <fstream>
 
+#include "SpriteComponent.h"
+
 void PlatformFactory::ReadPlatforms(Scene* aLevelScene, const std::string& aFilePath)
 {
-	std::ifstream platformsFile("JSON/PreProdPlatforms.json");
+	std::ifstream platformsFile(aFilePath);
 	rapidjson::IStreamWrapper platformsStream(platformsFile);
 
 	rapidjson::Document platforms;
@@ -26,29 +29,29 @@ void PlatformFactory::ReadPlatforms(Scene* aLevelScene, const std::string& aFile
 	const float destroyTime = platforms["DestroyTime"].GetFloat();
 	const float respawnTime = platforms["RespawnTime"].GetFloat();
 
-	for (rapidjson::Value::ConstValueIterator itr = platforms["Ledges"].Begin(); itr != platforms["Ledges"].End(); ++itr)
+	for (rapidjson::Value::ConstValueIterator ledges = platforms["Ledges"].Begin(); ledges != platforms["Ledges"].End(); ++ledges)
 	{
-		const float positionX = (*itr)["Position"]["X"].GetFloat();
-		const float positionY = (*itr)["Position"]["Y"].GetFloat();
+		const float positionX = (*ledges)["Position"]["X"].GetFloat();
+		const float positionY = (*ledges)["Position"]["Y"].GetFloat();
 
 		Ledge* ledge = new Ledge(aLevelScene);
 		ledge->Init(v2f(positionX, positionY), v2f(ledgeSizeX, ledgeSizeY));
 	}
 
-	for (rapidjson::Value::ConstValueIterator itr = platforms["Platforms"].Begin(); itr != platforms["Platforms"].End(); ++itr)
+	for (rapidjson::Value::ConstValueIterator platform = platforms["Platforms"].Begin(); platform != platforms["Platforms"].End(); ++platform)
 	{
-		const float positionX = (*itr)["Position"]["X"].GetFloat();
-		const float positionY = (*itr)["Position"]["Y"].GetFloat();
+		const float positionX = (*platform)["Position"]["X"].GetFloat();
+		const float positionY = (*platform)["Position"]["Y"].GetFloat();
 
-		const float sizeX = (*itr)["Size"]["X"].GetFloat();
-		const float sizeY = (*itr)["Size"]["Y"].GetFloat();
+		const float sizeX = (*platform)["Size"]["X"].GetFloat();
+		const float sizeY = (*platform)["Size"]["Y"].GetFloat();
 
-		const float spriteSizeX = (*itr)["SpriteSize"]["X"].GetFloat();
-		const float spriteSizeY = (*itr)["SpriteSize"]["Y"].GetFloat();
+		const float spriteSizeX = (*platform)["SpriteSize"]["X"].GetFloat();
+		const float spriteSizeY = (*platform)["SpriteSize"]["Y"].GetFloat();
 
-		const bool oneway = (*itr)["Oneway"].GetBool();
+		const bool oneway = (*platform)["Oneway"].GetBool();
 
-		const int type = (*itr)["Type"].GetInt();
+		const int type = (*platform)["Type"].GetInt();
 
 		float speed = 0;
 		std::vector<v2f> wayPoints;
@@ -59,12 +62,12 @@ void PlatformFactory::ReadPlatforms(Scene* aLevelScene, const std::string& aFile
 			CreateStaticPlatform(aLevelScene, v2f(positionX, positionY), v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), oneway);
 			break;
 		case 1:
-			for (rapidjson::Value::ConstValueIterator waypoint = (*itr)["Waypoints"].Begin(); waypoint != (*itr)["Waypoints"].End(); ++waypoint)
+			for (rapidjson::Value::ConstValueIterator waypoint = (*platform)["Waypoints"].Begin(); waypoint != (*platform)["Waypoints"].End(); ++waypoint)
 			{
 				wayPoints.push_back(v2f((*waypoint)["X"].GetFloat(), (*waypoint)["Y"].GetFloat()));
 			}
 
-			speed = (*itr)["Speed"].GetFloat();
+			speed = (*platform)["Speed"].GetFloat();
 
 			CreateMovingPlatform(aLevelScene, v2f(positionX, positionY), v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), wayPoints, speed);
 			break;
@@ -73,6 +76,9 @@ void PlatformFactory::ReadPlatforms(Scene* aLevelScene, const std::string& aFile
 			break;
 		case 3:
 			CreateDestructiblePlatform(aLevelScene, v2f(positionX, positionY), v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY));
+			break;
+		case 4:
+			CreateDeadlyPlatform(aLevelScene, v2f(positionX, positionY), v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY));
 			break;
 		}
 	}
@@ -84,6 +90,8 @@ Platform* PlatformFactory::CreateStaticPlatform(Scene* aLevelScene, const v2f& a
 {
 	Platform* staticPlatform = new Platform(aLevelScene);
 	staticPlatform->Init(v2f(aCollisionSize.x, aCollisionSize.y), v2f(aSpriteSize.x, aSpriteSize.y), v2f(aPosition.x, aPosition.y), aIsOneWay);
+	staticPlatform->GetComponent<SpriteComponent>()->SetSpritePath("Sprites/platform.dds");
+	staticPlatform->GetComponent<SpriteComponent>()->SetSize(aSpriteSize);
 	return staticPlatform;
 }
 
@@ -93,6 +101,8 @@ MovingPlatform* PlatformFactory::CreateMovingPlatform(Scene* aLevelScene, const 
 	movingPlatform->Init(v2f(aCollisionSize.x, aCollisionSize.y), v2f(aSpriteSize.x, aSpriteSize.y), v2f(aPosition.x, aPosition.y), true);
 	movingPlatform->SetWaypoints(aWayPoints);
 	movingPlatform->SetSpeed(aSpeed);
+	movingPlatform->GetComponent<SpriteComponent>()->SetSpritePath("Sprites/PlattformHype.dds");
+	movingPlatform->GetComponent<SpriteComponent>()->SetSize(aSpriteSize);
 	return movingPlatform;
 }
 
@@ -101,6 +111,8 @@ UnstablePlatform* PlatformFactory::CreateUnstablePlatform(Scene* aLevelScene, co
 	UnstablePlatform* unstablePlatform = new UnstablePlatform(aLevelScene);
 	unstablePlatform->Init(v2f(aCollisionSize.x, aCollisionSize.y), v2f(aSpriteSize.x, aSpriteSize.y), v2f(aPosition.x, aPosition.y), false);
 	unstablePlatform->SetTimerProperties(aDestroyTime, aRespawnTime);
+	unstablePlatform->GetComponent<SpriteComponent>()->SetSpritePath("Sprites/PlattformMold.dds");
+	unstablePlatform->GetComponent<SpriteComponent>()->SetSize(aSpriteSize);
 	return unstablePlatform;
 }
 
@@ -108,5 +120,16 @@ DestructiblePlatform* PlatformFactory::CreateDestructiblePlatform(Scene* aLevelS
 {
 	DestructiblePlatform* destructiblePlatform = new DestructiblePlatform(aLevelScene);
 	destructiblePlatform->Init(v2f(aCollisionSize.x, aCollisionSize.y), v2f(aSpriteSize.x, aSpriteSize.y), v2f(aPosition.x, aPosition.y), false);
+	destructiblePlatform->GetComponent<SpriteComponent>()->SetSpritePath("Sprites/PlattformCrocs.dds");
+	destructiblePlatform->GetComponent<SpriteComponent>()->SetSize(aSpriteSize);
 	return destructiblePlatform;
+}
+
+DeadlyPlatform* PlatformFactory::CreateDeadlyPlatform(Scene* aLevelScene, const v2f& aPosition, const v2f& aCollisionSize, const v2f& aSpriteSize)
+{
+	DeadlyPlatform* deadlyPlatform = new DeadlyPlatform(aLevelScene);
+	deadlyPlatform->Init(v2f(aCollisionSize.x, aCollisionSize.y), v2f(aSpriteSize.x, aSpriteSize.y), v2f(aPosition.x, aPosition.y), false);
+	deadlyPlatform->GetComponent<SpriteComponent>()->SetSpritePath("Sprites/PlattformKill.dds");
+	deadlyPlatform->GetComponent<SpriteComponent>()->SetSize(aSpriteSize);
+	return deadlyPlatform;
 }

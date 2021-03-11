@@ -14,13 +14,22 @@ BashAbility::BashAbility(LevelScene* aLevelScene)
 	myDashSpeed = {};
 	myRadiusFromDash = {};
 	myButtonHold = {};
-	myDelayTimer = {};
+	myMaxDashDuration = 2.0f;
+	myMaxDashDurationTimer = myMaxDashDuration;
 	myDashDuration = 1.0f;
 	myTimer = myDashDuration;
-	myTimeScale = 0.05f;
+	myTimeScale = 0.0f;
 	myIsBashing = false;
 	myAcceleration = {};
 	myLMBMousePressed = {};
+	myBashObject = nullptr;
+
+	myVibrationStrength = 60000;
+	myVibrationLength = 0.25f;
+
+	myDashShakeDuration = 0.5f;
+	myDashShakeIntensity = 0.5f;
+	myDashShakeDropOff = 0.5f;
 }
 
 BashAbility::~BashAbility()
@@ -32,8 +41,8 @@ void BashAbility::Init()
 	myAcceleration = 10.0f;
 	myRetardation = 1.0f;
 	myDashDuration = 0.5f;
-	myDelayTimer = 0.3f;
-	myTimeScale = 0.1f;
+	myMaxDashDuration = 2.0f;
+	myTimeScale = 0.0f;
 	myRadiusFromDash = true;
 	myDashSpeed = 1000.f;
 	myAspectRatioFactorY = Tga2D::CEngine::GetInstance()->GetWindowSize().x / Tga2D::CEngine::GetInstance()->GetWindowSize().y;
@@ -124,6 +133,16 @@ void BashAbility::ImGuiUpdate()
 	ImGui::SliderFloat("Retardation: ", &myRetardation, 0.0f, 5.0f);
 	ImGui::SliderFloat("Dash Speed: ", &myDashSpeed, 0.0f, 3000.0f);
 	ImGui::SliderFloat("Dash Duration: ", &myDashDuration, 0.0f, 10.0f);
+	ImGui::SliderFloat("Max Dash Duration: ", &myMaxDashDuration, 0.0f, 10.0f);
+
+	ImGui::Text("Vibration");
+	ImGui::SliderInt("Vibration Strength: ", &myVibrationStrength, 0, 65000);
+	ImGui::SliderFloat("Vibration Length: ", &myVibrationLength, 0.0f, 1.0f);
+
+	ImGui::Text("Camera Shake");
+	ImGui::SliderFloat("Dash Shake Duration: ", &myDashShakeDuration, 0.0f, 10.0f);
+	ImGui::SliderFloat("Dash Shake Intensity: ", &myDashShakeIntensity, 0.0f, 10.0f);
+	ImGui::SliderFloat("Dash Shake DropOff: ", &myDashShakeDropOff, 0.0f, 10.0f);
 
 	ImGui::End();
 }
@@ -135,7 +154,14 @@ void BashAbility::FreezeTime()
 
 void BashAbility::DashUse(const float& aDeltaTime)
 {
-	myDashDirection = myInput->GetAxisMovement();;
+	myDashDirection = myInput->GetAxisMovement();
+	if (myDashDirection.x == 0.0f && myDashDirection.y == 0.0f)
+	{
+		myDashDirection = v2f(0.0f, -1.0f);
+	}
+
+	myScene->GetCamera().Shake(myDashShakeDuration, myDashShakeIntensity, myDashShakeDropOff);
+	myInput->GetController()->Vibrate(myVibrationStrength, myVibrationStrength, myVibrationLength);
 
 	myPlayer->ResetVelocity();
 	myPlayer->ReactivateDoubleJump();
@@ -144,13 +170,22 @@ void BashAbility::DashUse(const float& aDeltaTime)
 	myDashAbilityActive = {};
 	myTimerInput->SetTimeScale(1.0f);
 	myTimer = myDashDuration;
+	myMaxDashDurationTimer = myMaxDashDuration;
+
+	myBashObject->OnBashed();
+	myBashObject = nullptr;
 }
 
 void BashAbility::UseBashAbility(const float& aDeltaTime)
 {
-	if (myButtonHold == false)
+	myTimerInput->SetTimeScale(1.0f);
+	myMaxDashDurationTimer -= myTimerInput->GetDeltaTime();
+	myTimerInput->SetTimeScale(myTimeScale);
+
+	if (myButtonHold == false || myMaxDashDurationTimer <= 0)
 	{
 		DashUse(aDeltaTime);
+		myPlayer->EndLerp();
 	}
 }
 
@@ -162,7 +197,7 @@ void BashAbility::CheckButtonPress()
 		return;
 	}
 
-	if (myInput->IsDashing() && myRadiusFromDash)
+	if (myInput->IsDashing() && myBashObject)
 	{
 		myButtonHold = true;
 		myDashAbilityActive = true;
@@ -177,4 +212,9 @@ void BashAbility::CheckButtonPress()
 const bool BashAbility::GetIsBashing()
 {
 	return myIsBashing;
+}
+
+void BashAbility::ActivateBash(GameObject* aGameObject)
+{
+	myBashObject = aGameObject;
 }

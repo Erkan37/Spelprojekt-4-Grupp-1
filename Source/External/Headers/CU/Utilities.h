@@ -61,6 +61,7 @@ namespace Utils
         const float GetDeltaTime() const;
         const double GetTotalTime() const;
 
+        const float GetTimeScale();
         void SetTimeScale(const float& aTimeScale);
 
     private:

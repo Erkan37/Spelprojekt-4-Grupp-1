@@ -12,6 +12,7 @@ class InputWrapper;
 class LevelScene;
 class AnimationComponent;
 class Ledge;
+class BashComponent;
 
 class Player : public GameObject
 {
@@ -21,6 +22,8 @@ public:
 
 	void InitAnimations();
 	void InitCollider();
+	void InitVibrations();
+	void InitShakes();
 
 	void Update(const float& aDeltaTime) override;
 
@@ -58,9 +61,15 @@ public:
 	const bool GetLedgeIsGrabbed();
 
 	void LerpToPosition(const v2f& aPosition, const float& aDeltaTime);
+	void SetLerpPosition(const v2f& aPosition);
+	void EndLerp();
 
 	void BounceOnDestructibleWall();
 	const bool& GetIsBashing();
+
+	void Kill();
+
+	void BashCollision(GameObject* aGameObject, BashComponent* aBashComponent) override;
 
 	void ImGuiUpdate();
 
@@ -70,6 +79,8 @@ private:
 	std::shared_ptr<InputWrapper> myInputHandler;
 	std::unique_ptr<BashAbility> myBashAbility;
 
+	Utils::Timer* myTimerInput;
+
 	v2f myCurrentVelocity;
 
 	v2f myPlatformVelocity;
@@ -77,6 +88,8 @@ private:
 	v2f myLerpPosition;
 
 	v2f mySize;
+
+	v2f mySpawnPosition;
 
 	float myAirCoyoteTime;
 	float myAirCoyoteTimer;
@@ -93,11 +106,38 @@ private:
 	float myDoubleJumpVelocity;
 	float myLedgeJumpVelocity;
 
+	float myMaxFallSpeed;
+
 	float myJumpWhenFallingTime;
+
+	//Camera Shake
+	float myDieShakeDuration;
+	float myDieShakeIntensity;
+	float myDieShakeDropOff;
+
+	float myLandingShakeDuration;
+	float myLandingShakeIntensity;
+	float myLandingShakeDropOff;
+
+	float mySpringShakeDuration;
+	float mySpringShakeIntensity;
+	float mySpringShakeDropOff;
+	//End of Camera Shake
+
+	//Vibration
+	float myDieVibrationLength;
+	float myLandVibrationLength;
+	float mySpringsVibrationLength;
+
+	int myDieVibrationStrength;
+	int myLandVibrationStrength;
+	int mySpringsVibrationStrength;
+	//End of Vibration
 
 	int myCurrentAnimationIndex;
 
 	bool myHasLanded;
+	bool myHasLandedVibration;
 	bool myHasDoubleJumped;
 
 	bool myCanJumpWhenFalling;

@@ -32,8 +32,9 @@ private:
 	std::string myBackgroundPath3;
 
 	v2f myCurrentRenderSize;
-	v2f myPlayerStartingPosition;
-	v2f myNewPlayerPosition;
+	v2f myStartingCameraPos;
+
+	float myOrignalSpeed;
 
 	float myBackgroundSpeedOneX;
 	float myBackgroundSpeedTwoX;

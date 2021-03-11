@@ -136,15 +136,22 @@
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="AnimationComponent.hpp" />
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="BashAbility.h" />
+    <ClInclude Include="BashableObject.hpp" />
+    <ClInclude Include="BashableObjectFactory.hpp" />
+    <ClInclude Include="BashComponent.hpp" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collectible.hpp" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="DeadlyPlatform.hpp" />
     <ClInclude Include="Debugger.h" />
     <ClInclude Include="DestructiblePlatform.hpp" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyFactory.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWorld.h" />
@@ -174,14 +181,21 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationComponent.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="BashAbility.cpp" />
+    <ClCompile Include="BashableObject.cpp" />
+    <ClCompile Include="BashableObjectFactory.cpp" />
+    <ClCompile Include="BashComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collectible.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="DeadlyPlatform.cpp" />
     <ClCompile Include="Debugger.cpp" />
     <ClCompile Include="DestructiblePlatform.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyFactory.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWorld.cpp" />
