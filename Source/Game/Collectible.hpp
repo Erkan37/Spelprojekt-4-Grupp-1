@@ -27,6 +27,8 @@ public:
 
 	void OnCollision(GameObject* aGameObject) override;
 
+	void ImGuiUpdate();
+
 private:
 	v2f myTargetPosition;
 	GameObject* myTarget;

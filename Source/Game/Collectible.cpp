@@ -68,6 +68,11 @@ void Collectible::Update(const float& aDeltaTime)
 		myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, myTargetPosition.y + offset, mySpeed * aDeltaTime);
 	}
 
+#ifdef _DEBUG
+	ImGuiUpdate();
+#endif // DEBUG
+
+
 	GameObject::Update(aDeltaTime);
 }
 
@@ -83,4 +88,16 @@ void Collectible::OnCollision(GameObject* aGameObject)
 			myWasCollected = true;
 		}
 	}
+}
+
+void Collectible::ImGuiUpdate()
+{
+	ImGui::Begin("Collectible", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
+
+	ImGui::SliderFloat("Speed", &mySpeed, 0.0f, 200.0f);
+	ImGui::SliderFloat("Radius From Target", &myMinRadiusFromTarget, 0.0f, 200.0f);
+	ImGui::SliderFloat("Idle Movement Speed", &myIdleMovementSpeed, 0.0f, 100.0f);
+	ImGui::SliderFloat("Idle Movement Distance", &myIdleMovementDistance, 0.0f, 200.0f);
+
+	ImGui::End();
 }
