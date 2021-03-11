@@ -11,7 +11,7 @@ CRenderObject::CRenderObject(void)
 {
 	myIsScreenSpace = false;
 	myBlendState = EBlendState::EBlendState_Alphablend;
-	mySamplerFilter = ESamplerFilter::ESamplerFilter_Point; //Was bilinear
+	mySamplerFilter = ESamplerFilter::ESamplerFilter_Bilinear;
 	mySamplerAddressMode = ESamplerAddressMode::ESamplerAddressMode_Clamp;
 }
 

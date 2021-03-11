@@ -90,7 +90,6 @@ Controller::Controller()
 	myActiveRightThumb = {};
 	myCurrentControllerState = {};
 	myLastButtonReleased = {};
-	myVibrationTimer = {};
 }
 
 void Controller::Init()
@@ -98,7 +97,7 @@ void Controller::Init()
 	CheckActiveController();
 }
 
-void Controller::Update(const float& aDeltaTime)
+void Controller::Update()
 {
 	if (IsControllerActive())
 	{
@@ -109,7 +108,6 @@ void Controller::Update(const float& aDeltaTime)
 		{
 			UpdateLeftThumbStick(myCurrentControllerState);
 			UpdateRightThumbStick(myCurrentControllerState);
-			UpdateVibration(aDeltaTime);
 		}
 		else
 		{
@@ -313,35 +311,4 @@ bool Controller::CheckActiveController()
 	}
 
 	return false;
-}
-
-void Controller::Vibrate(const int left, const int right, const float& aVibrationTime)
-{
-	myVibrationTimer = aVibrationTime;
-
-	XINPUT_VIBRATION v;
-
-	ZeroMemory(&v, sizeof(XINPUT_VIBRATION));
-
-	v.wLeftMotorSpeed = left;
-	v.wRightMotorSpeed = right;
-
-	XInputSetState(myControllerID, &v);
-}
-
-void Controller::UpdateVibration(const float& aDeltaTime)
-{
-	myVibrationTimer -= aDeltaTime;
-	if (myVibrationTimer <= 0)
-	{
-		myVibrationTimer = 0;
-		XINPUT_VIBRATION v;
-
-		ZeroMemory(&v, sizeof(XINPUT_VIBRATION));
-
-		v.wLeftMotorSpeed = 100;
-		v.wRightMotorSpeed = 100;
-
-		XInputSetState(myControllerID, &v);
-	}
 }

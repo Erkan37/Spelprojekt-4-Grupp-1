@@ -37,7 +37,7 @@ public:
 
 	void Init();
 
-	void Update(const float& aDeltaTime);
+	void Update();
 
 	bool IsButtonPressed(Button aButton);
 	bool IsButtonHoldDown(Button aButton);
@@ -59,8 +59,7 @@ public:
 	void SetRightThumbActive(bool aActiveStatement);
 	void SetLeftThumbActiveThisFrame(bool aStatement);
 
-	void Vibrate(const int left, const int right, const float& aVibrationTime);
-	void UpdateVibration(const float& aDeltaTime);
+
 
 private:
 	XINPUT_STATE myCurrentControllerState;
@@ -70,8 +69,6 @@ private:
 
 	float myleftThumbStickPull;
 	float myRightThumbStickPull;
-
-	float myVibrationTimer;
 
 	bool myActiveController;
 	bool myActiveRightThumb;

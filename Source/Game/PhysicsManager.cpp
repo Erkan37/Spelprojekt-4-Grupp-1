@@ -9,7 +9,6 @@
 #include "GameObject.h"
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
-#include "BashComponent.hpp"
 #include "GameWorld.h"
 #include "../External/Headers/CU/Utilities.h"
 
@@ -21,7 +20,7 @@ PhysicsManager::PhysicsManager()
 
 void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObject*>& aGameObjects)
 {
-	UpdateObjectVelocity(aDeltaTime, aGameObjects);
+	UpdateGravity(aDeltaTime, aGameObjects);
 
 	for (int index = 0U; index < static_cast<int>(myColliders.size()); ++index)
 	{
@@ -66,7 +65,7 @@ void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObje
 	}
 }
 
-void PhysicsManager::UpdateObjectVelocity(const float& aDeltaTime, std::vector<GameObject*>& aGameObjects)
+void PhysicsManager::UpdateGravity(const float& aDeltaTime, std::vector<GameObject*>& aGameObjects)
 {
 	for (GameObject* obj : aGameObjects)
 	{
@@ -102,13 +101,12 @@ void PhysicsManager::CheckOverlap(GameObject* aObj1, GameObject* aObj2, PhysicsC
 	const bool xAxisOverlap = obj1min.x <= obj2max.x && obj1max.x >= obj2min.x;
 	const bool yAxisOverlap = obj1min.y <= obj2max.y && obj1max.y >= obj2min.y;
 
-	const float insensitivity = 5.0f;
-
-	CheckBashCollision(aObj1, aObj2);
-
-	if (OneWayCheck(insensitivity, aObj1, aObj2, obj1min, obj1max, obj2min, obj2max))
+	const float xInsensitivity = 5.0f;
+	if (obj1min.x + xInsensitivity < obj2max.x && obj1max.x - xInsensitivity > obj2min.x)
 	{
-		return;
+		const float yDifference = obj2min.y - obj1max.y;
+		TryLetJumpWhenFalling(aObj1, yDifference);
+		TryLetJumpWhenFalling(aObj2, yDifference);
 	}
 
 	if (xAxisOverlap && yAxisOverlap)
@@ -116,12 +114,6 @@ void PhysicsManager::CheckOverlap(GameObject* aObj1, GameObject* aObj2, PhysicsC
 		aObj1->OnCollision(aObj2);
 		aObj2->OnCollision(aObj1);
 		OverlapCalculation(aObj1, aObj2, aObj1Physics, aObj2Physics, obj1min, obj1max, obj2min, obj2max);
-	}
-	else if (obj1min.x + insensitivity < obj2max.x && obj1max.x - insensitivity > obj2min.x)
-	{
-		const float yDifference = obj2min.y - obj1max.y;
-		AlmostCollision(aObj1, yDifference);
-		AlmostCollision(aObj2, yDifference);
 	}
 }
 
@@ -138,7 +130,6 @@ void PhysicsManager::OverlapCalculation(GameObject* aObj1, GameObject* aObj2, Ph
 
 	const float overlapY1 = aObj1Min.y - aObj2Max.y;
 	const float overlapY2 = aObj1Max.y - aObj2Min.y;
-
 	const float overlapY = Utils::Abs(overlapY1) < Utils::Abs(overlapY2) ? overlapY1 : overlapY2;
 
 	const bool& obj1Static = aObj1Physics->GetIsStatic();
@@ -179,69 +170,11 @@ void PhysicsManager::OverlapCalculation(GameObject* aObj1, GameObject* aObj2, Ph
 	}
 }
 
-const void PhysicsManager::AlmostCollision(GameObject* aObject, const float& aYDistance)
+const void PhysicsManager::TryLetJumpWhenFalling(GameObject* aObject, const float& aYDistance)
 {
 	Player* player = dynamic_cast<Player*>(aObject);
 	if (player)
 	{
 		player->TryLetJumpWhenFalling(aYDistance);
-	}
-}
-
-bool PhysicsManager::OneWayCheck(const float& aInSensitivity, GameObject* aObj1, GameObject* aObj2, const v2f& aObj1Min, const v2f& aObj1Max, const v2f& aObj2Min, const v2f& aObj2Max)
-{
-	if (aObj1->GetComponent<PhysicsComponent>()->GetCollisionType() == PhysicsComponent::eCollisionType::OneWay)
-	{
-		float playerPlatformVelocity = 0;
-
-		Player* player = dynamic_cast<Player*>(aObj2);
-
-		if (player)
-		{
-			playerPlatformVelocity = player->GetPlatformVelocity().y;
-		}
-
-		const float objVelocity = aObj2->GetComponent<PhysicsComponent>()->GetVelocityY() - playerPlatformVelocity;
-		
-		if (aObj2Max.y > aObj1Min.y + aInSensitivity || objVelocity < 0)
-		{
-			return true;
-		}
-	}
-	else if (aObj2->GetComponent<PhysicsComponent>()->GetCollisionType() == PhysicsComponent::eCollisionType::OneWay)
-	{
-		float playerPlatformVelocity = 0;
-
-		Player* player = dynamic_cast<Player*>(aObj1);
-
-		if (player)
-		{
-			playerPlatformVelocity = player->GetPlatformVelocity().y;
-		}
-
-		const float objVelocity = aObj1->GetComponent<PhysicsComponent>()->GetVelocityY() - playerPlatformVelocity;
-
-		if (aObj1Max.y > aObj2Min.y + aInSensitivity || objVelocity < 0)
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-void PhysicsManager::CheckBashCollision(GameObject* aObj1, GameObject* aObj2)
-{
-	BashComponent* obj1BashComponent = aObj1->GetComponent<BashComponent>();
-	BashComponent* obj2BashComponent = aObj2->GetComponent<BashComponent>();
-
-	if (obj1BashComponent)
-	{
-		aObj2->BashCollision(aObj1, obj1BashComponent);
-	}
-
-	if (obj2BashComponent)
-	{
-		aObj1->BashCollision(aObj2, obj2BashComponent);
 	}
 }
