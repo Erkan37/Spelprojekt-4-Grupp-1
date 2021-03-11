@@ -62,6 +62,7 @@ Player::Player(LevelScene* aLevelScene)
 
 	myCanJumpWhenFalling = false;
 	myWillJumpWhenFalling = false;
+	myActiveSpringJump = false;
 
 	myGrabbedLedge = false;
 
@@ -72,6 +73,7 @@ Player::Player(LevelScene* aLevelScene)
 	mySpringVelocity = {};
 	myMaxSpringVelocity = {};
 	myPercentageLeftVelocity = {};
+	mySpringTimer = {};
 
 	myBashAbility = std::make_unique<BashAbility>(aLevelScene);
 	myBashAbility->Init();
@@ -422,11 +424,8 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 	myPlatformVelocity.x = Utils::Lerp(myPlatformVelocity.x, 0.0f, myPlatformVelocityRetardation * aDeltaTime);
 	myPlatformVelocity.y = Utils::Lerp(myPlatformVelocity.y, 0.0f, myPlatformVelocityRetardation * aDeltaTime);
 
-	mySpringVelocity.x = {};
-	mySpringVelocity.y = Utils::Lerp(mySpringVelocity.y, 0.0f, myPlatformVelocityRetardation * aDeltaTime);
-
-	myPercentageLeftVelocity = mySpringVelocity.y / myMaxSpringVelocity;
-
+	if (myActiveSpringJump)
+		DecreaseSpringJump(aDeltaTime);
 }
 
 void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
@@ -483,6 +482,7 @@ void Player::EndLerp()
 
 void Player::ActivateSpringForce(float aSpringVelocity)
 {
+	myActiveSpringJump = true;
 	myMaxSpringVelocity = aSpringVelocity;
 	mySpringVelocity.y = aSpringVelocity;
 }
@@ -521,6 +521,31 @@ void Player::BashCollision(GameObject* aGameObject, BashComponent* aBashComponen
 			SetLerpPosition(aGameObject->GetPosition());
 		}
 	}
+}
+
+void Player::DecreaseSpringJump(const float& aDeltaTime)
+{
+	std::cout << mySpringVelocity.y << std::endl;
+	mySpringTimer += aDeltaTime;
+
+	if (GetComponent<PhysicsComponent>()->GetVelocityY() > 0)
+	{
+		mySpringTimer += aDeltaTime;
+		if (mySpringTimer > 0.5f)
+		{
+			myMaxSpringVelocity = {};
+			mySpringVelocity.x = {};
+			mySpringVelocity.y = Utils::Lerp(mySpringVelocity.y, 0.f, myPlatformVelocityRetardation * aDeltaTime);
+		}
+		
+	}
+	else
+	{
+		mySpringVelocity.x = {};
+		mySpringVelocity.y = Utils::Lerp(mySpringVelocity.y, 0.f, myPlatformVelocityRetardation * aDeltaTime);
+	}
+
+	myPercentageLeftVelocity = mySpringVelocity.y / myMaxSpringVelocity;
 }
 
 void Player::ImGuiUpdate()

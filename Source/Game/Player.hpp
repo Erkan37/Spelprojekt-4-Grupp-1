@@ -74,6 +74,8 @@ public:
 
 	void BashCollision(GameObject* aGameObject, BashComponent* aBashComponent) override;
 
+	void DecreaseSpringJump(const float& aDeltaTime);
+
 	void ImGuiUpdate();
 
 private:
@@ -110,8 +112,10 @@ private:
 	float myJumpVelocity;
 	float myDoubleJumpVelocity;
 	float myLedgeJumpVelocity;
+
 	float myMaxSpringVelocity;
 	float myPercentageLeftVelocity;
+	float mySpringTimer;
 
 	float myMaxFallSpeed;
 
@@ -150,9 +154,11 @@ private:
 
 	bool myCanJumpWhenFalling;
 	bool myWillJumpWhenFalling;
+	bool myActiveSpringJump;
 
 	bool myGrabbedLedge;
 
 	bool myIsLerpingToPosition;
+
 };
 
