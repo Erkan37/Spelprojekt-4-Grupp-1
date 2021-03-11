@@ -47,6 +47,9 @@ void LevelScene::Load()
 	myBackground = std::make_unique<Background>(this);
 	myBackground->AddPlayerRelation(myPlayer);
 
+	mySpring = std::make_unique<SpringObject>(this);
+	mySpring->Init(v2f(500.f, 800.f));
+
 	PlatformFactory platformFactory;
 	platformFactory.ReadPlatforms(this, "JSON/PreProdPlatforms.json");
 

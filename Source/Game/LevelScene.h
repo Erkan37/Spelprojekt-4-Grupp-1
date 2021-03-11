@@ -3,6 +3,7 @@
 #include <vector>
 #include "Platform.h"
 #include "BackGround.h"
+#include "SpringObject.h"
 
 class GameObject;
 
@@ -22,6 +23,7 @@ private:
     GameObject* myPlayer;
     GameObject* myEnemy;
     std::unique_ptr<Background> myBackground;
+    std::unique_ptr<SpringObject> mySpring;
 
 };
 

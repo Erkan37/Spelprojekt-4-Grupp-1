@@ -13,6 +13,7 @@ class LevelScene;
 class AnimationComponent;
 class Ledge;
 class BashComponent;
+class SpringObject;
 
 class Player : public GameObject
 {
@@ -64,6 +65,8 @@ public:
 	void SetLerpPosition(const v2f& aPosition);
 	void EndLerp();
 
+	void ActivateSpringForce(float mySpringVelocity);
+
 	void BounceOnDestructibleWall();
 	const bool& GetIsBashing();
 
@@ -85,6 +88,8 @@ private:
 
 	v2f myPlatformVelocity;
 
+	v2f mySpringVelocity;
+
 	v2f myLerpPosition;
 
 	v2f mySize;
@@ -105,6 +110,8 @@ private:
 	float myJumpVelocity;
 	float myDoubleJumpVelocity;
 	float myLedgeJumpVelocity;
+	float myMaxSpringVelocity;
+	float myPercentageLeftVelocity;
 
 	float myMaxFallSpeed;
 
@@ -139,6 +146,7 @@ private:
 	bool myHasLanded;
 	bool myHasLandedVibration;
 	bool myHasDoubleJumped;
+	bool myHasLandedOnSpring;
 
 	bool myCanJumpWhenFalling;
 	bool myWillJumpWhenFalling;

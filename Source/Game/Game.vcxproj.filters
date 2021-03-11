@@ -206,6 +206,9 @@
     <ClInclude Include="Button.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="SpringObject.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -331,6 +334,9 @@
       <Filter>Factories</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="SpringObject.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
   </ItemGroup>

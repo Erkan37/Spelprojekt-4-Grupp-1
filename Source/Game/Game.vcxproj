@@ -168,6 +168,7 @@
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SpringObject.h" />
     <ClInclude Include="SpritebatchComponent.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="stdafx.h" />
@@ -211,6 +212,7 @@
     <ClCompile Include="PlatformFactory.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SpringObject.cpp" />
     <ClCompile Include="SpritebatchComponent.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="stdafx.cpp">

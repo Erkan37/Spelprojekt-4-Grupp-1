@@ -45,8 +45,8 @@ void Background::UpdateBackground()
 		myAddedCameraPos = true;
 	}
 
-	float renderSizeX = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
-	float renderSizeY = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
+	int renderSizeX = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
+	int renderSizeY = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
 
 	if (myCurrentRenderSize.x != renderSizeX || myCurrentRenderSize.y != renderSizeY)
 	{
@@ -58,8 +58,8 @@ void Background::UpdateBackground()
 
 void Background::ResizeBackground()
 {
-	float renderSizeX = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
-	float renderSizeY = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
+	int renderSizeX = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
+	int renderSizeY = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
 
 	myCurrentRenderSize.x = renderSizeX;
 	myCurrentRenderSize.y = renderSizeY;

@@ -13,6 +13,7 @@
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
 #include "BashComponent.hpp"
+#include "SpringObject.h"
 
 #include "Ledge.h"
 
@@ -57,6 +58,7 @@ Player::Player(LevelScene* aLevelScene)
 
 	myHasLanded = true;
 	myHasDoubleJumped = false;
+	myHasLandedOnSpring = false;
 
 	myCanJumpWhenFalling = false;
 	myWillJumpWhenFalling = false;
@@ -66,6 +68,10 @@ Player::Player(LevelScene* aLevelScene)
 	myIsLerpingToPosition = false;
 
 	myTimerInput = world->GetTimer();
+
+	mySpringVelocity = {};
+	myMaxSpringVelocity = {};
+	myPercentageLeftVelocity = {};
 
 	myBashAbility = std::make_unique<BashAbility>(aLevelScene);
 	myBashAbility->Init();
@@ -296,7 +302,9 @@ void Player::GoLeft(const float& aDeltaTime)
 
 void Player::Jump()
 {
-	myCurrentVelocity.y = -myJumpVelocity + myPlatformVelocity.y;
+	v2f calculatedSpring = mySpringVelocity;
+	calculatedSpring.y = calculatedSpring.y;
+	myCurrentVelocity.y = -myJumpVelocity + myPlatformVelocity.y - calculatedSpring.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
 	myCurrentAnimationIndex = 2;
 	myHasLanded = false;
@@ -306,7 +314,8 @@ void Player::Jump()
 
 void Player::DoubleJump()
 {
-	myCurrentVelocity.y = -myDoubleJumpVelocity + myPlatformVelocity.y;
+	v2f calculatedSpring = mySpringVelocity;
+	myCurrentVelocity.y = -myDoubleJumpVelocity + myPlatformVelocity.y - calculatedSpring.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
 	myCurrentAnimationIndex = 2;
 	myHasLanded = false;
@@ -408,10 +417,16 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 	}
 
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
-	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity);
+	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity + mySpringVelocity);
 
 	myPlatformVelocity.x = Utils::Lerp(myPlatformVelocity.x, 0.0f, myPlatformVelocityRetardation * aDeltaTime);
 	myPlatformVelocity.y = Utils::Lerp(myPlatformVelocity.y, 0.0f, myPlatformVelocityRetardation * aDeltaTime);
+
+	mySpringVelocity.x = {};
+	mySpringVelocity.y = Utils::Lerp(mySpringVelocity.y, 0.0f, myPlatformVelocityRetardation * aDeltaTime);
+
+	myPercentageLeftVelocity = mySpringVelocity.y / myMaxSpringVelocity;
+
 }
 
 void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
@@ -464,6 +479,12 @@ void Player::SetLerpPosition(const v2f& aPosition)
 void Player::EndLerp()
 {
 	myIsLerpingToPosition = false;
+}
+
+void Player::ActivateSpringForce(float aSpringVelocity)
+{
+	myMaxSpringVelocity = aSpringVelocity;
+	mySpringVelocity.y = aSpringVelocity;
 }
 
 void Player::BounceOnDestructibleWall()
