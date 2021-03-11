@@ -3,6 +3,11 @@
 
 class Scene;
 
+namespace Utils
+{
+	class Timer;
+}
+
 class Collectible : public GameObject
 {
 public:
@@ -18,11 +23,22 @@ public:
 
 	void Init(const v2f& aPosition, eCollectibleType aType);
 
+	void Update(const float& aDeltaTime) override;
+
 	void OnCollision(GameObject* aGameObject) override;
 
 private:
-	bool myWasCollected;
-	eCollectibleType myType;
+	v2f myTargetPosition;
+	GameObject* myTarget;
 
+	float mySpeed;
+	float myMinRadiusFromTarget;
+	float myIdleMovementSpeed;
+	float myIdleMovementDistance;
+
+	Utils::Timer* myTimer;
+
+	eCollectibleType myType;
+	bool myWasCollected;
 };
 
