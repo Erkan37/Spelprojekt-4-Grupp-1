@@ -137,6 +137,8 @@ private:
 
 	int myCurrentAnimationIndex;
 
+	int myDirectionX;
+
 	bool myHasLanded;
 	bool myHasLandedVibration;
 	bool myHasDoubleJumped;

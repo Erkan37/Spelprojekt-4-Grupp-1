@@ -53,6 +53,8 @@ Player::Player(LevelScene* aLevelScene)
 
 	myMaxFallSpeed = 700.0f;
 
+	myDirectionX = 1;
+
 	myJumpWhenFallingTime = 0.075f;
 
 	myCurrentAnimationIndex = 0;
@@ -284,8 +286,8 @@ void Player::GoRight(const float& aDeltaTime)
 	}
 
 	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, myJsonData->myMaxSpeed, myAcceleration * aDeltaTime);
-	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(mySize.x);
-	myAnimations[4].mySpriteComponent->SetSizeX(mySize.x);
+	
+	myDirectionX = 1;
 }
 
 void Player::GoLeft(const float& aDeltaTime)
@@ -306,8 +308,8 @@ void Player::GoLeft(const float& aDeltaTime)
 	}
 
 	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, -myJsonData->myMaxSpeed, myAcceleration * aDeltaTime);
-	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-mySize.x);
-	myAnimations[4].mySpriteComponent->SetSizeX(-mySize.x);
+	
+	myDirectionX = -1;
 }
 
 void Player::Jump()
@@ -415,6 +417,11 @@ void Player::AnimationState()
 	{
 		animation->SetAnimation(&myAnimations[1]);
 		myCurrentAnimationIndex = 1;
+	}
+
+	for (Animation& animation : myAnimations)
+	{
+		animation.mySpriteComponent->SetSizeX(mySize.x * myDirectionX);
 	}
 }
 
