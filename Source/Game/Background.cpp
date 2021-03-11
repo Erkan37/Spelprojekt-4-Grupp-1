@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Background.h"
-#include "GameObject.h"
 #include "SpriteComponent.h"
 #include "Camera.h"
 #include "LevelScene.h"
@@ -116,6 +115,8 @@ void Background::CreateBackgrounds(LevelScene* aLevelScene)
 
 	myBackgroundSprite3 = myBackground->AddComponent<SpriteComponent>();
 	myBackgroundSprite3->SetSpritePath(myBackgroundPath3);
+
+	myBackground->Init();
 
 	ResizeBackground();
 }

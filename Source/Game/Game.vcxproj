@@ -142,6 +142,7 @@
     <ClInclude Include="BashableObject.hpp" />
     <ClInclude Include="BashableObjectFactory.hpp" />
     <ClInclude Include="BashComponent.hpp" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collectible.hpp" />
     <ClInclude Include="ColliderComponent.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="BashableObject.cpp" />
     <ClCompile Include="BashableObjectFactory.cpp" />
     <ClCompile Include="BashComponent.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collectible.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />

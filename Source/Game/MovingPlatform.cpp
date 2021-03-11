@@ -1,15 +1,15 @@
 #include "stdafx.h"
 #include "MovingPlatform.hpp"
-
 #include "Player.hpp"
+#include "Button.h"
 
 MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	:
 	Platform(aLevelScene),
 	mySpeed(0.0f),
-	myCurrentWayPointIndex(0)
+	myCurrentWayPointIndex(0),
+	myButton(aLevelScene)
 {
-
 }
 
 void MovingPlatform::Update(const float& aDeltaTime)
@@ -18,25 +18,28 @@ void MovingPlatform::Update(const float& aDeltaTime)
 	{
 		Move(aDeltaTime);
 	}
-
+	
 	Platform::Update(aDeltaTime);
 }
 
 void MovingPlatform::Move(const float& aDeltaTime)
 {
-	myDirection = (myWaypoints[myCurrentWayPointIndex] - myTransform.myPosition).GetNormalized();
-	myTransform.myPosition += myDirection * mySpeed * aDeltaTime;
-
-	const float sensitivity = 5.0f;
-	if (myTransform.myPosition.x < myWaypoints[myCurrentWayPointIndex].x + sensitivity &&
-		myTransform.myPosition.x > myWaypoints[myCurrentWayPointIndex].x - sensitivity &&
-		myTransform.myPosition.y < myWaypoints[myCurrentWayPointIndex].y + sensitivity &&
-		myTransform.myPosition.y > myWaypoints[myCurrentWayPointIndex].y - sensitivity)
+	if (myButton.GetActiveButton())
 	{
-		++myCurrentWayPointIndex;
-		if (myCurrentWayPointIndex >= static_cast<int>(myWaypoints.size()))
+		myDirection = (myWaypoints[myCurrentWayPointIndex] - myTransform.myPosition).GetNormalized();
+		myTransform.myPosition += myDirection * mySpeed * aDeltaTime;
+
+		const float sensitivity = 5.0f;
+		if (myTransform.myPosition.x < myWaypoints[myCurrentWayPointIndex].x + sensitivity &&
+			myTransform.myPosition.x > myWaypoints[myCurrentWayPointIndex].x - sensitivity &&
+			myTransform.myPosition.y < myWaypoints[myCurrentWayPointIndex].y + sensitivity &&
+			myTransform.myPosition.y > myWaypoints[myCurrentWayPointIndex].y - sensitivity)
 		{
-			myCurrentWayPointIndex = 0;
+			++myCurrentWayPointIndex;
+			if (myCurrentWayPointIndex >= static_cast<int>(myWaypoints.size()))
+			{
+				myCurrentWayPointIndex = 0;
+			}
 		}
 	}
 }
@@ -56,6 +59,12 @@ void MovingPlatform::SetWaypoints(const std::vector<v2f>& aWaypoints)
 	myWaypoints = aWaypoints;
 	myCurrentWayPointIndex = 0;
 	SetPosition(myWaypoints[myCurrentWayPointIndex]);
+	SetButtonPosition();
+}
+
+void MovingPlatform::SetButtonPosition()
+{
+	myButton.Init(GetPosition(), v2f(-450, -100));
 }
 
 void MovingPlatform::ClearWaypoints()
@@ -66,9 +75,12 @@ void MovingPlatform::ClearWaypoints()
 
 void MovingPlatform::OnCollision(GameObject* aGameObject)
 {
-	Player* player = dynamic_cast<Player*>(aGameObject);
-	if (player)
+	if (myButton.GetActiveButton())
 	{
-		player->SetPlatformVelocity(myDirection * mySpeed);
+		Player* player = dynamic_cast<Player*>(aGameObject);
+		if (player)
+		{
+			player->SetPlatformVelocity(myDirection * mySpeed);
+		}
 	}
 }
