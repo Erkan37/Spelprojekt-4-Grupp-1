@@ -96,7 +96,8 @@ private:
 	float myAirCoyoteTimer;
 
 	//float myMaxRunningSpeed;
-	float myRunningAnimationSpeed;
+	float myTriggerRunningAnimationSpeed;
+	float myTriggerFallingSpeed;
 
 	float myAcceleration;
 	float myRetardation;
