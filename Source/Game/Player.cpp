@@ -128,7 +128,8 @@ void Player::InitCollider()
 	physics->SetIsStatic(false);
 	physics->SetApplyGravity(false);
 
-	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
+	ColliderComponent* collider = AddComponent<ColliderComponent>();
+	collider->SetSize(16.0f, 16.0f);
 }
 
 void Player::InitVibrations()
