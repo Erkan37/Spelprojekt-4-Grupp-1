@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":23,
  "infinite":false,
  "layers":[
@@ -83,7 +90,7 @@
                  "name":"kill",
                  "rotation":0,
                  "type":"1",
-                 "visible":true,
+                 "visible":false,
                  "width":344,
                  "x":-24,
                  "y":184
@@ -105,7 +112,7 @@
                         }],
                  "rotation":0,
                  "type":"2",
-                 "visible":true,
+                 "visible":false,
                  "width":32,
                  "x":192,
                  "y":112
@@ -116,7 +123,7 @@
                  "name":"destructable",
                  "rotation":0,
                  "type":"3",
-                 "visible":true,
+                 "visible":false,
                  "width":24,
                  "x":96,
                  "y":144
@@ -127,7 +134,7 @@
                  "name":"bashable",
                  "rotation":0,
                  "type":"4",
-                 "visible":true,
+                 "visible":false,
                  "width":24,
                  "x":296,
                  "y":136
@@ -175,6 +182,17 @@
                  "width":368,
                  "x":-24,
                  "y":-8
+                }, 
+                {
+                 "height":24,
+                 "id":40,
+                 "name":"",
+                 "rotation":0,
+                 "type":"12",
+                 "visible":true,
+                 "width":352,
+                 "x":-16,
+                 "y":184
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -225,7 +243,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -284,7 +302,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -341,7 +359,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -377,9 +395,32 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":10,
+         "name":"Bonfire",
+         "objects":[
+                {
+                 "height":0,
+                 "id":35,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":160,
+                 "y":96
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":10,
- "nextobjectid":35,
+ "nextlayerid":11,
+ "nextobjectid":41,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
