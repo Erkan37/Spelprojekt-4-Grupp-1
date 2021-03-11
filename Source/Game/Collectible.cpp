@@ -78,7 +78,7 @@ void Collectible::OnCollision(GameObject* aGameObject)
 		Player* player = dynamic_cast<Player*>(aGameObject);
 		if (player)
 		{
-			//GetComponent<SpriteComponent>()->Deactivate(); //SetAnimation;
+			//SetAnimation;
 			myTarget = aGameObject;
 			myWasCollected = true;
 		}

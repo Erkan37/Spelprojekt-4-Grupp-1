@@ -62,7 +62,7 @@ void LevelScene::Activate()
 
 	GetCamera().StartFollowing(myPlayer, { 10.0f, 10.0f });
 	GetCamera().SetBounds(v2f(-840.0f, -540.0f), v2f(3840.0f, 2160.0f));
-	//GetCamera().SetZoom(6.0f);
+	GetCamera().SetZoom(6.0f);
 }
 
 void LevelScene::Deactivate()
