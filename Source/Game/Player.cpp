@@ -83,7 +83,7 @@ Player::Player(LevelScene* aLevelScene)
 void Player::InitAnimations()
 {
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/TommyIdle.dds");
+	spriteIdle->SetSpritePath("Sprites/Characters/PlayerIdle.dds");
 	spriteIdle->SetSize(mySize);
 
 	SpriteComponent* spriteRun = AddComponent<SpriteComponent>();
@@ -106,7 +106,7 @@ void Player::InitAnimations()
 	spriteFall->SetSize(mySize);
 	spriteFall->Deactivate();
 
-	myAnimations[0] = Animation(false, false, true, 0, 3, 3, 0.15f, spriteIdle, 512, 512);
+	myAnimations[0] = Animation(false, false, false, 0, 13, 13, 0.08f, spriteIdle, 16, 16);
 	myAnimations[1] = Animation(false, false, false, 0, 12, 12, 0.05f, spriteRun, 16, 16);
 	myAnimations[2] = Animation(false, true, false, 0, 6, 6, 0.10f, spriteJump, 16, 16);
 	myAnimations[3] = Animation(false, true, false, 0, 5, 5, 0.10f, spriteDoubleJump, 16, 16);
@@ -285,6 +285,7 @@ void Player::GoRight(const float& aDeltaTime)
 
 	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, myJsonData->myMaxSpeed, myAcceleration * aDeltaTime);
 	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(mySize.x);
+	myAnimations[4].mySpriteComponent->SetSizeX(mySize.x);
 }
 
 void Player::GoLeft(const float& aDeltaTime)
@@ -306,6 +307,7 @@ void Player::GoLeft(const float& aDeltaTime)
 
 	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, -myJsonData->myMaxSpeed, myAcceleration * aDeltaTime);
 	myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-mySize.x);
+	myAnimations[4].mySpriteComponent->SetSizeX(-mySize.x);
 }
 
 void Player::Jump()
