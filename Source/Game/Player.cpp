@@ -37,7 +37,8 @@ Player::Player(LevelScene* aLevelScene)
 
 	myJsonData = dynamic_cast<PlayerData*>(&DataManager::GetInstance().GetDataStruct(DataEnum::player));
 
-	myRunningAnimationSpeed = 50.0f;
+	myTriggerRunningAnimationSpeed = 50.0f;
+	myTriggerFallingSpeed = 10.0f;
 
 	myAcceleration = 6.0f;
 	myRetardation = 20.0f;
@@ -408,15 +409,21 @@ void Player::SetPlatformVelocity(const v2f& aPlatformVelocity)
 void Player::AnimationState()
 {
 	AnimationComponent* animation = GetComponent<AnimationComponent>();
-	if (Utils::Abs(myCurrentVelocity.x) <= myRunningAnimationSpeed && myHasLanded && myCurrentAnimationIndex != 0)
+	if (Utils::Abs(myCurrentVelocity.x) <= myTriggerRunningAnimationSpeed && myHasLanded && myCurrentAnimationIndex != 0)
 	{
 		animation->SetAnimation(&myAnimations[0]);
 		myCurrentAnimationIndex = 0;
 	}
-	else if (Utils::Abs(myCurrentVelocity.x) > myRunningAnimationSpeed && myHasLanded && myCurrentAnimationIndex != 1)
+	else if (Utils::Abs(myCurrentVelocity.x) > myTriggerRunningAnimationSpeed && myHasLanded && myCurrentAnimationIndex != 1)
 	{
 		animation->SetAnimation(&myAnimations[1]);
 		myCurrentAnimationIndex = 1;
+	}
+
+	if (myCurrentAnimationIndex != 2 && myCurrentAnimationIndex != 3 && myCurrentAnimationIndex != 4 && !myHasLanded)
+	{
+		animation->SetAnimation(&myAnimations[4]);
+		myCurrentAnimationIndex = 4;
 	}
 
 	for (Animation& animation : myAnimations)
@@ -434,6 +441,11 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity);
+
+	if (myCurrentVelocity.y > myTriggerFallingSpeed)
+	{
+		myHasLanded = false;
+	}
 
 	myPlatformVelocity.x = Utils::Lerp(myPlatformVelocity.x, 0.0f, myPlatformVelocityRetardation * aDeltaTime);
 	myPlatformVelocity.y = Utils::Lerp(myPlatformVelocity.y, 0.0f, myPlatformVelocityRetardation * aDeltaTime);
@@ -547,6 +559,8 @@ void Player::ImGuiUpdate()
 	ImGui::InputFloat("Max Fall Speed", &myMaxFallSpeed, 0.0f, 2000.0f);
 	ImGui::InputFloat("Ledge Jump Velocity", &myLedgeJumpVelocity, 0.0f, 2000.0f);
 	ImGui::InputFloat("Jump When Falling Time", &myJumpWhenFallingTime, 0.0f, 1.0f);
+
+	ImGui::InputFloat("Trigger Falling Speed", &myTriggerFallingSpeed, 0.0f, 50.0f);
 
 	ImGui::Text("Vibrations");
 	ImGui::InputInt("Die Vibration Strength", &myDieVibrationStrength, 0, 65000);
