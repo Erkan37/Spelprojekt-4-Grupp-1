@@ -75,7 +75,7 @@ public:
 	void ImGuiUpdate();
 
 private:
-	Animation myAnimations[3];
+	Animation myAnimations[5];
 
 	std::shared_ptr<InputWrapper> myInputHandler;
 	std::unique_ptr<BashAbility> myBashAbility;

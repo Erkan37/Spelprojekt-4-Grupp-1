@@ -92,13 +92,25 @@ void Player::InitAnimations()
 	spriteRun->Deactivate();
 
 	SpriteComponent* spriteJump = AddComponent<SpriteComponent>();
-	spriteJump->SetSpritePath("Sprites/TommyJump.dds");
+	spriteJump->SetSpritePath("Sprites/Characters/PlayerJump.dds");
 	spriteJump->SetSize(mySize);
 	spriteJump->Deactivate();
 
+	SpriteComponent* spriteDoubleJump = AddComponent<SpriteComponent>();
+	spriteDoubleJump->SetSpritePath("Sprites/Characters/PlayerDoubleJump.dds");
+	spriteDoubleJump->SetSize(mySize);
+	spriteDoubleJump->Deactivate();
+
+	SpriteComponent* spriteFall = AddComponent<SpriteComponent>();
+	spriteFall->SetSpritePath("Sprites/Characters/PlayerFall.dds");
+	spriteFall->SetSize(mySize);
+	spriteFall->Deactivate();
+
 	myAnimations[0] = Animation(false, false, true, 0, 3, 3, 0.15f, spriteIdle, 512, 512);
 	myAnimations[1] = Animation(false, false, false, 0, 12, 12, 0.05f, spriteRun, 16, 16);
-	myAnimations[2] = Animation(false, true, false, 0, 3, 3, 0.15f, spriteJump, 512, 512);
+	myAnimations[2] = Animation(false, true, false, 0, 6, 6, 0.10f, spriteJump, 16, 16);
+	myAnimations[3] = Animation(false, true, false, 0, 5, 5, 0.10f, spriteDoubleJump, 16, 16);
+	myAnimations[4] = Animation(false, false, false, 0, 4, 4, 0.10f, spriteFall, 16, 16);
 
 	AnimationComponent* animation = AddComponent<AnimationComponent>();
 	animation->SetSprite(spriteIdle);
@@ -300,6 +312,7 @@ void Player::Jump()
 {
 	myCurrentVelocity.y = -myJumpVelocity + myPlatformVelocity.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
+	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
 	myCurrentAnimationIndex = 2;
 	myHasLanded = false;
 	myWillJumpWhenFalling = false;
@@ -309,8 +322,9 @@ void Player::Jump()
 void Player::DoubleJump()
 {
 	myCurrentVelocity.y = -myDoubleJumpVelocity + myPlatformVelocity.y;
-	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
-	myCurrentAnimationIndex = 2;
+	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[3]);
+	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
+	myCurrentAnimationIndex = 3;
 	myHasLanded = false;
 	myHasDoubleJumped = true;
 	myWillJumpWhenFalling = false;
