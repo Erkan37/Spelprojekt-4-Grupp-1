@@ -23,6 +23,7 @@ public:
 	void Render();
 
 	v2f GetVelocity();
+	void SetVelocity(const v2f& aDashVelocity);
 
 	void ResetVelocity(const bool aResetX, const bool aResetY);
 
@@ -32,26 +33,39 @@ public:
 
 	const bool GetIsBashing();
 
+	void ActivateBash(GameObject* aGameObject);
+
 	void ImGuiUpdate();
 
 private:
 	std::shared_ptr<InputWrapper> myInput;
 	
+	GameObject* myBashObject;
 	Player* myPlayer;
 	Utils::Timer* myTimerInput;
 
 	float myTimeScale;
+
 	bool myDashAbilityActive;
 	bool myButtonHold;
 	bool myRadiusFromDash;
 	bool myIsBashing;
+	bool myLMBMousePressed;
 
 	float myTimer;
 	float myDashDuration;
-	float myDelayTimer;
+	float myMaxDashDuration;
+	float myMaxDashDurationTimer;
 	float myDashSpeed;
 	float myAcceleration;
 	float myRetardation;
+
+	int myVibrationStrength;
+	float myVibrationLength;
+
+	float myDashShakeDuration;
+	float myDashShakeIntensity;
+	float myDashShakeDropOff;
 
 	float myAspectRatioFactorY;
 

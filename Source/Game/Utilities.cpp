@@ -38,6 +38,11 @@ const double Timer::GetTotalTime() const
     return (double)(myCurrentTime - myStartTime) * ourInverseNanoSecondsToSeconds;
 }
 
+const float Timer::GetTimeScale()
+{
+    return myTimeScale;
+}
+
 void Timer::SetTimeScale(const float& aTimeScale)
 {
     myTimeScale = aTimeScale;

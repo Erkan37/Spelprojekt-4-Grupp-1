@@ -10,13 +10,23 @@
 
 #include "../External/Headers/CU/Utilities.h"
 
-#include "../External/Headers/rapidjson/document.h"
-#include "../External/Headers/rapidjson/istreamwrapper.h"
-#include <fstream>
-
 #include "Player.hpp"
 
 #include "Ledge.h"
+
+#include "MovingPlatform.hpp"
+#include "UnstablePlatform.hpp"
+#include "DestructiblePlatform.hpp"
+#include "DeadlyPlatform.hpp"
+#include "PlatformFactory.hpp"
+
+#include "BashableObject.hpp"
+#include "BashableObjectFactory.hpp"
+
+#include "EnemyFactory.h"
+#include "Enemy.h"
+
+#include "Collectible.hpp"
 
 LevelScene::LevelScene()
 	: 
@@ -28,47 +38,23 @@ void LevelScene::Load()
 {
 	myPlayer = new Player(this);
 
-	GameObject* background = new GameObject(this);
-	background->SetPosition({1080.0f, 540});
+	EnemyFactory enemyFactory;
+	enemyFactory.ReadEnemies(this, "JSON/AlfaEnemies.json");
 
-	SpriteComponent* sprite = background->AddComponent<SpriteComponent>();
-	sprite->SetSpritePath("Sprites/Background.png");
-	sprite->SetSize({ 3840.0f, 2160.0f });
+	Collectible* collectible = new Collectible(this);
+	collectible->Init(v2f(500.0f, 500.0f), Collectible::eCollectibleType::Easy);
 
-	std::ifstream preProdPlatformsFile("JSON/PreProdPlatforms.json");
-	rapidjson::IStreamWrapper preProdPlatformsStream(preProdPlatformsFile);
+	Collectible* collectible2 = new Collectible(this);
+	collectible2->Init(v2f(900.0f, 500.0f), Collectible::eCollectibleType::Easy);
 
-	rapidjson::Document preProdPlatforms;
-	preProdPlatforms.ParseStream(preProdPlatformsStream);
+	myBackground = std::make_unique<Background>(this);
+	myBackground->AddPlayerRelation(myPlayer);
 
-	const float ledgeSizeX = preProdPlatforms["LedgeSize"]["X"].GetFloat();
-	const float ledgeSizeY = preProdPlatforms["LedgeSize"]["Y"].GetFloat();
+	PlatformFactory platformFactory;
+	platformFactory.ReadPlatforms(this, "JSON/PreProdPlatforms.json");
 
-	for (rapidjson::Value::ConstValueIterator itr = preProdPlatforms["Ledges"].Begin(); itr != preProdPlatforms["Ledges"].End(); ++itr)
-	{
-		const float positionX = (*itr)["Position"]["X"].GetFloat();
-		const float positionY = (*itr)["Position"]["Y"].GetFloat();
-
-		Ledge* ledge = new Ledge(this);
-		ledge->Init(v2f(positionX, positionY), v2f(ledgeSizeX, ledgeSizeY));
-	}
-
-	for (rapidjson::Value::ConstValueIterator itr = preProdPlatforms["Platforms"].Begin(); itr != preProdPlatforms["Platforms"].End(); ++itr)
-	{
-		const float positionX = (*itr)["Position"]["X"].GetFloat();
-		const float positionY = (*itr)["Position"]["Y"].GetFloat();
-
-		const float sizeX = (*itr)["Size"]["X"].GetFloat();
-		const float sizeY = (*itr)["Size"]["Y"].GetFloat();
-
-		const float spriteSizeX = (*itr)["SpriteSize"]["X"].GetFloat();
-		const float spriteSizeY = (*itr)["SpriteSize"]["Y"].GetFloat();
-
-		Platform* ground = new Platform(this);
-		ground->Init(v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), v2f(positionX, positionY));
-	}
-
-	preProdPlatformsFile.close();
+	BashableObjectFactory bashableObjectFactory;
+	bashableObjectFactory.ReadBashableObjects(this, "JSON/AlfaBashableObjects.json");
 
 	Scene::Load();
 }
@@ -78,6 +64,8 @@ void LevelScene::Activate()
 	Scene::Activate();
 
 	GetCamera().StartFollowing(myPlayer, { 10.0f, 10.0f });
+	GetCamera().SetBounds(v2f(-840.0f, -540.0f), v2f(3840.0f, 2160.0f));
+	GetCamera().SetZoom(6.0f);
 }
 
 void LevelScene::Deactivate()

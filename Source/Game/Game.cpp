@@ -16,7 +16,7 @@ using namespace std::placeholders;
 
 uint16_t Config::width = 1920U;
 uint16_t Config::height = 1080U;
-std::wstring Config::appName = L"epic game lit af";
+std::wstring Config::appName = L"Pass On";
 
 #ifdef _DEBUG
 #pragma comment(lib,"TGA2D_Debug.lib")
@@ -137,18 +137,6 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 void CGame::InitCallBack()
 {
 	myGameWorld.Init();
-	/*
-	myThread = new std::thread([&]()
-	{
-		while (myActive)
-		{
-			myGameWorld.Update();
-			myGameWorld.Render();
-			myRenderer.IncrementLogicCounter();
-			while (myRenderer.GetLogicCounter() > myRenderer.GetRenderCounter() && myActive);
-		}
-	});
-	*/
 }
 
 void CGame::UpdateCallBack()
@@ -156,6 +144,11 @@ void CGame::UpdateCallBack()
 	myTimer->Update();
 	myGameWorld.Update();
 	myGameWorld.Render();
+
+	if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::ESCKey))
+	{
+		PostQuitMessage(0);
+	}
 
 #ifndef _RETAIL
 	if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::F1Key))
