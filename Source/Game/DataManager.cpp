@@ -90,3 +90,12 @@ void DataManager::ReadFileIntoDocument(std::string aFilePath, rapidjson::Documen
 }
 
 // Constructors är bara här för att undvika varningar. Initializera gärna variablerna här.
+PlayerData::PlayerData()
+{
+	myMaxSpeed = 0.0f;
+	myAcceleration = 0.0f;
+}
+EnemyData::EnemyData()
+{
+	myMoveSpeed = 0.0f;
+}

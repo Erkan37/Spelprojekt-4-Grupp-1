@@ -15,19 +15,16 @@ struct Data
 };
 struct PlayerData : public Data
 {
-	PlayerData() = default;
+	PlayerData();
 	float myMaxSpeed;
 	float myAcceleration;
-	~PlayerData() override
-	{}
+	~PlayerData() override {}
 };
 struct EnemyData : public Data
 {
-	EnemyData() = default;
+	EnemyData();
 	float myMoveSpeed;
-	int myHealth;
-	~EnemyData() override
-	{}
+	~EnemyData() override {}
 };
 
 class DataManager
