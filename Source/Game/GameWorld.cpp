@@ -6,7 +6,6 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "InputWrapper.h"
-#include "AudioManager.h"
 
 // Scene
 #include "Scene.h"
@@ -28,7 +27,6 @@ CGameWorld::CGameWorld(CGame* aGame)
 	myTimer = std::make_unique<Utils::Timer>();
 	myInput = std::make_shared<InputWrapper>();
 	myInput->Init();
-	AudioManager::GetInstance()->Init();
 
 	if (!ourInstance)
 	{
@@ -43,15 +41,14 @@ CGameWorld::~CGameWorld()
 
 void CGameWorld::Init()
 {
-
 	myLevelScene.Activate();
 }
 
 void CGameWorld::Update()
 {
+	myInput->Update();
 	myTimer->Update();
 	myDeltaTime = myTimer->GetDeltaTime();
-	myInput->Update(myDeltaTime);
 
 	Scene::Manager::Update(myDeltaTime);
 }

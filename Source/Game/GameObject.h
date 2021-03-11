@@ -10,8 +10,6 @@
 class CGameWorld;
 class Scene;
 
-class BashComponent;
-
 class GameObject
 {
 public:
@@ -46,9 +44,6 @@ public:
 
 	virtual void Landed(const int& aOverlapY) { aOverlapY; }
 	virtual void SideCollision(const int& aOverlapX) { aOverlapX; }
-	virtual void BashCollision(GameObject* aGameObject, BashComponent* aBashComponent) { aGameObject; aBashComponent; }
-	virtual void OnStartBashed() {}
-	virtual void OnBashed() {}
 
 	virtual GameObject& Destroy();
 
@@ -95,4 +90,5 @@ protected:
 	int myZIndex;
 
 	bool myIsActive; 
+	bool myIsLedge;
 };

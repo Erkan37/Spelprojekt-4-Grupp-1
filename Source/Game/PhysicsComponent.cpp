@@ -15,7 +15,6 @@ PhysicsComponent::PhysicsComponent(bool aApplyGravity, bool aIsStatic)
 	, myIsStatic(aIsStatic)
 	, myVelocity({ 0.0f, 0.0f })
 	, myCanCollide(true)
-	, myCollisionType(eCollisionType::TwoWay)
 {}
 
 const bool& PhysicsComponent::GetApplyGravity() const
@@ -46,16 +45,6 @@ const float& PhysicsComponent::GetVelocityY() const
 const v2f& PhysicsComponent::GetDashVelocity() const
 {
 	return myDashVelocity;
-}
-
-const PhysicsComponent::eCollisionType PhysicsComponent::GetCollisionType()
-{
-	return myCollisionType;
-}
-
-void PhysicsComponent::SetCollisionType(const eCollisionType& aCollisionType)
-{
-	myCollisionType = aCollisionType;
 }
 
 PhysicsComponent& PhysicsComponent::SetApplyGravity(const bool& aApplyGravity)
