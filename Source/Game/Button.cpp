@@ -5,6 +5,7 @@
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
 #include "AnimationComponent.hpp"
+#include "Player.hpp"
 #include "Camera.h"
 
 
@@ -15,65 +16,54 @@ Button::Button(Scene* aLevelScene)
 {
 	myHasCollided = {};
 	myButtonActive = {};
-	InitButton(aLevelScene->GetCamera().GetPosition());
 }
 
 Button::~Button()
 {
 }
 
-void Button::Init()
+void Button::Init(const v2f myStartingPosition, const v2f myPositionFromStart)
 {
+	InitButton(myStartingPosition, myPositionFromStart);
 }
 
 void Button::Update(const float& aDeltaTime)
 {
 	GameObject::Update(aDeltaTime);
-	
+
 	if (myHasCollided && myButtonActive == false)
 	{
 		myButtonActive = true;
-		GetComponent<AnimationComponent>()->ContinueToNextAnimation();
 	}
 }
 
-void Button::InitButton(v2f aButtonPosition)
+void Button::InitButton(const v2f myStartingPosition, const v2f myPositionFromStart)
 {
-	SpriteComponent* sprite = AddComponent<SpriteComponent>();
-	sprite->SetRelativePosition(aButtonPosition);
-	sprite->SetSpritePath("Sprites/Collectible.dds");
-	sprite->SetSize(v2f(100.0f, 100.0f));
+	v2f platformPosition = myStartingPosition + myPositionFromStart;
 
+	SetPosition(platformPosition);
+	SetPivot({ 0.0f, 1.0f });
 
-	SpriteComponent* sprite2 = AddComponent<SpriteComponent>();
-	sprite2->SetRelativePosition(aButtonPosition);
-	sprite2->SetSpritePath("Sprites/TommyIdle.dds");
-	sprite2->SetSize(v2f(100.0f, 50.0f));
+	SpriteComponent* gsprite = AddComponent<SpriteComponent>();
+	gsprite->SetSpritePath("Sprites/Temp/TempButton.dds");
+	gsprite->SetSize(v2f(100.0f, 100.0f));
 
-	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
-	physics->SetCanCollide(true);
-	physics->SetIsStatic(true);
-	physics->SetApplyGravity(false);
-	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this); //Get collision size from data manager
-
-	myAnimation[0] = Animation(false, false, true, 0, 1, 1, 1.f, sprite, 512, 512);
-	myAnimation[1] = Animation(false, false, true, 0, 3, 3, 1.f, sprite2, 512, 512);
-
-	AnimationComponent* animation = AddComponent<AnimationComponent>();
-	animation->SetSprite(sprite);
-	animation->SetAnimation(&myAnimation[0]);
-
-	animation->SetNextAnimation(&myAnimation[1]);
+	PhysicsComponent* gphys = AddComponent<PhysicsComponent>();
+	gphys->SetCanCollide(true);
+	gphys->SetIsStatic(true);
+	gphys->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
 
 	GameObject::Init();
 }
 
-void Button::OnCollision(GameObject* myGameObject)
+void Button::OnCollision(GameObject* aGameObject)
 {
-	GameObject* player = myGameObject;
+	Player* player = dynamic_cast<Player*>(aGameObject);
 
-	if (player != NULL)
+	if (player != NULL && myHasCollided == false)
 	{
+		SpriteComponent* sprite = GetComponent<SpriteComponent>();
+		sprite->SetSize({ sprite->GetSize().x, sprite->GetSize().y * 0.2f });
 		myHasCollided = true;
 	}
 }

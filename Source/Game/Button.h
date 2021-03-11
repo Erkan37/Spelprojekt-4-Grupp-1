@@ -13,10 +13,10 @@ public:
 	Button(Scene* aLevelScene);
 	~Button();
 
-	void Init();
+	void Init(const v2f myStartingPosition, const v2f myPositionFromStart);
 
 	void Update(const float& aDeltaTime) override;
-	void OnCollision(GameObject* myGameObject) override;
+	virtual void OnCollision(GameObject* aGameObject) override;
 
 	bool GetActiveButton();
 
@@ -24,10 +24,12 @@ public:
 private:
 	Animation myAnimation[2];
 
+	v2f myPosition;
+
 	bool myButtonActive;
 	bool myHasCollided;
 
-	void InitButton(v2f aButtonPosition);
+	void InitButton(const v2f myStartingPosition, const v2f myPositionFromStart);
 
 };
 
