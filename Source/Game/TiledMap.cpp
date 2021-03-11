@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "TiledMap.h"
 #include "tileson/tileson_min.hpp"
+#include "PlatformFactory.hpp"
 
 #include <cassert>
 
@@ -18,5 +19,29 @@ bool TiledMap::Load(const std::string& aPath)
 	assert(map->getSize().x > 0);
 	assert(map->getSize().y > 0);
 
+	//Draw
+	auto Bg1 = map->getLayer("BG1");
+	map->getLayer("BG2");
+	map->getLayer("FG1");
+	map->getLayer("FG2");
+
+	//Create
+	map->getLayer("");
+
+	tson::Layer* foregroundLayer = map->getLayer("Foreground");
+	if (foregroundLayer)
+	{
+		ParseLayer(foregroundLayer);
+	}
+	else
+	{
+		ERROR_PRINT("failed to load layer");
+	}
+
 	return true;
+}
+
+void TiledMap::ParseLayer(tson::Layer*)
+{
+
 }
