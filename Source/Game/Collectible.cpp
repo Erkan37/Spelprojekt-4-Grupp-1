@@ -107,10 +107,10 @@ void Collectible::ImGuiUpdate()
 {
 	ImGui::Begin("Collectible", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
 
-	ImGui::SliderFloat("Speed", &mySpeed, 0.0f, 200.0f);
-	ImGui::SliderFloat("Radius From Target", &myMinRadiusFromTarget, 0.0f, 200.0f);
-	ImGui::SliderFloat("Idle Movement Speed", &myIdleMovementSpeed, 0.0f, 100.0f);
-	ImGui::SliderFloat("Idle Movement Distance", &myIdleMovementDistance, 0.0f, 200.0f);
+	ImGui::InputFloat("Speed", &mySpeed, 0.0f, 200.0f);
+	ImGui::InputFloat("Radius From Target", &myMinRadiusFromTarget, 0.0f, 200.0f);
+	ImGui::InputFloat("Idle Movement Speed", &myIdleMovementSpeed, 0.0f, 100.0f);
+	ImGui::InputFloat("Idle Movement Distance", &myIdleMovementDistance, 0.0f, 200.0f);
 
 	ImGui::End();
 }

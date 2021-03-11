@@ -536,39 +536,39 @@ void Player::ImGuiUpdate()
 		DataManager::GetInstance().SetDataStruct(DataEnum::player);
 	}
 
-	ImGui::SliderFloat("Max Speed", &myJsonData->myMaxSpeed, 0.0f, 2000.0f);
-	ImGui::SliderFloat("Acceleration", &myAcceleration, 0.0f, 100.0f);
-	ImGui::SliderFloat("Retardation", &myRetardation, 0.0f, 100.0f);
-	ImGui::SliderFloat("Lerp Acceleration", &myLerpToPositionAcceleration, 0.0f, 100.0f);
-	ImGui::SliderFloat("Platform Velocity Retardation", &myPlatformVelocityRetardation, 0.0f, 100.0f);
-	ImGui::SliderFloat("Coyote Time", &myAirCoyoteTime, 0.0f, 1.0f);
-	ImGui::SliderFloat("Jump Velocity", &myJumpVelocity, 0.0f, 2000.0f);
-	ImGui::SliderFloat("Double Jump Velocity", &myDoubleJumpVelocity, 0.0f, 2000.0f);
-	ImGui::SliderFloat("Max Fall Speed", &myMaxFallSpeed, 0.0f, 2000.0f);
-	ImGui::SliderFloat("Ledge Jump Velocity", &myLedgeJumpVelocity, 0.0f, 2000.0f);
-	ImGui::SliderFloat("Jump When Falling Time", &myJumpWhenFallingTime, 0.0f, 1.0f);
+	ImGui::InputFloat("Max Speed", &myJsonData->myMaxSpeed, 0.0f, 2000.0f);
+	ImGui::InputFloat("Acceleration", &myAcceleration, 0.0f, 100.0f);
+	ImGui::InputFloat("Retardation", &myRetardation, 0.0f, 100.0f);
+	ImGui::InputFloat("Lerp Acceleration", &myLerpToPositionAcceleration, 0.0f, 100.0f);
+	ImGui::InputFloat("Platform Velocity Retardation", &myPlatformVelocityRetardation, 0.0f, 100.0f);
+	ImGui::InputFloat("Coyote Time", &myAirCoyoteTime, 0.0f, 1.0f);
+	ImGui::InputFloat("Jump Velocity", &myJumpVelocity, 0.0f, 2000.0f);
+	ImGui::InputFloat("Double Jump Velocity", &myDoubleJumpVelocity, 0.0f, 2000.0f);
+	ImGui::InputFloat("Max Fall Speed", &myMaxFallSpeed, 0.0f, 2000.0f);
+	ImGui::InputFloat("Ledge Jump Velocity", &myLedgeJumpVelocity, 0.0f, 2000.0f);
+	ImGui::InputFloat("Jump When Falling Time", &myJumpWhenFallingTime, 0.0f, 1.0f);
 
 	ImGui::Text("Vibrations");
-	ImGui::SliderInt("Die Vibration Strength", &myDieVibrationStrength, 0, 65000);
-	ImGui::SliderInt("Land Vibration Strength", &myLandVibrationStrength, 0, 65000);
-	ImGui::SliderInt("Springs Vibration Strength", &mySpringsVibrationStrength, 0, 65000);
+	ImGui::InputInt("Die Vibration Strength", &myDieVibrationStrength, 0, 65000);
+	ImGui::InputInt("Land Vibration Strength", &myLandVibrationStrength, 0, 65000);
+	ImGui::InputInt("Springs Vibration Strength", &mySpringsVibrationStrength, 0, 65000);
 
-	ImGui::SliderFloat("Die Vibration Length", &myDieVibrationLength, 0.0f, 10.0f);
-	ImGui::SliderFloat("Land Vibration Length", &myLandVibrationLength, 0.0f, 10.0f);
-	ImGui::SliderFloat("Springs Vibration Length", &mySpringsVibrationLength, 0.0f, 10.0f);
+	ImGui::InputFloat("Die Vibration Length", &myDieVibrationLength, 0.0f, 10.0f);
+	ImGui::InputFloat("Land Vibration Length", &myLandVibrationLength, 0.0f, 10.0f);
+	ImGui::InputFloat("Springs Vibration Length", &mySpringsVibrationLength, 0.0f, 10.0f);
 
 	ImGui::Text("Camera Shake");
-	ImGui::SliderFloat("Die Shake Duration", &myDieShakeDuration, 0.0f, 10.0f);
-	ImGui::SliderFloat("Die Shake Intensity", &myDieShakeIntensity, 0.0f, 10.0f);
-	ImGui::SliderFloat("Die Shake DropOff", &myDieShakeDropOff, 0.0f, 10.0f);
+	ImGui::InputFloat("Die Shake Duration", &myDieShakeDuration, 0.0f, 10.0f);
+	ImGui::InputFloat("Die Shake Intensity", &myDieShakeIntensity, 0.0f, 10.0f);
+	ImGui::InputFloat("Die Shake DropOff", &myDieShakeDropOff, 0.0f, 10.0f);
 
-	ImGui::SliderFloat("Land Shake Duration", &myLandingShakeDuration, 0.0f, 10.0f);
-	ImGui::SliderFloat("Land Shake Intensity", &myLandingShakeIntensity, 0.0f, 10.0f);
-	ImGui::SliderFloat("Land Shake DropOff", &myLandingShakeDropOff, 0.0f, 10.0f);
+	ImGui::InputFloat("Land Shake Duration", &myLandingShakeDuration, 0.0f, 10.0f);
+	ImGui::InputFloat("Land Shake Intensity", &myLandingShakeIntensity, 0.0f, 10.0f);
+	ImGui::InputFloat("Land Shake DropOff", &myLandingShakeDropOff, 0.0f, 10.0f);
 
-	ImGui::SliderFloat("Spring Shake Duration", &mySpringShakeDuration, 0.0f, 10.0f);
-	ImGui::SliderFloat("Spring Shake Intensity", &mySpringShakeIntensity, 0.0f, 10.0f);
-	ImGui::SliderFloat("Spring Shake DropOff", &mySpringShakeDropOff, 0.0f, 10.0f);
+	ImGui::InputFloat("Spring Shake Duration", &mySpringShakeDuration, 0.0f, 10.0f);
+	ImGui::InputFloat("Spring Shake Intensity", &mySpringShakeIntensity, 0.0f, 10.0f);
+	ImGui::InputFloat("Spring Shake DropOff", &mySpringShakeDropOff, 0.0f, 10.0f);
 
 	ImGui::End();
 }
