@@ -4,7 +4,7 @@
 #include "AnimationComponent.hpp"
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
-#include <iostream>
+#include "Player.hpp"
 #include "Enemy.h"
 
 Enemy::Enemy(LevelScene* aScene) : GameObject(aScene)
@@ -63,7 +63,7 @@ void Enemy::InitAnimations()
 void Enemy::InitCollider()
 {
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
-	physics->SetCanCollide(true);
+	physics->SetCanCollide(false);
 	physics->SetIsStatic(false);
 	physics->SetApplyGravity(false);
 
@@ -91,4 +91,13 @@ void Enemy::SetDirection(const v2f& aDestination)
 {
 	myDirection = aDestination - this->GetPosition();
 	myDirection.Normalize();
+}
+
+void Enemy::OnCollision(GameObject* aGameObject)
+{
+	Player* player = dynamic_cast<Player*>(aGameObject);
+	if (player)
+	{
+		player->Kill();
+	}
 }

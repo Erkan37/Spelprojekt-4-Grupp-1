@@ -12,6 +12,7 @@ public:
 	Enemy(Scene* aScene, const std::vector<v2f>& someCoordinates);
 	~Enemy();
 	void Update(const float& aDeltaTime) override;
+	void OnCollision(GameObject* aGameObject) override;
 private:
 	void InitAnimations();
 	void InitCollider();
@@ -25,5 +26,10 @@ private:
 	v2f myDirection;
 	int myCurrentPoint = 1;
 	Animation myAnimation;
+};
+
+class ShootingEnemy : public Enemy, GameObject
+{
+
 };
 
