@@ -203,6 +203,9 @@
     <ClInclude Include="EnemyFactory.h">
       <Filter>Factories</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -326,6 +329,9 @@
     </ClCompile>
     <ClCompile Include="EnemyFactory.cpp">
       <Filter>Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Game Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
