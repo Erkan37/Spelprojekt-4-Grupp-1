@@ -49,7 +49,7 @@ void LevelScene::Load()
 	collectible2->Init(v2f(900.0f, 500.0f), Collectible::eCollectibleType::Easy);
 
 	myFactory = std::make_unique<ParticleEffectFactory>(this);
-	myFactory->ReadEffects();
+	myFactory->ReadEffects(this);
 
 	myBackground = std::make_unique<Background>(this);
 
@@ -86,7 +86,7 @@ void LevelScene::Update(const float& aDeltaTime)
 	Scene::Update(aDeltaTime);
 }
 
-const GameObject* LevelScene::GetPlayer()
+GameObject* LevelScene::GetPlayer()
 {
 	return myPlayer;
 }

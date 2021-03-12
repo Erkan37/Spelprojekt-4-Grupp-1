@@ -88,6 +88,12 @@ void ParticleEffectFactory::Update(const float& aDeltaTime)
 		effect->Update(aDeltaTime);
 }
 
+void ParticleEffectFactory::Render()
+{
+	for (auto effect : myEffects)
+		effect->Render();
+}
+
 void ParticleEffectFactory::SpawnEffect(const v2f aPosition, const eParticleEffects aEffectType)
 {
 	switch (aEffectType)

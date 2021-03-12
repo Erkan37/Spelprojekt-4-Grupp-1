@@ -9,7 +9,10 @@ namespace Tga2D
 
 class ParticleStats
 {
-public:
+private:
+	friend class ParticleEffect;
+	friend class ParticleEffectFactory;
+
 	std::string myEffectType = {};
 	std::string mySpritePath = {};
 	int myEffectTypeIndex = {};

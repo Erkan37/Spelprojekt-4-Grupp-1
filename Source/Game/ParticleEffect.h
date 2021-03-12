@@ -2,6 +2,7 @@
 #include "ParticleStats.hpp"
 #include "ParticleEffectTypes.hpp"
 
+class Player;
 class LevelScene;
 
 class ParticleEffect
@@ -12,6 +13,7 @@ public:
 	void Init(ParticleStats aStats, Scene* aLevelScene);
 
 	void Update(const float& aDeltaTime);
+	void Render();
 
 	void SetPosition(const v2f aPosition);
 	void SetIsActive(const bool aActiveState);
@@ -22,13 +24,13 @@ public:
 
 private:
 	ParticleStats myStats;
-	eParticleEffects myEffectType;
+
 	bool myIsActive;
-	const GameObject* myPlayer;
-	
+
+	Player* myPlayer;
 	v2f myPosition;
 
-	void CreateParticle();
+	void UpdateParticle(const float& aDeltaTime);
 
 };
 

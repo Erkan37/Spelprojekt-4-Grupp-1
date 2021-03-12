@@ -6,6 +6,7 @@
 
 ParticleEffect::ParticleEffect()
 {
+	myPlayer = {};
 	myPosition = {};
 	myIsActive = {};
 }
@@ -14,14 +15,25 @@ void ParticleEffect::Init(ParticleStats aStats, Scene* aLevelScene)
 {
 	myStats = aStats;
 	LevelScene* myScene = dynamic_cast<LevelScene*>(aLevelScene);
-	myPlayer = myScene->GetPlayer();
+	myPlayer = dynamic_cast<Player*>(myScene->GetPlayer());
+
+	if (static_cast<eParticleEffects>(myStats.myEffectTypeIndex) == eParticleEffects::RunEffect)
+		myIsActive = true;
 }
 
 void ParticleEffect::Update(const float& aDeltaTime)
 {
 	if (myIsActive)
 	{
-		int x = {};
+		UpdateParticle(aDeltaTime);
+	}
+}
+
+void ParticleEffect::Render()
+{
+	if (myIsActive)
+	{
+
 	}
 }
 
@@ -45,7 +57,11 @@ eParticleEffects ParticleEffect::GetType()
 	return static_cast<eParticleEffects>(myStats.myEffectTypeIndex);
 }
 
-void ParticleEffect::CreateParticle()
+void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 {
-	
+
+
+
+
+
 }
