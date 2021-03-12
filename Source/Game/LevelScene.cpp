@@ -79,3 +79,8 @@ void LevelScene::Update(const float& aDeltaTime)
 {
 	Scene::Update(aDeltaTime);
 }
+
+const GameObject* LevelScene::GetPlayer()
+{
+	return myPlayer;
+}

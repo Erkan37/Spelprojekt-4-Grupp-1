@@ -5,16 +5,17 @@
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
 #include "Player.hpp"
+#include "EnemyProjectile.h"
 #include "Enemy.h"
 
-Enemy::Enemy(LevelScene* aScene) : GameObject(aScene)
+Enemy::Enemy(Scene* aScene) : GameObject(aScene)
 {
-	myWayPoints.push_back({ 0.0f, 0.0f });
-	myDestination = myWayPoints[0];
-	this->SetPosition(myWayPoints[0]);
-	SetDirection(myDestination);
-	InitAnimations();
-	InitCollider();
+	//myWayPoints.push_back({ 0.0f, 0.0f });
+	//myDestination = myWayPoints[0];
+	//this->SetPosition(myWayPoints[0]);
+	//SetDirection(myDestination);
+	//InitAnimations();
+	//InitCollider();
 }
 
 Enemy::Enemy(Scene* aScene, const std::vector<v2f>& someCoordinates) : GameObject(aScene)
@@ -30,6 +31,16 @@ Enemy::Enemy(Scene* aScene, const std::vector<v2f>& someCoordinates) : GameObjec
 Enemy::~Enemy()
 {
 
+}
+
+void Enemy::InitEnemy(const std::vector<v2f>& someCoordinates)
+{
+	myWayPoints = someCoordinates;
+	myDestination = myWayPoints[1];
+	this->SetPosition(myWayPoints[0]);
+	SetDirection(myDestination);
+	//InitAnimations();
+	InitCollider();
 }
 
 void Enemy::Update(const float& aDeltaTime)
@@ -100,4 +111,38 @@ void Enemy::OnCollision(GameObject* aGameObject)
 	{
 		player->Kill();
 	}
+}
+
+NormalEnemy::NormalEnemy(Scene* aScene) : Enemy(aScene)
+{
+	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
+	spriteIdle->SetSpritePath("Sprites/TempEnemy.dds");
+	spriteIdle->SetSize(mySize);
+	this->SetZIndex(400);
+}
+
+ShootingEnemy::ShootingEnemy(Scene* aScene) : Enemy(aScene)
+{
+	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
+	spriteIdle->SetSpritePath("Sprites/TempShootingEnemy.dds");
+	spriteIdle->SetSize(mySize);
+	this->SetZIndex(400);
+}
+
+void ShootingEnemy::Update(const float& aDeltaTime)
+{
+	Enemy::Update(aDeltaTime);
+	myShotTimer -= aDeltaTime;
+	if (myShotTimer <= 0)
+	{
+		myShotTimer = myFireRate;
+		Shoot(aDeltaTime);
+	}
+}
+
+EnemyProjectile* ShootingEnemy::Shoot(const float& aDeltaTime)
+{
+	EnemyProjectile* projectile = new EnemyProjectile(this->myScene);
+	projectile->InitProjectile(this->GetPosition(), dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition());
+	return projectile;
 }

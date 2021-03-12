@@ -4,13 +4,15 @@
 #include <vector>
 
 class LevelScene;
+class EnemyProjectile;
 
 class Enemy : public GameObject
 {
 public:
-	Enemy(LevelScene* aScene);
+	Enemy(Scene* aScene);
 	Enemy(Scene* aScene, const std::vector<v2f>& someCoordinates);
 	~Enemy();
+	void InitEnemy(const std::vector<v2f>& someCoordinates);
 	void Update(const float& aDeltaTime) override;
 	void OnCollision(GameObject* aGameObject) override;
 private:
@@ -28,8 +30,26 @@ private:
 	Animation myAnimation;
 };
 
-class ShootingEnemy : public Enemy, GameObject
+class NormalEnemy : public Enemy
 {
+public:
+	NormalEnemy(Scene* aScene);
+	~NormalEnemy() = default;
+private:
+	v2f mySize = { 150.0f, 100.0f }; // Get from Json
+};
 
+class ShootingEnemy : public Enemy
+{
+public:
+	ShootingEnemy(Scene* aScene);
+	//ShootingEnemy(Scene* aScene, const std::vector<v2f>& someCoordinates);
+	void Update(const float& aDeltaTime);
+private:
+	EnemyProjectile* Shoot(const float& aDeltaTime);
+	const float myFireRate = 10.0f;
+	float myShotTimer = 0.0f;
+	v2f mySize = { 40.0f, 50.0f }; // Get from Json
+	bool myHasShot = false;
 };
 

@@ -23,15 +23,30 @@ void EnemyFactory::ReadEnemies(Scene* aLevelScene, const std::string& aFilePath)
 			const v2f coordinate = v2f(((*waypoint)["X"].GetFloat()), ((*waypoint)["Y"].GetFloat()));
 			tempCoordinates.push_back(coordinate);
 		}
-		CreateEnemy(aLevelScene, tempCoordinates);
+
+		const int enemyType = (*enemy)["Type"].GetInt();
+		switch (enemyType)
+		{
+		case 0: CreateNormalEnemy(aLevelScene, tempCoordinates); break;
+		case 1: CreateShootingEnemy(aLevelScene, tempCoordinates); break;
+		default: CreateNormalEnemy(aLevelScene, tempCoordinates); break;
+		}
 		tempCoordinates.empty();
 	}
 
 	enemyFile.close();
 }
 
-Enemy* EnemyFactory::CreateEnemy(Scene* aLevelScene, std::vector<v2f>& someCoordinates)
+NormalEnemy* EnemyFactory::CreateNormalEnemy(Scene* aLevelScene, std::vector<v2f>& someCoordinates)
 {
-	Enemy* enemy = new Enemy(aLevelScene, someCoordinates);
+	NormalEnemy* enemy = new NormalEnemy(aLevelScene);
+	enemy->InitEnemy(someCoordinates);
+	return enemy;
+}
+
+ShootingEnemy* EnemyFactory::CreateShootingEnemy(Scene* aLevelScene, std::vector<v2f>& someCoordinates)
+{
+	ShootingEnemy* enemy = new ShootingEnemy(aLevelScene);
+	enemy->InitEnemy(someCoordinates);
 	return enemy;
 }
