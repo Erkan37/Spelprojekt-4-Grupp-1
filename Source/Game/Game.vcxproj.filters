@@ -179,6 +179,9 @@
     <ClInclude Include="TiledMap.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="Random.hpp">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -288,5 +291,8 @@
     <ClCompile Include="TiledMap.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Random.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
