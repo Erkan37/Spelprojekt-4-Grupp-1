@@ -39,29 +39,29 @@ void LevelScene::Load()
 {
 	myPlayer = new Player(this);
 
-	EnemyFactory enemyFactory;
-	enemyFactory.ReadEnemies(this, "JSON/AlfaEnemies.json");
+	//EnemyFactory enemyFactory;
+	//enemyFactory.ReadEnemies(this, "JSON/AlfaEnemies.json");
 
-	Collectible* collectible = new Collectible(this);
-	collectible->Init(v2f(500.0f, 500.0f), Collectible::eCollectibleType::Easy);
+	//Collectible* collectible = new Collectible(this);
+	//collectible->Init(v2f(500.0f, 500.0f), Collectible::eCollectibleType::Easy);
 
-	Collectible* collectible2 = new Collectible(this);
-	collectible2->Init(v2f(900.0f, 500.0f), Collectible::eCollectibleType::Easy);
+	//Collectible* collectible2 = new Collectible(this);
+	//collectible2->Init(v2f(900.0f, 500.0f), Collectible::eCollectibleType::Easy);
 
 	myBackground = std::make_unique<Background>(this);
 	myBackground->AddPlayerRelation(myPlayer);
 
-	mySpring = std::make_unique<SpringObject>(this);
-	mySpring->Init(v2f(800.f, 865.f));
+	//mySpring = std::make_unique<SpringObject>(this);
+	//mySpring->Init(v2f(800.f, 865.f));
 
-	PlatformFactory platformFactory;
-	platformFactory.ReadPlatforms(this, "JSON/PreProdPlatforms.json");
+	//PlatformFactory platformFactory;
+	//platformFactory.ReadPlatforms(this, "JSON/PreProdPlatforms.json");
 
 	myTiledMap = std::make_unique<TiledMap>();
 	myTiledMap->Load("Levels/test_level.json", this);
 
-	BashableObjectFactory bashableObjectFactory;
-	bashableObjectFactory.ReadBashableObjects(this, "JSON/AlfaBashableObjects.json");
+	//BashableObjectFactory bashableObjectFactory;
+	//bashableObjectFactory.ReadBashableObjects(this, "JSON/AlfaBashableObjects.json");
 
 	
 

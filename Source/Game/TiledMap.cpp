@@ -1,13 +1,15 @@
 #include "stdafx.h"
 #include "TiledMap.h"
 #include "tileson/tileson_min.hpp"
-#include "PlatformFactory.hpp"
+//#include "PlatformFactory.hpp"
 #include "Scene.h"
 
 #include <cassert>
 
 bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 {
+	myNumberOfTilesOnScreen.x = 40;
+	myNumberOfTilesOnScreen.y = 22.5;
 
 	tson::Tileson parser;
 	std::unique_ptr<tson::Map> map = parser.parse(std::filesystem::path(aPath));
@@ -21,16 +23,60 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	assert(map->getSize().x > 0);
 	assert(map->getSize().y > 0);
 
-	//Draw
-	auto Bg1 = map->getLayer("BG1");
-	map->getLayer("BG2");
-	map->getLayer("FG1");
-	map->getLayer("FG2");
+	//Draw (not sure if we can do this yet)
+	tson::Layer* Bg1 = map->getLayer("BG1");
+	tson::Layer* Bg2 = map->getLayer("BG2");
+	tson::Layer* Fg1 = map->getLayer("FG1");
+	tson::Layer* Fg2 = map->getLayer("FG2");
 
 	//Create
-	map->getLayer("");
-
+	tson::Layer* bonfireLayer = map->getLayer("Bonfires");
+	tson::Layer* doorLayer = map->getLayer("Doors");
+	tson::Layer* enemyLayer = map->getLayer("Enemies");
+	tson::Layer* ledgeLayer = map->getLayer("Ledges");
+	tson::Layer* pickupLayer = map->getLayer("Pickups");
 	tson::Layer* platformLayer = map->getLayer("Platforms");
+
+	if (bonfireLayer)
+	{
+		ParsePickups(bonfireLayer, aScene);
+	}
+	else
+	{
+		ERROR_PRINT("failed to load pickuplayer");
+	}
+	if (doorLayer)
+	{
+		ParsePickups(doorLayer, aScene);
+	}
+	else
+	{
+		ERROR_PRINT("failed to load pickuplayer");
+	}
+	if (enemyLayer)
+	{
+		ParsePickups(enemyLayer, aScene);
+	}
+	else
+	{
+		ERROR_PRINT("failed to load pickuplayer");
+	}
+	if (ledgeLayer)
+	{
+		ParsePickups(ledgeLayer, aScene);
+	}
+	else
+	{
+		ERROR_PRINT("failed to load pickuplayer");
+	}
+	if (pickupLayer)
+	{
+		ParsePickups(pickupLayer, aScene);
+	}
+	else
+	{
+		ERROR_PRINT("failed to load pickuplayer");
+	}
 	if (platformLayer)
 	{
 		ParsePlatforms(platformLayer, aScene);
@@ -43,19 +89,35 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	return true;
 }
 
+void TiledMap::ParseBonefires(tson::Layer*, Scene*)
+{
+}
+
+void TiledMap::ParseDoors(tson::Layer*, Scene*)
+{
+}
+
+void TiledMap::ParseEnemies(tson::Layer*, Scene*)
+{
+}
+
+void TiledMap::ParseLedges(tson::Layer*, Scene*)
+{
+}
+
+void TiledMap::ParsePickups(tson::Layer*, Scene*)
+{
+}
+
 void TiledMap::ParsePlatforms(tson::Layer* aLayer, Scene* aScene)
 {
-	PlatformFactory aFactory;
-
-	//map with platforms
-	const auto& tileObjects = aLayer->getTileObjects();
 	auto& tileObj = aLayer->getObjects();
-	tileObj[0].getProp("");
 
 	for (int i = 0; i < tileObj.size(); ++i)
 	{
-		//Fixa denna
+		//Fix this ?
 		v2f tileSize;
+
 		//0: Statisk plattform
 		//1 : Plattform som rör sig
 		//2 : Sån som faller om man står på den instabil plattform
@@ -63,7 +125,6 @@ void TiledMap::ParsePlatforms(tson::Layer* aLayer, Scene* aScene)
 		//4 : MördarPlattform
 		//5: OneWay plattformar, kan hoppa igenom underifrån
 
-		//Skapa position
 		v2f aPos;
 		aPos.x = tileObj[i].getPosition().x;
 		aPos.y = tileObj[i].getPosition().y;
@@ -72,26 +133,51 @@ void TiledMap::ParsePlatforms(tson::Layer* aLayer, Scene* aScene)
 		imageSize.x = tileObj[i].getSize().x;
 		imageSize.y = tileObj[i].getSize().y;
 
-		//GetProperties
+		//GetProperties:
 		//tileObj[i].getProp("Properties");
 
-		switch (stoi(tileObj[i].getType())) //Exception
+		if (tileObj[i].getType() != "")
 		{
-		case 0:
-			aFactory.CreateStaticPlatform(aScene, aPos, imageSize, imageSize, true); //Change aIsOneWay when it has a variable
-			break;
-			//case 1:
-			//	aFactory.CreateMovingPlatform(aScene, aPos, imageSize, imageSize, );
-			//	break;
-			//case 2:
-			//	aFactory.CreateUnstablePlatform();
-			//	break;
-			//case 3:
-			aFactory.CreateDestructiblePlatform(aScene, aPos, imageSize, imageSize);
-			break;
-		case 4:
-			aFactory.CreateDeadlyPlatform(aScene, aPos, imageSize, imageSize);
-			break;
+			int type = stoi(tileObj[i].getType());
+
+			switch (type)
+			{
+			case 0:
+				myPlatformFactory->CreateStaticPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, true); //Change aIsOneWay when it has a variable
+				break;
+			case 1:
+				//myPlatformFactory->CreateMovingPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, );
+				break;
+			case 2:
+				//myPlatformFactory->CreateUnstablePlatform(aScene, GetScreenPosition(aPos));
+				break;
+			case 3:
+				//myPlatformFactory->CreateDestructiblePlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize);
+				break;
+			case 4:
+				myPlatformFactory->CreateDeadlyPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize);
+				break;
+			}
+
 		}
 	}
+}
+
+v2f TiledMap::GetScreenPosition(v2f aTiledPos)
+{
+	int tiledTileSize = 8;
+	v2f screenPos;
+	v2f tiledTile;
+
+	tiledTile.x = aTiledPos.x / tiledTileSize;
+	tiledTile.y = aTiledPos.y / tiledTileSize;
+
+	v2f tileSizeInPixels;
+	tileSizeInPixels.x = Tga2D::CEngine::GetInstance()->GetWindowSize().x / myNumberOfTilesOnScreen.x;
+	tileSizeInPixels.y = Tga2D::CEngine::GetInstance()->GetWindowSize().y / myNumberOfTilesOnScreen.y;
+
+	screenPos.x = tiledTile.x * tileSizeInPixels.x;
+	screenPos.y = tiledTile.y * tileSizeInPixels.y;
+
+	return screenPos;
 }
