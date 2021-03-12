@@ -13,6 +13,9 @@
 #include "ColliderComponent.h"
 #include "BashComponent.hpp"
 #include "SpringObject.h"
+
+#include "Collectible.hpp"
+
 #include "Ledge.h"
 
 #ifdef _DEBUG
@@ -132,7 +135,7 @@ void Player::Update(const float& aDeltaTime)
 
 		if (myIsLerpingToPosition)
 		{
-			LerpToPosition(myLerpPosition, aDeltaTime);
+			LerpToPosition(myLerpPosition);
 		}
 	}
 
@@ -426,7 +429,7 @@ const bool Player::GetLedgeIsGrabbed()
 	return myGrabbedLedge;
 }
 
-void Player::LerpToPosition(const v2f& aPosition, const float& aDeltaTime)
+void Player::LerpToPosition(const v2f& aPosition)
 {
 	const float timeScale = myTimerInput->GetTimeScale();;
 
@@ -512,6 +515,32 @@ void Player::DecreaseSpringJump(const float& aDeltaTime)
 		mySpringVelocity.x = {};
 		mySpringVelocity.y = Utils::Lerp(mySpringVelocity.y, 0.f, mySpringVelocityRetardation * aDeltaTime);
 	}
+}
+
+void Player::AddCollectible(Collectible* aCollectible)
+{
+	myCollectibles.push_back(aCollectible);
+}
+
+std::vector<Collectible*> Player::GetCollectibles()
+{
+	return myCollectibles;
+}
+
+void Player::ClearCollectibles(const bool aIsTurningIn)
+{
+	if (aIsTurningIn)
+	{
+		myCollectibles.clear();
+	}
+	else
+	{
+		for (int collectible = static_cast<int>(myCollectibles.size()) - 1; collectible >= 0; --collectible)
+		{
+			myCollectibles[collectible]->Reset(false);
+		}
+	}
+	
 }
 
 #ifdef _DEBUG

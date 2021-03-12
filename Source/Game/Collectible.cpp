@@ -13,6 +13,8 @@
 
 #include "Random.hpp"
 
+#include "Bonfire.hpp"
+
 Collectible::Collectible(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene),
@@ -23,7 +25,9 @@ Collectible::Collectible(Scene* aLevelScene)
 	myMinRadiusFromTarget(25.0f),
 	myTimeOffset(0.0f),
 	myType(eCollectibleType::Easy),
-	myWasCollected(false)
+	myWasCollected(false),
+	myIsSafe(false),
+	myWasTurnedIn(false)
 {
 	
 }
@@ -37,6 +41,7 @@ void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 {
 	SetZIndex(400);
 	SetPosition(aPosition);
+	mySpawnPosition = aPosition;
 
 	myTargetPosition = aPosition;
 
@@ -85,22 +90,58 @@ void Collectible::Update(const float& aDeltaTime)
 	ImGuiUpdate();
 #endif // DEBUG
 
-
 	GameObject::Update(aDeltaTime);
 }
 
 void Collectible::OnCollision(GameObject* aGameObject)
 {
-	if (!myWasCollected)
+	if (!myWasCollected && !myWasTurnedIn)
 	{
 		Player* player = dynamic_cast<Player*>(aGameObject);
 		if (player)
 		{
+			player->AddCollectible(this);
 			//SetAnimation;
 			myTarget = aGameObject;
 			myWasCollected = true;
 		}
 	}
+}
+
+void Collectible::Saved()
+{
+	myIsSafe = true;
+}
+
+void Collectible::Reset(const bool aIsTurningIn)
+{
+	if (aIsTurningIn)
+	{
+		myWasCollected = false;
+	}
+	else
+	{
+		if (!myIsSafe)
+		{
+			myTarget = nullptr;
+			myWasCollected = false;
+			SetPosition(mySpawnPosition);
+			myTargetPosition = v2f();
+		}
+	}
+}
+
+void Collectible::SetBonfire(GameObject* aGameObject)
+{
+	myTarget = aGameObject;
+	myTargetPosition = aGameObject->GetPosition();
+	myWasTurnedIn = true;
+}
+
+void Collectible::TurnIn()
+{
+	//Add To Score or whatever
+	Destroy();
 }
 
 void Collectible::ImGuiUpdate()
