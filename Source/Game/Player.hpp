@@ -15,6 +15,7 @@ class AnimationComponent;
 class Ledge;
 class BashComponent;
 class SpringObject;
+class Collectible;
 
 class Player : public GameObject
 {
@@ -62,7 +63,7 @@ public:
 	void LeaveLedge();
 	const bool GetLedgeIsGrabbed();
 
-	void LerpToPosition(const v2f& aPosition, const float& aDeltaTime);
+	void LerpToPosition(const v2f& aPosition);
 	void SetLerpPosition(const v2f& aPosition);
 	void EndLerp();
 
@@ -77,10 +78,15 @@ public:
 
 	void DecreaseSpringJump(const float& aDeltaTime);
 
+	void AddCollectible(Collectible* aCollectible);
+	std::vector<Collectible*>& GetCollectibles();
+	void ClearCollectibles(const bool aIsTurningIn);
+
 	void ImGuiUpdate();
 
 private:
 	Animation myAnimations[5];
+	std::vector<Collectible*> myCollectibles;
 
 	std::shared_ptr<InputWrapper> myInputHandler;
 	std::unique_ptr<BashAbility> myBashAbility;

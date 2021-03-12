@@ -209,6 +209,12 @@
     <ClInclude Include="SpringObject.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="DataManager.h" />
+    <ClInclude Include="EnemyProjectile.h" />
+    <ClInclude Include="Random.hpp" />
+    <ClInclude Include="Bonfire.hpp">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -337,6 +343,12 @@
       <Filter>Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="SpringObject.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp" />
+    <ClCompile Include="EnemyProjectile.cpp" />
+    <ClCompile Include="Random.cpp" />
+    <ClCompile Include="Bonfire.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
   </ItemGroup>
