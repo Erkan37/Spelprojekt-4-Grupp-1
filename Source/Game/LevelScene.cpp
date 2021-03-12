@@ -48,7 +48,6 @@ void LevelScene::Load()
 	collectible2->Init(v2f(900.0f, 500.0f), Collectible::eCollectibleType::Easy);
 
 	myBackground = std::make_unique<Background>(this);
-	myBackground->AddPlayerRelation(myPlayer);
 
 	mySpring = std::make_unique<SpringObject>(this);
 	mySpring->Init(v2f(800.f, 865.f));

@@ -21,6 +21,11 @@ Background::Background(Scene* aLevelScene)
 	myCamera = &aLevelScene->GetCamera();
 	LoadJson(aLevelScene);
 	CreateBackgrounds(aLevelScene);
+	LevelScene* level = dynamic_cast<LevelScene*>(aLevelScene);
+	assert(level != NULL);
+	assert(level->GetPlayer() != NULL);
+	myPlayer = level->GetPlayer();
+		
 }
 
 void Background::Init(int someLevelIndex)
@@ -30,11 +35,6 @@ void Background::Init(int someLevelIndex)
 void Background::Update(const float& aDeltaTime)
 {
 	UpdateBackground();
-}
-
-void Background::AddPlayerRelation(GameObject* aPlayer)
-{
-	myPlayer = aPlayer;
 }
 
 void Background::UpdateBackground()
@@ -61,8 +61,11 @@ void Background::ResizeBackground()
 	int renderSizeX = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
 	int renderSizeY = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
 
-	myCurrentRenderSize.x = renderSizeX;
-	myCurrentRenderSize.y = renderSizeY;
+	int targetSizeX = 440;
+	int targetSizeY = 230;
+
+	myCurrentRenderSize.x = targetSizeX;
+	myCurrentRenderSize.y = targetSizeY;
 
 	myBackground->SetPosition({ myCurrentRenderSize.x / 2, myCurrentRenderSize.y / 2 });
 	myBackgroundSprite1->SetSize({ myCurrentRenderSize.x + 10, myCurrentRenderSize.y + 10 });
