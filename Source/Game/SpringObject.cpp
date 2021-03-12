@@ -22,7 +22,9 @@ void SpringObject::Init(const v2f aPosition)
 
 void SpringObject::Update(const float& aDeltaTime)
 {
+#ifdef _DEBUG
 	ImGuiUpdate();
+#endif //DEBUG
 }
 
 void SpringObject::OnCollision(GameObject* aGameObject)
