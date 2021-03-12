@@ -148,9 +148,6 @@
     <ClInclude Include="DestructiblePlatform.hpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
-    <ClInclude Include="TiledMap.h">
-      <Filter>Core\Tileson</Filter>
-    </ClInclude>
     <ClInclude Include="BashAbility.h">
       <Filter>Game Objects\Player</Filter>
     </ClInclude>
@@ -208,6 +205,12 @@
     </ClInclude>
     <ClInclude Include="SpringObject.h">
       <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="DataManager.h" />
+    <ClInclude Include="EnemyProjectile.h" />
+    <ClInclude Include="Random.hpp" />
+    <ClInclude Include="TiledMap.h">
+      <Filter>Core\Tileson</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -278,9 +281,6 @@
     <ClCompile Include="DestructiblePlatform.cpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
-    <ClCompile Include="TiledMap.cpp">
-      <Filter>Core\Tileson</Filter>
-    </ClCompile>
     <ClCompile Include="BashAbility.cpp">
       <Filter>Game Objects\Player</Filter>
     </ClCompile>
@@ -338,6 +338,12 @@
     </ClCompile>
     <ClCompile Include="SpringObject.cpp">
       <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp" />
+    <ClCompile Include="EnemyProjectile.cpp" />
+    <ClCompile Include="Random.cpp" />
+    <ClCompile Include="TiledMap.cpp">
+      <Filter>Core\Tileson</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
