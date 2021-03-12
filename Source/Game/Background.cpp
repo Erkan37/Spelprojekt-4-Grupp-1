@@ -6,7 +6,7 @@
 #include "Player.hpp"
 #include "AudioManager.h"
 
-Background::Background(LevelScene* aLevelScene) 
+Background::Background(Scene* aLevelScene) 
 	:
 	GameObject(aLevelScene)
 {
@@ -89,7 +89,7 @@ void Background::MoveBackground()
 	myBackgroundSprite3->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedThree);
 }
 
-void Background::LoadJson(LevelScene* aLevelScene)
+void Background::LoadJson(Scene* aLevelScene)
 {
 	myBackgroundPath1 = "Sprites/Background.png";
 	myBackgroundPath2 = "Sprites/tga_logo.dds";
@@ -103,7 +103,7 @@ void Background::LoadJson(LevelScene* aLevelScene)
 	myOrignalSpeed = 0.2f;
 }
 
-void Background::CreateBackgrounds(LevelScene* aLevelScene)
+void Background::CreateBackgrounds(Scene* aLevelScene)
 {
 	myBackground = std::make_unique<GameObject>(aLevelScene);
 	

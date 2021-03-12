@@ -9,7 +9,7 @@ class Player;
 class Background : GameObject
 {
 public:
-	Background(LevelScene* aLevelScene);
+	Background(Scene* aLevelScene);
 
 	void Init(int someLevelIndex);
 
@@ -49,8 +49,8 @@ private:
 	void UpdateBackground();
 	void ResizeBackground();
 	void MoveBackground();
-	void LoadJson(LevelScene* aLevelScene);
-	void CreateBackgrounds(LevelScene* aLevelScene);
+	void LoadJson(Scene* aLevelScene);
+	void CreateBackgrounds(Scene* aLevelScene);
 
 };
 
