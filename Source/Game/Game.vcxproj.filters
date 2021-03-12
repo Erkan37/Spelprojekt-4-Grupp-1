@@ -148,9 +148,6 @@
     <ClInclude Include="DestructiblePlatform.hpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
-    <ClInclude Include="TiledMap.h">
-      <Filter>Core\Tileson</Filter>
-    </ClInclude>
     <ClInclude Include="BashAbility.h">
       <Filter>Game Objects\Player</Filter>
     </ClInclude>
@@ -214,6 +211,9 @@
     <ClInclude Include="Random.hpp" />
     <ClInclude Include="Bonfire.hpp">
       <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="TiledMap.h">
+      <Filter>Core\Tileson</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -284,9 +284,6 @@
     <ClCompile Include="DestructiblePlatform.cpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
-    <ClCompile Include="TiledMap.cpp">
-      <Filter>Core\Tileson</Filter>
-    </ClCompile>
     <ClCompile Include="BashAbility.cpp">
       <Filter>Game Objects\Player</Filter>
     </ClCompile>
@@ -350,6 +347,9 @@
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Bonfire.cpp">
       <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="TiledMap.cpp">
+      <Filter>Core\Tileson</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
