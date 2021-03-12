@@ -15,11 +15,8 @@ public:
 
 	void Update(const float& aDeltaTime) override;
 
-	void AddPlayerRelation(GameObject* aPlayer);
-
 private:
 	Camera* myCamera;
-	GameObject* myPlayer;
 
 	std::unique_ptr<GameObject> myBackground;
 
