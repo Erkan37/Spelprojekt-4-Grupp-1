@@ -58,8 +58,8 @@ void LevelScene::Load()
 	mySpring = std::make_unique<SpringObject>(this);
 	mySpring->Init(v2f(800.f, 865.f));
 
-	PlatformFactory platformFactory;
-	platformFactory.ReadPlatforms(this, "JSON/PreProdPlatforms.json");
+	//PlatformFactory platformFactory;
+	//platformFactory.ReadPlatforms(this, "JSON/PreProdPlatforms.json");
 
 	myTiledMap = std::make_unique<TiledMap>();
 	myTiledMap->Load("Levels/test_level.json", this);

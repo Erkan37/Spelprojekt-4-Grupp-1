@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "TiledMap.h"
 #include "tileson/tileson_min.hpp"
-//#include "PlatformFactory.hpp"
 #include "Scene.h"
 
 #include <cassert>
@@ -39,7 +38,7 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 
 	if (bonfireLayer)
 	{
-		ParsePickups(bonfireLayer, aScene);
+		ParseBonfires(bonfireLayer, aScene);
 	}
 	else
 	{
@@ -47,7 +46,7 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	}
 	if (doorLayer)
 	{
-		ParsePickups(doorLayer, aScene);
+		ParseDoors(doorLayer, aScene);
 	}
 	else
 	{
@@ -55,7 +54,7 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	}
 	if (enemyLayer)
 	{
-		ParsePickups(enemyLayer, aScene);
+		ParseEnemies(enemyLayer, aScene);
 	}
 	else
 	{
@@ -63,7 +62,7 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	}
 	if (ledgeLayer)
 	{
-		ParsePickups(ledgeLayer, aScene);
+		ParseLedges(ledgeLayer, aScene);
 	}
 	else
 	{
@@ -89,7 +88,7 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	return true;
 }
 
-void TiledMap::ParseBonefires(tson::Layer*, Scene*)
+void TiledMap::ParseBonfires(tson::Layer*, Scene*)
 {
 }
 
@@ -136,30 +135,34 @@ void TiledMap::ParsePlatforms(tson::Layer* aLayer, Scene* aScene)
 		//GetProperties:
 		//tileObj[i].getProp("Properties");
 
-		if (tileObj[i].getType() != "")
-		{
-			int type = stoi(tileObj[i].getType());
+		myPlatformFactory->CreateStaticPlatform(aScene, GetScreenPosition(aPos), GetObjSize(imageSize), GetObjSize(imageSize), true);
 
-			switch (type)
-			{
-			case 0:
-				myPlatformFactory->CreateStaticPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, true); //Change aIsOneWay when it has a variable
-				break;
-			case 1:
-				//myPlatformFactory->CreateMovingPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, );
-				break;
-			case 2:
-				//myPlatformFactory->CreateUnstablePlatform(aScene, GetScreenPosition(aPos));
-				break;
-			case 3:
-				//myPlatformFactory->CreateDestructiblePlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize);
-				break;
-			case 4:
-				myPlatformFactory->CreateDeadlyPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize);
-				break;
-			}
+		//if (tileObj[i].getType() != "")
+		//{
+		//	int type = stoi(tileObj[i].getType());
 
-		}
+		//	switch (type)
+		//	{
+		//	case 0:
+		//		myPlatformFactory->CreateStaticPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, true); //Change aIsOneWay when it has a variable
+		//		break;
+		//	case 1:
+		//		myPlatformFactory->CreateStaticPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, true);
+		//		//myPlatformFactory->CreateMovingPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, );
+		//		break;
+		//	case 2:
+		//		myPlatformFactory->CreateStaticPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, true);
+		//		//myPlatformFactory->CreateUnstablePlatform(aScene, GetScreenPosition(aPos));
+		//		break;
+		//	case 3:
+		//		myPlatformFactory->CreateStaticPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, true);
+		//		//myPlatformFactory->CreateDestructiblePlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize);
+		//		break;
+		//	case 4:
+		//		myPlatformFactory->CreateDeadlyPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize);
+		//		break;
+		//	}
+		//}
 	}
 }
 
@@ -180,4 +183,19 @@ v2f TiledMap::GetScreenPosition(v2f aTiledPos)
 	screenPos.y = tiledTile.y * tileSizeInPixels.y;
 
 	return screenPos;
+}
+
+v2f TiledMap::GetObjSize(v2f aTiledSize)
+{
+	int tiledTileSize = 8;
+	v2f objSize;
+
+	v2f tileSizeInPixels;
+	tileSizeInPixels.x = Tga2D::CEngine::GetInstance()->GetWindowSize().x / myNumberOfTilesOnScreen.x;
+	tileSizeInPixels.y = Tga2D::CEngine::GetInstance()->GetWindowSize().y / myNumberOfTilesOnScreen.y;
+
+	objSize.x = (aTiledSize.x / tiledTileSize) * tileSizeInPixels.x;
+	objSize.y = (aTiledSize.y / tiledTileSize) * tileSizeInPixels.y;
+
+	return objSize;
 }
