@@ -119,7 +119,6 @@ void Player::InitCollider()
 
 void Player::Update(const float& aDeltaTime)
 {
-	myBashAbility->Update(aDeltaTime);
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 
 	if (physics)

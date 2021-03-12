@@ -67,8 +67,6 @@ void LevelScene::Load()
 	BashableObjectFactory bashableObjectFactory;
 	bashableObjectFactory.ReadBashableObjects(this, "JSON/AlfaBashableObjects.json");
 
-	
-
 	Scene::Load();
 }
 
