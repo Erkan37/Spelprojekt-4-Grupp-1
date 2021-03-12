@@ -44,6 +44,7 @@ public:
 
 	void    SetVolume(const Handle& hndl, float aVolume);
 	void    SetPosition(const Handle& hndl, VECTOR2F aPosition);
+	void	StopMusic(bool);
 	void	RemoveSample(const Handle&);
   
 private:

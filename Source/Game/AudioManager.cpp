@@ -61,7 +61,7 @@ void AudioManager::PlayMusic(const std::string & anAudioPath, float aVolume, boo
 	if (!IsPlaying(anAudioPath))
 	{
 		const float volume = myMusicVolume * aVolume;
-		Stop(anAudioPath);
+		StopCurrentMusic();
 
 		if (Utils::RandomInt(0, 100) == 100)
 		{
@@ -109,4 +109,9 @@ bool AudioManager::IsPlaying(const std::string & anAudioPath)
 void AudioManager::StopAll(bool anOnlyRepeating)
 {
 	Tga2D::audio_helpers::StopAllNowPlaying(*myAudioOut, anOnlyRepeating);
+}
+
+void AudioManager::StopCurrentMusic()
+{
+	myAudioOut->StopMusic(true);
 }
