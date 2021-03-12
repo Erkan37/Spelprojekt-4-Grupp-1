@@ -38,6 +38,7 @@ void LevelScene::Load()
 {
 	myPlayer = new Player(this);
 
+	
 	EnemyFactory enemyFactory;
 	enemyFactory.ReadEnemies(this, "JSON/AlfaEnemies.json");
 
@@ -46,6 +47,9 @@ void LevelScene::Load()
 
 	Collectible* collectible2 = new Collectible(this);
 	collectible2->Init(v2f(900.0f, 500.0f), Collectible::eCollectibleType::Easy);
+
+	myFactory = std::make_unique<ParticleEffectFactory>(this);
+	myFactory->ReadEffects();
 
 	myBackground = std::make_unique<Background>(this);
 

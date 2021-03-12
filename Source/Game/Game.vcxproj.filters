@@ -209,6 +209,21 @@
     <ClInclude Include="SpringObject.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="DataManager.h" />
+    <ClInclude Include="EnemyProjectile.h" />
+    <ClInclude Include="Random.hpp" />
+    <ClInclude Include="ParticleEffectFactory.h">
+      <Filter>Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEffect.h">
+      <Filter>Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleStats.hpp">
+      <Filter>Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEffectTypes.hpp">
+      <Filter>Factories</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -338,6 +353,15 @@
     </ClCompile>
     <ClCompile Include="SpringObject.cpp">
       <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp" />
+    <ClCompile Include="EnemyProjectile.cpp" />
+    <ClCompile Include="Random.cpp" />
+    <ClCompile Include="ParticleEffectFactory.cpp">
+      <Filter>Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEffect.cpp">
+      <Filter>Factories</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

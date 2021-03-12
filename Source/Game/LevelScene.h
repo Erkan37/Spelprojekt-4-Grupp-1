@@ -4,6 +4,7 @@
 #include "Platform.h"
 #include "BackGround.h"
 #include "SpringObject.h"
+#include "ParticleEffectFactory.h"
 
 class GameObject;
 
@@ -24,6 +25,8 @@ public:
 private:
     GameObject* myPlayer;
     GameObject* myEnemy;
+
+    std::unique_ptr<ParticleEffectFactory> myFactory;
     std::unique_ptr<Background> myBackground;
     std::unique_ptr<SpringObject> mySpring;
 

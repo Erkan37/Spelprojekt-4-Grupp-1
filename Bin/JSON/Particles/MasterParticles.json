@@ -1,0 +1,10 @@
+{
+  "particlesPath": [
+    {
+      "file1": "JSON/Particles/infile0.json"
+    },
+    {
+      "file2": "JSON/Particles/infile1.json"
+    }
+  ]
+}

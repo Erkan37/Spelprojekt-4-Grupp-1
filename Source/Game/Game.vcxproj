@@ -163,6 +163,10 @@
     <ClInclude Include="Ledge.h" />
     <ClInclude Include="LevelScene.h" />
     <ClInclude Include="MovingPlatform.hpp" />
+    <ClInclude Include="ParticleEffect.h" />
+    <ClInclude Include="ParticleEffectFactory.h" />
+    <ClInclude Include="ParticleEffectTypes.hpp" />
+    <ClInclude Include="ParticleStats.hpp" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Platform.h" />
@@ -211,6 +215,8 @@
     <ClCompile Include="Ledge.cpp" />
     <ClCompile Include="LevelScene.cpp" />
     <ClCompile Include="MovingPlatform.cpp" />
+    <ClCompile Include="ParticleEffect.cpp" />
+    <ClCompile Include="ParticleEffectFactory.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Platform.cpp" />
