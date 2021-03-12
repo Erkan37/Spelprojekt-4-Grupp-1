@@ -19,8 +19,12 @@ private:
 	void ParseDoors(tson::Layer*, Scene*);
 	void ParseEnemies(tson::Layer*, Scene*);
 	void ParseLedges(tson::Layer*, Scene*);
-	void ParsePickups(tson::Layer*, Scene*);
+	void ParseCollectables(tson::Layer*, Scene*);
+	void ParseCollectableZones(tson::Layer*, Scene*);
 	void ParsePlatforms(tson::Layer*, Scene*);
+	void ParseHiddenRooms(tson::Layer*, Scene*);
+	void ParseSprings(tson::Layer*, Scene*);
+	void ParseButtons(tson::Layer*, Scene*);
 
 	v2f GetScreenPosition(v2f aTiledPos);
 	v2f GetObjSize(v2f aTiledSize);
