@@ -16,6 +16,7 @@ Button::Button(Scene* aLevelScene)
 {
 	myHasCollided = {};
 	myButtonActive = {};
+	mySize = {};
 }
 
 Button::~Button()
@@ -40,22 +41,22 @@ void Button::Update(const float& aDeltaTime)
 void Button::InitButton(const v2f myStartingPosition, const v2f myPositionFromStart)
 {
 	v2f platformPosition = myStartingPosition + myPositionFromStart;
-	v2f spriteSize = { 100.f, 100.f };
+	mySize = { 32.f, 32.f };
 
 	SetPosition(platformPosition);
 	SetPivot({ 0.f, 1.f });
 
 	SpriteComponent* gsprite = AddComponent<SpriteComponent>();
 	gsprite->SetSpritePath("Sprites/Temp/TempButton.dds");
-	gsprite->SetSize(spriteSize);
+	gsprite->SetSize(mySize);
 
 	PhysicsComponent* gphys = AddComponent<PhysicsComponent>();
 	gphys->SetCanCollide(true);
 	gphys->SetIsStatic(true);
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
-	collider->SetSize(spriteSize);
-	collider->SetPosition({ spriteSize.x * 0.5f, -spriteSize.y * 0.5f });
+	collider->SetSize(mySize);
+	collider->SetPosition({ mySize.x * 0.5f, -mySize.y * 0.5f });
 
 	GameObject::Init();
 }

@@ -53,7 +53,7 @@ void SpringObject::InitSprings(const v2f aPosition)
 	myRetardation = 1.0f;
 	myVelocityForce = 1000;
 	myPosition = aPosition;
-	mySize = { 100.f, 100.f };
+	mySize = { 32.f, 16.f };
 
 	SetPosition(myPosition);
 	SetPivot(v2f(0.f, 0.f));

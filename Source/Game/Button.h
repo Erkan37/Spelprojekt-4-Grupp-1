@@ -25,6 +25,7 @@ private:
 	Animation myAnimation[2];
 
 	v2f myPosition;
+	v2f mySize;
 
 	bool myButtonActive;
 	bool myHasCollided;
