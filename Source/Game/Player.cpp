@@ -71,7 +71,6 @@ Player::Player(LevelScene* aLevelScene)
 	myTimerInput = world->GetTimer();
 
 	mySpringVelocity = {};
-	myMaxSpringVelocity = {};
 	myPercentageLeftVelocity = {};
 	mySpringTimer = {};
 
@@ -360,17 +359,21 @@ void Player::Landed(const int& aOverlapY)
 	if (aOverlapY > 0)
 	{
 		myAirCoyoteTimer = myAirCoyoteTime;
-		myHasLanded = true;
+		if (!myActiveSpringJump)
+			myHasLanded = true;
 		myHasDoubleJumped = false;
+
 
 		if (myWillJumpWhenFalling)
 		{
 			Jump();
 		}
 	}
-
+	std::cout << "REACHED" << std::endl;
 	myCurrentVelocity.y = 0.0f;
 	myBashAbility->ResetVelocity(false, true);
+	if (!myHasLandedOnSpring)
+		mySpringVelocity.y = {};
 }
 
 void Player::SideCollision(const int& aOverlapX)
@@ -378,6 +381,7 @@ void Player::SideCollision(const int& aOverlapX)
 	aOverlapX;
 	myCurrentVelocity.x = 0.0f;
 	myBashAbility->ResetVelocity(true, false);
+	mySpringVelocity = {};
 }
 
 void Player::ResetVelocity()
@@ -482,8 +486,10 @@ void Player::EndLerp()
 
 void Player::ActivateSpringForce(float aSpringVelocity)
 {
+	ReactivateDoubleJump();
+	myHasLanded = false;
 	myActiveSpringJump = true;
-	myMaxSpringVelocity = aSpringVelocity;
+	myHasLandedOnSpring = true;
 	mySpringVelocity.y = aSpringVelocity;
 }
 
@@ -525,27 +531,33 @@ void Player::BashCollision(GameObject* aGameObject, BashComponent* aBashComponen
 
 void Player::DecreaseSpringJump(const float& aDeltaTime)
 {
-	std::cout << mySpringVelocity.y << std::endl;
 	mySpringTimer += aDeltaTime;
+
+	std::cout << myCurrentVelocity.y << std::endl;
+
+	if (myCurrentVelocity.y == 0)
+	{
+		myActiveSpringJump = false;
+		mySpringVelocity = {};
+		myCurrentVelocity.y = {};
+	}
 
 	if (GetComponent<PhysicsComponent>()->GetVelocityY() > 0)
 	{
 		mySpringTimer += aDeltaTime;
-		if (mySpringTimer > 0.5f)
+		if (mySpringTimer > 0.1f)
 		{
-			myMaxSpringVelocity = {};
-			mySpringVelocity.x = {};
-			mySpringVelocity.y = Utils::Lerp(mySpringVelocity.y, 0.f, myPlatformVelocityRetardation * aDeltaTime);
+			myActiveSpringJump = false;
+			mySpringVelocity = {};
+			myCurrentVelocity.y = {};
 		}
-		
 	}
 	else
 	{
+		myHasLandedOnSpring = false;
 		mySpringVelocity.x = {};
 		mySpringVelocity.y = Utils::Lerp(mySpringVelocity.y, 0.f, myPlatformVelocityRetardation * aDeltaTime);
 	}
-
-	myPercentageLeftVelocity = mySpringVelocity.y / myMaxSpringVelocity;
 }
 
 void Player::ImGuiUpdate()

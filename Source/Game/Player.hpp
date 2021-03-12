@@ -113,7 +113,6 @@ private:
 	float myDoubleJumpVelocity;
 	float myLedgeJumpVelocity;
 
-	float myMaxSpringVelocity;
 	float myPercentageLeftVelocity;
 	float mySpringTimer;
 
