@@ -10,6 +10,8 @@ SpringObject::SpringObject(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene)
 {
+	myRetardation = {};
+	myVelocityForce = {};
 	myActiveSpring = {};
 }
 
