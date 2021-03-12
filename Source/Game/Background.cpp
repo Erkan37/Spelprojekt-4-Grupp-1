@@ -23,15 +23,14 @@ Background::Background(Scene* aLevelScene)
 	myCamera = &aLevelScene->GetCamera();
 	LoadJson(aLevelScene);
 	CreateBackgrounds(aLevelScene);
-	LevelScene* level = dynamic_cast<LevelScene*>(aLevelScene);
 		
 }
 
-void Background::Init(int someLevelIndex)
+void Background::Init(int /*someLevelIndex*/)
 {
 }
 
-void Background::Update(const float& aDeltaTime)
+void Background::Update(const float& /*aDeltaTime*/)
 {
 	UpdateBackground();
 }
@@ -57,14 +56,14 @@ void Background::UpdateBackground()
 
 void Background::ResizeBackground()
 {
-	int renderSizeX = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
-	int renderSizeY = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
+	//int renderSizeX = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
+	//int renderSizeY = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
 
 	int targetSizeX = 440;
 	int targetSizeY = 230;
 
-	myCurrentRenderSize.x = targetSizeX;
-	myCurrentRenderSize.y = targetSizeY;
+	myCurrentRenderSize.x = static_cast<float>(targetSizeX);
+	myCurrentRenderSize.y = static_cast<float>(targetSizeY);
 
 	myBackground->SetPosition({ myCurrentRenderSize.x / 2, myCurrentRenderSize.y / 2 });
 	myBackgroundSprite1->SetSize({ myCurrentRenderSize.x + 10, myCurrentRenderSize.y + 10 });
@@ -91,7 +90,7 @@ void Background::MoveBackground()
 	myBackgroundSprite3->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedThree);
 }
 
-void Background::LoadJson(Scene* aLevelScene)
+void Background::LoadJson(Scene* /*aLevelScene*/)
 {
 	myBackgroundPath1 = "Sprites/Background.png";
 	myBackgroundPath2 = "Sprites/tga_logo.dds";
