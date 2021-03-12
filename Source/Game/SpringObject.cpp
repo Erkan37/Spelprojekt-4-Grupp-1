@@ -51,7 +51,7 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 void SpringObject::InitSprings(const v2f aPosition)
 {
 	myRetardation = 1.0f;
-	myVelocityForce = 1500;
+	myVelocityForce = 1000;
 	myPosition = aPosition;
 	mySize = { 100.f, 100.f };
 
