@@ -30,7 +30,7 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	tson::Layer* Fg2 = map->getLayer("FG2");
 
 	//Create
-	tson::Layer* bonfireLayer = map->getLayer("Bonfires");
+	tson::Layer* bonfireLayer = map->getLayer("Bonfire");
 	tson::Layer* doorLayer = map->getLayer("Doors");
 	tson::Layer* enemyLayer = map->getLayer("Enemies");
 	tson::Layer* ledgeLayer = map->getLayer("Ledges");
@@ -43,7 +43,7 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	}
 	else
 	{
-		ERROR_PRINT("failed to load pickuplayer");
+		ERROR_PRINT("failed to load bonfirelayer");
 	}
 	if (doorLayer)
 	{
@@ -51,7 +51,7 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	}
 	else
 	{
-		ERROR_PRINT("failed to load pickuplayer");
+		ERROR_PRINT("failed to load doorlayer");
 	}
 	if (enemyLayer)
 	{
@@ -59,7 +59,7 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	}
 	else
 	{
-		ERROR_PRINT("failed to load pickuplayer");
+		ERROR_PRINT("failed to load enemylayer");
 	}
 	if (ledgeLayer)
 	{
@@ -67,7 +67,7 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	}
 	else
 	{
-		ERROR_PRINT("failed to load pickuplayer");
+		ERROR_PRINT("failed to load ledgelayer");
 	}
 	if (pickupLayer)
 	{
