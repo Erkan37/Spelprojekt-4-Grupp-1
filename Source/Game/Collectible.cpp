@@ -141,7 +141,7 @@ void Collectible::SetBonfire(GameObject* aGameObject)
 void Collectible::TurnIn()
 {
 	//Add To Score or whatever
-	//Destroy();
+	Destroy();
 }
 
 void Collectible::ImGuiUpdate()

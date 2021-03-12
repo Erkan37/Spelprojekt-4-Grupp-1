@@ -22,7 +22,7 @@ Bonfire::Bonfire(Scene* aScene)
 
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
 	spriteIdle->SetSpritePath("Sprites/Temp/Bonfire.dds");
-	spriteIdle->SetSize(v2f(32.0f, 32.0f));
+	spriteIdle->SetSize(v2f(64.0f, 64.0f));
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
 	physics->SetCanCollide(false);
@@ -68,13 +68,13 @@ void Bonfire::OnCollision(GameObject* aGameObject)
 	Player* player = dynamic_cast<Player*>(aGameObject);
 	if (player)
 	{
-		myRetrievedCollectibles = player->GetCollectibles();
-		player->ClearCollectibles(true);
-
-		for (Collectible* collectible : myRetrievedCollectibles)
+		for (Collectible* collectible : player->GetCollectibles())
 		{
+			myRetrievedCollectibles.push_back(collectible);
 			collectible->SetBonfire(this);
 		}
+
+		player->ClearCollectibles(true);
 
 		myCollectibleIndex = static_cast<int>(myRetrievedCollectibles.size()) - 1;
 	}

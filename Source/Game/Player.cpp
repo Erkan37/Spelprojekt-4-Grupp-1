@@ -522,7 +522,7 @@ void Player::AddCollectible(Collectible* aCollectible)
 	myCollectibles.push_back(aCollectible);
 }
 
-std::vector<Collectible*>& Player::GetCollectibles()
+std::vector<Collectible*> Player::GetCollectibles()
 {
 	return myCollectibles;
 }
@@ -531,10 +531,6 @@ void Player::ClearCollectibles(const bool aIsTurningIn)
 {
 	if (aIsTurningIn)
 	{
-		for (Collectible* collectible : myCollectibles)
-		{
-			collectible->Reset(true);
-		}
 		myCollectibles.clear();
 	}
 	else
