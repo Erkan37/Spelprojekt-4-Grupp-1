@@ -13,7 +13,7 @@ public:
 
 	void Init(int someLevelIndex);
 
-	void Update(const float& aDeltaTime);
+	void Update(const float& aDeltaTime) override;
 
 	void AddPlayerRelation(GameObject* aPlayer);
 

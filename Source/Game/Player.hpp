@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Animation.hpp"
 #include "BashAbility.h"
+#include "DataManager.h"
 
 namespace Utils
 {
@@ -13,6 +14,7 @@ class LevelScene;
 class AnimationComponent;
 class Ledge;
 class BashComponent;
+class SpringObject;
 
 class Player : public GameObject
 {
@@ -64,6 +66,8 @@ public:
 	void SetLerpPosition(const v2f& aPosition);
 	void EndLerp();
 
+	void ActivateSpringForce(float mySpringVelocity, const float aRetardation);
+
 	void BounceOnDestructibleWall();
 	const bool& GetIsBashing();
 
@@ -71,10 +75,12 @@ public:
 
 	void BashCollision(GameObject* aGameObject, BashComponent* aBashComponent) override;
 
+	void DecreaseSpringJump(const float& aDeltaTime);
+
 	void ImGuiUpdate();
 
 private:
-	Animation myAnimations[3];
+	Animation myAnimations[5];
 
 	std::shared_ptr<InputWrapper> myInputHandler;
 	std::unique_ptr<BashAbility> myBashAbility;
@@ -85,6 +91,8 @@ private:
 
 	v2f myPlatformVelocity;
 
+	v2f mySpringVelocity;
+
 	v2f myLerpPosition;
 
 	v2f mySize;
@@ -94,17 +102,22 @@ private:
 	float myAirCoyoteTime;
 	float myAirCoyoteTimer;
 
-	float myMaxRunningSpeed;
-	float myRunningAnimationSpeed;
+	//float myMaxRunningSpeed;
+	float myTriggerRunningAnimationSpeed;
+	float myTriggerFallingSpeed;
 
 	float myAcceleration;
 	float myRetardation;
 	float myLerpToPositionAcceleration;
 	float myPlatformVelocityRetardation;
+	float mySpringVelocityRetardation;
 
 	float myJumpVelocity;
 	float myDoubleJumpVelocity;
 	float myLedgeJumpVelocity;
+
+	float myPercentageLeftVelocity;
+	float mySpringTimer;
 
 	float myMaxFallSpeed;
 
@@ -136,15 +149,21 @@ private:
 
 	int myCurrentAnimationIndex;
 
+	int myDirectionX;
+
 	bool myHasLanded;
 	bool myHasLandedVibration;
 	bool myHasDoubleJumped;
+	bool myHasLandedOnSpring;
 
 	bool myCanJumpWhenFalling;
 	bool myWillJumpWhenFalling;
+	bool myActiveSpringJump;
 
 	bool myGrabbedLedge;
 
 	bool myIsLerpingToPosition;
+
+	PlayerData *myJsonData = new PlayerData();
 };
 

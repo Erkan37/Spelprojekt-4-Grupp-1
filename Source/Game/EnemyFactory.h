@@ -3,12 +3,15 @@
 #include <vector>
 
 class Enemy;
+class NormalEnemy;
+class ShootingEnemy;
 class Scene;
 
 class EnemyFactory
 {
 public:
 	void ReadEnemies(Scene* aLevelScene, const std::string& aFilePath);
-	Enemy* CreateEnemy(Scene* aLevelScene, std::vector<v2f>& someCoordinates);
+	NormalEnemy* CreateNormalEnemy(Scene* aLevelScene, std::vector<v2f>& someCoordinates);
+	ShootingEnemy* CreateShootingEnemy(Scene* aLevelScene, std::vector<v2f>& someCoordinates);
 };
 

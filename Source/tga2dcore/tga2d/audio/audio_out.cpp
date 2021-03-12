@@ -150,7 +150,7 @@ namespace Tga2D {
 
 	bool AudioOut::Stop(const std::string& fname, bool immediately)
 	{
-		Handle hndl = FindLoaded(myFileName);
+		Handle hndl = FindLoaded(fname);
 
 		if (!hndl)
 			return audio_helpers::PrintGeneralError(fname + String(" not loaded"));
@@ -192,6 +192,22 @@ namespace Tga2D {
 	void AudioOut::SetPosition(const Handle& hndl, VECTOR2F aPosition)
 	{
 		BASS_ChannelSetAttribute(hndl, BASS_ATTRIB_PAN, aPosition.x);
+	}
+
+	void AudioOut::StopMusic(bool immediately)
+	{
+		if (myFileName != "")
+		{
+			Handle hndl = FindLoaded(myFileName);
+
+			if (!hndl)
+				audio_helpers::PrintGeneralError(myFileName + String(" not loaded"));
+
+			if (immediately)
+				StopPlayingImmediately(hndl);
+			else
+				RemoveLoopFromSample(hndl);
+		}
 	}
 
 	void AudioOut::RemoveSample(const Handle& aHNDL)

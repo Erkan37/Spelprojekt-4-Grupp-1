@@ -49,8 +49,6 @@ void PlatformFactory::ReadPlatforms(Scene* aLevelScene, const std::string& aFile
 		const float spriteSizeX = (*platform)["SpriteSize"]["X"].GetFloat();
 		const float spriteSizeY = (*platform)["SpriteSize"]["Y"].GetFloat();
 
-		const bool oneway = (*platform)["Oneway"].GetBool();
-
 		const int type = (*platform)["Type"].GetInt();
 
 		float speed = 0;
@@ -59,7 +57,7 @@ void PlatformFactory::ReadPlatforms(Scene* aLevelScene, const std::string& aFile
 		switch (type)
 		{
 		case 0:
-			CreateStaticPlatform(aLevelScene, v2f(positionX, positionY), v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), oneway);
+			CreateStaticPlatform(aLevelScene, v2f(positionX, positionY), v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), false);
 			break;
 		case 1:
 			for (rapidjson::Value::ConstValueIterator waypoint = (*platform)["Waypoints"].Begin(); waypoint != (*platform)["Waypoints"].End(); ++waypoint)
@@ -80,6 +78,8 @@ void PlatformFactory::ReadPlatforms(Scene* aLevelScene, const std::string& aFile
 		case 4:
 			CreateDeadlyPlatform(aLevelScene, v2f(positionX, positionY), v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY));
 			break;
+		case 5:
+			CreateStaticPlatform(aLevelScene, v2f(positionX, positionY), v2f(sizeX, sizeY), v2f(spriteSizeX, spriteSizeY), true);
 		}
 	}
 

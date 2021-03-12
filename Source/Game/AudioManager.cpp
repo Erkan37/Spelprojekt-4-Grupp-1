@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "AudioManager.h"
 
+#include "Random.hpp"
 #include "tga2d/audio/audio_out.h"
 
 #include <bass/bass.h>
@@ -60,8 +61,17 @@ void AudioManager::PlayMusic(const std::string & anAudioPath, float aVolume, boo
 	if (!IsPlaying(anAudioPath))
 	{
 		const float volume = myMusicVolume * aVolume;
-		Stop(anAudioPath);
-		myAudioOut->PlayMusic(anAudioPath, aShouldLoop, channel);
+		StopCurrentMusic();
+
+		if (Utils::RandomInt(0, 100) == 100)
+		{
+			myAudioOut->PlayMusic("Sounds/Music/GameMusic.mp3", aShouldLoop, channel);
+		}
+		else
+		{
+			myAudioOut->PlayMusic(anAudioPath, aShouldLoop, channel);
+		}
+		
 		myAudioOut->SetVolume(channel, volume);
 	}
 
@@ -77,6 +87,7 @@ void AudioManager::PlaySFX(const std::string & anAudioPath, float aVolume, bool 
 
 	const float volume = mySFXVolume * aVolume;
 	myAudioOut->Play(anAudioPath, false, channel);
+
 	myAudioOut->SetVolume(channel, volume);
 
 	if (aShouldLoop)
@@ -98,4 +109,9 @@ bool AudioManager::IsPlaying(const std::string & anAudioPath)
 void AudioManager::StopAll(bool anOnlyRepeating)
 {
 	Tga2D::audio_helpers::StopAllNowPlaying(*myAudioOut, anOnlyRepeating);
+}
+
+void AudioManager::StopCurrentMusic()
+{
+	myAudioOut->StopMusic(true);
 }

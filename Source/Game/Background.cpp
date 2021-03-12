@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Background.h"
-#include "GameObject.h"
 #include "SpriteComponent.h"
 #include "Camera.h"
 #include "LevelScene.h"
@@ -46,8 +45,8 @@ void Background::UpdateBackground()
 		myAddedCameraPos = true;
 	}
 
-	float renderSizeX = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
-	float renderSizeY = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
+	int renderSizeX = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
+	int renderSizeY = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
 
 	if (myCurrentRenderSize.x != renderSizeX || myCurrentRenderSize.y != renderSizeY)
 	{
@@ -59,8 +58,8 @@ void Background::UpdateBackground()
 
 void Background::ResizeBackground()
 {
-	float renderSizeX = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
-	float renderSizeY = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
+	int renderSizeX = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
+	int renderSizeY = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
 
 	myCurrentRenderSize.x = renderSizeX;
 	myCurrentRenderSize.y = renderSizeY;
@@ -116,6 +115,8 @@ void Background::CreateBackgrounds(LevelScene* aLevelScene)
 
 	myBackgroundSprite3 = myBackground->AddComponent<SpriteComponent>();
 	myBackgroundSprite3->SetSpritePath(myBackgroundPath3);
+
+	myBackground->Init();
 
 	ResizeBackground();
 }

@@ -41,5 +41,7 @@ private:
 	float myMusicVolume;
 	float mySFXVolume;
 
+	void StopCurrentMusic();
+
 };
 
