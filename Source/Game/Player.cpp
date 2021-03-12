@@ -5,7 +5,6 @@
 #include "Controller.h"
 
 #include "LevelScene.h"
-
 #include "Player.hpp"
 
 #include "SpriteComponent.h"
@@ -14,71 +13,18 @@
 #include "ColliderComponent.h"
 #include "BashComponent.hpp"
 #include "SpringObject.h"
-
 #include "Ledge.h"
 
+#ifdef _DEBUG
 #include "imgui.h"
+#endif // DEBUG
 
-Player::Player(LevelScene* aLevelScene)
-	:
-	GameObject(aLevelScene)
+Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 {
-
-	SetZIndex(500);
-	SetPosition({ 700.0f, 640.0f });
-	mySpawnPosition = v2f(700.0f, 640.0f);
-	mySize = v2f(16.0f, 16.0f);
-
-	InitAnimations();
-
-	InitCollider();
-
+	myJsonData = dynamic_cast<PlayerData*>(&DataManager::GetInstance().GetDataStruct(DataEnum::player));
 	CGameWorld* world = CGameWorld::GetInstance();
 	myInputHandler = world->Input();
-
-	myJsonData = dynamic_cast<PlayerData*>(&DataManager::GetInstance().GetDataStruct(DataEnum::player));
-
-	myTriggerRunningAnimationSpeed = 50.0f;
-	myTriggerFallingSpeed = 10.0f;
-
-	myAcceleration = 6.0f;
-	myRetardation = 20.0f;
-	myLerpToPositionAcceleration = 6.0f;
-	myPlatformVelocityRetardation = 1.0f;
-	mySpringVelocityRetardation = {};
-
-	myAirCoyoteTime = 0.1f;
-	myAirCoyoteTimer = myAirCoyoteTime;
-
-	myJumpVelocity = 600.0f;
-	myDoubleJumpVelocity = 600.0f;
-	myLedgeJumpVelocity = 360.0f;
-
-	myMaxFallSpeed = 700.0f;
-
-	myDirectionX = 1;
-
-	myJumpWhenFallingTime = 0.075f;
-
-	myCurrentAnimationIndex = 0;
-
-	myHasLanded = true;
-	myHasDoubleJumped = false;
-	myHasLandedOnSpring = false;
-
-	myCanJumpWhenFalling = false;
-	myWillJumpWhenFalling = false;
-	myActiveSpringJump = false;
-
-	myGrabbedLedge = false;
-
-	myIsLerpingToPosition = false;
-
 	myTimerInput = world->GetTimer();
-
-	mySpringVelocity = {};
-	myPercentageLeftVelocity = {};
-	mySpringTimer = {};
 
 	myBashAbility = std::make_unique<BashAbility>(aLevelScene);
 	myBashAbility->Init();
@@ -86,9 +32,38 @@ Player::Player(LevelScene* aLevelScene)
 	myBashAbility->AddPlayerRelation(this);
 	myBashAbility->AddTimer(world->GetTimer());
 
-	InitVibrations();
+	SetZIndex(500);
+	SetPosition({ 700.0f, 640.0f });
 
-	InitShakes();
+	mySpawnPosition = v2f(700.0f, 640.0f);
+	mySize = v2f(16.0f, 16.0f);
+
+	InitAnimations();
+	InitCollider();
+
+	myTriggerRunningAnimationSpeed = 50.0f;
+	myAirCoyoteTimer = myJsonData->myCoyoteTime;
+
+	myDirectionX = 1;
+	myCurrentAnimationIndex = 0;
+
+	myHasLanded = true;
+	myHasDoubleJumped = false;
+	myHasLandedOnSpring = false;
+	myCanJumpWhenFalling = false;
+	myWillJumpWhenFalling = false;
+	myActiveSpringJump = false;
+	myGrabbedLedge = false;
+	myIsLerpingToPosition = false;
+
+	mySpringVelocity = {};
+	myPercentageLeftVelocity = {};
+	mySpringVelocityRetardation = {};
+	mySpringTimer = {};
+}
+Player::~Player()
+{
+
 }
 
 void Player::InitAnimations()
@@ -128,7 +103,6 @@ void Player::InitAnimations()
 	animation->SetAnimation(&myAnimations[0]);
 	spriteIdle->SetSize(mySize);
 }
-
 void Player::InitCollider()
 {
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
@@ -138,38 +112,6 @@ void Player::InitCollider()
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
 	collider->SetSize(16.0f, 16.0f);
-}
-
-void Player::InitVibrations()
-{
-	myDieVibrationStrength = 65000;
-	myDieVibrationLength = 0.5f;
-
-	myLandVibrationStrength = 60000;
-	myLandVibrationLength = 0.15f;
-
-	mySpringsVibrationStrength = 55000;
-	mySpringsVibrationLength = 0.3f;
-}
-
-void Player::InitShakes()
-{
-	myDieShakeDuration = 1.0f;
-	myDieShakeIntensity = 2.0f;
-	myDieShakeDropOff = 1.0f;
-
-	myLandingShakeDuration = 0.5f;
-	myLandingShakeIntensity = 0.8f;
-	myLandingShakeDropOff = 1.0f;
-
-	mySpringShakeDuration = 1.0f;
-	mySpringShakeIntensity = 1.0f;
-	mySpringShakeDropOff = 1.0f;
-}
-
-Player::~Player()
-{
-
 }
 
 void Player::Update(const float& aDeltaTime)
@@ -206,7 +148,57 @@ void Player::Update(const float& aDeltaTime)
 	ImGuiUpdate();
 #endif //DEBUG
 }
+void Player::UpdateCoyoteTime(const float& aDeltaTime)
+{
+	if (GetComponent<PhysicsComponent>()->GetVelocityY() > 0)
+	{
+		myAirCoyoteTimer -= aDeltaTime;
+	}
+}
+void Player::UpdatePlayerVelocity(const float& aDeltaTime)
+{
+	if (!myGrabbedLedge)
+	{
+		myCurrentVelocity.y = Utils::Min(myCurrentVelocity.y + PhysicsManager::ourGravity * aDeltaTime, myJsonData->myMaxFallSpeed);
+	}
 
+	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
+	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity + mySpringVelocity);
+
+	if (myCurrentVelocity.y > myJsonData->myTriggerFallingSpeed)
+	{
+		myHasLanded = false;
+	}
+
+	myPlatformVelocity.x = Utils::Lerp(myPlatformVelocity.x, 0.0f, myJsonData->myPlatformVelocityRetardation * aDeltaTime);
+	myPlatformVelocity.y = Utils::Lerp(myPlatformVelocity.y, 0.0f, myJsonData->myPlatformVelocityRetardation * aDeltaTime);
+
+	if (myActiveSpringJump)
+		DecreaseSpringJump(aDeltaTime);
+}
+
+void Player::CheckMove(const float& aDeltaTime)
+{
+	if (myGrabbedLedge)
+	{
+		return;
+	}
+
+	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
+
+	if (myInputHandler->IsMovingRight())
+	{
+		GoRight(aDeltaTime);
+	}
+	else if (myInputHandler->IsMovingLeft())
+	{
+		GoLeft(aDeltaTime);
+	}
+	else
+	{
+		myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, 0.0f, myJsonData->myRetardation * aDeltaTime);
+	}
+}
 void Player::CheckJump()
 {
 	if (myInputHandler->IsJumping())
@@ -233,51 +225,6 @@ void Player::CheckJump()
 		}
 	}
 }
-
-void Player::UpdateCoyoteTime(const float& aDeltaTime)
-{
-	if (GetComponent<PhysicsComponent>()->GetVelocityY() > 0)
-	{
-		myAirCoyoteTimer -= aDeltaTime;
-	}
-}
-
-void Player::TryLetJumpWhenFalling(const float& aYDistance)
-{
-	const float distancePerJumpWhenLandingTime = GetComponent<PhysicsComponent>()->GetVelocityY() * myJumpWhenFallingTime;
-	if (aYDistance < distancePerJumpWhenLandingTime && aYDistance > 0)
-	{
-		myCanJumpWhenFalling = true;		
-	}
-	else
-	{
-		myCanJumpWhenFalling = false;
-	}
-}
-
-void Player::CheckMove(const float& aDeltaTime)
-{
-	if (myGrabbedLedge)
-	{
-		return;
-	}
-
-	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
-
-	if (myInputHandler->IsMovingRight())
-	{
-		GoRight(aDeltaTime);
-	}
-	else if (myInputHandler->IsMovingLeft())
-	{
-		GoLeft(aDeltaTime);
-	}
-	else
-	{
-		myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, 0.0f, myRetardation * aDeltaTime);
-	}
-}
-
 void Player::GoRight(const float& aDeltaTime)
 {
 	if (myCurrentVelocity.x < 0)
@@ -295,11 +242,10 @@ void Player::GoRight(const float& aDeltaTime)
 		myBashAbility->ResetVelocity(true, false);
 	}
 
-	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, myJsonData->myMaxSpeed, myAcceleration * aDeltaTime);
-	
+	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, myJsonData->myMaxSpeed, myJsonData->myAcceleration * aDeltaTime);
+
 	myDirectionX = 1;
 }
-
 void Player::GoLeft(const float& aDeltaTime)
 {
 	if (myCurrentVelocity.x > 0)
@@ -317,16 +263,28 @@ void Player::GoLeft(const float& aDeltaTime)
 		myBashAbility->ResetVelocity(true, false);
 	}
 
-	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, -myJsonData->myMaxSpeed, myAcceleration * aDeltaTime);
-	
+	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, -myJsonData->myMaxSpeed, myJsonData->myAcceleration * aDeltaTime);
+
 	myDirectionX = -1;
 }
 
+void Player::TryLetJumpWhenFalling(const float& aYDistance)
+{
+	const float distancePerJumpWhenLandingTime = GetComponent<PhysicsComponent>()->GetVelocityY() * myJsonData->myJumpWhenFallingTime;
+	if (aYDistance < distancePerJumpWhenLandingTime && aYDistance > 0)
+	{
+		myCanJumpWhenFalling = true;
+	}
+	else
+	{
+		myCanJumpWhenFalling = false;
+	}
+}
 void Player::Jump()
 {
 	v2f calculatedSpring = mySpringVelocity;
 	calculatedSpring.y = calculatedSpring.y;
-	myCurrentVelocity.y = -myJumpVelocity + myPlatformVelocity.y - calculatedSpring.y;
+	myCurrentVelocity.y = -myJsonData->myJumpVelocity + myPlatformVelocity.y - calculatedSpring.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
 	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
 	myCurrentAnimationIndex = 2;
@@ -334,10 +292,9 @@ void Player::Jump()
 	myWillJumpWhenFalling = false;
 	myBashAbility->ResetVelocity(false, true);
 }
-
 void Player::DoubleJump()
 {
-	myCurrentVelocity.y = -myDoubleJumpVelocity + myPlatformVelocity.y - mySpringVelocity.y;
+	myCurrentVelocity.y = -myJsonData->myDoubleJumpVelocity + myPlatformVelocity.y - mySpringVelocity.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[3]);
 	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
 	myCurrentAnimationIndex = 3;
@@ -346,16 +303,15 @@ void Player::DoubleJump()
 	myWillJumpWhenFalling = false;
 	myBashAbility->ResetVelocity(false, true);
 }
-
 void Player::LedgeJump()
 {
 	myGrabbedLedge = false;
 
 	if (!myInputHandler->GetInput()->GetKeyDown(Keys::SKey) && myInputHandler->GetController()->GetLeftThumbStick().y < 0.3f)
 	{
-		myCurrentVelocity.y = -myLedgeJumpVelocity;
+		myCurrentVelocity.y = -myJsonData->myLedgeJumpVelocity;
 	}
-	
+
 	myIsLerpingToPosition = false;
 
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
@@ -364,23 +320,21 @@ void Player::LedgeJump()
 	myWillJumpWhenFalling = false;
 	myBashAbility->ResetVelocity(false, true);
 }
-
 void Player::ReactivateDoubleJump()
 {
 	myHasDoubleJumped = false;
 }
-
 void Player::Landed(const int& aOverlapY)
 {
 	if (!myHasLanded)
 	{
-		myInputHandler->GetController()->Vibrate(myLandVibrationStrength, myLandVibrationStrength, myLandVibrationLength);
-		myScene->GetCamera().Shake(myLandingShakeDuration, myLandingShakeIntensity, myLandingShakeDropOff);
+		myInputHandler->GetController()->Vibrate(myJsonData->myLandVibrationStrength, myJsonData->myLandVibrationStrength, myJsonData->myLandVibrationLength);
+		myScene->GetCamera().Shake(myJsonData->myLandShakeDuration, myJsonData->myLandShakeIntensity, myJsonData->myLandShakeDropOff);
 	}
 
 	if (aOverlapY > 0)
 	{
-		myAirCoyoteTimer = myAirCoyoteTime;
+		myAirCoyoteTimer = myJsonData->myCoyoteTime;
 		if (!myActiveSpringJump)
 			myHasLanded = true;
 		myHasDoubleJumped = false;
@@ -410,12 +364,10 @@ void Player::ResetVelocity()
 	myCurrentVelocity.x = 0;
 	myCurrentVelocity.y = 0;
 }
-
 const v2f Player::GetPlatformVelocity()
 {
 	return myPlatformVelocity;
 }
-
 void Player::SetPlatformVelocity(const v2f& aPlatformVelocity)
 {
 	myPlatformVelocity = aPlatformVelocity;
@@ -447,28 +399,6 @@ void Player::AnimationState()
 	}
 }
 
-void Player::UpdatePlayerVelocity(const float& aDeltaTime)
-{
-	if (!myGrabbedLedge)
-	{
-		myCurrentVelocity.y = Utils::Min(myCurrentVelocity.y + PhysicsManager::ourGravity * aDeltaTime, myMaxFallSpeed);
-	}
-
-	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
-	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity + mySpringVelocity);
-
-	if (myCurrentVelocity.y > myTriggerFallingSpeed)
-	{
-		myHasLanded = false;
-	}
-
-	myPlatformVelocity.x = Utils::Lerp(myPlatformVelocity.x, 0.0f, myPlatformVelocityRetardation * aDeltaTime);
-	myPlatformVelocity.y = Utils::Lerp(myPlatformVelocity.y, 0.0f, myPlatformVelocityRetardation * aDeltaTime);
-
-	if (myActiveSpringJump)
-		DecreaseSpringJump(aDeltaTime);
-}
-
 void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
 {
 	if (myTransform.myPosition.x > aLedgePosition.x)
@@ -486,13 +416,11 @@ void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
 	myCurrentVelocity.y = 0;
 	myBashAbility->ResetVelocity(true, true);
 }
-
 void Player::LeaveLedge()
 {
 	myGrabbedLedge = false;
 	myIsLerpingToPosition = false;
 }
-
 const bool Player::GetLedgeIsGrabbed()
 {
 	return myGrabbedLedge;
@@ -504,18 +432,16 @@ void Player::LerpToPosition(const v2f& aPosition, const float& aDeltaTime)
 
 	myTimerInput->SetTimeScale(1.0f);
 
-	myTransform.myPosition.x = Utils::Lerp(myTransform.myPosition.x, aPosition.x, myLerpToPositionAcceleration * myTimerInput->GetDeltaTime());
-	myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, aPosition.y, myLerpToPositionAcceleration * myTimerInput->GetDeltaTime());
+	myTransform.myPosition.x = Utils::Lerp(myTransform.myPosition.x, aPosition.x, myJsonData->myLerpAcceleration * myTimerInput->GetDeltaTime());
+	myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, aPosition.y, myJsonData->myLerpAcceleration * myTimerInput->GetDeltaTime());
 
 	myTimerInput->SetTimeScale(timeScale);
 }
-
 void Player::SetLerpPosition(const v2f& aPosition)
 {
 	myLerpPosition = aPosition;
 	myIsLerpingToPosition = true;
 }
-
 void Player::EndLerp()
 {
 	myIsLerpingToPosition = false;
@@ -530,22 +456,16 @@ void Player::ActivateSpringForce(float aSpringVelocity, const float aRetardation
 	mySpringVelocityRetardation = aRetardation;
 	mySpringVelocity.y = aSpringVelocity;
 }
-
 void Player::BounceOnDestructibleWall()
 {
 	v2f dashVelocity = myBashAbility->GetVelocity();
 	dashVelocity.x *= -0.8f;
 }
 
-const bool& Player::GetIsBashing()
-{
-	return myBashAbility->GetIsBashing();
-}
-
 void Player::Kill()
 {
-	myScene->GetCamera().Shake(myDieShakeDuration, myDieShakeIntensity, myDieShakeDropOff);
-	myInputHandler->GetController()->Vibrate(myDieVibrationStrength, myDieVibrationStrength, myDieVibrationLength);
+	myScene->GetCamera().Shake(myJsonData->myDieShakeDuration, myJsonData->myDieShakeIntensity, myJsonData->myDieShakeDropOff);
+	myInputHandler->GetController()->Vibrate(myJsonData->myDieVibrationStrength, myJsonData->myDieVibrationStrength, myJsonData->myDieVibrationLength);
 
 	SetPosition(mySpawnPosition);
 
@@ -554,6 +474,10 @@ void Player::Kill()
 	myPlatformVelocity = v2f();
 }
 
+const bool& Player::GetIsBashing()
+{
+	return myBashAbility->GetIsBashing();
+}
 void Player::BashCollision(GameObject* aGameObject, BashComponent* aBashComponent)
 {
 	if (aBashComponent->GetRadius() * aBashComponent->GetRadius() >= (aGameObject->GetPosition() - GetPosition()).LengthSqr())
@@ -590,6 +514,7 @@ void Player::DecreaseSpringJump(const float& aDeltaTime)
 	}
 }
 
+#ifdef _DEBUG
 void Player::ImGuiUpdate()
 {
 	ImGui::Begin("Player", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
@@ -600,40 +525,40 @@ void Player::ImGuiUpdate()
 	}
 
 	ImGui::InputFloat("Max Speed", &myJsonData->myMaxSpeed, 0.0f, 2000.0f);
-	ImGui::InputFloat("Acceleration", &myAcceleration, 0.0f, 100.0f);
-	ImGui::InputFloat("Retardation", &myRetardation, 0.0f, 100.0f);
-	ImGui::InputFloat("Lerp Acceleration", &myLerpToPositionAcceleration, 0.0f, 100.0f);
-	ImGui::InputFloat("Platform Velocity Retardation", &myPlatformVelocityRetardation, 0.0f, 100.0f);
-	ImGui::InputFloat("Coyote Time", &myAirCoyoteTime, 0.0f, 1.0f);
-	ImGui::InputFloat("Jump Velocity", &myJumpVelocity, 0.0f, 2000.0f);
-	ImGui::InputFloat("Double Jump Velocity", &myDoubleJumpVelocity, 0.0f, 2000.0f);
-	ImGui::InputFloat("Max Fall Speed", &myMaxFallSpeed, 0.0f, 2000.0f);
-	ImGui::InputFloat("Ledge Jump Velocity", &myLedgeJumpVelocity, 0.0f, 2000.0f);
-	ImGui::InputFloat("Jump When Falling Time", &myJumpWhenFallingTime, 0.0f, 1.0f);
-
-	ImGui::InputFloat("Trigger Falling Speed", &myTriggerFallingSpeed, 0.0f, 50.0f);
+	ImGui::InputFloat("Acceleration", &myJsonData->myAcceleration, 0.0f, 100.0f);
+	ImGui::InputFloat("Retardation", &myJsonData->myRetardation, 0.0f, 100.0f);
+	ImGui::InputFloat("Lerp Acceleration", &myJsonData->myLerpAcceleration, 0.0f, 100.0f);
+	ImGui::InputFloat("Platform Velocity Retardation", &myJsonData->myPlatformVelocityRetardation, 0.0f, 100.0f);
+	ImGui::InputFloat("Coyote Time", &myJsonData->myCoyoteTime, 0.0f, 1.0f);
+	ImGui::InputFloat("Jump Velocity", &myJsonData->myJumpVelocity, 0.0f, 2000.0f);
+	ImGui::InputFloat("Double Jump Velocity", &myJsonData->myDoubleJumpVelocity, 0.0f, 2000.0f);
+	ImGui::InputFloat("Max Fall Speed", &myJsonData->myMaxFallSpeed, 0.0f, 2000.0f);
+	ImGui::InputFloat("Ledge Jump Velocity", &myJsonData->myLedgeJumpVelocity, 0.0f, 2000.0f);
+	ImGui::InputFloat("Jump When Falling Time", &myJsonData->myJumpWhenFallingTime, 0.0f, 1.0f);
+	ImGui::InputFloat("Trigger Falling Speed", &myJsonData->myTriggerFallingSpeed, 0.0f, 50.0f);
 
 	ImGui::Text("Vibrations");
-	ImGui::InputInt("Die Vibration Strength", &myDieVibrationStrength, 0, 65000);
-	ImGui::InputInt("Land Vibration Strength", &myLandVibrationStrength, 0, 65000);
-	ImGui::InputInt("Springs Vibration Strength", &mySpringsVibrationStrength, 0, 65000);
+	ImGui::InputFloat("Die Vibration Strength", &myJsonData->myDieVibrationStrength, 0, 65000);
+	ImGui::InputFloat("Land Vibration Strength", &myJsonData->myLandVibrationStrength, 0, 65000);
+	ImGui::InputFloat("Springs Vibration Strength", &myJsonData->mySpringsVibrationStrength, 0, 65000);
 
-	ImGui::InputFloat("Die Vibration Length", &myDieVibrationLength, 0.0f, 10.0f);
-	ImGui::InputFloat("Land Vibration Length", &myLandVibrationLength, 0.0f, 10.0f);
-	ImGui::InputFloat("Springs Vibration Length", &mySpringsVibrationLength, 0.0f, 10.0f);
+	ImGui::InputFloat("Die Vibration Length", &myJsonData->myDieVibrationLength, 0.0f, 10.0f);
+	ImGui::InputFloat("Land Vibration Length", &myJsonData->myLandVibrationLength, 0.0f, 10.0f);
+	ImGui::InputFloat("Springs Vibration Length", &myJsonData->mySpringsVibrationLength, 0.0f, 10.0f);
 
 	ImGui::Text("Camera Shake");
-	ImGui::InputFloat("Die Shake Duration", &myDieShakeDuration, 0.0f, 10.0f);
-	ImGui::InputFloat("Die Shake Intensity", &myDieShakeIntensity, 0.0f, 10.0f);
-	ImGui::InputFloat("Die Shake DropOff", &myDieShakeDropOff, 0.0f, 10.0f);
+	ImGui::InputFloat("Die Shake Duration", &myJsonData->myDieShakeDuration, 0.0f, 10.0f);
+	ImGui::InputFloat("Die Shake Intensity", &myJsonData->myDieShakeIntensity, 0.0f, 10.0f);
+	ImGui::InputFloat("Die Shake DropOff", &myJsonData->myDieShakeDropOff, 0.0f, 10.0f);
 
-	ImGui::InputFloat("Land Shake Duration", &myLandingShakeDuration, 0.0f, 10.0f);
-	ImGui::InputFloat("Land Shake Intensity", &myLandingShakeIntensity, 0.0f, 10.0f);
-	ImGui::InputFloat("Land Shake DropOff", &myLandingShakeDropOff, 0.0f, 10.0f);
+	ImGui::InputFloat("Land Shake Duration", &myJsonData->myLandShakeDuration, 0.0f, 10.0f);
+	ImGui::InputFloat("Land Shake Intensity", &myJsonData->myLandShakeIntensity, 0.0f, 10.0f);
+	ImGui::InputFloat("Land Shake DropOff", &myJsonData->myLandShakeDropOff, 0.0f, 10.0f);
 
-	ImGui::InputFloat("Spring Shake Duration", &mySpringShakeDuration, 0.0f, 10.0f);
-	ImGui::InputFloat("Spring Shake Intensity", &mySpringShakeIntensity, 0.0f, 10.0f);
-	ImGui::InputFloat("Spring Shake DropOff", &mySpringShakeDropOff, 0.0f, 10.0f);
+	ImGui::InputFloat("Spring Shake Duration", &myJsonData->mySpringShakeDuration, 0.0f, 10.0f);
+	ImGui::InputFloat("Spring Shake Intensity", &myJsonData->mySpringShakeIntensity, 0.0f, 10.0f);
+	ImGui::InputFloat("Spring Shake DropOff", &myJsonData->mySpringShakeDropOff, 0.0f, 10.0f);
 
 	ImGui::End();
 }
+#endif // DEBUG
