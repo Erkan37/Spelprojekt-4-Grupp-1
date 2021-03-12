@@ -10,6 +10,8 @@ SpringObject::SpringObject(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene)
 {
+	myRetardation = {};
+	myVelocityForce = {};
 	myActiveSpring = {};
 }
 
@@ -18,9 +20,11 @@ void SpringObject::Init(const v2f aPosition)
 	InitSprings(aPosition);
 }
 
-void SpringObject::Update(const float& aDeltaTime)
+void SpringObject::Update(const float& /*aDeltaTime*/)
 {
+#ifdef _DEBUG
 	ImGuiUpdate();
+#endif //DEBUG
 }
 
 void SpringObject::OnCollision(GameObject* aGameObject)
