@@ -2,6 +2,7 @@
 #include "LevelScene.h"
 
 #include "GameWorld.h"
+#include "TiledMap.h"
 
 #include "GameObject.h"
 #include "PhysicsComponent.h"
@@ -56,8 +57,13 @@ void LevelScene::Load()
 	PlatformFactory platformFactory;
 	platformFactory.ReadPlatforms(this, "JSON/PreProdPlatforms.json");
 
+	myTiledMap = std::make_unique<TiledMap>();
+	myTiledMap->Load("Levels/test_level.json", this);
+
 	BashableObjectFactory bashableObjectFactory;
 	bashableObjectFactory.ReadBashableObjects(this, "JSON/AlfaBashableObjects.json");
+
+	
 
 	Scene::Load();
 }
