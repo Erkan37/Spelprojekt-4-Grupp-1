@@ -65,7 +65,7 @@ public:
 	void SetLerpPosition(const v2f& aPosition);
 	void EndLerp();
 
-	void ActivateSpringForce(float mySpringVelocity);
+	void ActivateSpringForce(float mySpringVelocity, const float aRetardation);
 
 	void BounceOnDestructibleWall();
 	const bool& GetIsBashing();
@@ -108,6 +108,7 @@ private:
 	float myRetardation;
 	float myLerpToPositionAcceleration;
 	float myPlatformVelocityRetardation;
+	float mySpringVelocityRetardation;
 
 	float myJumpVelocity;
 	float myDoubleJumpVelocity;

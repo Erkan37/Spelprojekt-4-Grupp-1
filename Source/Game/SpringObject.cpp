@@ -20,6 +20,7 @@ void SpringObject::Init(const v2f aPosition)
 
 void SpringObject::Update(const float& aDeltaTime)
 {
+	ImGuiUpdate();
 }
 
 void SpringObject::OnCollision(GameObject* aGameObject)
@@ -36,10 +37,10 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 		float spriteLeftPosX = (colliderPos.x + GetComponent<ColliderComponent>()->GetSize().x / 2.f) - buttonSize.x / 2.f;
 		float spriteRightPosX = (colliderPos.x + GetComponent<ColliderComponent>()->GetSize().x / 2.f) + buttonSize.x / 2.f;
 
-		if (velo.y > 50 && playerPos.x >= spriteLeftPosX + 2.f && playerPos.x <= spriteRightPosX - 2.f && myActiveSpring == false)
+		if (velo.y > 50 && playerPos.x >= spriteLeftPosX - 5.f && playerPos.x <= spriteRightPosX + 5.f && myActiveSpring == false)
 		{
 			myActiveSpring = true;
-			player->ActivateSpringForce(myVelocityForce);
+			player->ActivateSpringForce(-myVelocityForce, myRetardation);
 		}
 		else
 			myActiveSpring = false;
@@ -50,7 +51,7 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 void SpringObject::InitSprings(const v2f aPosition)
 {
 	myRetardation = 1.0f;
-	myVelocityForce = -1500;
+	myVelocityForce = 1500;
 	myPosition = aPosition;
 	mySize = { 100.f, 100.f };
 
@@ -82,7 +83,8 @@ void SpringObject::ImGuiUpdate()
 {
 	ImGui::Begin("Spring", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
 
-	ImGui::SliderFloat("Velocity Force", &myVelocityForce, 0.0f, 2000.0f);
+	ImGui::SliderFloat("Spring Velocity Force", &myVelocityForce, 0.0f, 2000.0f);
+	ImGui::SliderFloat("Spring Velocity Retardation", &myRetardation, 0.0f, 5.0f);
 
 	ImGui::End();
 }

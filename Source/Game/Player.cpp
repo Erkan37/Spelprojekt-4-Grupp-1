@@ -42,6 +42,7 @@ Player::Player(LevelScene* aLevelScene)
 	myRetardation = 20.0f;
 	myLerpToPositionAcceleration = 6.0f;
 	myPlatformVelocityRetardation = 1.0f;
+	mySpringVelocityRetardation = {};
 
 	myAirCoyoteTime = 0.1f;
 	myAirCoyoteTimer = myAirCoyoteTime;
@@ -369,7 +370,6 @@ void Player::Landed(const int& aOverlapY)
 			Jump();
 		}
 	}
-	std::cout << "REACHED" << std::endl;
 	myCurrentVelocity.y = 0.0f;
 	myBashAbility->ResetVelocity(false, true);
 	if (!myHasLandedOnSpring)
@@ -484,12 +484,13 @@ void Player::EndLerp()
 	myIsLerpingToPosition = false;
 }
 
-void Player::ActivateSpringForce(float aSpringVelocity)
+void Player::ActivateSpringForce(float aSpringVelocity, const float aRetardation)
 {
 	ReactivateDoubleJump();
 	myHasLanded = false;
 	myActiveSpringJump = true;
 	myHasLandedOnSpring = true;
+	mySpringVelocityRetardation = aRetardation;
 	mySpringVelocity.y = aSpringVelocity;
 }
 
@@ -531,10 +532,6 @@ void Player::BashCollision(GameObject* aGameObject, BashComponent* aBashComponen
 
 void Player::DecreaseSpringJump(const float& aDeltaTime)
 {
-	mySpringTimer += aDeltaTime;
-
-	std::cout << myCurrentVelocity.y << std::endl;
-
 	if (myCurrentVelocity.y == 0)
 	{
 		myActiveSpringJump = false;
@@ -544,19 +541,15 @@ void Player::DecreaseSpringJump(const float& aDeltaTime)
 
 	if (GetComponent<PhysicsComponent>()->GetVelocityY() > 0)
 	{
-		mySpringTimer += aDeltaTime;
-		if (mySpringTimer > 0.1f)
-		{
-			myActiveSpringJump = false;
-			mySpringVelocity = {};
-			myCurrentVelocity.y = {};
-		}
+		myActiveSpringJump = false;
+		mySpringVelocity = {};
+		myCurrentVelocity.y = {};
 	}
 	else
 	{
 		myHasLandedOnSpring = false;
 		mySpringVelocity.x = {};
-		mySpringVelocity.y = Utils::Lerp(mySpringVelocity.y, 0.f, myPlatformVelocityRetardation * aDeltaTime);
+		mySpringVelocity.y = Utils::Lerp(mySpringVelocity.y, 0.f, mySpringVelocityRetardation * aDeltaTime);
 	}
 }
 
