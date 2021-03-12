@@ -65,7 +65,7 @@ void AudioManager::PlayMusic(const std::string & anAudioPath, float aVolume, boo
 
 		if (Utils::RandomInt(0, 100) == 100)
 		{
-			myAudioOut->Play("Sounds/Music/GameMusic.mp3", aShouldLoop, channel);
+			myAudioOut->PlayMusic("Sounds/Music/GameMusic.mp3", aShouldLoop, channel);
 		}
 		else
 		{
