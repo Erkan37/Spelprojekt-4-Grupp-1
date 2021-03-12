@@ -44,6 +44,9 @@ void LevelScene::Load()
 	Collectible* collectible = new Collectible(this);
 	collectible->Init(v2f(500.0f, 500.0f), Collectible::eCollectibleType::Easy);
 
+	Collectible* collectible2 = new Collectible(this);
+	collectible2->Init(v2f(900.0f, 500.0f), Collectible::eCollectibleType::Easy);
+
 	myBackground = std::make_unique<Background>(this);
 	myBackground->AddPlayerRelation(myPlayer);
 
@@ -65,7 +68,7 @@ void LevelScene::Activate()
 
 	GetCamera().StartFollowing(myPlayer, { 10.0f, 10.0f });
 	GetCamera().SetBounds(v2f(-840.0f, -540.0f), v2f(3840.0f, 2160.0f));
-	//GetCamera().SetZoom(6.0f);
+	GetCamera().SetZoom(6.0f);
 }
 
 void LevelScene::Deactivate()
@@ -78,4 +81,9 @@ void LevelScene::Deactivate()
 void LevelScene::Update(const float& aDeltaTime)
 {
 	Scene::Update(aDeltaTime);
+}
+
+const GameObject* LevelScene::GetPlayer()
+{
+	return myPlayer;
 }

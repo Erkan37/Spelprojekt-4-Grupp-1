@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Animation.hpp"
 #include "BashAbility.h"
+#include "DataManager.h"
 
 namespace Utils
 {
@@ -79,7 +80,7 @@ public:
 	void ImGuiUpdate();
 
 private:
-	Animation myAnimations[3];
+	Animation myAnimations[5];
 
 	std::shared_ptr<InputWrapper> myInputHandler;
 	std::unique_ptr<BashAbility> myBashAbility;
@@ -101,8 +102,9 @@ private:
 	float myAirCoyoteTime;
 	float myAirCoyoteTimer;
 
-	float myMaxRunningSpeed;
-	float myRunningAnimationSpeed;
+	//float myMaxRunningSpeed;
+	float myTriggerRunningAnimationSpeed;
+	float myTriggerFallingSpeed;
 
 	float myAcceleration;
 	float myRetardation;
@@ -147,6 +149,8 @@ private:
 
 	int myCurrentAnimationIndex;
 
+	int myDirectionX;
+
 	bool myHasLanded;
 	bool myHasLandedVibration;
 	bool myHasDoubleJumped;
@@ -160,5 +164,6 @@ private:
 
 	bool myIsLerpingToPosition;
 
+	PlayerData *myJsonData = new PlayerData();
 };
 

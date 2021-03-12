@@ -1,0 +1,7 @@
+{
+  "LevelData": [
+
+  ],
+  "EnemyData": "JSON/Enemies.json",
+  "PlayerData": "JSON/Player.json"
+}

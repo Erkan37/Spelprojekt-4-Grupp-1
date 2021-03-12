@@ -11,6 +11,9 @@ public:
 
 	void Move(const float& aDeltaTime);
 
+	void CheckReachedWayPoint();
+	void SetNextWayPoint();
+
 	void SetSpeed(const float& aSpeed);
 
 	void AddWaypoint(const v2f& aWaypoint);

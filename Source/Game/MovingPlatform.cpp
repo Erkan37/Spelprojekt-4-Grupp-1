@@ -26,22 +26,32 @@ void MovingPlatform::Move(const float& aDeltaTime)
 {
 	if (myButton.GetActiveButton())
 	{
-		myDirection = (myWaypoints[myCurrentWayPointIndex] - myTransform.myPosition).GetNormalized();
+		CheckReachedWayPoint();
 		myTransform.myPosition += myDirection * mySpeed * aDeltaTime;
-
-		const float sensitivity = 5.0f;
-		if (myTransform.myPosition.x < myWaypoints[myCurrentWayPointIndex].x + sensitivity &&
-			myTransform.myPosition.x > myWaypoints[myCurrentWayPointIndex].x - sensitivity &&
-			myTransform.myPosition.y < myWaypoints[myCurrentWayPointIndex].y + sensitivity &&
-			myTransform.myPosition.y > myWaypoints[myCurrentWayPointIndex].y - sensitivity)
-		{
-			++myCurrentWayPointIndex;
-			if (myCurrentWayPointIndex >= static_cast<int>(myWaypoints.size()))
-			{
-				myCurrentWayPointIndex = 0;
-			}
-		}
 	}
+}
+
+void MovingPlatform::CheckReachedWayPoint()
+{
+	const float sensitivity = 5.0f;
+	if (myTransform.myPosition.x < myWaypoints[myCurrentWayPointIndex].x + sensitivity &&
+		myTransform.myPosition.x > myWaypoints[myCurrentWayPointIndex].x - sensitivity &&
+		myTransform.myPosition.y < myWaypoints[myCurrentWayPointIndex].y + sensitivity &&
+		myTransform.myPosition.y > myWaypoints[myCurrentWayPointIndex].y - sensitivity)
+	{
+		SetNextWayPoint();
+	}
+}
+
+void MovingPlatform::SetNextWayPoint()
+{
+	++myCurrentWayPointIndex;
+	if (myCurrentWayPointIndex >= static_cast<int>(myWaypoints.size()))
+	{
+		myCurrentWayPointIndex = 0;
+	}
+
+	myDirection = (myWaypoints[myCurrentWayPointIndex] - myTransform.myPosition).GetNormalized();
 }
 
 void MovingPlatform::SetSpeed(const float& aSpeed)
@@ -59,6 +69,8 @@ void MovingPlatform::SetWaypoints(const std::vector<v2f>& aWaypoints)
 	myWaypoints = aWaypoints;
 	myCurrentWayPointIndex = 0;
 	SetPosition(myWaypoints[myCurrentWayPointIndex]);
+	myDirection = (myWaypoints[myCurrentWayPointIndex] - myTransform.myPosition).GetNormalized();
+
 	SetButtonPosition();
 }
 

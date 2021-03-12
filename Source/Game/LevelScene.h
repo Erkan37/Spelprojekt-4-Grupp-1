@@ -19,6 +19,8 @@ public:
     void Deactivate() override;
 
     void Update(const float& aDeltaTime) override;
+
+    const GameObject* GetPlayer();
 private:
     GameObject* myPlayer;
     GameObject* myEnemy;
