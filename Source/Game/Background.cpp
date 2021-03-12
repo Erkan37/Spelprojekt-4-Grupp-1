@@ -18,13 +18,12 @@ Background::Background(Scene* aLevelScene)
 	myBackgroundSpeedTwoY = {};
 	myBackgroundSpeedThreeY = {};
 	myAddedCameraPos = {};
+
+	assert(&aLevelScene->GetCamera() != NULL);
 	myCamera = &aLevelScene->GetCamera();
 	LoadJson(aLevelScene);
 	CreateBackgrounds(aLevelScene);
 	LevelScene* level = dynamic_cast<LevelScene*>(aLevelScene);
-	assert(level != NULL);
-	assert(level->GetPlayer() != NULL);
-	myPlayer = level->GetPlayer();
 		
 }
 

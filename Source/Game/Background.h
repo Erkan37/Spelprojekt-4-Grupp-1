@@ -17,7 +17,6 @@ public:
 
 private:
 	Camera* myCamera;
-	const GameObject* myPlayer;
 
 	std::unique_ptr<GameObject> myBackground;
 
