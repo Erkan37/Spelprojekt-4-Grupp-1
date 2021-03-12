@@ -27,14 +27,19 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	tson::Layer* Bg2 = map->getLayer("BG2");
 	tson::Layer* Fg1 = map->getLayer("FG1");
 	tson::Layer* Fg2 = map->getLayer("FG2");
+	tson::Layer* Hr = map->getLayer("HR");
 
 	//Create
 	tson::Layer* bonfireLayer = map->getLayer("Bonfire");
 	tson::Layer* doorLayer = map->getLayer("Doors");
 	tson::Layer* enemyLayer = map->getLayer("Enemies");
 	tson::Layer* ledgeLayer = map->getLayer("Ledges");
-	tson::Layer* pickupLayer = map->getLayer("Pickups");
+	tson::Layer* collectablesLayer = map->getLayer("Collectables");
+	tson::Layer* collectableZonesLayer = map->getLayer("CollectableZones");
 	tson::Layer* platformLayer = map->getLayer("Platforms");
+	tson::Layer* hiddenRoomLayer = map->getLayer("HiddenRooms");
+	tson::Layer* springsLayer = map->getLayer("Springs");
+	tson::Layer* buttonLayer = map->getLayer("Buttons");
 
 	if (bonfireLayer)
 	{
@@ -68,13 +73,21 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	{
 		ERROR_PRINT("failed to load ledgelayer");
 	}
-	if (pickupLayer)
+	if (collectablesLayer)
 	{
-		ParsePickups(pickupLayer, aScene);
+		ParseCollectables(collectablesLayer, aScene);
 	}
 	else
 	{
-		ERROR_PRINT("failed to load pickuplayer");
+		ERROR_PRINT("failed to load collectableslayer");
+	}
+	if (collectableZonesLayer)
+	{
+		ParseCollectableZones(collectableZonesLayer, aScene);
+	}
+	else
+	{
+		ERROR_PRINT("failed to load collectableZoneslayer");
 	}
 	if (platformLayer)
 	{
@@ -83,6 +96,30 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	else
 	{
 		ERROR_PRINT("failed to load platformlayer");
+	}
+	if (hiddenRoomLayer)
+	{
+		ParseHiddenRooms(hiddenRoomLayer, aScene);
+	}
+	else
+	{
+		ERROR_PRINT("failed to load hiddenRoomlayer");
+	}
+	if (springsLayer)
+	{
+		ParseSprings(springsLayer, aScene);
+	}
+	else
+	{
+		ERROR_PRINT("failed to load springslayer");
+	}
+	if (buttonLayer)
+	{
+		ParseButtons(buttonLayer, aScene);
+	}
+	else
+	{
+		ERROR_PRINT("failed to load buttonlayer");
 	}
 
 	return true;
@@ -104,7 +141,11 @@ void TiledMap::ParseLedges(tson::Layer*, Scene*)
 {
 }
 
-void TiledMap::ParsePickups(tson::Layer*, Scene*)
+void TiledMap::ParseCollectables(tson::Layer*, Scene*)
+{
+}
+
+void TiledMap::ParseCollectableZones(tson::Layer*, Scene*)
 {
 }
 
@@ -164,6 +205,18 @@ void TiledMap::ParsePlatforms(tson::Layer* aLayer, Scene* aScene)
 		//	}
 		//}
 	}
+}
+
+void TiledMap::ParseHiddenRooms(tson::Layer*, Scene*)
+{
+}
+
+void TiledMap::ParseSprings(tson::Layer*, Scene*)
+{
+}
+
+void TiledMap::ParseButtons(tson::Layer*, Scene*)
+{
 }
 
 v2f TiledMap::GetScreenPosition(v2f aTiledPos)
