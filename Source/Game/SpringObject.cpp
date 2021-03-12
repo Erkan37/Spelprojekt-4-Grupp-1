@@ -55,7 +55,7 @@ void SpringObject::InitSprings(const v2f aPosition)
 	myPosition = aPosition;
 	mySize = { 100.f, 100.f };
 
-	SetPosition(aPosition);
+	SetPosition(myPosition);
 	SetPivot(v2f(0.f, 0.f));
 	
 	CreateGroundSpring();
