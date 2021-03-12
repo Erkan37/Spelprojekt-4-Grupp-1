@@ -337,7 +337,7 @@ void Player::Jump()
 
 void Player::DoubleJump()
 {
-	myCurrentVelocity.y = -myDoubleJumpVelocity + myPlatformVelocity.y;
+	myCurrentVelocity.y = -myDoubleJumpVelocity + myPlatformVelocity.y - mySpringVelocity.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[3]);
 	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
 	myCurrentAnimationIndex = 3;
