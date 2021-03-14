@@ -6,9 +6,7 @@
 #include "PhysicsComponent.h"
 #include "Player.hpp"
 
-SpringObject::SpringObject(Scene* aLevelScene)
-	:
-	GameObject(aLevelScene)
+SpringObject::SpringObject(Scene* aLevelScene) : GameObject(aLevelScene)
 {
 	myRetardation = {};
 	myVelocityForce = {};
@@ -19,10 +17,11 @@ void SpringObject::Init(const v2f aPosition)
 {
 	InitSprings(aPosition);
 }
-
 void SpringObject::Update(const float& aDeltaTime)
 {
+#ifdef _DEBUG
 	ImGuiUpdate();
+#endif // _DEBUG
 }
 
 void SpringObject::OnCollision(GameObject* aGameObject)
@@ -49,7 +48,6 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 	}
 }
 
-
 void SpringObject::InitSprings(const v2f aPosition)
 {
 	myRetardation = 1.0f;
@@ -59,7 +57,7 @@ void SpringObject::InitSprings(const v2f aPosition)
 
 	SetPosition(myPosition);
 	SetPivot(v2f(0.f, 0.f));
-	
+
 	CreateGroundSpring();
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
@@ -73,7 +71,6 @@ void SpringObject::InitSprings(const v2f aPosition)
 	GameObject::Init();
 }
 
-
 void SpringObject::CreateGroundSpring()
 {
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
@@ -81,6 +78,7 @@ void SpringObject::CreateGroundSpring()
 	sprite->SetSize(mySize);
 }
 
+#ifdef _DEBUG
 void SpringObject::ImGuiUpdate()
 {
 	ImGui::Begin("Spring", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
@@ -90,3 +88,4 @@ void SpringObject::ImGuiUpdate()
 
 	ImGui::End();
 }
+#endif // _DEBUG

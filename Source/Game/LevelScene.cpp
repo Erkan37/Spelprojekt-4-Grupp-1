@@ -2,6 +2,7 @@
 #include "LevelScene.h"
 
 #include "GameWorld.h"
+#include "TiledMap.h"
 
 #include "GameObject.h"
 #include "PhysicsComponent.h"
@@ -23,6 +24,8 @@
 #include "BashableObject.hpp"
 #include "BashableObjectFactory.hpp"
 
+#include "Bonfire.hpp"
+
 #include "EnemyFactory.h"
 #include "Enemy.h"
 
@@ -38,6 +41,9 @@ void LevelScene::Load()
 {
 	myPlayer = new Player(this);
 
+	Bonfire* bonfire = new Bonfire(this);
+	bonfire->SetPosition(myPlayer->GetPosition() + v2f(50.0f, 200.0f));
+
 	EnemyFactory enemyFactory;
 	enemyFactory.ReadEnemies(this, "JSON/AlfaEnemies.json");
 
@@ -48,13 +54,15 @@ void LevelScene::Load()
 	collectible2->Init(v2f(900.0f, 500.0f), Collectible::eCollectibleType::Easy);
 
 	myBackground = std::make_unique<Background>(this);
-	myBackground->AddPlayerRelation(myPlayer);
 
 	mySpring = std::make_unique<SpringObject>(this);
 	mySpring->Init(v2f(800.f, 865.f));
 
-	PlatformFactory platformFactory;
-	platformFactory.ReadPlatforms(this, "JSON/PreProdPlatforms.json");
+	//PlatformFactory platformFactory;
+	//platformFactory.ReadPlatforms(this, "JSON/PreProdPlatforms.json");
+
+	myTiledMap = std::make_unique<TiledMap>();
+	myTiledMap->Load("Levels/test_level.json", this);
 
 	BashableObjectFactory bashableObjectFactory;
 	bashableObjectFactory.ReadBashableObjects(this, "JSON/AlfaBashableObjects.json");

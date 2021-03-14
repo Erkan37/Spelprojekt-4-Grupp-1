@@ -16,6 +16,7 @@ Enemy::Enemy(Scene* aScene) : GameObject(aScene)
 	//SetDirection(myDestination);
 	//InitAnimations();
 	//InitCollider();
+	//EnemyProjectile* projectile = new EnemyProjectile(this->myScene);
 }
 
 Enemy::Enemy(Scene* aScene, const std::vector<v2f>& someCoordinates) : GameObject(aScene)
@@ -35,6 +36,7 @@ Enemy::~Enemy()
 
 void Enemy::InitEnemy(const std::vector<v2f>& someCoordinates)
 {
+	IsMoving = true;
 	myWayPoints = someCoordinates;
 	myDestination = myWayPoints[1];
 	this->SetPosition(myWayPoints[0]);
@@ -45,12 +47,15 @@ void Enemy::InitEnemy(const std::vector<v2f>& someCoordinates)
 
 void Enemy::Update(const float& aDeltaTime)
 {
-	Move(aDeltaTime);
-	SetDirection(myDestination);
-	if (myDestination.x >= this->GetPosition().x && myDestination.x <= this->GetPosition().x + mySize.x &&
-		myDestination.y >= this->GetPosition().y && myDestination.y <= this->GetPosition().y + mySize.y)
+	if (IsMoving)
 	{
-		SetNextWayPoint();
+		Move(aDeltaTime);
+		SetDirection(myDestination);
+		if (myDestination.x >= this->GetPosition().x && myDestination.x <= this->GetPosition().x + mySize.x &&
+			myDestination.y >= this->GetPosition().y && myDestination.y <= this->GetPosition().y + mySize.y)
+		{
+			SetNextWayPoint();
+		}
 	}
 	GameObject::Update(aDeltaTime);
 }
@@ -113,6 +118,7 @@ void Enemy::OnCollision(GameObject* aGameObject)
 	}
 }
 
+
 NormalEnemy::NormalEnemy(Scene* aScene) : Enemy(aScene)
 {
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
@@ -127,6 +133,7 @@ ShootingEnemy::ShootingEnemy(Scene* aScene) : Enemy(aScene)
 	spriteIdle->SetSpritePath("Sprites/TempShootingEnemy.dds");
 	spriteIdle->SetSize(mySize);
 	this->SetZIndex(400);
+	//EnemyProjectile* projectile = new EnemyProjectile(aScene);
 }
 
 void ShootingEnemy::Update(const float& aDeltaTime)
@@ -136,13 +143,11 @@ void ShootingEnemy::Update(const float& aDeltaTime)
 	if (myShotTimer <= 0)
 	{
 		myShotTimer = myFireRate;
-		Shoot(aDeltaTime);
+		Shoot();
 	}
 }
-
-EnemyProjectile* ShootingEnemy::Shoot(const float& aDeltaTime)
+void ShootingEnemy::Shoot()
 {
 	EnemyProjectile* projectile = new EnemyProjectile(this->myScene);
 	projectile->InitProjectile(this->GetPosition(), dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition());
-	return projectile;
 }
