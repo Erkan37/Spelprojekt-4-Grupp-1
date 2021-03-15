@@ -165,8 +165,8 @@ void ButtonManager::SetColumns(const int aColumn)
 
 void ButtonManager::SetDistance(const float aTop, const float aBot, const float aLeft, const float aRight)
 {
-	myMinY = aTop;
-	myMaxX = aBot;
+	myMaxY = aTop;
+	myMinY = aBot;
 	myMinX = aLeft;
 	myMaxX = aRight;
 	UpdatePosition();
