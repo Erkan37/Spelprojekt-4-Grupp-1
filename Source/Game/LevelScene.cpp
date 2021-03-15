@@ -31,8 +31,6 @@
 
 #include "Collectible.hpp"
 
-#include "Jesus.hpp"
-
 LevelScene::LevelScene()
 	: 
 	myPlayer(nullptr)
@@ -42,10 +40,6 @@ LevelScene::LevelScene()
 void LevelScene::Load()
 {
 	myPlayer = new Player(this);
-
-	Jesus* jesus = new Jesus(this);
-	jesus->Init();
-	jesus->SetTarget(myPlayer);
 
 	Bonfire* bonfire = new Bonfire(this);
 	bonfire->SetPosition(myPlayer->GetPosition() + v2f(50.0f, 200.0f));
