@@ -48,9 +48,10 @@ public:
 	void Update(const float& aDeltaTime);
 private:
 	void Shoot();
-	const float myFireRate = 4.0f;
+	const float myFireRate = 4.0f; // Imgui
 	float myShotTimer = 0.0f;
 	v2f mySize = { 40.0f, 50.0f }; // Get from Json
 	bool myHasShot = false;
+	const float myRadius = 250.0f; // imGui?
 };
 
