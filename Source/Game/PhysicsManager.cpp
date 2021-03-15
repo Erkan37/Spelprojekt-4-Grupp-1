@@ -27,6 +27,7 @@ void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObje
 	{
 		ColliderComponent*& collider1 = myColliders[index];
 		GameObject* object1 = collider1->GetGameObject();
+
 		if (!object1 || !object1->IsActive())
 		{
 			continue;

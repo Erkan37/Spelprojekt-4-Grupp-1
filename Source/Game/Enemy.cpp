@@ -143,7 +143,7 @@ void ShootingEnemy::Update(const float& aDeltaTime)
 	if (myShotTimer <= 0)
 	{
 		myShotTimer = myFireRate;
-		Shoot();
+		//Shoot();
 	}
 }
 void ShootingEnemy::Shoot()

@@ -22,11 +22,10 @@ EnemyProjectile::EnemyProjectile(Scene* aScene) : GameObject(aScene)
 
 	ColliderComponent* collider = this->AddComponent<ColliderComponent>();
 	Transform transform = this->GetTransform();
-	collider->Init(transform, *this);
 	collider->SetSize(mySize);
 
 	PhysicsComponent* physics = this->AddComponent<PhysicsComponent>();
-	physics->SetCanCollide(true);
+	physics->SetCanCollide(false);
 	physics->SetIsStatic(false);
 	
 
@@ -37,6 +36,7 @@ EnemyProjectile::EnemyProjectile(Scene* aScene) : GameObject(aScene)
 	//animation->SetAnimation(&myAnimation);
 	//spriteIdle->SetSize(mySize);
 
+	GameObject::Init();
 }
 
 void EnemyProjectile::InitProjectile(const v2f& aPosition, const v2f& aTarget)
