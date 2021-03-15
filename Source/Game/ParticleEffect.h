@@ -27,7 +27,7 @@ public:
 
 
 private:
-	std::vector<EffectSprite> mySprites;
+	std::vector<std::shared_ptr<EffectSprite>> mySprites;
 	ParticleStats myStats;
 
 	float mySpawnInterval;

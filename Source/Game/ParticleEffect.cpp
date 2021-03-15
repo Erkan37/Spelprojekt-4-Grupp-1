@@ -74,44 +74,42 @@ const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 {
 	myTimer += aDeltaTime;
 
+	v2f playerPosition = myPlayer->GetPosition();
+	playerPosition.y = playerPosition.y + (myPlayer->GetComponent<SpriteComponent>()->GetSizeY() / 2);
+
+	SetPosition(playerPosition);
 
 	if (myTimer > mySpawnInterval)
 	{
 		myTimer = {};
 
-		EffectSprite sprite;
+		std::shared_ptr<EffectSprite> sprite = std::make_shared<EffectSprite>();
 
-		sprite.myPathString = myStats.mySpritePath;
-		sprite.myScale = Utils::RandomFloat(myStats.myStartScale, myStats.myEndScale);
-		sprite.mySpeedInterval = Utils::RandomFloat(myStats.myMinStartSpeed, myStats.myMaxStartSpeed);
-		sprite.myAcceleration = Utils::RandomFloat(myStats.myMinAcceleration, myStats.myMaxAcceleration);
-		sprite.myLifeTime = Utils::RandomFloat(myStats.myMinParticleLifeTime, myStats.myMaxParticleLifeTime);
-		sprite.myRotation = Utils::RandomFloat(myStats.myMinParticleAngularVel, myStats.myMaxParticleAngularVel);
-		sprite.mySpawnAngle = myStats.myParticleAngleInterval;
-		sprite.myEmitterAngle = myStats.myEmitterAngle;
-		sprite.myEmitterWidth = myStats.myEmitterWidth;
-		sprite.myEmiterLifetime = myStats.myEmitterLifeTime;
-		sprite.myStartColor = myStats.myStartColor;
-		sprite.myEndColor = myStats.myEndColor;
-		sprite.myPosition = GetPosition();
+		sprite->myPathString = myStats.mySpritePath;
+		sprite->myScale = Utils::RandomFloat(myStats.myStartScale, myStats.myEndScale);
+		sprite->mySpeedInterval = Utils::RandomFloat(myStats.myMinStartSpeed, myStats.myMaxStartSpeed);
+		sprite->myAcceleration = Utils::RandomFloat(myStats.myMinAcceleration, myStats.myMaxAcceleration);
+		sprite->myLifeTime = Utils::RandomFloat(myStats.myMinParticleLifeTime, myStats.myMaxParticleLifeTime);
+		sprite->myRotation = Utils::RandomFloat(myStats.myMinParticleAngularVel, myStats.myMaxParticleAngularVel);
+		sprite->mySpawnAngle = myStats.myParticleAngleInterval;
+		sprite->myEmitterAngle = myStats.myEmitterAngle;
+		sprite->myEmitterWidth = myStats.myEmitterWidth;
+		sprite->myEmiterLifetime = myStats.myEmitterLifeTime;
+		sprite->myStartColor = myStats.myStartColor;
+		sprite->myEndColor = myStats.myEndColor;
+		sprite->myPosition = GetPosition();
 
-		sprite.AddSprite(AddComponent<SpriteComponent>());
+		sprite->AddSprite(AddComponent<SpriteComponent>());
 
 		mySprites.push_back(sprite);
 
 		mySpawnInterval = Utils::RandomFloat(myStats.myMinBetweenSpawn, myStats.myMaxBetweenSpawn);
-		std::cout << sprite.myScale << std::endl;
 	}
-
-
-
-	SetPosition({myPlayer->GetPosition().x, myPlayer->GetPosition().y - 10.f});
-
 	
 	for (int i = 0; i < mySprites.size(); i++)
 	{
-		mySprites[i].Update(aDeltaTime);
-		if (mySprites[i].IsAlive() == false)
+		mySprites[i]->Update(aDeltaTime);
+		if (mySprites[i]->IsAlive() == false)
 		{
 			mySprites.erase(mySprites.begin() + i);
 			break;
