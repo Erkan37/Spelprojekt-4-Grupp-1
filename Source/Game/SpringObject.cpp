@@ -77,7 +77,7 @@ void SpringObject::InitSprings(const v2f aPosition)
 void SpringObject::CreateGroundSpring()
 {
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
-	sprite->SetSpritePath("Sprites/Platforms/Mushroom.dds");
+	sprite->SetSpritePath("Sprites/Objects/Mushroom.dds");
 	sprite->SetSize(mySize);
 
 	myAnimations[0] = Animation(false, true, false, 0, 1, 1, 0.08f, sprite, 16, 16);
