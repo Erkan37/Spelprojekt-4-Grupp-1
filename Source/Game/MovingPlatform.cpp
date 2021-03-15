@@ -22,16 +22,6 @@ void MovingPlatform::Update(const float& aDeltaTime)
 	Platform::Update(aDeltaTime);
 }
 
-void MovingPlatform::SetSpeed(const float& aSpeed)
-{
-	myWaypointComponent->SetSpeed(aSpeed);
-}
-
-void MovingPlatform::AddWaypoint(const v2f& aWaypoint)
-{
-	myWaypointComponent->AddWaypoint(aWaypoint);
-}
-
 void MovingPlatform::SetWaypoints(const std::vector<v2f>& aWaypoints)
 {
 	constexpr float xOffset = 4.0f; //To offset platform to middle of line

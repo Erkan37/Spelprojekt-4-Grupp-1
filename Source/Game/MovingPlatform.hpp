@@ -11,9 +11,6 @@ public:
 
 	void Update(const float& aDeltaTime) override;
 
-	void SetSpeed(const float& aSpeed);
-
-	void AddWaypoint(const v2f& aWaypoint);
 	void SetWaypoints(const std::vector<v2f>& aWaypoints);
 
 	void SetButtonPosition();
