@@ -74,7 +74,7 @@ void SpringObject::InitSprings(const v2f aPosition)
 void SpringObject::CreateGroundSpring()
 {
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
-	sprite->SetSpritePath("Sprites/Temp/tempTrampoline.dds");
+	sprite->SetSpritePath("Sprites/tempTrampoline.dds");
 	sprite->SetSize(mySize);
 }
 
