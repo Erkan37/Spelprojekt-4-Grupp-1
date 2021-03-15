@@ -44,8 +44,8 @@ void LevelScene::Load()
 	Bonfire* bonfire = new Bonfire(this);
 	bonfire->SetPosition(myPlayer->GetPosition() + v2f(50.0f, 200.0f));
 
-	EnemyFactory enemyFactory;
-	enemyFactory.ReadEnemies(this, "JSON/AlfaEnemies.json");
+	//EnemyFactory enemyFactory;
+	//enemyFactory.ReadEnemies(this, "JSON/AlfaEnemies.json");
 
 	Collectible* collectible = new Collectible(this);
 	collectible->Init(v2f(500.0f, 500.0f), Collectible::eCollectibleType::Easy);
@@ -54,12 +54,6 @@ void LevelScene::Load()
 	collectible2->Init(v2f(900.0f, 500.0f), Collectible::eCollectibleType::Easy);
 
 	myBackground = std::make_unique<Background>(this);
-
-	mySpring = std::make_unique<SpringObject>(this);
-	mySpring->Init(v2f(800.f, 865.f));
-
-	//PlatformFactory platformFactory;
-	//platformFactory.ReadPlatforms(this, "JSON/PreProdPlatforms.json");
 
 	myTiledMap = std::make_unique<TiledMap>();
 	myTiledMap->Load("Levels/test_level.json", this);
