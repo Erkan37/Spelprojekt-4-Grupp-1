@@ -22,6 +22,8 @@
 #include "imgui.h"
 #endif // DEBUG
 
+typedef PlayerData::PlayerFloatEnum PEnum;
+
 Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 {
 	myJsonData = dynamic_cast<PlayerData*>(&DataManager::GetInstance().GetDataStruct(DataEnum::player));
@@ -47,7 +49,7 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	InitCollider();
 
 	myTriggerRunningAnimationSpeed = 50.0f;
-	myAirCoyoteTimer = myJsonData->myCoyoteTime;
+	myAirCoyoteTimer = myJsonData->myFloatValueMap[PEnum::Coyote_Time];
 
 	myDirectionX = 1;
 	myCurrentAnimationIndex = 0;
@@ -165,19 +167,19 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 {
 	if (!myGrabbedLedge)
 	{
-		myCurrentVelocity.y = Utils::Min(myCurrentVelocity.y + PhysicsManager::ourGravity * aDeltaTime, myJsonData->myMaxFallSpeed);
+		myCurrentVelocity.y = Utils::Min(myCurrentVelocity.y + PhysicsManager::ourGravity * aDeltaTime, myJsonData->myFloatValueMap[PEnum::Max_Fall_Speed]);
 	}
 
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity + mySpringVelocity);
 
-	if (myCurrentVelocity.y > myJsonData->myTriggerFallingSpeed)
+	if (myCurrentVelocity.y > myJsonData->myFloatValueMap[PEnum::Trigger_Falling_Speed])
 	{
 		myHasLanded = false;
 	}
 
-	myPlatformVelocity.x = Utils::Lerp(myPlatformVelocity.x, 0.0f, myJsonData->myPlatformVelocityRetardation * aDeltaTime);
-	myPlatformVelocity.y = Utils::Lerp(myPlatformVelocity.y, 0.0f, myJsonData->myPlatformVelocityRetardation * aDeltaTime);
+	myPlatformVelocity.x = Utils::Lerp(myPlatformVelocity.x, 0.0f, myJsonData->myFloatValueMap[PEnum::Platform_Velocity_Retardation] * aDeltaTime);
+	myPlatformVelocity.y = Utils::Lerp(myPlatformVelocity.y, 0.0f, myJsonData->myFloatValueMap[PEnum::Platform_Velocity_Retardation] * aDeltaTime);
 
 	if (myActiveSpringJump)
 		DecreaseSpringJump(aDeltaTime);
@@ -202,7 +204,7 @@ void Player::CheckMove(const float& aDeltaTime)
 	}
 	else
 	{
-		myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, 0.0f, myJsonData->myRetardation * aDeltaTime);
+		myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, 0.0f, myJsonData->myFloatValueMap[PEnum::Retardation] * aDeltaTime);
 	}
 }
 void Player::CheckJump()
@@ -248,7 +250,7 @@ void Player::GoRight(const float& aDeltaTime)
 		myBashAbility->ResetVelocity(true, false);
 	}
 
-	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, myJsonData->myMaxSpeed, myJsonData->myAcceleration * aDeltaTime);
+	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, myJsonData->myFloatValueMap[PEnum::Max_Speed], myJsonData->myFloatValueMap[PEnum::Acceleration] * aDeltaTime);
 
 	myDirectionX = 1;
 }
@@ -269,14 +271,14 @@ void Player::GoLeft(const float& aDeltaTime)
 		myBashAbility->ResetVelocity(true, false);
 	}
 
-	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, -myJsonData->myMaxSpeed, myJsonData->myAcceleration * aDeltaTime);
+	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, -myJsonData->myFloatValueMap[PEnum::Max_Speed], myJsonData->myFloatValueMap[PEnum::Acceleration] * aDeltaTime);
 
 	myDirectionX = -1;
 }
 
 void Player::TryLetJumpWhenFalling(const float& aYDistance)
 {
-	const float distancePerJumpWhenLandingTime = GetComponent<PhysicsComponent>()->GetVelocityY() * myJsonData->myJumpWhenFallingTime;
+	const float distancePerJumpWhenLandingTime = GetComponent<PhysicsComponent>()->GetVelocityY() * myJsonData->myFloatValueMap[PEnum::Jump_When_Falling_Time];
 	if (aYDistance < distancePerJumpWhenLandingTime && aYDistance > 0)
 	{
 		myCanJumpWhenFalling = true;
@@ -290,7 +292,7 @@ void Player::Jump()
 {
 	v2f calculatedSpring = mySpringVelocity;
 	calculatedSpring.y = calculatedSpring.y;
-	myCurrentVelocity.y = -myJsonData->myJumpVelocity + myPlatformVelocity.y - calculatedSpring.y;
+	myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Jump_Velocity] + myPlatformVelocity.y - calculatedSpring.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
 	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
 	myCurrentAnimationIndex = 2;
@@ -300,7 +302,7 @@ void Player::Jump()
 }
 void Player::DoubleJump()
 {
-	myCurrentVelocity.y = -myJsonData->myDoubleJumpVelocity + myPlatformVelocity.y - mySpringVelocity.y;
+	myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Double_Jump_Velocity] + myPlatformVelocity.y - mySpringVelocity.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[3]);
 	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
 	myCurrentAnimationIndex = 3;
@@ -315,7 +317,7 @@ void Player::LedgeJump()
 
 	if (!myInputHandler->GetInput()->GetKeyDown(Keys::SKey) && myInputHandler->GetController()->GetLeftThumbStick().y < 0.3f)
 	{
-		myCurrentVelocity.y = -myJsonData->myLedgeJumpVelocity;
+		myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Ledge_Jump_Velocity];
 	}
 
 	myIsLerpingToPosition = false;
@@ -334,13 +336,20 @@ void Player::Landed(const int& aOverlapY)
 {
 	if (!myHasLanded)
 	{
-		myInputHandler->GetController()->Vibrate(myJsonData->myLandVibrationStrength, myJsonData->myLandVibrationStrength, myJsonData->myLandVibrationLength);
-		myScene->GetCamera().Shake(myJsonData->myLandShakeDuration, myJsonData->myLandShakeIntensity, myJsonData->myLandShakeDropOff);
+		myInputHandler->GetController()->Vibrate(
+			myJsonData->myFloatValueMap[PEnum::Land_Vibration_Strength],
+			myJsonData->myFloatValueMap[PEnum::Land_Vibration_Strength],
+			myJsonData->myFloatValueMap[PEnum::Land_Vibration_Length]);
+
+		myScene->GetCamera().Shake(
+			myJsonData->myFloatValueMap[PEnum::Land_Shake_Duration],
+			myJsonData->myFloatValueMap[PEnum::Land_Shake_Intensity],
+			myJsonData->myFloatValueMap[PEnum::Land_Shake_DropOff]);
 	}
 
 	if (aOverlapY > 0)
 	{
-		myAirCoyoteTimer = myJsonData->myCoyoteTime;
+		myAirCoyoteTimer = myJsonData->myFloatValueMap[PEnum::Coyote_Time];
 		if (!myActiveSpringJump)
 			myHasLanded = true;
 		myHasDoubleJumped = false;
@@ -438,8 +447,8 @@ void Player::LerpToPosition(const v2f& aPosition)
 
 	myTimerInput->SetTimeScale(1.0f);
 
-	myTransform.myPosition.x = Utils::Lerp(myTransform.myPosition.x, aPosition.x, myJsonData->myLerpAcceleration * myTimerInput->GetDeltaTime());
-	myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, aPosition.y, myJsonData->myLerpAcceleration * myTimerInput->GetDeltaTime());
+	myTransform.myPosition.x = Utils::Lerp(myTransform.myPosition.x, aPosition.x, myJsonData->myFloatValueMap[PEnum::Lerp_Acceleration] * myTimerInput->GetDeltaTime());
+	myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, aPosition.y, myJsonData->myFloatValueMap[PEnum::Lerp_Acceleration] * myTimerInput->GetDeltaTime());
 
 	myTimerInput->SetTimeScale(timeScale);
 }
@@ -481,8 +490,14 @@ void Player::Eaten()
 
 void Player::KillReset()
 {
-	myScene->GetCamera().Shake(myJsonData->myDieShakeDuration, myJsonData->myDieShakeIntensity, myJsonData->myDieShakeDropOff);
-	myInputHandler->GetController()->Vibrate(myJsonData->myDieVibrationStrength, myJsonData->myDieVibrationStrength, myJsonData->myDieVibrationLength);
+	myScene->GetCamera().Shake(
+		myJsonData->myFloatValueMap[PEnum::Die_Shake_Duration],
+		myJsonData->myFloatValueMap[PEnum::Die_Shake_Intensity],
+		myJsonData->myFloatValueMap[PEnum::Die_Shake_DropOff]);
+	myInputHandler->GetController()->Vibrate(
+		myJsonData->myFloatValueMap[PEnum::Die_Vibration_Strength],
+		myJsonData->myFloatValueMap[PEnum::Die_Vibration_Strength],
+		myJsonData->myFloatValueMap[PEnum::Die_Vibration_Length]);
 
 	ResetVelocity();
 	myBashAbility->ResetVelocity(true, true);
@@ -572,40 +587,40 @@ void Player::ImGuiUpdate()
 		DataManager::GetInstance().SetDataStruct(DataEnum::player);
 	}
 
-	ImGui::InputFloat("Max Speed", &myJsonData->myMaxSpeed, 0.0f, 2000.0f);
-	ImGui::InputFloat("Acceleration", &myJsonData->myAcceleration, 0.0f, 100.0f);
-	ImGui::InputFloat("Retardation", &myJsonData->myRetardation, 0.0f, 100.0f);
-	ImGui::InputFloat("Lerp Acceleration", &myJsonData->myLerpAcceleration, 0.0f, 100.0f);
-	ImGui::InputFloat("Platform Velocity Retardation", &myJsonData->myPlatformVelocityRetardation, 0.0f, 100.0f);
-	ImGui::InputFloat("Coyote Time", &myJsonData->myCoyoteTime, 0.0f, 1.0f);
-	ImGui::InputFloat("Jump Velocity", &myJsonData->myJumpVelocity, 0.0f, 2000.0f);
-	ImGui::InputFloat("Double Jump Velocity", &myJsonData->myDoubleJumpVelocity, 0.0f, 2000.0f);
-	ImGui::InputFloat("Max Fall Speed", &myJsonData->myMaxFallSpeed, 0.0f, 2000.0f);
-	ImGui::InputFloat("Ledge Jump Velocity", &myJsonData->myLedgeJumpVelocity, 0.0f, 2000.0f);
-	ImGui::InputFloat("Jump When Falling Time", &myJsonData->myJumpWhenFallingTime, 0.0f, 1.0f);
-	ImGui::InputFloat("Trigger Falling Speed", &myJsonData->myTriggerFallingSpeed, 0.0f, 50.0f);
+	ImGui::InputFloat("Max Speed", &myJsonData->myFloatValueMap[PEnum::Max_Speed], 0.0f, 2000.0f);
+	ImGui::InputFloat("Acceleration", &myJsonData->myFloatValueMap[PEnum::Acceleration], 0.0f, 100.0f);
+	ImGui::InputFloat("Retardation", &myJsonData->myFloatValueMap[PEnum::Retardation], 0.0f, 100.0f);
+	ImGui::InputFloat("Lerp Acceleration", &myJsonData->myFloatValueMap[PEnum::Lerp_Acceleration], 0.0f, 100.0f);
+	ImGui::InputFloat("Platform Velocity Retardation", &myJsonData->myFloatValueMap[PEnum::Platform_Velocity_Retardation], 0.0f, 100.0f);
+	ImGui::InputFloat("Coyote Time", &myJsonData->myFloatValueMap[PEnum::Coyote_Time], 0.0f, 1.0f);
+	ImGui::InputFloat("Jump Velocity", &myJsonData->myFloatValueMap[PEnum::Jump_Velocity], 0.0f, 2000.0f);
+	ImGui::InputFloat("Double Jump Velocity", &myJsonData->myFloatValueMap[PEnum::Double_Jump_Velocity], 0.0f, 2000.0f);
+	ImGui::InputFloat("Max Fall Speed", &myJsonData->myFloatValueMap[PEnum::Max_Fall_Speed], 0.0f, 2000.0f);
+	ImGui::InputFloat("Ledge Jump Velocity", &myJsonData->myFloatValueMap[PEnum::Ledge_Jump_Velocity], 0.0f, 2000.0f);
+	ImGui::InputFloat("Jump When Falling Time", &myJsonData->myFloatValueMap[PEnum::Jump_When_Falling_Time], 0.0f, 1.0f);
+	ImGui::InputFloat("Trigger Falling Speed", &myJsonData->myFloatValueMap[PEnum::Trigger_Falling_Speed], 0.0f, 50.0f);
 
 	ImGui::Text("Vibrations");
-	ImGui::InputFloat("Die Vibration Strength", &myJsonData->myDieVibrationStrength, 0, 65000);
-	ImGui::InputFloat("Land Vibration Strength", &myJsonData->myLandVibrationStrength, 0, 65000);
-	ImGui::InputFloat("Springs Vibration Strength", &myJsonData->mySpringsVibrationStrength, 0, 65000);
+	ImGui::InputFloat("Die Vibration Strength", &myJsonData->myFloatValueMap[PEnum::Die_Vibration_Strength], 0, 65000);
+	ImGui::InputFloat("Land Vibration Strength", &myJsonData->myFloatValueMap[PEnum::Land_Vibration_Strength], 0, 65000);
+	ImGui::InputFloat("Springs Vibration Strength", &myJsonData->myFloatValueMap[PEnum::Springs_Vibration_Strength], 0, 65000);
 
-	ImGui::InputFloat("Die Vibration Length", &myJsonData->myDieVibrationLength, 0.0f, 10.0f);
-	ImGui::InputFloat("Land Vibration Length", &myJsonData->myLandVibrationLength, 0.0f, 10.0f);
-	ImGui::InputFloat("Springs Vibration Length", &myJsonData->mySpringsVibrationLength, 0.0f, 10.0f);
+	ImGui::InputFloat("Die Vibration Length", &myJsonData->myFloatValueMap[PEnum::Die_Vibration_Length], 0.0f, 10.0f);
+	ImGui::InputFloat("Land Vibration Length", &myJsonData->myFloatValueMap[PEnum::Land_Vibration_Length], 0.0f, 10.0f);
+	ImGui::InputFloat("Springs Vibration Length", &myJsonData->myFloatValueMap[PEnum::Springs_Vibration_Length], 0.0f, 10.0f);
 
 	ImGui::Text("Camera Shake");
-	ImGui::InputFloat("Die Shake Duration", &myJsonData->myDieShakeDuration, 0.0f, 10.0f);
-	ImGui::InputFloat("Die Shake Intensity", &myJsonData->myDieShakeIntensity, 0.0f, 10.0f);
-	ImGui::InputFloat("Die Shake DropOff", &myJsonData->myDieShakeDropOff, 0.0f, 10.0f);
+	ImGui::InputFloat("Die Shake Duration", &myJsonData->myFloatValueMap[PEnum::Die_Shake_Duration], 0.0f, 10.0f);
+	ImGui::InputFloat("Die Shake Intensity", &myJsonData->myFloatValueMap[PEnum::Die_Shake_Intensity], 0.0f, 10.0f);
+	ImGui::InputFloat("Die Shake DropOff", &myJsonData->myFloatValueMap[PEnum::Die_Shake_DropOff], 0.0f, 10.0f);
 
-	ImGui::InputFloat("Land Shake Duration", &myJsonData->myLandShakeDuration, 0.0f, 10.0f);
-	ImGui::InputFloat("Land Shake Intensity", &myJsonData->myLandShakeIntensity, 0.0f, 10.0f);
-	ImGui::InputFloat("Land Shake DropOff", &myJsonData->myLandShakeDropOff, 0.0f, 10.0f);
+	ImGui::InputFloat("Land Shake Duration", &myJsonData->myFloatValueMap[PEnum::Land_Shake_Duration], 0.0f, 10.0f);
+	ImGui::InputFloat("Land Shake Intensity", &myJsonData->myFloatValueMap[PEnum::Land_Shake_Intensity], 0.0f, 10.0f);
+	ImGui::InputFloat("Land Shake DropOff", &myJsonData->myFloatValueMap[PEnum::Land_Shake_DropOff], 0.0f, 10.0f);
 
-	ImGui::InputFloat("Spring Shake Duration", &myJsonData->mySpringShakeDuration, 0.0f, 10.0f);
-	ImGui::InputFloat("Spring Shake Intensity", &myJsonData->mySpringShakeIntensity, 0.0f, 10.0f);
-	ImGui::InputFloat("Spring Shake DropOff", &myJsonData->mySpringShakeDropOff, 0.0f, 10.0f);
+	ImGui::InputFloat("Spring Shake Duration", &myJsonData->myFloatValueMap[PEnum::Spring_Shake_Duration], 0.0f, 10.0f);
+	ImGui::InputFloat("Spring Shake Intensity", &myJsonData->myFloatValueMap[PEnum::Spring_Shake_Intensity], 0.0f, 10.0f);
+	ImGui::InputFloat("Spring Shake DropOff", &myJsonData->myFloatValueMap[PEnum::Spring_Shake_DropOff], 0.0f, 10.0f);
 
 	ImGui::End();
 }
