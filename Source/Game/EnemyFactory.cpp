@@ -25,11 +25,12 @@ void EnemyFactory::ReadEnemies(Scene* aLevelScene, const std::string& aFilePath)
 		}
 
 		const int enemyType = (*enemy)["Type"].GetInt();
+		const int speed = (*enemy)["Speed"].GetFloat();
 		switch (enemyType)
 		{
-		case 0: CreateNormalEnemy(aLevelScene, tempCoordinates); break;
-		case 1: CreateShootingEnemy(aLevelScene, tempCoordinates); break;
-		default: CreateNormalEnemy(aLevelScene, tempCoordinates); break;
+		case 0: CreateNormalEnemy(aLevelScene, tempCoordinates, speed); break;
+		case 1: CreateShootingEnemy(aLevelScene, tempCoordinates, speed); break;
+		default: CreateNormalEnemy(aLevelScene, tempCoordinates, speed); break;
 		}
 		tempCoordinates.empty();
 	}
@@ -37,16 +38,16 @@ void EnemyFactory::ReadEnemies(Scene* aLevelScene, const std::string& aFilePath)
 	enemyFile.close();
 }
 
-NormalEnemy* EnemyFactory::CreateNormalEnemy(Scene* aLevelScene, std::vector<v2f>& someCoordinates)
+NormalEnemy* EnemyFactory::CreateNormalEnemy(Scene* aLevelScene, std::vector<v2f>& someCoordinates, const float& aSpeed)
 {
 	NormalEnemy* enemy = new NormalEnemy(aLevelScene);
-	enemy->InitEnemy(someCoordinates);
+	enemy->InitEnemy(someCoordinates, aSpeed);
 	return enemy;
 }
 
-ShootingEnemy* EnemyFactory::CreateShootingEnemy(Scene* aLevelScene, std::vector<v2f>& someCoordinates)
+ShootingEnemy* EnemyFactory::CreateShootingEnemy(Scene* aLevelScene, std::vector<v2f>& someCoordinates, const float& aSpeed)
 {
 	ShootingEnemy* enemy = new ShootingEnemy(aLevelScene);
-	enemy->InitEnemy(someCoordinates);
+	enemy->InitEnemy(someCoordinates, aSpeed);
 	return enemy;
 }
