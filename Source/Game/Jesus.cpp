@@ -72,6 +72,8 @@ void Jesus::InitAnimations()
 	spriteIdle->SetSpritePath("Sprites/JesusEtc/JesusClose.png");
 	spriteIdle->SetSize(v2f(32.0f, 32.0f));
 
+	spriteIdle->SetForceRender(true);
+
 	SpriteComponent* spriteClose = AddComponent<SpriteComponent>();
 	spriteClose->SetSpritePath("Sprites/JesusEtc/JesusClose.png");
 	spriteClose->SetSize(v2f(32.0f, 32.0f));
