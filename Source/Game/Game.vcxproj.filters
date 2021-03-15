@@ -191,6 +191,9 @@
     <ClInclude Include="BashableObjectFactory.hpp">
       <Filter>Factories</Filter>
     </ClInclude>
+    <ClInclude Include="UIManager.h" />
+    <ClInclude Include="PauseScene.h" />
+    <ClInclude Include="ButtonManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -306,5 +309,8 @@
     <ClCompile Include="BashableObjectFactory.cpp">
       <Filter>Factories</Filter>
     </ClCompile>
+    <ClCompile Include="UIManager.cpp" />
+    <ClCompile Include="PauseScene.cpp" />
+    <ClCompile Include="ButtonManager.cpp" />
   </ItemGroup>
 </Project>

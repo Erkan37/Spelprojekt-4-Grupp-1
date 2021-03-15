@@ -33,4 +33,5 @@ public:
 	float myRotation;
 	v2f myPivot;
 	bool myShouldBeDestroyed = false;
+	v2f mySize;
 };

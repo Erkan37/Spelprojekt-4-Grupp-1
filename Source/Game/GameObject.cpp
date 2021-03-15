@@ -126,6 +126,13 @@ GameObject& GameObject::SetPivot(const v2f& aPivot)
 	return *this;
 }
 
+GameObject& GameObject::SetSize(const v2f& aSize)
+{
+	myTransform.mySize = aSize;
+
+	return *this;
+}
+
 void GameObject::SetZIndex(const int aZIndex)
 {
 	myZIndex = aZIndex;

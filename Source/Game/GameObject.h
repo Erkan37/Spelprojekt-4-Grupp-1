@@ -40,6 +40,7 @@ public:
 	GameObject& SetPositionY(const float& aPosition);
 	GameObject& SetRotation(const float& aRotation);
 	GameObject& SetPivot(const v2f& aPivot);
+	GameObject& SetSize(const v2f& aSize);
 
 	void SetZIndex(const int aZIndex);
 	const int GetZIndex();
@@ -95,4 +96,5 @@ protected:
 	int myZIndex;
 
 	bool myIsActive; 
+	v2f mySize;
 };

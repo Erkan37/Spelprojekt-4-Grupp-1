@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LevelScene.h"
+#include "PauseScene.h"
 
 namespace Utils
 {
@@ -58,6 +59,7 @@ private:
 	float myTotalTime;
 
 	LevelScene myLevelScene;
+	PauseScene myPauseScene;
 
 	static CGameWorld* ourInstance;
 };
