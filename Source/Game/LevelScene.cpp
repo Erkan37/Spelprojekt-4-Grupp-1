@@ -53,14 +53,14 @@ void LevelScene::Load()
 	Collectible* collectible2 = new Collectible(this);
 	collectible2->Init(v2f(900.0f, 500.0f), Collectible::eCollectibleType::Easy);
 
-	myFactory = std::make_unique<ParticleEffectFactory>(this);
-	myFactory->ReadEffects(this);
-	myFactory->Init();
-
 	myBackground = std::make_unique<Background>(this);
 
 	mySpring = std::make_unique<SpringObject>(this);
-	mySpring->Init(v2f(800.f, 865.f));
+	mySpring->Init(v2f(800.f, 500.f));
+
+	myFactory = std::make_unique<ParticleEffectFactory>(this);
+	myFactory->ReadEffects(this);
+	myFactory->Init();
 
 	//PlatformFactory platformFactory;
 	//platformFactory.ReadPlatforms(this, "JSON/PreProdPlatforms.json");

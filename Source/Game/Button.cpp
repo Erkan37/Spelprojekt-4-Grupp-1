@@ -44,7 +44,7 @@ void Button::InitButton(const v2f myStartingPosition, const v2f myPositionFromSt
 	mySize = { 32.f, 32.f };
 
 	SetPosition(platformPosition);
-	SetPivot({ 0.f, 1.f });
+	SetPivot({ 0.5f, 1.f });
 
 	SpriteComponent* gsprite = AddComponent<SpriteComponent>();
 	gsprite->SetSpritePath("Sprites/TempButton.dds");
@@ -57,7 +57,7 @@ void Button::InitButton(const v2f myStartingPosition, const v2f myPositionFromSt
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
 	collider->SetSize(mySize);
 	collider->SetPosition({ mySize.x * 0.5f, -mySize.y * 0.5f });
-
+	
 	GameObject::Init();
 }
 
