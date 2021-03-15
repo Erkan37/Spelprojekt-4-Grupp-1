@@ -55,6 +55,7 @@ void LevelScene::Load()
 
 	myFactory = std::make_unique<ParticleEffectFactory>(this);
 	myFactory->ReadEffects(this);
+	myFactory->Init();
 
 	myBackground = std::make_unique<Background>(this);
 

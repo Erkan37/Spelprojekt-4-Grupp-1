@@ -4,27 +4,28 @@
 
 class Scene;
 
-class ParticleEffectFactory : public GameObject
+class ParticleEffectFactory
 {
 public:
 	ParticleEffectFactory(Scene* aLevelScene);
 
 	void ReadEffects(Scene* aLevelScene);
 
-	void Init() override;
+	void Init();
 
-	void Update(const float& aDeltaTime) override;
-	void Render() override;
+	void Update(const float& aDeltaTime);
+	void Render();
 
 	void SpawnEffect(GameObject* aObject, const eParticleEffects aEffectType);
 
 
 private:
-	std::vector<std::shared_ptr<ParticleEffect>> myEffects;
+	Scene* myScene;
+	Player* myPlayer;
+	std::vector<ParticleStats> myEffects;
 	std::vector<std::shared_ptr<ParticleEffect>> myCreatedEffects;
 
 	void SpawnCharacterEffects();
-	void Spawn(const eParticleEffects aEffectType);
 
 };
 

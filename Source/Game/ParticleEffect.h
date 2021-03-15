@@ -1,6 +1,7 @@
 #pragma once
 #include "ParticleStats.hpp"
 #include "ParticleEffectTypes.hpp"
+#include "GameObject.h"
 
 namespace Tga2D
 {
@@ -10,27 +11,25 @@ namespace Tga2D
 class Player;
 class LevelScene;
 
-class ParticleEffect
+class ParticleEffect : public GameObject
 {
 public:
-	ParticleEffect();
+	ParticleEffect(Scene* aLevelScene);
 	~ParticleEffect() = default;
 
-	void Init(ParticleStats aStats, Player* aLevelScene);
+	void Init(ParticleStats aStats, Player* aPlayer);
 
-	void Update(const float& aDeltaTime);
-	void Render();
+	void Update(const float& aDeltaTime) override;
 
-	const void SetPosition(const v2f aPosition);
+	//const void SetPosition(const v2f aPosition);
 	const void SetIsActive(const bool aActiveState);
-	const void SetEffect(ParticleEffect* aEffect);
+	const void SetEffect(ParticleStats aEffect);
 	
 	const bool GetIsActive();
 	const eParticleEffects GetType() const;
 
 
 private:
-	Tga2D::CSpriteBatch* mySprites;
 	ParticleStats myStats;
 
 	bool myIsActive;

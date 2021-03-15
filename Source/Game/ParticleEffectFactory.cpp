@@ -10,15 +10,15 @@
 #include <fstream>
 
 ParticleEffectFactory::ParticleEffectFactory(Scene* aLevelScene)
-	:
-	GameObject(aLevelScene)
 {
 }
 
 void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 {
+	myScene = aLevelScene;
 	LevelScene* levelScene = dynamic_cast<LevelScene*>(aLevelScene);
 	Player* player = dynamic_cast<Player*>(levelScene->GetPlayer());
+	myPlayer = player;
 
 	assert(player != NULL);
 
@@ -70,9 +70,7 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 			stats.myStartColor = { (*particleStat)["StartColor"][0].GetFloat(), (*particleStat)["StartColor"][1].GetFloat(), (*particleStat)["StartColor"][2].GetFloat(), (*particleStat)["StartColor"][3].GetFloat() };
 			stats.myEndColor = { (*particleStat)["EndColor"][0].GetFloat(), (*particleStat)["EndColor"][1].GetFloat(), (*particleStat)["EndColor"][2].GetFloat(), (*particleStat)["EndColor"][3].GetFloat() };
 
-			std::shared_ptr<ParticleEffect> particle = std::make_shared<ParticleEffect>();
-			particle->Init(stats, player);
-			myEffects.push_back(particle);
+			myEffects.push_back(stats);
 		}
 
 		particleFile.close();
@@ -108,8 +106,8 @@ void ParticleEffectFactory::SpawnEffect(GameObject* aObject, const eParticleEffe
 	{
 	case eParticleEffects::RunEffect:
 	{
-		std::shared_ptr<ParticleEffect> effect = std::make_shared<ParticleEffect>();
-		effect->SetEffect(myEffects[static_cast<int>(aEffectType)].get());
+		std::shared_ptr<ParticleEffect> effect = std::make_shared<ParticleEffect>(myScene);
+		effect->Init(myEffects[static_cast<int>(aEffectType)], myPlayer);
 		effect->SetPosition(aObject->GetPosition());
 		effect->SetIsActive(true);
 		myCreatedEffects.push_back(effect);
@@ -117,8 +115,8 @@ void ParticleEffectFactory::SpawnEffect(GameObject* aObject, const eParticleEffe
 	}
 	case eParticleEffects::FallEffect:
 	{
-		std::shared_ptr<ParticleEffect> effect = std::make_shared<ParticleEffect>();
-		effect->SetEffect(myEffects[static_cast<int>(aEffectType)].get());
+		std::shared_ptr<ParticleEffect> effect = std::make_shared<ParticleEffect>(myScene);
+		effect->Init(myEffects[static_cast<int>(aEffectType)], myPlayer);
 		effect->SetPosition(aObject->GetPosition());
 		effect->SetIsActive(true);
 		myCreatedEffects.push_back(effect);
@@ -129,8 +127,8 @@ void ParticleEffectFactory::SpawnEffect(GameObject* aObject, const eParticleEffe
 
 void ParticleEffectFactory::SpawnCharacterEffects()
 {
-	std::shared_ptr<ParticleEffect> effect = std::make_shared<ParticleEffect>();
-	effect->SetEffect(myEffects[static_cast<int>(eParticleEffects::RunEffect)].get());
+	std::shared_ptr<ParticleEffect> effect = std::make_shared<ParticleEffect>(myScene);
+	effect->Init(myEffects[static_cast<int>(eParticleEffects::RunEffect)], myPlayer);
 	effect->SetIsActive(true);
 	myCreatedEffects.push_back(effect);
 }

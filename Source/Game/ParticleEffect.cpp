@@ -1,14 +1,19 @@
 #include "stdafx.h"
+#include <iostream>
 #include "Scene.h"
 #include <tga2d/sprite/sprite.h>
 #include <tga2d/sprite/sprite_batch.h>
 #include "ParticleEffect.h"
-#include "LevelScene.h"
+#include "Scene.h"
 #include "Player.hpp"
 #include "PhysicsComponent.h"
+#include "SpriteComponent.h"
+#include "SpritebatchComponent.h"
 
 
-ParticleEffect::ParticleEffect()
+ParticleEffect::ParticleEffect(Scene* aLevelScene)
+	:
+	GameObject(aLevelScene)
 {
 	myPlayer = {};
 	myPosition = {};
@@ -23,6 +28,15 @@ void ParticleEffect::Init(ParticleStats aStats, Player* aPlayer)
 
 	if (static_cast<eParticleEffects>(myStats.myEffectTypeIndex) == eParticleEffects::RunEffect)
 		myIsActive = true;
+
+	SetPivot({ 0.f, 0.f });
+	SetPosition(myPlayer->GetPosition());
+
+	SpriteComponent* sprite = AddComponent<SpriteComponent>();
+	sprite->SetSpritePath(myStats.mySpritePath);
+	sprite->SetSize({ 32.f, 32.f });
+
+	GameObject::Init();
 }
 
 void ParticleEffect::Update(const float& aDeltaTime)
@@ -36,18 +50,10 @@ void ParticleEffect::Update(const float& aDeltaTime)
 	}
 }
 
-void ParticleEffect::Render()
-{
-	if (myIsActive)
-	{
-		mySprites->Render();
-	}
-}
-
-const void ParticleEffect::SetPosition(const v2f aPosition)
-{
-	myPosition = aPosition;
-}
+//const void ParticleEffect::SetPosition(const v2f aPosition)
+//{
+//	myPosition = aPosition;
+//}
 
 const void ParticleEffect::SetIsActive(const bool aActiveState)
 {
@@ -66,11 +72,16 @@ const eParticleEffects ParticleEffect::GetType() const
 
 const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 {
-	Tga2D::CSprite* sprite = new Tga2D::CSprite();
-	sprite->Init(myStats.mySpritePath.c_str());
-	sprite->SetPosition(myPlayer->GetPosition());
-	mySprites->AddObject(sprite);
+	//SpriteComponent* sprite = new SpriteComponent();
+	//sprite->SetSpritePath(myStats.mySpritePath);
+	//sprite->SetRelativePosition(myPlayer->GetPosition());
+	////mySprites.push_back(sprite);
+	//myObject->GetComponent<SpritebatchComponent>()->AddSprite(sprite);
+	SetPosition(myPlayer->GetPosition());
+	std::cout << myPlayer->GetPosition().x << std::endl;
 
+
+	
 }
 
 const void ParticleEffect::UpdatePlayerEffect(const float& aDeltaTime)
@@ -81,10 +92,11 @@ const void ParticleEffect::UpdatePlayerEffect(const float& aDeltaTime)
 	//}
 }
 
-const void ParticleEffect::SetEffect(ParticleEffect* aEffect)
+const void ParticleEffect::SetEffect(ParticleStats aEffect)
 {
-	myIsActive = aEffect->myIsActive;
-	myStats = aEffect->myStats;
-	myPlayer = aEffect->myPlayer;
-	mySprites = new Tga2D::CSpriteBatch(true);
+	myStats = aEffect;
+
+	//myObject->AddComponent<SpritebatchComponent>();
+	//myObject->GetComponent<SpritebatchComponent>()->SetSpritePath(myStats.mySpritePath);
+	//myObject->GetComponent<SpritebatchComponent>()->Init();
 }
