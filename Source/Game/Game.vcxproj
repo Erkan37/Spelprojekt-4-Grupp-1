@@ -160,6 +160,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="InputWrapper.h" />
+    <ClInclude Include="Jesus.hpp" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Ledge.h" />
     <ClInclude Include="LevelScene.h" />
@@ -210,6 +211,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="InputWrapper.cpp" />
+    <ClCompile Include="Jesus.cpp" />
     <ClCompile Include="Ledge.cpp" />
     <ClCompile Include="LevelScene.cpp" />
     <ClCompile Include="MovingPlatform.cpp" />

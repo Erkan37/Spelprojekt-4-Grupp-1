@@ -134,6 +134,21 @@ void Jesus::Move(const float& aDeltaTime)
 		myDirection.x = Utils::Lerp(myDirection.x, directionToTarget.x, calculatedTurnSpeed * aDeltaTime);
 		myDirection.y = Utils::Lerp(myDirection.y, directionToTarget.y, calculatedTurnSpeed * aDeltaTime);
 
+		if (myDirection.x >= 0.0f)
+		{
+			for (Animation& animation : myAnimations)
+			{
+				animation.mySpriteComponent->SetSizeX(32.0f);
+			}
+		}
+		else
+		{
+			for (Animation& animation : myAnimations)
+			{
+				animation.mySpriteComponent->SetSizeX(-32.0f);
+			}
+		}
+
 		myTransform.myPosition += myDirection * myCurrentSpeed * aDeltaTime;
 
 		AnimationStates();
