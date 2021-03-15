@@ -38,6 +38,8 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	SetZIndex(500);
 	SetPosition({ 700.0f, 640.0f });
 
+	SetPivot(v2f(0.5f, 0.5f));
+
 	mySpawnPosition = v2f(700.0f, 640.0f);
 	mySize = v2f(16.0f, 16.0f);
 
@@ -64,6 +66,7 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	mySpringVelocityRetardation = {};
 	mySpringTimer = {};
 }
+
 Player::~Player()
 {
 
@@ -114,7 +117,8 @@ void Player::InitCollider()
 	physics->SetApplyGravity(false);
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
-	collider->SetSize(16.0f, 16.0f);
+	collider->SetSize(7.0f, 12.0f);
+	collider->SetPosition(v2f(0.0f, 2.0f));
 }
 
 void Player::Update(const float& aDeltaTime)
@@ -466,14 +470,30 @@ void Player::BounceOnDestructibleWall()
 
 void Player::Kill()
 {
+	KillReset();
+	Respawn();
+}
+
+void Player::Eaten()
+{
+	KillReset();
+}
+
+void Player::KillReset()
+{
 	myScene->GetCamera().Shake(myJsonData->myDieShakeDuration, myJsonData->myDieShakeIntensity, myJsonData->myDieShakeDropOff);
 	myInputHandler->GetController()->Vibrate(myJsonData->myDieVibrationStrength, myJsonData->myDieVibrationStrength, myJsonData->myDieVibrationLength);
-
-	SetPosition(mySpawnPosition);
 
 	ResetVelocity();
 	myBashAbility->ResetVelocity(true, true);
 	myPlatformVelocity = v2f();
+	Deactivate();
+}
+
+void Player::Respawn()
+{
+	SetPosition(mySpawnPosition);
+	Activate();
 }
 
 const bool& Player::GetIsBashing()

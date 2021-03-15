@@ -47,7 +47,7 @@ void Button::InitButton(const v2f myStartingPosition, const v2f myPositionFromSt
 	SetPivot({ 0.f, 1.f });
 
 	SpriteComponent* gsprite = AddComponent<SpriteComponent>();
-	gsprite->SetSpritePath("Sprites/Temp/TempButton.dds");
+	gsprite->SetSpritePath("Sprites/TempButton.dds");
 	gsprite->SetSize(mySize);
 
 	PhysicsComponent* gphys = AddComponent<PhysicsComponent>();

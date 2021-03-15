@@ -71,6 +71,10 @@ public:
 	const bool& GetIsBashing();
 
 	void Kill();
+	void Eaten();
+
+	void KillReset();
+	void Respawn();
 
 	void BashCollision(GameObject* aGameObject, BashComponent* aBashComponent) override;
 
