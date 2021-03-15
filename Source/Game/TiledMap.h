@@ -24,6 +24,7 @@ private:
 	void ParsePlatforms(tson::Layer*, Scene*);
 	void ParseHiddenRooms(tson::Layer*, Scene*);
 	void ParseSprings(tson::Layer*, Scene*);
+	void ParseBashableObjects(tson::Layer*, Scene*);
 	void ParseButtons(tson::Layer*, Scene*);
 
 	v2f GetScreenPosition(v2f aTiledPos);
