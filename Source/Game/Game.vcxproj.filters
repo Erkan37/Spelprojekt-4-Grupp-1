@@ -58,6 +58,9 @@
     <Filter Include="Game Objects\Enemy">
       <UniqueIdentifier>{0ac25968-84f0-46c9-92de-0ed27d04be1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\UI">
+      <UniqueIdentifier>{8ad91255-f8a7-4458-bae7-266bd0a182af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -191,11 +194,6 @@
     <ClInclude Include="BashableObjectFactory.hpp">
       <Filter>Factories</Filter>
     </ClInclude>
-
-    <ClInclude Include="UIManager.h" />
-    <ClInclude Include="PauseScene.h" />
-    <ClInclude Include="ButtonManager.h" />
-
     <ClInclude Include="Enemy.h">
       <Filter>Game Objects\Enemy</Filter>
     </ClInclude>
@@ -220,7 +218,15 @@
     <ClInclude Include="TiledMap.h">
       <Filter>Core\Tileson</Filter>
     </ClInclude>
-
+    <ClInclude Include="ButtonManager.h">
+      <Filter>Core\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseScene.h">
+      <Filter>Core\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Core\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -333,11 +339,6 @@
     <ClCompile Include="BashableObjectFactory.cpp">
       <Filter>Factories</Filter>
     </ClCompile>
-
-    <ClCompile Include="UIManager.cpp" />
-    <ClCompile Include="PauseScene.cpp" />
-    <ClCompile Include="ButtonManager.cpp" />
-
     <ClCompile Include="Enemy.cpp">
       <Filter>Game Objects\Enemy</Filter>
     </ClCompile>
@@ -362,6 +363,14 @@
     <ClCompile Include="TiledMap.cpp">
       <Filter>Core\Tileson</Filter>
     </ClCompile>
-
+    <ClCompile Include="ButtonManager.cpp">
+      <Filter>Core\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseScene.cpp">
+      <Filter>Core\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Core\UI</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
