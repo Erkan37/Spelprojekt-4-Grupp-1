@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "EffectSprite.h"
 #include "SpriteComponent.h"
+#include "Random.hpp"
 
 
 EffectSprite::EffectSprite()
@@ -15,11 +16,10 @@ void EffectSprite::Update(const float& aDeltatime)
 {
 	myTotalTimer += aDeltatime;
 
-	v2f size = mySprite->GetSize() * myScale;
-	v2f movement = myPosition * mySpeedInterval;
+	v2f size = mySprite->GetSize() * 0.5f;
+	//v2f movement = {mySprite->GetRelativePosition().x, mySprite->GetRelativePosition().y + -1.f};
 
-	mySprite->SetSize(size);
-	mySprite->SetRelativePosition(movement);
+	//mySprite->SetRelativePosition(movement);
 
 
 	if (myTotalTimer > myLifeTime)
@@ -32,6 +32,9 @@ void EffectSprite::AddSprite(SpriteComponent* aSprite)
 {
 	mySprite = aSprite;
 	mySprite->SetSpritePath(myPathString);
+	v2f size = mySprite->GetSize() * myScale;
+	mySprite->SetSize(size);
+	mySprite->SetRelativePosition({ mySprite->GetRelativePosition().x + 5 * myEmitterWidth , mySprite->GetRelativePosition().y});
 }
 
 bool EffectSprite::IsAlive()

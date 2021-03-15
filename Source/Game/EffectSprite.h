@@ -27,10 +27,10 @@ public:
 	float myAcceleration = {};
 	float myLifeTime = {};
 	float myRotation = {};
+	float myEmitterWidth = {};
+	float myEmiterLifetime = {};
 	int mySpawnAngle = {};
 	int myEmitterAngle = {};
-	int myEmitterWidth = {};
-	int myEmiterLifetime = {};
 
 	bool myIsAlive = true;
 

@@ -100,12 +100,12 @@ const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 		mySprites.push_back(sprite);
 
 		mySpawnInterval = Utils::RandomFloat(myStats.myMinBetweenSpawn, myStats.myMaxBetweenSpawn);
-
+		std::cout << sprite.myScale << std::endl;
 	}
 
 
 
-	SetPosition(myPlayer->GetPosition());
+	SetPosition({myPlayer->GetPosition().x, myPlayer->GetPosition().y - 10.f});
 
 	
 	for (int i = 0; i < mySprites.size(); i++)
