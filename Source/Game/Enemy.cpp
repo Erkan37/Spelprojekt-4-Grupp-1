@@ -139,11 +139,15 @@ ShootingEnemy::ShootingEnemy(Scene* aScene) : Enemy(aScene)
 void ShootingEnemy::Update(const float& aDeltaTime)
 {
 	Enemy::Update(aDeltaTime);
-	myShotTimer -= aDeltaTime;
-	if (myShotTimer <= 0)
+	v2f lengthToPlayer = dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition() - this->GetPosition();
+	if (lengthToPlayer.Length() <= myRadius)
 	{
-		myShotTimer = myFireRate;
-		Shoot();
+		myShotTimer -= aDeltaTime;
+		if (myShotTimer <= 0)
+		{
+			myShotTimer = myFireRate;
+			Shoot();
+		}
 	}
 }
 void ShootingEnemy::Shoot()
