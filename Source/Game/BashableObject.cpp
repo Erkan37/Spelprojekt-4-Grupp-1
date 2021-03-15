@@ -6,12 +6,14 @@
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
 #include "BashComponent.hpp"
+#include "WaypointComponent.hpp"
 
 BashableObject::BashableObject(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene)
 {
-
+	WaypointComponent* waypointComponent = AddComponent<WaypointComponent>();
+	waypointComponent->SetOwner(this);
 }
 
 BashableObject::~BashableObject()
@@ -37,4 +39,13 @@ void BashableObject::Init(const v2f& aPosition, const float& aRadius)
 	physics->SetApplyGravity(false);
 
 	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
+
+	GameObject::Init();
+}
+
+void BashableObject::Update(const float& aDeltaTime)
+{
+	GetComponent<WaypointComponent>()->Move(aDeltaTime);
+
+	GameObject::Update(aDeltaTime);
 }

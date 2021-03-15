@@ -90,8 +90,8 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 
 		v2f spriteMin = GetTopLeft(aTransform);
 		v2f spriteMax = GetBottomRight(aTransform);
-		v2f cameraMin = cameraPosition;
-		v2f cameraMax = { cameraPosition.x + (width / zoom), cameraPosition.y + (height / zoom) };
+		v2f cameraMin = cameraPosition - mySize;
+		v2f cameraMax = v2f(cameraPosition.x + (width / zoom), cameraPosition.y + (height / zoom)) + mySize;
 
 		if (!(spriteMin.x <= cameraMax.x && spriteMax.x >= cameraMin.x &&
 			spriteMin.y <= cameraMax.y && spriteMax.y >= cameraMin.y) && !myForceRender)

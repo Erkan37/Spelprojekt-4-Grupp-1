@@ -26,7 +26,6 @@ private:
     GameObject* myPlayer;
     GameObject* myEnemy;
     std::unique_ptr<Background> myBackground;
-    std::unique_ptr<SpringObject> mySpring;
     std::unique_ptr<TiledMap> myTiledMap;
 };
 
