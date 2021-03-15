@@ -14,6 +14,7 @@
 #include <fstream>
 
 #include "SpriteComponent.h"
+#include "WaypointComponent.hpp"
 
 void PlatformFactory::ReadPlatforms(Scene* aLevelScene, const std::string& aFilePath)
 {
@@ -89,7 +90,7 @@ void PlatformFactory::ReadPlatforms(Scene* aLevelScene, const std::string& aFile
 Platform* PlatformFactory::CreateStaticPlatform(Scene* aLevelScene, const v2f& aPosition, const v2f& aCollisionSize, const v2f& aSpriteSize, const bool aIsOneWay)
 {
 	Platform* staticPlatform = new Platform(aLevelScene);
-	staticPlatform->Init(v2f(aCollisionSize.x, aCollisionSize.y), v2f(aSpriteSize.x, aSpriteSize.y), v2f(aPosition.x, aPosition.y), aIsOneWay);
+	staticPlatform->Init(aCollisionSize, aSpriteSize, aPosition, aIsOneWay);
 	staticPlatform->GetComponent<SpriteComponent>()->SetSpritePath("Sprites/Platforms/BreakableFloor.dds");
 	staticPlatform->GetComponent<SpriteComponent>()->SetSize(aSpriteSize);
 	return staticPlatform;
@@ -98,10 +99,30 @@ Platform* PlatformFactory::CreateStaticPlatform(Scene* aLevelScene, const v2f& a
 MovingPlatform* PlatformFactory::CreateMovingPlatform(Scene* aLevelScene, const v2f& aPosition, const v2f& aCollisionSize, const v2f& aSpriteSize, const std::vector<v2f>& aWayPoints, const float& aSpeed)
 {
 	MovingPlatform* movingPlatform = new MovingPlatform(aLevelScene);
-	movingPlatform->Init(v2f(aCollisionSize.x, aCollisionSize.y), v2f(aSpriteSize.x, aSpriteSize.y), v2f(aPosition.x, aPosition.y), true);
+
+	std::string spritePath = "Sprites/Platforms/Moving6.dds";
+
+	v2f adjustedSize = v2f(0.0f, 8.0f);
+	if (aCollisionSize.x >= 40.0f)
+	{
+		adjustedSize.x = 48.0f;
+		spritePath = "Sprites/Platforms/Moving6.dds";
+	}
+	else if (aCollisionSize.x >= 24.0f)
+	{
+		adjustedSize.x = 32.0f;
+		spritePath = "Sprites/Platforms/Moving4.dds";
+	}
+	else
+	{
+		adjustedSize.x = 16.0f;
+		spritePath = "Sprites/Platforms/Moving2.dds";
+	}
+
+	movingPlatform->Init(adjustedSize, adjustedSize, aPosition, true);
 	movingPlatform->SetWaypoints(aWayPoints);
-	movingPlatform->SetSpeed(aSpeed);
-	movingPlatform->GetComponent<SpriteComponent>()->SetSpritePath("Sprites/Platforms/moving6.dds");
+	movingPlatform->GetComponent<WaypointComponent>()->SetSpeed(aSpeed);
+	movingPlatform->GetComponent<SpriteComponent>()->SetSpritePath(spritePath);
 	movingPlatform->GetComponent<SpriteComponent>()->SetSize(aSpriteSize);
 	return movingPlatform;
 }
@@ -109,9 +130,29 @@ MovingPlatform* PlatformFactory::CreateMovingPlatform(Scene* aLevelScene, const 
 UnstablePlatform* PlatformFactory::CreateUnstablePlatform(Scene* aLevelScene, const v2f& aPosition, const v2f& aCollisionSize, const v2f& aSpriteSize, const float& aDestroyTime, const float& aRespawnTime)
 {
 	UnstablePlatform* unstablePlatform = new UnstablePlatform(aLevelScene);
-	unstablePlatform->Init(v2f(aCollisionSize.x, aCollisionSize.y), v2f(aSpriteSize.x, aSpriteSize.y), v2f(aPosition.x, aPosition.y), false);
+
+	std::string spritePath = "Sprites/Platforms/Unstable5.dds";
+
+	v2f adjustedSize = v2f(0.0f, 8.0f);
+	if (aCollisionSize.x >= 40.0f)
+	{
+		adjustedSize.x = 40.0f;
+		spritePath = "Sprites/Platforms/Unstable5.dds";
+	}
+	else if (aCollisionSize.x >= 24.0f)
+	{
+		adjustedSize.x = 24.0f;
+		spritePath = "Sprites/Platforms/Unstable3.dds";
+	}
+	else
+	{
+		adjustedSize.x = 8.0f;
+		spritePath = "Sprites/Platforms/Unstable1.dds";
+	}
+
+	unstablePlatform->Init(adjustedSize, adjustedSize, aPosition, false);
 	unstablePlatform->SetTimerProperties(aDestroyTime, aRespawnTime);
-	unstablePlatform->GetComponent<SpriteComponent>()->SetSpritePath("Sprites/Platforms/unstable5.dds");
+	unstablePlatform->GetComponent<SpriteComponent>()->SetSpritePath(spritePath);
 	unstablePlatform->GetComponent<SpriteComponent>()->SetSize(aSpriteSize);
 	return unstablePlatform;
 }
@@ -119,8 +160,26 @@ UnstablePlatform* PlatformFactory::CreateUnstablePlatform(Scene* aLevelScene, co
 DestructiblePlatform* PlatformFactory::CreateDestructiblePlatform(Scene* aLevelScene, const v2f& aPosition, const v2f& aCollisionSize, const v2f& aSpriteSize)
 {
 	DestructiblePlatform* destructiblePlatform = new DestructiblePlatform(aLevelScene);
-	destructiblePlatform->Init(v2f(aCollisionSize.x, aCollisionSize.y), v2f(aSpriteSize.x, aSpriteSize.y), v2f(aPosition.x, aPosition.y), false);
-	destructiblePlatform->GetComponent<SpriteComponent>()->SetSpritePath("Sprites/Platforms/BreakableFloor.dds");
+
+	std::string spritePath = "Sprites/Platforms/BreakableWall.dds";
+
+	v2f adjustedSize = v2f(0.0f, 0.0f);
+	if (aCollisionSize.x >= 32.0f)
+	{
+		adjustedSize.x = 32.0f;
+		adjustedSize.y = 24.0f;
+		spritePath = "Sprites/Platforms/BreakableFloor.dds";
+	}
+	else
+	{
+		adjustedSize.x = 24.0f;
+		adjustedSize.y = 32.0f;
+		spritePath = "Sprites/Platforms/BreakableWall.dds";
+	}
+
+
+	destructiblePlatform->Init(adjustedSize, adjustedSize, aPosition, false);
+	destructiblePlatform->GetComponent<SpriteComponent>()->SetSpritePath(spritePath);
 	destructiblePlatform->GetComponent<SpriteComponent>()->SetSize(aSpriteSize);
 	return destructiblePlatform;
 }
@@ -128,7 +187,7 @@ DestructiblePlatform* PlatformFactory::CreateDestructiblePlatform(Scene* aLevelS
 DeadlyPlatform* PlatformFactory::CreateDeadlyPlatform(Scene* aLevelScene, const v2f& aPosition, const v2f& aCollisionSize, const v2f& aSpriteSize)
 {
 	DeadlyPlatform* deadlyPlatform = new DeadlyPlatform(aLevelScene);
-	deadlyPlatform->Init(v2f(aCollisionSize.x, aCollisionSize.y), v2f(aSpriteSize.x, aSpriteSize.y), v2f(aPosition.x, aPosition.y), false);
+	deadlyPlatform->Init(aCollisionSize, aSpriteSize, aPosition, false);
 	deadlyPlatform->GetComponent<SpriteComponent>()->SetSpritePath("Sprites/Platforms/BreakableFloor.dds");
 	deadlyPlatform->GetComponent<SpriteComponent>()->SetSize(aSpriteSize);
 	return deadlyPlatform;

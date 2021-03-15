@@ -7,6 +7,8 @@
 #include "../External/Headers/rapidjson/istreamwrapper.h"
 #include <fstream>
 
+#include "WaypointComponent.hpp"
+
 void BashableObjectFactory::ReadBashableObjects(Scene* aLevelScene, const std::string& aFilePath)
 {
 	std::ifstream bashableObjectsFile(aFilePath);
@@ -20,15 +22,17 @@ void BashableObjectFactory::ReadBashableObjects(Scene* aLevelScene, const std::s
 		const v2f position = v2f((*bashableObject)["Position"]["X"].GetFloat(), (*bashableObject)["Position"]["Y"].GetFloat());
 		const float radius = (*bashableObject)["Radius"].GetFloat();
 
-		CreateBashableObject(aLevelScene, position, radius);
+		CreateBashableObject(aLevelScene, position, radius, 100.0f, std::vector<v2f>());
 	}
 
 	bashableObjectsFile.close();
 }
 
-BashableObject* BashableObjectFactory::CreateBashableObject(Scene* aLevelScene, const v2f& aPosition, const float& aRadius)
+BashableObject* BashableObjectFactory::CreateBashableObject(Scene* aLevelScene, const v2f& aPosition, const float& aRadius, const float& aSpeed, const std::vector<v2f>& aWaypoints)
 {
 	BashableObject* bashableObject = new BashableObject(aLevelScene);
 	bashableObject->Init(aPosition, aRadius);
+	bashableObject->GetComponent<WaypointComponent>()->SetSpeed(aSpeed);
+	bashableObject->GetComponent<WaypointComponent>()->SetWaypoints(aWaypoints);
 	return bashableObject;
 }
