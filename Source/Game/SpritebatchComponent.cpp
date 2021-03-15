@@ -12,9 +12,9 @@
 SpritebatchComponent::SpritebatchComponent()
 	: myBatch(nullptr)
 	, mySprites(std::vector<SpriteComponent*>())
-	, mySpritePath(std::string())
-	, myBlendState(EBlendState_Alphablend)
-	, mySamplerFilter(ESamplerFilter_Bilinear)
+	, mySpritePath(std::string())/*
+	, myBlendState(EBlendState::EBlendState_Alphablend)
+	, mySamplerFilter(ESamplerFilter::ESamplerFilter_Bilinear)*/
 {}
 
 SpritebatchComponent::~SpritebatchComponent()
@@ -71,23 +71,23 @@ void SpritebatchComponent::Reset()
 	delete myBatch;
 	myBatch = nullptr;
 }
-
-void SpritebatchComponent::SetBlendState(const EBlendState aBlendState)
-{
-	myBlendState = aBlendState;
-}
-
-const EBlendState& SpritebatchComponent::GetBlendState() const
-{
-	return myBlendState;
-}
-
-void SpritebatchComponent::SetSamplerFilter(const ESamplerFilter& aSamplerFilter)
-{
-	mySamplerFilter = aSamplerFilter;
-}
-
-const ESamplerFilter& SpritebatchComponent::GetSamplerFilter() const
-{
-	return mySamplerFilter;
-}
+//
+//void SpritebatchComponent::SetBlendState(const EBlendState aBlendState)
+//{
+//	myBlendState = aBlendState;
+//}
+//
+//const EBlendState& SpritebatchComponent::GetBlendState() const
+//{
+//	return myBlendState;
+//}
+//
+//void SpritebatchComponent::SetSamplerFilter(const ESamplerFilter& aSamplerFilter)
+//{
+//	mySamplerFilter = aSamplerFilter;
+//}
+//
+//const ESamplerFilter& SpritebatchComponent::GetSamplerFilter() const
+//{
+//	return mySamplerFilter;
+//}

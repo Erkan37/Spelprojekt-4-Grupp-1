@@ -2,6 +2,8 @@
 #include "ParticleEffectFactory.h"
 #include "ParticleStats.hpp"
 #include "Scene.h"
+#include "LevelScene.h"
+#include "Player.hpp"
 
 #include "../External/Headers/rapidjson/document.h"
 #include "../External/Headers/rapidjson/istreamwrapper.h"
@@ -15,6 +17,11 @@ ParticleEffectFactory::ParticleEffectFactory(Scene* aLevelScene)
 
 void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 {
+	LevelScene* levelScene = dynamic_cast<LevelScene*>(aLevelScene);
+	Player* player = dynamic_cast<Player*>(levelScene->GetPlayer());
+
+	assert(player != NULL);
+
 	int index = {};
 	std::ifstream effectObjectFile("JSON/Particles/MasterParticles.json");
 	rapidjson::IStreamWrapper effectObjectStream(effectObjectFile);
@@ -64,7 +71,7 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 			stats.myEndColor = { (*particleStat)["EndColor"][0].GetFloat(), (*particleStat)["EndColor"][1].GetFloat(), (*particleStat)["EndColor"][2].GetFloat(), (*particleStat)["EndColor"][3].GetFloat() };
 
 			std::shared_ptr<ParticleEffect> particle = std::make_shared<ParticleEffect>();
-			particle->Init(stats, aLevelScene);
+			particle->Init(stats, player);
 			myEffects.push_back(particle);
 		}
 
@@ -80,35 +87,50 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 
 void ParticleEffectFactory::Init()
 {
+	SpawnCharacterEffects();
 }
 
 void ParticleEffectFactory::Update(const float& aDeltaTime)
 {
-	for (auto effect : myEffects)
+	for (auto effect : myCreatedEffects)
 		effect->Update(aDeltaTime);
 }
 
 void ParticleEffectFactory::Render()
 {
-	for (auto effect : myEffects)
+	for (auto effect : myCreatedEffects)
 		effect->Render();
 }
 
-void ParticleEffectFactory::SpawnEffect(const v2f aPosition, const eParticleEffects aEffectType)
+void ParticleEffectFactory::SpawnEffect(GameObject* aObject, const eParticleEffects aEffectType)
 {
 	switch (aEffectType)
 	{
 	case eParticleEffects::RunEffect:
 	{
-		myEffects[static_cast<int>(aEffectType)]->SetPosition(aPosition);
-		myEffects[static_cast<int>(aEffectType)]->SetIsActive(true);
+		std::shared_ptr<ParticleEffect> effect = std::make_shared<ParticleEffect>();
+		effect->SetEffect(myEffects[static_cast<int>(aEffectType)].get());
+		effect->SetPosition(aObject->GetPosition());
+		effect->SetIsActive(true);
+		myCreatedEffects.push_back(effect);
 		break;
 	}
 	case eParticleEffects::FallEffect:
 	{
-		myEffects[static_cast<int>(aEffectType)]->SetPosition(aPosition);
-		myEffects[static_cast<int>(aEffectType)]->SetIsActive(true);
+		std::shared_ptr<ParticleEffect> effect = std::make_shared<ParticleEffect>();
+		effect->SetEffect(myEffects[static_cast<int>(aEffectType)].get());
+		effect->SetPosition(aObject->GetPosition());
+		effect->SetIsActive(true);
+		myCreatedEffects.push_back(effect);
 		break;
 	}
 	}
+}
+
+void ParticleEffectFactory::SpawnCharacterEffects()
+{
+	std::shared_ptr<ParticleEffect> effect = std::make_shared<ParticleEffect>();
+	effect->SetEffect(myEffects[static_cast<int>(eParticleEffects::RunEffect)].get());
+	effect->SetIsActive(true);
+	myCreatedEffects.push_back(effect);
 }

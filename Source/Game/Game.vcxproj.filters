@@ -148,9 +148,6 @@
     <ClInclude Include="DestructiblePlatform.hpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
-    <ClInclude Include="TiledMap.h">
-      <Filter>Core\Tileson</Filter>
-    </ClInclude>
     <ClInclude Include="BashAbility.h">
       <Filter>Game Objects\Player</Filter>
     </ClInclude>
@@ -224,6 +221,10 @@
     <ClInclude Include="ParticleEffectTypes.hpp">
       <Filter>Factories</Filter>
     </ClInclude>
+    <ClInclude Include="Bonfire.hpp" />
+    <ClInclude Include="TiledMap.h">
+      <Filter>Core\Tileson</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -293,9 +294,6 @@
     <ClCompile Include="DestructiblePlatform.cpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
-    <ClCompile Include="TiledMap.cpp">
-      <Filter>Core\Tileson</Filter>
-    </ClCompile>
     <ClCompile Include="BashAbility.cpp">
       <Filter>Game Objects\Player</Filter>
     </ClCompile>
@@ -362,6 +360,10 @@
     </ClCompile>
     <ClCompile Include="ParticleEffect.cpp">
       <Filter>Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="Bonfire.cpp" />
+    <ClCompile Include="TiledMap.cpp">
+      <Filter>Core\Tileson</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
