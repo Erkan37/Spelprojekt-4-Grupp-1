@@ -41,16 +41,16 @@ void LevelScene::Load()
 {
 	myPlayer = new Player(this);
 
-	EnemyFactory enemyFactory;
-	enemyFactory.ReadEnemies(this, "JSON/AlfaEnemies.json");
+	//EnemyFactory enemyFactory;
+	//enemyFactory.ReadEnemies(this, "JSON/AlfaEnemies.json");
 
 	myBackground = std::make_unique<Background>(this);
 
 	myTiledMap = std::make_unique<TiledMap>();
 	myTiledMap->Load("Levels/test_level.json", this);
 
-	BashableObjectFactory bashableObjectFactory;
-	bashableObjectFactory.ReadBashableObjects(this, "JSON/AlfaBashableObjects.json");
+	//BashableObjectFactory bashableObjectFactory;
+	//bashableObjectFactory.ReadBashableObjects(this, "JSON/AlfaBashableObjects.json");
 
 	Scene::Load();
 }

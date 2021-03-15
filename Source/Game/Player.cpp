@@ -36,11 +36,11 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	myBashAbility->AddTimer(world->GetTimer());
 
 	SetZIndex(500);
-	SetPosition({ 700.0f, 640.0f });
+	SetPosition({ 20.0f, 10.0f });
 
 	SetPivot(v2f(0.5f, 0.5f));
 
-	mySpawnPosition = v2f(700.0f, 640.0f);
+	mySpawnPosition = v2f(20.0f, 10.0f);
 	mySize = v2f(16.0f, 16.0f);
 
 	InitAnimations();

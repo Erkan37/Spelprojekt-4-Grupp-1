@@ -359,34 +359,36 @@ void TiledMap::ParseButtons(tson::Layer* aLayer, Scene* aScene)
 
 v2f TiledMap::GetScreenPosition(v2f aTiledPos)
 {
-	int tiledTileSize = 8;
-	v2f screenPos;
-	v2f tiledTile;
+	//int tiledTileSize = 8;
+	//v2f screenPos;
+	//v2f tiledTile;
 
-	tiledTile.x = aTiledPos.x / tiledTileSize;
-	tiledTile.y = aTiledPos.y / tiledTileSize;
+	//tiledTile.x = aTiledPos.x / tiledTileSize;
+	//tiledTile.y = aTiledPos.y / tiledTileSize;
 
-	v2f tileSizeInPixels;
-	tileSizeInPixels.x = Tga2D::CEngine::GetInstance()->GetWindowSize().x / myNumberOfTilesOnScreen.x;
-	tileSizeInPixels.y = Tga2D::CEngine::GetInstance()->GetWindowSize().y / myNumberOfTilesOnScreen.y;
+	//v2f tileSizeInPixels;
+	//tileSizeInPixels.x = Tga2D::CEngine::GetInstance()->GetWindowSize().x / myNumberOfTilesOnScreen.x;
+	//tileSizeInPixels.y = Tga2D::CEngine::GetInstance()->GetWindowSize().y / myNumberOfTilesOnScreen.y;
 
-	screenPos.x = tiledTile.x * tileSizeInPixels.x;
-	screenPos.y = tiledTile.y * tileSizeInPixels.y;
+	//screenPos.x = tiledTile.x * tileSizeInPixels.x;
+	//screenPos.y = tiledTile.y * tileSizeInPixels.y;
 
-	return screenPos;
+	//return screenPos;
+	return aTiledPos;
 }
 
 v2f TiledMap::GetObjSize(v2f aTiledSize)
 {
-	int tiledTileSize = 8;
-	v2f objSize;
+	//int tiledTileSize = 8;
+	//v2f objSize;
 
-	v2f tileSizeInPixels;
-	tileSizeInPixels.x = Tga2D::CEngine::GetInstance()->GetWindowSize().x / myNumberOfTilesOnScreen.x;
-	tileSizeInPixels.y = Tga2D::CEngine::GetInstance()->GetWindowSize().y / myNumberOfTilesOnScreen.y;
+	//v2f tileSizeInPixels;
+	//tileSizeInPixels.x = Tga2D::CEngine::GetInstance()->GetWindowSize().x / myNumberOfTilesOnScreen.x;
+	//tileSizeInPixels.y = Tga2D::CEngine::GetInstance()->GetWindowSize().y / myNumberOfTilesOnScreen.y;
 
-	objSize.x = (aTiledSize.x / tiledTileSize) * tileSizeInPixels.x;
-	objSize.y = (aTiledSize.y / tiledTileSize) * tileSizeInPixels.y;
+	//objSize.x = (aTiledSize.x / tiledTileSize) * tileSizeInPixels.x;
+	//objSize.y = (aTiledSize.y / tiledTileSize) * tileSizeInPixels.y;
 
-	return objSize;
+	//return objSize;
+	return aTiledSize;
 }
