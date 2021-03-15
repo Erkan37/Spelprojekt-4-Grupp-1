@@ -2,6 +2,8 @@
 #include "Platform.h"
 #include "Button.h"
 
+class WaypointComponent;
+
 class MovingPlatform : public Platform
 {
 public:
@@ -9,29 +11,15 @@ public:
 
 	void Update(const float& aDeltaTime) override;
 
-	void Move(const float& aDeltaTime);
-
-	void CheckReachedWayPoint();
-	void SetNextWayPoint();
-
-	void SetSpeed(const float& aSpeed);
-
-	void AddWaypoint(const v2f& aWaypoint);
 	void SetWaypoints(const std::vector<v2f>& aWaypoints);
-	void SetButtonPosition();
 
-	void ClearWaypoints();
+	void SetButtonPosition();
 
 	void OnCollision(GameObject* aGameObject) override;
 
 private:
 	Button myButton;
-	std::vector<v2f> myWaypoints;
-	v2f myDirection;
-
-	float mySpeed;
-
-	int myCurrentWayPointIndex;
+	WaypointComponent* myWaypointComponent;
 
 };
 

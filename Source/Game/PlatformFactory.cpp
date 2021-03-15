@@ -14,6 +14,7 @@
 #include <fstream>
 
 #include "SpriteComponent.h"
+#include "WaypointComponent.hpp"
 
 void PlatformFactory::ReadPlatforms(Scene* aLevelScene, const std::string& aFilePath)
 {
@@ -120,7 +121,7 @@ MovingPlatform* PlatformFactory::CreateMovingPlatform(Scene* aLevelScene, const 
 
 	movingPlatform->Init(adjustedSize, adjustedSize, aPosition, true);
 	movingPlatform->SetWaypoints(aWayPoints);
-	movingPlatform->SetSpeed(aSpeed);
+	movingPlatform->GetComponent<WaypointComponent>()->SetSpeed(aSpeed);
 	movingPlatform->GetComponent<SpriteComponent>()->SetSpritePath(spritePath);
 	movingPlatform->GetComponent<SpriteComponent>()->SetSize(aSpriteSize);
 	return movingPlatform;

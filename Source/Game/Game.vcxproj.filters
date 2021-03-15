@@ -215,6 +215,9 @@
     <ClInclude Include="TiledMap.h">
       <Filter>Core\Tileson</Filter>
     </ClInclude>
+    <ClInclude Include="WaypointComponent.hpp">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -350,6 +353,9 @@
     </ClCompile>
     <ClCompile Include="TiledMap.cpp">
       <Filter>Core\Tileson</Filter>
+    </ClCompile>
+    <ClCompile Include="WaypointComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
