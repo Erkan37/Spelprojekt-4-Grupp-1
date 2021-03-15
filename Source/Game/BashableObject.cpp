@@ -12,7 +12,8 @@ BashableObject::BashableObject(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene)
 {
-	AddComponent<WaypointComponent>();
+	WaypointComponent* waypointComponent = AddComponent<WaypointComponent>();
+	waypointComponent->SetOwner(this);
 }
 
 BashableObject::~BashableObject()

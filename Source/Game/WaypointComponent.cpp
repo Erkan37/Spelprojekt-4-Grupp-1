@@ -48,9 +48,12 @@ void WaypointComponent::SetWaypoints(const std::vector<v2f>& aWaypoints)
 {
 	myWaypoints = aWaypoints;
 
-	myCurrentWayPointIndex = 0;
-	myOwner->SetPosition(myWaypoints[myCurrentWayPointIndex]);
-	myDirection = (myWaypoints[myCurrentWayPointIndex] - myOwner->GetPosition()).GetNormalized();
+	if (static_cast<int>(aWaypoints.size()) > 0)
+	{
+		myCurrentWayPointIndex = 0;
+		myOwner->SetPosition(myWaypoints[myCurrentWayPointIndex]);
+		myDirection = (myWaypoints[myCurrentWayPointIndex] - myOwner->GetPosition()).GetNormalized();
+	}
 }
 
 void WaypointComponent::ClearWaypoints()
