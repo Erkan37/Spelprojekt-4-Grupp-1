@@ -66,7 +66,15 @@ void MovingPlatform::AddWaypoint(const v2f& aWaypoint)
 
 void MovingPlatform::SetWaypoints(const std::vector<v2f>& aWaypoints)
 {
+	constexpr float xOffset = 4.0f; //To offset platform to middle of line
+
 	myWaypoints = aWaypoints;
+
+	for (v2f& waypoint : myWaypoints)
+	{
+		waypoint.x -= xOffset;
+	}
+
 	myCurrentWayPointIndex = 0;
 	SetPosition(myWaypoints[myCurrentWayPointIndex]);
 	myDirection = (myWaypoints[myCurrentWayPointIndex] - myTransform.myPosition).GetNormalized();
