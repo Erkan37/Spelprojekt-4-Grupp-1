@@ -185,6 +185,7 @@
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector4.hpp" />
+    <ClInclude Include="WaypointComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
@@ -235,6 +236,7 @@
     <ClCompile Include="TiledMap.cpp" />
     <ClCompile Include="UnstablePlatform.cpp" />
     <ClCompile Include="Utilities.cpp" />
+    <ClCompile Include="WaypointComponent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -11,6 +11,8 @@ public:
 
 	void Init(const v2f& aPosition, const float& aRadius);
 
+	void Update(const float& aDeltaTime) override;
+
 
 private:
 

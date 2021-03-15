@@ -215,8 +215,9 @@
     <ClInclude Include="TiledMap.h">
       <Filter>Core\Tileson</Filter>
     </ClInclude>
-    <ClInclude Include="PauseScene.h" />
-    <ClInclude Include="ButtonManager.h" />
+    <ClInclude Include="WaypointComponent.hpp">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -353,7 +354,8 @@
     <ClCompile Include="TiledMap.cpp">
       <Filter>Core\Tileson</Filter>
     </ClCompile>
-    <ClCompile Include="PauseScene.cpp" />
-    <ClCompile Include="ButtonManager.cpp" />
+    <ClCompile Include="WaypointComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
