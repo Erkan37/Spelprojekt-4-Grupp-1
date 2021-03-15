@@ -2,9 +2,12 @@
 #include <sstream>
 #include "TiledMap.h"
 #include "tileson/tileson_min.hpp"
-#include "SpringObject.h"
-#include "Scene.h"
 
+#include "SpringObject.h"
+#include "Bonfire.hpp"
+#include "Collectible.hpp"
+
+#include "Scene.h"
 #include <cassert>
 
 bool TiledMap::Load(const std::string& aPath, Scene* aScene)
@@ -146,7 +149,8 @@ void TiledMap::ParseBonfires(tson::Layer* aLayer, Scene* aScene)
 		aPos.x = tileObj[i].getPosition().x;
 		aPos.y = tileObj[i].getPosition().y;
 
-		//Add objects here
+		Bonfire* bonfire = new Bonfire(aScene);
+		bonfire->SetPosition(GetScreenPosition(aPos));
 	}
 }
 
@@ -202,7 +206,28 @@ void TiledMap::ParseCollectables(tson::Layer* aLayer, Scene* aScene)
 		aPos.x = tileObj[i].getPosition().x;
 		aPos.y = tileObj[i].getPosition().y;
 
-		//Add objects here
+		Collectible::eCollectibleType aType;
+
+		if (tileObj[i].getType() != "")
+		{
+			int type = stoi(tileObj[i].getType());
+
+			switch (type)
+			{
+			case 0: 
+				aType = Collectible::eCollectibleType::Easy;
+				break;
+			case 1:
+				aType = Collectible::eCollectibleType::Medium;
+				break;
+			case 2:
+				aType = Collectible::eCollectibleType::Hard;
+				break;
+			}
+		}
+
+		Collectible* collectible = new Collectible(aScene);
+		collectible->Init(GetScreenPosition(aPos), aType);
 	}
 }
 
