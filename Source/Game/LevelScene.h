@@ -7,6 +7,7 @@
 #include "ParticleEffectFactory.h"
 
 class GameObject;
+class TiledMap;
 
 class LevelScene :
     public Scene
@@ -29,6 +30,6 @@ private:
     std::unique_ptr<ParticleEffectFactory> myFactory;
     std::unique_ptr<Background> myBackground;
     std::unique_ptr<SpringObject> mySpring;
-
+    std::unique_ptr<TiledMap> myTiledMap;
 };
 

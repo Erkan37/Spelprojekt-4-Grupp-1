@@ -28,6 +28,7 @@ private:
 	v2f myDirection;
 	int myCurrentPoint = 1;
 	Animation myAnimation;
+	bool IsMoving = false;
 };
 
 class NormalEnemy : public Enemy
@@ -46,8 +47,8 @@ public:
 	//ShootingEnemy(Scene* aScene, const std::vector<v2f>& someCoordinates);
 	void Update(const float& aDeltaTime);
 private:
-	EnemyProjectile* Shoot(const float& aDeltaTime);
-	const float myFireRate = 10.0f;
+	void Shoot();
+	const float myFireRate = 4.0f;
 	float myShotTimer = 0.0f;
 	v2f mySize = { 40.0f, 50.0f }; // Get from Json
 	bool myHasShot = false;

@@ -71,6 +71,44 @@
         }, 
         {
          "draworder":"topdown",
+         "id":15,
+         "name":"Buttons",
+         "objects":[
+                {
+                 "height":8,
+                 "id":50,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"ButtonX",
+                         "type":"float",
+                         "value":272
+                        }, 
+                        {
+                         "name":"ButtonY",
+                         "type":"float",
+                         "value":168
+                        }, 
+                        {
+                         "name":"Speed",
+                         "type":"float",
+                         "value":100
+                        }],
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":24,
+                 "x":200,
+                 "y":152
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":12,
          "name":"HiddenRoom",
          "objects":[
@@ -84,6 +122,29 @@
                  "width":56,
                  "x":48,
                  "y":40
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":false,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":14,
+         "name":"Springs",
+         "objects":[
+                {
+                 "height":0,
+                 "id":48,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":160,
+                 "y":112
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -124,7 +185,7 @@
                  "name":"kill",
                  "rotation":0,
                  "type":"1",
-                 "visible":false,
+                 "visible":true,
                  "width":344,
                  "x":-24,
                  "y":184
@@ -135,18 +196,18 @@
                  "name":"moving",
                  "properties":[
                         {
-                         "name":"speed",
+                         "name":"Speed",
                          "type":"float",
                          "value":100
                         }, 
                         {
-                         "name":"waypoints",
+                         "name":"Waypoints",
                          "type":"string",
                          "value":"5 0,5 5,0 5"
                         }],
                  "rotation":0,
                  "type":"2",
-                 "visible":false,
+                 "visible":true,
                  "width":32,
                  "x":192,
                  "y":112
@@ -157,7 +218,7 @@
                  "name":"destructable",
                  "rotation":0,
                  "type":"3",
-                 "visible":false,
+                 "visible":true,
                  "width":24,
                  "x":96,
                  "y":144
@@ -168,7 +229,7 @@
                  "name":"bashable",
                  "rotation":0,
                  "type":"4",
-                 "visible":false,
+                 "visible":true,
                  "width":24,
                  "x":296,
                  "y":136
@@ -222,7 +283,7 @@
                  "id":40,
                  "name":"",
                  "rotation":0,
-                 "type":"12",
+                 "type":"5",
                  "visible":true,
                  "width":352,
                  "x":-16,
@@ -230,14 +291,47 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":13,
+         "name":"CollectableZones",
+         "objects":[
+                {
+                 "height":24,
+                 "id":46,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":0,
+                 "y":144
+                }, 
+                {
+                 "height":16,
+                 "id":47,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":40,
+                 "x":280,
+                 "y":152
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":false,
          "x":0,
          "y":0
         }, 
         {
          "draworder":"topdown",
          "id":6,
-         "name":"Pickups",
+         "name":"Collectables",
          "objects":[
                 {
                  "height":0,
@@ -352,12 +446,12 @@
                  "point":true,
                  "properties":[
                         {
-                         "name":"speed",
+                         "name":"Speed",
                          "type":"float",
                          "value":100
                         }, 
                         {
-                         "name":"waypoints",
+                         "name":"Waypoints",
                          "type":"string",
                          "value":"3 0"
                         }],
@@ -375,12 +469,12 @@
                  "point":true,
                  "properties":[
                         {
-                         "name":"speed",
+                         "name":"Speed",
                          "type":"float",
                          "value":100
                         }, 
                         {
-                         "name":"waypoints",
+                         "name":"Waypoints",
                          "type":"string",
                          "value":"-5 0,5 2"
                         }],
@@ -388,7 +482,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":264,
+                 "x":216,
                  "y":56
                 }],
          "opacity":1,
@@ -426,7 +520,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -449,12 +543,12 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }],
- "nextlayerid":13,
- "nextobjectid":46,
+ "nextlayerid":16,
+ "nextobjectid":52,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

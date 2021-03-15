@@ -1,6 +1,6 @@
 #pragma once
-#include "GameObject.h"
 
+class GameObject;
 class EnemyProjectile : public GameObject
 {
 public:
@@ -15,6 +15,6 @@ private:
 	void InitCollider();
 	v2f mySize = {10.0f, 10.0f};
 	v2f myDirection;
-	const float mySpeed = 10.0f;
+	const float mySpeed = 300.0f;
 };
 
