@@ -47,7 +47,7 @@ void LevelScene::Load()
 	myBackground = std::make_unique<Background>(this);
 
 	myTiledMap = std::make_unique<TiledMap>();
-	myTiledMap->Load("Levels/test_level.json", this);
+	myTiledMap->Load("Levels/test_level2.json", this);
 
 	//BashableObjectFactory bashableObjectFactory;
 	//bashableObjectFactory.ReadBashableObjects(this, "JSON/AlfaBashableObjects.json");
