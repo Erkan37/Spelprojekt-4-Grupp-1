@@ -2,9 +2,12 @@
 #include <sstream>
 #include "TiledMap.h"
 #include "tileson/tileson_min.hpp"
-#include "SpringObject.h"
-#include "Scene.h"
 
+#include "SpringObject.h"
+#include "Bonfire.hpp"
+#include "Collectible.hpp"
+
+#include "Scene.h"
 #include <cassert>
 
 bool TiledMap::Load(const std::string& aPath, Scene* aScene)
@@ -41,6 +44,7 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	tson::Layer* platformLayer = map->getLayer("Platforms");
 	tson::Layer* hiddenRoomLayer = map->getLayer("HiddenRooms");
 	tson::Layer* springsLayer = map->getLayer("Springs");
+	tson::Layer* bashableLayer = map->getLayer("Bashable");
 	tson::Layer* buttonLayer = map->getLayer("Buttons");
 
 	if (bonfireLayer)
@@ -115,6 +119,14 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	{
 		ERROR_PRINT("failed to load springslayer");
 	}
+	if (bashableLayer)
+	{
+		ParseBashableObjects(bashableLayer, aScene);
+	}
+	else
+	{
+		ERROR_PRINT("failed to load bashablelayer");
+	}
 	if (buttonLayer)
 	{
 		ParseButtons(buttonLayer, aScene);
@@ -137,7 +149,8 @@ void TiledMap::ParseBonfires(tson::Layer* aLayer, Scene* aScene)
 		aPos.x = tileObj[i].getPosition().x;
 		aPos.y = tileObj[i].getPosition().y;
 
-		//Add objects here
+		Bonfire* bonfire = new Bonfire(aScene);
+		bonfire->SetPosition(GetScreenPosition(aPos));
 	}
 }
 
@@ -193,7 +206,28 @@ void TiledMap::ParseCollectables(tson::Layer* aLayer, Scene* aScene)
 		aPos.x = tileObj[i].getPosition().x;
 		aPos.y = tileObj[i].getPosition().y;
 
-		//Add objects here
+		Collectible::eCollectibleType aType;
+
+		if (tileObj[i].getType() != "")
+		{
+			int type = stoi(tileObj[i].getType());
+
+			switch (type)
+			{
+			case 0: 
+				aType = Collectible::eCollectibleType::Easy;
+				break;
+			case 1:
+				aType = Collectible::eCollectibleType::Medium;
+				break;
+			case 2:
+				aType = Collectible::eCollectibleType::Hard;
+				break;
+			}
+		}
+
+		Collectible* collectible = new Collectible(aScene);
+		collectible->Init(GetScreenPosition(aPos), aType);
 	}
 }
 
@@ -217,16 +251,6 @@ void TiledMap::ParsePlatforms(tson::Layer* aLayer, Scene* aScene)
 
 	for (int i = 0; i < tileObj.size(); ++i)
 	{
-		//Fix this ?
-		v2f tileSize;
-
-		//0: Statisk plattform
-		//1 : Plattform som rör sig
-		//2 : Sån som faller om man står på den instabil plattform
-		//3 : Förstörbar plattform
-		//4 : MördarPlattform
-		//5: OneWay plattformar, kan hoppa igenom underifrån
-
 		v2f aPos;
 		aPos.x = tileObj[i].getPosition().x;
 		aPos.y = tileObj[i].getPosition().y;
@@ -234,11 +258,13 @@ void TiledMap::ParsePlatforms(tson::Layer* aLayer, Scene* aScene)
 		v2f imageSize;
 		imageSize.x = tileObj[i].getSize().x;
 		imageSize.y = tileObj[i].getSize().y;
+
+		//Delete this when the switch case is fixed
 		myPlatformFactory->CreateStaticPlatform(aScene, GetScreenPosition(aPos), GetObjSize(imageSize), GetObjSize(imageSize), true);
 
-		float speed = 0;
-		std::string stringWaypoints = "";
-		std::vector<v2f> waypoints;
+		//float speed = 0;
+		//std::string stringWaypoints = "";
+		//std::vector<v2f> waypoints;
 
 		//if (tileObj[i].getType() != "")
 		//{
@@ -247,30 +273,28 @@ void TiledMap::ParsePlatforms(tson::Layer* aLayer, Scene* aScene)
 		//	switch (type)
 		//	{
 		//	case 0:
-		//		myPlatformFactory->CreateStaticPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, true); //Change aIsOneWay when it has a variable
+		//		myPlatformFactory->CreateStaticPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, false);
 		//		break;
 		//	case 1:
 		//		speed = tileObj[i].getProp("Speed")->getValue<float>();
 		//		stringWaypoints = tileObj[i].getProp("Waypoints")->getValue<std::string>();
 		//		
-		//		// översätt stringWaypoints till faktiska waypoints
+		//		// translate stringWaypoints to actual waypoints
 		//		waypoints.push_back({0, 0});
 
 		//		myPlatformFactory->CreateMovingPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, waypoints, speed);
 		//		break;
 		//	case 2:
-		//	//	myPlatformFactory->CreateUnstablePlatform(aScene, GetScreenPosition(aPos));
+		//		myPlatformFactory->CreateUnstablePlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize);
 		//		break;
 		//	case 3:
-		//		myPlatformFactory->CreateStaticPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, true);
-		//		//myPlatformFactory->CreateDestructiblePlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize);
+		//		myPlatformFactory->CreateDestructiblePlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize);
 		//		break;
 		//	case 4:
 		//		myPlatformFactory->CreateDeadlyPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize);
 		//		break;
 		//	case 5:
-		//		//myPlatformFactory->
-		//		break;
+		//		myPlatformFactory->CreateStaticPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, true);
 		//	}
 		//}
 	}
@@ -305,6 +329,20 @@ void TiledMap::ParseSprings(tson::Layer* aLayer, Scene* aScene)
 	}
 }
 
+void TiledMap::ParseBashableObjects(tson::Layer* aLayer, Scene* aScene)
+{
+	auto& tileObj = aLayer->getObjects();
+
+	for (int i = 0; i < tileObj.size(); ++i)
+	{
+		v2f aPos;
+		aPos.x = tileObj[i].getPosition().x;
+		aPos.y = tileObj[i].getPosition().y;
+
+		//Add objects here
+	}
+}
+
 void TiledMap::ParseButtons(tson::Layer* aLayer, Scene* aScene)
 {
 	auto& tileObj = aLayer->getObjects();
@@ -321,34 +359,36 @@ void TiledMap::ParseButtons(tson::Layer* aLayer, Scene* aScene)
 
 v2f TiledMap::GetScreenPosition(v2f aTiledPos)
 {
-	int tiledTileSize = 8;
-	v2f screenPos;
-	v2f tiledTile;
+	//int tiledTileSize = 8;
+	//v2f screenPos;
+	//v2f tiledTile;
 
-	tiledTile.x = aTiledPos.x / tiledTileSize;
-	tiledTile.y = aTiledPos.y / tiledTileSize;
+	//tiledTile.x = aTiledPos.x / tiledTileSize;
+	//tiledTile.y = aTiledPos.y / tiledTileSize;
 
-	v2f tileSizeInPixels;
-	tileSizeInPixels.x = Tga2D::CEngine::GetInstance()->GetWindowSize().x / myNumberOfTilesOnScreen.x;
-	tileSizeInPixels.y = Tga2D::CEngine::GetInstance()->GetWindowSize().y / myNumberOfTilesOnScreen.y;
+	//v2f tileSizeInPixels;
+	//tileSizeInPixels.x = Tga2D::CEngine::GetInstance()->GetWindowSize().x / myNumberOfTilesOnScreen.x;
+	//tileSizeInPixels.y = Tga2D::CEngine::GetInstance()->GetWindowSize().y / myNumberOfTilesOnScreen.y;
 
-	screenPos.x = tiledTile.x * tileSizeInPixels.x;
-	screenPos.y = tiledTile.y * tileSizeInPixels.y;
+	//screenPos.x = tiledTile.x * tileSizeInPixels.x;
+	//screenPos.y = tiledTile.y * tileSizeInPixels.y;
 
-	return screenPos;
+	//return screenPos;
+	return aTiledPos;
 }
 
 v2f TiledMap::GetObjSize(v2f aTiledSize)
 {
-	int tiledTileSize = 8;
-	v2f objSize;
+	//int tiledTileSize = 8;
+	//v2f objSize;
 
-	v2f tileSizeInPixels;
-	tileSizeInPixels.x = Tga2D::CEngine::GetInstance()->GetWindowSize().x / myNumberOfTilesOnScreen.x;
-	tileSizeInPixels.y = Tga2D::CEngine::GetInstance()->GetWindowSize().y / myNumberOfTilesOnScreen.y;
+	//v2f tileSizeInPixels;
+	//tileSizeInPixels.x = Tga2D::CEngine::GetInstance()->GetWindowSize().x / myNumberOfTilesOnScreen.x;
+	//tileSizeInPixels.y = Tga2D::CEngine::GetInstance()->GetWindowSize().y / myNumberOfTilesOnScreen.y;
 
-	objSize.x = (aTiledSize.x / tiledTileSize) * tileSizeInPixels.x;
-	objSize.y = (aTiledSize.y / tiledTileSize) * tileSizeInPixels.y;
+	//objSize.x = (aTiledSize.x / tiledTileSize) * tileSizeInPixels.x;
+	//objSize.y = (aTiledSize.y / tiledTileSize) * tileSizeInPixels.y;
 
-	return objSize;
+	//return objSize;
+	return aTiledSize;
 }

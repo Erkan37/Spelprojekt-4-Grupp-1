@@ -108,7 +108,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -370,10 +370,76 @@
                  "width":48,
                  "x":680,
                  "y":-96
+                }, 
+                {
+                 "height":8,
+                 "id":98,
+                 "name":"moving",
+                 "properties":[
+                        {
+                         "name":"Speed",
+                         "type":"float",
+                         "value":100
+                        }, 
+                        {
+                         "name":"Waypoints",
+                         "type":"string",
+                         "value":"5 0"
+                        }],
+                 "rotation":0,
+                 "type":"1",
+                 "visible":true,
+                 "width":8,
+                 "x":432,
+                 "y":184
+                }, 
+                {
+                 "height":8,
+                 "id":99,
+                 "name":"moving",
+                 "properties":[
+                        {
+                         "name":"Speed",
+                         "type":"float",
+                         "value":100
+                        }, 
+                        {
+                         "name":"Waypoints",
+                         "type":"string",
+                         "value":"-5 0"
+                        }],
+                 "rotation":0,
+                 "type":"1",
+                 "visible":true,
+                 "width":24,
+                 "x":504,
+                 "y":152
+                }, 
+                {
+                 "height":8,
+                 "id":100,
+                 "name":"instabil",
+                 "rotation":0,
+                 "type":"2",
+                 "visible":true,
+                 "width":8,
+                 "x":56,
+                 "y":264
+                }, 
+                {
+                 "height":8,
+                 "id":101,
+                 "name":"instabil",
+                 "rotation":0,
+                 "type":"2",
+                 "visible":true,
+                 "width":40,
+                 "x":8,
+                 "y":208
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -820,7 +886,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":98,
+ "nextobjectid":102,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
