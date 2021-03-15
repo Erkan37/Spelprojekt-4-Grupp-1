@@ -144,6 +144,7 @@
     <ClInclude Include="BashComponent.hpp" />
     <ClInclude Include="Bonfire.hpp" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="EffectSprite.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collectible.hpp" />
     <ClInclude Include="ColliderComponent.h" />
@@ -207,6 +208,7 @@
     <ClCompile Include="DeadlyPlatform.cpp" />
     <ClCompile Include="Debugger.cpp" />
     <ClCompile Include="DestructiblePlatform.cpp" />
+    <ClCompile Include="EffectSprite.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyFactory.cpp" />
     <ClCompile Include="EnemyProjectile.cpp" />

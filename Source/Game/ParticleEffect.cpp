@@ -7,17 +7,19 @@
 #include "Scene.h"
 #include "Player.hpp"
 #include "PhysicsComponent.h"
+#include "Random.hpp"
 #include "SpriteComponent.h"
-#include "SpritebatchComponent.h"
 
 
 ParticleEffect::ParticleEffect(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene)
 {
+	mySpawnInterval = {};
 	myPlayer = {};
 	myPosition = {};
 	myIsActive = {};
+	myTimer = {};
 }
 
 void ParticleEffect::Init(ParticleStats aStats, Player* aPlayer)
@@ -29,12 +31,10 @@ void ParticleEffect::Init(ParticleStats aStats, Player* aPlayer)
 	if (static_cast<eParticleEffects>(myStats.myEffectTypeIndex) == eParticleEffects::RunEffect)
 		myIsActive = true;
 
-	SetPivot({ 0.f, 0.f });
+	SetPivot({ 0.5f, 0.5f });
 	SetPosition(myPlayer->GetPosition());
 
-	SpriteComponent* sprite = AddComponent<SpriteComponent>();
-	sprite->SetSpritePath(myStats.mySpritePath);
-	sprite->SetSize({ 32.f, 32.f });
+
 
 	GameObject::Init();
 }
@@ -72,16 +72,53 @@ const eParticleEffects ParticleEffect::GetType() const
 
 const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 {
-	//SpriteComponent* sprite = new SpriteComponent();
-	//sprite->SetSpritePath(myStats.mySpritePath);
-	//sprite->SetRelativePosition(myPlayer->GetPosition());
-	////mySprites.push_back(sprite);
-	//myObject->GetComponent<SpritebatchComponent>()->AddSprite(sprite);
-	SetPosition(myPlayer->GetPosition());
-	std::cout << myPlayer->GetPosition().x << std::endl;
+	myTimer += aDeltaTime;
 
+
+	if (myTimer > mySpawnInterval)
+	{
+		myTimer = {};
+
+		EffectSprite sprite;
+
+		sprite.myPathString = myStats.mySpritePath;
+		sprite.myScale = Utils::RandomFloat(myStats.myStartScale, myStats.myEndScale);
+		sprite.mySpeedInterval = Utils::RandomFloat(myStats.myMinStartSpeed, myStats.myMaxStartSpeed);
+		sprite.myAcceleration = Utils::RandomFloat(myStats.myMinAcceleration, myStats.myMaxAcceleration);
+		sprite.myLifeTime = Utils::RandomFloat(myStats.myMinParticleLifeTime, myStats.myMaxParticleLifeTime);
+		sprite.myRotation = Utils::RandomFloat(myStats.myMinParticleAngularVel, myStats.myMaxParticleAngularVel);
+		sprite.mySpawnAngle = myStats.myParticleAngleInterval;
+		sprite.myEmitterAngle = myStats.myEmitterAngle;
+		sprite.myEmitterWidth = myStats.myEmitterWidth;
+		sprite.myEmiterLifetime = myStats.myEmitterLifeTime;
+		sprite.myStartColor = myStats.myStartColor;
+		sprite.myEndColor = myStats.myEndColor;
+		sprite.myPosition = GetPosition();
+
+		sprite.AddSprite(AddComponent<SpriteComponent>());
+
+		mySprites.push_back(sprite);
+
+		mySpawnInterval = Utils::RandomFloat(myStats.myMinBetweenSpawn, myStats.myMaxBetweenSpawn);
+
+	}
+
+
+
+	SetPosition(myPlayer->GetPosition());
 
 	
+	for (int i = 0; i < mySprites.size(); i++)
+	{
+		mySprites[i].Update(aDeltaTime);
+		if (mySprites[i].IsAlive() == false)
+		{
+			mySprites.erase(mySprites.begin() + i);
+			break;
+		}
+	}
+
+
 }
 
 const void ParticleEffect::UpdatePlayerEffect(const float& aDeltaTime)

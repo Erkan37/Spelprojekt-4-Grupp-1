@@ -225,6 +225,9 @@
     <ClInclude Include="TiledMap.h">
       <Filter>Core\Tileson</Filter>
     </ClInclude>
+    <ClInclude Include="EffectSprite.h">
+      <Filter>Factories</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -364,6 +367,9 @@
     <ClCompile Include="Bonfire.cpp" />
     <ClCompile Include="TiledMap.cpp">
       <Filter>Core\Tileson</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectSprite.cpp">
+      <Filter>Factories</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

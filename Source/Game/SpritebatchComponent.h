@@ -28,11 +28,11 @@ public:
     const std::string GetSpritePath() const;
     SpritebatchComponent& AddSprite(SpriteComponent* aSprite);
 
-  /*  void SetBlendState(const EBlendState aBlendState);
+    void SetBlendState(const EBlendState aBlendState);
     const EBlendState& GetBlendState() const;
 
     void SetSamplerFilter(const ESamplerFilter& aSamplerFilter);
-    const ESamplerFilter& GetSamplerFilter() const;*/
+    const ESamplerFilter& GetSamplerFilter() const;
 
 private:
     void Reset();
@@ -42,6 +42,6 @@ private:
 
     std::string mySpritePath;
 
-    //EBlendState myBlendState;
-    //ESamplerFilter mySamplerFilter;
+    EBlendState myBlendState;
+    ESamplerFilter mySamplerFilter;
 };

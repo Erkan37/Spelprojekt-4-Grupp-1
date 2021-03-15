@@ -2,12 +2,9 @@
 #include "ParticleStats.hpp"
 #include "ParticleEffectTypes.hpp"
 #include "GameObject.h"
+#include "EffectSprite.h"
 
-namespace Tga2D
-{
-	class CSpriteBatch;
-}
-
+class SpriteComponent;
 class Player;
 class LevelScene;
 
@@ -30,8 +27,11 @@ public:
 
 
 private:
+	std::vector<EffectSprite> mySprites;
 	ParticleStats myStats;
 
+	float mySpawnInterval;
+	float myTimer;
 	bool myIsActive;
 
 	Player* myPlayer;
