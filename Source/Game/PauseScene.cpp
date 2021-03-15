@@ -71,12 +71,10 @@ void PauseScene::Load()
 
 void PauseScene::Unload()
 {
-
 	myButtonManager->Destroy();
 
 	myInputHandler = nullptr;
 	myButtonManager = nullptr;
-
 
 	Scene::Unload();
 }
