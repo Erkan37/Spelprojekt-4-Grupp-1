@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "PauseScene.h"
-#include "UIManager.h"
 #include "InputWrapper.h"
 #include "GameWorld.h"
 #include "SpriteComponent.h"
@@ -107,11 +106,11 @@ void PauseScene::Update(const float& aDeltaTime, const float& aTotalTime)
 
 	if (myInputHandler->IsMovingDown())
 	{
-		myUIManager->NextRow(1);
+		myButtonManager->NextRow(1);
 	}
 	if (myInputHandler->IsMovingUp())
 	{
-		myUIManager->NextRow(-1);
+		myButtonManager->NextRow(-1);
 	}
 
 	Scene::Update(aDeltaTime);
