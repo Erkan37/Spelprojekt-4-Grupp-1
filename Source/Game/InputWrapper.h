@@ -13,7 +13,7 @@ public:
 
 	void Init();
 
-	void Update();
+	void Update(const float& aDeltaTime);
 
 	float GetLeftPullForce();
 	float GetRightPullForce();

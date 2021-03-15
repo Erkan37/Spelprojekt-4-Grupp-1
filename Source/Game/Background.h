@@ -9,17 +9,14 @@ class Player;
 class Background : GameObject
 {
 public:
-	Background(LevelScene* aLevelScene);
+	Background(Scene* aLevelScene);
 
 	void Init(int someLevelIndex);
 
-	void Update(const float& aDeltaTime);
-
-	void AddPlayerRelation(GameObject* aPlayer);
+	void Update(const float& aDeltaTime) override;
 
 private:
 	Camera* myCamera;
-	GameObject* myPlayer;
 
 	std::unique_ptr<GameObject> myBackground;
 
@@ -49,8 +46,8 @@ private:
 	void UpdateBackground();
 	void ResizeBackground();
 	void MoveBackground();
-	void LoadJson(LevelScene* aLevelScene);
-	void CreateBackgrounds(LevelScene* aLevelScene);
+	void LoadJson(Scene* aLevelScene);
+	void CreateBackgrounds(Scene* aLevelScene);
 
 };
 

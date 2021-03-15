@@ -19,12 +19,12 @@ void InputWrapper::Init()
 	myController->Init();
 }
 
-void InputWrapper::Update()
+void InputWrapper::Update(const float& aDeltaTime)
 {
 	CheckMousePosition();
 
 	myInput->Update();
-	myController->Update();
+	myController->Update(aDeltaTime);
 }
 
 float InputWrapper::GetLeftPullForce()

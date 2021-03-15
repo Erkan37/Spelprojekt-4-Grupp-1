@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Animation.hpp"
 #include "BashAbility.h"
+#include "DataManager.h"
 
 namespace Utils
 {
@@ -13,6 +14,8 @@ class LevelScene;
 class AnimationComponent;
 class Ledge;
 class BashComponent;
+class SpringObject;
+class Collectible;
 
 class Player : public GameObject
 {
@@ -58,21 +61,36 @@ public:
 	void LeaveLedge();
 	const bool GetLedgeIsGrabbed();
 
-	void LerpToPosition(const v2f& aPosition, const float& aDeltaTime);
+	void LerpToPosition(const v2f& aPosition);
 	void SetLerpPosition(const v2f& aPosition);
 	void EndLerp();
+
+	void ActivateSpringForce(float mySpringVelocity, const float aRetardation);
 
 	void BounceOnDestructibleWall();
 	const bool& GetIsBashing();
 
 	void Kill();
+	void Eaten();
+
+	void KillReset();
+	void Respawn();
 
 	void BashCollision(GameObject* aGameObject, BashComponent* aBashComponent) override;
 
-	void ImGuiUpdate();
+	void DecreaseSpringJump(const float& aDeltaTime);
+
+	void AddCollectible(Collectible* aCollectible);
+	std::vector<Collectible*> GetCollectibles();
+	void ClearCollectibles(const bool aIsTurningIn);
 
 private:
-	Animation myAnimations[3];
+#ifdef _DEBUG
+	void ImGuiUpdate();
+#endif // _DEBUG
+
+	Animation myAnimations[5];
+	std::vector<Collectible*> myCollectibles;
 
 	std::shared_ptr<InputWrapper> myInputHandler;
 	std::unique_ptr<BashAbility> myBashAbility;
@@ -80,44 +98,31 @@ private:
 	Utils::Timer* myTimerInput;
 
 	v2f myCurrentVelocity;
-
 	v2f myPlatformVelocity;
-
+	v2f mySpringVelocity;
 	v2f myLerpPosition;
-
 	v2f mySize;
-
 	v2f mySpawnPosition;
 
-	float myAirCoyoteTime;
 	float myAirCoyoteTimer;
-
-	float myMaxRunningSpeed;
-	float myRunningAnimationSpeed;
-
-	float myAcceleration;
-	float myRetardation;
-	float myLerpToPositionAcceleration;
-	float myPlatformVelocityRetardation;
-
-	float myJumpVelocity;
-	float myDoubleJumpVelocity;
-	float myLedgeJumpVelocity;
-
-	float myMaxFallSpeed;
-
-	float myJumpWhenFallingTime;
+	float myTriggerRunningAnimationSpeed;
+	float mySpringVelocityRetardation;
+	float myPercentageLeftVelocity;
+	float mySpringTimer;
 
 	int myCurrentAnimationIndex;
+	int myDirectionX;
 
 	bool myHasLanded;
+	bool myHasLandedVibration;
 	bool myHasDoubleJumped;
-
+	bool myHasLandedOnSpring;
 	bool myCanJumpWhenFalling;
 	bool myWillJumpWhenFalling;
-
+	bool myActiveSpringJump;
 	bool myGrabbedLedge;
-
 	bool myIsLerpingToPosition;
+
+	PlayerData* myJsonData = new PlayerData();
 };
 

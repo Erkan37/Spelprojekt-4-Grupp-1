@@ -4,7 +4,7 @@
 #include <tga2d/text/text.h>
 #include "Game.h"
 #include "InputWrapper.h"
-
+#include "DataManager.h"
 
 #include <tga2d/error/error_manager.h>
 
@@ -16,7 +16,7 @@ using namespace std::placeholders;
 
 uint16_t Config::width = 1920U;
 uint16_t Config::height = 1080U;
-std::wstring Config::appName = L"epic game lit af";
+std::wstring Config::appName = L"Pass On";
 
 #ifdef _DEBUG
 #pragma comment(lib,"TGA2D_Debug.lib")

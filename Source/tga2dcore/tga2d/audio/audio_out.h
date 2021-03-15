@@ -36,18 +36,22 @@ public:
 
 	bool    Play(const FileName&, bool repeat, Handle& outChannel);
 	bool    Play(Handle aHandle, Handle& outChannel, float aVolume);
+	bool	PlayMusic(const FileName&, bool repeat, Handle& outChannel);
 	bool	Stop(Handle hndl, bool immediately);
 	bool    Stop(const FileName&, bool immediately = true);
 	long	Load(const FileName&, bool);
 	VStrings  NowPlaying(bool only_repeated) const;
 
 	void    SetVolume(const Handle& hndl, float aVolume);
-	void SetPosition(const Handle& hndl, VECTOR2F aPosition);
+	void    SetPosition(const Handle& hndl, VECTOR2F aPosition);
+	void	StopMusic(bool);
+	void	RemoveSample(const Handle&);
   
 private:
 	bool      inited_;        // flag to show is bass lib is inited
 	VSounds   loaded_;        // currently loaded samples in memory
 	int       channels_cnt_;  // sounds of sample playing at the same time
+	FileName  myFileName;
   
 	Handle    FindLoaded(const FileName&) const;
 	VHandles  GetLoadedChannels(const Handle&) const;

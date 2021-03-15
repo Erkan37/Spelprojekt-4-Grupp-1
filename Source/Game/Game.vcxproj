@@ -136,20 +136,26 @@
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="AnimationComponent.hpp" />
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="BashAbility.h" />
     <ClInclude Include="BashableObject.hpp" />
     <ClInclude Include="BashableObjectFactory.hpp" />
     <ClInclude Include="BashComponent.hpp" />
-    <ClInclude Include="ButtonManager.h" />
+    <ClInclude Include="Bonfire.hpp" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collectible.hpp" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="DataManager.h" />
     <ClInclude Include="DeadlyPlatform.hpp" />
     <ClInclude Include="Debugger.h" />
     <ClInclude Include="DestructiblePlatform.hpp" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyFactory.h" />
+    <ClInclude Include="EnemyProjectile.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWorld.h" />
@@ -158,21 +164,21 @@
     <ClInclude Include="Ledge.h" />
     <ClInclude Include="LevelScene.h" />
     <ClInclude Include="MovingPlatform.hpp" />
-    <ClInclude Include="PauseScene.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PlatformFactory.hpp" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="Random.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SpringObject.h" />
     <ClInclude Include="SpritebatchComponent.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TiledMap.h" />
     <ClInclude Include="Transform.hpp" />
-    <ClInclude Include="UIManager.h" />
     <ClInclude Include="UnstablePlatform.hpp" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Vector2.hpp" />
@@ -181,19 +187,25 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationComponent.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="BashAbility.cpp" />
     <ClCompile Include="BashableObject.cpp" />
     <ClCompile Include="BashableObjectFactory.cpp" />
     <ClCompile Include="BashComponent.cpp" />
-    <ClCompile Include="ButtonManager.cpp" />
+    <ClCompile Include="Bonfire.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collectible.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="DeadlyPlatform.cpp" />
     <ClCompile Include="Debugger.cpp" />
     <ClCompile Include="DestructiblePlatform.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyFactory.cpp" />
+    <ClCompile Include="EnemyProjectile.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWorld.cpp" />
@@ -201,13 +213,14 @@
     <ClCompile Include="Ledge.cpp" />
     <ClCompile Include="LevelScene.cpp" />
     <ClCompile Include="MovingPlatform.cpp" />
-    <ClCompile Include="PauseScene.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PlatformFactory.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SpringObject.cpp" />
     <ClCompile Include="SpritebatchComponent.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -216,7 +229,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Retail|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TiledMap.cpp" />
-    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UnstablePlatform.cpp" />
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
