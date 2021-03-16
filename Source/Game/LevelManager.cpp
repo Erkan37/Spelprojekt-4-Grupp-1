@@ -16,9 +16,9 @@ LevelManager::~LevelManager()
 
 void LevelManager::Init()
 {
-	//myActiveScenes.insert({ eScenes::MainMenu, new MainMenuScene() });
+	//myScenes.insert({ eScenes::MainMenu, new MainMenuScene() });
 	myScenes.insert({ eScenes::LevelScene, new LevelScene() });
-	//myActiveScenes.insert({ eScenes::PauseMenu, new PauseMenuScene() });
+	//myScenes.insert({ eScenes::PauseMenu, new PauseMenuScene() });
 }
 
 void LevelManager::SingleLoadScene(eScenes aScene)
