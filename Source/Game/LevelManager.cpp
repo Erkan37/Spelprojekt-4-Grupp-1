@@ -33,6 +33,11 @@ void LevelManager::Update()
 #ifdef _DEBUG
 void LevelManager::ImGuiUpdate()
 {
+	if (myScenes[eScenes::LevelScene]->IsLoaded())
+	{
+		return;
+	}
+
 	bool levelManager = true;
 	ImGui::Begin("Level Manager", &levelManager, ImGuiWindowFlags_AlwaysAutoResize);
 
@@ -40,7 +45,7 @@ void LevelManager::ImGuiUpdate()
 
 	if (ImGui::Button("Load Scene"))
 	{
-		ReloadScene(eScenes::LevelScene);
+		SingleLoadScene(eScenes::LevelScene);
 	}
 
 	ImGui::End();

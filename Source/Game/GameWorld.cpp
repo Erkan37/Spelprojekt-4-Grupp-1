@@ -54,6 +54,11 @@ void CGameWorld::Update()
 	myDeltaTime = myTimer->GetDeltaTime();
 	myInput->Update(myDeltaTime);
 
+	if (myInput->GetInput()->GetKeyJustDown(Keys::ESCKey))
+	{
+		myLevelManager.SingleLoadScene(LevelManager::eScenes::MainMenu);
+	}
+
 	myLevelManager.Update();
 
 	Scene::Manager::Update(myDeltaTime);
