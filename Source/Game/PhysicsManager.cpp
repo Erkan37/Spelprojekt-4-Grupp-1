@@ -248,11 +248,6 @@ void PhysicsManager::CheckBashCollision(GameObject* aObj1, GameObject* aObj2)
 	}
 }
 
-void PhysicsManager::RemoveColliders()
-{
-	myColliders.clear();
-}
-
 void PhysicsManager::RemoveCollider(ColliderComponent* aColliderComponent)
 {
 	if (!aColliderComponent)

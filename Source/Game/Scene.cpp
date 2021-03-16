@@ -53,8 +53,6 @@ void Scene::Unload()
 	{
 		obj->Destroy();
 	}
-
-	myPhysics.RemoveColliders();
 }
 
 void Scene::Activate()
