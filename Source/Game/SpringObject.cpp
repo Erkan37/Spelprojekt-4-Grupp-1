@@ -2,6 +2,7 @@
 #include "LevelScene.h"
 #include "SpringObject.h"
 #include "SpriteComponent.h"
+#include "AnimationComponent.hpp"
 #include "ColliderComponent.h"
 #include "PhysicsComponent.h"
 #include "Player.hpp"
@@ -42,6 +43,8 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 		{
 			myActiveSpring = true;
 			player->ActivateSpringForce(-myVelocityForce, myRetardation);
+			GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[1]);
+			GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[2]);
 		}
 		else
 			myActiveSpring = false;
@@ -74,8 +77,18 @@ void SpringObject::InitSprings(const v2f aPosition)
 void SpringObject::CreateGroundSpring()
 {
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
-	sprite->SetSpritePath("Sprites/Temp/tempTrampoline.dds");
+	sprite->SetSpritePath("Sprites/Objects/Mushroom.dds");
 	sprite->SetSize(mySize);
+
+	myAnimations[0] = Animation(false, true, false, 0, 1, 1, 0.08f, sprite, 16, 16);
+	myAnimations[1] = Animation(false, true, false, 0, 4, 4, 0.08f, sprite, 16, 16);
+	myAnimations[2] = Animation(true, true, false, 3, 4, 4, 0.08f, sprite, 16, 16);
+
+	AnimationComponent* animation = AddComponent<AnimationComponent>();
+	animation->SetSprite(sprite);
+	animation->SetAnimation(&myAnimations[0]);
+	sprite->SetSize(mySize);
+
 }
 
 #ifdef _DEBUG

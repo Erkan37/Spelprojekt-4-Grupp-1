@@ -58,9 +58,6 @@
     <Filter Include="Game Objects\Enemy">
       <UniqueIdentifier>{0ac25968-84f0-46c9-92de-0ed27d04be1d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\UI">
-      <UniqueIdentifier>{8ad91255-f8a7-4458-bae7-266bd0a182af}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -218,14 +215,8 @@
     <ClInclude Include="TiledMap.h">
       <Filter>Core\Tileson</Filter>
     </ClInclude>
-    <ClInclude Include="ButtonManager.h">
-      <Filter>Core\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="PauseScene.h">
-      <Filter>Core\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIManager.h">
-      <Filter>Core\UI</Filter>
+    <ClInclude Include="WaypointComponent.hpp">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -363,14 +354,8 @@
     <ClCompile Include="TiledMap.cpp">
       <Filter>Core\Tileson</Filter>
     </ClCompile>
-    <ClCompile Include="ButtonManager.cpp">
-      <Filter>Core\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseScene.cpp">
-      <Filter>Core\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UIManager.cpp">
-      <Filter>Core\UI</Filter>
+    <ClCompile Include="WaypointComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
