@@ -2,7 +2,7 @@
 #include "EffectSprite.h"
 #include "SpriteComponent.h"
 #include "Random.hpp"
-
+#include "../External/Headers/CU/Utilities.h"
 
 EffectSprite::EffectSprite()
 {
@@ -17,10 +17,15 @@ EffectSprite::~EffectSprite()
 void EffectSprite::Update(const float& aDeltatime)
 {
 	myTotalTimer += aDeltatime;
-	v2f position = { myPosition.x + 1.f * mySpawnAngle, mySprite->GetRelativePositionY() - 1.f * mySpeedInterval };
+
+	myScale.x = Utils::Lerp(mySprite->GetSize().x, myMaxVectorScale.x, 0.002f);
+	myScale.y = Utils::Lerp(mySprite->GetSize().y, myMaxVectorScale.y, 0.002f);
+
+	v2f position = { myPosition.x, mySprite->GetRelativePositionY() - 1.f * mySpeedInterval };
 
 	mySprite->SetRelativePosition(position);
 	mySprite->SetRelativeRotation(mySprite->GetRelativeRotation() + 1.f * myRotation);
+	mySprite->SetSize(myScale);
 	
 	if (myTotalTimer > myLifeTime)
 	{
@@ -36,6 +41,7 @@ void EffectSprite::AddSprite(SpriteComponent* aSprite)
 	mySprite->SetSpritePath(myPathString);
 	
 	v2f size = mySprite->GetSize() * myMinScale;
+	myMaxVectorScale = mySprite->GetSize() * myMaxScale;
 
 	float width = mySprite->GetSize().x * myEmitterWidth;
 	myPosition.x = Utils::RandomFloat(-width, width);

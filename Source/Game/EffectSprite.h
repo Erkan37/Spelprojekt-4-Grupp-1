@@ -19,7 +19,8 @@ public:
 
 	std::string myPathString = {};
 	v2f myPosition = {};
-	v2f myMinMaxScale = {};
+	v2f myScale = {};
+	v2f myMaxVectorScale = {};
 
 	float myTotalTimer = {};
 
