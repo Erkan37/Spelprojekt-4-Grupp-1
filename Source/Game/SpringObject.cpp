@@ -36,10 +36,10 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 		v2f colliderPos = GetPosition();
 		v2f buttonSize = GetComponent<SpriteComponent>()->GetSize();
 
-		float spriteLeftPosX = (colliderPos.x + GetComponent<ColliderComponent>()->GetSize().x / 2.f) - buttonSize.x / 2.f;
+		float spriteLeftPosX = (colliderPos.x + GetComponent<ColliderComponent>()->GetSize().x / 2.f) - buttonSize.x;
 		float spriteRightPosX = (colliderPos.x + GetComponent<ColliderComponent>()->GetSize().x / 2.f) + buttonSize.x / 2.f;
 
-		if (velo.y > 50 && playerPos.x >= spriteLeftPosX - 5.f && playerPos.x <= spriteRightPosX + 5.f && myActiveSpring == false)
+		if (velo.y > 50 && playerPos.x >= spriteLeftPosX - 0.1f && playerPos.x <= spriteRightPosX + 0.1f && myActiveSpring == false)
 		{
 			myActiveSpring = true;
 			player->ActivateSpringForce(-myVelocityForce, myRetardation);
@@ -56,10 +56,10 @@ void SpringObject::InitSprings(const v2f aPosition)
 	myRetardation = 1.0f;
 	myVelocityForce = 1000;
 	myPosition = aPosition;
-	mySize = { 32.f, 16.f };
+	mySize = { 16.0f, 16.0f };
 
 	SetPosition(myPosition);
-	SetPivot(v2f(0.f, 0.f));
+	SetPivot(v2f(0.5f, 1.0f));
 
 	CreateGroundSpring();
 
@@ -68,8 +68,8 @@ void SpringObject::InitSprings(const v2f aPosition)
 	physics->SetIsStatic(true);
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
-	collider->SetSize(mySize);
-	collider->SetPosition({ mySize.x * 0.5f, mySize.y * 0.5f });
+	collider->SetSize({ mySize.x, mySize.y });
+	collider->SetPosition({ 0.f, -mySize.y * 0.1f });
 
 	GameObject::Init();
 }
