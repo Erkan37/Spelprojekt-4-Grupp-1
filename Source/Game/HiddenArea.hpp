@@ -17,6 +17,7 @@ public:
 private:
 	SpriteComponent* myHiddenSprite;
 	float myOpacity;
+	float myOpacityChangeSpeed;
 	bool myPlayerCollided;
 
 };
