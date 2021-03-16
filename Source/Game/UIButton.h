@@ -1,22 +1,22 @@
 #pragma once
+#include "GameObject.h"
 
 class Scene;
+class Player;
 
-class UIButton
+class UIButton : public GameObject
 {
 public:
-	UIButton();
-	~UIButton();
+	UIButton(Scene* aLevelScene);
 
+	void Init(const std::string aPathString, const v2f aSize);
 
-	void Init(Scene* aLevelScene);
-
+	void Update(const float& aDeltaTime);
 
 
 private:
-
-
-
+	Scene* myScene;
+	Player* myPlayer;
 
 };
 

@@ -59,7 +59,7 @@ private:
 	float myTotalTime;
 
 	LevelScene myLevelScene;
-	PauseScene myPauseScene;
+	//PauseScene myPauseScene;
 
 	static CGameWorld* ourInstance;
 };

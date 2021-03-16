@@ -1,22 +1,28 @@
 #include "stdafx.h"
 #include "UIButton.h"
-#include "GameObject.h"
 #include "SpriteComponent.h"
+#include "Player.hpp"
+#include "LevelScene.h"
 
 
-UIButton::UIButton()
+UIButton::UIButton(Scene* aLevelScene)
+	:
+	GameObject(aLevelScene)
 {
+	myScene = aLevelScene;
 }
 
-UIButton::~UIButton()
+void UIButton::Init(const std::string aPathString, const v2f aSize)
 {
+	SpriteComponent* sprite = AddComponent<SpriteComponent>();
+	sprite->SetSpritePath(aPathString);
+	sprite->SetSize(aSize);
+
+	LevelScene* scene = dynamic_cast<LevelScene*>(myScene);
+	myPlayer = dynamic_cast<Player*>(scene->GetPlayer());
 }
 
-void UIButton::Init(Scene* aLevelScene)
+void UIButton::Update(const float& aDeltaTime)
 {
-	GameObject button = GameObject(aLevelScene);
-	SpriteComponent* sprite = button.AddComponent<SpriteComponent>();
-	sprite->SetSpritePath("Sprites/UI/UI_PauseMenu_Text_Continue_Unmarked_64x16px.dds");
-
-
+	SetPosition(myPlayer->GetPosition());
 }

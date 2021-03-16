@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "UIButton.h"
 
+class InputWrapper;
 class Scene;
 
 class PauseMenu : public GameObject
@@ -12,15 +13,19 @@ public:
 
 	void Init();
 
-	
+	void Update(const float& aDeltaTime) override;
 
 
 private:
-	UIButton myContinueBtn;
-	UIButton myLevelSelectBtn;
-	UIButton myMainMenuBtn;
-
 	Scene* myScene;
+
+	std::vector<UIButton*> myButtons;
+
+	std::unique_ptr<UIButton> myContinueBtn;
+	std::unique_ptr<UIButton> myLevelSelectBtn;
+	std::unique_ptr<UIButton> myMainMenuBtn;
+
+	std::shared_ptr<InputWrapper> myInput;
 
 };
 

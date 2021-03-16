@@ -22,7 +22,7 @@ public:
 
     void Update(const float& aDeltaTime) override;
 
-    const GameObject* GetPlayer();
+    GameObject* GetPlayer();
 private:
     GameObject* myPlayer;
     GameObject* myEnemy;
