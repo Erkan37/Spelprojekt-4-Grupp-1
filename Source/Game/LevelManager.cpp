@@ -14,11 +14,11 @@ LevelManager::~LevelManager()
 
 }
 
-void LevelManager::Init()
+void LevelManager::Init(/*Scene* aMainMenuScene, */Scene* aLevelScene/*, Scene* aPauseMenuScene*/)
 {
-	//myScenes.insert({ eScenes::MainMenu, new MainMenuScene() });
-	myScenes.insert({ eScenes::LevelScene, new LevelScene() });
-	//myScenes.insert({ eScenes::PauseMenu, new PauseMenuScene() });
+	//myScenes.insert({ eScenes::MainMenu, aMainMenuScene });
+	myScenes.insert({ eScenes::LevelScene, aLevelScene });
+	//myScenes.insert({ eScenes::PauseMenu, aPauseMenuScene });
 }
 
 void LevelManager::SingleLoadScene(eScenes aScene)
@@ -59,4 +59,9 @@ void LevelManager::UnloadAllScenes()
 		eScenes currentScene = static_cast<eScenes>(scene);
 		UnloadScene(currentScene);
 	}
+}
+
+const bool LevelManager::GetIsActive(eScenes aScene)
+{
+	return myScenes[aScene]->IsActive();
 }

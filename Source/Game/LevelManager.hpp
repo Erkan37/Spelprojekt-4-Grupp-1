@@ -3,6 +3,8 @@
 #include <map>
 #include "Level.hpp"
 
+class Scene;
+
 class LevelManager
 {
 public:
@@ -17,7 +19,7 @@ public:
 	LevelManager();
 	~LevelManager();
 
-	void Init();
+	void Init(Scene* aLevelScene);
 
 	void SingleLoadScene(eScenes aScene);
 	void AdditiveLoadScene(eScenes aScene);
@@ -25,6 +27,8 @@ public:
 	void ReloadScene(eScenes aScene);
 
 	void UnloadAllScenes();
+
+	const bool GetIsActive(eScenes aScene);
 
 private:
 	std::map<eScenes, Scene*> myScenes;
