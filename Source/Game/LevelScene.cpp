@@ -31,6 +31,8 @@
 
 #include "Collectible.hpp"
 
+#include "HiddenArea.hpp"
+
 LevelScene::LevelScene()
 	: 
 	myPlayer(nullptr)
