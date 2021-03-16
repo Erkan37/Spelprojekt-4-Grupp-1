@@ -17,6 +17,8 @@ SpringObject::SpringObject(Scene* aLevelScene) : GameObject(aLevelScene)
 void SpringObject::Init(const v2f aPosition)
 {
 	InitSprings(aPosition);
+
+	GameObject::Init();
 }
 void SpringObject::Update(const float& aDeltaTime)
 {
@@ -70,8 +72,6 @@ void SpringObject::InitSprings(const v2f aPosition)
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
 	collider->SetSize({ mySize.x, mySize.y });
 	collider->SetPosition({ 0.f, -mySize.y * 0.1f });
-
-	GameObject::Init();
 }
 
 void SpringObject::CreateGroundSpring()

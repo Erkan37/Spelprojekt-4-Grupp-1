@@ -27,6 +27,8 @@ GameObject::~GameObject()
 	{
 		if (comp)
 		{
+			myScene->GetPhysics().RemoveCollider(dynamic_cast<ColliderComponent*>(comp));
+
 			delete comp;
 			comp = nullptr;
 		}

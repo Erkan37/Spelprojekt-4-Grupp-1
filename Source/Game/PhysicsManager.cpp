@@ -252,3 +252,19 @@ void PhysicsManager::RemoveColliders()
 {
 	myColliders.clear();
 }
+
+void PhysicsManager::RemoveCollider(ColliderComponent* aColliderComponent)
+{
+	if (!aColliderComponent)
+	{
+		return;
+	}
+
+	for (int collider = 0; collider < myColliders.size(); ++collider)
+	{
+		if (myColliders[collider] == aColliderComponent)
+		{
+			myColliders.erase(myColliders.begin() + collider);
+		}
+	}
+}
