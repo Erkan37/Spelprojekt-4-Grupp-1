@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Animation.hpp"
+#include "DataManager.h"
 #include <vector>
 
 class LevelScene;

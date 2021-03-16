@@ -31,6 +31,8 @@
 
 #include "Collectible.hpp"
 
+#include "HiddenArea.hpp"
+
 LevelScene::LevelScene()
 	: 
 	myPlayer(nullptr)
@@ -40,6 +42,8 @@ LevelScene::LevelScene()
 void LevelScene::Load()
 {
 	myPlayer = new Player(this);
+
+	HiddenArea* hiddenArea = new HiddenArea(this, myPlayer->GetPosition() + v2f(0.0f, 200.0f), v2f(32.0f, 32.0f));
 
 	//Bonfire* bonfire = new Bonfire(this);
 	//bonfire->SetPosition(myPlayer->GetPosition() + v2f(50.0f, 200.0f));
