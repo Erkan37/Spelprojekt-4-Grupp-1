@@ -35,12 +35,11 @@ void MovingPlatform::SetWaypoints(const std::vector<v2f>& aWaypoints)
 
 	myWaypointComponent->SetWaypoints(aWaypoints);
 
-	SetButtonPosition();
 }
 
-void MovingPlatform::SetButtonPosition()
+void MovingPlatform::AddButton(v2f aPosition)
 {
-	myButton.Init(GetPosition(), v2f(-450, -100));
+	myButton.Init(GetPosition(), aPosition);
 }
 
 void MovingPlatform::OnCollision(GameObject* aGameObject)

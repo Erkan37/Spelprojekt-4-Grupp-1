@@ -15,6 +15,8 @@ public:
 
 	void SetButtonPosition();
 
+	void AddButton(v2f aPosition);
+
 	void OnCollision(GameObject* aGameObject) override;
 
 private:
