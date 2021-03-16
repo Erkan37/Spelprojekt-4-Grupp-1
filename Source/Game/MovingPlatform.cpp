@@ -13,11 +13,18 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 {
 	myWaypointComponent = AddComponent<WaypointComponent>();
 	myWaypointComponent->SetOwner(this);
+	myAddedButton = {};
 }
 
 void MovingPlatform::Update(const float& aDeltaTime)
 {
-	myWaypointComponent->Move(aDeltaTime);
+	if (!myAddedButton)
+		myWaypointComponent->Move(aDeltaTime);
+	else
+	{
+		if (myButton.GetActiveButton())
+			myWaypointComponent->Move(aDeltaTime);
+	}
 	
 	Platform::Update(aDeltaTime);
 }
@@ -39,6 +46,7 @@ void MovingPlatform::SetWaypoints(const std::vector<v2f>& aWaypoints)
 
 void MovingPlatform::AddButton(v2f aPosition, eMovingPlatformType aPlatformType)
 {
+	myAddedButton = true;
 	myType = aPlatformType;
 	myButton.Init(GetPosition(), aPosition);
 }
