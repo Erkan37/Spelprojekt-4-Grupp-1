@@ -37,8 +37,9 @@ void MovingPlatform::SetWaypoints(const std::vector<v2f>& aWaypoints)
 
 }
 
-void MovingPlatform::AddButton(v2f aPosition)
+void MovingPlatform::AddButton(v2f aPosition, eMovingPlatformType aPlatformType)
 {
+	myType = aPlatformType;
 	myButton.Init(GetPosition(), aPosition);
 }
 
