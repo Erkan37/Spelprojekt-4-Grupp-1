@@ -45,7 +45,7 @@ void LevelScene::Load()
 {
 	myPlayer = new Player(this);
 
-	myBackground = std::make_unique<Background>(this);
+	myBackground = new Background(this);
 
 	CGameWorld::GetInstance()->GetLevelManager().LoadLevel("Levels/test_level2.json");
 

@@ -31,7 +31,7 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	myInputHandler = world->Input();
 	myTimerInput = world->GetTimer();
 
-	myBashAbility = std::make_unique<BashAbility>(aLevelScene);
+	myBashAbility = new BashAbility(aLevelScene);
 	myBashAbility->Init();
 	myBashAbility->AddInputWrapper(world->Input());
 	myBashAbility->AddPlayerRelation(this);
