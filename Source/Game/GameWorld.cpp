@@ -54,6 +54,8 @@ void CGameWorld::Update()
 	myDeltaTime = myTimer->GetDeltaTime();
 	myInput->Update(myDeltaTime);
 
+	myLevelManager.Update();
+
 	Scene::Manager::Update(myDeltaTime);
 }
 

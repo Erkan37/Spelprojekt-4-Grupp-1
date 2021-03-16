@@ -23,6 +23,30 @@ void LevelManager::Init(/*Scene* aMainMenuScene, */Scene* aLevelScene/*, Scene* 
 	//myScenes.insert({ eScenes::PauseMenu, aPauseMenuScene });
 }
 
+void LevelManager::Update()
+{
+#ifdef _DEBUG
+	ImGuiUpdate();
+#endif //DEBUG
+}
+
+#ifdef _DEBUG
+void LevelManager::ImGuiUpdate()
+{
+	bool levelManager = true;
+	ImGui::Begin("Level Manager", &levelManager, ImGuiWindowFlags_AlwaysAutoResize);
+
+	ImGui::InputText("Scene Path", myLevelToLoad, ImGuiWindowFlags_AlwaysAutoResize);
+
+	if (ImGui::Button("Load Scene"))
+	{
+		ReloadScene(eScenes::LevelScene);
+	}
+
+	ImGui::End();
+}
+#endif //DEBUG
+
 void LevelManager::SingleLoadScene(eScenes aScene)
 {
 	UnloadAllScenes();
@@ -69,5 +93,10 @@ const bool LevelManager::GetIsActive(eScenes aScene)
 
 void LevelManager::LoadLevel(const std::string& aLevelPath)
 {
+#ifdef _DEBUG
+	myTiledMap->Load(myLevelToLoad, myScenes[eScenes::LevelScene]);
+	return;
+#endif //DEBUG
+
 	myTiledMap->Load(aLevelPath, myScenes[eScenes::LevelScene]);
 }
