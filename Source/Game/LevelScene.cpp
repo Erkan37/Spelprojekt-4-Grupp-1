@@ -47,7 +47,7 @@ void LevelScene::Load()
 
 	myBackground = new Background(this);
 
-	CGameWorld::GetInstance()->GetLevelManager().LoadLevel("Levels/test_level2.json");
+	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, "Levels/test_level2.json");
 
 	Scene::Load();
 }

@@ -34,6 +34,8 @@ public:
 
 	void CheckBashCollision(GameObject* aObj1, GameObject* aObj2);
 
+	void RemoveColliders();
+
 private:
 	std::vector<ColliderComponent*> myColliders;
 };

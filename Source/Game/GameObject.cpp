@@ -9,6 +9,9 @@
 #include "Scene.h"
 #include <math.h>
 
+#include "ColliderComponent.h"
+#include "PhysicsManager.h"
+
 GameObject::GameObject(Scene* aScene)
 	: myIsActive(false)
 	, myZIndex(0)
