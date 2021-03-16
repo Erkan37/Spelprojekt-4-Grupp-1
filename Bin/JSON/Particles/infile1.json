@@ -3,7 +3,7 @@
     {
       "EffectTypeIndex": 1,
       "EffectType": "FallEffect",
-      "SpritePath": "Sprites/point.dds",
+      "SpritePath": "Sprites/Particles/point.dds",
       "IsRepeating": true,
       "EmitTime": 0.0,
       "PauseTime": 0.0,

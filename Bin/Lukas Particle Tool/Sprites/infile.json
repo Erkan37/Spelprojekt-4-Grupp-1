@@ -1,5 +1,5 @@
 {
-    "SpritePath": "Sprites/stretched.dds",
+    "SpritePath": "Sprites/Particles/stretched.dds",
     "IsRepeating": true,
     "EmitTime": 0.0,
     "PauseTime": 0.0,

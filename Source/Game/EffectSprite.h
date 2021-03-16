@@ -19,18 +19,20 @@ public:
 
 	std::string myPathString = {};
 	v2f myPosition = {};
+	v2f myMinMaxScale = {};
 
 	float myTotalTimer = {};
 
-	float myScale = {};
+	float myMinScale = {};
+	float myMaxScale = {};
 	float mySpeedInterval = {};
 	float myAcceleration = {};
 	float myLifeTime = {};
 	float myRotation = {};
 	float myEmitterWidth = {};
 	float myEmiterLifetime = {};
-	int mySpawnAngle = {};
-	int myEmitterAngle = {};
+	float mySpawnAngle = {};
+	float myEmitterAngle = {};
 
 	bool myIsAlive = true;
 

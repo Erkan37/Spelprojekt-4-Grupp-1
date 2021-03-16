@@ -34,8 +34,6 @@ void ParticleEffect::Init(ParticleStats aStats, Player* aPlayer)
 	SetPivot({ 0.5f, 0.5f });
 	SetPosition(myPlayer->GetPosition());
 
-
-
 	GameObject::Init();
 }
 
@@ -86,11 +84,12 @@ const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 		std::shared_ptr<EffectSprite> sprite = std::make_shared<EffectSprite>();
 
 		sprite->myPathString = myStats.mySpritePath;
-		sprite->myScale = Utils::RandomFloat(myStats.myStartScale, myStats.myEndScale);
 		sprite->mySpeedInterval = Utils::RandomFloat(myStats.myMinStartSpeed, myStats.myMaxStartSpeed);
 		sprite->myAcceleration = Utils::RandomFloat(myStats.myMinAcceleration, myStats.myMaxAcceleration);
 		sprite->myLifeTime = Utils::RandomFloat(myStats.myMinParticleLifeTime, myStats.myMaxParticleLifeTime);
 		sprite->myRotation = Utils::RandomFloat(myStats.myMinParticleAngularVel, myStats.myMaxParticleAngularVel);
+		sprite->myMinScale = myStats.myStartScale;
+		sprite->myMaxScale = myStats.myEndScale;
 		sprite->mySpawnAngle = myStats.myParticleAngleInterval;
 		sprite->myEmitterAngle = myStats.myEmitterAngle;
 		sprite->myEmitterWidth = myStats.myEmitterWidth;

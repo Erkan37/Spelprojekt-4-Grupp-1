@@ -1,5 +1,5 @@
 {
-    "SpritePath": "Sprites/point.dds",
+    "SpritePath": "Sprites/Particles/stretched.dds",
     "IsRepeating": true,
     "EmitTime": 0.0,
     "PauseTime": 0.0,
@@ -12,7 +12,7 @@
     "MinAcceleration": -0.15000000596046449,
     "MaxAcceleration": 0.27000001072883608,
     "ParticleAngleInterval": 0.6806784272193909,
-    "MinParticleAngularVel": 0.0,
+    "MinParticleAngularVel": -0.09700000286102295,
     "MaxParticleAngularVel": 0.1120000034570694,
     "EmitterAngle": 1.326450228691101,
     "EmitterWidth": 0.07000000029802323,
