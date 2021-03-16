@@ -58,6 +58,9 @@
     <Filter Include="Game Objects\Enemy">
       <UniqueIdentifier>{0ac25968-84f0-46c9-92de-0ed27d04be1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Managers">
+      <UniqueIdentifier>{506ab144-1063-49d7-9094-1ce367a21600}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -221,6 +224,7 @@
     <ClInclude Include="HiddenArea.hpp">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="LevelManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -363,5 +367,6 @@
     <ClCompile Include="HiddenArea.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
+    <ClCompile Include="LevelManager.cpp" />
   </ItemGroup>
 </Project>

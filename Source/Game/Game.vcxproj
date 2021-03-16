@@ -163,6 +163,7 @@
     <ClInclude Include="InputWrapper.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Ledge.h" />
+    <ClInclude Include="LevelManager.hpp" />
     <ClInclude Include="LevelScene.h" />
     <ClInclude Include="MovingPlatform.hpp" />
     <ClInclude Include="PhysicsComponent.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="HiddenArea.cpp" />
     <ClCompile Include="InputWrapper.cpp" />
     <ClCompile Include="Ledge.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LevelScene.cpp" />
     <ClCompile Include="MovingPlatform.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
