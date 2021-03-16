@@ -19,8 +19,8 @@
 
 bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 {
-	tson::Tileson parser;
-	std::unique_ptr<tson::Map> map = parser.parse(std::filesystem::path(aPath));
+	tson::Tileson parser; //Either this
+	std::unique_ptr<tson::Map> map = parser.parse(std::filesystem::path(aPath)); //or this one gives MEMORY LEAKS, perhaps a file that is not closed
 
 	if (map->getStatus() != tson::ParseStatus::OK)
 	{

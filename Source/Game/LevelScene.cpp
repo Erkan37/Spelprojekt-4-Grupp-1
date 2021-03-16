@@ -37,8 +37,9 @@
 
 LevelScene::LevelScene()
 	: 
-	myPlayer(nullptr)
-	, Scene()
+	myPlayer(nullptr),
+	myBackground(nullptr),
+	Scene()
 {}
 
 void LevelScene::Load()

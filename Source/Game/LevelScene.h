@@ -6,7 +6,6 @@
 #include "SpringObject.h"
 
 class GameObject;
-class TiledMap;
 
 class LevelScene :
     public Scene
@@ -24,7 +23,7 @@ public:
     const GameObject* GetPlayer();
 private:
     GameObject* myPlayer;
-    GameObject* myEnemy;
     Background* myBackground;
+
 };
 
