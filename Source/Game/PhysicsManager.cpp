@@ -32,6 +32,7 @@ void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObje
 		{
 			continue;
 		}
+
 		PhysicsComponent* physics = object1->GetComponent<PhysicsComponent>();
 		if (physics == nullptr)
 		{
