@@ -43,21 +43,10 @@ void LevelScene::Load()
 {
 	myPlayer = new Player(this);
 
-	HiddenArea* hiddenArea = new HiddenArea(this, myPlayer->GetPosition() + v2f(0.0f, 200.0f), v2f(32.0f, 32.0f));
-
-	//Bonfire* bonfire = new Bonfire(this);
-	//bonfire->SetPosition(myPlayer->GetPosition() + v2f(50.0f, 200.0f));
-
-	//EnemyFactory enemyFactory;
-	//enemyFactory.ReadEnemies(this, "JSON/AlfaEnemies.json");
-
 	myBackground = std::make_unique<Background>(this);
 
 	myTiledMap = std::make_unique<TiledMap>();
 	myTiledMap->Load("Levels/test_level2.json", this);
-
-	//BashableObjectFactory bashableObjectFactory;
-	//bashableObjectFactory.ReadBashableObjects(this, "JSON/AlfaBashableObjects.json");
 
 	Scene::Load();
 }
