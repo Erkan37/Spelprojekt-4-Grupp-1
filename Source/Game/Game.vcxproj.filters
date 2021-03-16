@@ -61,6 +61,9 @@
     <Filter Include="Managers">
       <UniqueIdentifier>{506ab144-1063-49d7-9094-1ce367a21600}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level">
+      <UniqueIdentifier>{b049ea90-37eb-481e-85e4-c757cc558146}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -224,7 +227,12 @@
     <ClInclude Include="HiddenArea.hpp">
       <Filter>Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="LevelManager.hpp" />
+    <ClInclude Include="LevelManager.hpp">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.hpp">
+      <Filter>Level</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -367,6 +375,11 @@
     <ClCompile Include="HiddenArea.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
-    <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
