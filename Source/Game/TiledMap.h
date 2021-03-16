@@ -14,6 +14,7 @@ public:
 	bool Load(const std::string& aPath, Scene*);
 
 private:
+	void ParseGraphics(tson::Layer* aBG1, tson::Layer* aBG2, tson::Layer* aFG1, tson::Layer* aFG2, tson::Layer* aHR, Scene* aScene);
 	void ParseBonfires(tson::Layer*, Scene*);
 	void ParseDoors(tson::Layer*, Scene*);
 	void ParseEnemies(tson::Layer*, Scene*);
@@ -25,6 +26,7 @@ private:
 	void ParseSprings(tson::Layer*, Scene*);
 	void ParseBashableObjects(tson::Layer*, Scene*);
 	void ParseButtons(tson::Layer*, Scene*);
+
 
 	std::vector<v2f> GetWaypointPositions(const std::string somePositions);
 	v2f GetScreenPosition(v2f aTiledPos);
