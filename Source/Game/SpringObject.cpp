@@ -56,10 +56,10 @@ void SpringObject::InitSprings(const v2f aPosition)
 	myRetardation = 1.0f;
 	myVelocityForce = 1000;
 	myPosition = aPosition;
-	mySize = { 32.f, 16.f };
+	mySize = { 16.0f, 16.0f };
 
 	SetPosition(myPosition);
-	SetPivot(v2f(0.f, 0.f));
+	SetPivot(v2f(0.5f, 1.0f));
 
 	CreateGroundSpring();
 
