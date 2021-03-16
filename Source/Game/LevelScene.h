@@ -4,6 +4,7 @@
 #include "Platform.h"
 #include "BackGround.h"
 #include "SpringObject.h"
+#include "PauseMenu.h"
 
 class GameObject;
 class TiledMap;
@@ -27,5 +28,6 @@ private:
     GameObject* myEnemy;
     std::unique_ptr<Background> myBackground;
     std::unique_ptr<TiledMap> myTiledMap;
+    std::unique_ptr<PauseMenu> myPauseMenu;
 };
 

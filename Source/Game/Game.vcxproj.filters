@@ -58,6 +58,9 @@
     <Filter Include="Game Objects\Enemy">
       <UniqueIdentifier>{0ac25968-84f0-46c9-92de-0ed27d04be1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\UI">
+      <UniqueIdentifier>{1b110a2c-9ea7-4d3a-9469-5ea0c97dc331}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -218,6 +221,21 @@
     <ClInclude Include="WaypointComponent.hpp">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="ButtonManager.h">
+      <Filter>Core\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Core\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseScene.h">
+      <Filter>Core\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseMenu.h">
+      <Filter>Core\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButton.h">
+      <Filter>Core\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -356,6 +374,21 @@
     </ClCompile>
     <ClCompile Include="WaypointComponent.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonManager.cpp">
+      <Filter>Core\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Core\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseScene.cpp">
+      <Filter>Core\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseMenu.cpp">
+      <Filter>Core\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIButton.cpp">
+      <Filter>Core\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

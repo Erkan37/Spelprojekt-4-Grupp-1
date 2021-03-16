@@ -44,8 +44,8 @@ CGameWorld::~CGameWorld()
 
 void CGameWorld::Init()
 {
-	myPauseScene.Activate();
-	//myLevelScene.Activate();
+	//myPauseScene.Activate();
+	myLevelScene.Activate();
 }
 
 void CGameWorld::Update()

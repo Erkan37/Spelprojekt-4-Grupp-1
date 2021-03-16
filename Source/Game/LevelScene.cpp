@@ -52,6 +52,9 @@ void LevelScene::Load()
 	myTiledMap = std::make_unique<TiledMap>();
 	myTiledMap->Load("Levels/test_level2.json", this);
 
+	myPauseMenu = std::make_unique<PauseMenu>(this);
+	myPauseMenu->Init();
+
 	//BashableObjectFactory bashableObjectFactory;
 	//bashableObjectFactory.ReadBashableObjects(this, "JSON/AlfaBashableObjects.json");
 
