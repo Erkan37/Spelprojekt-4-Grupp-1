@@ -4,9 +4,11 @@
 #include "Scene.h"
 #include "LevelScene.h"
 
+#include "TiledMap.h"
+
 LevelManager::LevelManager()
 {
-
+	myTiledMap = std::make_shared<TiledMap>();
 }
 
 LevelManager::~LevelManager()
@@ -26,7 +28,6 @@ void LevelManager::SingleLoadScene(eScenes aScene)
 	UnloadAllScenes();
 
 	AdditiveLoadScene(aScene);
-	myScenes[aScene]->Activate();
 }
 
 void LevelManager::AdditiveLoadScene(eScenes aScene)
@@ -64,4 +65,9 @@ void LevelManager::UnloadAllScenes()
 const bool LevelManager::GetIsActive(eScenes aScene)
 {
 	return myScenes[aScene]->IsActive();
+}
+
+void LevelManager::LoadLevel(const std::string& aLevelPath)
+{
+	myTiledMap->Load(aLevelPath, myScenes[eScenes::LevelScene]);
 }

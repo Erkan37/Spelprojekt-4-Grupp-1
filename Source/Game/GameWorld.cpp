@@ -39,13 +39,13 @@ CGameWorld::CGameWorld(CGame* aGame)
 
 CGameWorld::~CGameWorld() 
 {
-	myLevelScene.Unload();
+	myLevelManager.UnloadAllScenes();
 }
 
 void CGameWorld::Init()
 {
-
-	myLevelScene.Activate();
+	myLevelManager.Init(&myLevelScene);
+	myLevelManager.SingleLoadScene(LevelManager::eScenes::LevelScene);
 }
 
 void CGameWorld::Update()

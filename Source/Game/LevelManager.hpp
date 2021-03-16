@@ -1,9 +1,10 @@
 #pragma once
-#include <vector>
 #include <map>
-#include "Level.hpp"
+#include <memory>
 
 class Scene;
+
+class TiledMap;
 
 class LevelManager
 {
@@ -30,9 +31,10 @@ public:
 
 	const bool GetIsActive(eScenes aScene);
 
+	void LoadLevel(const std::string& aLevelPath);
+
 private:
 	std::map<eScenes, Scene*> myScenes;
-	std::vector<Level> myOpenLevels;
-
+	std::shared_ptr<TiledMap> myTiledMap;
 };
 
