@@ -12,16 +12,24 @@ class Enemy : public GameObject
 {
 public:
 	Enemy(Scene* aScene);
-	~Enemy();
+	virtual ~Enemy()
+	{
+
+	}
+
 	void InitEnemy(const std::vector<v2f>& someCoordinates, const float& aSpeed);
-	void Update(const float& aDeltaTime) override;
+	virtual void Update(const float& aDeltaTime) = 0;
 	void OnCollision(GameObject* aGameObject) override;
+
+protected:
+	EnemyData* myJsonData = new EnemyData();
+	bool IsMoving = false;
+	WaypointComponent* myWayPointComponent;
 
 private:
 	void InitCollider();
 	float mySpeed = 200;
-	bool IsMoving = false;
-	WaypointComponent* myWayPointComponent;
+
 };
 
 class NormalEnemy : public Enemy
@@ -29,6 +37,9 @@ class NormalEnemy : public Enemy
 public:
 	NormalEnemy(Scene* aScene);
 	~NormalEnemy() = default;
+
+	void Update(const float& aDeltaTime);
+
 private:
 	v2f mySize = { 150.0f, 100.0f }; // Get from Json
 };
@@ -37,7 +48,14 @@ class ShootingEnemy : public Enemy
 {
 public:
 	ShootingEnemy(Scene* aScene);
+	~ShootingEnemy() = default;
+
 	void Update(const float& aDeltaTime);
+
+protected:
+#ifdef _DEBUG
+	void ImGuiUpdate();
+#endif // _DEBUG
 
 private:
 	void Shoot();
@@ -46,4 +64,3 @@ private:
 	const float myRadius = 250.0f; // imGui?
 	float myShotTimer = 0.0f;
 };
-
