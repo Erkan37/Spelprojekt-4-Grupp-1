@@ -17,18 +17,25 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::InitEnemy(const std::vector<v2f>& someCoordinates, const float& aSpeed)
+void Enemy::InitEnemy(const std::vector<v2f>& someWayPoints, const float& aSpeed)
 {
-	if (someCoordinates.size() > 1)
+	if (someWayPoints.size() > 1)
 	{
 		myWayPointComponent = AddComponent<WaypointComponent>();
 		myWayPointComponent->SetOwner(this);
-		myWayPointComponent->SetWaypoints(someCoordinates);
+		myWayPointComponent->SetWaypoints(someWayPoints);
 		myWayPointComponent->SetSpeed(aSpeed);
 		IsMoving = true;
 		mySpeed = aSpeed;
 	}
-	this->SetPosition(someCoordinates[0]);
+	if (someWayPoints.size() == 0)
+	{
+		this->SetPosition({ 0.0f, 0.0f });
+	}
+	else
+	{
+		this->SetPosition(someWayPoints[0]);
+	}
 	//InitAnimations();
 	InitCollider();
 }

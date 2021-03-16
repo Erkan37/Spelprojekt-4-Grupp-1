@@ -1,0 +1,35 @@
+{
+  "NormalEnemy": {
+    "SpriteSize": {
+      "X": 0.0,
+      "Y": 0.0
+    },
+    "CollisionSize": {
+      "X": 0.0,
+      "Y": 0.0
+    }
+  },
+  "ShootingEnemy": {
+    "SpriteSize": {
+      "X": 0.0,
+      "Y": 0.0
+    },
+    "CollisionSize": {
+      "X": 0.0,
+      "Y": 0.0
+    },
+    "FireRate": 0.0,
+    "FireRadius": 0.0
+  },
+  "Projectile": {
+    "SpriteSize": {
+      "X": 0.0,
+      "Y": 0.0
+    },
+    "CollisionSize": {
+      "X": 0.0,
+      "Y": 0.0
+    },
+    "Speed":  0.0
+  }
+}
