@@ -97,12 +97,12 @@ const bool LevelManager::GetIsActive(eScenes aScene)
 	return myScenes[aScene]->IsActive();
 }
 
-void LevelManager::LoadLevel(const std::string& aLevelPath)
+void LevelManager::LoadLevel(LevelScene* aLevelScene, const std::string& aLevelPath)
 {
 #ifdef _DEBUG
-	myTiledMap->Load(myLevelToLoad, myScenes[eScenes::LevelScene]);
+	myTiledMap->Load(myLevelToLoad, aLevelScene);
 	return;
 #endif //DEBUG
 
-	myTiledMap->Load(aLevelPath, myScenes[eScenes::LevelScene]);
+	myTiledMap->Load(aLevelPath, aLevelScene);
 }

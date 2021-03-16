@@ -3,6 +3,7 @@
 #include <memory>
 
 class Scene;
+class LevelScene;
 
 class TiledMap;
 
@@ -37,7 +38,7 @@ public:
 
 	const bool GetIsActive(eScenes aScene);
 
-	void LoadLevel(const std::string& aLevelPath);
+	void LoadLevel(LevelScene* aLevelScene, const std::string& aLevelPath);
 
 private:
 	std::map<eScenes, Scene*> myScenes;
