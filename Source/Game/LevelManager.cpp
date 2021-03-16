@@ -34,6 +34,7 @@ void LevelManager::AdditiveLoadScene(eScenes aScene)
 	if (!myScenes[aScene]->IsLoaded())
 	{
 		myScenes[aScene]->Load();
+		myScenes[aScene]->Activate();
 	}
 }
 
@@ -48,7 +49,7 @@ void LevelManager::UnloadScene(eScenes aScene)
 void LevelManager::ReloadScene(eScenes aScene)
 {
 	UnloadScene(aScene);
-	myScenes[aScene]->Load();
+	AdditiveLoadScene(aScene);
 }
 
 void LevelManager::UnloadAllScenes()
