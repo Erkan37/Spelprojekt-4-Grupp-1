@@ -13,6 +13,7 @@
 #include "BashableObject.hpp"
 #include "MovingPlatform.hpp"
 
+#include <sstream>
 #include "Scene.h"
 #include <cassert>
 
@@ -184,10 +185,11 @@ void TiledMap::ParseEnemies(tson::Layer* aLayer, Scene* aScene)
 		if (tileObj[i].getType() != "")
 		{
 			int type = stoi(tileObj[i].getType());
-
+			std::vector<v2f> hej;
 			switch (type)
 			{
 			case 0:
+				hej = GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>());
 				enemyFactory.CreateNormalEnemy(aScene, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>()), tileObj[i].getProp("Speed")->getValue<float>());
 				break;
 			case 1:
@@ -294,7 +296,7 @@ void TiledMap::ParsePlatforms(tson::Layer* aLayer, Scene* aScene)
 				platformFactory.CreateMovingPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>()), tileObj[i].getProp("Speed")->getValue<float>());
 				break;
 			case 2:
-				platformFactory.CreateUnstablePlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, 0.0f, 0.0f);
+				platformFactory.CreateUnstablePlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, 5.0f, 3.0f);
 				break;
 			case 3:
 				platformFactory.CreateDestructiblePlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize);
@@ -407,7 +409,35 @@ void TiledMap::ParseButtons(tson::Layer* aLayer, Scene* aScene)
 std::vector<v2f> TiledMap::GetWaypointPositions(const std::string somePositions)
 {
 	std::vector<v2f> waypoints;
-	waypoints.push_back({ -100, -10 }); //temp
+
+	std::stringstream sstream;
+
+	sstream << somePositions;
+	std::string tempWord;
+	int tempNum;
+	int tempX;
+	bool hasX = false;
+
+	while (!sstream.eof())
+	{
+		sstream >> tempWord;
+
+		if (std::stringstream(tempWord) >> tempNum)
+		{
+			if (hasX == false)
+			{
+				tempX = tempNum;
+				hasX = true;
+			}
+			else
+			{
+				//wAYPOINTS PROBLEM
+				waypoints.push_back({ static_cast<float>(tempX), static_cast<float>(tempNum)});
+				hasX = false;
+			}
+		}
+	}
+
 	return waypoints;
 }
 
