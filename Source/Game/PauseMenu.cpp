@@ -13,6 +13,8 @@ PauseMenu::PauseMenu(Scene* aLevelScene)
 	myCamera(aLevelScene->GetCamera())
 {
 	myScene = aLevelScene;
+
+
 }
 
 void PauseMenu::Init()
@@ -26,9 +28,14 @@ void PauseMenu::Init()
 
 	myPosition = { 50.f, 50.f };
 
-	//SpriteComponent* sprite = AddComponent<SpriteComponent>();
-	//sprite->SetSpritePath("Sprites/UI/UI_PauseMenu_Bakground.dds");
-	//sprite->SetSize({ 10.f, 1.f });
+	if (check == 1)
+	{
+		SpriteComponent* sprite = AddComponent<SpriteComponent>();
+		sprite->SetSpritePath("Sprites/UI/UI_PauseMenu_Bakground.dds");
+		sprite->SetSize({ 300.f, 300.f });
+	}
+
+	
 
 	//myBackground = AddComponent<SpriteComponent>();
 	//myBackground->SetSpritePath("Sprites/UI/UI_PauseMenu_Bakground.dds");
@@ -45,6 +52,7 @@ void PauseMenu::Init()
 	myLevelSelectBtn->Init("Sprites/UI/UI_PauseMenu_Text_LevelSelect_Unmarked_72x16px.dds", { 72.f,16.f }, levelSelectPos);
 	myMainMenuBtn->Init("Sprites/UI/UI_PauseMenu_Text_MainMenu_Unmarked_64x16px.dds", { 64.f,16.f }, mainMenuPos);
 
+
 	myButtons.clear();
 
 	myButtons.push_back(myContinueBtn.get());
@@ -52,7 +60,7 @@ void PauseMenu::Init()
 	myButtons.push_back(myMainMenuBtn.get());
 
 	GameObject::Init();
-
+	check++;
 }
 
 void PauseMenu::Update(const float& aDeltaTime)

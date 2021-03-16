@@ -11,7 +11,7 @@ class PauseMenu : public GameObject
 public:
 	PauseMenu(Scene* aLevelScene);
 
-	void Init() override;
+	void Init();
 
 	void Update(const float& aDeltaTime) override;
 	void Render() override;
@@ -32,6 +32,8 @@ private:
 	std::unique_ptr<UIButton> myMainMenuBtn;
 
 	std::shared_ptr<InputWrapper> myInput;
+
+	int check = {};
 
 };
 
