@@ -7,39 +7,21 @@
 #include "ColliderComponent.h"
 #include "Player.hpp"
 #include "GameObject.h"
-#include <iostream>
 #include "Platform.h"
 
-EnemyProjectile::EnemyProjectile(Scene* aScene) : GameObject(aScene)
+EnemyProjectile::EnemyProjectile(Scene* aScene, const v2f& aPosition, const v2f& aTarget) : GameObject(aScene)
 {
 	this->Activate();
-	SpriteComponent* spriteIdle = this->AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/TempProjectile.dds");
-	spriteIdle->SetSize(mySize);
-
 	this->SetZIndex(400);
-	this->SetPosition({400, 600});
 
-	ColliderComponent* collider = this->AddComponent<ColliderComponent>();
-	Transform transform = this->GetTransform();
-	collider->SetSize(mySize);
-
-	PhysicsComponent* physics = this->AddComponent<PhysicsComponent>();
-	physics->SetCanCollide(false);
-	physics->SetIsStatic(false);
+	InitVisuals();
+	InitCollider();
+	SetDirection(aPosition, aTarget);
 	
-
-	//myAnimation = Animation(false, false, true, 1, 1, 1, 0.15f, spriteIdle, 512, 512);
-
-	//AnimationComponent* animation = AddComponent<AnimationComponent>();
-	//animation->SetSprite(spriteIdle);
-	//animation->SetAnimation(&myAnimation);
-	//spriteIdle->SetSize(mySize);
-
 	GameObject::Init();
 }
 
-void EnemyProjectile::InitProjectile(const v2f& aPosition, const v2f& aTarget)
+void EnemyProjectile::SetDirection(const v2f& aPosition, const v2f& aTarget)
 {
 	this->SetPosition(aPosition);
 	myDirection = aTarget - aPosition;
@@ -69,11 +51,25 @@ void EnemyProjectile::OnCollision(GameObject* aGameObject)
 
 void EnemyProjectile::InitCollider()
 {
-	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
-	physics->SetCanCollide(true);
-	physics->SetIsStatic(false);
-	physics->SetApplyGravity(true);
+	ColliderComponent* collider = this->AddComponent<ColliderComponent>();
+	Transform transform = this->GetTransform();
+	collider->SetSize(myColliderSize);
 
-	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
-	//physics->SetVelocity({10, 0});
+	PhysicsComponent* physics = this->AddComponent<PhysicsComponent>();
+	physics->SetCanCollide(false);
+	physics->SetIsStatic(false);
+}
+
+void EnemyProjectile::InitVisuals()
+{
+	SpriteComponent* spriteIdle = this->AddComponent<SpriteComponent>();
+	spriteIdle->SetSpritePath("Sprites/TempProjectile.dds");
+	spriteIdle->SetSize(mySpriteSize);
+
+	//myAnimation = Animation(false, false, true, 1, 1, 1, 0.15f, spriteIdle, 512, 512);
+
+	//AnimationComponent* animation = AddComponent<AnimationComponent>();
+	//animation->SetSprite(spriteIdle);
+	//animation->SetAnimation(&myAnimation);
+	//spriteIdle->SetSize(mySize);
 }

@@ -36,7 +36,6 @@ void Enemy::InitEnemy(const std::vector<v2f>& someWayPoints, const float& aSpeed
 	{
 		this->SetPosition(someWayPoints[0]);
 	}
-	//InitAnimations();
 	InitCollider();
 }
 
@@ -55,8 +54,6 @@ void Enemy::InitCollider()
 	physics->SetCanCollide(false);
 	physics->SetIsStatic(false);
 	physics->SetApplyGravity(false);
-
-	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
 }
 
 void Enemy::OnCollision(GameObject* aGameObject)
@@ -76,11 +73,19 @@ NormalEnemy::NormalEnemy(Scene* aScene) : Enemy(aScene)
 	this->SetZIndex(400);
 }
 
+void NormalEnemy::InitCollider()
+{
+	Enemy::InitCollider();
+	ColliderComponent* collider = this->AddComponent<ColliderComponent>();
+	Transform transform = this->GetTransform();
+	collider->SetSize(myColliderSize);
+}
+
 ShootingEnemy::ShootingEnemy(Scene* aScene) : Enemy(aScene)
 {
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
 	spriteIdle->SetSpritePath("Sprites/TempShootingEnemy.dds");
-	spriteIdle->SetSize(mySize);
+	spriteIdle->SetSize(mySpriteSize);
 	this->SetZIndex(400);
 }
 
@@ -99,8 +104,15 @@ void ShootingEnemy::Update(const float& aDeltaTime)
 	}
 }
 
+void ShootingEnemy::InitCollider()
+{
+	Enemy::InitCollider();
+	ColliderComponent* collider = this->AddComponent<ColliderComponent>();
+	Transform transform = this->GetTransform();
+	collider->SetSize(myColliderSize);
+}
+
 void ShootingEnemy::Shoot()
 {
-	EnemyProjectile* projectile = new EnemyProjectile(this->myScene);
-	projectile->InitProjectile(this->GetPosition(), dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition());
+	EnemyProjectile* projectile = new EnemyProjectile(this->myScene, this->GetPosition(), dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition());
 }
