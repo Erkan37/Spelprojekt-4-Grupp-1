@@ -25,6 +25,7 @@ CGameWorld::CGameWorld(CGame* aGame)
 	, myDeltaTime(0.0f)
 	, myTotalTime(0.0f)
 	, myLevelScene(LevelScene())
+	, myMainMenuScene(MainMenuScene())
 {
 	myTimer = std::make_unique<Utils::Timer>();
 	myInput = std::make_shared<InputWrapper>();
@@ -44,8 +45,8 @@ CGameWorld::~CGameWorld()
 
 void CGameWorld::Init()
 {
-	myLevelManager.Init(&myLevelScene);
-	myLevelManager.SingleLoadScene(LevelManager::eScenes::LevelScene);
+	myLevelManager.Init(&myMainMenuScene, &myLevelScene);
+	myLevelManager.SingleLoadScene(LevelManager::eScenes::MainMenu);
 }
 
 void CGameWorld::Update()
@@ -54,7 +55,7 @@ void CGameWorld::Update()
 	myDeltaTime = myTimer->GetDeltaTime();
 	myInput->Update(myDeltaTime);
 
-	if (myInput->GetInput()->GetKeyJustDown(Keys::ESCKey))
+	if (myInput->GetInput()->GetKeyJustDown(Keys::NumericKeypad0Key) && !myLevelManager.GetIsActive(LevelManager::eScenes::MainMenu))
 	{
 		myLevelManager.SingleLoadScene(LevelManager::eScenes::MainMenu);
 	}

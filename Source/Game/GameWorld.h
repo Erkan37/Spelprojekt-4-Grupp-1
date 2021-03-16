@@ -1,5 +1,6 @@
 #pragma once
 
+#include "MainMenuScene.h"
 #include "LevelScene.h"
 #include "LevelManager.hpp"
 
@@ -63,6 +64,7 @@ private:
 	float myDeltaTime;
 	float myTotalTime;
 
+	MainMenuScene myMainMenuScene;
 	LevelScene myLevelScene;
 
 	LevelManager myLevelManager;

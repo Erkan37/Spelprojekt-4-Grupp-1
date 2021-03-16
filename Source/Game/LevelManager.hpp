@@ -11,7 +11,7 @@ class LevelManager
 public:
 	enum class eScenes
 	{
-		//MainMenu,
+		MainMenu,
 		LevelScene,
 		//PauseMenu,
 		Count
@@ -20,7 +20,7 @@ public:
 	LevelManager();
 	~LevelManager();
 
-	void Init(Scene* aLevelScene);
+	void Init(Scene* aMainMenuScene, Scene* aLevelScene);
 
 	void Update();
 

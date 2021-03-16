@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "LevelScene.h"
+#include "MainMenuScene.h"
 
 #include "TiledMap.h"
 
@@ -16,9 +17,9 @@ LevelManager::~LevelManager()
 
 }
 
-void LevelManager::Init(/*Scene* aMainMenuScene, */Scene* aLevelScene/*, Scene* aPauseMenuScene*/)
+void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelScene/*, Scene* aPauseMenuScene*/)
 {
-	//myScenes.insert({ eScenes::MainMenu, aMainMenuScene });
+	myScenes.insert({ eScenes::MainMenu, aMainMenuScene });
 	myScenes.insert({ eScenes::LevelScene, aLevelScene });
 	//myScenes.insert({ eScenes::PauseMenu, aPauseMenuScene });
 }

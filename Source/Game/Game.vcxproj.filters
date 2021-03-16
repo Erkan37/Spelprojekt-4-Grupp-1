@@ -61,6 +61,9 @@
     <Filter Include="Managers">
       <UniqueIdentifier>{506ab144-1063-49d7-9094-1ce367a21600}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{bbe69fe7-de48-45c2-b985-f537615c48ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -114,7 +117,6 @@
     <ClInclude Include="Utilities.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="LevelScene.h" />
     <ClInclude Include="Vector4.hpp">
       <Filter>Utils\Math</Filter>
     </ClInclude>
@@ -227,6 +229,12 @@
     <ClInclude Include="LevelManager.hpp">
       <Filter>Managers</Filter>
     </ClInclude>
+    <ClInclude Include="LevelScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -265,7 +273,6 @@
     <ClCompile Include="Utilities.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="LevelScene.cpp" />
     <ClCompile Include="Debugger.cpp">
       <Filter>Core\Debug</Filter>
     </ClCompile>
@@ -371,6 +378,12 @@
     </ClCompile>
     <ClCompile Include="LevelManager.cpp">
       <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
