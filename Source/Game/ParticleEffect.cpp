@@ -106,12 +106,13 @@ const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 		mySpawnInterval = Utils::RandomFloat(myStats.myMinBetweenSpawn, myStats.myMaxBetweenSpawn);
 	}
 	
-	for (int i = 0; i < mySprites.size(); i++)
+	for (int x = 0; x < mySprites.size(); x++)
 	{
-		mySprites[i]->Update(aDeltaTime);
-		if (mySprites[i]->IsAlive() == false)
+		mySprites[x]->Update(aDeltaTime);
+		if (mySprites[x]->IsAlive() == false)
 		{
-			mySprites.erase(mySprites.begin() + i);
+			mySprites.erase(mySprites.begin() + x);
+			DeleteInactiveComponents();
 			break;
 		}
 	}

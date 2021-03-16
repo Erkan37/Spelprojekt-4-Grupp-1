@@ -7,6 +7,7 @@
 #include "Transform.hpp"
 #include "GameWorld.h"
 #include "Scene.h"
+#include "SpriteComponent.h"
 #include <math.h>
 
 GameObject::GameObject(Scene* aScene)
@@ -142,6 +143,22 @@ GameObject& GameObject::Destroy()
 	myTransform.myShouldBeDestroyed = true;
 
 	return *this;
+}
+
+void GameObject::DeleteInactiveComponents()
+{
+	for (int i = 0; i < myComponents.size(); i++)
+	{
+		SpriteComponent* cast = dynamic_cast<SpriteComponent*>(myComponents[i]);
+		if (cast != NULL)
+		{
+			if (cast->IsActive() == false)
+			{
+				myComponents.erase(myComponents.begin() + i);
+				break;
+			}
+		}
+	}
 }
 
 GameObject& GameObject::Activate()

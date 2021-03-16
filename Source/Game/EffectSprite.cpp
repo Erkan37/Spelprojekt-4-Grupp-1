@@ -11,15 +11,13 @@ EffectSprite::EffectSprite()
 EffectSprite::~EffectSprite()
 {
 	mySprite->Deactivate();
+	mySprite = nullptr;
 }
 
 void EffectSprite::Update(const float& aDeltatime)
 {
 	myTotalTimer += aDeltatime;
 
-	//v2f movement = {mySprite->GetRelativePosition().x, mySprite->GetRelativePosition().y + -1.f};
-
-	//mySprite->SetRelativePosition(movement);
 	mySprite->SetRelativePosition({ mySprite->GetRelativePositionX(), mySprite->GetRelativePositionY() - 1.f * mySpeedInterval});
 	
 	if (myTotalTimer > myLifeTime)
