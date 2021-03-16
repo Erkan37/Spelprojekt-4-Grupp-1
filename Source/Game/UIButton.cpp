@@ -12,7 +12,10 @@ UIButton::UIButton(Scene* aLevelScene)
 	GameObject(aLevelScene),
 	myCamera(aLevelScene->GetCamera())
 {
-	myScene = aLevelScene;
+}
+
+UIButton::~UIButton()
+{
 }
 
 void UIButton::Init(const std::string aPathString, const v2f aSize, const v2f aPosition)

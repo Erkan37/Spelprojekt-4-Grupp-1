@@ -23,9 +23,10 @@ private:
 
 	v2f myPosition;
 
+	SpriteComponent* myBackground;
+
 	std::vector<UIButton*> myButtons;
 
-	SpriteComponent* myBackground;
 	std::unique_ptr<UIButton> myContinueBtn;
 	std::unique_ptr<UIButton> myLevelSelectBtn;
 	std::unique_ptr<UIButton> myMainMenuBtn;

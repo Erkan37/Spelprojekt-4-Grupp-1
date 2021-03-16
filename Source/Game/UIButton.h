@@ -9,6 +9,7 @@ class UIButton : public GameObject
 {
 public:
 	UIButton(Scene* aLevelScene);
+	~UIButton();
 
 	void Init(const std::string aPathString, const v2f aSize, const v2f aPosition);
 
@@ -16,7 +17,6 @@ public:
 
 
 private:
-	Scene* myScene;
 	Camera& myCamera;
 
 	v2f myPosition;

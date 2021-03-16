@@ -17,9 +17,6 @@ PauseMenu::PauseMenu(Scene* aLevelScene)
 
 void PauseMenu::Init()
 {
-
-	
-
 	myInput = CGameWorld::GetInstance()->Input();
 
 	int renderSizeX = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
@@ -29,9 +26,9 @@ void PauseMenu::Init()
 
 	myPosition = { 50.f, 50.f };
 
-	SpriteComponent* sprite = AddComponent<SpriteComponent>();
-	sprite->SetSpritePath("Sprites/UI/UI_PauseMenu_Bakground.dds");
-	sprite->SetSize({ 1000.f, 1000.f });
+	//SpriteComponent* sprite = AddComponent<SpriteComponent>();
+	//sprite->SetSpritePath("Sprites/UI/UI_PauseMenu_Bakground.dds");
+	//sprite->SetSize({ 10.f, 1.f });
 
 	//myBackground = AddComponent<SpriteComponent>();
 	//myBackground->SetSpritePath("Sprites/UI/UI_PauseMenu_Bakground.dds");
@@ -47,6 +44,8 @@ void PauseMenu::Init()
 	myContinueBtn->Init("Sprites/UI/UI_PauseMenu_Text_Continue_Unmarked_64x16px.dds", { 64.f,16.f }, continuePos);
 	myLevelSelectBtn->Init("Sprites/UI/UI_PauseMenu_Text_LevelSelect_Unmarked_72x16px.dds", { 72.f,16.f }, levelSelectPos);
 	myMainMenuBtn->Init("Sprites/UI/UI_PauseMenu_Text_MainMenu_Unmarked_64x16px.dds", { 64.f,16.f }, mainMenuPos);
+
+	myButtons.clear();
 
 	myButtons.push_back(myContinueBtn.get());
 	myButtons.push_back(myLevelSelectBtn.get());
