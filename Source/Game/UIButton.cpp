@@ -3,26 +3,30 @@
 #include "SpriteComponent.h"
 #include "Player.hpp"
 #include "LevelScene.h"
+#include "Camera.h"
+#include <iostream>
 
 
 UIButton::UIButton(Scene* aLevelScene)
 	:
-	GameObject(aLevelScene)
+	GameObject(aLevelScene),
+	myCamera(aLevelScene->GetCamera())
 {
 	myScene = aLevelScene;
 }
 
-void UIButton::Init(const std::string aPathString, const v2f aSize)
+void UIButton::Init(const std::string aPathString, const v2f aSize, const v2f aPosition)
 {
+	myPosition = aPosition;
+
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
 	sprite->SetSpritePath(aPathString);
 	sprite->SetSize(aSize);
 
-	LevelScene* scene = dynamic_cast<LevelScene*>(myScene);
-	myPlayer = dynamic_cast<Player*>(scene->GetPlayer());
+	GameObject::Init();
 }
 
 void UIButton::Update(const float& aDeltaTime)
 {
-	SetPosition(myPlayer->GetPosition());
+	SetPosition(myCamera.GetPosition() + myPosition);
 }
