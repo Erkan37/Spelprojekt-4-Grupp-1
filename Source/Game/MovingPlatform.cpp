@@ -53,7 +53,7 @@ void MovingPlatform::AddButton(v2f aPosition, eMovingPlatformType aPlatformType)
 
 void MovingPlatform::OnCollision(GameObject* aGameObject)
 {
-	if (myButton.GetActiveButton())
+	if (!myAddedButton || myButton.GetActiveButton())
 	{
 		Player* player = dynamic_cast<Player*>(aGameObject);
 		if (player)

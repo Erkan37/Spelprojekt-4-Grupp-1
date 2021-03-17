@@ -123,7 +123,7 @@ MovingPlatform* PlatformFactory::CreateMovingPlatform(Scene* aLevelScene, const 
 	movingPlatform->SetWaypoints(aWayPoints);
 	movingPlatform->GetComponent<WaypointComponent>()->SetSpeed(aSpeed);
 	movingPlatform->GetComponent<SpriteComponent>()->SetSpritePath(spritePath);
-	movingPlatform->GetComponent<SpriteComponent>()->SetSize(aSpriteSize);
+	movingPlatform->GetComponent<SpriteComponent>()->SetSize(adjustedSize);
 	return movingPlatform;
 }
 

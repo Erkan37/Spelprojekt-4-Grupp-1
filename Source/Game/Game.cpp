@@ -106,19 +106,23 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 	info.cbSize = sizeof(MONITORINFO);
 	GetMonitorInfo(monitor, &info);
 
+	int monitorWidth = info.rcMonitor.right - info.rcMonitor.left;
+	int monitorHeight = info.rcMonitor.bottom - info.rcMonitor.top;
+
 #ifdef _DEBUG
 	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Overlapped;
 #endif // DEBUG
 #ifdef _RETAIL
-	int monitorWidth = info.rcMonitor.right - info.rcMonitor.left;
-	int monitorHeight = info.rcMonitor.bottom - info.rcMonitor.top;
+	createParameters.myUseLetterboxAndPillarbox;
 	createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight);
 	createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth);
 	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Borderless;
 #endif // RETAIL
 
-	createParameters.myTargetHeight = Config::height;
-	createParameters.myTargetWidth = Config::width;
+	createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight / 2);
+	createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth / 2);
+	createParameters.myTargetHeight = Config::height / 2;
+	createParameters.myTargetWidth = Config::width / 2;
 	createParameters.myClearColor = Tga2D::CColor(0.0f, 0.0f, 0.0f, 1.0f);
 	createParameters.myActivateDebugSystems = 0;
 
