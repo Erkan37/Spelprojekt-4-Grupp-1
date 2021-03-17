@@ -49,7 +49,7 @@ v2f InputWrapper::GetRightStickMovement()
 
 v2f InputWrapper::GetAxisMovement()
 {
-	v2f position = GetLeftStickMovement() + CalculateMouseAxis();
+	v2f position = GetLeftStickMovement();// +CalculateMouseAxis();
 	v2f normalizedPosition = position.GetNormalized();
 	
 	return normalizedPosition;
