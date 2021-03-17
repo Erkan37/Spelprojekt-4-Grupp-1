@@ -124,3 +124,8 @@ void PauseMenu::DeactivateMenu()
 	myBackground->SetActive(false);
 }
 
+
+void PauseMenu::InitTexts()
+{
+	myTitleString = std::make_unique<TextWrapper>();
+}

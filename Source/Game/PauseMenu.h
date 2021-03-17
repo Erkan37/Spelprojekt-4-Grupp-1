@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "UIButton.h"
 #include "UIBackground.h"
-
+#include "TextWrapper.h"
 class SpriteComponent;
 class InputWrapper;
 class Scene;
@@ -32,6 +32,7 @@ private:
 	std::unique_ptr<UIButton> myLevelSelectBtn;
 	std::unique_ptr<UIButton> myMainMenuBtn;
 
+	std::unique_ptr<TextWrapper> myTitleString;
 	std::shared_ptr<InputWrapper> myInput;
 
 	int myMovingIndex;
@@ -42,6 +43,7 @@ private:
 	void CheckIndexPress();
 	void ActivateMenu();
 	void DeactivateMenu();
+	void InitTexts();
 
 };
 
