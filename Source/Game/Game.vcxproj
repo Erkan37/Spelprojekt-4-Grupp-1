@@ -144,6 +144,7 @@
     <ClInclude Include="BashComponent.hpp" />
     <ClInclude Include="Bonfire.hpp" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="ButtonManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collectible.hpp" />
     <ClInclude Include="ColliderComponent.h" />
@@ -167,6 +168,8 @@
     <ClInclude Include="LevelScene.h" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="MovingPlatform.hpp" />
+    <ClInclude Include="PauseMenu.h" />
+    <ClInclude Include="PauseScene.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Platform.h" />
@@ -182,6 +185,9 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TiledMap.h" />
     <ClInclude Include="Transform.hpp" />
+    <ClInclude Include="UIBackground.h" />
+    <ClInclude Include="UIButton.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="UnstablePlatform.hpp" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Vector2.hpp" />
@@ -199,6 +205,7 @@
     <ClCompile Include="BashComponent.cpp" />
     <ClCompile Include="Bonfire.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ButtonManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collectible.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
@@ -220,6 +227,8 @@
     <ClCompile Include="LevelScene.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="MovingPlatform.cpp" />
+    <ClCompile Include="PauseMenu.cpp" />
+    <ClCompile Include="PauseScene.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Platform.cpp" />
@@ -236,6 +245,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Retail|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TiledMap.cpp" />
+    <ClCompile Include="UIBackground.cpp" />
+    <ClCompile Include="UIButton.cpp" />
+    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UnstablePlatform.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="WaypointComponent.cpp" />

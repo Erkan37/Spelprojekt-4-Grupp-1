@@ -176,7 +176,7 @@ void ButtonManager::SetSize(const Tga2D::Vector2f& aSize)
 {
 	for (int i = 0; i < myButtons.size(); i++)
 	{
-		myButtons[i]->SetSize(aSize);
+		//myButtons[i]->SetSize(aSize);
 	}
 }
 
