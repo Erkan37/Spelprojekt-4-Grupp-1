@@ -20,7 +20,6 @@ public:
 
 	void Update(const float& aDeltaTime);
 	void UpdateBashVelocity(const float& aDeltaTime);
-	void Render();
 
 	v2f GetVelocity();
 	void SetVelocity(const v2f& aDashVelocity);
@@ -81,4 +80,3 @@ private:
 	void CheckButtonPress();
 
 };
-

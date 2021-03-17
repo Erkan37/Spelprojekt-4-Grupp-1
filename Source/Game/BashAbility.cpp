@@ -5,9 +5,6 @@
 #include "InputWrapper.h"
 #include "LevelScene.h"
 
-#include <iostream>
-
-
 BashAbility::BashAbility(LevelScene* aLevelScene)
 	:
 	GameObject(aLevelScene)
@@ -33,7 +30,6 @@ BashAbility::BashAbility(LevelScene* aLevelScene)
 	myDashShakeIntensity = 0.5f;
 	myDashShakeDropOff = 0.5f;
 }
-
 BashAbility::~BashAbility()
 {
 }
@@ -82,7 +78,6 @@ void BashAbility::Update(const float& aDeltaTime)
 	ImGuiUpdate();
 #endif //DEBUG
 }
-
 void BashAbility::UpdateBashVelocity(const float& aDeltaTime)
 {
 	myTimer -= aDeltaTime;
@@ -100,21 +95,27 @@ void BashAbility::UpdateBashVelocity(const float& aDeltaTime)
 		myIsBashing = false;
 	}
 }
-
-void BashAbility::Render()
+void BashAbility::UpdateBashArrow()
 {
+	myDashDirection = myInput->GetAxisMovement();
+	if (myDashDirection.x == 0.0f && myDashDirection.y == 0.0f)
+	{
+		myDashDirection = v2f(0.0f, -1.0f);
+	}
+
+	SetPosition(myPlayer->GetPosition() + myDashDirection * 32.0f);
+	SetRotation(atan2(myDashDirection.y, myDashDirection.x));
 }
+
 
 v2f BashAbility::GetVelocity()
 {
 	return myCurrentDashVelocity;
 }
-
 void BashAbility::SetVelocity(const v2f& aDashVelocity)
 {
 	myCurrentDashVelocity = aDashVelocity;
 }
-
 void BashAbility::ResetVelocity(const bool aResetX, const bool aResetY)
 {
 	if (aResetX)
@@ -133,37 +134,13 @@ void BashAbility::AddPlayerRelation(Player* aPlayer)
 {
 	myPlayer = aPlayer;
 }
-
 void BashAbility::AddInputWrapper(const std::shared_ptr<InputWrapper> aInputWrapper)
 {
 	myInput = aInputWrapper;
 }
-
 void BashAbility::AddTimer(Utils::Timer* aTimer)
 {
 	myTimerInput = aTimer;
-}
-
-void BashAbility::ImGuiUpdate()
-{
-	ImGui::Begin("Dash", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
-
-	ImGui::InputFloat("Acceleration: ", &myAcceleration, 0.0f, 100.0f);
-	ImGui::InputFloat("Retardation: ", &myRetardation, 0.0f, 5.0f);
-	ImGui::InputFloat("Dash Speed: ", &myDashSpeed, 0.0f, 3000.0f);
-	ImGui::InputFloat("Dash Duration: ", &myDashDuration, 0.0f, 10.0f);
-	ImGui::InputFloat("Max Dash Duration: ", &myMaxDashDuration, 0.0f, 10.0f);
-
-	ImGui::Text("Vibration");
-	ImGui::InputInt("Vibration Strength: ", &myVibrationStrength, 0, 65000);
-	ImGui::InputFloat("Vibration Length: ", &myVibrationLength, 0.0f, 1.0f);
-
-	ImGui::Text("Camera Shake");
-	ImGui::InputFloat("Dash Shake Duration: ", &myDashShakeDuration, 0.0f, 10.0f);
-	ImGui::InputFloat("Dash Shake Intensity: ", &myDashShakeIntensity, 0.0f, 10.0f);
-	ImGui::InputFloat("Dash Shake DropOff: ", &myDashShakeDropOff, 0.0f, 10.0f);
-
-	ImGui::End();
 }
 
 void BashAbility::FreezeTime()
@@ -194,7 +171,6 @@ void BashAbility::DashUse(const float& aDeltaTime)
 	myBashObject->OnBashed();
 	myBashObject = nullptr;
 }
-
 void BashAbility::UseBashAbility(const float& aDeltaTime)
 {
 	myTimerInput->SetTimeScale(1.0f);
@@ -210,7 +186,6 @@ void BashAbility::UseBashAbility(const float& aDeltaTime)
 		myPlayer->EndLerp();
 	}
 }
-
 
 void BashAbility::CheckButtonPress()
 {
@@ -236,20 +211,29 @@ const bool BashAbility::GetIsBashing()
 {
 	return myIsBashing;
 }
-
 void BashAbility::ActivateBash(GameObject* aGameObject)
 {
 	myBashObject = aGameObject;
 }
 
-void BashAbility::UpdateBashArrow()
+void BashAbility::ImGuiUpdate()
 {
-	myDashDirection = myInput->GetAxisMovement();
-	if (myDashDirection.x == 0.0f && myDashDirection.y == 0.0f)
-	{
-		myDashDirection = v2f(0.0f, -1.0f);
-	}
+	ImGui::Begin("Dash", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
 
-	SetPosition(myPlayer->GetPosition() + myDashDirection * 32.0f);
-	SetRotation(atan2(myDashDirection.y, myDashDirection.x));
+	ImGui::InputFloat("Acceleration: ", &myAcceleration, 0.0f, 100.0f);
+	ImGui::InputFloat("Retardation: ", &myRetardation, 0.0f, 5.0f);
+	ImGui::InputFloat("Dash Speed: ", &myDashSpeed, 0.0f, 3000.0f);
+	ImGui::InputFloat("Dash Duration: ", &myDashDuration, 0.0f, 10.0f);
+	ImGui::InputFloat("Max Dash Duration: ", &myMaxDashDuration, 0.0f, 10.0f);
+
+	ImGui::Text("Vibration");
+	ImGui::InputInt("Vibration Strength: ", &myVibrationStrength, 0, 65000);
+	ImGui::InputFloat("Vibration Length: ", &myVibrationLength, 0.0f, 1.0f);
+
+	ImGui::Text("Camera Shake");
+	ImGui::InputFloat("Dash Shake Duration: ", &myDashShakeDuration, 0.0f, 10.0f);
+	ImGui::InputFloat("Dash Shake Intensity: ", &myDashShakeIntensity, 0.0f, 10.0f);
+	ImGui::InputFloat("Dash Shake DropOff: ", &myDashShakeDropOff, 0.0f, 10.0f);
+
+	ImGui::End();
 }
