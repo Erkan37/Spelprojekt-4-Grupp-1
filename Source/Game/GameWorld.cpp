@@ -46,7 +46,7 @@ CGameWorld::~CGameWorld()
 void CGameWorld::Init()
 {
 	myLevelManager.Init(&myMainMenuScene, &myLevelScene);
-	myLevelManager.SingleLoadScene(LevelManager::eScenes::MainMenu);
+	myLevelManager.SingleLoadScene(LevelManager::eScenes::LevelScene);
 }
 
 void CGameWorld::Update()

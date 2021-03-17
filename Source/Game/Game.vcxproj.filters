@@ -64,9 +64,6 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{bbe69fe7-de48-45c2-b985-f537615c48ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\UI">
-      <UniqueIdentifier>{21b32e80-3ccf-4bc0-8bc2-e0869e5066d1}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -238,31 +235,7 @@
     <ClInclude Include="MainMenuScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="ButtonManager.h">
-      <Filter>Core\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="PauseMenu.h">
-      <Filter>Core\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="PauseScene.h">
-      <Filter>Core\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIBackground.h">
-      <Filter>Core\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIButton.h">
-      <Filter>Core\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIManager.h">
-      <Filter>Core\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="TextComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="UIText.h">
-      <Filter>Core\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="EFontsSizes.hpp">
+    <ClInclude Include="AudioComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
@@ -415,29 +388,8 @@
     <ClCompile Include="MainMenuScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="ButtonManager.cpp">
-      <Filter>Core\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseMenu.cpp">
-      <Filter>Core\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseScene.cpp">
-      <Filter>Core\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UIBackground.cpp">
-      <Filter>Core\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UIButton.cpp">
-      <Filter>Core\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UIManager.cpp">
-      <Filter>Core\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="TextComponent.cpp">
+    <ClCompile Include="AudioComponent.cpp">
       <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="UIText.cpp">
-      <Filter>Core\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

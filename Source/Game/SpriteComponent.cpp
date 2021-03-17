@@ -12,6 +12,8 @@
 #include "GameWorld.h"
 #include "Game.h"
 
+#include "../External/Headers/CU/Utilities.h"
+
 #include <vector>
 
 /* Constructors & Destructor */
@@ -75,21 +77,20 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 	}
 
 	v2f offset = { 0.0f, 0.0f };
-	float height = static_cast<float>(Config::height);
-	float width = static_cast<float>(Config::width);
+	float height = static_cast<float>(CGameWorld::GetInstance()->Game()->GetZoomY());
+	float width = static_cast<float>(CGameWorld::GetInstance()->Game()->GetZoomX());
+
+	if (width / 16.0f < height / 9.0f)
+	{
+		height = width * (9.0f / 16.0f);
+	}
+	else
+	{
+		width = height * (16.0f / 9.0f);
+	}
 
 	float alpha = myAlpha;
 	float zoom = 1.0f;
-
-	v2f renderSize = {};
-	renderSize.x = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
-	renderSize.y = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
-
-
-	v2f referenceSize = { Config::ourReferenceSize.x, Config::ourReferenceSize.y };
-
-	const float scaleFactor = renderSize.y / referenceSize.y;
-
 
 	Scene* scene = aGameObject.GetScene();
 	if (scene != nullptr)
@@ -98,10 +99,12 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 		zoom = camera.GetZoom();
 		v2f cameraPosition = camera.GetPosition();
 
+		v2f trueSize = v2f(Utils::Abs(mySize.x), mySize.y);
+
 		v2f spriteMin = GetTopLeft(aTransform);
 		v2f spriteMax = GetBottomRight(aTransform);
-		v2f cameraMin = cameraPosition - mySize;
-		v2f cameraMax =  v2f(cameraPosition.x + (renderSize.x / scaleFactor), cameraPosition.y + (renderSize.y / scaleFactor)) + mySize;
+		v2f cameraMin = cameraPosition - trueSize;
+		v2f cameraMax = v2f(cameraPosition.x + (width / zoom), cameraPosition.y + (height / zoom)) + trueSize;
 
 		if (!(spriteMin.x <= cameraMax.x && spriteMax.x >= cameraMin.x &&
 			spriteMin.y <= cameraMax.y && spriteMax.y >= cameraMin.y) && !myForceRender)
@@ -114,12 +117,8 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 
 		alpha *= camera.GetAlpha();
 
-		v2f allSpritesPosition = {};
-		allSpritesPosition.x = aTransform.myPosition.x + myRelativePosition.x + offset.x;
-		allSpritesPosition.y = aTransform.myPosition.y + myRelativePosition.y + offset.y;
-
-		const v2f position = { (allSpritesPosition.x * scaleFactor) / renderSize.x, (allSpritesPosition.y * scaleFactor) / renderSize.y };
-		const v2f size = { (mySize.x * scaleFactor) / renderSize.y, (mySize.y * scaleFactor) / renderSize.y };
+		const v2f position = v2f((aTransform.myPosition.x + myRelativePosition.x + offset.x) / width * zoom, (aTransform.myPosition.y + myRelativePosition.y + offset.y) / height * zoom);
+		const v2f size = v2f((mySize.x / height) * zoom, ((mySize.y) / height) * zoom);
 		const v4f color = v4f(myColor.x, myColor.y, myColor.z, myColor.w * alpha);
 		UpdateSprite(mySprite, position, size, aTransform.myPivot, aTransform.myRotation + myRelativeRotation, myColor, myRect);
 	}
