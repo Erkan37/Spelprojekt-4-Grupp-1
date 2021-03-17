@@ -155,7 +155,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -200,7 +200,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -287,7 +287,7 @@
                  "y":312
                 }, 
                 {
-                 "height":24,
+                 "height":48,
                  "id":24,
                  "name":"",
                  "rotation":0,
@@ -632,7 +632,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -852,7 +852,7 @@
                  "visible":true,
                  "width":0,
                  "x":152,
-                 "y":328
+                 "y":320
                 }, 
                 {
                  "height":0,
@@ -863,7 +863,7 @@
                         {
                          "name":"Speed",
                          "type":"float",
-                         "value":100
+                         "value":50
                         }, 
                         {
                          "name":"Waypoints",
@@ -871,7 +871,7 @@
                          "value":"-20 0"
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"1",
                  "visible":true,
                  "width":0,
                  "x":912,
@@ -879,7 +879,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
