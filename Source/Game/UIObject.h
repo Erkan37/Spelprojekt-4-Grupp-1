@@ -13,7 +13,7 @@ public:
 	void Init(const std::string aPathString, const v2f aSize, const v2f aPosition, int aZIndex);
 	void InitAnimation(const std::string aPathString, const v2f aSize, const v2f aPosition, int aZIndex);
 
-	void Update(const float& aDeltaTime) override;
+	void UpdateUIObjects(const float& aDeltaTime);
 	void Render() override;
 
 	void SetActive(const bool aActiveState);

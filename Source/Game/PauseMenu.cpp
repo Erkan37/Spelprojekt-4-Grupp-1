@@ -44,7 +44,7 @@ void PauseMenu::InitMenu()
 	myContinueBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_Continue_Unmarked_64x16px.dds", { 64.f,16.f }, continuePos);
 	myLevelSelectBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_LevelSelect_Unmarked_72x16px.dds", { 72.f,16.f }, levelSelectPos);
 	myMainMenuBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_MainMenu_Unmarked_64x16px.dds", { 64.f,16.f }, mainMenuPos);
-
+	
 	myButtons.clear();
 
 	myButtons.push_back(myContinueBtn.get());
@@ -64,7 +64,8 @@ void PauseMenu::Update(const float& aDeltaTime)
 
 	if (myMenuActive)
 	{
-
+		myBackground->UpdateUIObjects(aDeltaTime);
+		myFireHighlight->UpdateUIObjects(aDeltaTime);
 		for (auto button : myButtons)
 			button->UpdateButton(aDeltaTime);
 
@@ -82,6 +83,7 @@ void PauseMenu::Update(const float& aDeltaTime)
 
 		CheckIndexPress();
 	}
+	
 }
 
 

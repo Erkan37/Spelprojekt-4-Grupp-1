@@ -4,9 +4,6 @@
 
 #include "UIObject.h"
 #include "Animation.hpp"
-
-
-#include "UIBackground.h"
 #include "TextWrapper.h"
 
 class SpriteComponent;
