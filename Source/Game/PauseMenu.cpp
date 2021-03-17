@@ -75,28 +75,8 @@ void PauseMenu::Update(const float& aDeltaTime)
 
 	if (myMenuActive)
 	{
-		myBackground->UpdateUIObjects(aDeltaTime);
-		myBar->UpdateUIObjects(aDeltaTime);
-		myFireHighlight->UpdateUIObjects(aDeltaTime);
-		myFire->UpdateUIObjects(aDeltaTime);
-		myFire2->UpdateUIObjects(aDeltaTime);
-		myFire3->UpdateUIObjects(aDeltaTime);
-
-		for (auto button : myButtons)
-			button->UpdateButton(aDeltaTime);
-
-		for (int i = 0; i < myButtons.size(); i++)
-		{
-			if (i == myMovingIndex)
-			{
-				myButtons[i]->SetIsHighlightActive(true);
-				myFireHighlight->SetPositionX(myButtons[i]->GetPositionX() - 10.0f);
-				myFireHighlight->SetPositionY(myButtons[i]->GetPositionY());
-			}
-			else
-				myButtons[i]->SetIsHighlightActive(false);
-		}
-
+		UpdateUIElements(aDeltaTime);
+		CheckActiveAnimations();
 		CheckIndexPress();
 	}
 	
@@ -137,6 +117,19 @@ void PauseMenu::CheckIndexPress()
 
 }
 
+void PauseMenu::UpdateUIElements(const float& aDeltaTime)
+{
+	myBackground->UpdateUIObjects(aDeltaTime);
+	myBar->UpdateUIObjects(aDeltaTime);
+	myFireHighlight->UpdateUIObjects(aDeltaTime);
+	myFire->UpdateUIObjects(aDeltaTime);
+	myFire2->UpdateUIObjects(aDeltaTime);
+	myFire3->UpdateUIObjects(aDeltaTime);
+
+	for (auto button : myButtons)
+		button->UpdateButton(aDeltaTime);
+}
+
 
 void PauseMenu::ActivateMenu()
 {
@@ -150,6 +143,21 @@ void PauseMenu::ActivateMenu()
 	myFire3->SetActive(true);
 	myFireHighlight->SetActive(true);
 
+}
+
+void PauseMenu::CheckActiveAnimations()
+{
+	for (int i = 0; i < myButtons.size(); i++)
+	{
+		if (i == myMovingIndex)
+		{
+			myButtons[i]->SetIsHighlightActive(true);
+			myFireHighlight->SetPositionX(myButtons[i]->GetPositionX() - 10.0f);
+			myFireHighlight->SetPositionY(myButtons[i]->GetPositionY());
+		}
+		else
+			myButtons[i]->SetIsHighlightActive(false);
+	}
 }
 
 

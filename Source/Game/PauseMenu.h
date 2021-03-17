@@ -63,6 +63,7 @@ private:
 	void ActivateMenu();
 	void DeactivateMenu();
 	void InitTexts();
-
+	void UpdateUIElements(const float& aDeltaTime);
+	void CheckActiveAnimations();
 };
 
