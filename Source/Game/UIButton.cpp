@@ -29,7 +29,6 @@ void UIButton::Init(const std::string aPathString, const v2f aSize, const v2f aP
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
 	sprite->SetSpritePath(aPathString);
 	sprite->SetSize(aSize);
-	
 
 	mySprite = new SpriteComponent();
 	mySprite = AddComponent<SpriteComponent>();
@@ -56,8 +55,6 @@ void UIButton::UpdateButton(const float& aDeltaTime)
 	}
 	else
 		mySprite->Deactivate();
-		/*SetLightedColor(myOriginalColor);*/
-
 }
 
 void UIButton::Render()
@@ -71,10 +68,6 @@ void UIButton::SetIsHighlightActive(const bool aHighlightBool)
 	myBtnHighlighted = aHighlightBool;
 }
 
-void UIButton::SetLightedColor(const v4f aColor)
-{
-	GetComponent<SpriteComponent>()->SetColor(aColor);
-}
 
 void UIButton::SetActive(const bool aActiveState)
 {

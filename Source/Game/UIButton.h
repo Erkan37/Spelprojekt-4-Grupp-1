@@ -19,7 +19,6 @@ public:
 	void Render() override;
 
 	void SetIsHighlightActive(const bool aHighlightBool);
-	void SetLightedColor(const v4f aColor);
 	void SetActive(const bool aActiveState);
 
 
