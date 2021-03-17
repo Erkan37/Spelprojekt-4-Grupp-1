@@ -8,6 +8,7 @@
 #include "Scene.h"
 #include "Camera.h"
 #include "Game.h"
+
 #include "AnimationComponent.hpp"
 
 PauseMenu::PauseMenu(Scene* aLevelScene)
@@ -178,5 +179,5 @@ void PauseMenu::DeactivateMenu()
 void PauseMenu::InitTexts()
 {
 	myTitleString = std::make_unique<UIText>(myScene);
-	myTitleString->Init();
+	myTitleString->Init("Message");
 }
