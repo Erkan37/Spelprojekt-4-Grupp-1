@@ -69,7 +69,10 @@ void UnstablePlatform::OnCollision(GameObject* aGameObject)
 
 void UnstablePlatform::Landed(const int& aOverlapY)
 {
-	myPlayerIsOnTop = true;
+	if (aOverlapY >= 0)
+	{
+		myPlayerIsOnTop = true;
+	}
 }
 
 void UnstablePlatform::ActivatePlatform()
