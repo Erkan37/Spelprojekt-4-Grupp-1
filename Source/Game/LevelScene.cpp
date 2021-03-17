@@ -90,7 +90,7 @@ void LevelScene::Update(const float& aDeltaTime)
 
 	GetCamera().SetZoom(zoom);
 
-	GetCamera().SetBounds(v2f(0.0f, 0.0f), v2f(1920.0f * (zoomX / 1920.0f) / 4.0f, 1080.0f * (zoomY / 1080.0f) / 6.0f));
+	GetCamera().SetBounds(v2f(0.0f, 0.0f), v2f(1920.0f / 4.0f, 1080.0f / 6.0f));
 
 	Scene::Update(aDeltaTime);
 }
