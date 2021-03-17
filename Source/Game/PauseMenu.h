@@ -30,6 +30,7 @@ private:
 	Animation myAnimation[1];
 
 	std::unique_ptr<UIObject> myBackground;
+	std::unique_ptr<UIObject> myBar;
 	std::unique_ptr<UIObject> myFire;
 	std::unique_ptr<UIObject> myFire2;
 	std::unique_ptr<UIObject> myFire3;
