@@ -876,6 +876,29 @@
                  "width":0,
                  "x":912,
                  "y":240
+                }, 
+                {
+                 "height":0,
+                 "id":113,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Speed",
+                         "type":"float",
+                         "value":50
+                        }, 
+                        {
+                         "name":"Waypoints",
+                         "type":"string",
+                         "value":"1 0"
+                        }],
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":0,
+                 "x":256,
+                 "y":272
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1010,7 +1033,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":113,
+ "nextobjectid":114,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
