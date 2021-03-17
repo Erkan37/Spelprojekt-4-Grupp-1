@@ -354,6 +354,7 @@ void Player::Landed(const int& aOverlapY)
 			myHasLanded = true;
 		myHasDoubleJumped = false;
 
+		myBashAbility->ResetVelocity(true, true);
 
 		if (myWillJumpWhenFalling)
 		{

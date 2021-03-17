@@ -21,7 +21,7 @@ public:
 	~PhysicsManager() = default;
 
 	void PhysicsUpdate(const float& aDeltaTime, std::vector<GameObject*>& aGameObjects);
-	static constexpr float ourGravity = 800.0f;
+	static constexpr float ourGravity = 500.0f;
 
 	void UpdateObjectVelocity(const float& aDeltaTime, std::vector<GameObject*>& aGameObjects);
 
