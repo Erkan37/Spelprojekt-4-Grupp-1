@@ -49,13 +49,13 @@ void BashAbility::Init()
 	myMaxDashDuration = 2.0f;
 	myTimeScale = 0.0f;
 	myRadiusFromDash = true;
-	myDashSpeed = 400.0f;
+	myDashSpeed = 300.0f;
 	myAspectRatioFactorY = Tga2D::CEngine::GetInstance()->GetWindowSize().x / Tga2D::CEngine::GetInstance()->GetWindowSize().y;
 
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
 	sprite->SetSpritePath("BashArrow.dds");
 	sprite->SetSize(v2f(16.0f, 16.0f));
-	sprite->Deactivate();
+	//sprite->Deactivate();
 
 	GameObject::Init();
 }
@@ -76,7 +76,7 @@ void BashAbility::Update(const float& aDeltaTime)
 		SetPosition(myPlayer->GetPosition());
 	}
 
-	GetComponent<SpriteComponent>()->Render(myTransform, *this);
+	GameObject::Update(aDeltaTime);
 
 #ifdef _DEBUG
 	ImGuiUpdate();
@@ -88,8 +88,8 @@ void BashAbility::UpdateBashVelocity(const float& aDeltaTime)
 	myTimer -= aDeltaTime;
 	if (myTimer > 0)
 	{
-		myCurrentDashVelocity.x = Utils::Lerp(myCurrentDashVelocity.x, myDashDirection.x * myDashSpeed, myAcceleration * aDeltaTime);
-		myCurrentDashVelocity.y = Utils::Lerp(myCurrentDashVelocity.y, myDashDirection.y * myDashSpeed, myAcceleration * aDeltaTime) * myAspectRatioFactorY;
+		myCurrentDashVelocity.x = Utils::Lerp(myCurrentDashVelocity.x, myUsedDashDirection.x * myDashSpeed, myAcceleration * aDeltaTime);
+		myCurrentDashVelocity.y = Utils::Lerp(myCurrentDashVelocity.y, myUsedDashDirection.y * myDashSpeed, myAcceleration * aDeltaTime) * myAspectRatioFactorY;
 		myIsBashing = true;
 	}
 	else if(myTimer <= 0)
@@ -173,10 +173,10 @@ void BashAbility::FreezeTime()
 
 void BashAbility::DashUse(const float& aDeltaTime)
 {
-	myDashDirection = myInput->GetAxisMovement();
-	if (myDashDirection.x == 0.0f && myDashDirection.y == 0.0f)
+	myUsedDashDirection = myInput->GetAxisMovement();
+	if (myUsedDashDirection.x == 0.0f && myUsedDashDirection.y == 0.0f)
 	{
-		myDashDirection = v2f(0.0f, -1.0f);
+		myUsedDashDirection = v2f(0.0f, -1.0f);
 	}
 
 	myScene->GetCamera().Shake(myDashShakeDuration, myDashShakeIntensity, myDashShakeDropOff);
@@ -201,10 +201,12 @@ void BashAbility::UseBashAbility(const float& aDeltaTime)
 	myMaxDashDurationTimer -= myTimerInput->GetDeltaTime();
 	myTimerInput->SetTimeScale(myTimeScale);
 
+	UpdateBashArrow();
+
 	if (myButtonHold == false || myMaxDashDurationTimer <= 0)
 	{
 		DashUse(aDeltaTime);
-		GetComponent<SpriteComponent>()->Deactivate();
+		//GetComponent<SpriteComponent>()->Deactivate();
 		myPlayer->EndLerp();
 	}
 }
@@ -238,4 +240,16 @@ const bool BashAbility::GetIsBashing()
 void BashAbility::ActivateBash(GameObject* aGameObject)
 {
 	myBashObject = aGameObject;
+}
+
+void BashAbility::UpdateBashArrow()
+{
+	myDashDirection = myInput->GetAxisMovement();
+	if (myDashDirection.x == 0.0f && myDashDirection.y == 0.0f)
+	{
+		myDashDirection = v2f(0.0f, -1.0f);
+	}
+
+	SetPosition(myPlayer->GetPosition() + myDashDirection * 32.0f);
+	SetRotation(atan2(myDashDirection.y, myDashDirection.x));
 }
