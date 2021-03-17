@@ -78,8 +78,7 @@ void LevelScene::Update(const float& aDeltaTime)
 	if (CGameWorld::GetInstance()->Input()->GetInput()->GetKeyJustDown(Keys::ESCKey))
 		myPauseMenu->SetActiveMenu(!myPauseMenu->IsPauseActive());
 
-	if (myPauseMenu->IsPauseActive() == false)
-		Scene::Update(aDeltaTime);
+	Scene::Update(aDeltaTime);
 }
 
 const GameObject* LevelScene::GetPlayer()
