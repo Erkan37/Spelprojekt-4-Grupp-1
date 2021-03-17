@@ -5,6 +5,7 @@
 #include "LevelScene.h"
 #include "Camera.h"
 #include <iostream>
+#include "AnimationComponent.hpp"
 
 
 UIButton::UIButton(Scene* aLevelScene)
@@ -20,7 +21,7 @@ UIButton::~UIButton()
 {
 }
 
-void UIButton::Init(const std::string aPathString, const v2f aSize, const v2f aPosition)
+void UIButton::Init(const std::string aPathString, const v2f aSize, const v2f aPosition, const std::string aAnimationPathString, const int aBoundX)
 {
 	SetZIndex(600);
 	myPosition = aPosition;
@@ -28,10 +29,16 @@ void UIButton::Init(const std::string aPathString, const v2f aSize, const v2f aP
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
 	sprite->SetSpritePath(aPathString);
 	sprite->SetSize(aSize);
+	
 
-	myOriginalColor = sprite->GetColor();
-	myHighlightedColor = myOriginalColor;
-	myHighlightedColor.w = 0.5f;
+	mySprite = new SpriteComponent();
+	mySprite = AddComponent<SpriteComponent>();
+	mySprite->SetSpritePath(aAnimationPathString);
+	mySprite->SetSize(aSize);
+	AnimationComponent* animation = AddComponent<AnimationComponent>();
+	animation->SetSprite(mySprite);
+	Animation idleAnimation = Animation(false, false, false, 0, 8, 8, 0.15f, mySprite, aBoundX, 16);
+	animation->SetAnimation(&idleAnimation);
 
 	SetPivot({0.f, 0.f});
 
@@ -43,9 +50,14 @@ void UIButton::UpdateButton(const float& aDeltaTime)
 	SetPosition(myCamera.GetPosition() + myPosition);
 
 	if (myBtnHighlighted)
-		SetLightedColor(myHighlightedColor);
+	{
+		mySprite->Activate();
+		GameObject::Update(aDeltaTime);
+	}
 	else
-		SetLightedColor(myOriginalColor);
+		mySprite->Deactivate();
+		/*SetLightedColor(myOriginalColor);*/
+
 }
 
 void UIButton::Render()

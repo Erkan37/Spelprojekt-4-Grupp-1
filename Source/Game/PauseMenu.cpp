@@ -29,23 +29,22 @@ void PauseMenu::InitMenu()
 
 	myFireHighlight = std::make_unique<UIObject>(myScene);
 
-
 	myContinueBtn = std::make_unique<UIButton>(myScene);
 	v2f continuePos = { 220.f, 50.f };
 	myLevelSelectBtn = std::make_unique<UIButton>(myScene);
 	v2f levelSelectPos = { 220.f, 100.f };
 	myMainMenuBtn = std::make_unique<UIButton>(myScene);
 	v2f mainMenuPos = { 220.f, 150.f };
-
 	
 	myBackground->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Bakground_304x164px.dds", {700.f, 340.f}, backgroundPos, 599);
 	myFire->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Flame_16x16px.dds", { 16.0f, 16.0f }, firePos, 600);
 	myFireHighlight->InitAnimation("Sprites/UI/pauseMenu/UI_PauseMenu_Flame_16x16px.dds", { 16.0f, 16.0f }, { 200.0f, 70.0f }, 600);
-	myContinueBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_Continue_Unmarked_64x16px.dds", { 64.f,16.f }, continuePos);
-	myLevelSelectBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_LevelSelect_Unmarked_72x16px.dds", { 72.f,16.f }, levelSelectPos);
-	myMainMenuBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_MainMenu_Unmarked_64x16px.dds", { 64.f,16.f }, mainMenuPos);
+	myContinueBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_Continue_Unmarked_64x16px.dds", { 64.f,16.f }, continuePos, "Sprites/UI/pauseMenu/UI_PauseMenu_Text_Continue_Marked_64x16px.dds", 64);
+	myLevelSelectBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_LevelSelect_Unmarked_72x16px.dds", { 72.f,16.f }, levelSelectPos,"Sprites/UI/pauseMenu/UI_PauseMenu_Text_LevelSelect_Marked_72x16px.dds", 72);
+	myMainMenuBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_MainMenu_Unmarked_64x16px.dds", { 64.f,16.f }, mainMenuPos, "Sprites/UI/pauseMenu/UI_PauseMenu_Text_MainMenu_Marked_64x16px.dds", 64);
 	
 	myButtons.clear();
+
 
 	myButtons.push_back(myContinueBtn.get());
 	myButtons.push_back(myLevelSelectBtn.get());

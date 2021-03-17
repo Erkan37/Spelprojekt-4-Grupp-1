@@ -46,6 +46,7 @@ void UIObject::InitAnimation(const std::string aPathString, const v2f aSize, con
 
 void UIObject::UpdateUIObjects(const float& aDeltaTime)
 {
+	
 	SetPosition(myCamera->GetPosition() + myPosition);
 
 	GameObject::Update(aDeltaTime);

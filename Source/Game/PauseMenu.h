@@ -34,7 +34,12 @@ private:
 	std::unique_ptr<UIObject> myFire2;
 	std::unique_ptr<UIObject> myFire3;
 	std::unique_ptr<UIObject> myFireHighlight;
+	
+	std::unique_ptr<UIObject> myContinueHighlight;
+	std::unique_ptr<UIObject> myLevelSelectHighlight;
+	std::unique_ptr<UIObject> myMainMenuHighlight;
 
+	std::vector<UIObject*> myHighlights;
 
 	std::vector<UIButton*> myButtons;
 
