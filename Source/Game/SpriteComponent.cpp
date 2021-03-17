@@ -75,8 +75,12 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 	}
 
 	v2f offset = { 0.0f, 0.0f };
-	float height = static_cast<float>(Config::height);
-	float width = static_cast<float>(Config::width);
+
+	float width = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
+	float height = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
+
+	//float height = static_cast<float>(Config::height);
+	//float width = static_cast<float>(Config::width);
 
 	float alpha = myAlpha;
 	float zoom = 1.0f;
@@ -98,7 +102,6 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 		{
 			return;
 		}
-
 
 		offset = cameraPosition * -1.0f;
 

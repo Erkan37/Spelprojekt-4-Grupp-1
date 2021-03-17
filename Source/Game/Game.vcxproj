@@ -182,6 +182,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TiledMap.h" />
     <ClInclude Include="Transform.hpp" />
+    <ClInclude Include="UIBackground.h" />
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="UnstablePlatform.hpp" />
@@ -238,6 +239,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Retail|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TiledMap.cpp" />
+    <ClCompile Include="UIBackground.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UnstablePlatform.cpp" />

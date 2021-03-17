@@ -39,10 +39,15 @@ LevelScene::LevelScene()
 
 void LevelScene::Load()
 {
-	myPauseMenu = std::make_unique<PauseMenu>(this);
-	myPauseMenu->Init();
+	myBackground = std::make_unique<Background>(this);
+
+	myTiledMap = std::make_unique<TiledMap>();
+	myTiledMap->Load("Levels/test_level2.json", this);
 
 	myPlayer = new Player(this);
+	
+	myPauseMenu = std::make_unique<PauseMenu>(this);
+	myPauseMenu->Init();
 
 	//Bonfire* bonfire = new Bonfire(this);
 	//bonfire->SetPosition(myPlayer->GetPosition() + v2f(50.0f, 200.0f));
@@ -50,10 +55,6 @@ void LevelScene::Load()
 	//EnemyFactory enemyFactory;
 	//enemyFactory.ReadEnemies(this, "JSON/AlfaEnemies.json");
 
-	myBackground = std::make_unique<Background>(this);
-
-	myTiledMap = std::make_unique<TiledMap>();
-	myTiledMap->Load("Levels/test_level2.json", this);
 
 	
 
@@ -61,6 +62,7 @@ void LevelScene::Load()
 	//bashableObjectFactory.ReadBashableObjects(this, "JSON/AlfaBashableObjects.json");
 
 	Scene::Load();
+
 }
 
 void LevelScene::Activate()

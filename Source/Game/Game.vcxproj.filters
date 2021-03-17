@@ -236,6 +236,9 @@
     <ClInclude Include="UIButton.h">
       <Filter>Core\UI</Filter>
     </ClInclude>
+    <ClInclude Include="UIBackground.h">
+      <Filter>Core\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -388,6 +391,9 @@
       <Filter>Core\UI</Filter>
     </ClCompile>
     <ClCompile Include="UIButton.cpp">
+      <Filter>Core\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIBackground.cpp">
       <Filter>Core\UI</Filter>
     </ClCompile>
   </ItemGroup>

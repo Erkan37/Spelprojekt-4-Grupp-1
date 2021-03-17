@@ -1,20 +1,20 @@
 #pragma once
 #include "GameObject.h"
 #include "UIButton.h"
+#include "UIBackground.h"
 
 class SpriteComponent;
 class InputWrapper;
 class Scene;
 
-class PauseMenu : public GameObject
+class PauseMenu
 {
 public:
 	PauseMenu(Scene* aLevelScene);
 
 	void Init();
 
-	void Update(const float& aDeltaTime) override;
-	void Render() override;
+	void Update(const float& aDeltaTime);
 
 
 private:
@@ -23,7 +23,7 @@ private:
 
 	v2f myPosition;
 
-	SpriteComponent* myBackground;
+	std::unique_ptr<UIBackground> myBackground;
 
 	std::vector<UIButton*> myButtons;
 
