@@ -41,10 +41,10 @@ void PauseMenu::Init()
 	v2f mainMenuPos = { 343.f, 150.f };
 
 
-	myBackground->Init("Sprites/UI/UI_PauseMenu_Bakground.dds", {700.f, 340.f}, backgroundPos);
-	myContinueBtn->Init("Sprites/UI/UI_PauseMenu_Text_Continue_Unmarked_64x16px.dds", { 64.f,16.f }, continuePos);
-	myLevelSelectBtn->Init("Sprites/UI/UI_PauseMenu_Text_LevelSelect_Unmarked_72x16px.dds", { 72.f,16.f }, levelSelectPos);
-	myMainMenuBtn->Init("Sprites/UI/UI_PauseMenu_Text_MainMenu_Unmarked_64x16px.dds", { 64.f,16.f }, mainMenuPos);
+	myBackground->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Bakground_304x164px.dds", {700.f, 340.f}, backgroundPos);
+	myContinueBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_Continue_Unmarked_64x16px.dds", { 64.f,16.f }, continuePos);
+	myLevelSelectBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_LevelSelect_Unmarked_72x16px.dds", { 72.f,16.f }, levelSelectPos);
+	myMainMenuBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_MainMenu_Unmarked_64x16px.dds", { 64.f,16.f }, mainMenuPos);
 
 
 	myButtons.clear();
