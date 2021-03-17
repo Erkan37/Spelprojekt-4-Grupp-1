@@ -35,6 +35,8 @@
 
 #include "LevelManager.hpp"
 
+#include "Game.h"
+
 LevelScene::LevelScene()
 	: 
 	myPlayer(nullptr),
@@ -59,7 +61,6 @@ void LevelScene::Activate()
 
 	GetCamera().StartFollowing(myPlayer, { 40.0f, 40.0f });
 	GetCamera().SetBounds(v2f(-840.0f, -540.0f), v2f(3840.0f, 2160.0f));
-	GetCamera().SetZoom(6.0f);
 }
 
 void LevelScene::Deactivate()
@@ -71,6 +72,12 @@ void LevelScene::Deactivate()
 
 void LevelScene::Update(const float& aDeltaTime)
 {
+	const float zoomFactorX = Tga2D::CEngine::GetInstance()->GetTargetSize().x / 1920.0f;
+	const float zoomFactorY = Tga2D::CEngine::GetInstance()->GetTargetSize().y / 1080.0f;
+	const float zoomFactor = zoomFactorX / zoomFactorY;
+	const float zoom = 6.0f * zoomFactor;
+	GetCamera().SetZoom(zoom);
+
 	Scene::Update(aDeltaTime);
 }
 

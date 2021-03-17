@@ -49,7 +49,7 @@ void BashAbility::Init()
 	myMaxDashDuration = 2.0f;
 	myTimeScale = 0.0f;
 	myRadiusFromDash = true;
-	myDashSpeed = 400.0f;
+	myDashSpeed = 300.0f;
 	myAspectRatioFactorY = Tga2D::CEngine::GetInstance()->GetWindowSize().x / Tga2D::CEngine::GetInstance()->GetWindowSize().y;
 
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
