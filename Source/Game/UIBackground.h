@@ -13,13 +13,17 @@ public:
 
 
 	void Update(const float& aDeltaTime) override;
+	void Render() override;
 
+	void SetActive(const bool aActiveState);
 
 
 private:
 	Camera* myCamera;
 
 	v2f myPosition;
+
+	bool myIsActive;
 
 };
 

@@ -10,6 +10,7 @@ UIBackground::UIBackground(Scene* aLevelScene)
 {
 	myCamera = &aLevelScene->GetCamera();
 	myPosition = {};
+	myIsActive = {};
 }
 
 void UIBackground::Init(const std::string aPathString, const v2f aSize, const v2f aPosition)
@@ -27,4 +28,15 @@ void UIBackground::Init(const std::string aPathString, const v2f aSize, const v2
 void UIBackground::Update(const float& aDeltaTime)
 {
 	SetPosition(myCamera->GetPosition() + myPosition);
+}
+
+void UIBackground::Render()
+{
+	if (myIsActive)
+		GameObject::Render();
+}
+
+void UIBackground::SetActive(const bool aActiveState)
+{
+	myIsActive = aActiveState;
 }

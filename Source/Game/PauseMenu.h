@@ -7,21 +7,22 @@ class SpriteComponent;
 class InputWrapper;
 class Scene;
 
-class PauseMenu
+class PauseMenu : public GameObject
 {
 public:
 	PauseMenu(Scene* aLevelScene);
 
-	void Init();
+	void InitMenu();
 
-	void Update(const float& aDeltaTime);
+	void Update(const float& aDeltaTime) override;
+
+	void SetActiveMenu(const bool aStatement);
+	bool IsPauseActive();
 
 
 private:
 	Scene* myScene;
 	Camera& myCamera;
-
-	v2f myPosition;
 
 	std::unique_ptr<UIBackground> myBackground;
 
@@ -33,7 +34,14 @@ private:
 
 	std::shared_ptr<InputWrapper> myInput;
 
-	int check = {};
+	int myMovingIndex;
+
+	bool myMenuActive;
+
+
+	void CheckIndexPress();
+	void ActivateMenu();
+	void DeactivateMenu();
 
 };
 

@@ -30,6 +30,7 @@
 #include "Enemy.h"
 
 #include "Collectible.hpp"
+#include "InputWrapper.h"
 
 #include "HiddenArea.hpp"
 
@@ -47,6 +48,9 @@ void LevelScene::Load()
 	myPlayer = new Player(this);
 
 	myBackground = new Background(this);
+
+	myPauseMenu = new PauseMenu(this);
+	myPauseMenu->InitMenu();
 
 	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, "Levels/test_level2.json");
 
@@ -71,7 +75,11 @@ void LevelScene::Deactivate()
 
 void LevelScene::Update(const float& aDeltaTime)
 {
-	Scene::Update(aDeltaTime);
+	if (CGameWorld::GetInstance()->Input()->GetInput()->GetKeyJustDown(Keys::ESCKey))
+		myPauseMenu->SetActiveMenu(!myPauseMenu->IsPauseActive());
+
+	if (myPauseMenu->IsPauseActive() == false)
+		Scene::Update(aDeltaTime);
 }
 
 const GameObject* LevelScene::GetPlayer()

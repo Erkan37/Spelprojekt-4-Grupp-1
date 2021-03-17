@@ -6,29 +6,22 @@
 #include "InputWrapper.h"
 #include "Scene.h"
 #include "Camera.h"
+#include "Game.h"
 
 PauseMenu::PauseMenu(Scene* aLevelScene)
 	:
+	GameObject(aLevelScene),
 	myCamera(aLevelScene->GetCamera())
 {
 	myScene = aLevelScene;
-
+	myMovingIndex = {};
+	myMenuActive = {};
 
 }
 
-void PauseMenu::Init()
+void PauseMenu::InitMenu()
 {
 	myInput = CGameWorld::GetInstance()->Input();
-
-	int renderSizeX = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
-	int renderSizeY = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
-
-	int x = 1920 / 3;
-	int y = 1080 / 3;
-
-	v2f targetSize = { 640.f, 360.f };
-
-	myPosition = { 50.f, 50.f };
 
 	myBackground = std::make_unique<UIBackground>(myScene);
 	v2f backgroundPos = {5.f, 5.f};
@@ -36,9 +29,9 @@ void PauseMenu::Init()
 	myContinueBtn = std::make_unique<UIButton>(myScene);
 	v2f continuePos = { 220.f, 50.f };
 	myLevelSelectBtn = std::make_unique<UIButton>(myScene);
-	v2f levelSelectPos = { 343.f, 100.f };
+	v2f levelSelectPos = { 220.f, 100.f };
 	myMainMenuBtn = std::make_unique<UIButton>(myScene);
-	v2f mainMenuPos = { 343.f, 150.f };
+	v2f mainMenuPos = { 220.f, 150.f };
 
 
 	myBackground->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Bakground_304x164px.dds", {700.f, 340.f}, backgroundPos);
@@ -46,26 +39,84 @@ void PauseMenu::Init()
 	myLevelSelectBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_LevelSelect_Unmarked_72x16px.dds", { 72.f,16.f }, levelSelectPos);
 	myMainMenuBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_MainMenu_Unmarked_64x16px.dds", { 64.f,16.f }, mainMenuPos);
 
-
 	myButtons.clear();
 
 	myButtons.push_back(myContinueBtn.get());
 	myButtons.push_back(myLevelSelectBtn.get());
 	myButtons.push_back(myMainMenuBtn.get());
-
-	check++;
 }
 
 void PauseMenu::Update(const float& aDeltaTime)
 {
-	float renderSizeX = static_cast<float>(Tga2D::CEngine::GetInstance()->GetRenderSize().x);
-	float renderSizeY = static_cast<float>(Tga2D::CEngine::GetInstance()->GetRenderSize().y);
+	if (myMenuActive)
+		ActivateMenu();
+	else
+		DeactivateMenu();
 
-	v2f position = myCamera.GetPosition();
+	if (myMenuActive)
+	{
+		for (int i = 0; i < myButtons.size(); i++)
+		{
+			if (i == myMovingIndex)
+				myButtons[i]->SetIsHighlightActive(true);
+			else
+				myButtons[i]->SetIsHighlightActive(false);
+		}
 
-	//SetPosition(myCamera.GetPosition() + myPosition);
+		CheckIndexPress();
+	}
+}
 
-	if (myInput->GetInput()->GetKeyJustDown(Keys::RKey))
-		std::cout << "R KEY PUSHED" << std::endl;
+
+void PauseMenu::SetActiveMenu(const bool aStatement)
+{
+	myMenuActive = aStatement;
+}
+
+bool PauseMenu::IsPauseActive()
+{
+	return myMenuActive;
+}
+
+
+void PauseMenu::CheckIndexPress()
+{
+	if (myInput->GetInput()->GetKeyJustDown(Keys::UPARROWKey))
+	{
+		myMovingIndex--;
+		if (myMovingIndex < 0)
+			myMovingIndex = myButtons.size() - 1;
+	}
+	else if (myInput->GetInput()->GetKeyJustDown(Keys::DOWNARROWKey))
+	{
+		myMovingIndex++;
+		if (myMovingIndex > myButtons.size() - 1)
+			myMovingIndex = 0;
+	}
+
+
+	if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey))
+	{
+		//myButtons[myMovingIndex]->ActivateButton();
+	}
+
+}
+
+
+void PauseMenu::ActivateMenu()
+{
+	for (auto button : myButtons)
+		button->SetActive(true);
+
+	myBackground->SetActive(true);
+}
+
+
+void PauseMenu::DeactivateMenu()
+{
+	for (auto button : myButtons)
+		button->SetActive(false);
+
+	myBackground->SetActive(false);
 }
 

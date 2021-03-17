@@ -146,10 +146,10 @@ void CGame::UpdateCallBack()
 	myGameWorld.Update();
 	myGameWorld.Render();
 
-	if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::ESCKey))
+	/*if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::ESCKey))
 	{
 		PostQuitMessage(0);
-	}
+	}*/
 
 #ifndef _RETAIL
 	if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::F1Key))

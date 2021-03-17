@@ -4,6 +4,7 @@
 #include "Platform.h"
 #include "BackGround.h"
 #include "SpringObject.h"
+#include "PauseMenu.h"
 
 class GameObject;
 
@@ -24,6 +25,7 @@ public:
 private:
     GameObject* myPlayer;
     Background* myBackground;
+    PauseMenu* myPauseMenu;
 
 };
 
