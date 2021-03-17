@@ -28,7 +28,7 @@ private:
 	void ParseButtons(tson::Layer*, Scene*);
 
 
-	std::vector<v2f> GetWaypointPositions(const std::string somePositions);
+	std::vector<v2f> GetWaypointPositions(const std::string somePositions, v2f aSpawnPos);
 	v2f GetScreenPosition(v2f aTiledPos);
 };
 
