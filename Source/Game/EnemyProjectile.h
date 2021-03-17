@@ -1,4 +1,5 @@
 #pragma once
+#include "DataManager.h"
 
 class GameObject;
 class EnemyProjectile : public GameObject
@@ -16,6 +17,7 @@ private:
 	v2f mySpriteSize = { 10.0f, 10.0f };
 	v2f myColliderSize = {10.0f, 10.0f};
 	v2f myDirection;
-	const float mySpeed = 300.0f;
+
+	EnemyData* myJsonData = new EnemyData();
 };
 

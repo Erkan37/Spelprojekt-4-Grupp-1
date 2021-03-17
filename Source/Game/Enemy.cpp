@@ -8,13 +8,30 @@
 #include "EnemyProjectile.h"
 #include "Enemy.h"
 #include "WaypointComponent.hpp"
+#ifdef _DEBUG
+#include "imgui.h"
+#endif // DEBUG
+
+typedef EnemyData::EnemyFloatEnum EEnum;
 
 Enemy::Enemy(Scene* aScene) : GameObject(aScene)
 {
+	myJsonData = dynamic_cast<EnemyData*>(&DataManager::GetInstance().GetDataStruct(DataEnum::enemy));
+	myWayPointComponent = nullptr;
 }
-
-Enemy::~Enemy()
+NormalEnemy::NormalEnemy(Scene* aScene) : Enemy(aScene)
 {
+	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
+	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy1.dds");
+	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeY] });
+	this->SetZIndex(400);
+}
+ShootingEnemy::ShootingEnemy(Scene* aScene) : Enemy(aScene)
+{
+	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
+	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy2.dds");
+	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeY] });
+	this->SetZIndex(400);
 }
 
 void Enemy::InitEnemy(const std::vector<v2f>& someWayPoints, const float& aSpeed)
@@ -36,10 +53,34 @@ void Enemy::InitEnemy(const std::vector<v2f>& someWayPoints, const float& aSpeed
 	{
 		this->SetPosition(someWayPoints[0]);
 	}
+	//InitAnimations();
 	InitCollider();
 }
+void Enemy::InitCollider()
+{
+	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
+	physics->SetCanCollide(false);
+	physics->SetIsStatic(false);
+	physics->SetApplyGravity(false);
 
-void Enemy::Update(const float& aDeltaTime)
+	//physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
+}
+void NormalEnemy::InitCollider()
+{
+	Enemy::InitCollider();
+	ColliderComponent* collider = this->AddComponent<ColliderComponent>();
+	Transform transform = this->GetTransform();
+	collider->SetSize({myJsonData->myFloatValueMap[EEnum::NE_CollisionSizeX], myJsonData->myFloatValueMap[EEnum::NE_CollisionSizeY]});
+}
+void ShootingEnemy::InitCollider()
+{
+	Enemy::InitCollider();
+	ColliderComponent* collider = this->AddComponent<ColliderComponent>();
+	Transform transform = this->GetTransform();
+	collider->SetSize({ myJsonData->myFloatValueMap[EEnum::SE_CollisionSizeX], myJsonData->myFloatValueMap[EEnum::SE_CollisionSizeY] });
+}
+
+void NormalEnemy::Update(const float& aDeltaTime)
 {
 	if (IsMoving)
 	{
@@ -47,72 +88,57 @@ void Enemy::Update(const float& aDeltaTime)
 	}
 	GameObject::Update(aDeltaTime);
 }
-
-void Enemy::InitCollider()
-{
-	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
-	physics->SetCanCollide(false);
-	physics->SetIsStatic(false);
-	physics->SetApplyGravity(false);
-}
-
-void Enemy::OnCollision(GameObject* aGameObject)
-{
-	Player* player = dynamic_cast<Player*>(aGameObject);
-	if (player)
-	{
-		//player->Kill();
-	}
-}
-
-NormalEnemy::NormalEnemy(Scene* aScene) : Enemy(aScene)
-{
-	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/TempEnemy.dds");
-	spriteIdle->SetSize(mySize);
-	this->SetZIndex(400);
-}
-
-void NormalEnemy::InitCollider()
-{
-	Enemy::InitCollider();
-	ColliderComponent* collider = this->AddComponent<ColliderComponent>();
-	Transform transform = this->GetTransform();
-	collider->SetSize(myColliderSize);
-}
-
-ShootingEnemy::ShootingEnemy(Scene* aScene) : Enemy(aScene)
-{
-	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/TempShootingEnemy.dds");
-	spriteIdle->SetSize(mySpriteSize);
-	this->SetZIndex(400);
-}
-
 void ShootingEnemy::Update(const float& aDeltaTime)
 {
-	Enemy::Update(aDeltaTime);
+	if (IsMoving)
+	{
+		myWayPointComponent->Move(aDeltaTime);
+	}
+	GameObject::Update(aDeltaTime);
+
 	v2f lengthToPlayer = dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition() - this->GetPosition();
-	if (lengthToPlayer.Length() <= myRadius)
+	if (lengthToPlayer.Length() <= myJsonData->myFloatValueMap[EEnum::FireRadius])
 	{
 		myShotTimer -= aDeltaTime;
 		if (myShotTimer <= 0)
 		{
-			myShotTimer = myFireRate;
+			myShotTimer = myJsonData->myFloatValueMap[EEnum::FireRate];
 			Shoot();
 		}
 	}
-}
 
-void ShootingEnemy::InitCollider()
-{
-	Enemy::InitCollider();
-	ColliderComponent* collider = this->AddComponent<ColliderComponent>();
-	Transform transform = this->GetTransform();
-	collider->SetSize(myColliderSize);
+#ifdef _DEBUG
+	ImGuiUpdate();
+#endif // _DEBUG
 }
 
 void ShootingEnemy::Shoot()
 {
 	EnemyProjectile* projectile = new EnemyProjectile(this->myScene, this->GetPosition(), dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition());
 }
+void Enemy::OnCollision(GameObject* aGameObject)
+{
+	Player* player = dynamic_cast<Player*>(aGameObject);
+	if (player)
+	{
+		player->Kill();
+	}
+}
+
+#ifdef _DEBUG
+void ShootingEnemy::ImGuiUpdate()
+{
+	ImGui::Begin("Enemies", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
+
+	if (ImGui::Button("Save to JSON"))
+	{
+		DataManager::GetInstance().SetDataStruct(DataEnum::enemy);
+	}
+
+	ImGui::InputFloat("Fire Rate", &myJsonData->myFloatValueMap[EEnum::FireRate], 0.0f, 50.0f);
+	ImGui::InputFloat("Fire Radius", &myJsonData->myFloatValueMap[EEnum::FireRadius], 0.0f, 1000.0f);
+	ImGui::InputFloat("Speed", &myJsonData->myFloatValueMap[EEnum::Speed], 0.0f, 1000.0f);
+
+	ImGui::End();
+}
+#endif // _DEBUG
