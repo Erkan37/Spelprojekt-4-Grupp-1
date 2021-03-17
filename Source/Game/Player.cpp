@@ -31,7 +31,7 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	myInputHandler = world->Input();
 	myTimerInput = world->GetTimer();
 
-	myBashAbility = std::make_unique<BashAbility>(aLevelScene);
+	myBashAbility = new BashAbility(aLevelScene);
 	myBashAbility->Init();
 	myBashAbility->AddInputWrapper(world->Input());
 	myBashAbility->AddPlayerRelation(this);
@@ -173,7 +173,7 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity + mySpringVelocity);
 
-	if (myCurrentVelocity.y > myJsonData->myFloatValueMap[PEnum::Trigger_Falling_Speed])
+	if (myCurrentVelocity.y > myJsonData->myFloatValueMap[PEnum::Trigger_Falling_Speed] && myAirCoyoteTimer <= 0)
 	{
 		myHasLanded = false;
 	}
@@ -354,6 +354,7 @@ void Player::Landed(const int& aOverlapY)
 			myHasLanded = true;
 		myHasDoubleJumped = false;
 
+		myBashAbility->ResetVelocity(true, true);
 
 		if (myWillJumpWhenFalling)
 		{

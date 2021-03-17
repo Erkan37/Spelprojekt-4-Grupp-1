@@ -33,20 +33,22 @@
 
 #include "HiddenArea.hpp"
 
+#include "LevelManager.hpp"
+
 LevelScene::LevelScene()
 	: 
-	myPlayer(nullptr)
-	, Scene()
+	myPlayer(nullptr),
+	myBackground(nullptr),
+	Scene()
 {}
 
 void LevelScene::Load()
 {
 	myPlayer = new Player(this);
 
-	myBackground = std::make_unique<Background>(this);
+	myBackground = new Background(this);
 
-	myTiledMap = std::make_unique<TiledMap>();
-	myTiledMap->Load("Levels/test_level2.json", this);
+	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, "Levels/test_level2.json");
 
 	Scene::Load();
 }

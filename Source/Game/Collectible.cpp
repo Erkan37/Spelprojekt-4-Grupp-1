@@ -74,6 +74,8 @@ void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 	physics->SetApplyGravity(false);
 
 	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this); //Get collision size from data manager
+
+	GameObject::Init();
 }
 
 void Collectible::Update(const float& aDeltaTime)

@@ -1,9 +1,11 @@
 #include "stdafx.h"
 #include "Player.hpp"
 #include "BashAbility.h"
-#include "PhysicsComponent.h"
+#include "SpriteComponent.h"
 #include "InputWrapper.h"
 #include "LevelScene.h"
+
+#include <iostream>
 
 
 BashAbility::BashAbility(LevelScene* aLevelScene)
@@ -38,14 +40,24 @@ BashAbility::~BashAbility()
 
 void BashAbility::Init()
 {
-	myAcceleration = 10.0f;
-	myRetardation = 1.0f;
-	myDashDuration = 0.5f;
+	SetZIndex(1000);
+	SetPivot(v2f(0.5f, 0.5f));
+
+	myAcceleration = 100.0f;
+	myRetardation = 2.0f;
+	myDashDuration = 0.15f;
 	myMaxDashDuration = 2.0f;
 	myTimeScale = 0.0f;
 	myRadiusFromDash = true;
-	myDashSpeed = 1000.f;
+	myDashSpeed = 400.0f;
 	myAspectRatioFactorY = Tga2D::CEngine::GetInstance()->GetWindowSize().x / Tga2D::CEngine::GetInstance()->GetWindowSize().y;
+
+	SpriteComponent* sprite = AddComponent<SpriteComponent>();
+	sprite->SetSpritePath("BashArrow.dds");
+	sprite->SetSize(v2f(16.0f, 16.0f));
+	sprite->Deactivate();
+
+	GameObject::Init();
 }
 
 void BashAbility::Update(const float& aDeltaTime)
@@ -58,6 +70,13 @@ void BashAbility::Update(const float& aDeltaTime)
 	UpdateBashVelocity(aDeltaTime);
 
 	CheckButtonPress();
+
+	if (myPlayer)
+	{
+		SetPosition(myPlayer->GetPosition());
+	}
+
+	GetComponent<SpriteComponent>()->Render(myTransform, *this);
 
 #ifdef _DEBUG
 	ImGuiUpdate();
@@ -185,6 +204,7 @@ void BashAbility::UseBashAbility(const float& aDeltaTime)
 	if (myButtonHold == false || myMaxDashDurationTimer <= 0)
 	{
 		DashUse(aDeltaTime);
+		GetComponent<SpriteComponent>()->Deactivate();
 		myPlayer->EndLerp();
 	}
 }
@@ -201,6 +221,7 @@ void BashAbility::CheckButtonPress()
 	{
 		myButtonHold = true;
 		myDashAbilityActive = true;
+		GetComponent<SpriteComponent>()->Activate();
 		FreezeTime();
 	}
 	else if (myInput->IsDashingReleased())

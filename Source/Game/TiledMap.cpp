@@ -11,14 +11,16 @@
 #include "Ledge.h"
 #include "HiddenArea.hpp"
 #include "BashableObject.hpp"
+#include "MovingPlatform.hpp"
 
+#include <sstream>
 #include "Scene.h"
 #include <cassert>
 
 bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 {
-	tson::Tileson parser;
-	std::unique_ptr<tson::Map> map = parser.parse(std::filesystem::path(aPath));
+	tson::Tileson parser; //Either this
+	std::unique_ptr<tson::Map> map = parser.parse(std::filesystem::path(aPath)); //or this one gives MEMORY LEAKS, perhaps a file that is not closed
 
 	if (map->getStatus() != tson::ParseStatus::OK)
 	{
@@ -29,12 +31,7 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	assert(map->getSize().x > 0);
 	assert(map->getSize().y > 0);
 
-	//Draw (not sure if we can do this yet)
-	tson::Layer* Bg1 = map->getLayer("BG1");
-	tson::Layer* Bg2 = map->getLayer("BG2");
-	tson::Layer* Fg1 = map->getLayer("FG1");
-	tson::Layer* Fg2 = map->getLayer("FG2");
-	tson::Layer* Hr = map->getLayer("HR");
+	ParseGraphics(map->getLayer("BG1"), map->getLayer("BG2"), map->getLayer("FG1"), map->getLayer("FG2"), map->getLayer("HR"), aScene);
 
 	//Create
 	tson::Layer* bonfireLayer = map->getLayer("Bonfire");
@@ -141,6 +138,10 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	return true;
 }
 
+void TiledMap::ParseGraphics(tson::Layer* aBG1, tson::Layer* aBG2, tson::Layer* aFG1, tson::Layer* aFG2, tson::Layer* aHR, Scene* aScene)
+{
+}
+
 void TiledMap::ParseBonfires(tson::Layer* aLayer, Scene* aScene)
 {
 	auto& tileObj = aLayer->getObjects();
@@ -184,14 +185,14 @@ void TiledMap::ParseEnemies(tson::Layer* aLayer, Scene* aScene)
 		if (tileObj[i].getType() != "")
 		{
 			int type = stoi(tileObj[i].getType());
-
+			std::vector<v2f> hej;
 			switch (type)
 			{
 			case 0:
-				enemyFactory.CreateNormalEnemy(aScene, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>()), tileObj[i].getProp("Speed")->getValue<float>());
+				enemyFactory.CreateNormalEnemy(aScene, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>(), GetScreenPosition(aPos)), tileObj[i].getProp("Speed")->getValue<float>());
 				break;
 			case 1:
-				enemyFactory.CreateShootingEnemy(aScene, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>()), tileObj[i].getProp("Speed")->getValue<float>());
+				enemyFactory.CreateShootingEnemy(aScene, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>(), GetScreenPosition(aPos)), tileObj[i].getProp("Speed")->getValue<float>());
 				break;
 			}
 		}
@@ -235,7 +236,7 @@ void TiledMap::ParseCollectables(tson::Layer* aLayer, Scene* aScene)
 
 			switch (type)
 			{
-			case 0: 
+			case 0:
 				aType = Collectible::eCollectibleType::Easy;
 				break;
 			case 1:
@@ -291,10 +292,10 @@ void TiledMap::ParsePlatforms(tson::Layer* aLayer, Scene* aScene)
 				platformFactory.CreateStaticPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, false);
 				break;
 			case 1:
-				platformFactory.CreateMovingPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>()), tileObj[i].getProp("Speed")->getValue<float>());
+				platformFactory.CreateMovingPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>(), GetScreenPosition(aPos)), tileObj[i].getProp("Speed")->getValue<float>());
 				break;
 			case 2:
-				platformFactory.CreateUnstablePlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, 0.0f, 0.0f);
+				platformFactory.CreateUnstablePlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, 0.5f, 2.0f);
 				break;
 			case 3:
 				platformFactory.CreateDestructiblePlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize);
@@ -360,6 +361,7 @@ void TiledMap::ParseBashableObjects(tson::Layer* aLayer, Scene* aScene)
 void TiledMap::ParseButtons(tson::Layer* aLayer, Scene* aScene)
 {
 	auto& tileObj = aLayer->getObjects();
+	PlatformFactory platformFactory;
 
 	for (int i = 0; i < tileObj.size(); ++i)
 	{
@@ -367,14 +369,74 @@ void TiledMap::ParseButtons(tson::Layer* aLayer, Scene* aScene)
 		aPos.x = tileObj[i].getPosition().x;
 		aPos.y = tileObj[i].getPosition().y;
 
-		//Add objects here
+		v2f imageSize;
+		imageSize.x = tileObj[i].getSize().x;
+		imageSize.y = tileObj[i].getSize().y;
+
+		if (tileObj[i].getType() != "")
+		{
+			int type = stoi(tileObj[i].getType());
+
+			if (type == 3)
+			{
+				//door
+			}
+			else
+			{
+				MovingPlatform* platform = platformFactory.CreateMovingPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>(), GetScreenPosition(aPos)), tileObj[i].getProp("Speed")->getValue<float>());
+				MovingPlatform::eMovingPlatformType aType = MovingPlatform::eMovingPlatformType::MovingPlatform;
+				
+				switch (type)
+				{
+				case 0:
+					aType = MovingPlatform::eMovingPlatformType::MovingPlatform;
+					break;
+				case 1:
+					aType = MovingPlatform::eMovingPlatformType::ReversePlatform;
+					break;
+				case 2:
+					aType = MovingPlatform::eMovingPlatformType::PointAtoBPlatform;
+					break;
+				}
+				platform->AddButton(aPos, aType);
+			}
+
+		}
 	}
 }
 
-std::vector<v2f> TiledMap::GetWaypointPositions(const std::string somePositions)
+std::vector<v2f> TiledMap::GetWaypointPositions(const std::string somePositions, v2f aSpawnPos)
 {
 	std::vector<v2f> waypoints;
-	waypoints.push_back({ -100, -10}); //temp
+	waypoints.push_back(aSpawnPos);
+
+	std::stringstream sstream;
+
+	sstream << somePositions;
+	std::string tempWord;
+	int tempNum;
+	int tempX;
+	bool hasX = false;
+
+	while (!sstream.eof())
+	{
+		sstream >> tempWord;
+
+		if (std::stringstream(tempWord) >> tempNum)
+		{
+			if (hasX == false)
+			{
+				tempX = tempNum;
+				hasX = true;
+			}
+			else
+			{
+				waypoints.push_back({ static_cast<float>(tempX) * 8 + aSpawnPos.x, static_cast<float>(tempNum) * 8 + aSpawnPos.y });
+				hasX = false;
+			}
+		}
+	}
+
 	return waypoints;
 }
 

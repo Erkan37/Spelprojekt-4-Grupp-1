@@ -37,6 +37,8 @@ void UnstablePlatform::Update(const float& aDeltaTime)
 		ActivatePlatform();
 	}
 
+	myPlayerIsOnTop = false;
+
 	Platform::Update(aDeltaTime);
 }
 
@@ -50,17 +52,27 @@ void UnstablePlatform::SetTimerProperties(const float& aDestroyTime, const float
 
 void UnstablePlatform::OnCollision(GameObject* aGameObject)
 {
+	if (!myPlayerIsOnTop)
+	{
+		return;
+	}
+
 	Player* player = dynamic_cast<Player*>(aGameObject);
 	if (player && (!myCollidedWithPlayer && !myIsDeactivated))
-	{
-		if (player->GetPositionY() < GetPositionY())
-		{
-			myCollidedWithPlayer = true;
-			myTimer = myDestroyTime;
-		}
+	{	
+		myCollidedWithPlayer = true;
+		myTimer = myDestroyTime;
 	}
 
 	Platform::OnCollision(aGameObject);
+}
+
+void UnstablePlatform::Landed(const int& aOverlapY)
+{
+	if (aOverlapY >= 0)
+	{
+		myPlayerIsOnTop = true;
+	}
 }
 
 void UnstablePlatform::ActivatePlatform()
