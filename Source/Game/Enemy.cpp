@@ -17,19 +17,20 @@ typedef EnemyData::EnemyFloatEnum EEnum;
 Enemy::Enemy(Scene* aScene) : GameObject(aScene)
 {
 	myJsonData = dynamic_cast<EnemyData*>(&DataManager::GetInstance().GetDataStruct(DataEnum::enemy));
+	myWayPointComponent = nullptr;
 }
 NormalEnemy::NormalEnemy(Scene* aScene) : Enemy(aScene)
 {
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
 	spriteIdle->SetSpritePath("Sprites/TempEnemy.dds");
-	spriteIdle->SetSize(mySize);
+	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeY] });
 	this->SetZIndex(400);
 }
 ShootingEnemy::ShootingEnemy(Scene* aScene) : Enemy(aScene)
 {
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
 	spriteIdle->SetSpritePath("Sprites/TempShootingEnemy.dds");
-	spriteIdle->SetSize(mySize);
+	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeY] });
 	this->SetZIndex(400);
 }
 
@@ -82,12 +83,12 @@ void ShootingEnemy::Update(const float& aDeltaTime)
 	GameObject::Update(aDeltaTime);
 
 	v2f lengthToPlayer = dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition() - this->GetPosition();
-	if (lengthToPlayer.Length() <= myRadius)
+	if (lengthToPlayer.Length() <= myJsonData->myFloatValueMap[EEnum::FireRadius])
 	{
 		myShotTimer -= aDeltaTime;
 		if (myShotTimer <= 0)
 		{
-			myShotTimer = myFireRate;
+			myShotTimer = myJsonData->myFloatValueMap[EEnum::FireRate];
 			Shoot();
 		}
 	}

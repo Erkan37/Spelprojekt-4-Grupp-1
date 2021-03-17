@@ -39,9 +39,6 @@ public:
 	~NormalEnemy() = default;
 
 	void Update(const float& aDeltaTime);
-
-private:
-	v2f mySize = { 150.0f, 100.0f }; // Get from Json
 };
 
 class ShootingEnemy : public Enemy
@@ -52,15 +49,12 @@ public:
 
 	void Update(const float& aDeltaTime);
 
-protected:
+private:
+	void Shoot();
+	float myShotTimer = 0.0f;
+
 #ifdef _DEBUG
 	void ImGuiUpdate();
 #endif // _DEBUG
 
-private:
-	void Shoot();
-	const float myFireRate = 4.0f; // Imgui
-	v2f mySize = { 40.0f, 50.0f }; // Get from Json
-	const float myRadius = 250.0f; // imGui?
-	float myShotTimer = 0.0f;
 };
