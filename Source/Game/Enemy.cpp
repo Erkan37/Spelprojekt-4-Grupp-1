@@ -7,75 +7,55 @@
 #include "Player.hpp"
 #include "EnemyProjectile.h"
 #include "Enemy.h"
+#include "WaypointComponent.hpp"
+#ifdef _DEBUG
+#include "imgui.h"
+#endif // DEBUG
+
+typedef EnemyData::EnemyFloatEnum EEnum;
 
 Enemy::Enemy(Scene* aScene) : GameObject(aScene)
 {
-	//myWayPoints.push_back({ 0.0f, 0.0f });
-	//myDestination = myWayPoints[0];
-	//this->SetPosition(myWayPoints[0]);
-	//SetDirection(myDestination);
-	//InitAnimations();
-	//InitCollider();
-	//EnemyProjectile* projectile = new EnemyProjectile(this->myScene);
+	myJsonData = dynamic_cast<EnemyData*>(&DataManager::GetInstance().GetDataStruct(DataEnum::enemy));
+	myWayPointComponent = nullptr;
 }
-
-Enemy::Enemy(Scene* aScene, const std::vector<v2f>& someCoordinates) : GameObject(aScene)
-{
-	myWayPoints = someCoordinates;
-	myDestination = myWayPoints[1];
-	this->SetPosition(myWayPoints[0]);
-	SetDirection(myDestination);
-	InitAnimations();
-	InitCollider();
-}
-
-Enemy::~Enemy()
-{
-
-}
-
-void Enemy::InitEnemy(const std::vector<v2f>& someCoordinates)
-{
-	IsMoving = true;
-	myWayPoints = someCoordinates;
-	myDestination = myWayPoints[1];
-	this->SetPosition(myWayPoints[0]);
-	SetDirection(myDestination);
-	//InitAnimations();
-	InitCollider();
-}
-
-void Enemy::Update(const float& aDeltaTime)
-{
-	if (IsMoving)
-	{
-		Move(aDeltaTime);
-		SetDirection(myDestination);
-		if (myDestination.x >= this->GetPosition().x && myDestination.x <= this->GetPosition().x + mySize.x &&
-			myDestination.y >= this->GetPosition().y && myDestination.y <= this->GetPosition().y + mySize.y)
-		{
-			SetNextWayPoint();
-		}
-	}
-	GameObject::Update(aDeltaTime);
-}
-
-void Enemy::InitAnimations()
+NormalEnemy::NormalEnemy(Scene* aScene) : Enemy(aScene)
 {
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/TempEnemy.dds");
-	spriteIdle->SetSize(mySize);
-
-	//myAnimation = Animation(false, false, true, 1, 1, 1, 0.15f, spriteIdle, 512, 512);
-
-	//AnimationComponent* animation = AddComponent<AnimationComponent>();
-	//animation->SetSprite(spriteIdle);
-	//animation->SetAnimation(&myAnimation);
-	//spriteIdle->SetSize(mySize);
-
+	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy1.dds");
+	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeY] });
+	this->SetZIndex(400);
+}
+ShootingEnemy::ShootingEnemy(Scene* aScene) : Enemy(aScene)
+{
+	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
+	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy2.dds");
+	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeY] });
 	this->SetZIndex(400);
 }
 
+void Enemy::InitEnemy(const std::vector<v2f>& someWayPoints, const float& aSpeed)
+{
+	if (someWayPoints.size() > 1)
+	{
+		myWayPointComponent = AddComponent<WaypointComponent>();
+		myWayPointComponent->SetOwner(this);
+		myWayPointComponent->SetWaypoints(someWayPoints);
+		myWayPointComponent->SetSpeed(aSpeed);
+		IsMoving = true;
+		mySpeed = aSpeed;
+	}
+	if (someWayPoints.size() == 0)
+	{
+		this->SetPosition({ 0.0f, 0.0f });
+	}
+	else
+	{
+		this->SetPosition(someWayPoints[0]);
+	}
+	//InitAnimations();
+	InitCollider();
+}
 void Enemy::InitCollider()
 {
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
@@ -83,32 +63,59 @@ void Enemy::InitCollider()
 	physics->SetIsStatic(false);
 	physics->SetApplyGravity(false);
 
-	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
+	//physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
+}
+void NormalEnemy::InitCollider()
+{
+	Enemy::InitCollider();
+	ColliderComponent* collider = this->AddComponent<ColliderComponent>();
+	Transform transform = this->GetTransform();
+	collider->SetSize({myJsonData->myFloatValueMap[EEnum::NE_CollisionSizeX], myJsonData->myFloatValueMap[EEnum::NE_CollisionSizeY]});
+}
+void ShootingEnemy::InitCollider()
+{
+	Enemy::InitCollider();
+	ColliderComponent* collider = this->AddComponent<ColliderComponent>();
+	Transform transform = this->GetTransform();
+	collider->SetSize({ myJsonData->myFloatValueMap[EEnum::SE_CollisionSizeX], myJsonData->myFloatValueMap[EEnum::SE_CollisionSizeY] });
 }
 
-void Enemy::Move(const float& aDeltaTime)
+void NormalEnemy::Update(const float& aDeltaTime)
 {
-	PhysicsComponent* physics = this->GetComponent<PhysicsComponent>();
-	physics->SetVelocity(myDirection * mySpeed);
-}
-
-
-void Enemy::SetNextWayPoint()
-{
-	++myCurrentPoint;
-	if (myCurrentPoint >= myWayPoints.size())
+	if (IsMoving)
 	{
-		myCurrentPoint = 0;
+		myWayPointComponent->Move(aDeltaTime);
 	}
-	myDestination = myWayPoints[myCurrentPoint];
+	GameObject::Update(aDeltaTime);
 }
-
-void Enemy::SetDirection(const v2f& aDestination)
+void ShootingEnemy::Update(const float& aDeltaTime)
 {
-	myDirection = aDestination - this->GetPosition();
-	myDirection.Normalize();
+	if (IsMoving)
+	{
+		myWayPointComponent->Move(aDeltaTime);
+	}
+	GameObject::Update(aDeltaTime);
+
+	v2f lengthToPlayer = dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition() - this->GetPosition();
+	if (lengthToPlayer.Length() <= myJsonData->myFloatValueMap[EEnum::FireRadius])
+	{
+		myShotTimer -= aDeltaTime;
+		if (myShotTimer <= 0)
+		{
+			myShotTimer = myJsonData->myFloatValueMap[EEnum::FireRate];
+			Shoot();
+		}
+	}
+
+#ifdef _DEBUG
+	ImGuiUpdate();
+#endif // _DEBUG
 }
 
+void ShootingEnemy::Shoot()
+{
+	EnemyProjectile* projectile = new EnemyProjectile(this->myScene, this->GetPosition(), dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition());
+}
 void Enemy::OnCollision(GameObject* aGameObject)
 {
 	Player* player = dynamic_cast<Player*>(aGameObject);
@@ -118,40 +125,20 @@ void Enemy::OnCollision(GameObject* aGameObject)
 	}
 }
 
-
-NormalEnemy::NormalEnemy(Scene* aScene) : Enemy(aScene)
+#ifdef _DEBUG
+void ShootingEnemy::ImGuiUpdate()
 {
-	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/TempEnemy.dds");
-	spriteIdle->SetSize(mySize);
-	this->SetZIndex(400);
-}
+	ImGui::Begin("Enemies", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
 
-ShootingEnemy::ShootingEnemy(Scene* aScene) : Enemy(aScene)
-{
-	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/TempShootingEnemy.dds");
-	spriteIdle->SetSize(mySize);
-	this->SetZIndex(400);
-	//EnemyProjectile* projectile = new EnemyProjectile(aScene);
-}
-
-void ShootingEnemy::Update(const float& aDeltaTime)
-{
-	Enemy::Update(aDeltaTime);
-	v2f lengthToPlayer = dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition() - this->GetPosition();
-	if (lengthToPlayer.Length() <= myRadius)
+	if (ImGui::Button("Save to JSON"))
 	{
-		myShotTimer -= aDeltaTime;
-		if (myShotTimer <= 0)
-		{
-			myShotTimer = myFireRate;
-			Shoot();
-		}
+		DataManager::GetInstance().SetDataStruct(DataEnum::enemy);
 	}
+
+	ImGui::InputFloat("Fire Rate", &myJsonData->myFloatValueMap[EEnum::FireRate], 0.0f, 50.0f);
+	ImGui::InputFloat("Fire Radius", &myJsonData->myFloatValueMap[EEnum::FireRadius], 0.0f, 1000.0f);
+	ImGui::InputFloat("Speed", &myJsonData->myFloatValueMap[EEnum::Speed], 0.0f, 1000.0f);
+
+	ImGui::End();
 }
-void ShootingEnemy::Shoot()
-{
-	EnemyProjectile* projectile = new EnemyProjectile(this->myScene);
-	projectile->InitProjectile(this->GetPosition(), dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition());
-}
+#endif // _DEBUG

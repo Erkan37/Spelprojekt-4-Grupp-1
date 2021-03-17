@@ -32,11 +32,19 @@
 #include "Collectible.hpp"
 
 #include "Jesus.hpp"
+#include "HiddenArea.hpp"
+
+#include "LevelManager.hpp"
+
+#include "Game.h"
+
+#include <iostream>
 
 LevelScene::LevelScene()
 	: 
-	myPlayer(nullptr)
-	, Scene()
+	myPlayer(nullptr),
+	myBackground(nullptr),
+	Scene()
 {}
 
 void LevelScene::Load()
@@ -47,31 +55,9 @@ void LevelScene::Load()
 	jesus->Init();
 	jesus->SetTarget(myPlayer);
 
-	Bonfire* bonfire = new Bonfire(this);
-	bonfire->SetPosition(myPlayer->GetPosition() + v2f(50.0f, 200.0f));
+	myBackground = new Background(this);
 
-	EnemyFactory enemyFactory;
-	enemyFactory.ReadEnemies(this, "JSON/AlfaEnemies.json");
-
-	Collectible* collectible = new Collectible(this);
-	collectible->Init(v2f(500.0f, 500.0f), Collectible::eCollectibleType::Easy);
-
-	Collectible* collectible2 = new Collectible(this);
-	collectible2->Init(v2f(900.0f, 500.0f), Collectible::eCollectibleType::Easy);
-
-	myBackground = std::make_unique<Background>(this);
-
-	mySpring = std::make_unique<SpringObject>(this);
-	mySpring->Init(v2f(800.f, 865.f));
-
-	//PlatformFactory platformFactory;
-	//platformFactory.ReadPlatforms(this, "JSON/PreProdPlatforms.json");
-
-	myTiledMap = std::make_unique<TiledMap>();
-	myTiledMap->Load("Levels/test_level.json", this);
-
-	BashableObjectFactory bashableObjectFactory;
-	bashableObjectFactory.ReadBashableObjects(this, "JSON/AlfaBashableObjects.json");
+	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, "Levels/test_level3.json");
 
 	Scene::Load();
 }
@@ -81,8 +67,6 @@ void LevelScene::Activate()
 	Scene::Activate();
 
 	GetCamera().StartFollowing(myPlayer, { 40.0f, 40.0f });
-	GetCamera().SetBounds(v2f(-840.0f, -540.0f), v2f(3840.0f, 2160.0f));
-	GetCamera().SetZoom(6.0f);
 }
 
 void LevelScene::Deactivate()
@@ -94,6 +78,25 @@ void LevelScene::Deactivate()
 
 void LevelScene::Update(const float& aDeltaTime)
 {
+	const float zoomX = CGameWorld::GetInstance()->Game()->GetZoomX();
+	const float zoomY = CGameWorld::GetInstance()->Game()->GetZoomY();
+
+	float zoomFactor = 1.0f;
+	if (zoomX / 16.0f < zoomY / 9.0f)
+	{
+		zoomFactor = zoomX / 1920.0f;
+	}
+	else
+	{
+		zoomFactor = zoomY / 1080.0f;
+	}
+
+	const float zoom = 6.0f * zoomFactor;
+
+	GetCamera().SetZoom(zoom);
+
+	GetCamera().SetBounds(v2f(0.0f, 0.0f), v2f(1920.0f / 4.0f, 1080.0f / 6.0f));
+
 	Scene::Update(aDeltaTime);
 }
 

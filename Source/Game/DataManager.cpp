@@ -16,7 +16,14 @@ DataManager::DataManager()
 	rapidjson::Document playerDoc;
 	ReadFileIntoDocument(playerDataPath, playerDoc);
 	//Assign Player Values
-	AssignPlayerValues(playerDoc);
+	AssignValues(DataEnum::player, playerDoc);
+
+	//Assign EnemyDoc
+	std::string enemyDataPath = myMasterDoc["EnemyData"].GetString();
+	rapidjson::Document enemyDoc;
+	ReadFileIntoDocument(enemyDataPath, enemyDoc);
+	//Assign Enemy Values
+	AssignValues(DataEnum::enemy, enemyDoc);
 }
 
 void DataManager::SetDataStruct(const DataEnum aDataEnum)
@@ -31,37 +38,11 @@ void DataManager::SetDataStruct(const DataEnum aDataEnum)
 		tempDataPath = myMasterDoc["PlayerData"].GetString();
 		ReadFileIntoDocument(tempDataPath, tempDoc);
 
-		// Lägg till alla varibler som ska uppdateras här:
-		tempDoc["MaxSpeed"].SetFloat(myPlayerData.myMaxSpeed);
-		tempDoc["Acceleration"].SetFloat(myPlayerData.myAcceleration);
-		tempDoc["MaxSpeed"].SetFloat(myPlayerData.myMaxSpeed);
-		tempDoc["Retardation"].SetFloat(myPlayerData.myRetardation);
-		tempDoc["Lerp Acceleration"].SetFloat(myPlayerData.myLerpAcceleration);
-		tempDoc["Platform Velocity Retardation"].SetFloat(myPlayerData.myPlatformVelocityRetardation);
-		tempDoc["Coyote Time"].SetFloat(myPlayerData.myCoyoteTime);
-		tempDoc["Jump Velocity"].SetFloat(myPlayerData.myJumpVelocity);
-		tempDoc["Double Jump Velocity"].SetFloat(myPlayerData.myDoubleJumpVelocity);
-		tempDoc["Max Fall Speed"].SetFloat(myPlayerData.myMaxFallSpeed);
-		tempDoc["Ledge Jump Velocity"].SetFloat(myPlayerData.myLedgeJumpVelocity);
-		tempDoc["Jump When Falling Time"].SetFloat(myPlayerData.myJumpWhenFallingTime);
-		tempDoc["Trigger Falling Speed"].SetFloat(myPlayerData.myTriggerFallingSpeed);
-
-		tempDoc["Die Vibration Strength"].SetFloat(myPlayerData.myDieVibrationStrength);
-		tempDoc["Land Vibration Strength"].SetFloat(myPlayerData.myLandVibrationStrength);
-		tempDoc["Springs Vibration Strength"].SetFloat(myPlayerData.mySpringsVibrationStrength);
-		tempDoc["Die Vibration Length"].SetFloat(myPlayerData.myDieVibrationLength);
-		tempDoc["Land Vibration Length"].SetFloat(myPlayerData.myLandVibrationLength);
-		tempDoc["Springs Vibration Length"].SetFloat(myPlayerData.mySpringsVibrationLength);
-
-		tempDoc["Die Shake Duration"].SetFloat(myPlayerData.myDieShakeDuration);
-		tempDoc["Die Shake Intensity"].SetFloat(myPlayerData.myDieShakeIntensity);
-		tempDoc["Die Shake DropOff"].SetFloat(myPlayerData.myDieShakeDropOff);
-		tempDoc["Land Shake Duration"].SetFloat(myPlayerData.myLandShakeDuration);
-		tempDoc["Land Shake Intensity"].SetFloat(myPlayerData.myLandShakeIntensity);
-		tempDoc["Land Shake DropOff"].SetFloat(myPlayerData.myLandShakeDropOff);
-		tempDoc["Spring Shake Duration"].SetFloat(myPlayerData.mySpringShakeDuration);
-		tempDoc["Spring Shake Intensity"].SetFloat(myPlayerData.mySpringShakeIntensity);
-		tempDoc["Spring Shake DropOff"].SetFloat(myPlayerData.mySpringShakeDropOff);
+		for (size_t i = 0; i < static_cast<size_t>(PlayerData::PlayerFloatEnum::Player_FloatEnum_Size); i++)
+		{
+			PlayerData::PlayerFloatEnum enumValue = static_cast<PlayerData::PlayerFloatEnum>(i);
+			tempDoc[myPlayerData.myFloatNameMap[enumValue].data()].SetFloat(myPlayerData.myFloatValueMap[enumValue]);
+		}
 	}
 	break;
 	case DataEnum::enemy:
@@ -69,8 +50,11 @@ void DataManager::SetDataStruct(const DataEnum aDataEnum)
 		tempDataPath = myMasterDoc["EnemyData"].GetString();
 		ReadFileIntoDocument(tempDataPath, tempDoc);
 
-		// Lägg till alla varibler som ska uppdateras här:
-
+		for (size_t i = 0; i < static_cast<size_t>(EnemyData::EnemyFloatEnum::Enemy_FloatEnum_Size); i++)
+		{
+			EnemyData::EnemyFloatEnum enumValue = static_cast<EnemyData::EnemyFloatEnum>(i);
+			tempDoc[myEnemyData.myFloatNameMap[enumValue].data()].SetFloat(myEnemyData.myFloatValueMap[enumValue]);
+		}
 	}
 	break;
 	default:
@@ -120,71 +104,88 @@ void DataManager::ReadFileIntoDocument(std::string aFilePath, rapidjson::Documen
 // Constructors är bara här för att undvika varningar. Initializera gärna variablerna här.
 PlayerData::PlayerData()
 {
-	myMaxSpeed = 0.0f;
-	myAcceleration = 0.0f;
-	myRetardation = 0.0f;
-	myLerpAcceleration = 0.0f;
-	myPlatformVelocityRetardation = 0.0f;
-	myCoyoteTime = 0.0f;
-	myJumpVelocity = 0.0f;
-	myDoubleJumpVelocity = 0.0f;
-	myMaxFallSpeed = 0.0f;
-	myLedgeJumpVelocity = 0.0f;
-	myJumpWhenFallingTime = 0.0f;
-	myTriggerFallingSpeed = 0.0f;
-
-	myDieVibrationStrength = 0.0f;
-	myLandVibrationStrength = 0.0f;
-	mySpringsVibrationStrength = 0.0f;
-	myDieVibrationLength = 0.0f;
-	myLandVibrationLength = 0.0f;
-	mySpringsVibrationLength = 0.0f;
-
-	myDieShakeDuration = 0.0f;
-	myDieShakeIntensity = 0.0f;
-	myDieShakeDropOff = 0.0f;
-	myLandShakeDuration = 0.0f;
-	myLandShakeIntensity = 0.0f;
-	myLandShakeDropOff = 0.0f;
-	mySpringShakeDuration = 0.0f;
-	mySpringShakeIntensity = 0.0f;
-	mySpringShakeDropOff = 0.0f;
+	for (size_t i = 0; i < static_cast<size_t>(PlayerData::PlayerFloatEnum::Player_FloatEnum_Size); i++)
+	{
+		myFloatValueMap[static_cast<PlayerData::PlayerFloatEnum>(i)] = 0.0f;
+	}
 }
 EnemyData::EnemyData()
 {
-	myMoveSpeed = 0.0f;
+	for (size_t i = 0; i < static_cast<size_t>(EnemyData::EnemyFloatEnum::Enemy_FloatEnum_Size); i++)
+	{
+		myFloatValueMap[static_cast<EnemyData::EnemyFloatEnum>(i)] = 0.0f;
+	}
 }
 
 // Assign Methods
-void DataManager::AssignPlayerValues(const rapidjson::Document &aDoc)
+void DataManager::AssignValues(const DataEnum anEnum, const rapidjson::Document &aDoc)
 {
-	myPlayerData.myAcceleration = aDoc["Acceleration"].GetFloat();
-	myPlayerData.myMaxSpeed = aDoc["MaxSpeed"].GetFloat();
-	myPlayerData.myRetardation = aDoc["Retardation"].GetFloat();
-	myPlayerData.myLerpAcceleration = aDoc["Lerp Acceleration"].GetFloat();
-	myPlayerData.myPlatformVelocityRetardation = aDoc["Platform Velocity Retardation"].GetFloat();
-	myPlayerData.myCoyoteTime = aDoc["Coyote Time"].GetFloat();
-	myPlayerData.myJumpVelocity = aDoc["Jump Velocity"].GetFloat();
-	myPlayerData.myDoubleJumpVelocity = aDoc["Double Jump Velocity"].GetFloat();
-	myPlayerData.myMaxFallSpeed = aDoc["Max Fall Speed"].GetFloat();
-	myPlayerData.myLedgeJumpVelocity = aDoc["Ledge Jump Velocity"].GetFloat();
-	myPlayerData.myJumpWhenFallingTime = aDoc["Jump When Falling Time"].GetFloat();
-	myPlayerData.myTriggerFallingSpeed = aDoc["Trigger Falling Speed"].GetFloat();
+	switch (anEnum)
+	{
+	case DataEnum::player:
+	{
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Acceleration] = "Acceleration";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Max_Speed] = "MaxSpeed";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Retardation] = "Retardation";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Lerp_Acceleration] = "Lerp Acceleration";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Platform_Velocity_Retardation] = "Platform Velocity Retardation";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Coyote_Time] = "Coyote Time";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Jump_Velocity] = "Jump Velocity";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Double_Jump_Velocity] = "Double Jump Velocity";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Max_Fall_Speed] = "Max Fall Speed";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Ledge_Jump_Velocity] = "Ledge Jump Velocity";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Jump_When_Falling_Time] = "Jump When Falling Time";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Trigger_Falling_Speed] = "Trigger Falling Speed";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Die_Vibration_Strength] = "Die Vibration Strength";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Land_Vibration_Strength] = "Land Vibration Strength";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Springs_Vibration_Strength] = "Springs Vibration Strength";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Die_Vibration_Length] = "Die Vibration Length";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Land_Vibration_Length] = "Land Vibration Length";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Springs_Vibration_Length] = "Springs Vibration Length";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Die_Shake_Duration] = "Die Shake Duration";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Die_Shake_Intensity] = "Die Shake Intensity";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Die_Shake_DropOff] = "Die Shake DropOff";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Land_Shake_Duration] = "Land Shake Duration";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Land_Shake_Intensity] = "Land Shake Intensity";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Land_Shake_DropOff] = "Land Shake DropOff";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Spring_Shake_Duration] = "Spring Shake Duration";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Spring_Shake_Intensity] = "Spring Shake Intensity";
+		myPlayerData.myFloatNameMap[PlayerData::PlayerFloatEnum::Spring_Shake_DropOff] = "Spring Shake DropOff";
 
-	myPlayerData.myDieVibrationStrength = aDoc["Die Vibration Strength"].GetFloat();
-	myPlayerData.myLandVibrationStrength = aDoc["Land Vibration Strength"].GetFloat();
-	myPlayerData.mySpringsVibrationStrength = aDoc["Springs Vibration Strength"].GetFloat();
-	myPlayerData.myDieVibrationLength = aDoc["Die Vibration Length"].GetFloat();
-	myPlayerData.myLandVibrationLength = aDoc["Land Vibration Length"].GetFloat();
-	myPlayerData.mySpringsVibrationLength = aDoc["Springs Vibration Length"].GetFloat();
+		for (size_t i = 0; i < static_cast<size_t>(PlayerData::PlayerFloatEnum::Player_FloatEnum_Size); i++)
+		{
+			PlayerData::PlayerFloatEnum enumValue = static_cast<PlayerData::PlayerFloatEnum>(i);
+			myPlayerData.myFloatValueMap[enumValue] = aDoc[myPlayerData.myFloatNameMap[enumValue].data()].GetFloat();
+		}
+	}
+	break;
+	case DataEnum::enemy:
+	{
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::NE_SpriteSizeX] = "NE_SpriteSizeX";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::NE_SpriteSizeY] = "NE_SpriteSizeY";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::NE_CollisionSizeX] = "NE_CollisionSizeX";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::NE_CollisionSizeY] = "NE_CollisionSizeY";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::SE_SpriteSizeX] = "SE_SpriteSizeX";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::SE_SpriteSizeY] = "SE_SpriteSizeY";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::SE_CollisionSizeX] = "SE_CollisionSizeX";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::SE_CollisionSizeY] = "SE_CollisionSizeY";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::FireRate] = "FireRate";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::FireRadius] = "FireRadius";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::P_SpriteSizeX] = "P_SpriteSizeX";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::P_SpriteSizeY] = "P_SpriteSizeY";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::P_CollisionSizeX] = "P_CollisionSizeX";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::P_CollisionSizeY] = "P_CollisionSizeY";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::Speed] = "Speed";
 
-	myPlayerData.myDieShakeDuration = aDoc["Die Shake Duration"].GetFloat();
-	myPlayerData.myDieShakeIntensity = aDoc["Die Shake Intensity"].GetFloat();
-	myPlayerData.myDieShakeDropOff = aDoc["Die Shake DropOff"].GetFloat();
-	myPlayerData.myLandShakeDuration = aDoc["Land Shake Duration"].GetFloat();
-	myPlayerData.myLandShakeIntensity = aDoc["Land Shake Intensity"].GetFloat();
-	myPlayerData.myLandShakeDropOff = aDoc["Land Shake DropOff"].GetFloat();
-	myPlayerData.mySpringShakeDuration = aDoc["Spring Shake Duration"].GetFloat();
-	myPlayerData.mySpringShakeIntensity = aDoc["Spring Shake Intensity"].GetFloat();
-	myPlayerData.mySpringShakeDropOff = aDoc["Spring Shake DropOff"].GetFloat();
+		for (size_t i = 0; i < static_cast<size_t>(EnemyData::EnemyFloatEnum::Enemy_FloatEnum_Size); i++)
+		{
+			EnemyData::EnemyFloatEnum enumValue = static_cast<EnemyData::EnemyFloatEnum>(i);
+			myEnemyData.myFloatValueMap[enumValue] = aDoc[myEnemyData.myFloatNameMap[enumValue].data()].GetFloat();
+		}
+	}
+	break;
+	default:
+		assert((false) && "Invalid Enum given to DataManager::AssignValues().");
+		break;
+	}
 }

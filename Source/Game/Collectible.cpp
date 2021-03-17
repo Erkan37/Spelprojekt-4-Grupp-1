@@ -49,9 +49,24 @@ void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 
 	myType = aType;
 
+	std::string spritePath;
+
+	switch (aType)
+	{
+		case eCollectibleType::Easy:
+			spritePath = "Sprites/Objects/Collectible1.dds";
+			break;
+		case eCollectibleType::Medium:
+			spritePath = "Sprites/Objects/Collectible2.dds";
+			break;
+		case eCollectibleType::Hard:
+			spritePath = "Sprites/Objects/Collectible3.dds";
+			break;
+	}
+
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/Collectible.dds"); //Get correct image depending on type
-	spriteIdle->SetSize(v2f(40.0f, 40.0f)); //Get size from data manager instead
+	spriteIdle->SetSpritePath(spritePath); //Get correct image depending on type
+	spriteIdle->SetSize(v2f(16.0f, 16.0f)); //Get size from data manager instead
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
 	physics->SetCanCollide(false);
@@ -59,6 +74,8 @@ void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 	physics->SetApplyGravity(false);
 
 	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this); //Get collision size from data manager
+
+	GameObject::Init();
 }
 
 void Collectible::Update(const float& aDeltaTime)
@@ -75,10 +92,7 @@ void Collectible::Update(const float& aDeltaTime)
 	{
 		if (myMinRadiusFromTarget * myMinRadiusFromTarget < (myTarget->GetPosition() - myTransform.myPosition).LengthSqr())
 		{
-			if (Utils::Abs(myTransform.myPosition.x - myTarget->GetPosition().x) > myMinRadiusFromTarget)
-			{
-				myTargetPosition = myTarget->GetPosition() + v2f(0.0f, -myMinRadiusFromTarget);
-			}
+			myTargetPosition = myTarget->GetPosition() + v2f(0.0f, -myMinRadiusFromTarget);
 		}
 	}
 

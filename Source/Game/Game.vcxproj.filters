@@ -58,6 +58,12 @@
     <Filter Include="Game Objects\Enemy">
       <UniqueIdentifier>{0ac25968-84f0-46c9-92de-0ed27d04be1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Managers">
+      <UniqueIdentifier>{506ab144-1063-49d7-9094-1ce367a21600}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{bbe69fe7-de48-45c2-b985-f537615c48ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -111,7 +117,6 @@
     <ClInclude Include="Utilities.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="LevelScene.h" />
     <ClInclude Include="Vector4.hpp">
       <Filter>Utils\Math</Filter>
     </ClInclude>
@@ -218,6 +223,24 @@
     <ClInclude Include="Jesus.hpp">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="WaypointComponent.hpp">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="HiddenArea.hpp">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.hpp">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -256,7 +279,6 @@
     <ClCompile Include="Utilities.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="LevelScene.cpp" />
     <ClCompile Include="Debugger.cpp">
       <Filter>Core\Debug</Filter>
     </ClCompile>
@@ -356,6 +378,24 @@
     </ClCompile>
     <ClCompile Include="Jesus.cpp">
       <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="WaypointComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="HiddenArea.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

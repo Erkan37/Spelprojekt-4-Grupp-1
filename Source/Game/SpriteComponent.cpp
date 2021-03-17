@@ -1,5 +1,5 @@
 /*
-*	Author: Elia Rönning
+*	Author: Elia Rï¿½nning
 */
 
 #include "stdafx.h"
@@ -11,6 +11,8 @@
 #include "Camera.h"
 #include "GameWorld.h"
 #include "Game.h"
+
+#include "../External/Headers/CU/Utilities.h"
 
 #include <vector>
 
@@ -75,8 +77,17 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 	}
 
 	v2f offset = { 0.0f, 0.0f };
-	float height = static_cast<float>(Config::height);
-	float width = static_cast<float>(Config::width);
+	float height = static_cast<float>(CGameWorld::GetInstance()->Game()->GetZoomY());
+	float width = static_cast<float>(CGameWorld::GetInstance()->Game()->GetZoomX());
+
+	if (width / 16.0f < height / 9.0f)
+	{
+		height = width * (9.0f / 16.0f);
+	}
+	else
+	{
+		width = height * (16.0f / 9.0f);
+	}
 
 	float alpha = myAlpha;
 	float zoom = 1.0f;
@@ -88,10 +99,12 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 		zoom = camera.GetZoom();
 		v2f cameraPosition = camera.GetPosition();
 
+		v2f trueSize = v2f(Utils::Abs(mySize.x), mySize.y);
+
 		v2f spriteMin = GetTopLeft(aTransform);
 		v2f spriteMax = GetBottomRight(aTransform);
-		v2f cameraMin = cameraPosition;
-		v2f cameraMax = v2f(cameraPosition.x + (width / zoom), cameraPosition.y + (height / zoom));
+		v2f cameraMin = cameraPosition - trueSize;
+		v2f cameraMax = v2f(cameraPosition.x + (width / zoom), cameraPosition.y + (height / zoom)) + trueSize;
 
 		if (!(spriteMin.x <= cameraMax.x && spriteMax.x >= cameraMin.x &&
 			spriteMin.y <= cameraMax.y && spriteMax.y >= cameraMin.y) && !myForceRender)

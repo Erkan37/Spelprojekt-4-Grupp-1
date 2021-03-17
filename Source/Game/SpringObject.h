@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Animation.hpp"
 
 class Player;
 
@@ -29,4 +30,5 @@ private:
 	void InitSprings(const v2f aPosition);
 	void CreateGroundSpring();
 
+	Animation myAnimations[3];
 };

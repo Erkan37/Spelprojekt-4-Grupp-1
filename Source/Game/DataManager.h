@@ -1,5 +1,6 @@
 #pragma once
 #include "rapidjson/document.h"
+#include <map>
 
 enum class DataEnum
 {
@@ -16,42 +17,72 @@ struct Data
 struct PlayerData : public Data
 {
 	PlayerData();
-	float myMaxSpeed;
-	float myAcceleration;
-	float myRetardation;
-	float myLerpAcceleration;
-	float myPlatformVelocityRetardation;
-	float myCoyoteTime;
-	float myJumpVelocity;
-	float myDoubleJumpVelocity;
-	float myMaxFallSpeed;
-	float myLedgeJumpVelocity;
-	float myJumpWhenFallingTime;
-	float myTriggerFallingSpeed;
-
-	float myDieVibrationStrength;
-	float myLandVibrationStrength;
-	float mySpringsVibrationStrength;
-	float myDieVibrationLength;
-	float myLandVibrationLength;
-	float mySpringsVibrationLength;
-
-	float myDieShakeDuration;
-	float myDieShakeIntensity;
-	float myDieShakeDropOff;
-	float myLandShakeDuration;
-	float myLandShakeIntensity;
-	float myLandShakeDropOff;
-	float mySpringShakeDuration;
-	float mySpringShakeIntensity;
-	float mySpringShakeDropOff;
 	~PlayerData() override {}
+
+	// Float Components
+	enum class PlayerFloatEnum
+	{
+		Max_Speed,
+		Acceleration,
+		Retardation,
+		Lerp_Acceleration,
+		Platform_Velocity_Retardation,
+		Coyote_Time,
+		Jump_Velocity,
+		Double_Jump_Velocity,
+		Max_Fall_Speed,
+		Ledge_Jump_Velocity,
+		Jump_When_Falling_Time,
+		Trigger_Falling_Speed,
+		Die_Vibration_Strength,
+		Land_Vibration_Strength,
+		Springs_Vibration_Strength,
+		Die_Vibration_Length,
+		Land_Vibration_Length,
+		Springs_Vibration_Length,
+		Die_Shake_Duration,
+		Die_Shake_Intensity,
+		Die_Shake_DropOff,
+		Land_Shake_Duration,
+		Land_Shake_Intensity,
+		Land_Shake_DropOff,
+		Spring_Shake_Duration,
+		Spring_Shake_Intensity,
+		Spring_Shake_DropOff,
+
+		Player_FloatEnum_Size
+	};
+	std::map<PlayerFloatEnum, std::string> myFloatNameMap;
+	std::map<PlayerFloatEnum, float> myFloatValueMap;
 };
 struct EnemyData : public Data
 {
 	EnemyData();
-	float myMoveSpeed;
 	~EnemyData() override {}
+
+	// Float Components
+	enum class EnemyFloatEnum
+	{
+		NE_SpriteSizeX,
+		NE_SpriteSizeY,
+		NE_CollisionSizeX,
+		NE_CollisionSizeY,
+		SE_SpriteSizeX,
+		SE_SpriteSizeY,
+		SE_CollisionSizeX,
+		SE_CollisionSizeY,
+		FireRate,
+		FireRadius,
+		P_SpriteSizeX,
+		P_SpriteSizeY,
+		P_CollisionSizeX,
+		P_CollisionSizeY,
+		Speed,
+
+		Enemy_FloatEnum_Size
+	};
+	std::map<EnemyFloatEnum, std::string> myFloatNameMap;
+	std::map<EnemyFloatEnum, float> myFloatValueMap;
 };
 
 class DataManager
@@ -74,7 +105,7 @@ private:
 	//Private Methods
 	DataManager();
 	void ReadFileIntoDocument(std::string aFilePath, rapidjson::Document& anOutDoc);
-	void AssignPlayerValues(const rapidjson::Document &aDoc);
+	void AssignValues(const DataEnum anEnum, const rapidjson::Document& aDoc);
 
 	//Master Document
 	rapidjson::Document myMasterDoc;

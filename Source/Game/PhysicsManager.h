@@ -21,7 +21,7 @@ public:
 	~PhysicsManager() = default;
 
 	void PhysicsUpdate(const float& aDeltaTime, std::vector<GameObject*>& aGameObjects);
-	static constexpr float ourGravity = 800.0f;
+	static constexpr float ourGravity = 500.0f;
 
 	void UpdateObjectVelocity(const float& aDeltaTime, std::vector<GameObject*>& aGameObjects);
 
@@ -33,6 +33,8 @@ public:
 	bool PhysicsManager::OneWayCheck(const float& aInSensitivity, GameObject* aObj1, GameObject* aObj2, const v2f& aObj1Min, const v2f& aObj1Max, const v2f& aObj2Min, const v2f& aObj2Max);
 
 	void CheckBashCollision(GameObject* aObj1, GameObject* aObj2);
+
+	void RemoveCollider(ColliderComponent* aColliderComponent);
 
 private:
 	std::vector<ColliderComponent*> myColliders;
