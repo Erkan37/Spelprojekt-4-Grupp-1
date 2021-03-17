@@ -9,8 +9,12 @@
 #include "GameObject.h"
 #include "Platform.h"
 
+typedef EnemyData::EnemyFloatEnum EEnum;
+
 EnemyProjectile::EnemyProjectile(Scene* aScene, const v2f& aPosition, const v2f& aTarget) : GameObject(aScene)
 {
+	myJsonData = dynamic_cast<EnemyData*>(&DataManager::GetInstance().GetDataStruct(DataEnum::enemy));
+
 	this->Activate();
 	this->SetZIndex(400);
 
@@ -25,7 +29,7 @@ void EnemyProjectile::SetDirection(const v2f& aPosition, const v2f& aTarget)
 	myDirection = aTarget - aPosition;
 	myDirection.Normalize();
 	PhysicsComponent* physics = this->GetComponent<PhysicsComponent>();
-	physics->SetVelocity(myDirection * mySpeed);
+	physics->SetVelocity(myDirection * myJsonData->myFloatValueMap[EEnum::Speed]);
 }
 
 void EnemyProjectile::Update(const float& aDeltaTime)

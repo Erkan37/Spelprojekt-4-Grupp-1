@@ -137,6 +137,7 @@ void ShootingEnemy::ImGuiUpdate()
 
 	ImGui::InputFloat("Fire Rate", &myJsonData->myFloatValueMap[EEnum::FireRate], 0.0f, 50.0f);
 	ImGui::InputFloat("Fire Radius", &myJsonData->myFloatValueMap[EEnum::FireRadius], 0.0f, 1000.0f);
+	ImGui::InputFloat("Speed", &myJsonData->myFloatValueMap[EEnum::Speed], 0.0f, 1000.0f);
 
 	ImGui::End();
 }
