@@ -62,7 +62,6 @@ void LevelScene::Activate()
 	Scene::Activate();
 
 	GetCamera().StartFollowing(myPlayer, { 40.0f, 40.0f });
-	GetCamera().SetBounds(v2f(0.0f, 0.0f), v2f(1920.0f / 4.0f, 1080.0f / 6.0f));
 }
 
 void LevelScene::Deactivate()
@@ -90,6 +89,8 @@ void LevelScene::Update(const float& aDeltaTime)
 	const float zoom = 6.0f * zoomFactor;
 
 	GetCamera().SetZoom(zoom);
+
+	GetCamera().SetBounds(v2f(0.0f, 0.0f), v2f(1920.0f * (1920.0f / zoomX / 4.0f), 1080.0f * (1080.0f / zoomY / 6.0f)));
 
 	Scene::Update(aDeltaTime);
 }
