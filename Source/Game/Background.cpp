@@ -59,16 +59,14 @@ void Background::ResizeBackground()
 	//int renderSizeX = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
 	//int renderSizeY = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
 
-	int targetSizeX = 440;
-	int targetSizeY = 230;
+	int targetSizeX = 640;
+	int targetSizeY = 360;
 
 	myCurrentRenderSize.x = static_cast<float>(targetSizeX);
 	myCurrentRenderSize.y = static_cast<float>(targetSizeY);
 
 	myBackground->SetPosition({ myCurrentRenderSize.x / 2, myCurrentRenderSize.y / 2 });
 	myBackgroundSprite1->SetSize({ myCurrentRenderSize.x + 10, myCurrentRenderSize.y + 10 });
-	myBackgroundSprite2->SetSize({ myCurrentRenderSize.x + 10, myCurrentRenderSize.y + 10 });
-	myBackgroundSprite3->SetSize({ myCurrentRenderSize.x + 10, myCurrentRenderSize.y + 10 });
 }
 
 void Background::MoveBackground()
@@ -77,30 +75,14 @@ void Background::MoveBackground()
 	backgroundSpeedOne = { (myStartingCameraPos.x - myCamera->GetPosition().x) * (myOrignalSpeed * myBackgroundSpeedOneX),
 						   (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOrignalSpeed * myBackgroundSpeedOneY) };
 
-	v2f backgroundSpeedTwo;
-	backgroundSpeedTwo = { (myStartingCameraPos.x - myCamera->GetPosition().x) * (myOrignalSpeed * myBackgroundSpeedTwoX),
-						   (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOrignalSpeed * myBackgroundSpeedTwoY) };
-
-	v2f backgroundSpeedThree;
-	backgroundSpeedThree = { (myStartingCameraPos.x - myCamera->GetPosition().x) * (myOrignalSpeed * myBackgroundSpeedThreeX),
-							 (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOrignalSpeed * myBackgroundSpeedThreeY) };
-
 	myBackgroundSprite1->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedOne);
-	myBackgroundSprite2->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedTwo);
-	myBackgroundSprite3->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedThree);
 }
 
 void Background::LoadJson(Scene* /*aLevelScene*/)
 {
 	myBackgroundPath1 = "Sprites/Background.png";
-	myBackgroundPath2 = "Sprites/tga_logo.dds";
-	myBackgroundPath3 = "Sprites/Tommy.dds";
 	myBackgroundSpeedOneX = 0.f;
-	myBackgroundSpeedTwoX = 0.05f;
-	myBackgroundSpeedThreeX = 0.3f;
 	myBackgroundSpeedOneY = 0.f;
-	myBackgroundSpeedTwoY = 0.f;
-	myBackgroundSpeedThreeY = 0.f;
 	myOrignalSpeed = 0.2f;
 }
 
@@ -110,12 +92,6 @@ void Background::CreateBackgrounds(Scene* aLevelScene)
 	
 	myBackgroundSprite1 = myBackground->AddComponent<SpriteComponent>();
 	myBackgroundSprite1->SetSpritePath(myBackgroundPath1);
-
-	myBackgroundSprite2 = myBackground->AddComponent<SpriteComponent>();
-	myBackgroundSprite2->SetSpritePath(myBackgroundPath2);
-
-	myBackgroundSprite3 = myBackground->AddComponent<SpriteComponent>();
-	myBackgroundSprite3->SetSpritePath(myBackgroundPath3);
 
 	myBackground->Init();
 

@@ -22,7 +22,6 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	tson::Tileson parser;
 	std::unique_ptr<tson::Map> map = parser.parse(std::filesystem::path(aPath)); //This one gives MEMORY LEAKS, perhaps a file that is not closed
 
-	/*
 	if (map->getStatus() != tson::ParseStatus::OK)
 	{
 		ERROR_PRINT("map load failed", map->getStatusMessage().c_str());
@@ -135,7 +134,6 @@ bool TiledMap::Load(const std::string& aPath, Scene* aScene)
 	{
 		ERROR_PRINT("failed to load buttonlayer");
 	}
-	*/
 
 	return true;
 }
@@ -191,11 +189,10 @@ void TiledMap::ParseEnemies(tson::Layer* aLayer, Scene* aScene)
 			switch (type)
 			{
 			case 0:
-				hej = GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>());
-				enemyFactory.CreateNormalEnemy(aScene, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>()), tileObj[i].getProp("Speed")->getValue<float>());
+				enemyFactory.CreateNormalEnemy(aScene, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>(), GetScreenPosition(aPos)), tileObj[i].getProp("Speed")->getValue<float>());
 				break;
 			case 1:
-				enemyFactory.CreateShootingEnemy(aScene, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>()), tileObj[i].getProp("Speed")->getValue<float>());
+				enemyFactory.CreateShootingEnemy(aScene, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>(), GetScreenPosition(aPos)), tileObj[i].getProp("Speed")->getValue<float>());
 				break;
 			}
 		}
@@ -295,7 +292,7 @@ void TiledMap::ParsePlatforms(tson::Layer* aLayer, Scene* aScene)
 				platformFactory.CreateStaticPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, false);
 				break;
 			case 1:
-				platformFactory.CreateMovingPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>()), tileObj[i].getProp("Speed")->getValue<float>());
+				platformFactory.CreateMovingPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>(), GetScreenPosition(aPos)), tileObj[i].getProp("Speed")->getValue<float>());
 				break;
 			case 2:
 				platformFactory.CreateUnstablePlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, 0.5f, 2.0f);
@@ -386,7 +383,7 @@ void TiledMap::ParseButtons(tson::Layer* aLayer, Scene* aScene)
 			}
 			else
 			{
-				MovingPlatform* platform = platformFactory.CreateMovingPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>()), tileObj[i].getProp("Speed")->getValue<float>());
+				MovingPlatform* platform = platformFactory.CreateMovingPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>(), GetScreenPosition(aPos)), tileObj[i].getProp("Speed")->getValue<float>());
 				MovingPlatform::eMovingPlatformType aType = MovingPlatform::eMovingPlatformType::MovingPlatform;
 				
 				switch (type)
@@ -408,9 +405,10 @@ void TiledMap::ParseButtons(tson::Layer* aLayer, Scene* aScene)
 	}
 }
 
-std::vector<v2f> TiledMap::GetWaypointPositions(const std::string somePositions)
+std::vector<v2f> TiledMap::GetWaypointPositions(const std::string somePositions, v2f aSpawnPos)
 {
 	std::vector<v2f> waypoints;
+	waypoints.push_back(aSpawnPos);
 
 	std::stringstream sstream;
 
@@ -433,8 +431,7 @@ std::vector<v2f> TiledMap::GetWaypointPositions(const std::string somePositions)
 			}
 			else
 			{
-				//wAYPOINTS PROBLEM
-				waypoints.push_back({ static_cast<float>(tempX), static_cast<float>(tempNum)});
+				waypoints.push_back({ static_cast<float>(tempX) * 8 + aSpawnPos.x, static_cast<float>(tempNum) * 8 + aSpawnPos.y });
 				hasX = false;
 			}
 		}

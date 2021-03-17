@@ -17,6 +17,13 @@ DataManager::DataManager()
 	ReadFileIntoDocument(playerDataPath, playerDoc);
 	//Assign Player Values
 	AssignValues(DataEnum::player, playerDoc);
+
+	//Assign EnemyDoc
+	std::string enemyDataPath = myMasterDoc["EnemyData"].GetString();
+	rapidjson::Document enemyDoc;
+	ReadFileIntoDocument(enemyDataPath, enemyDoc);
+	//Assign Enemy Values
+	AssignValues(DataEnum::enemy, enemyDoc);
 }
 
 void DataManager::SetDataStruct(const DataEnum aDataEnum)
@@ -38,6 +45,18 @@ void DataManager::SetDataStruct(const DataEnum aDataEnum)
 		}
 	}
 	break;
+	case DataEnum::enemy:
+	{
+		tempDataPath = myMasterDoc["EnemyData"].GetString();
+		ReadFileIntoDocument(tempDataPath, tempDoc);
+
+		for (size_t i = 0; i < static_cast<size_t>(EnemyData::EnemyFloatEnum::Enemy_FloatEnum_Size); i++)
+		{
+			EnemyData::EnemyFloatEnum enumValue = static_cast<EnemyData::EnemyFloatEnum>(i);
+			tempDoc[myEnemyData.myFloatNameMap[enumValue].data()].SetFloat(myEnemyData.myFloatValueMap[enumValue]);
+		}
+	}
+	break;
 	default:
 		assert((false) && "Invalid Enum given to DataManager::SetDataStruct().");
 		break;
@@ -56,6 +75,11 @@ Data& DataManager::GetDataStruct(const DataEnum aDataEnum)
 	case DataEnum::player:
 	{
 		return myPlayerData;
+	}
+	break;
+	case DataEnum::enemy:
+	{
+		return myEnemyData;
 	}
 	break;
 	default:
@@ -87,7 +111,10 @@ PlayerData::PlayerData()
 }
 EnemyData::EnemyData()
 {
-
+	for (size_t i = 0; i < static_cast<size_t>(EnemyData::EnemyFloatEnum::Enemy_FloatEnum_Size); i++)
+	{
+		myFloatValueMap[static_cast<EnemyData::EnemyFloatEnum>(i)] = 0.0f;
+	}
 }
 
 // Assign Methods
@@ -128,8 +155,32 @@ void DataManager::AssignValues(const DataEnum anEnum, const rapidjson::Document 
 		for (size_t i = 0; i < static_cast<size_t>(PlayerData::PlayerFloatEnum::Player_FloatEnum_Size); i++)
 		{
 			PlayerData::PlayerFloatEnum enumValue = static_cast<PlayerData::PlayerFloatEnum>(i);
-
 			myPlayerData.myFloatValueMap[enumValue] = aDoc[myPlayerData.myFloatNameMap[enumValue].data()].GetFloat();
+		}
+	}
+	break;
+	case DataEnum::enemy:
+	{
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::NE_SpriteSizeX] = "NE_SpriteSizeX";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::NE_SpriteSizeY] = "NE_SpriteSizeY";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::NE_CollisionSizeX] = "NE_CollisionSizeX";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::NE_CollisionSizeY] = "NE_CollisionSizeY";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::SE_SpriteSizeX] = "SE_SpriteSizeX";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::SE_SpriteSizeY] = "SE_SpriteSizeY";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::SE_CollisionSizeX] = "SE_CollisionSizeX";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::SE_CollisionSizeY] = "SE_CollisionSizeY";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::FireRate] = "FireRate";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::FireRadius] = "FireRadius";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::P_SpriteSizeX] = "P_SpriteSizeX";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::P_SpriteSizeY] = "P_SpriteSizeY";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::P_CollisionSizeX] = "P_CollisionSizeX";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::P_CollisionSizeY] = "P_CollisionSizeY";
+		myEnemyData.myFloatNameMap[EnemyData::EnemyFloatEnum::Speed] = "Speed";
+
+		for (size_t i = 0; i < static_cast<size_t>(EnemyData::EnemyFloatEnum::Enemy_FloatEnum_Size); i++)
+		{
+			EnemyData::EnemyFloatEnum enumValue = static_cast<EnemyData::EnemyFloatEnum>(i);
+			myEnemyData.myFloatValueMap[enumValue] = aDoc[myEnemyData.myFloatNameMap[enumValue].data()].GetFloat();
 		}
 	}
 	break;

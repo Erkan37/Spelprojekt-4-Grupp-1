@@ -92,10 +92,7 @@ void Collectible::Update(const float& aDeltaTime)
 	{
 		if (myMinRadiusFromTarget * myMinRadiusFromTarget < (myTarget->GetPosition() - myTransform.myPosition).LengthSqr())
 		{
-			if (Utils::Abs(myTransform.myPosition.x - myTarget->GetPosition().x) > myMinRadiusFromTarget)
-			{
-				myTargetPosition = myTarget->GetPosition() + v2f(0.0f, -myMinRadiusFromTarget);
-			}
+			myTargetPosition = myTarget->GetPosition() + v2f(0.0f, -myMinRadiusFromTarget);
 		}
 	}
 

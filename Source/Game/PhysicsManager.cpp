@@ -115,9 +115,9 @@ void PhysicsManager::CheckOverlap(GameObject* aObj1, GameObject* aObj2, PhysicsC
 
 	if (xAxisOverlap && yAxisOverlap)
 	{
+		OverlapCalculation(aObj1, aObj2, aObj1Physics, aObj2Physics, obj1min, obj1max, obj2min, obj2max);
 		aObj1->OnCollision(aObj2);
 		aObj2->OnCollision(aObj1);
-		OverlapCalculation(aObj1, aObj2, aObj1Physics, aObj2Physics, obj1min, obj1max, obj2min, obj2max);
 	}
 	else if (obj1min.x + insensitivity < obj2max.x && obj1max.x - insensitivity > obj2min.x)
 	{
