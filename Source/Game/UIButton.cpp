@@ -22,6 +22,7 @@ UIButton::~UIButton()
 
 void UIButton::Init(const std::string aPathString, const v2f aSize, const v2f aPosition)
 {
+	SetZIndex(600);
 	myPosition = aPosition;
 
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
@@ -37,7 +38,7 @@ void UIButton::Init(const std::string aPathString, const v2f aSize, const v2f aP
 	GameObject::Init();
 }
 
-void UIButton::Update(const float& aDeltaTime)
+void UIButton::UpdateButton(const float& aDeltaTime)
 {
 	SetPosition(myCamera.GetPosition() + myPosition);
 

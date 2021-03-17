@@ -49,10 +49,10 @@ void LevelScene::Load()
 
 	myBackground = new Background(this);
 
+	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, "Levels/test_level2.json");
+
 	myPauseMenu = new PauseMenu(this);
 	myPauseMenu->InitMenu();
-
-	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, "Levels/test_level2.json");
 
 	Scene::Load();
 }
@@ -75,10 +75,10 @@ void LevelScene::Deactivate()
 
 void LevelScene::Update(const float& aDeltaTime)
 {
-	if (CGameWorld::GetInstance()->Input()->GetInput()->GetKeyJustDown(Keys::ESCKey))
-		myPauseMenu->SetActiveMenu(!myPauseMenu->IsPauseActive());
+	myPauseMenu->Update(aDeltaTime);
 
-	Scene::Update(aDeltaTime);
+	if (myPauseMenu->IsPauseActive() == false)
+		Scene::Update(aDeltaTime);
 }
 
 const GameObject* LevelScene::GetPlayer()

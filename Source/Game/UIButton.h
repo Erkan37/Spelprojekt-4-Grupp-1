@@ -14,7 +14,7 @@ public:
 
 	void Init(const std::string aPathString, const v2f aSize, const v2f aPosition);
 
-	void Update(const float& aDeltaTime) override;
+	void UpdateButton(const float& aDeltaTime);
 	void Render() override;
 
 	void SetIsHighlightActive(const bool aHighlightBool);

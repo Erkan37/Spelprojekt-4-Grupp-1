@@ -7,14 +7,14 @@ class SpriteComponent;
 class InputWrapper;
 class Scene;
 
-class PauseMenu : public GameObject
+class PauseMenu
 {
 public:
 	PauseMenu(Scene* aLevelScene);
 
 	void InitMenu();
 
-	void Update(const float& aDeltaTime) override;
+	void Update(const float& aDeltaTime);
 
 	void SetActiveMenu(const bool aStatement);
 	bool IsPauseActive();

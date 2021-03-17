@@ -15,6 +15,7 @@ UIBackground::UIBackground(Scene* aLevelScene)
 
 void UIBackground::Init(const std::string aPathString, const v2f aSize, const v2f aPosition)
 {
+	SetZIndex(599);
 	SetPivot({0.f, 0.f});
 	myPosition = aPosition;
 	

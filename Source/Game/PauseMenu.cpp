@@ -10,13 +10,11 @@
 
 PauseMenu::PauseMenu(Scene* aLevelScene)
 	:
-	GameObject(aLevelScene),
 	myCamera(aLevelScene->GetCamera())
 {
 	myScene = aLevelScene;
 	myMovingIndex = {};
 	myMenuActive = {};
-
 }
 
 void PauseMenu::InitMenu()
@@ -48,6 +46,9 @@ void PauseMenu::InitMenu()
 
 void PauseMenu::Update(const float& aDeltaTime)
 {
+	if (CGameWorld::GetInstance()->Input()->GetInput()->GetKeyJustDown(Keys::ESCKey))
+		SetActiveMenu(!IsPauseActive());
+
 	if (myMenuActive)
 		ActivateMenu();
 	else
@@ -55,6 +56,9 @@ void PauseMenu::Update(const float& aDeltaTime)
 
 	if (myMenuActive)
 	{
+		for (auto button : myButtons)
+			button->UpdateButton(aDeltaTime);
+
 		for (int i = 0; i < myButtons.size(); i++)
 		{
 			if (i == myMovingIndex)
