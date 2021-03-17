@@ -96,7 +96,6 @@ void LevelScene::Update(const float& aDeltaTime)
 
 	GetCamera().SetBounds(v2f(0.0f, 0.0f), v2f(1920.0f / 4.0f, 1080.0f / 6.0f));
 
-	Scene::Update(aDeltaTime);
 	myPauseMenu->Update(aDeltaTime);
 
 	if (myPauseMenu->IsPauseActive() == false)

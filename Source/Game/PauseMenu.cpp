@@ -21,12 +21,14 @@ PauseMenu::PauseMenu(Scene* aLevelScene)
 
 void PauseMenu::InitMenu()
 {
+	v2f referenceSize = Config::ourReferenceSize;
+
 	myInput = CGameWorld::GetInstance()->Input();
 
 	myBackground = std::make_unique<UIObject>(myScene);
 	v2f backgroundPos = {5.f, 5.f};
 	myBar = std::make_unique<UIObject>(myScene);
-	v2f barPos = { 55.0f, 100.0f };
+	v2f barPos = { 17.5f, 80.0f };
 	myFire = std::make_unique<UIObject>(myScene);
 	v2f firePos = {55.0f, 20.0f};
 	myFire2 = std::make_unique<UIObject>(myScene);
@@ -37,13 +39,13 @@ void PauseMenu::InitMenu()
 	myFireHighlight = std::make_unique<UIObject>(myScene);
 
 	myContinueBtn = std::make_unique<UIButton>(myScene);
-	v2f continuePos = { 220.f, 125.f };
+	v2f continuePos = { 165.f, 100.f };
 	myLevelSelectBtn = std::make_unique<UIButton>(myScene);
-	v2f levelSelectPos = { 220.f, 150.f };
+	v2f levelSelectPos = { 165.f, 125.f };
 	myMainMenuBtn = std::make_unique<UIButton>(myScene);
-	v2f mainMenuPos = { 220.f, 175.f };
+	v2f mainMenuPos = { 165.f, 150.f };
 	
-	myBackground->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Bakground_304x164px.dds", {700.f, 340.f}, backgroundPos, 599);
+	myBackground->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Bakground_304x164px.dds", {520.f, 265.f}, backgroundPos, 599);
 	myBar->Init("Sprites/UI/pauseMenu/UI_PauseMenu_PauseBarScreen_241x3px.dds", { 300.0f, 5.f }, barPos, 600);
 	myFire->InitAnimation("Sprites/UI/pauseMenu/UI_Collectible_Soul_Red_16x16px.dds", { 16.0f, 16.0f }, firePos, 600);
 	myFire2->InitAnimation("Sprites/UI/pauseMenu/UI_Collectible_Soul_Yellow_16x16px.dds", { 16.0f, 16.0f }, firePos2, 600);
