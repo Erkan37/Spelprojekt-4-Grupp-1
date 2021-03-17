@@ -44,8 +44,8 @@ void Camera::Update(const float& aDeltaTime)
 		const v2f& targetPos = GetTargetPosition();
 		SetPosition
 		({
-			Utils::Lerp<float>(myX, targetPos.x - (static_cast<float>(Config::width) * myInverseZoom) * .5f, myLerp.x * aDeltaTime),
-			Utils::Lerp<float>(myY, targetPos.y - (static_cast<float>(Config::height) * myInverseZoom) * .5f, myLerp.y * aDeltaTime)
+			Utils::Lerp<float>(myX, targetPos.x - (static_cast<float>(Config::width) * (1.0f / GetScaleFactor())) * .5f, myLerp.x * aDeltaTime),
+			Utils::Lerp<float>(myY, targetPos.y - (static_cast<float>(Config::height) * (1.0f / GetScaleFactor())) * .5f, myLerp.y * aDeltaTime)
 		});
 
 		SetActive();
@@ -304,6 +304,20 @@ Camera& Camera::ShakeUpdate(const float& aDeltaTime)
 	SetPosition(GetPosition() + myCurrentShakeOffset);
 
 	return *this;
+}
+
+float Camera::GetScaleFactor()
+{
+	v2f renderSize = {};
+	renderSize.x = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
+	renderSize.y = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
+
+
+	v2f targetSize = { Config::ourReferenceSize.x, Config::ourReferenceSize.y };
+
+	const float scaleFactor = renderSize.y / targetSize.y;
+
+	return scaleFactor;
 }
 
 Camera& Camera::Shake(const float& aDuration, const float& anIntensity, const float& aDropOff)

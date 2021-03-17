@@ -86,9 +86,9 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 	renderSize.y = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
 
 
-	v2f targetSize = { 320.f, 240.f };
+	v2f referenceSize = { Config::ourReferenceSize.x, Config::ourReferenceSize.y };
 
-	const float scaleFactor = renderSize.y / targetSize.y;
+	const float scaleFactor = renderSize.y / referenceSize.y;
 
 
 	Scene* scene = aGameObject.GetScene();
@@ -101,7 +101,8 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 		v2f spriteMin = GetTopLeft(aTransform);
 		v2f spriteMax = GetBottomRight(aTransform);
 		v2f cameraMin = cameraPosition - mySize;
-		v2f cameraMax = v2f(cameraPosition.x + (width / zoom), cameraPosition.y + (height / zoom)) + mySize;
+		v2f cameraMax =  v2f(cameraPosition.x + (renderSize.x / scaleFactor), cameraPosition.y + (renderSize.y / scaleFactor)) + mySize;
+		//v2f cameraMax = v2f(cameraPosition.x + (width / zoom), cameraPosition.y + (height / zoom)) + mySize;
 
 		if (!(spriteMin.x <= cameraMax.x && spriteMax.x >= cameraMin.x &&
 			spriteMin.y <= cameraMax.y && spriteMax.y >= cameraMin.y) && !myForceRender)
