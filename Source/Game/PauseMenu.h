@@ -41,6 +41,7 @@ private:
 
 	std::vector<UIObject*> myHighlights;
 
+
 	std::vector<UIButton*> myButtons;
 
 	std::unique_ptr<UIButton> myContinueBtn;

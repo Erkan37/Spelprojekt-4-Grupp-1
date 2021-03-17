@@ -26,6 +26,10 @@ void PauseMenu::InitMenu()
 	v2f backgroundPos = {5.f, 5.f};
 	myFire = std::make_unique<UIObject>(myScene);
 	v2f firePos = {55.0f, 20.0f};
+	myFire2 = std::make_unique<UIObject>(myScene);
+	v2f firePos2 = { 110.0f, 20.0f };
+	myFire3 = std::make_unique<UIObject>(myScene);
+	v2f firePos3 = { 165.0f, 20.0f };
 
 	myFireHighlight = std::make_unique<UIObject>(myScene);
 
@@ -37,7 +41,9 @@ void PauseMenu::InitMenu()
 	v2f mainMenuPos = { 220.f, 150.f };
 	
 	myBackground->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Bakground_304x164px.dds", {700.f, 340.f}, backgroundPos, 599);
-	myFire->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Flame_16x16px.dds", { 16.0f, 16.0f }, firePos, 600);
+	myFire->InitAnimation("Sprites/UI/pauseMenu/UI_Collectible_Soul_Red_16x16px.dds", { 16.0f, 16.0f }, firePos, 600);
+	myFire2->InitAnimation("Sprites/UI/pauseMenu/UI_Collectible_Soul_Yellow_16x16px.dds", { 16.0f, 16.0f }, firePos2, 600);
+	myFire3->InitAnimation("Sprites/UI/pauseMenu/UI_Collectible_Soul_Green_16x16px.dds", { 16.0f, 16.0f }, firePos3, 600);
 	myFireHighlight->InitAnimation("Sprites/UI/pauseMenu/UI_PauseMenu_Flame_16x16px.dds", { 16.0f, 16.0f }, { 200.0f, 70.0f }, 600);
 	myContinueBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_Continue_Unmarked_64x16px.dds", { 64.f,16.f }, continuePos, "Sprites/UI/pauseMenu/UI_PauseMenu_Text_Continue_Marked_64x16px.dds", 64);
 	myLevelSelectBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_LevelSelect_Unmarked_72x16px.dds", { 72.f,16.f }, levelSelectPos,"Sprites/UI/pauseMenu/UI_PauseMenu_Text_LevelSelect_Marked_72x16px.dds", 72);
@@ -65,6 +71,10 @@ void PauseMenu::Update(const float& aDeltaTime)
 	{
 		myBackground->UpdateUIObjects(aDeltaTime);
 		myFireHighlight->UpdateUIObjects(aDeltaTime);
+		myFire->UpdateUIObjects(aDeltaTime);
+		myFire2->UpdateUIObjects(aDeltaTime);
+		myFire3->UpdateUIObjects(aDeltaTime);
+
 		for (auto button : myButtons)
 			button->UpdateButton(aDeltaTime);
 
@@ -128,7 +138,10 @@ void PauseMenu::ActivateMenu()
 
 	myBackground->SetActive(true);
 	myFire->SetActive(true);
+	myFire2->SetActive(true);
+	myFire3->SetActive(true);
 	myFireHighlight->SetActive(true);
+
 }
 
 
@@ -139,6 +152,8 @@ void PauseMenu::DeactivateMenu()
 
 	myBackground->SetActive(false);
 	myFire->SetActive(false);
+	myFire2->SetActive(false);
+	myFire3->SetActive(false);
 	myFireHighlight->SetActive(false);
 }
 
