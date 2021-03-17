@@ -4,9 +4,7 @@
 
 #include "UIObject.h"
 #include "Animation.hpp"
-#include "TextWrapper.h"
 
-#include "UIBackground.h"
 #include "UIText.h"
 class SpriteComponent;
 class InputWrapper;
@@ -51,9 +49,6 @@ private:
 	std::unique_ptr<UIButton> myMainMenuBtn;
 
 
-
-
-	std::unique_ptr<TextWrapper> myTitleString;
 
 	std::unique_ptr<UIText> myTitleString;
 	std::shared_ptr<InputWrapper> myInput;

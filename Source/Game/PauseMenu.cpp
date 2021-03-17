@@ -52,7 +52,7 @@ void PauseMenu::InitMenu()
 	
 	myButtons.clear();
 
-
+	InitTexts();
 	myButtons.push_back(myContinueBtn.get());
 	myButtons.push_back(myLevelSelectBtn.get());
 	myButtons.push_back(myMainMenuBtn.get());
