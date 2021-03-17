@@ -12,15 +12,21 @@ class Enemy : public GameObject
 {
 public:
 	Enemy(Scene* aScene);
-	~Enemy();
+	virtual ~Enemy() {}
+
 	void InitEnemy(const std::vector<v2f>& someCoordinates, const float& aSpeed);
-	void Update(const float& aDeltaTime) override;
+	virtual void Update(const float& aDeltaTime) = 0;
 	void OnCollision(GameObject* aGameObject) override;
+
+protected:
 	virtual void InitCollider();
-private:
-	float mySpeed = 200;
+	EnemyData* myJsonData = new EnemyData();
 	bool IsMoving = false;
 	WaypointComponent* myWayPointComponent;
+
+private:
+	float mySpeed = 200;
+
 };
 
 class NormalEnemy : public Enemy
@@ -28,25 +34,28 @@ class NormalEnemy : public Enemy
 public:
 	NormalEnemy(Scene* aScene);
 	~NormalEnemy() = default;
+	void Update(const float& aDeltaTime);
+
 private:
 	void InitCollider() override;
-	v2f mySize = { 150.0f, 100.0f }; // Get from Json
-	v2f myColliderSize = { 150.0f, 100.0f }; // Get from Json
+
 };
 
 class ShootingEnemy : public Enemy
 {
 public:
 	ShootingEnemy(Scene* aScene);
+	~ShootingEnemy() = default;
+
 	void Update(const float& aDeltaTime);
 
 private:
-	void InitCollider() override;
 	void Shoot();
-	const float myFireRate = 4.0f; // Imgui
-	v2f mySpriteSize = { 40.0f, 50.0f }; // Get from Json
-	v2f myColliderSize = { 40.0f, 50.0f }; // Get from Json
-	const float myRadius = 250.0f; // imGui?
+	void InitCollider() override;
 	float myShotTimer = 0.0f;
-};
 
+#ifdef _DEBUG
+	void ImGuiUpdate();
+#endif // _DEBUG
+
+};

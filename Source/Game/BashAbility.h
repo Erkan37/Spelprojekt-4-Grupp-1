@@ -35,6 +35,8 @@ public:
 
 	void ActivateBash(GameObject* aGameObject);
 
+	void UpdateBashArrow();
+
 	void ImGuiUpdate();
 
 private:
@@ -71,6 +73,7 @@ private:
 
 	v2f myDashDirection;
 	v2f myCurrentDashVelocity;
+	v2f myUsedDashDirection;
 
 	void FreezeTime();
 	void DashUse(const float& aDeltaTime);

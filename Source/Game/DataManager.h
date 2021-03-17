@@ -59,6 +59,30 @@ struct EnemyData : public Data
 {
 	EnemyData();
 	~EnemyData() override {}
+
+	// Float Components
+	enum class EnemyFloatEnum
+	{
+		NE_SpriteSizeX,
+		NE_SpriteSizeY,
+		NE_CollisionSizeX,
+		NE_CollisionSizeY,
+		SE_SpriteSizeX,
+		SE_SpriteSizeY,
+		SE_CollisionSizeX,
+		SE_CollisionSizeY,
+		FireRate,
+		FireRadius,
+		P_SpriteSizeX,
+		P_SpriteSizeY,
+		P_CollisionSizeX,
+		P_CollisionSizeY,
+		Speed,
+
+		Enemy_FloatEnum_Size
+	};
+	std::map<EnemyFloatEnum, std::string> myFloatNameMap;
+	std::map<EnemyFloatEnum, float> myFloatValueMap;
 };
 
 class DataManager
