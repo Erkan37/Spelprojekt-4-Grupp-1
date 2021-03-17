@@ -81,6 +81,16 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 	float alpha = myAlpha;
 	float zoom = 1.0f;
 
+	v2f renderSize = {};
+	renderSize.x = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
+	renderSize.y = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
+
+
+	v2f targetSize = { 320.f, 240.f };
+
+	const float scaleFactor = renderSize.y / targetSize.y;
+
+
 	Scene* scene = aGameObject.GetScene();
 	if (scene != nullptr)
 	{
@@ -104,8 +114,12 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 
 		alpha *= camera.GetAlpha();
 
-		const v2f position = v2f((aTransform.myPosition.x + myRelativePosition.x + offset.x) / width * zoom, (aTransform.myPosition.y + myRelativePosition.y + offset.y) / height * zoom);
-		const v2f size = v2f((mySize.x / height) * zoom, ((mySize.y) / height) * zoom);
+		v2f allSpritesPosition = {};
+		allSpritesPosition.x = aTransform.myPosition.x + myRelativePosition.x + offset.x;
+		allSpritesPosition.y = aTransform.myPosition.y + myRelativePosition.y + offset.y;
+
+		const v2f position = { (allSpritesPosition.x * scaleFactor) / renderSize.x, (allSpritesPosition.y * scaleFactor) / renderSize.y };
+		const v2f size = { (mySize.x * scaleFactor) / renderSize.y, (mySize.y * scaleFactor) / renderSize.y };
 		const v4f color = v4f(myColor.x, myColor.y, myColor.z, myColor.w * alpha);
 		UpdateSprite(mySprite, position, size, aTransform.myPivot, aTransform.myRotation + myRelativeRotation, myColor, myRect);
 	}
