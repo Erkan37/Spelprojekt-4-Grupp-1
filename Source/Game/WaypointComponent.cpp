@@ -13,7 +13,7 @@ void WaypointComponent::Move(const float& aDeltaTime)
 
 void WaypointComponent::CheckReachedWayPoint()
 {
-	const float sensitivity = 5.0f;
+	const float sensitivity = 0.5f;
 	if (myOwner->GetPosition().x < myWaypoints[myCurrentWayPointIndex].x + sensitivity &&
 		myOwner->GetPosition().x > myWaypoints[myCurrentWayPointIndex].x - sensitivity &&
 		myOwner->GetPosition().y < myWaypoints[myCurrentWayPointIndex].y + sensitivity &&

@@ -33,6 +33,9 @@ public:
 
 	static void SetResolution(const uint16_t& aWidth, const uint16_t& aHeight);
 
+	const int GetMonitorSizeX();
+	const int GetMonitorSizeY();
+
 private:
 	void InitCallBack();
 	void UpdateCallBack();
@@ -43,6 +46,9 @@ private:
 	std::atomic<bool> myActive;
 
 	Utils::Timer* myTimer;
+
+	int myMonitorSizeX;
+	int myMonitorSizeY;
 
 #ifndef _RETAIL
 	Debugger myDebugger;
