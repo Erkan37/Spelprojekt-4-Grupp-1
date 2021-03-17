@@ -141,3 +141,8 @@ void PauseMenu::DeactivateMenu()
 	myFireHighlight->SetActive(false);
 }
 
+
+void PauseMenu::InitTexts()
+{
+	myTitleString = std::make_unique<TextWrapper>();
+}

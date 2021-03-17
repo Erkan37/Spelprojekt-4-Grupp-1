@@ -1,8 +1,13 @@
 #pragma once
 #include "GameObject.h"
 #include "UIButton.h"
+
 #include "UIObject.h"
 #include "Animation.hpp"
+
+
+#include "UIBackground.h"
+#include "TextWrapper.h"
 
 class SpriteComponent;
 class InputWrapper;
@@ -41,6 +46,10 @@ private:
 	std::unique_ptr<UIButton> myMainMenuBtn;
 
 
+
+
+	std::unique_ptr<TextWrapper> myTitleString;
+
 	std::shared_ptr<InputWrapper> myInput;
 
 	int myMovingIndex;
@@ -51,6 +60,7 @@ private:
 	void CheckIndexPress();
 	void ActivateMenu();
 	void DeactivateMenu();
+	void InitTexts();
 
 };
 
