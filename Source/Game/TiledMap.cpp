@@ -296,7 +296,7 @@ void TiledMap::ParsePlatforms(tson::Layer* aLayer, Scene* aScene)
 				platformFactory.CreateMovingPlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, GetWaypointPositions(tileObj[i].getProp("Waypoints")->getValue<std::string>()), tileObj[i].getProp("Speed")->getValue<float>());
 				break;
 			case 2:
-				platformFactory.CreateUnstablePlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, 5.0f, 3.0f);
+				platformFactory.CreateUnstablePlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize, 0.5f, 2.0f);
 				break;
 			case 3:
 				platformFactory.CreateDestructiblePlatform(aScene, GetScreenPosition(aPos), imageSize, imageSize);
