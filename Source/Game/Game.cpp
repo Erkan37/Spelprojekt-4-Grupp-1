@@ -72,6 +72,7 @@ LRESULT CGame::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_SIZE: 
 	{
 		SetResolution(LOWORD(lParam), HIWORD(lParam));
+		SetZoom(LOWORD(lParam), HIWORD(lParam));
 		return 0;
 	}
 		// this message is read when the window is closed
@@ -113,16 +114,16 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Overlapped;
 #endif // DEBUG
 #ifdef _RETAIL
-	createParameters.myUseLetterboxAndPillarbox;
 	createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight);
 	createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth);
 	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Borderless;
 #endif // RETAIL
 
-	createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight / 2);
-	createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth / 2);
-	createParameters.myTargetHeight = Config::height / 2;
-	createParameters.myTargetWidth = Config::width / 2;
+	createParameters.myUseLetterboxAndPillarbox;
+	createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight);
+	createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth);
+	createParameters.myTargetHeight = Config::height;
+	createParameters.myTargetWidth = Config::width;
 	createParameters.myClearColor = Tga2D::CColor(0.0f, 0.0f, 0.0f, 1.0f);
 	createParameters.myActivateDebugSystems = 0;
 
@@ -166,8 +167,8 @@ void CGame::UpdateCallBack()
 
 void CGame::SetResolution(const uint16_t& aWidth, const uint16_t& aHeight)
 {
-	Config::width = aWidth;
-	Config::height = aHeight;
+	//Config::width = aWidth;
+	//Config::height = aHeight;
 
-	Tga2D::CEngine::GetInstance()->SetTargetSize({ aWidth, aHeight });
+	//Tga2D::CEngine::GetInstance()->SetTargetSize({ aWidth, aHeight });
 }

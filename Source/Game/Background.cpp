@@ -59,8 +59,8 @@ void Background::ResizeBackground()
 	//int renderSizeX = Tga2D::CEngine::GetInstance()->GetRenderSize().x;
 	//int renderSizeY = Tga2D::CEngine::GetInstance()->GetRenderSize().y;
 
-	int targetSizeX = 440;
-	int targetSizeY = 230;
+	int targetSizeX = 440 * 8.0f;
+	int targetSizeY = 230 * 8.0f;
 
 	myCurrentRenderSize.x = static_cast<float>(targetSizeX);
 	myCurrentRenderSize.y = static_cast<float>(targetSizeY);

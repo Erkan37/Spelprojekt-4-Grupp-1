@@ -37,6 +37,8 @@
 
 #include "Game.h"
 
+#include <iostream>
+
 LevelScene::LevelScene()
 	: 
 	myPlayer(nullptr),
@@ -50,7 +52,7 @@ void LevelScene::Load()
 
 	myBackground = new Background(this);
 
-	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, "Levels/test_level2.json");
+	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, "Levels/test_level3.json");
 
 	Scene::Load();
 }
@@ -60,7 +62,7 @@ void LevelScene::Activate()
 	Scene::Activate();
 
 	GetCamera().StartFollowing(myPlayer, { 40.0f, 40.0f });
-	GetCamera().SetBounds(v2f(-840.0f, -540.0f), v2f(3840.0f, 2160.0f));
+	GetCamera().SetBounds(v2f(0.0f, 0.0f), v2f(1920.0f / 4.0f, 1080.0f / 6.0f));
 }
 
 void LevelScene::Deactivate()
@@ -72,8 +74,21 @@ void LevelScene::Deactivate()
 
 void LevelScene::Update(const float& aDeltaTime)
 {
-	const float zoomFactorX = Tga2D::CEngine::GetInstance()->GetWindowSize().x / 1920.0f;
-	const float zoom = 6.0f * zoomFactorX;
+	const float zoomX = CGameWorld::GetInstance()->Game()->GetZoomX();
+	const float zoomY = CGameWorld::GetInstance()->Game()->GetZoomY();
+
+	float zoomFactor = 1.0f;
+	if (zoomX / 16.0f < zoomY / 9.0f)
+	{
+		zoomFactor = zoomX / 1920.0f;
+	}
+	else
+	{
+		zoomFactor = zoomY / 1080.0f;
+	}
+
+	const float zoom = 6.0f * zoomFactor;
+
 	GetCamera().SetZoom(zoom);
 
 	Scene::Update(aDeltaTime);
