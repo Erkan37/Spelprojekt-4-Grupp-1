@@ -14,6 +14,7 @@
 
 using namespace std::placeholders;
 
+v2f Config::ourReferenceSize = { 320.f, 240.f };
 uint16_t Config::width = 1920U;
 uint16_t Config::height = 1080U;
 std::wstring Config::appName = L"Pass On";

@@ -22,6 +22,7 @@ public:
 	static uint16_t width;
 	static uint16_t height;
 	static std::wstring appName;
+	static v2f ourReferenceSize;
 };
 
 class CGame
