@@ -256,6 +256,9 @@
     <ClInclude Include="UIManager.h">
       <Filter>Core\UI</Filter>
     </ClInclude>
+    <ClInclude Include="TextWrapper.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -423,6 +426,9 @@
     </ClCompile>
     <ClCompile Include="UIManager.cpp">
       <Filter>Core\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TextWrapper.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

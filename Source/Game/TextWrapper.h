@@ -2,12 +2,13 @@
 
 #include "GameObject.h"
 
-#include <tga2d/math/color.h>
+#include "..\tga2dcore\tga2d\math\color.h"
 
 #include <memory>
 
 namespace Tga2D
 {
+	class CColor;
 	class CText;
 	class CFontData;
 }
@@ -47,8 +48,8 @@ public:
 	void SetText(const std::string& aText);
 	std::string GetText() const;
 
-	void SetPosition(const VECTOR2F& aPosition);
-	VECTOR2F GetPosition() const;
+	void SetPosition(const v2f& aPosition);
+	v2f GetPosition() const;
 
 	void SetScale(float aScale);
 	float GetScale() const;
@@ -56,8 +57,8 @@ public:
 	void SetRotation(float aRotation);
 	float GetRotation() const;
 
-	void SetPivot(VECTOR2F aPivot);
-	VECTOR2F GetPivot() const;
+	void SetPivot(v2f aPivot);
+	v2f GetPivot() const;
 
 	Tga2D::CFontData* GetFontDataPointer();
 
@@ -67,8 +68,8 @@ private:
 
 	std::string myText;
 
-	VECTOR2F myPosition{};
-	VECTOR2F myPivot{ 0.0f, 0.0f };
+	v2f myPosition{};
+	v2f myPivot{ 0.0f, 0.0f };
 	float myScale{ 1.0f };
 	float myRotation{};
 

@@ -55,12 +55,12 @@ std::string TextWrapper::GetText() const
 	return myText;
 }
 
-void TextWrapper::SetPosition(const VECTOR2F& aPosition)
+void TextWrapper::SetPosition(const v2f& aPosition)
 {
 	myPosition = aPosition;
 }
 
-VECTOR2F TextWrapper::GetPosition() const
+v2f TextWrapper::GetPosition() const
 {
 	return myPosition;
 }
@@ -85,12 +85,12 @@ float TextWrapper::GetRotation() const
 	return myRotation;
 }
 
-void TextWrapper::SetPivot(VECTOR2F aPivot)
+void TextWrapper::SetPivot(v2f aPivot)
 {
 	myPivot = aPivot;
 }
 
-VECTOR2F TextWrapper::GetPivot() const
+v2f TextWrapper::GetPivot() const
 {
 	return myPivot;
 }
