@@ -114,8 +114,7 @@ void ShootingEnemy::Update(const float& aDeltaTime)
 
 void ShootingEnemy::Shoot()
 {
-	EnemyProjectile* projectile = new EnemyProjectile(this->myScene);
-	projectile->InitProjectile(this->GetPosition(), dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition());
+	EnemyProjectile* projectile = new EnemyProjectile(this->myScene, this->GetPosition(), dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition());
 }
 void Enemy::OnCollision(GameObject* aGameObject)
 {
