@@ -187,7 +187,7 @@
     <ClInclude Include="TextComponent.h" />
     <ClInclude Include="TiledMap.h" />
     <ClInclude Include="Transform.hpp" />
-    <ClInclude Include="UIBackground.h" />
+    <ClInclude Include="UIObject.h" />
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="UIText.h" />
@@ -249,7 +249,7 @@
     </ClCompile>
     <ClCompile Include="TextComponent.cpp" />
     <ClCompile Include="TiledMap.cpp" />
-    <ClCompile Include="UIBackground.cpp" />
+    <ClCompile Include="UIObject.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UIText.cpp" />

@@ -1,11 +1,17 @@
 #pragma once
 #include "GameObject.h"
 #include "UIButton.h"
+
+#include "UIObject.h"
+#include "Animation.hpp"
+#include "TextWrapper.h"
+
 #include "UIBackground.h"
 #include "UIText.h"
 class SpriteComponent;
 class InputWrapper;
 class Scene;
+class Animation;
 
 class PauseMenu
 {
@@ -23,14 +29,31 @@ public:
 private:
 	Scene* myScene;
 	Camera& myCamera;
+	Animation myAnimation[1];
 
-	std::unique_ptr<UIBackground> myBackground;
+	std::unique_ptr<UIObject> myBackground;
+	std::unique_ptr<UIObject> myFire;
+	std::unique_ptr<UIObject> myFire2;
+	std::unique_ptr<UIObject> myFire3;
+	std::unique_ptr<UIObject> myFireHighlight;
+	
+	std::unique_ptr<UIObject> myContinueHighlight;
+	std::unique_ptr<UIObject> myLevelSelectHighlight;
+	std::unique_ptr<UIObject> myMainMenuHighlight;
+
+	std::vector<UIObject*> myHighlights;
+
 
 	std::vector<UIButton*> myButtons;
 
 	std::unique_ptr<UIButton> myContinueBtn;
 	std::unique_ptr<UIButton> myLevelSelectBtn;
 	std::unique_ptr<UIButton> myMainMenuBtn;
+
+
+
+
+	std::unique_ptr<TextWrapper> myTitleString;
 
 	std::unique_ptr<UIText> myTitleString;
 	std::shared_ptr<InputWrapper> myInput;

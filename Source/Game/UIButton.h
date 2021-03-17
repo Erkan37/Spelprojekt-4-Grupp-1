@@ -5,6 +5,7 @@
 class Camera;
 class Scene;
 class Player;
+class SpriteComponent;
 
 class UIButton : public GameObject
 {
@@ -12,18 +13,19 @@ public:
 	UIButton(Scene* aLevelScene);
 	~UIButton();
 
-	void Init(const std::string aPathString, const v2f aSize, const v2f aPosition);
+	void Init(const std::string aPathString, const v2f aSize, const v2f aPosition, const std::string aAnimationPathString, const int aBoundX);
 
 	void UpdateButton(const float& aDeltaTime);
 	void Render() override;
 
 	void SetIsHighlightActive(const bool aHighlightBool);
-	void SetLightedColor(const v4f aColor);
 	void SetActive(const bool aActiveState);
 
 
 private:
 	Camera& myCamera;
+
+	SpriteComponent* mySprite;
 
 	bool myBtnHighlighted;
 	bool myIsActive;
