@@ -31,35 +31,24 @@
 
 #include "Collectible.hpp"
 
+#include "HiddenArea.hpp"
+
+#include "LevelManager.hpp"
+
 LevelScene::LevelScene()
 	: 
-	myPlayer(nullptr)
-	, Scene()
+	myPlayer(nullptr),
+	myBackground(nullptr),
+	Scene()
 {}
 
 void LevelScene::Load()
 {
 	myPlayer = new Player(this);
 
-	Bonfire* bonfire = new Bonfire(this);
-	bonfire->SetPosition(myPlayer->GetPosition() + v2f(50.0f, 200.0f));
+	myBackground = new Background(this);
 
-	//EnemyFactory enemyFactory;
-	//enemyFactory.ReadEnemies(this, "JSON/AlfaEnemies.json");
-
-	Collectible* collectible = new Collectible(this);
-	collectible->Init(v2f(500.0f, 500.0f), Collectible::eCollectibleType::Easy);
-
-	Collectible* collectible2 = new Collectible(this);
-	collectible2->Init(v2f(900.0f, 500.0f), Collectible::eCollectibleType::Easy);
-
-	myBackground = std::make_unique<Background>(this);
-
-	myTiledMap = std::make_unique<TiledMap>();
-	myTiledMap->Load("Levels/test_level.json", this);
-
-	BashableObjectFactory bashableObjectFactory;
-	bashableObjectFactory.ReadBashableObjects(this, "JSON/AlfaBashableObjects.json");
+	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, "Levels/test_level2.json");
 
 	Scene::Load();
 }

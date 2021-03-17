@@ -30,8 +30,8 @@ void BashableObject::Init(const v2f& aPosition, const float& aRadius)
 	bashComponent->SetRadius(aRadius);
 
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/BashableAdam.dds");
-	spriteIdle->SetSize(v2f(100.0f, 100.0f));
+	spriteIdle->SetSpritePath("Sprites/Objects/Bashable.dds");
+	spriteIdle->SetSize(v2f(16.0f, 16.0));
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
 	physics->SetCanCollide(false);

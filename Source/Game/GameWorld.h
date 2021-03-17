@@ -1,7 +1,8 @@
 #pragma once
 
+#include "MainMenuScene.h"
 #include "LevelScene.h"
-#include "PauseScene.h"
+#include "LevelManager.hpp"
 
 namespace Utils
 {
@@ -50,6 +51,11 @@ public:
 		return myGame;
 	}
 
+	inline LevelManager& GetLevelManager()
+	{
+		return myLevelManager;
+	}
+
 private:
 	/*** System ***/
 	std::unique_ptr<Utils::Timer> myTimer;
@@ -58,8 +64,10 @@ private:
 	float myDeltaTime;
 	float myTotalTime;
 
+	MainMenuScene myMainMenuScene;
 	LevelScene myLevelScene;
-	PauseScene myPauseScene;
+
+	LevelManager myLevelManager;
 
 	static CGameWorld* ourInstance;
 };

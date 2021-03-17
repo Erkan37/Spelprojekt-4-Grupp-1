@@ -160,10 +160,13 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWorld.h" />
+    <ClInclude Include="HiddenArea.hpp" />
     <ClInclude Include="InputWrapper.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Ledge.h" />
+    <ClInclude Include="LevelManager.hpp" />
     <ClInclude Include="LevelScene.h" />
+    <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="MovingPlatform.hpp" />
     <ClInclude Include="PauseScene.h" />
     <ClInclude Include="PhysicsComponent.h" />
@@ -213,9 +216,12 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWorld.cpp" />
+    <ClCompile Include="HiddenArea.cpp" />
     <ClCompile Include="InputWrapper.cpp" />
     <ClCompile Include="Ledge.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LevelScene.cpp" />
+    <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="MovingPlatform.cpp" />
     <ClCompile Include="PauseScene.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />

@@ -11,7 +11,7 @@ class EnemyFactory
 {
 public:
 	void ReadEnemies(Scene* aLevelScene, const std::string& aFilePath);
-	NormalEnemy* CreateNormalEnemy(Scene* aLevelScene, std::vector<v2f>& someCoordinates);
-	ShootingEnemy* CreateShootingEnemy(Scene* aLevelScene, std::vector<v2f>& someCoordinates);
+	NormalEnemy* CreateNormalEnemy(Scene* aLevelScene, std::vector<v2f>& someCoordinates, const float& aSpeed);
+	ShootingEnemy* CreateShootingEnemy(Scene* aLevelScene, std::vector<v2f>& someCoordinates, const float& aSpeed);
 };
 

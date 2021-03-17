@@ -6,7 +6,6 @@
 #include "SpringObject.h"
 
 class GameObject;
-class TiledMap;
 
 class LevelScene :
     public Scene
@@ -24,8 +23,7 @@ public:
     const GameObject* GetPlayer();
 private:
     GameObject* myPlayer;
-    GameObject* myEnemy;
-    std::unique_ptr<Background> myBackground;
-    std::unique_ptr<TiledMap> myTiledMap;
+    Background* myBackground;
+
 };
 

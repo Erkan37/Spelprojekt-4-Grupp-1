@@ -38,13 +38,13 @@ BashAbility::~BashAbility()
 
 void BashAbility::Init()
 {
-	myAcceleration = 10.0f;
-	myRetardation = 1.0f;
-	myDashDuration = 0.5f;
+	myAcceleration = 100.0f;
+	myRetardation = 2.0f;
+	myDashDuration = 0.15f;
 	myMaxDashDuration = 2.0f;
 	myTimeScale = 0.0f;
 	myRadiusFromDash = true;
-	myDashSpeed = 1000.f;
+	myDashSpeed = 400.0f;
 	myAspectRatioFactorY = Tga2D::CEngine::GetInstance()->GetWindowSize().x / Tga2D::CEngine::GetInstance()->GetWindowSize().y;
 }
 

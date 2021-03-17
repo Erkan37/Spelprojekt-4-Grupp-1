@@ -8,8 +8,6 @@
 
 #include "Player.hpp"
 
-#include <iostream>
-
 Ledge::Ledge(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene),

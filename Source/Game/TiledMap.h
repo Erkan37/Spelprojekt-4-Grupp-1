@@ -1,6 +1,5 @@
 #pragma once
 #include "Scene.h"
-#include "PlatformFactory.hpp"
 
 namespace tson
 {
@@ -15,6 +14,7 @@ public:
 	bool Load(const std::string& aPath, Scene*);
 
 private:
+	void ParseGraphics(tson::Layer* aBG1, tson::Layer* aBG2, tson::Layer* aFG1, tson::Layer* aFG2, tson::Layer* aHR, Scene* aScene);
 	void ParseBonfires(tson::Layer*, Scene*);
 	void ParseDoors(tson::Layer*, Scene*);
 	void ParseEnemies(tson::Layer*, Scene*);
@@ -24,12 +24,11 @@ private:
 	void ParsePlatforms(tson::Layer*, Scene*);
 	void ParseHiddenRooms(tson::Layer*, Scene*);
 	void ParseSprings(tson::Layer*, Scene*);
+	void ParseBashableObjects(tson::Layer*, Scene*);
 	void ParseButtons(tson::Layer*, Scene*);
 
-	v2f GetScreenPosition(v2f aTiledPos);
-	v2f GetObjSize(v2f aTiledSize);
-	v2f myNumberOfTilesOnScreen;
 
-	std::unique_ptr<PlatformFactory> myPlatformFactory;
+	std::vector<v2f> GetWaypointPositions(const std::string somePositions);
+	v2f GetScreenPosition(v2f aTiledPos);
 };
 

@@ -1,34 +1,26 @@
 #pragma once
 #include "GameObject.h"
 #include "Animation.hpp"
+#include "DataManager.h"
 #include <vector>
 
 class LevelScene;
 class EnemyProjectile;
+class WaypointComponent;
 
 class Enemy : public GameObject
 {
 public:
 	Enemy(Scene* aScene);
-	Enemy(Scene* aScene, const std::vector<v2f>& someCoordinates);
 	~Enemy();
-	void InitEnemy(const std::vector<v2f>& someCoordinates);
+	void InitEnemy(const std::vector<v2f>& someCoordinates, const float& aSpeed);
 	void Update(const float& aDeltaTime) override;
 	void OnCollision(GameObject* aGameObject) override;
+	virtual void InitCollider();
 private:
-	void InitAnimations();
-	void InitCollider();
-	void Move(const float& aDeltaTime);
-	void SetNextWayPoint();
-	void SetDirection(const v2f& aDestination);
-	std::vector<v2f> myWayPoints; // Get from Tiled.
-	const float mySpeed = 200; //Get from Json
-	v2f mySize = { 150.0f, 100.0f }; // Get from Json
-	v2f myDestination;
-	v2f myDirection;
-	int myCurrentPoint = 1;
-	Animation myAnimation;
+	float mySpeed = 200;
 	bool IsMoving = false;
+	WaypointComponent* myWayPointComponent;
 };
 
 class NormalEnemy : public Enemy
@@ -37,21 +29,24 @@ public:
 	NormalEnemy(Scene* aScene);
 	~NormalEnemy() = default;
 private:
+	void InitCollider() override;
 	v2f mySize = { 150.0f, 100.0f }; // Get from Json
+	v2f myColliderSize = { 150.0f, 100.0f }; // Get from Json
 };
 
 class ShootingEnemy : public Enemy
 {
 public:
 	ShootingEnemy(Scene* aScene);
-	//ShootingEnemy(Scene* aScene, const std::vector<v2f>& someCoordinates);
 	void Update(const float& aDeltaTime);
+
 private:
+	void InitCollider() override;
 	void Shoot();
 	const float myFireRate = 4.0f; // Imgui
-	float myShotTimer = 0.0f;
-	v2f mySize = { 40.0f, 50.0f }; // Get from Json
-	bool myHasShot = false;
+	v2f mySpriteSize = { 40.0f, 50.0f }; // Get from Json
+	v2f myColliderSize = { 40.0f, 50.0f }; // Get from Json
 	const float myRadius = 250.0f; // imGui?
+	float myShotTimer = 0.0f;
 };
 
