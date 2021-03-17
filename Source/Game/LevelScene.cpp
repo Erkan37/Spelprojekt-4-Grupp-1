@@ -72,9 +72,9 @@ void LevelScene::Deactivate()
 
 void LevelScene::Update(const float& aDeltaTime)
 {
-	const float zoomFactorX = Tga2D::CEngine::GetInstance()->GetTargetSize().x / 1920.0f;
-	const float zoomFactorY = Tga2D::CEngine::GetInstance()->GetTargetSize().y / 1080.0f;
-	const float zoomFactor = zoomFactorX / zoomFactorY;
+	const float zoomFactorX = CGameWorld::GetInstance()->Game()->GetMonitorSizeX() / 1920.0f;
+	const float zoomFactorY = CGameWorld::GetInstance()->Game()->GetMonitorSizeY() / 1080.0f;
+	const float zoomFactor = zoomFactorX * zoomFactorY;
 	const float zoom = 6.0f * zoomFactor;
 	GetCamera().SetZoom(zoom);
 
