@@ -61,7 +61,7 @@ void EnemyProjectile::InitCollider()
 void EnemyProjectile::InitVisuals()
 {
 	SpriteComponent* spriteIdle = this->AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/TempProjectile.dds");
+	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy2Bullet.dds");
 	spriteIdle->SetSize(mySpriteSize);
 
 	//myAnimation = Animation(false, false, true, 1, 1, 1, 0.15f, spriteIdle, 512, 512);

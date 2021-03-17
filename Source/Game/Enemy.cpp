@@ -22,14 +22,14 @@ Enemy::Enemy(Scene* aScene) : GameObject(aScene)
 NormalEnemy::NormalEnemy(Scene* aScene) : Enemy(aScene)
 {
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/TempEnemy.dds");
+	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy1.dds");
 	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeY] });
 	this->SetZIndex(400);
 }
 ShootingEnemy::ShootingEnemy(Scene* aScene) : Enemy(aScene)
 {
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/TempShootingEnemy.dds");
+	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy2.dds");
 	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeY] });
 	this->SetZIndex(400);
 }
@@ -63,7 +63,7 @@ void Enemy::InitCollider()
 	physics->SetIsStatic(false);
 	physics->SetApplyGravity(false);
 
-	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
+	//physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
 }
 void NormalEnemy::InitCollider()
 {
