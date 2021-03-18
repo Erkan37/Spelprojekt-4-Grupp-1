@@ -38,7 +38,8 @@ void BashableObject::Init(const v2f& aPosition, const float& aRadius)
 	physics->SetIsStatic(false);
 	physics->SetApplyGravity(false);
 
-	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this);
+	ColliderComponent* collider = AddComponent<ColliderComponent>();
+	collider->SetSize(v2f(32.0f, 32.0f));
 
 	GameObject::Init();
 }

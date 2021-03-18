@@ -4,6 +4,7 @@
 #include "Button.h"
 
 #include "WaypointComponent.hpp"
+#include "SpriteComponent.h"
 
 MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	:
