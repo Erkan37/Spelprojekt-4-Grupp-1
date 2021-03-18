@@ -27,6 +27,7 @@ public:
 
 #ifndef _RETAIL
 	void ImGuiUpdate();
+	void ToggleImGui();
 #endif //RETAIL
 
 	void SingleLoadScene(eScenes aScene);
@@ -45,6 +46,7 @@ private:
 	std::shared_ptr<TiledMap> myTiledMap;
 
 #ifndef _RETAIL
+	bool myImGuiIsActive;
 	char myLevelToLoad[1024] = "Levels/test_level2.json";
 #endif //RETAIL
 };
