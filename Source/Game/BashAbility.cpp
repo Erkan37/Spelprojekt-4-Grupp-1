@@ -166,8 +166,7 @@ void BashAbility::FreezeTime()
 
 void BashAbility::DashUse(const float& aDeltaTime)
 {
-	myUsedDashDirection = myDashDirection;
-	myDashDirection = v2f(0.0f, -1.0f);
+	myUsedDashDirection = myInput->GetAxisMovement();
 
 	myScene->GetCamera().Shake(myDashShakeDuration, myDashShakeIntensity, myDashShakeDropOff);
 	myInput->GetController()->Vibrate(myVibrationStrength, myVibrationStrength, myVibrationLength);
@@ -236,11 +235,6 @@ void BashAbility::UpdateBashArrow()
 {
 	const v2f axisInput = myInput->GetAxisMovement();
 
-	if (axisInput.x != 0.0f || axisInput.y != 0.0f)
-	{
-		myDashDirection = axisInput;
-	}
-
-	SetPosition(myPlayer->GetPosition() + myDashDirection * 16.0f);
-	SetRotation(atan2(myDashDirection.y, myDashDirection.x));
+	SetPosition(myPlayer->GetPosition() + axisInput * 16.0f);
+	SetRotation(atan2(axisInput.y, axisInput.x));
 }
