@@ -103,7 +103,7 @@ void Player::InitAnimations()
 	spriteFall->Deactivate();
 
 	SpriteComponent* spriteLedgeGrab = AddComponent<SpriteComponent>();
-	spriteLedgeGrab->SetSpritePath("Sprites/Characters/playerLedgeGrab.dds");
+	spriteLedgeGrab->SetSpritePath("Sprites/Characters/playerLedgeGrab2.dds");
 	spriteLedgeGrab->SetSize(mySize);
 	spriteLedgeGrab->Deactivate();
 
