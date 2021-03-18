@@ -130,7 +130,11 @@ void MainMenuScene::CheckButtonsPress()
 		if (myMovingIndex == static_cast<int>(eMainMenuButton::StartGame))
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
 		else if (myMovingIndex == static_cast<int>(LevelManager::eScenes::LevelScene))
+		{
+#ifndef _RETAIL
 			CGameWorld::GetInstance()->GetLevelManager().ToggleImGui();
+#endif //RETAIL
+		}
 		else if (myMovingIndex == static_cast<int>(eMainMenuButton::ExitGame))
 			PostQuitMessage(0);
 	}

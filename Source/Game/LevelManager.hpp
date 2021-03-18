@@ -5,7 +5,7 @@
 class Scene;
 class LevelScene;
 
-class TiledMap;
+class TiledLoader;
 
 class LevelManager
 {
@@ -39,15 +39,15 @@ public:
 
 	const bool GetIsActive(eScenes aScene);
 
-	void LoadLevel(LevelScene* aLevelScene, const std::string& aLevelPath);
+	void LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex);
 
 private:
 	std::map<eScenes, Scene*> myScenes;
-	std::shared_ptr<TiledMap> myTiledMap;
+	std::shared_ptr<TiledLoader> myTiledLoader;
 
 #ifndef _RETAIL
 	bool myImGuiIsActive;
-	char myLevelToLoad[1024] = "Levels/test_level2.json";
+	int myLevelToLoad = 0;
 #endif //RETAIL
 };
 

@@ -101,7 +101,11 @@ void PauseMenu::SelectButton()
 		SetActiveMenu(false);
 	}
 	else if (myMovingIndex == 1)
+	{
+#ifndef _RETAIL
 		CGameWorld::GetInstance()->GetLevelManager().ToggleImGui();
+#endif //RETAIL
+	}
 	else if (myMovingIndex == 2)
 		CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::MainMenu);
 }
