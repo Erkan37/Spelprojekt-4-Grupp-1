@@ -25,12 +25,12 @@ Ledge::~Ledge()
 
 void Ledge::Init(const v2f& aPosition, const v2f& aSize)
 {
-	SetPosition(aPosition + v2f(0.0f, 15.0f));
+	SetPosition(aPosition + v2f(0.0f, 13.0f));
 	SetPivot({ 0.5f, 0.0f });
 
-	SpriteComponent* gsprite = AddComponent<SpriteComponent>();
-	gsprite->SetSpritePath("Sprites/debugLedge.dds");
-	gsprite->SetSize(aSize);
+	//SpriteComponent* gsprite = AddComponent<SpriteComponent>();
+	//gsprite->SetSpritePath("Sprites/debugLedge.dds");
+	//gsprite->SetSize(aSize);
 
 	PhysicsComponent* gphys = AddComponent<PhysicsComponent>();
 	gphys->SetCanCollide(false);
