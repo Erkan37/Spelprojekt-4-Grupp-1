@@ -64,6 +64,9 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{bbe69fe7-de48-45c2-b985-f537615c48ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PostMaster">
+      <UniqueIdentifier>{065bcb5a-03fc-4a28-9906-f71ffe8a3655}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -238,6 +241,18 @@
     <ClInclude Include="AudioComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="PostMaster.hpp">
+      <Filter>PostMaster</Filter>
+    </ClInclude>
+    <ClInclude Include="Message.hpp">
+      <Filter>PostMaster</Filter>
+    </ClInclude>
+    <ClInclude Include="Subscriber.hpp">
+      <Filter>PostMaster</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageTypes.hpp">
+      <Filter>PostMaster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -390,6 +405,12 @@
     </ClCompile>
     <ClCompile Include="AudioComponent.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PostMaster.cpp">
+      <Filter>PostMaster</Filter>
+    </ClCompile>
+    <ClCompile Include="Subscriber.cpp">
+      <Filter>PostMaster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

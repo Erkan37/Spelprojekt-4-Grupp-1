@@ -5,10 +5,12 @@
 #include "BackGround.h"
 #include "SpringObject.h"
 
+#include "Subscriber.hpp"
+
 class GameObject;
 
 class LevelScene :
-    public Scene
+    public Scene, public Subscriber
 {
 public:
     LevelScene();
@@ -19,6 +21,8 @@ public:
     void Deactivate() override;
 
     void Update(const float& aDeltaTime) override;
+
+    void Notify(const Message& aMessage) override;
 
     const GameObject* GetPlayer();
 private:

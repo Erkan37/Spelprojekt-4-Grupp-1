@@ -167,12 +167,16 @@
     <ClInclude Include="LevelManager.hpp" />
     <ClInclude Include="LevelScene.h" />
     <ClInclude Include="MainMenuScene.h" />
+    <ClInclude Include="Message.hpp" />
+    <ClInclude Include="MessageTypes.hpp" />
     <ClInclude Include="MovingPlatform.hpp" />
+    <ClInclude Include="Subscriber.hpp" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PlatformFactory.hpp" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="PostMaster.hpp" />
     <ClInclude Include="Random.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
@@ -227,6 +231,7 @@
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PlatformFactory.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PostMaster.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SpringObject.cpp" />
@@ -237,6 +242,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Retail|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Subscriber.cpp" />
     <ClCompile Include="TiledMap.cpp" />
     <ClCompile Include="UnstablePlatform.cpp" />
     <ClCompile Include="Utilities.cpp" />
