@@ -10,14 +10,13 @@ InputWrapper::InputWrapper()
 	myController = {};
 	myInput = {};
 	myHoldDash = {};
-	myMouseDirectionChanged = {};
 	myMouseDirection = {};
 }
 
 void InputWrapper::Init()
 {
-	myMouseSensitivityX = 4.f;
-	myMouseSensitivityY = 4.f;
+	//myMouseSensitivityX = 4.f;
+	//myMouseSensitivityY = 4.f;
 	myController = std::make_shared<Controller>();
 	myInput = std::make_shared<Utils::Input>();
 	myController->Init();
@@ -25,6 +24,8 @@ void InputWrapper::Init()
 
 void InputWrapper::Update(const float& aDeltaTime)
 {
+	GetCursorPos(&myCursor);
+
 	myInput->Update();
 	myController->Update(aDeltaTime);
 	CheckMousePosition(aDeltaTime);
@@ -59,7 +60,7 @@ v2f InputWrapper::GetMouseAxisMovement()
 
 v2f InputWrapper::GetAxisMovement()
 {
-	if (GetLeftStickMovement().x > 0.f || GetLeftStickMovement().x < 0.f)
+	if (GetLeftStickMovement().x != 0.0f || GetLeftStickMovement().y != 0.0f)
 	{
 		return GetLeftStickMovement();
 	}
@@ -156,9 +157,6 @@ void InputWrapper::SetCursor()
 	info.cbSize = sizeof(MONITORINFO);
 	GetMonitorInfo(monitor, &info);
 
-	POINT cursor;
-	GetCursorPos(&cursor);
-
 	int pixels = 30;
 	int width = static_cast<int>(info.rcMonitor.right);
 	int height = static_cast<int>(info.rcMonitor.bottom);
@@ -166,20 +164,10 @@ void InputWrapper::SetCursor()
 	myScreenSize.x = static_cast<float>(width);
 	myScreenSize.y = static_cast<float>(height);
 
-	if (cursor.x >= width - pixels || cursor.y >= height - pixels || cursor.x <= pixels || cursor.y <= pixels)
+	if (myCursor.x >= width - pixels || myCursor.y >= height - pixels || myCursor.x <= pixels || myCursor.y <= pixels)
 	{
-	///*	myPreviousMousePosition.x = cursor.x;
-	//	myPreviousMousePosition.y = cursor.y;*/
-
-	//	myMouseAfterLeftScreenDirection.x = cursor.x - myPreviousMousePosition.x;
-	//	myMouseAfterLeftScreenDirection.y = cursor.y - myPreviousMousePosition.y;
-
-	//	//myMouseAfterLeftScreenDirection.Normalize();
-
-	//	myPreviousMousePosition.x = myMouseAfterLeftScreenDirection.x;
-	//	myPreviousMousePosition.y = myMouseAfterLeftScreenDirection.y;
-
 		SetCursorMiddle();
+		SetMousePosition();
 	}
 
 }
@@ -188,54 +176,21 @@ void InputWrapper::CheckMousePosition(const float& aDeltaTime)
 {
 	if (myHoldDash)
 	{
-		if (static_cast<int>(myInput->GetMouseMovementSinceLastUpdate().y) < 0 && myMouseDirectionChanged == false)
-		{
-			myMouseDirectionChanged = true;
-			SetMousePosition();
-			
-		}
-		else if (static_cast<int>(myInput->GetMouseMovementSinceLastUpdate().y) > 0 && myMouseDirectionChanged)
-		{
-			myMouseDirectionChanged = false;
-			SetMousePosition();
-		}
-
-		/*if (static_cast<int>(myInput->GetMouseMovementSinceLastUpdate().y) < 0)
-		{
-			myMouseDirection.y = Utils::Lerp(myMouseDirection.y, -1.f, 0.1f + myMouseSensitivityX * aDeltaTime);
-		}
-		else if (static_cast<int>(myInput->GetMouseMovementSinceLastUpdate().y) > 0)
-		{
-			myMouseDirection.y = Utils::Lerp(myMouseDirection.y, 1.f, 0.1f + myMouseSensitivityX * aDeltaTime);
-		}
-		else if (static_cast<int>(myInput->GetMouseMovementSinceLastUpdate().x) < 0)
-		{
-			myMouseDirection.x = Utils::Lerp(myMouseDirection.x, -1.f, 0.1f + myMouseSensitivityX * aDeltaTime);
-		}
-		else if (static_cast<int>(myInput->GetMouseMovementSinceLastUpdate().x) > 0)
-		{
-			myMouseDirection.x = Utils::Lerp(myMouseDirection.x, 1.f, 0.1f + myMouseSensitivityX * aDeltaTime);
-			
-		}
-
-		std::cout << myMouseDirection.x << std::endl;*/
-		//std::cout << "REACHED" << std::endl;
-
 		SetCursor();
 	}
 }
 
 void InputWrapper::SetMousePosition()
 {
-	myPreviousMousePosition.x = static_cast<float>(myInput->GetMousePosition().x);
-	myPreviousMousePosition.y = static_cast<float>(myInput->GetMousePosition().y);
+	myPreviousMousePosition.x = static_cast<float>(myCursor.x);
+	myPreviousMousePosition.y = static_cast<float>(myCursor.y);
 }
 
 
 void InputWrapper::CalculateMouseAxis()
 {
-	myNewMousePosition.x = static_cast<float>(myInput->GetMousePosition().x);
-	myNewMousePosition.y = static_cast<float>(myInput->GetMousePosition().y);
+	myNewMousePosition.x = static_cast<float>(myCursor.x);
+	myNewMousePosition.y = static_cast<float>(myCursor.y);
 
 	v2f mouseDistance = myNewMousePosition - myPreviousMousePosition;
 	myNormalizedDirection = mouseDistance.GetNormalized();
@@ -250,12 +205,11 @@ void InputWrapper::SetCursorMiddle()
 	info.cbSize = sizeof(MONITORINFO);
 	GetMonitorInfo(monitor, &info);
 
-	POINT cursor;
-	GetCursorPos(&cursor);
-
 	int pixels = 30;
 	int width = static_cast<int>(info.rcMonitor.right);
 	int height = static_cast<int>(info.rcMonitor.bottom);
 
 	SetCursorPos(width / 2.f, height / 2.f);
+	myCursor.x = width / 2.f;
+	myCursor.y = height / 2.f;
 }

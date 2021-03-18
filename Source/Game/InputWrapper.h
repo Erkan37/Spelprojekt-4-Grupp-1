@@ -43,11 +43,8 @@ private:
 	std::shared_ptr<Controller> myController;
 
 	bool myHoldDash;
-	bool myMouseDirectionChanged;
-	bool myMouseLeftScreen; 
 
-	float myMouseSensitivityX;
-	float myMouseSensitivityY;
+	POINT myCursor;
 
 	v2f myScreenSize;
 

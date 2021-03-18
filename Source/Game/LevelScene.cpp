@@ -39,6 +39,8 @@
 
 #include "PostMaster.hpp"
 
+#include "TiledLoader.h"
+
 LevelScene::LevelScene()
 	: 
 	myPlayer(nullptr),
@@ -53,6 +55,9 @@ void LevelScene::Load()
 	myBackground = new Background(this);
 
 	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, "Levels/test_level4.json");
+
+	//TiledLoader loader;
+	//loader.Load(this, 0);
 
 	Ledge* ledge = new Ledge(this);
 	ledge->Init(v2f(672.0f, 64.0f), v2f(2.0f, 1.0f));

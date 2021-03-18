@@ -4,11 +4,12 @@
 #include "Button.h"
 
 #include "WaypointComponent.hpp"
+#include "SpriteComponent.h"
 
 MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	:
 	Platform(aLevelScene),
-	myButton(aLevelScene),
+	myButton(new Button(aLevelScene)),
 	myWaypointComponent(nullptr)
 {
 	myWaypointComponent = AddComponent<WaypointComponent>();
@@ -22,7 +23,7 @@ void MovingPlatform::Update(const float& aDeltaTime)
 		myWaypointComponent->Move(aDeltaTime);
 	else
 	{
-		if (myButton.GetActiveButton())
+		if (myButton->GetActiveButton())
 			myWaypointComponent->Move(aDeltaTime);
 	}
 	
@@ -48,12 +49,12 @@ void MovingPlatform::AddButton(v2f aPosition, eMovingPlatformType aPlatformType)
 {
 	myAddedButton = true;
 	myType = aPlatformType;
-	myButton.Init(GetPosition(), aPosition);
+	myButton->Init(GetPosition(), aPosition);
 }
 
 void MovingPlatform::OnCollision(GameObject* aGameObject)
 {
-	if (!myAddedButton || myButton.GetActiveButton())
+	if (!myAddedButton || myButton->GetActiveButton())
 	{
 		Player* player = dynamic_cast<Player*>(aGameObject);
 		if (player)
