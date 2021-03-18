@@ -44,15 +44,23 @@ private:
 
 	bool myHoldDash;
 	bool myMouseDirectionChanged;
+	bool myMouseLeftScreen; 
 
+	float myMouseSensitivityX;
+	float myMouseSensitivityY;
+
+	v2f myScreenSize;
+
+	v2f myMouseDirection;
 	v2f myPreviousMousePosition;
 	v2f myNewMousePosition;
 	v2f myNormalizedDirection;
 
-	void SetCursorToMiddle();
-	void CheckMousePosition();
+	void SetCursor();
+	void CheckMousePosition(const float& aDeltaTime);
 	void SetMousePosition();
 	void CalculateMouseAxis();
+	void SetCursorMiddle();
 
 };
 

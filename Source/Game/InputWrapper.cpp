@@ -11,10 +11,13 @@ InputWrapper::InputWrapper()
 	myInput = {};
 	myHoldDash = {};
 	myMouseDirectionChanged = {};
+	myMouseDirection = {};
 }
 
 void InputWrapper::Init()
 {
+	myMouseSensitivityX = 4.f;
+	myMouseSensitivityY = 4.f;
 	myController = std::make_shared<Controller>();
 	myInput = std::make_shared<Utils::Input>();
 	myController->Init();
@@ -24,7 +27,7 @@ void InputWrapper::Update(const float& aDeltaTime)
 {
 	myInput->Update();
 	myController->Update(aDeltaTime);
-	CheckMousePosition();
+	CheckMousePosition(aDeltaTime);
 	CalculateMouseAxis();
 }
 
@@ -50,12 +53,13 @@ v2f InputWrapper::GetRightStickMovement()
 
 v2f InputWrapper::GetMouseAxisMovement()
 {
+	//return myMouseDirection;
 	return myNormalizedDirection;
 }
 
 v2f InputWrapper::GetAxisMovement()
 {
-	if (GetLeftStickMovement().x > 0.1f || GetLeftStickMovement().x < -0.1f)
+	if (GetLeftStickMovement().x > 0.f || GetLeftStickMovement().x < 0.f)
 	{
 		return GetLeftStickMovement();
 	}
@@ -110,6 +114,7 @@ bool InputWrapper::IsDashing()
 	{
 		if (!myHoldDash)
 		{
+			SetCursorMiddle();
 			myHoldDash = true;
 			SetMousePosition();
 		}
@@ -144,7 +149,7 @@ std::shared_ptr<Controller> InputWrapper::GetController()
 	return myController;
 }
 
-void InputWrapper::SetCursorToMiddle()
+void InputWrapper::SetCursor()
 {
 	HMONITOR monitor = MonitorFromWindow(*Tga2D::CEngine::GetInstance()->GetHWND(), MONITOR_DEFAULTTONEAREST);
 	MONITORINFO info;
@@ -158,17 +163,31 @@ void InputWrapper::SetCursorToMiddle()
 	int width = static_cast<int>(info.rcMonitor.right);
 	int height = static_cast<int>(info.rcMonitor.bottom);
 
+	myScreenSize.x = static_cast<float>(width);
+	myScreenSize.y = static_cast<float>(height);
+
 	if (cursor.x >= width - pixels || cursor.y >= height - pixels || cursor.x <= pixels || cursor.y <= pixels)
-		SetCursorPos(width / 2, height / 2);
+	{
+	///*	myPreviousMousePosition.x = cursor.x;
+	//	myPreviousMousePosition.y = cursor.y;*/
+
+	//	myMouseAfterLeftScreenDirection.x = cursor.x - myPreviousMousePosition.x;
+	//	myMouseAfterLeftScreenDirection.y = cursor.y - myPreviousMousePosition.y;
+
+	//	//myMouseAfterLeftScreenDirection.Normalize();
+
+	//	myPreviousMousePosition.x = myMouseAfterLeftScreenDirection.x;
+	//	myPreviousMousePosition.y = myMouseAfterLeftScreenDirection.y;
+
+		SetCursorMiddle();
+	}
 
 }
 
-void InputWrapper::CheckMousePosition()
+void InputWrapper::CheckMousePosition(const float& aDeltaTime)
 {
 	if (myHoldDash)
 	{
-		SetCursorToMiddle();
-		
 		if (static_cast<int>(myInput->GetMouseMovementSinceLastUpdate().y) < 0 && myMouseDirectionChanged == false)
 		{
 			myMouseDirectionChanged = true;
@@ -180,6 +199,29 @@ void InputWrapper::CheckMousePosition()
 			myMouseDirectionChanged = false;
 			SetMousePosition();
 		}
+
+		/*if (static_cast<int>(myInput->GetMouseMovementSinceLastUpdate().y) < 0)
+		{
+			myMouseDirection.y = Utils::Lerp(myMouseDirection.y, -1.f, 0.1f + myMouseSensitivityX * aDeltaTime);
+		}
+		else if (static_cast<int>(myInput->GetMouseMovementSinceLastUpdate().y) > 0)
+		{
+			myMouseDirection.y = Utils::Lerp(myMouseDirection.y, 1.f, 0.1f + myMouseSensitivityX * aDeltaTime);
+		}
+		else if (static_cast<int>(myInput->GetMouseMovementSinceLastUpdate().x) < 0)
+		{
+			myMouseDirection.x = Utils::Lerp(myMouseDirection.x, -1.f, 0.1f + myMouseSensitivityX * aDeltaTime);
+		}
+		else if (static_cast<int>(myInput->GetMouseMovementSinceLastUpdate().x) > 0)
+		{
+			myMouseDirection.x = Utils::Lerp(myMouseDirection.x, 1.f, 0.1f + myMouseSensitivityX * aDeltaTime);
+			
+		}
+
+		std::cout << myMouseDirection.x << std::endl;*/
+		//std::cout << "REACHED" << std::endl;
+
+		SetCursor();
 	}
 }
 
@@ -199,4 +241,21 @@ void InputWrapper::CalculateMouseAxis()
 	myNormalizedDirection = mouseDistance.GetNormalized();
 
 	myNewMousePosition = {};
+}
+
+void InputWrapper::SetCursorMiddle()
+{
+	HMONITOR monitor = MonitorFromWindow(*Tga2D::CEngine::GetInstance()->GetHWND(), MONITOR_DEFAULTTONEAREST);
+	MONITORINFO info;
+	info.cbSize = sizeof(MONITORINFO);
+	GetMonitorInfo(monitor, &info);
+
+	POINT cursor;
+	GetCursorPos(&cursor);
+
+	int pixels = 30;
+	int width = static_cast<int>(info.rcMonitor.right);
+	int height = static_cast<int>(info.rcMonitor.bottom);
+
+	SetCursorPos(width / 2.f, height / 2.f);
 }
