@@ -30,6 +30,7 @@
 #include "Enemy.h"
 
 #include "Collectible.hpp"
+#include "InputWrapper.h"
 
 #include "HiddenArea.hpp"
 
@@ -62,6 +63,9 @@ void LevelScene::Load()
 	Ledge* ledge = new Ledge(this);
 	ledge->Init(v2f(128.0f, 176.0f), v2f(2.0f, 1.0f));
 	ledge->Init(v2f(672.0f, 64.0f), v2f(2.0f, 1.0f));
+
+	myPauseMenu = new PauseMenu(this);
+	myPauseMenu->InitMenu();
 
 	Scene::Load();
 }
@@ -101,7 +105,10 @@ void LevelScene::Update(const float& aDeltaTime)
 
 	GetCamera().SetBounds(v2f(0.0f, 0.0f), v2f(1920.0f, 1080.0f));
 
-	Scene::Update(aDeltaTime);
+	myPauseMenu->Update(aDeltaTime);
+
+	if (myPauseMenu->IsPauseActive() == false)
+		Scene::Update(aDeltaTime);
 }
 
 const GameObject* LevelScene::GetPlayer()
