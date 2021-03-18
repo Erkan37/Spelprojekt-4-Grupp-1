@@ -1,6 +1,7 @@
 #include <memory>
 #include "stdafx.h"
 #include "InputWrapper.h"
+#include <iostream>
 
 #include "../External/Headers/CU/Utilities.h"
 
@@ -21,10 +22,10 @@ void InputWrapper::Init()
 
 void InputWrapper::Update(const float& aDeltaTime)
 {
-	CheckMousePosition();
-
 	myInput->Update();
 	myController->Update(aDeltaTime);
+	CheckMousePosition();
+	CalculateMouseAxis();
 }
 
 float InputWrapper::GetLeftPullForce()
@@ -47,12 +48,19 @@ v2f InputWrapper::GetRightStickMovement()
 	return myController->GetRightThumbStick();
 }
 
+v2f InputWrapper::GetMouseAxisMovement()
+{
+	return myNormalizedDirection;
+}
+
 v2f InputWrapper::GetAxisMovement()
 {
-	v2f position = GetLeftStickMovement();// +CalculateMouseAxis();
-	v2f normalizedPosition = position.GetNormalized();
-	
-	return normalizedPosition;
+	if (GetLeftStickMovement().x > 0.1f || GetLeftStickMovement().x < -0.1f)
+	{
+		return GetLeftStickMovement();
+	}
+	else
+		return GetMouseAxisMovement();
 }
 
 bool InputWrapper::IsMovingUp()
@@ -102,23 +110,24 @@ bool InputWrapper::IsDashing()
 	{
 		if (!myHoldDash)
 		{
-			SetMousePosition();
 			myHoldDash = true;
+			SetMousePosition();
 		}
 
 		return true;
 	}
 	else
+	{
+		myNormalizedDirection = {};
+		myHoldDash = false;
 		return false;
+	}
 }
 
 bool InputWrapper::IsDashingReleased()
 {
 	if (GetInput()->GetKeyJustUp(Keys::SHIFTKey) || !GetController()->IsButtonHoldDown(Controller::Button::Square))
 	{
-		if (myHoldDash)
-			myHoldDash = false;
-
 		return true;
 	}
 	else
@@ -159,11 +168,12 @@ void InputWrapper::CheckMousePosition()
 	if (myHoldDash)
 	{
 		SetCursorToMiddle();
-
+		
 		if (static_cast<int>(myInput->GetMouseMovementSinceLastUpdate().y) < 0 && myMouseDirectionChanged == false)
 		{
 			myMouseDirectionChanged = true;
 			SetMousePosition();
+			
 		}
 		else if (static_cast<int>(myInput->GetMouseMovementSinceLastUpdate().y) > 0 && myMouseDirectionChanged)
 		{
@@ -180,16 +190,13 @@ void InputWrapper::SetMousePosition()
 }
 
 
-v2f InputWrapper::CalculateMouseAxis()
+void InputWrapper::CalculateMouseAxis()
 {
 	myNewMousePosition.x = static_cast<float>(myInput->GetMousePosition().x);
 	myNewMousePosition.y = static_cast<float>(myInput->GetMousePosition().y);
 
 	v2f mouseDistance = myNewMousePosition - myPreviousMousePosition;
-	v2f normalizedDistance = mouseDistance.GetNormalized();
+	myNormalizedDirection = mouseDistance.GetNormalized();
 
 	myNewMousePosition = {};
-	myPreviousMousePosition = {};
-
-	return normalizedDistance;
 }
