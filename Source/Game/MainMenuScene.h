@@ -8,6 +8,13 @@ class UIButton;
 class MainMenuScene : public Scene
 {
 public:
+    enum class eMainMenuButton
+    {
+        StartGame,
+        LevelSelect,
+        Options,
+        ExitGame
+    };
 
     MainMenuScene();
 

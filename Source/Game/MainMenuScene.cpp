@@ -4,6 +4,7 @@
 #include "UIObject.h"
 #include "UIButton.h"
 
+#include "LevelManager.hpp"
 #include "InputWrapper.h"
 
 #include "Game.h"
@@ -16,6 +17,9 @@ MainMenuScene::MainMenuScene()
 
 void MainMenuScene::Load()
 {
+	myButtons.clear();
+	myMovingIndex = {};
+
 	myInput = CGameWorld::GetInstance()->Input();
 
 	InitObjects();
@@ -121,8 +125,10 @@ void MainMenuScene::CheckButtonsPress()
 
 	if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey))
 	{
-		//SelectButton();
-		//myButtons[myMovingIndex]->ActivateButton();
+		if (myMovingIndex == static_cast<int>(eMainMenuButton::StartGame))
+			CGameWorld::GetInstance()->GetLevelManager().AdditiveLoadScene(LevelManager::eScenes::LevelScene);
+		else if (myMovingIndex == static_cast<int>(eMainMenuButton::ExitGame))
+			PostQuitMessage(0);
 	}
 }
 
