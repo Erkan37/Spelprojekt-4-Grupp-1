@@ -21,7 +21,7 @@ Bonfire::Bonfire(Scene* aScene)
 	myTurnInSpeed = 50.0f;
 
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/Temp/Bonfire.dds");
+	spriteIdle->SetSpritePath("Sprites/Objects/Bonfire.dds");
 	spriteIdle->SetSize(v2f(64.0f, 64.0f));
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
