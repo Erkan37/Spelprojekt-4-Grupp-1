@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "DataManager.h"
+#include "rapidjson/document.h"
 
 #include "SpringObject.h"
 #include "Bonfire.hpp"
@@ -18,12 +19,52 @@
 #include "MovingPlatform.hpp"
 
 
-void TiledLoader::Load(Scene* aScene, int aLevelIndexENUM)
+void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 {
 	//Jag kommer få ett dokumnt med en bana som jag kan använda för att utvinna datan
-	//DataManager::GetInstance().GetLevel([enum index]);
-	////&rapidjson::document levelDoc
-	//levelDoc[json object name].GetFloat();
+	//rapidjson::document levelDoc = DataManager::GetInstance().GetLevel(aLevelIndex);
+		//levelDoc[json object name].GetFloat();
+
+
+	rapidjson::Document levelDoc;
+	std::vector<LoadData> loadData;
+
+	std::string aLayer = "Springs";
+
+	for (int i = 0; i < levelDoc["layers"].Size(); ++i)
+	{
+		//Gather Info
+		for (int i = 0; i < levelDoc["layers"][i]["objects"].Size(); ++i)
+		{
+			LoadData data;
+			data.myPosition.x = levelDoc["layers"][i]["objects"][i]["x"].GetInt();
+			data.myPosition.y = levelDoc["layers"][i]["objects"]["y"].GetInt();
+
+			data.mySize.x = levelDoc["layers"][i]["objects"][i]["width"].GetInt();
+			data.mySize.y = levelDoc["layers"][i]["objects"][i]["height"].GetInt();
+
+			data.myType = levelDoc["layers"][i]["objects"][i]["type"].GetInt();
+
+			//if (levelDoc["layers"][i]["objects"][i]["waypoints"])
+			//{
+
+			//}
+			//Waypoint and speed is optional
+
+			loadData.push_back(data);
+		}
+
+		//Call functions
+		if (levelDoc["layers"][i]["name"] == "Platforms")
+		{
+			ParsePlatforms(loadData, aScene);
+		}
+		else if (levelDoc["layers"][i]["name"] == "Springs")
+		{
+			ParseSprings(loadData, aScene);
+		}
+		loadData.clear();
+	}
 }
 
 void TiledLoader::ParseGraphics(const std::vector<LoadData> someBG1Data, const std::vector<LoadData> someBG2Data, const std::vector<LoadData> someFG1Data, const std::vector<LoadData> someFG2Data, const std::vector<LoadData> someHRData, Scene* aScene)
