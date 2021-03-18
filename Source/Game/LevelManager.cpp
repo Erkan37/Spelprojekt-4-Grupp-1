@@ -34,23 +34,32 @@ void LevelManager::Update()
 #ifndef _RETAIL
 void LevelManager::ImGuiUpdate()
 {
-	bool levelManager = true;
-	ImGui::Begin("Level Manager", &levelManager, ImGuiWindowFlags_AlwaysAutoResize);
-
-	ImGui::InputText("Scene Path", myLevelToLoad, ImGuiWindowFlags_AlwaysAutoResize);
-
-	if (ImGui::Button("Load Scene"))
+	if (myImGuiIsActive)
 	{
-		SingleLoadScene(eScenes::LevelScene);
-	}
+		bool levelManager = true;
+		ImGui::Begin("Level Manager", &levelManager, ImGuiWindowFlags_AlwaysAutoResize);
 
-	if (ImGui::Button("MainMenu"))
-	{
-		SingleLoadScene(eScenes::MainMenu);
-	}
+		ImGui::InputText("Scene Path", myLevelToLoad, ImGuiWindowFlags_AlwaysAutoResize);
 
-	ImGui::End();
+		if (ImGui::Button("Load Scene"))
+		{
+			SingleLoadScene(eScenes::LevelScene);
+		}
+
+		if (ImGui::Button("MainMenu"))
+		{
+			SingleLoadScene(eScenes::MainMenu);
+		}
+
+		ImGui::End();
+	}
 }
+
+void LevelManager::ToggleImGui()
+{
+	myImGuiIsActive = !myImGuiIsActive;
+}
+
 #endif //RETAIL
 
 void LevelManager::SingleLoadScene(eScenes aScene)
