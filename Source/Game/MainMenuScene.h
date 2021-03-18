@@ -1,6 +1,8 @@
 #pragma once
 #include "Scene.h"
 
+class UIObject;
+
 class MainMenuScene : public Scene
 {
 public:
@@ -16,7 +18,7 @@ public:
 
 
 private:
-
+    std::unique_ptr<UIObject> myBackground;
 
 
 };
