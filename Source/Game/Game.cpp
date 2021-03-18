@@ -121,8 +121,7 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 #endif // RETAIL
 
 	createParameters.myUseLetterboxAndPillarbox;
-	createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight);
-	createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth);
+
 	createParameters.myTargetHeight = Config::height;
 	createParameters.myTargetWidth = Config::width;
 	createParameters.myClearColor = Tga2D::CColor(0.0f, 0.0f, 0.0f, 1.0f);

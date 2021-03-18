@@ -21,6 +21,7 @@ public:
 	v2f GetLeftStickMovement();
 	v2f GetRightStickMovement();
 
+	v2f GetMouseAxisMovement();
 	v2f GetAxisMovement();
 
 	bool IsMovingUp();
@@ -30,6 +31,8 @@ public:
 	bool IsJumping();
 	bool IsDashing();
 	bool IsDashingReleased();
+
+	//void CalculateAxis();
 	
 
 	std::shared_ptr<Utils::Input> GetInput();
@@ -40,15 +43,21 @@ private:
 	std::shared_ptr<Controller> myController;
 
 	bool myHoldDash;
-	bool myMouseDirectionChanged;
 
+	POINT myCursor;
+
+	v2f myScreenSize;
+
+	v2f myMouseDirection;
 	v2f myPreviousMousePosition;
 	v2f myNewMousePosition;
+	v2f myNormalizedDirection;
 
-	void SetCursorToMiddle();
-	void CheckMousePosition();
+	void SetCursor();
+	void CheckMousePosition(const float& aDeltaTime);
 	void SetMousePosition();
-	v2f CalculateMouseAxis();
+	void CalculateMouseAxis();
+	void SetCursorMiddle();
 
 };
 

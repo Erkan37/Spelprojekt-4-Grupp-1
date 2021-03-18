@@ -6,6 +6,8 @@
 #include "SpringObject.h"
 #include "PauseMenu.h"
 
+#include "Subscriber.hpp"
+
 class GameObject;
 
 class LevelScene :

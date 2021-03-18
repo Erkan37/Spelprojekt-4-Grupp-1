@@ -1,6 +1,7 @@
 #include <memory>
 #include "stdafx.h"
 #include "InputWrapper.h"
+#include <iostream>
 
 #include "../External/Headers/CU/Utilities.h"
 
@@ -9,11 +10,13 @@ InputWrapper::InputWrapper()
 	myController = {};
 	myInput = {};
 	myHoldDash = {};
-	myMouseDirectionChanged = {};
+	myMouseDirection = {};
 }
 
 void InputWrapper::Init()
 {
+	//myMouseSensitivityX = 4.f;
+	//myMouseSensitivityY = 4.f;
 	myController = std::make_shared<Controller>();
 	myInput = std::make_shared<Utils::Input>();
 	myController->Init();
@@ -21,10 +24,12 @@ void InputWrapper::Init()
 
 void InputWrapper::Update(const float& aDeltaTime)
 {
-	CheckMousePosition();
+	GetCursorPos(&myCursor);
 
 	myInput->Update();
 	myController->Update(aDeltaTime);
+	CheckMousePosition(aDeltaTime);
+	CalculateMouseAxis();
 }
 
 float InputWrapper::GetLeftPullForce()
@@ -47,12 +52,20 @@ v2f InputWrapper::GetRightStickMovement()
 	return myController->GetRightThumbStick();
 }
 
+v2f InputWrapper::GetMouseAxisMovement()
+{
+	//return myMouseDirection;
+	return myNormalizedDirection;
+}
+
 v2f InputWrapper::GetAxisMovement()
 {
-	v2f position = GetLeftStickMovement();// +CalculateMouseAxis();
-	v2f normalizedPosition = position.GetNormalized();
-	
-	return normalizedPosition;
+	if (GetLeftStickMovement().x > 0.f || GetLeftStickMovement().x < 0.f)
+	{
+		return GetLeftStickMovement();
+	}
+	else
+		return GetMouseAxisMovement();
 }
 
 bool InputWrapper::IsMovingUp()
@@ -102,23 +115,25 @@ bool InputWrapper::IsDashing()
 	{
 		if (!myHoldDash)
 		{
-			SetMousePosition();
+			SetCursorMiddle();
 			myHoldDash = true;
+			SetMousePosition();
 		}
 
 		return true;
 	}
 	else
+	{
+		myNormalizedDirection = {};
+		myHoldDash = false;
 		return false;
+	}
 }
 
 bool InputWrapper::IsDashingReleased()
 {
 	if (GetInput()->GetKeyJustUp(Keys::SHIFTKey) || !GetController()->IsButtonHoldDown(Controller::Button::Square))
 	{
-		if (myHoldDash)
-			myHoldDash = false;
-
 		return true;
 	}
 	else
@@ -135,61 +150,66 @@ std::shared_ptr<Controller> InputWrapper::GetController()
 	return myController;
 }
 
-void InputWrapper::SetCursorToMiddle()
+void InputWrapper::SetCursor()
 {
 	HMONITOR monitor = MonitorFromWindow(*Tga2D::CEngine::GetInstance()->GetHWND(), MONITOR_DEFAULTTONEAREST);
 	MONITORINFO info;
 	info.cbSize = sizeof(MONITORINFO);
 	GetMonitorInfo(monitor, &info);
 
-	POINT cursor;
-	GetCursorPos(&cursor);
-
 	int pixels = 30;
 	int width = static_cast<int>(info.rcMonitor.right);
 	int height = static_cast<int>(info.rcMonitor.bottom);
 
-	if (cursor.x >= width - pixels || cursor.y >= height - pixels || cursor.x <= pixels || cursor.y <= pixels)
-		SetCursorPos(width / 2, height / 2);
+	myScreenSize.x = static_cast<float>(width);
+	myScreenSize.y = static_cast<float>(height);
+
+	if (myCursor.x >= width - pixels || myCursor.y >= height - pixels || myCursor.x <= pixels || myCursor.y <= pixels)
+	{
+		SetCursorMiddle();
+		SetMousePosition();
+	}
 
 }
 
-void InputWrapper::CheckMousePosition()
+void InputWrapper::CheckMousePosition(const float& aDeltaTime)
 {
 	if (myHoldDash)
 	{
-		SetCursorToMiddle();
-
-		if (static_cast<int>(myInput->GetMouseMovementSinceLastUpdate().y) < 0 && myMouseDirectionChanged == false)
-		{
-			myMouseDirectionChanged = true;
-			SetMousePosition();
-		}
-		else if (static_cast<int>(myInput->GetMouseMovementSinceLastUpdate().y) > 0 && myMouseDirectionChanged)
-		{
-			myMouseDirectionChanged = false;
-			SetMousePosition();
-		}
+		SetCursor();
 	}
 }
 
 void InputWrapper::SetMousePosition()
 {
-	myPreviousMousePosition.x = static_cast<float>(myInput->GetMousePosition().x);
-	myPreviousMousePosition.y = static_cast<float>(myInput->GetMousePosition().y);
+	myPreviousMousePosition.x = static_cast<float>(myCursor.x);
+	myPreviousMousePosition.y = static_cast<float>(myCursor.y);
 }
 
 
-v2f InputWrapper::CalculateMouseAxis()
+void InputWrapper::CalculateMouseAxis()
 {
-	myNewMousePosition.x = static_cast<float>(myInput->GetMousePosition().x);
-	myNewMousePosition.y = static_cast<float>(myInput->GetMousePosition().y);
+	myNewMousePosition.x = static_cast<float>(myCursor.x);
+	myNewMousePosition.y = static_cast<float>(myCursor.y);
 
 	v2f mouseDistance = myNewMousePosition - myPreviousMousePosition;
-	v2f normalizedDistance = mouseDistance.GetNormalized();
+	myNormalizedDirection = mouseDistance.GetNormalized();
 
 	myNewMousePosition = {};
-	myPreviousMousePosition = {};
+}
 
-	return normalizedDistance;
+void InputWrapper::SetCursorMiddle()
+{
+	HMONITOR monitor = MonitorFromWindow(*Tga2D::CEngine::GetInstance()->GetHWND(), MONITOR_DEFAULTTONEAREST);
+	MONITORINFO info;
+	info.cbSize = sizeof(MONITORINFO);
+	GetMonitorInfo(monitor, &info);
+
+	int pixels = 30;
+	int width = static_cast<int>(info.rcMonitor.right);
+	int height = static_cast<int>(info.rcMonitor.bottom);
+
+	SetCursorPos(width / 2.f, height / 2.f);
+	myCursor.x = width / 2.f;
+	myCursor.y = height / 2.f;
 }

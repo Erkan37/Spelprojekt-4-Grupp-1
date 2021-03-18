@@ -64,8 +64,8 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{bbe69fe7-de48-45c2-b985-f537615c48ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\UI">
-      <UniqueIdentifier>{90aa5cbf-0553-4171-956f-c71d7abd368d}</UniqueIdentifier>
+    <Filter Include="PostMaster">
+      <UniqueIdentifier>{065bcb5a-03fc-4a28-9906-f71ffe8a3655}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -214,9 +214,6 @@
     <ClInclude Include="SpringObject.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="DataManager.h" />
-    <ClInclude Include="EnemyProjectile.h" />
-    <ClInclude Include="Random.hpp" />
     <ClInclude Include="Bonfire.hpp">
       <Filter>Game Objects</Filter>
     </ClInclude>
@@ -241,28 +238,26 @@
     <ClInclude Include="AudioComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="EFontsSizes.hpp" />
-    <ClInclude Include="PauseScene.h" />
-    <ClInclude Include="UIText.h">
-      <Filter>Core\UI</Filter>
+    <ClInclude Include="PostMaster.hpp">
+      <Filter>PostMaster</Filter>
     </ClInclude>
-    <ClInclude Include="UIButton.h">
-      <Filter>Core\UI</Filter>
+    <ClInclude Include="Message.hpp">
+      <Filter>PostMaster</Filter>
     </ClInclude>
-    <ClInclude Include="UIManager.h">
-      <Filter>Core\UI</Filter>
+    <ClInclude Include="Subscriber.hpp">
+      <Filter>PostMaster</Filter>
     </ClInclude>
-    <ClInclude Include="UIObject.h">
-      <Filter>Core\UI</Filter>
+    <ClInclude Include="MessageTypes.hpp">
+      <Filter>PostMaster</Filter>
     </ClInclude>
-    <ClInclude Include="PauseMenu.h">
-      <Filter>Core\UI</Filter>
+    <ClInclude Include="Random.hpp">
+      <Filter>Utils\Math</Filter>
     </ClInclude>
-    <ClInclude Include="ButtonManager.h">
-      <Filter>Core\UI</Filter>
+    <ClInclude Include="DataManager.h">
+      <Filter>Managers</Filter>
     </ClInclude>
-    <ClInclude Include="TextComponent.h">
-      <Filter>Components</Filter>
+    <ClInclude Include="EnemyProjectile.h">
+      <Filter>Game Objects\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -390,9 +385,6 @@
     <ClCompile Include="SpringObject.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
-    <ClCompile Include="DataManager.cpp" />
-    <ClCompile Include="EnemyProjectile.cpp" />
-    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Bonfire.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
@@ -417,27 +409,20 @@
     <ClCompile Include="AudioComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="PauseScene.cpp" />
-    <ClCompile Include="UIButton.cpp">
-      <Filter>Core\UI</Filter>
+    <ClCompile Include="PostMaster.cpp">
+      <Filter>PostMaster</Filter>
     </ClCompile>
-    <ClCompile Include="UIManager.cpp">
-      <Filter>Core\UI</Filter>
+    <ClCompile Include="Subscriber.cpp">
+      <Filter>PostMaster</Filter>
     </ClCompile>
-    <ClCompile Include="UIObject.cpp">
-      <Filter>Core\UI</Filter>
+    <ClCompile Include="Random.cpp">
+      <Filter>Utils\Math</Filter>
     </ClCompile>
-    <ClCompile Include="UIText.cpp">
-      <Filter>Core\UI</Filter>
+    <ClCompile Include="DataManager.cpp">
+      <Filter>Managers</Filter>
     </ClCompile>
-    <ClCompile Include="PauseMenu.cpp">
-      <Filter>Core\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="ButtonManager.cpp">
-      <Filter>Core\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="TextComponent.cpp">
-      <Filter>Components</Filter>
+    <ClCompile Include="EnemyProjectile.cpp">
+      <Filter>Game Objects\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

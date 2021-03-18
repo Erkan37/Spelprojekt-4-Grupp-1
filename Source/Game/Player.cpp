@@ -18,6 +18,8 @@
 
 #include "Ledge.h"
 
+#include "PostMaster.hpp"
+
 #ifdef _DEBUG
 #include "imgui.h"
 #endif // DEBUG
@@ -100,11 +102,17 @@ void Player::InitAnimations()
 	spriteFall->SetSize(mySize);
 	spriteFall->Deactivate();
 
+	SpriteComponent* spriteLedgeGrab = AddComponent<SpriteComponent>();
+	spriteLedgeGrab->SetSpritePath("Sprites/Characters/playerLedgeGrab2.dds");
+	spriteLedgeGrab->SetSize(mySize);
+	spriteLedgeGrab->Deactivate();
+
 	myAnimations[0] = Animation(false, false, false, 0, 74, 74, 0.08f, spriteIdle, 16, 16);
 	myAnimations[1] = Animation(false, false, false, 0, 12, 12, 0.05f, spriteRun, 16, 16);
 	myAnimations[2] = Animation(false, true, false, 0, 6, 6, 0.10f, spriteJump, 16, 16);
 	myAnimations[3] = Animation(false, true, false, 0, 5, 5, 0.10f, spriteDoubleJump, 16, 16);
 	myAnimations[4] = Animation(false, false, false, 0, 4, 4, 0.10f, spriteFall, 16, 16);
+	myAnimations[5] = Animation(false, false, false, 0, 22, 22, 0.10f, spriteLedgeGrab, 16, 16);
 
 	AnimationComponent* animation = AddComponent<AnimationComponent>();
 	animation->SetSprite(spriteIdle);
@@ -144,10 +152,12 @@ void Player::Update(const float& aDeltaTime)
 		}
 	}
 
+	/*
 	if (myTransform.myPosition.y + mySize.y > myScene->GetCamera().GetBounds().y + myScene->GetCamera().GetBoundSize().y)
 	{
 		Kill();
 	}
+	*/
 
 	AnimationState();
 	GameObject::Update(aDeltaTime);
@@ -428,6 +438,9 @@ void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
 
 	SetLerpPosition(aLedgeLerpPosition);
 
+	AnimationComponent* animation = GetComponent<AnimationComponent>();
+	animation->SetAnimation(&myAnimations[5]);
+
 	myGrabbedLedge = true;
 	myCurrentVelocity.y = 0;
 	myBashAbility->ResetVelocity(true, true);
@@ -482,6 +495,7 @@ void Player::Kill()
 {
 	KillReset();
 	Respawn();
+	PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerDeath, 0));
 }
 
 void Player::Eaten()

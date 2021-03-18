@@ -99,6 +99,9 @@ private:
 	float myShakeDropoff;
 	bool myIsShaking;
 
+	bool myLesserThanViewPortX;
+	bool myLesserThanViewPortY;
+
 	/* Camera Zoom */
 	float myZoom;
 	float myInverseZoom;
