@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="AnimationComponent.hpp" />
+    <ClInclude Include="AudioComponent.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="BashAbility.h" />
@@ -166,12 +167,16 @@
     <ClInclude Include="LevelManager.hpp" />
     <ClInclude Include="LevelScene.h" />
     <ClInclude Include="MainMenuScene.h" />
+    <ClInclude Include="Message.hpp" />
+    <ClInclude Include="MessageTypes.hpp" />
     <ClInclude Include="MovingPlatform.hpp" />
+    <ClInclude Include="Subscriber.hpp" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PlatformFactory.hpp" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="PostMaster.hpp" />
     <ClInclude Include="Random.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
@@ -180,7 +185,6 @@
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="TiledLoader.h" />
     <ClInclude Include="TiledMap.h" />
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="UnstablePlatform.hpp" />
@@ -192,6 +196,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationComponent.cpp" />
+    <ClCompile Include="AudioComponent.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="BashAbility.cpp" />
@@ -226,6 +231,7 @@
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PlatformFactory.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PostMaster.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SpringObject.cpp" />
@@ -236,7 +242,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Retail|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="TiledLoader.cpp" />
+    <ClCompile Include="Subscriber.cpp" />
     <ClCompile Include="TiledMap.cpp" />
     <ClCompile Include="UnstablePlatform.cpp" />
     <ClCompile Include="Utilities.cpp" />

@@ -33,6 +33,22 @@ public:
 
 	static void SetResolution(const uint16_t& aWidth, const uint16_t& aHeight);
 
+	void SetZoom(const int aZoomX, const int aZoomY)
+	{
+		myZoomX = aZoomX;
+		myZoomY = aZoomY;
+	}
+
+	int GetZoomX()
+	{
+		return myZoomX;
+	}
+
+	int GetZoomY()
+	{
+		return myZoomY;
+	}
+
 private:
 	void InitCallBack();
 	void UpdateCallBack();
@@ -43,6 +59,9 @@ private:
 	std::atomic<bool> myActive;
 
 	Utils::Timer* myTimer;
+
+	int myZoomX = 0;
+	int myZoomY = 0;
 
 #ifndef _RETAIL
 	Debugger myDebugger;

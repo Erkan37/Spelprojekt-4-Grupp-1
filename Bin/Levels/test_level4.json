@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":46,
  "infinite":false,
  "layers":[
@@ -540,13 +547,13 @@
                  "y":176
                 }, 
                 {
-                 "height":8,
+                 "height":24,
                  "id":111,
                  "name":"",
                  "rotation":0,
                  "type":"0",
                  "visible":true,
-                 "width":40,
+                 "width":32,
                  "x":128,
                  "y":176
                 }, 
@@ -560,6 +567,28 @@
                  "width":48,
                  "x":312,
                  "y":176
+                }, 
+                {
+                 "height":8,
+                 "id":114,
+                 "name":"moving",
+                 "properties":[
+                        {
+                         "name":"Speed",
+                         "type":"float",
+                         "value":100
+                        }, 
+                        {
+                         "name":"Waypoints",
+                         "type":"string",
+                         "value":"11 0,5 0"
+                        }],
+                 "rotation":0,
+                 "type":"1",
+                 "visible":true,
+                 "width":24,
+                 "x":152,
+                 "y":264
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -796,10 +825,22 @@
                  "width":0,
                  "x":824,
                  "y":32
+                }, 
+                {
+                 "height":0,
+                 "id":115,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":128,
+                 "y":176
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -876,6 +917,29 @@
                  "width":0,
                  "x":912,
                  "y":240
+                }, 
+                {
+                 "height":0,
+                 "id":113,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Speed",
+                         "type":"float",
+                         "value":50
+                        }, 
+                        {
+                         "name":"Waypoints",
+                         "type":"string",
+                         "value":"1 0"
+                        }],
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":0,
+                 "x":256,
+                 "y":272
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1010,7 +1074,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":113,
+ "nextobjectid":116,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

@@ -13,7 +13,8 @@ void WaypointComponent::Move(const float& aDeltaTime)
 
 void WaypointComponent::CheckReachedWayPoint()
 {
-	const float sensitivity = 5.0f;
+	myDirection = (myWaypoints[myCurrentWayPointIndex] - myOwner->GetPosition()).GetNormalized();
+	const float sensitivity = 0.5f;
 	if (myOwner->GetPosition().x < myWaypoints[myCurrentWayPointIndex].x + sensitivity &&
 		myOwner->GetPosition().x > myWaypoints[myCurrentWayPointIndex].x - sensitivity &&
 		myOwner->GetPosition().y < myWaypoints[myCurrentWayPointIndex].y + sensitivity &&
@@ -30,8 +31,6 @@ void WaypointComponent::SetNextWayPoint()
 	{
 		myCurrentWayPointIndex = 0;
 	}
-
-	myDirection = (myWaypoints[myCurrentWayPointIndex] - myOwner->GetPosition()).GetNormalized();
 }
 
 void WaypointComponent::SetSpeed(const float& aSpeed)

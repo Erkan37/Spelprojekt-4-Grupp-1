@@ -5,6 +5,8 @@
 #include "BackGround.h"
 #include "SpringObject.h"
 
+#include "Subscriber.hpp"
+
 class GameObject;
 
 class LevelScene :
