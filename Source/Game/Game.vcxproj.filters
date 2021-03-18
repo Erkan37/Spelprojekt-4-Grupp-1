@@ -235,6 +235,9 @@
     <ClInclude Include="MainMenuScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="TiledLoader.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -384,6 +387,9 @@
     </ClCompile>
     <ClCompile Include="MainMenuScene.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="TiledLoader.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
