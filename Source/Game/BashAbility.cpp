@@ -43,6 +43,8 @@ void BashAbility::Init()
 	SetZIndex(1000);
 	SetPivot(v2f(0.5f, 0.5f));
 
+	myDashDirection = v2f(0.0f, -1.0f);
+
 	myAcceleration = 100.0f;
 	myRetardation = 2.0f;
 	myDashDuration = 0.15f;
@@ -54,8 +56,8 @@ void BashAbility::Init()
 
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
 	sprite->SetSpritePath("Sprites/Objects/BashArrow.dds");
-	sprite->SetSize(v2f(16.0f, 16.0f));
-	//sprite->Deactivate();
+	sprite->SetSize(v2f(8.0f, 8.0f));
+	sprite->Deactivate();
 
 	GameObject::Init();
 }
@@ -70,11 +72,6 @@ void BashAbility::Update(const float& aDeltaTime)
 	UpdateBashVelocity(aDeltaTime);
 
 	CheckButtonPress();
-
-	if (myPlayer)
-	{
-		SetPosition(myPlayer->GetPosition());
-	}
 
 	GameObject::Update(aDeltaTime);
 
@@ -169,11 +166,8 @@ void BashAbility::FreezeTime()
 
 void BashAbility::DashUse(const float& aDeltaTime)
 {
-	myUsedDashDirection = myInput->GetAxisMovement();
-	if (myUsedDashDirection.x == 0.0f && myUsedDashDirection.y == 0.0f)
-	{
-		myUsedDashDirection = v2f(0.0f, -1.0f);
-	}
+	myUsedDashDirection = myDashDirection;
+	myDashDirection = v2f(0.0f, -1.0f);
 
 	myScene->GetCamera().Shake(myDashShakeDuration, myDashShakeIntensity, myDashShakeDropOff);
 	myInput->GetController()->Vibrate(myVibrationStrength, myVibrationStrength, myVibrationLength);
@@ -202,7 +196,7 @@ void BashAbility::UseBashAbility(const float& aDeltaTime)
 	if (myButtonHold == false || myMaxDashDurationTimer <= 0)
 	{
 		DashUse(aDeltaTime);
-		//GetComponent<SpriteComponent>()->Deactivate();
+		GetComponent<SpriteComponent>()->Deactivate();
 		myPlayer->EndLerp();
 	}
 }
@@ -240,12 +234,13 @@ void BashAbility::ActivateBash(GameObject* aGameObject)
 
 void BashAbility::UpdateBashArrow()
 {
-	myDashDirection = myInput->GetAxisMovement();
-	if (myDashDirection.x == 0.0f && myDashDirection.y == 0.0f)
+	const v2f axisInput = myInput->GetAxisMovement();
+
+	if (axisInput.x != 0.0f || axisInput.y != 0.0f)
 	{
-		myDashDirection = v2f(0.0f, -1.0f);
+		myDashDirection = axisInput;
 	}
 
-	SetPosition(myPlayer->GetPosition() + myDashDirection * 32.0f);
+	SetPosition(myPlayer->GetPosition() + myDashDirection * 16.0f);
 	SetRotation(atan2(myDashDirection.y, myDashDirection.x));
 }
