@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "PopUp.h"
 
 class Scene;
 
@@ -52,5 +53,7 @@ private:
 	bool myWasCollected;
 	bool myIsSafe;
 	bool myWasTurnedIn;
+
+	PopUp* myPopUp;
 };
 

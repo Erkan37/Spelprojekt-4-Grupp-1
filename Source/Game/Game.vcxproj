@@ -172,6 +172,7 @@
     <ClInclude Include="MessageTypes.hpp" />
     <ClInclude Include="MovingPlatform.hpp" />
     <ClInclude Include="PauseMenu.h" />
+    <ClInclude Include="PopUp.h" />
     <ClInclude Include="Subscriber.hpp" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
@@ -240,6 +241,7 @@
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PlatformFactory.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PopUp.cpp" />
     <ClCompile Include="PostMaster.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Scene.cpp" />

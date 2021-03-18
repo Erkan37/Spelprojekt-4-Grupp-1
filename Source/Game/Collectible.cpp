@@ -18,6 +18,7 @@
 Collectible::Collectible(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene),
+	myPopUp(new PopUp(aLevelScene)),
 	myTarget(nullptr),
 	mySpeed(1.0f),
 	myIdleMovementSpeed(5.0f),
@@ -74,6 +75,8 @@ void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 	physics->SetApplyGravity(false);
 
 	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this); //Get collision size from data manager
+
+	myPopUp->InitPopUp();
 
 	GameObject::Init();
 }
@@ -155,6 +158,10 @@ void Collectible::SetBonfire(GameObject* aGameObject)
 void Collectible::TurnIn()
 {
 	//Add To Score or whatever
+	if (myType == eCollectibleType::Easy)
+	{
+		myPopUp->SetEasyActive(true);
+	}
 	Destroy();
 }
 

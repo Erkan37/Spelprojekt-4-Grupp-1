@@ -286,6 +286,7 @@
     <ClInclude Include="PauseMenu.h">
       <Filter>Core\UI</Filter>
     </ClInclude>
+    <ClInclude Include="PopUp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -472,5 +473,6 @@
     <ClCompile Include="PauseMenu.cpp">
       <Filter>Core\UI</Filter>
     </ClCompile>
+    <ClCompile Include="PopUp.cpp" />
   </ItemGroup>
 </Project>
