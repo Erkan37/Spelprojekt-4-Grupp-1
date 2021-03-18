@@ -25,9 +25,9 @@ public:
 
 	void Update();
 
-#ifdef _DEBUG
+#ifndef _RETAIL
 	void ImGuiUpdate();
-#endif //DEBUG
+#endif //RETAIL
 
 	void SingleLoadScene(eScenes aScene);
 	void AdditiveLoadScene(eScenes aScene);
@@ -44,8 +44,8 @@ private:
 	std::map<eScenes, Scene*> myScenes;
 	std::shared_ptr<TiledMap> myTiledMap;
 
-#ifdef _DEBUG
+#ifndef _RETAIL
 	char myLevelToLoad[1024] = "Levels/test_level2.json";
-#endif //DEBUG
+#endif //RETAIL
 };
 
