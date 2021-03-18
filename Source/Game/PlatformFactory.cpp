@@ -91,9 +91,9 @@ Platform* PlatformFactory::CreateStaticPlatform(Scene* aLevelScene, const v2f& a
 {
 	Platform* staticPlatform = new Platform(aLevelScene);
 	staticPlatform->Init(aCollisionSize, aSpriteSize, aPosition, aIsOneWay);
-	//staticPlatform->AddComponent<SpriteComponent>();
-	//staticPlatform->GetComponent<SpriteComponent>()->SetSpritePath("Sprites/Platforms/BreakableFloor.dds");
-	//staticPlatform->GetComponent<SpriteComponent>()->SetSize(aSpriteSize);
+	staticPlatform->AddComponent<SpriteComponent>();
+	staticPlatform->GetComponent<SpriteComponent>()->SetSpritePath("Sprites/Platforms/BreakableFloor.dds");
+	staticPlatform->GetComponent<SpriteComponent>()->SetSize(aSpriteSize);
 	return staticPlatform;
 }
 
