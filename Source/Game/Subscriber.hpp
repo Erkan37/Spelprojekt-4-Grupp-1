@@ -8,7 +8,7 @@ public:
 	Subscriber() = default;
 	~Subscriber();
 
-	virtual void Notify(Message aMessage) = 0;
+	virtual void Notify(const Message& aMessage) = 0;
 
 	void Subscribe(eMessageType aMessageType);
 	void Unsubscribe(eMessageType aMessageType);

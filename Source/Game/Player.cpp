@@ -18,6 +18,8 @@
 
 #include "Ledge.h"
 
+#include "PostMaster.hpp"
+
 #ifdef _DEBUG
 #include "imgui.h"
 #endif // DEBUG
@@ -482,6 +484,7 @@ void Player::Kill()
 {
 	KillReset();
 	Respawn();
+	PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerDeath, 0));
 }
 
 void Player::Eaten()
