@@ -23,38 +23,45 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 
 	if (levelDoc.IsObject())
 	{
-		for (int layerIndex = 0; layerIndex < levelDoc["layers"].GetArray().Size(); ++layerIndex)
+		for (rapidjson::Value::ConstValueIterator  layer = levelDoc["layers"].Begin(); layer != levelDoc["layers"].End(); ++layer)
 		{
-			if (levelDoc["layers"].GetArray()[layerIndex].HasMember("objects"))
+			if ((*layer).HasMember("objects"))
 			{
 				//Gather Info
-				for (int objIndex = 0; objIndex < levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray().Size(); ++objIndex)
+				for (rapidjson::Value::ConstValueIterator  object = (*layer)["objects"].Begin(); object != (*layer)["objects"].End(); ++object)
 				{
 					LoadData data;
-					data.myPosition.x = levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex]["x"].GetInt();
-					data.myPosition.y = levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex]["y"].GetInt();
+					data.myPosition.x = (*object)["x"].GetInt();
+					data.myPosition.y = (*object)["y"].GetInt();
 
-					data.mySize.x = levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex]["width"].GetInt();
-					data.mySize.y = levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex]["height"].GetInt();
+					data.mySize.x = (*object)["width"].GetInt();
+					data.mySize.y = (*object)["height"].GetInt();
 
-					std::string type = levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex]["type"].GetString();
+					std::string type = (*object)["type"].GetString();
 					std::stringstream degree(type);
 					degree >> data.myType;
 
 
-					if (levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex].HasMember("waypoints"))
+					if ((*object).HasMember("properties"))
 					{
-						data.myWaypoints = levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex]["waypoints"].GetString();
-					}
-					if (levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex].HasMember("speed"))
-					{
-						data.mySpeed = levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex]["waypoints"].GetFloat();
+						for (rapidjson::Value::ConstValueIterator property = (*object)["properties"].Begin(); property != (*object)["properties"].End(); ++property)
+						{
+							if (std::string((*property)["name"].GetString()).compare("Waypoints") == 0)
+							{
+								data.myWaypoints = (*property)["value"].GetString();
+							}
+							
+							if (std::string((*property)["name"].GetString()).compare("Speed") == 0)
+							{
+								data.mySpeed = (*property)["value"].GetFloat();
+							}
+						}
 					}
 
 					loadData.push_back(data);
 				}
 
-				std::string name = levelDoc["layers"].GetArray()[layerIndex]["name"].GetString();
+				std::string name = (*layer)["name"].GetString();
 
 				//Call functions
 				if (name == "Bonfire")

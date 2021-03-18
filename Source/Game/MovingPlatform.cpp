@@ -14,7 +14,7 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 {
 	myWaypointComponent = AddComponent<WaypointComponent>();
 	myWaypointComponent->SetOwner(this);
-	myAddedButton = {};
+	myAddedButton = false;
 }
 
 void MovingPlatform::Update(const float& aDeltaTime)
