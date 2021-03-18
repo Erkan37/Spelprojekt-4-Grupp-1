@@ -54,6 +54,9 @@ void LevelScene::Load()
 
 	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, "Levels/test_level3.json");
 
+	Ledge* ledge = new Ledge(this);
+	ledge->Init(v2f(88.0f, 0.0f), v2f(2.0f, 1.0f));
+
 	Scene::Load();
 }
 
