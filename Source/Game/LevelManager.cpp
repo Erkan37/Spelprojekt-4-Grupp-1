@@ -10,6 +10,7 @@
 LevelManager::LevelManager()
 {
 	myTiledMap = std::make_shared<TiledMap>();
+	myImGuiIsActive = {};
 }
 
 LevelManager::~LevelManager()

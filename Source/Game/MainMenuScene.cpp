@@ -128,7 +128,9 @@ void MainMenuScene::CheckButtonsPress()
 	if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey))
 	{
 		if (myMovingIndex == static_cast<int>(eMainMenuButton::StartGame))
-			CGameWorld::GetInstance()->GetLevelManager().AdditiveLoadScene(LevelManager::eScenes::LevelScene);
+			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
+		else if (myMovingIndex == static_cast<int>(LevelManager::eScenes::LevelScene))
+			CGameWorld::GetInstance()->GetLevelManager().ToggleImGui();
 		else if (myMovingIndex == static_cast<int>(eMainMenuButton::ExitGame))
 			PostQuitMessage(0);
 	}
