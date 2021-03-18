@@ -259,6 +259,9 @@
     <ClInclude Include="EnemyProjectile.h">
       <Filter>Game Objects\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="TiledLoader.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -423,6 +426,9 @@
     </ClCompile>
     <ClCompile Include="EnemyProjectile.cpp">
       <Filter>Game Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="TiledLoader.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
