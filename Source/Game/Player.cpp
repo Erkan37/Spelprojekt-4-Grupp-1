@@ -103,7 +103,7 @@ void Player::InitAnimations()
 	spriteFall->Deactivate();
 
 	SpriteComponent* spriteLedgeGrab = AddComponent<SpriteComponent>();
-	spriteLedgeGrab->SetSpritePath("Sprites/Characters/playerLedgeGrab.dds");
+	spriteLedgeGrab->SetSpritePath("Sprites/Characters/playerLedgeGrab2.dds");
 	spriteLedgeGrab->SetSize(mySize);
 	spriteLedgeGrab->Deactivate();
 
@@ -152,10 +152,12 @@ void Player::Update(const float& aDeltaTime)
 		}
 	}
 
+	/*
 	if (myTransform.myPosition.y + mySize.y > myScene->GetCamera().GetBounds().y + myScene->GetCamera().GetBoundSize().y)
 	{
 		Kill();
 	}
+	*/
 
 	AnimationState();
 	GameObject::Update(aDeltaTime);

@@ -52,7 +52,11 @@ void LevelScene::Load()
 
 	myBackground = new Background(this);
 
-	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, "Levels/test_level3.json");
+	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, "Levels/test_level4.json");
+
+	Ledge* ledge = new Ledge(this);
+	ledge->Init(v2f(128.0f, 176.0f), v2f(2.0f, 1.0f));
+	ledge->Init(v2f(672.0f, 64.0f), v2f(2.0f, 1.0f));
 
 	Scene::Load();
 }
@@ -90,7 +94,7 @@ void LevelScene::Update(const float& aDeltaTime)
 
 	GetCamera().SetZoom(zoom);
 
-	GetCamera().SetBounds(v2f(0.0f, 0.0f), v2f(1920.0f / 4.0f, 1080.0f / 6.0f));
+	GetCamera().SetBounds(v2f(0.0f, 0.0f), v2f(1920.0f, 1080.0f));
 
 	Scene::Update(aDeltaTime);
 }
