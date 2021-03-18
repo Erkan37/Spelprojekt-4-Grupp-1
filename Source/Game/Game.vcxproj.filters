@@ -67,9 +67,6 @@
     <Filter Include="PostMaster">
       <UniqueIdentifier>{065bcb5a-03fc-4a28-9906-f71ffe8a3655}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\UI">
-      <UniqueIdentifier>{cef834a4-79f8-47a4-8688-95ef41031dff}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -262,26 +259,8 @@
     <ClInclude Include="EnemyProjectile.h">
       <Filter>Game Objects\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="EFontsSizes.hpp">
-      <Filter>Core\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="PauseMenu.h">
-      <Filter>Core\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIButton.h">
-      <Filter>Core\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIManager.h">
-      <Filter>Core\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIObject.h">
-      <Filter>Core\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIText.h">
-      <Filter>Core\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="TextComponent.h">
-      <Filter>Components</Filter>
+    <ClInclude Include="TiledLoader.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -448,23 +427,8 @@
     <ClCompile Include="EnemyProjectile.cpp">
       <Filter>Game Objects\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="PauseMenu.cpp">
-      <Filter>Core\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UIButton.cpp">
-      <Filter>Core\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UIManager.cpp">
-      <Filter>Core\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UIObject.cpp">
-      <Filter>Core\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UIText.cpp">
-      <Filter>Core\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="TextComponent.cpp">
-      <Filter>Components</Filter>
+    <ClCompile Include="TiledLoader.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
