@@ -38,7 +38,7 @@ void UIObject::InitAnimation(const std::string aPathString, const v2f aSize, con
 	sprite->SetSize(aSize);
 	AnimationComponent* animation = AddComponent<AnimationComponent>();
 	animation->SetSprite(sprite);
-	Animation idleAnimation = Animation(false, false, false, 0, 8, 8, 0.15f, sprite, 16, 16);
+	Animation idleAnimation = Animation(false, false, false, 0, 8, 8, 0.10f, sprite, 16, 16);
 	animation->SetAnimation(&idleAnimation);
 
 	GameObject::Init();
