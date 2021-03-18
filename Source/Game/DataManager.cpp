@@ -101,6 +101,11 @@ Data& DataManager::GetDataStruct(const DataEnum aDataEnum)
 }
 const rapidjson::Document& DataManager::GetLevel(const unsigned int aLevelIndex) const
 {
+	if (aLevelIndex < 0 || aLevelIndex >= myLevelVector.size())
+	{
+		return myLevelVector[0];
+	}
+
 	return myLevelVector[aLevelIndex];
 }
 
