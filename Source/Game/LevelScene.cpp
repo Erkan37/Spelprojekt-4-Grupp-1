@@ -46,19 +46,9 @@ LevelScene::LevelScene()
 	Scene()
 {}
 
-void LevelScene::Notify(const Message& aMessage)
-{
-	if (aMessage.myMessageType == eMessageType::PlayerDeath)
-	{
-		CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::MainMenu);
-	}
-}
-
 void LevelScene::Load()
 {
 	myPlayer = new Player(this);
-
-	Subscribe(eMessageType::PlayerDeath);
 
 	myBackground = new Background(this);
 
