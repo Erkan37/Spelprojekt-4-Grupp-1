@@ -214,9 +214,6 @@
     <ClInclude Include="SpringObject.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="DataManager.h" />
-    <ClInclude Include="EnemyProjectile.h" />
-    <ClInclude Include="Random.hpp" />
     <ClInclude Include="Bonfire.hpp">
       <Filter>Game Objects</Filter>
     </ClInclude>
@@ -252,6 +249,15 @@
     </ClInclude>
     <ClInclude Include="MessageTypes.hpp">
       <Filter>PostMaster</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.hpp">
+      <Filter>Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="DataManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyProjectile.h">
+      <Filter>Game Objects\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -379,9 +385,6 @@
     <ClCompile Include="SpringObject.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
-    <ClCompile Include="DataManager.cpp" />
-    <ClCompile Include="EnemyProjectile.cpp" />
-    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Bonfire.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
@@ -411,6 +414,15 @@
     </ClCompile>
     <ClCompile Include="Subscriber.cpp">
       <Filter>PostMaster</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>Utils\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyProjectile.cpp">
+      <Filter>Game Objects\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
