@@ -60,7 +60,7 @@ v2f InputWrapper::GetMouseAxisMovement()
 
 v2f InputWrapper::GetAxisMovement()
 {
-	if (GetLeftStickMovement().x > 0.f || GetLeftStickMovement().x < 0.f)
+	if (GetLeftStickMovement().x != 0.0f || GetLeftStickMovement().y != 0.0f)
 	{
 		return GetLeftStickMovement();
 	}
