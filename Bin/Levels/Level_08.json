@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":23,
  "infinite":false,
  "layers":[
@@ -119,8 +126,8 @@
                  "properties":[
                         {
                          "name":"Speed",
-                         "type":"string",
-                         "value":"15"
+                         "type":"float",
+                         "value":15
                         }, 
                         {
                          "name":"Waypoints",
