@@ -154,6 +154,7 @@
     <ClInclude Include="DeadlyPlatform.hpp" />
     <ClInclude Include="Debugger.h" />
     <ClInclude Include="DestructiblePlatform.hpp" />
+    <ClInclude Include="EFontsSizes.hpp" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyFactory.h" />
     <ClInclude Include="EnemyProjectile.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Message.hpp" />
     <ClInclude Include="MessageTypes.hpp" />
     <ClInclude Include="MovingPlatform.hpp" />
+    <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="Subscriber.hpp" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
@@ -185,9 +187,14 @@
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TextComponent.h" />
     <ClInclude Include="TiledLoader.h" />
     <ClInclude Include="TiledMap.h" />
     <ClInclude Include="Transform.hpp" />
+    <ClInclude Include="UIButton.h" />
+    <ClInclude Include="UIManager.h" />
+    <ClInclude Include="UIObject.h" />
+    <ClInclude Include="UIText.h" />
     <ClInclude Include="UnstablePlatform.hpp" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Vector2.hpp" />
@@ -227,6 +234,7 @@
     <ClCompile Include="LevelScene.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="MovingPlatform.cpp" />
+    <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Platform.cpp" />
@@ -244,8 +252,13 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Retail|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Subscriber.cpp" />
+    <ClCompile Include="TextComponent.cpp" />
     <ClCompile Include="TiledLoader.cpp" />
     <ClCompile Include="TiledMap.cpp" />
+    <ClCompile Include="UIButton.cpp" />
+    <ClCompile Include="UIManager.cpp" />
+    <ClCompile Include="UIObject.cpp" />
+    <ClCompile Include="UIText.cpp" />
     <ClCompile Include="UnstablePlatform.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="WaypointComponent.cpp" />
