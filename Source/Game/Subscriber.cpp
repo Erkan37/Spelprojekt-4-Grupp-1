@@ -4,10 +4,12 @@
 
 Subscriber::~Subscriber()
 {
-	for (eMessageType& messageType : myMessagesSubscribedTo)
+	for (size_t messageTypeIndex = 0; messageTypeIndex < myMessagesSubscribedTo.size(); ++messageTypeIndex)
 	{
-		Unsubscribe(messageType);
+		PostMaster::GetInstance().RemoveSubcriber(this, myMessagesSubscribedTo[messageTypeIndex]);
 	}
+
+	myMessagesSubscribedTo.clear();
 }
 
 void Subscriber::Subscribe(eMessageType aMessageType)
@@ -27,8 +29,8 @@ void Subscriber::Unsubscribe(eMessageType aMessageType)
 	{
 		if (myMessagesSubscribedTo[messageTypeIndex] == aMessageType)
 		{
-			myMessagesSubscribedTo.erase(myMessagesSubscribedTo.begin() + messageTypeIndex);
 			PostMaster::GetInstance().RemoveSubcriber(this, aMessageType);
+			myMessagesSubscribedTo.erase(myMessagesSubscribedTo.begin() + messageTypeIndex);
 			return;
 		}
 	}

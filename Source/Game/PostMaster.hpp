@@ -24,7 +24,10 @@ public:
 	void ReceiveMessage(const Message& aMessage);
 
 private:
-	PostMaster();
+	PostMaster()
+	{
+
+	}
 
 	std::map<eMessageType, std::vector<Subscriber*>> mySubscribers;
 

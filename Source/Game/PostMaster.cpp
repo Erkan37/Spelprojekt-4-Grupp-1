@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "PostMaster.hpp"
+#include "Subscriber.hpp"
 
 void PostMaster::AddSubcriber(Subscriber* aSubscriber, eMessageType aMessageType)
 {
@@ -26,7 +27,15 @@ void PostMaster::RemoveSubcriber(Subscriber* aSubscriber, eMessageType aMessageT
 	}
 }
 
-void PostMaster::ReceiveMessage(const Message& aMessageType)
+void PostMaster::ReceiveMessage(const Message& aMessage)
 {
-	
+	if (mySubscribers.find(aMessage.myMessageType) == mySubscribers.end())
+	{
+		return;
+	}
+
+	for (Subscriber* subscriber : mySubscribers[aMessage.myMessageType])
+	{
+		subscriber->Notify(aMessage);
+	}
 }
