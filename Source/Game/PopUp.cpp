@@ -7,32 +7,45 @@
 
 
 
+
 PopUp::PopUp(Scene* aLevelScene)
 	: GameObject(aLevelScene)
 {
 	myScene = aLevelScene;
 	myEasyActive = {};
+	myCurrentTime = 0.0f;
+	myMaxTime = 2.0f;
 }
 
 void PopUp::InitPopUp()
 {
 	v2f referenceSize = Config::ourReferenceSize;
 
-	myFiree = std::make_unique<UIObject>(myScene);
-	v2f firePos = { 35.0f, 20.0f };
+	myBackground = std::make_unique<UIObject>(myScene);
+	v2f backPos = { 265.0f, 15.0f };
+	myFire = std::make_unique<UIObject>(myScene);
+	v2f firePos = { 280.0f, 30.0f };
 
-	myFiree->InitAnimation("Sprites/UI/pauseMenu/UI_Collectible_Soul_Red_16x16px.dds", { 16.0f, 16.0f }, firePos, 600);
+	myBackground->Init("Sprites/UI/popUp/UI_PopUp_84x32px.dds", { 84.0f, 32.0f }, backPos, 599);
+	myFire->InitAnimation("Sprites/UI/pauseMenu/UI_Collectible_Soul_Green_16x16px.dds", { 16.0f, 16.0f }, firePos, 600);
 
 }
 
 void PopUp::Update(const float& aDeltaTime)
 {
 	//isEasyActive();
-
 	if (myEasyActive == true)
 	{
-		myFiree->UpdateUIObjects(aDeltaTime);
+		myCurrentTime += aDeltaTime;
+		myBackground->UpdateUIObjects(aDeltaTime);
+		myFire->UpdateUIObjects(aDeltaTime);
 		ActivateEasy();
+
+	}
+	if (myCurrentTime > myMaxTime)
+	{
+		myEasyActive = false;
+		DeactivateEasy();
 	}
 
 	GameObject::Update(aDeltaTime);
@@ -50,9 +63,13 @@ void PopUp::SetEasyActive(const bool aBool)
 
 void PopUp::ActivateEasy()
 {
-	myFiree->SetActive(true);
+	myBackground->SetActive(true);
+	myFire->SetActive(true);
 }
 
 void PopUp::DeactivateEasy()
 {
+	myBackground->SetActive(false);
+	myFire->SetActive(false);
+	myCurrentTime = 0.0f;
 }

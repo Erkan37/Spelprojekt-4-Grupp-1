@@ -18,7 +18,12 @@ public:
 private:
 	Scene* myScene;
 
-	std::unique_ptr<UIObject> myFiree;
+	std::unique_ptr<UIObject> myBackground;
+	std::unique_ptr<UIObject> myFire;
+
+	float myCurrentTime;
+	float myMaxTime;
+
 
 	bool myEasyActive;
 
