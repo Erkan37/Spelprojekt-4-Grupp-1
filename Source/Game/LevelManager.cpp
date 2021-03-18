@@ -5,12 +5,14 @@
 #include "LevelScene.h"
 #include "MainMenuScene.h"
 
-#include "TiledMap.h"
+#include "TiledLoader.h"
 
 LevelManager::LevelManager()
 {
-	myTiledMap = std::make_shared<TiledMap>();
+	myTiledLoader = std::make_shared<TiledLoader>();
+#ifndef _RETAIL
 	myImGuiIsActive = {};
+#endif //RETAIL
 }
 
 LevelManager::~LevelManager()
@@ -40,7 +42,7 @@ void LevelManager::ImGuiUpdate()
 		bool levelManager = true;
 		ImGui::Begin("Level Manager", &levelManager, ImGuiWindowFlags_AlwaysAutoResize);
 
-		ImGui::InputText("Scene Path", myLevelToLoad, ImGuiWindowFlags_AlwaysAutoResize);
+		ImGui::InputInt("Scene Path", &myLevelToLoad, ImGuiWindowFlags_AlwaysAutoResize);
 
 		if (ImGui::Button("Load Scene"))
 		{
@@ -107,12 +109,12 @@ const bool LevelManager::GetIsActive(eScenes aScene)
 	return myScenes[aScene]->IsActive();
 }
 
-void LevelManager::LoadLevel(LevelScene* aLevelScene, const std::string& aLevelPath)
+void LevelManager::LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex)
 {
 #ifndef _RETAIL
-	myTiledMap->Load(myLevelToLoad, aLevelScene);
+	myTiledLoader->Load(aLevelScene, myLevelToLoad);
 	return;
 #endif //RETAIL
 
-	myTiledMap->Load(aLevelPath, aLevelScene);
+	myTiledLoader->Load(aLevelScene, aLevelIndex);
 }

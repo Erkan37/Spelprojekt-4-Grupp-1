@@ -66,7 +66,7 @@ void PauseMenu::InitMenu()
 
 void PauseMenu::Update(const float& aDeltaTime)
 {
-	if (CGameWorld::GetInstance()->Input()->GetInput()->GetKeyJustDown(Keys::ESCKey))
+	if (CGameWorld::GetInstance()->Input()->GetInput()->GetKeyJustDown(Keys::ESCKey) || myInput->GetController()->IsButtonPressed(Controller::Button::Start))
 		SetActiveMenu(!IsPauseActive());
 
 	if (myMenuActive)
@@ -101,7 +101,11 @@ void PauseMenu::SelectButton()
 		SetActiveMenu(false);
 	}
 	else if (myMovingIndex == 1)
+	{
+#ifndef _RETAIL
 		CGameWorld::GetInstance()->GetLevelManager().ToggleImGui();
+#endif //RETAIL
+	}
 	else if (myMovingIndex == 2)
 		CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::MainMenu);
 }
@@ -109,20 +113,20 @@ void PauseMenu::SelectButton()
 
 void PauseMenu::CheckIndexPress()
 {
-	if (myInput->GetInput()->GetKeyJustDown(Keys::UPARROWKey))
+	if (myInput->GetInput()->GetKeyJustDown(Keys::UPARROWKey) || myInput->GetController()->IsButtonPressed(Controller::Button::DPadUp))
 	{
 		myMovingIndex--;
 		if (myMovingIndex < 0)
 			myMovingIndex = myButtons.size() - 1;
 	}
-	else if (myInput->GetInput()->GetKeyJustDown(Keys::DOWNARROWKey))
+	else if (myInput->GetInput()->GetKeyJustDown(Keys::DOWNARROWKey) || myInput->GetController()->IsButtonPressed(Controller::Button::DPadDown))
 	{
 		myMovingIndex++;
 		if (myMovingIndex > myButtons.size() - 1)
 			myMovingIndex = 0;
 	}
 
-	if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey))
+	if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey) || myInput->GetController()->IsButtonPressed(Controller::Button::Cross))
 	{
 		SelectButton();
 		//myButtons[myMovingIndex]->ActivateButton();

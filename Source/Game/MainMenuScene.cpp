@@ -112,25 +112,29 @@ void MainMenuScene::UpdateObjects(const float& aDeltaTime)
 
 void MainMenuScene::CheckButtonsPress()
 {
-	if (myInput->GetInput()->GetKeyJustDown(Keys::UPARROWKey))
+	if (myInput->GetInput()->GetKeyJustDown(Keys::UPARROWKey) || myInput->GetController()->IsButtonPressed(Controller::Button::DPadUp))
 	{
 		myMovingIndex--;
 		if (myMovingIndex < 0)
 			myMovingIndex = myButtons.size() - 1;
 	}
-	else if (myInput->GetInput()->GetKeyJustDown(Keys::DOWNARROWKey))
+	else if (myInput->GetInput()->GetKeyJustDown(Keys::DOWNARROWKey) || myInput->GetController()->IsButtonPressed(Controller::Button::DPadDown))
 	{
 		myMovingIndex++;
 		if (myMovingIndex > myButtons.size() - 1)
 			myMovingIndex = 0;
 	}
 
-	if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey))
+	if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey) || myInput->GetController()->IsButtonPressed(Controller::Button::Cross))
 	{
 		if (myMovingIndex == static_cast<int>(eMainMenuButton::StartGame))
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
 		else if (myMovingIndex == static_cast<int>(LevelManager::eScenes::LevelScene))
+		{
+#ifndef _RETAIL
 			CGameWorld::GetInstance()->GetLevelManager().ToggleImGui();
+#endif //RETAIL
+		}
 		else if (myMovingIndex == static_cast<int>(eMainMenuButton::ExitGame))
 			PostQuitMessage(0);
 	}
