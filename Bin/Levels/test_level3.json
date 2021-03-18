@@ -598,7 +598,7 @@
                         {
                          "name":"Speed",
                          "type":"float",
-                         "value":1
+                         "value":10
                         }, 
                         {
                          "name":"Waypoints",
@@ -642,7 +642,7 @@
                  "type":"1",
                  "visible":true,
                  "width":16,
-                 "x":496,
+                 "x":488,
                  "y":72
                 }],
          "opacity":1,
@@ -691,18 +691,6 @@
                  "width":0,
                  "x":416,
                  "y":152
-                }, 
-                {
-                 "height":0,
-                 "id":106,
-                 "name":"",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":408,
-                 "y":120
                 }],
          "opacity":1,
          "type":"objectgroup",
