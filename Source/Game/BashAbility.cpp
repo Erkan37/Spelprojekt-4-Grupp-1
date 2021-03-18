@@ -53,7 +53,7 @@ void BashAbility::Init()
 	myAspectRatioFactorY = Tga2D::CEngine::GetInstance()->GetWindowSize().x / Tga2D::CEngine::GetInstance()->GetWindowSize().y;
 
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
-	sprite->SetSpritePath("BashArrow.dds");
+	sprite->SetSpritePath("Sprites/Objects/BashArrow.dds");
 	sprite->SetSize(v2f(16.0f, 16.0f));
 	//sprite->Deactivate();
 
@@ -99,10 +99,6 @@ void BashAbility::UpdateBashVelocity(const float& aDeltaTime)
 		myCurrentDashVelocity.y = Utils::Lerp(myCurrentDashVelocity.y, 0.0f, myRetardation * aDeltaTime) * myAspectRatioFactorY;
 		myIsBashing = false;
 	}
-}
-
-void BashAbility::Render()
-{
 }
 
 v2f BashAbility::GetVelocity()
