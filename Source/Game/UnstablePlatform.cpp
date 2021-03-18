@@ -58,7 +58,7 @@ void UnstablePlatform::OnCollision(GameObject* aGameObject)
 	}
 
 	Player* player = dynamic_cast<Player*>(aGameObject);
-	if (player && (!myCollidedWithPlayer && !myIsDeactivated))
+	if (player && (!myCollidedWithPlayer && !myIsDeactivated) && aGameObject->GetPositionY() < myTransform.myPosition.y)
 	{	
 		myCollidedWithPlayer = true;
 		myTimer = myDestroyTime;
