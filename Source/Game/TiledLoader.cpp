@@ -18,10 +18,6 @@
 #include "MovingPlatform.hpp"
 
 
-
-//Gör klart och fixa aPos och aImageSize
-
-
 void TiledLoader::Load(Scene* aScene, int aLevelIndexENUM)
 {
 	//Jag kommer få ett dokumnt med en bana som jag kan använda för att utvinna datan
