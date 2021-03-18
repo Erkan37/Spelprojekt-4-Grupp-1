@@ -18,5 +18,6 @@ enum EFontSize
 	EFontSize_48 = 48,
 	EFontSize_60 = 60,
 	EFontSize_72 = 72,
+	EFontSize_100 = 100,
 	EFontSize_Count
 };

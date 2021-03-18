@@ -22,7 +22,7 @@ public:
 
 	void SetActiveMenu(const bool aStatement);
 	bool IsPauseActive();
-
+	void SelectButton();
 
 private:
 	Scene* myScene;
@@ -49,9 +49,11 @@ private:
 	std::unique_ptr<UIButton> myLevelSelectBtn;
 	std::unique_ptr<UIButton> myMainMenuBtn;
 
-
-
 	std::unique_ptr<UIText> myTitleString;
+	std::unique_ptr<UIText> myCollectibleString;
+	std::unique_ptr<UIText> myCollectibleString2;
+	std::unique_ptr<UIText> myCollectibleString3;
+
 	std::shared_ptr<InputWrapper> myInput;
 
 	int myMovingIndex;

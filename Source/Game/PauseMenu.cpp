@@ -29,25 +29,25 @@ void PauseMenu::InitMenu()
 	myBackground = std::make_unique<UIObject>(myScene);
 	v2f backgroundPos = {5.f, 5.f};
 	myBar = std::make_unique<UIObject>(myScene);
-	v2f barPos = { 17.5f, 80.0f };
+	v2f barPos = { 30.0f, 90.0f };
 	myFire = std::make_unique<UIObject>(myScene);
-	v2f firePos = {55.0f, 20.0f};
+	v2f firePos = {35.0f, 20.0f};
 	myFire2 = std::make_unique<UIObject>(myScene);
-	v2f firePos2 = { 110.0f, 20.0f };
+	v2f firePos2 = { 112.5f, 20.0f };
 	myFire3 = std::make_unique<UIObject>(myScene);
-	v2f firePos3 = { 165.0f, 20.0f };
+	v2f firePos3 = { 190.0f, 20.0f };
 
 	myFireHighlight = std::make_unique<UIObject>(myScene);
 
 	myContinueBtn = std::make_unique<UIButton>(myScene);
-	v2f continuePos = { 165.f, 100.f };
+	v2f continuePos = { 165.f, 105.f };
 	myLevelSelectBtn = std::make_unique<UIButton>(myScene);
 	v2f levelSelectPos = { 165.f, 125.f };
 	myMainMenuBtn = std::make_unique<UIButton>(myScene);
-	v2f mainMenuPos = { 165.f, 150.f };
+	v2f mainMenuPos = { 165.f, 145.f };
 	
 	myBackground->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Bakground_304x164px.dds", {520.f, 265.f}, backgroundPos, 599);
-	myBar->Init("Sprites/UI/pauseMenu/UI_PauseMenu_PauseBarScreen_241x3px.dds", { 300.0f, 5.f }, barPos, 600);
+	myBar->Init("Sprites/UI/pauseMenu/UI_PauseMenu_PauseBarScreen_241x3px.dds", { 275.0f, 5.f }, barPos, 600);
 	myFire->InitAnimation("Sprites/UI/pauseMenu/UI_Collectible_Soul_Red_16x16px.dds", { 16.0f, 16.0f }, firePos, 600);
 	myFire2->InitAnimation("Sprites/UI/pauseMenu/UI_Collectible_Soul_Yellow_16x16px.dds", { 16.0f, 16.0f }, firePos2, 600);
 	myFire3->InitAnimation("Sprites/UI/pauseMenu/UI_Collectible_Soul_Green_16x16px.dds", { 16.0f, 16.0f }, firePos3, 600);
@@ -94,6 +94,14 @@ bool PauseMenu::IsPauseActive()
 	return myMenuActive;
 }
 
+void PauseMenu::SelectButton()
+{
+	if (myMovingIndex == 0)
+	{
+		SetActiveMenu(false);
+	}
+}
+
 
 void PauseMenu::CheckIndexPress()
 {
@@ -110,9 +118,9 @@ void PauseMenu::CheckIndexPress()
 			myMovingIndex = 0;
 	}
 
-
 	if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey))
 	{
+		SelectButton();
 		//myButtons[myMovingIndex]->ActivateButton();
 	}
 
@@ -143,7 +151,10 @@ void PauseMenu::ActivateMenu()
 	myFire2->SetActive(true);
 	myFire3->SetActive(true);
 	myFireHighlight->SetActive(true);
-
+	myTitleString->Activate();
+	myCollectibleString->Activate();
+	myCollectibleString2->Activate();
+	myCollectibleString3->Activate();
 }
 
 void PauseMenu::CheckActiveAnimations()
@@ -173,11 +184,26 @@ void PauseMenu::DeactivateMenu()
 	myFire2->SetActive(false);
 	myFire3->SetActive(false);
 	myFireHighlight->SetActive(false);
+	myTitleString->Deactivate();
+	myCollectibleString->Deactivate();
+	myCollectibleString2->Deactivate();
+	myCollectibleString3->Deactivate();
+
 }
 
 
 void PauseMenu::InitTexts()
 {
 	myTitleString = std::make_unique<UIText>(myScene);
-	myTitleString->Init("Message");
+	myTitleString->Init("Pause Menu", "Text/alagard.ttf", EFontSize::EFontSize_100);
+	myTitleString->SetPosition({ 160.f, 110.f });
+	myCollectibleString = std::make_unique<UIText>(myScene);
+	myCollectibleString->Init("00/00", "Text/Peepo.ttf", EFontSize::EFontSize_48);
+	myCollectibleString->SetPosition({ 50.0f, 35.0f });
+	myCollectibleString2 = std::make_unique<UIText>(myScene);
+	myCollectibleString2->Init("00/00", "Text/Peepo.ttf", EFontSize::EFontSize_48);
+	myCollectibleString2->SetPosition({ 125.0f, 35.0f });
+	myCollectibleString3 = std::make_unique<UIText>(myScene);
+	myCollectibleString3->Init("00/00", "Text/Peepo.ttf", EFontSize::EFontSize_48);
+	myCollectibleString3->SetPosition({ 205.0f, 35.0f });
 }

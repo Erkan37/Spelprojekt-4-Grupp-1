@@ -13,7 +13,7 @@ public:
 
 	UIText(Scene* aLevelScene);
 
-	void Init(const std::string aTextString, const char* aPathAndName = "Text/Peepo.ttf", EFontSize aFontSize = EFontSize::EFontSize_36, unsigned char aBorderSize = 0);
+	void Init(const std::string aTextString, const char* aPathAndName = "Text/alagard.ttf", EFontSize aFontSize = EFontSize::EFontSize_72, unsigned char aBorderSize = 0);
 
 	void SetPosition(const v2f aPosition);
 
