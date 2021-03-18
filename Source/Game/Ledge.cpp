@@ -25,7 +25,7 @@ Ledge::~Ledge()
 
 void Ledge::Init(const v2f& aPosition, const v2f& aSize)
 {
-	SetPosition(aPosition);
+	SetPosition(aPosition + v2f(0.0f, 15.0f));
 	SetPivot({ 0.5f, 0.0f });
 
 	SpriteComponent* gsprite = AddComponent<SpriteComponent>();

@@ -152,10 +152,12 @@ void Player::Update(const float& aDeltaTime)
 		}
 	}
 
+	/*
 	if (myTransform.myPosition.y + mySize.y > myScene->GetCamera().GetBounds().y + myScene->GetCamera().GetBoundSize().y)
 	{
 		Kill();
 	}
+	*/
 
 	AnimationState();
 	GameObject::Update(aDeltaTime);
