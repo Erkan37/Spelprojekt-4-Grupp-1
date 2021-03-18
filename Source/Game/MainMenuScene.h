@@ -29,6 +29,7 @@ public:
 private:
     std::unique_ptr<UIObject> myBackground;
     std::unique_ptr<UIObject> myTitleSprite;
+    std::unique_ptr<UIObject> myFireHighlight;
 
     std::vector<UIButton*> myButtons;
 

@@ -69,6 +69,7 @@ void MainMenuScene::InitObjects()
 {
 	myBackground = std::make_unique<UIObject>(this);
 	myTitleSprite = std::make_unique<UIObject>(this);
+	myFireHighlight = std::make_unique<UIObject>(this);
 	myNewGameBtn = std::make_unique<UIButton>(this);
 	myLevelSelectBtn = std::make_unique<UIButton>(this);
 	myOptionsBtn = std::make_unique<UIButton>(this);
@@ -84,10 +85,11 @@ void MainMenuScene::InitObjects()
 	
 	myBackground->Init("Sprites/UI/startMenu/UI_startMenu_Background_320x180px.dds", { 520.f, 265.f }, backgroundPos, 599);
 	myTitleSprite->Init("Sprites/UI/startMenu/UI_startMenu_Title_171x32px.dds", { 270.f, 32.f }, titleSpritePos, 600);
-	myNewGameBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_Continue_Unmarked_64x16px.dds", { 64.f,16.f }, newGameBtnPos, "Sprites/UI/pauseMenu/UI_PauseMenu_Text_Continue_Marked_64x16px.dds", 64);
-	myLevelSelectBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_LevelSelect_Unmarked_72x16px.dds", { 72.f,16.f }, levelSelectBtnPos, "Sprites/UI/pauseMenu/UI_PauseMenu_Text_LevelSelect_Marked_72x16px.dds", 72);
-	myOptionsBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_MainMenu_Unmarked_64x16px.dds", { 64.f,16.f }, optionsBtnPos, "Sprites/UI/pauseMenu/UI_PauseMenu_Text_MainMenu_Marked_64x16px.dds", 64);
-	myExitGameBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_MainMenu_Unmarked_64x16px.dds", { 64.f,16.f }, exitGameBtnPos, "Sprites/UI/pauseMenu/UI_PauseMenu_Text_MainMenu_Marked_64x16px.dds", 64);
+	myFireHighlight->InitAnimation("Sprites/UI/pauseMenu/UI_PauseMenu_Flame_16x16px.dds", { 16.0f, 16.0f }, { 200.0f, 70.0f }, 600);
+	myNewGameBtn->Init("Sprites/UI/startMenu/UI_StartMenu_Text_NewGame_56x16px_unmarked.dds", { 56.f,16.f }, newGameBtnPos, "Sprites/UI/startMenu/UI_StartMenu_Text_NewGame_56x16px_marked.dds", 56);
+	myLevelSelectBtn->Init("Sprites/UI/startMenu/UI_StartMenu_Text_LevelSelect_Unmarked_72x16px.dds", { 72.f,16.f }, levelSelectBtnPos, "Sprites/UI/startMenu/UI_StartMenu_Text_LevelSelect_Marked_72x16px.dds", 72);
+	myOptionsBtn->Init("Sprites/UI/startMenu/UI_StartMenu_Text_Option_38x16px_unmarked.dds", { 38.f,16.f }, optionsBtnPos, "Sprites/UI/startMenu/UI_StartMenu_Text_Option_38x16px_marked.dds", 38);
+	myExitGameBtn->Init("Sprites/UI/startMenu/UI_StartMenu_Text_QuitGame_56x16px_Unmarked.dds", { 56.f,16.f }, exitGameBtnPos, "Sprites/UI/startMenu/UI_StartMenu_Text_QuitGame_56x16px_Marked.dds", 56);
 	
 	SetActiveMenu(true);
 	
@@ -140,6 +142,7 @@ void MainMenuScene::SetActiveMenu(const bool aStateBool)
 	myLevelSelectBtn->SetActive(aStateBool);
 	myOptionsBtn->SetActive(aStateBool);
 	myExitGameBtn->SetActive(aStateBool);
+	myFireHighlight->SetActive(aStateBool);
 }
 
 void MainMenuScene::CheckActiveAnimations()
@@ -149,8 +152,11 @@ void MainMenuScene::CheckActiveAnimations()
 		if (i == myMovingIndex)
 		{
 			myButtons[i]->SetIsHighlightActive(true);
+			myFireHighlight->SetPositionX(myButtons[i]->GetPositionX() - 11.0f);
+			myFireHighlight->SetPositionY(myButtons[i]->GetPositionY() + 4.f);
 		}
 		else
 			myButtons[i]->SetIsHighlightActive(false);
+
 	}
 }
