@@ -96,7 +96,7 @@ void BashAbility::UpdateBashVelocity(const float& aDeltaTime)
 	{
 		myTimer = 0;
 		myCurrentDashVelocity.x = Utils::Lerp(myCurrentDashVelocity.x, 0.0f, myRetardation * aDeltaTime);
-		myCurrentDashVelocity.y = Utils::Lerp(myCurrentDashVelocity.y, 0.0f, myRetardation * aDeltaTime);
+		myCurrentDashVelocity.y = Utils::Lerp(myCurrentDashVelocity.y, 0.0f, myRetardation * aDeltaTime) * myAspectRatioFactorY;
 		myIsBashing = false;
 	}
 }
