@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 
+class InputWrapper;
 class UIObject;
 class UIButton;
 
@@ -20,6 +21,7 @@ public:
 
 private:
     std::unique_ptr<UIObject> myBackground;
+    std::unique_ptr<UIObject> myTitleSprite;
 
     std::vector<UIButton*> myButtons;
 
@@ -28,9 +30,16 @@ private:
     std::unique_ptr<UIButton> myOptionsBtn;
     std::unique_ptr<UIButton> myExitGameBtn;
 
+    std::shared_ptr<InputWrapper> myInput;
+
+    int myMovingIndex;
 
     void InitObjects();
     void UpdateObjects(const float& aDeltaTime);
+    void CheckButtonsPress();
+
+    void SetActiveMenu(const bool aStateBool);
+    void CheckActiveAnimations();
 
 };
 
