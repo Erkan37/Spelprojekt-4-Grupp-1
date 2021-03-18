@@ -1,12 +1,9 @@
 #include "stdafx.h"
 #include "TiledLoader.h"
 
-#include <sstream>
-#include <cassert>
 #include <vector>
 
 #include "DataManager.h"
-#include "rapidjson/document.h"
 
 #include "SpringObject.h"
 #include "Bonfire.hpp"
@@ -21,49 +18,93 @@
 
 void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 {
-	//Jag kommer få ett dokumnt med en bana som jag kan använda för att utvinna datan
-	//rapidjson::document levelDoc = DataManager::GetInstance().GetLevel(aLevelIndex);
-		//levelDoc[json object name].GetFloat();
-
-
-	rapidjson::Document levelDoc;
+	const rapidjson::Document& levelDoc = DataManager::GetInstance().GetLevel(aLevelIndex);
 	std::vector<LoadData> loadData;
 
-	std::string aLayer = "Springs";
-
-	for (int i = 0; i < levelDoc["layers"].Size(); ++i)
+	if (levelDoc.IsObject())
 	{
-		//Gather Info
-		for (int i = 0; i < levelDoc["layers"][i]["objects"].Size(); ++i)
+		for (int layerIndex = 0; layerIndex < levelDoc["layers"].GetArray().Size(); ++layerIndex)
 		{
-			LoadData data;
-			data.myPosition.x = levelDoc["layers"][i]["objects"][i]["x"].GetInt();
-			data.myPosition.y = levelDoc["layers"][i]["objects"]["y"].GetInt();
+			if (levelDoc["layers"].GetArray()[layerIndex].HasMember("objects"))
+			{
+				//Gather Info
+				for (int objIndex = 0; objIndex < levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray().Size(); ++objIndex)
+				{
+					LoadData data;
+					data.myPosition.x = levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex]["x"].GetInt();
+					data.myPosition.y = levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex]["y"].GetInt();
 
-			data.mySize.x = levelDoc["layers"][i]["objects"][i]["width"].GetInt();
-			data.mySize.y = levelDoc["layers"][i]["objects"][i]["height"].GetInt();
+					data.mySize.x = levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex]["width"].GetInt();
+					data.mySize.y = levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex]["height"].GetInt();
 
-			data.myType = levelDoc["layers"][i]["objects"][i]["type"].GetInt();
+					std::string type = levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex]["type"].GetString();
+					std::stringstream degree(type);
+					degree >> data.myType;
 
-			//if (levelDoc["layers"][i]["objects"][i]["waypoints"])
-			//{
 
-			//}
-			//Waypoint and speed is optional
+					if (levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex].HasMember("waypoints"))
+					{
+						data.myWaypoints = levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex]["waypoints"].GetString();
+					}
+					if (levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex].HasMember("speed"))
+					{
+						data.mySpeed = levelDoc["layers"].GetArray()[layerIndex]["objects"].GetArray()[objIndex]["waypoints"].GetFloat();
+					}
 
-			loadData.push_back(data);
+					loadData.push_back(data);
+				}
+
+				std::string name = levelDoc["layers"].GetArray()[layerIndex]["name"].GetString();
+
+				//Call functions
+				if (name == "Bonfire")
+				{
+					ParseBonfires(loadData, aScene);
+				}
+				else if (name == "Doors")
+				{
+					ParseDoors(loadData, aScene);
+				}
+				else if (name == "Enemies")
+				{
+					ParseEnemies(loadData, aScene);
+				}
+				else if (name == "Ledges")
+				{
+					ParseLedges(loadData, aScene);
+				}
+				else if (name == "Collectables")
+				{
+					ParseCollectables(loadData, aScene);
+				}
+				else if (name == "CollectableZones")
+				{
+					ParseCollectableZones(loadData, aScene);
+				}
+				else if (name == "Platforms")
+				{
+					ParsePlatforms(loadData, aScene);
+				}
+				else if (name == "HiddenRooms")
+				{
+					ParseHiddenRooms(loadData, aScene);
+				}
+				else if (name == "Springs")
+				{
+					ParseSprings(loadData, aScene);
+				}
+				else if (name == "Bashable")
+				{
+					ParseBashableObjects(loadData, aScene);
+				}
+				else if (name == "Buttons")
+				{
+					ParseButtons(loadData, aScene);
+				}
+
+				loadData.clear();
+			}
 		}
-
-		//Call functions
-		if (levelDoc["layers"][i]["name"] == "Platforms")
-		{
-			ParsePlatforms(loadData, aScene);
-		}
-		else if (levelDoc["layers"][i]["name"] == "Springs")
-		{
-			ParseSprings(loadData, aScene);
-		}
-		loadData.clear();
 	}
 }
 
@@ -71,12 +112,12 @@ void TiledLoader::ParseGraphics(const std::vector<LoadData> someBG1Data, const s
 {
 }
 
-void TiledLoader::ParseBonfires(const std::vector<v2f> somePos, Scene* aScene)
+void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aScene)
 {
-	for (int i = 0; i < somePos.size(); ++i)
+	for (int i = 0; i < someData.size(); ++i)
 	{
 		Bonfire* bonfire = new Bonfire(aScene);
-		bonfire->SetPosition(somePos[i]);
+		bonfire->SetPosition(someData[i].myPosition);
 	}
 }
 
