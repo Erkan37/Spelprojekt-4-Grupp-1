@@ -409,8 +409,5 @@
     <ClCompile Include="PostMaster.cpp">
       <Filter>PostMaster</Filter>
     </ClCompile>
-    <ClCompile Include="Subscriber.cpp">
-      <Filter>PostMaster</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

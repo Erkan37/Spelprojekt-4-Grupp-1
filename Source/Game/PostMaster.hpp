@@ -19,6 +19,7 @@ public:
 	~PostMaster() = default;
 
 	void AddSubcriber(Subscriber* aSubscriber, eMessageType aMessageType);
+	void RemoveSubcriber(Subscriber* aSubscriber, eMessageType aMessageType);
 
 	void ReceiveMessage(const Message& aMessage);
 
