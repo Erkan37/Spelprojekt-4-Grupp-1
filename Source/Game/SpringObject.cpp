@@ -6,6 +6,7 @@
 #include "ColliderComponent.h"
 #include "PhysicsComponent.h"
 #include "Player.hpp"
+#include "Game.h"
 
 SpringObject::SpringObject(Scene* aLevelScene) : GameObject(aLevelScene)
 {
@@ -22,6 +23,8 @@ void SpringObject::Init(const v2f aPosition)
 }
 void SpringObject::Update(const float& aDeltaTime)
 {
+	myTimer += aDeltaTime;
+
 #ifdef _DEBUG
 	ImGuiUpdate();
 #endif // _DEBUG
@@ -36,25 +39,23 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 		v2f playerPos = player->GetPosition();
 		v2f velo = player->GetComponent<PhysicsComponent>()->GetVelocity();
 		v2f colliderPos = GetPosition();
-		v2f buttonSize = GetComponent<SpriteComponent>()->GetSize();
 
-		float spriteLeftPosX = (colliderPos.x + GetComponent<ColliderComponent>()->GetSize().x / 2.f) - buttonSize.x;
-		float spriteRightPosX = (colliderPos.x + GetComponent<ColliderComponent>()->GetSize().x / 2.f) + buttonSize.x / 2.f;
+		float spriteLeftPosX = (colliderPos.x - GetComponent<ColliderComponent>()->GetSize().x / 2.f);
+		float spriteRightPosX = (colliderPos.x + GetComponent<ColliderComponent>()->GetSize().x / 2.f);
 
-		if (velo.y > 50 && playerPos.x >= spriteLeftPosX - 0.1f && playerPos.x <= spriteRightPosX + 0.1f && myActiveSpring == false)
+		if (playerPos.x >= spriteLeftPosX && playerPos.x <= spriteRightPosX && velo.y > 50.f && myTimer > mySpringTimerCooldown)
 		{
-			myActiveSpring = true;
+			myTimer = {};
 			player->ActivateSpringForce(-myVelocityForce, myRetardation);
 			GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[1]);
 			GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[2]);
 		}
-		else
-			myActiveSpring = false;
 	}
 }
 
 void SpringObject::InitSprings(const v2f aPosition)
 {
+	mySpringTimerCooldown = 0.1f;
 	myRetardation = 1.0f;
 	myVelocityForce = 1000;
 	myPosition = aPosition;
@@ -66,12 +67,13 @@ void SpringObject::InitSprings(const v2f aPosition)
 	CreateGroundSpring();
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
-	physics->SetCanCollide(true);
+	physics->SetCanCollide(false);
 	physics->SetIsStatic(true);
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
-	collider->SetSize({ mySize.x, mySize.y });
-	collider->SetPosition({ 0.f, -mySize.y * 0.1f });
+	collider->SetSize({ mySize.x, mySize.y * 0.05f });
+	collider->SetPosition({ 0.f, -mySize.y * 0.95f });
+
 }
 
 void SpringObject::CreateGroundSpring()

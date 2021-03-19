@@ -26,6 +26,8 @@ private:
 
 	float myVelocityForce;
 	float myRetardation;
+	float myTimer;
+	float mySpringTimerCooldown;
 
 	void InitSprings(const v2f aPosition);
 	void CreateGroundSpring();
