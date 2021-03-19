@@ -26,7 +26,7 @@ public:
 
 private:
 	eMovingPlatformType myType;
-	Button myButton;
+	Button* myButton;
 	bool myAddedButton;
 
 

@@ -101,14 +101,17 @@ public:
 	Data& GetDataStruct(const DataEnum aDataEnum);
 	void SetDataStruct(const DataEnum aDataEnum);
 
+	const rapidjson::Document& GetLevel(const unsigned int aLevelIndex) const;
+
 private:
 	//Private Methods
 	DataManager();
 	void ReadFileIntoDocument(std::string aFilePath, rapidjson::Document& anOutDoc);
 	void AssignValues(const DataEnum anEnum, const rapidjson::Document& aDoc);
 
-	//Master Document
+	//Master Documents
 	rapidjson::Document myMasterDoc;
+	rapidjson::Document myLevelMasterDoc;
 
 	//Data Structs
 	PlayerData myPlayerData;

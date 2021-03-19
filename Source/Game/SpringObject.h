@@ -22,10 +22,10 @@ private:
 	v2f myPosition;
 	v2f mySize;
 
-	bool myActiveSpring;
-
 	float myVelocityForce;
 	float myRetardation;
+	float myTimer;
+	float mySpringTimerCooldown;
 
 	void InitSprings(const v2f aPosition);
 	void CreateGroundSpring();

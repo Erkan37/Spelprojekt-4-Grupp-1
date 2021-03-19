@@ -184,13 +184,13 @@ namespace Tga2D
 
 		void SetAmbientLightValue(float aAmbientLight);
 		CDirectEngine& GetDirect3D() const { return *myDirect3D; }
+		CTextService& GetTextService() const { return *myTextService; }
     private:
 		static void DestroyInstance();
 
 		CFileWatcher* GetFileWatcher() { return myFileWatcher; }
 		
 		CRenderer& GetRenderer() const { return *myRenderer; }
-		CTextService& GetTextService() const { return *myTextService; }
 		CWindowsWindow& GetWindow() const { return *myWindow; }
 		CLightManager& GetLightManager() const { return *myLightManager; }
         CEngine(const SEngineCreateParameters& aCreateParameters);

@@ -72,6 +72,7 @@ public:
 
 private:
 	Camera& ShakeUpdate(const float& aDeltaTime);
+	float GetScaleFactor();
 
 	bool myCameraActive;
 	float myX;

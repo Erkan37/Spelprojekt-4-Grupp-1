@@ -3,7 +3,6 @@
 
 #include "../External/Headers/CU/Utilities.h"
 
-#include "SpriteComponent.h"
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
 
@@ -23,12 +22,10 @@ Platform::~Platform()
 
 void Platform::Init(const v2f& aSize, const v2f& aSpriteSize, const v2f& aPosition, const bool& aIsOneway)
 {
+	SetZIndex(501);
+
 	SetPosition(aPosition);
 	SetPivot({ 0.0f, 0.0f });
-
-	SpriteComponent* gsprite = AddComponent<SpriteComponent>();
-	gsprite->SetSpritePath("Sprites/Platform.dds");
-	gsprite->SetSize(aSpriteSize);
 
 	PhysicsComponent* gphys = AddComponent<PhysicsComponent>();
 	gphys->SetCanCollide(true);

@@ -46,7 +46,7 @@ CGameWorld::~CGameWorld()
 void CGameWorld::Init()
 {
 	myLevelManager.Init(&myMainMenuScene, &myLevelScene);
-	myLevelManager.SingleLoadScene(LevelManager::eScenes::LevelScene);
+	myLevelManager.SingleLoadScene(LevelManager::eScenes::MainMenu);
 }
 
 void CGameWorld::Update()
@@ -54,11 +54,6 @@ void CGameWorld::Update()
 	myTimer->Update();
 	myDeltaTime = myTimer->GetDeltaTime();
 	myInput->Update(myDeltaTime);
-
-	if (myInput->GetInput()->GetKeyJustDown(Keys::NumericKeypad0Key) && myLevelManager.GetIsActive(LevelManager::eScenes::LevelScene))
-	{
-		myLevelManager.SingleLoadScene(LevelManager::eScenes::MainMenu);
-	}
 
 	myLevelManager.Update();
 

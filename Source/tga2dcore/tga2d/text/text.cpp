@@ -113,3 +113,8 @@ std::string Tga2D::CText::GetPathAndName() const
 {
 	return myPathAndName;
 }
+
+void Tga2D::CText::SetFontSize(EFontSize aFontSize)
+{
+	myFontDataPointer->myFontHeightWidth = static_cast<int>(aFontSize);
+}

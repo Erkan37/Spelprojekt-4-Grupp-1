@@ -30,6 +30,7 @@
 #include "Enemy.h"
 
 #include "Collectible.hpp"
+#include "InputWrapper.h"
 
 #include "Jesus.hpp"
 #include "HiddenArea.hpp"
@@ -38,7 +39,9 @@
 
 #include "Game.h"
 
-#include <iostream>
+#include "PostMaster.hpp"
+
+#include "TiledLoader.h"
 
 LevelScene::LevelScene()
 	: 
@@ -57,7 +60,10 @@ void LevelScene::Load()
 
 	myBackground = new Background(this);
 
-	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, "Levels/test_level3.json");
+	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, 0);
+
+	myPauseMenu = new PauseMenu(this);
+	myPauseMenu->InitMenu();
 
 	Scene::Load();
 }
@@ -81,23 +87,31 @@ void LevelScene::Update(const float& aDeltaTime)
 	const float zoomX = CGameWorld::GetInstance()->Game()->GetZoomX();
 	const float zoomY = CGameWorld::GetInstance()->Game()->GetZoomY();
 
+	constexpr float aspectRatioX = 16.0f;
+	constexpr float aspectRatioY = 9.0f;
+	constexpr float sizeX = 1920.0f;
+	constexpr float sizeY = 1080.0f;
+
 	float zoomFactor = 1.0f;
-	if (zoomX / 16.0f < zoomY / 9.0f)
+	if (zoomX / aspectRatioX < zoomY / aspectRatioY)
 	{
-		zoomFactor = zoomX / 1920.0f;
+		zoomFactor = zoomX / sizeX;
 	}
 	else
 	{
-		zoomFactor = zoomY / 1080.0f;
+		zoomFactor = zoomY / sizeY;
 	}
 
 	const float zoom = 6.0f * zoomFactor;
 
 	GetCamera().SetZoom(zoom);
 
-	GetCamera().SetBounds(v2f(0.0f, 0.0f), v2f(1920.0f / 4.0f, 1080.0f / 6.0f));
+	GetCamera().SetBounds(v2f(0.0f, 0.0f), v2f(1920.0f, 1080.0f));
 
-	Scene::Update(aDeltaTime);
+	myPauseMenu->Update(aDeltaTime);
+
+	if (myPauseMenu->IsPauseActive() == false)
+		Scene::Update(aDeltaTime);
 }
 
 const GameObject* LevelScene::GetPlayer()

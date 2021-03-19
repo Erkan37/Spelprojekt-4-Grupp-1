@@ -11,6 +11,15 @@ DataManager::DataManager()
 	//Assign MasterDoc
 	ReadFileIntoDocument("Master.json", myMasterDoc);
 
+	//Assign LevelDocs
+	ReadFileIntoDocument("Levels/LevelMaster.json", myLevelMasterDoc);
+	assert(myLevelMasterDoc["FilePathArray"].IsArray());
+	for (size_t i = 0; i < myLevelMasterDoc["FilePathArray"].GetArray().Size(); i++)
+	{
+		myLevelVector.push_back(rapidjson::Document());
+		ReadFileIntoDocument(myLevelMasterDoc["FilePathArray"].GetArray()[i]["FilePath"].GetString(), myLevelVector.back());
+	}
+
 	//Assign PlayerDoc
 	std::string playerDataPath = myMasterDoc["PlayerData"].GetString();
 	rapidjson::Document playerDoc;
@@ -89,6 +98,15 @@ Data& DataManager::GetDataStruct(const DataEnum aDataEnum)
 	}
 	break;
 	}
+}
+const rapidjson::Document& DataManager::GetLevel(const unsigned int aLevelIndex) const
+{
+	if (aLevelIndex < 0 || aLevelIndex >= myLevelVector.size())
+	{
+		return myLevelVector[0];
+	}
+
+	return myLevelVector[aLevelIndex];
 }
 
 void DataManager::ReadFileIntoDocument(std::string aFilePath, rapidjson::Document& anOutDoc)

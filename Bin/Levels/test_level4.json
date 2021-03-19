@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":46,
  "infinite":false,
  "layers":[
@@ -431,14 +438,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"5 0"
+                         "value":"0 10"
                         }],
                  "rotation":0,
                  "type":"1",
                  "visible":true,
                  "width":8,
-                 "x":432,
-                 "y":184
+                 "x":464,
+                 "y":136
                 }, 
                 {
                  "height":8,
@@ -540,13 +547,13 @@
                  "y":176
                 }, 
                 {
-                 "height":8,
+                 "height":24,
                  "id":111,
                  "name":"",
                  "rotation":0,
                  "type":"0",
                  "visible":true,
-                 "width":40,
+                 "width":32,
                  "x":128,
                  "y":176
                 }, 
@@ -818,10 +825,22 @@
                  "width":0,
                  "x":824,
                  "y":32
+                }, 
+                {
+                 "height":0,
+                 "id":115,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":128,
+                 "y":176
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -1055,7 +1074,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":115,
+ "nextobjectid":116,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

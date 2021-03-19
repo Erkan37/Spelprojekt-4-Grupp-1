@@ -25,12 +25,8 @@ Ledge::~Ledge()
 
 void Ledge::Init(const v2f& aPosition, const v2f& aSize)
 {
-	SetPosition(aPosition);
+	SetPosition(aPosition + v2f(0.0f, 13.0f));
 	SetPivot({ 0.5f, 0.0f });
-
-	SpriteComponent* gsprite = AddComponent<SpriteComponent>();
-	gsprite->SetSpritePath("Sprites/debugLedge.dds");
-	gsprite->SetSize(aSize);
 
 	PhysicsComponent* gphys = AddComponent<PhysicsComponent>();
 	gphys->SetCanCollide(false);
@@ -75,11 +71,11 @@ void Ledge::OnCollision(GameObject* aGameObject)
 				v2f playerSnapPosition = v2f(0.0f, myTransform.myPosition.y - player->GetComponent<ColliderComponent>()->GetHeight() / 2.0f);
 				if (player->GetPositionX() > myTransform.myPosition.x)
 				{
-					playerSnapPosition.x = myTransform.myPosition.x + player->GetComponent<ColliderComponent>()->GetWidth() / 2.0f;
+					playerSnapPosition.x = myTransform.myPosition.x;
 				}
 				else if (player->GetPositionX() < myTransform.myPosition.x)
 				{
-					playerSnapPosition.x = myTransform.myPosition.x - player->GetComponent<ColliderComponent>()->GetWidth() / 2.0f;
+					playerSnapPosition.x = myTransform.myPosition.x;
 				}
 
 				player->GrabLedge(playerSnapPosition, myTransform.myPosition);

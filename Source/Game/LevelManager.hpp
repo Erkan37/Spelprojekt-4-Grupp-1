@@ -5,7 +5,7 @@
 class Scene;
 class LevelScene;
 
-class TiledMap;
+class TiledLoader;
 
 class LevelManager
 {
@@ -25,9 +25,10 @@ public:
 
 	void Update();
 
-#ifdef _DEBUG
+#ifndef _RETAIL
 	void ImGuiUpdate();
-#endif //DEBUG
+	void ToggleImGui();
+#endif //RETAIL
 
 	void SingleLoadScene(eScenes aScene);
 	void AdditiveLoadScene(eScenes aScene);
@@ -38,14 +39,15 @@ public:
 
 	const bool GetIsActive(eScenes aScene);
 
-	void LoadLevel(LevelScene* aLevelScene, const std::string& aLevelPath);
+	void LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex);
 
 private:
 	std::map<eScenes, Scene*> myScenes;
-	std::shared_ptr<TiledMap> myTiledMap;
+	std::shared_ptr<TiledLoader> myTiledLoader;
 
-#ifdef _DEBUG
-	char myLevelToLoad[1024] = "Levels/test_level2.json";
-#endif //DEBUG
+#ifndef _RETAIL
+	bool myImGuiIsActive;
+	int myLevelToLoad = 0;
+#endif //RETAIL
 };
 
