@@ -72,7 +72,6 @@ LRESULT CGame::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_SIZE: 
 	{
-		SetResolution(LOWORD(lParam), HIWORD(lParam));
 		SetZoom(LOWORD(lParam), HIWORD(lParam));
 		return 0;
 	}
@@ -115,9 +114,11 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Overlapped;
 #endif // DEBUG
 #ifdef _RETAIL
-	createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight);
-	createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth);
-	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Borderless;
+	//createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight);
+	//createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth);
+	//Tga2D::CEngine::GetInstance()->SetFullScreen(monitor);
+	//createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Borderless;
+	createParameters.myStartInFullScreen = true;
 #endif // RETAIL
 
 	createParameters.myUseLetterboxAndPillarbox;
@@ -167,8 +168,8 @@ void CGame::UpdateCallBack()
 
 void CGame::SetResolution(const uint16_t& aWidth, const uint16_t& aHeight)
 {
-	//Config::width = aWidth;
-	//Config::height = aHeight;
+	Config::width = aWidth;
+	Config::height = aHeight;
 
-	//Tga2D::CEngine::GetInstance()->SetTargetSize({ aWidth, aHeight });
+	Tga2D::CEngine::GetInstance()->SetTargetSize({ aWidth, aHeight });
 }

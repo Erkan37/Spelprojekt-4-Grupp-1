@@ -15,6 +15,7 @@
 #include "BashableObject.hpp"
 #include "MovingPlatform.hpp"
 
+typedef rapidjson::Value::ConstValueIterator iterator;
 
 void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 {
@@ -23,12 +24,12 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 
 	if (levelDoc.IsObject())
 	{
-		for (rapidjson::Value::ConstValueIterator  layer = levelDoc["layers"].Begin(); layer != levelDoc["layers"].End(); ++layer)
+		for (iterator layer = levelDoc["layers"].Begin(); layer != levelDoc["layers"].End(); ++layer)
 		{
 			if ((*layer).HasMember("objects"))
 			{
 				//Gather Info
-				for (rapidjson::Value::ConstValueIterator  object = (*layer)["objects"].Begin(); object != (*layer)["objects"].End(); ++object)
+				for (iterator object = (*layer)["objects"].Begin(); object != (*layer)["objects"].End(); ++object)
 				{
 					LoadData data;
 					data.myPosition.x = (*object)["x"].GetInt();
@@ -44,7 +45,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 
 					if ((*object).HasMember("properties"))
 					{
-						for (rapidjson::Value::ConstValueIterator property = (*object)["properties"].Begin(); property != (*object)["properties"].End(); ++property)
+						for (iterator property = (*object)["properties"].Begin(); property != (*object)["properties"].End(); ++property)
 						{
 							if (std::string((*property)["name"].GetString()).compare("Waypoints") == 0)
 							{
@@ -117,6 +118,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 
 void TiledLoader::ParseGraphics(const std::vector<LoadData> someBG1Data, const std::vector<LoadData> someBG2Data, const std::vector<LoadData> someFG1Data, const std::vector<LoadData> someFG2Data, const std::vector<LoadData> someHRData, Scene* aScene)
 {
+
 }
 
 void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aScene)
@@ -237,10 +239,11 @@ void TiledLoader::ParseSprings(const std::vector<LoadData> someData, Scene* aSce
 
 void TiledLoader::ParseBashableObjects(const std::vector<LoadData> someData, Scene* aScene)
 {
+	constexpr float radius = 20.0f;
 	for (int i = 0; i < someData.size(); ++i)
 	{
 		BashableObject* bashObj = new BashableObject(aScene);
-		bashObj->Init(someData[i].myPosition, 10);
+		bashObj->Init(someData[i].myPosition, radius);
 	}
 }
 

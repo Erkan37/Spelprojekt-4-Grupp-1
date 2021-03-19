@@ -13,7 +13,6 @@ class Scene;
 static class PlatformFactory
 {
 public:
-	void ReadPlatforms(Scene* aLevelScene, const std::string& aFilePath);
 
 	Platform* CreateStaticPlatform(Scene* aLevelScene, const v2f& aPosition, const v2f& aCollisionSize, const v2f& aSpriteSize, const bool aIsOneWay);
 	MovingPlatform* CreateMovingPlatform(Scene* aLevelScene, const v2f& aPosition, const v2f& aCollisionSize, const v2f& aSpriteSize, const std::vector<v2f>& aWayPoints, const float& aSpeed);
