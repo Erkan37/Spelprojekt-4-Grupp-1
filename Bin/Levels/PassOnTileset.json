@@ -1,5 +1,13 @@
 { "columns":32,
- "image":"..\/Sprites\/tileset.dds",
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"",
+         "target":"."
+        }
+    },
+ "image":"..\/Sprites\/tileset.png",
  "imageheight":256,
  "imagewidth":256,
  "margin":0,
