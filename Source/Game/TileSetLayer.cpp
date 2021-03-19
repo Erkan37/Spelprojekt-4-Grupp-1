@@ -24,21 +24,21 @@ TileSetLayer::~TileSetLayer()
 	delete myBatch;
 }
 
-void TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerProperties, const rapidjson::GenericArray<true, int>& aLayerData, const int& aWidth, const int& aHeight, const int& aZIndex)
+void TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerProperties, const GenericArray& aLayerData, const int& aWidth, const int& aHeight, const int& aZIndex)
 {
 	SetZIndex(aZIndex);
 
 	myBatch->SetSpritePath(aTileSetLayerProperties.mySpritePath);
 	myBatch->Init();
 
-	const rapidjson::GenericArray<true, int>& data = aLayerData;
+	const GenericArray& data = aLayerData;
 
 	const int width = aWidth;
 	const int height = aHeight;
 
 	for (int dataIndex = 0; dataIndex < data.Size(); ++dataIndex)
 	{
-		if (data[dataIndex] == 0)
+		if (data[dataIndex].GetInt() == 0)
 		{
 			continue;
 		}
@@ -52,7 +52,7 @@ void TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerP
 		sprite->SetSamplerState(ESamplerFilter_Point);
 		myBatch->AddSprite(sprite);
 
-		const int realQuad = data[dataIndex] - 1.0f;
+		const int realQuad = data[dataIndex].GetInt() - 1.0f;
 		float xQ = static_cast<float>(realQuad % aTileSetLayerProperties.myQuadLengthX);
 		float yQ = static_cast<float>(realQuad / aTileSetLayerProperties.myQuadLengthX);
 
