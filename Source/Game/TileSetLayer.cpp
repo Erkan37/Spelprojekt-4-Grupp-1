@@ -26,6 +26,8 @@ TileSetLayer::~TileSetLayer()
 
 void TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerProperties, const rapidjson::GenericArray<true, int>& aLayerData, const int& aWidth, const int& aHeight, const int& aZIndex)
 {
+	SetZIndex(aZIndex);
+
 	myBatch->SetSpritePath(aTileSetLayerProperties.mySpritePath);
 	myBatch->Init();
 
