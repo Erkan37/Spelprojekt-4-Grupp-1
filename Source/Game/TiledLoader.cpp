@@ -112,6 +112,40 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 
 				loadData.clear();
 			}
+			else
+			{
+				TileLayerData layerData;
+				std::string layerName = (*layer)["name"].GetString();
+
+				if (layerName == "BG1")
+				{
+					layerData.myZ = myBG1z;
+				}
+				else if (layerName == "BG2")
+				{
+				 layerData.myZ = myBG2z;
+				}
+				else if (layerName == "FG1")
+				{
+					layerData.myZ = myFG1z;
+				}
+				else if (layerName == "FG2")
+				{
+					layerData.myZ = myFG2z;
+				}
+				else if (layerName == "HR")
+				{
+					layerData.myZ = myHRz;
+				}
+
+				layerData.mySize.x = (*layer)["width"].GetInt();
+				layerData.mySize.y = (*layer)["height"].GetInt();
+
+				for (iterator tile = (*layer)["data"].Begin(); tile != (*layer)["data"].End(); ++tile)
+				{
+					//layerData.myTiles.push_back();
+				}
+			}
 		}
 	}
 }
