@@ -140,7 +140,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 				}
 
 				TileSetLayer tileSet(aScene);
-				//tileSet.LoadTileSetLayer(myTileSetLayerProperties, (*layer)["data"].GetArray(), (*layer)["width"].GetInt(), (*layer)["height"].GetInt(), z);
+				tileSet.LoadTileSetLayer(myTileSetLayerProperties, (*layer)["data"].GetArray(), (*layer)["width"].GetInt(), (*layer)["height"].GetInt(), z);
 			}
 		}
 	}
