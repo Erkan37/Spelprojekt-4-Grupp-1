@@ -16,7 +16,7 @@ public:
 	void Update(const float& aDeltaTime);
 	void Render();
 
-	void SpawnEffect(GameObject* aObject, const eParticleEffects aEffectType);
+	void SpawnEffect(v2f aPosition, const eParticleEffects aEffectType);
 
 
 private:
@@ -26,6 +26,7 @@ private:
 	std::vector<std::shared_ptr<ParticleEffect>> myCreatedEffects;
 
 	void SpawnCharacterEffects();
+	void SpawnCharacterEffects2();
 
 };
 

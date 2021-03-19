@@ -49,6 +49,9 @@ void EffectSprite::AddSprite(SpriteComponent* aSprite)
 	mySprite->SetSize(size);
 	mySprite->SetRelativePosition({ mySprite->GetRelativePosition().x + myPosition.x , mySprite->GetRelativePosition().y});
 	mySprite->SetRelativeRotation(myRotation);
+	mySprite->Activate();
+	mySprite->SetZIndex(2000.f);
+
 }
 
 bool EffectSprite::IsAlive()

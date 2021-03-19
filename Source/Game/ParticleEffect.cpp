@@ -17,7 +17,6 @@ ParticleEffect::ParticleEffect(Scene* aLevelScene)
 {
 	mySpawnInterval = {};
 	myPlayer = {};
-	myPosition = {};
 	myIsActive = {};
 	myTimer = {};
 }
@@ -33,8 +32,8 @@ void ParticleEffect::Init(ParticleStats aStats, Player* aPlayer)
 
 	SetPivot({ 0.5f, 0.5f });
 	SetPosition(myPlayer->GetPosition());
-
-	GameObject::Init();
+	SetZIndex(2000.f);
+	Activate();
 }
 
 void ParticleEffect::Update(const float& aDeltaTime)

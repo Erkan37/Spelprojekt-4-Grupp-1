@@ -60,6 +60,10 @@ void LevelScene::Load()
 	myPauseMenu = new PauseMenu(this);
 	myPauseMenu->InitMenu();
 
+	myEffectFactory = new ParticleEffectFactory(this);
+	myEffectFactory->ReadEffects(this);
+	myEffectFactory->Init();
+
 	Scene::Load();
 }
 
@@ -79,6 +83,13 @@ void LevelScene::Deactivate()
 
 void LevelScene::Update(const float& aDeltaTime)
 {
+	if (CGameWorld::GetInstance()->Input()->GetInput()->GetKeyJustDown(Keys::RKey))
+	{
+		myEffectFactory->SpawnEffect(myPlayer->GetPosition(), eParticleEffects::FallEffect);
+	}
+
+	
+
 	const float zoomX = CGameWorld::GetInstance()->Game()->GetZoomX();
 	const float zoomY = CGameWorld::GetInstance()->Game()->GetZoomY();
 
@@ -109,7 +120,7 @@ void LevelScene::Update(const float& aDeltaTime)
 		Scene::Update(aDeltaTime);
 }
 
-const GameObject* LevelScene::GetPlayer()
+GameObject* LevelScene::GetPlayer()
 {
 	return myPlayer;
 }

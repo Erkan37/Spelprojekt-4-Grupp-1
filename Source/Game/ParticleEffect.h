@@ -18,7 +18,6 @@ public:
 
 	void Update(const float& aDeltaTime) override;
 
-	//const void SetPosition(const v2f aPosition);
 	const void SetIsActive(const bool aActiveState);
 	const void SetEffect(ParticleStats aEffect);
 	
@@ -35,7 +34,6 @@ private:
 	bool myIsActive;
 
 	Player* myPlayer;
-	v2f myPosition;
 
 	const void UpdateParticle(const float& aDeltaTime);
 	const void UpdatePlayerEffect(const float& aDeltaTime);

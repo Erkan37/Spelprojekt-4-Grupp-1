@@ -5,6 +5,7 @@
 #include "BackGround.h"
 #include "SpringObject.h"
 #include "PauseMenu.h"
+#include "ParticleEffectFactory.h"
 
 #include "Subscriber.hpp"
 
@@ -23,11 +24,12 @@ public:
 
     void Update(const float& aDeltaTime) override;
 
-    const GameObject* GetPlayer();
+    GameObject* GetPlayer();
 private:
     GameObject* myPlayer;
     Background* myBackground;
     PauseMenu* myPauseMenu;
+    ParticleEffectFactory* myEffectFactory;
 
 };
 

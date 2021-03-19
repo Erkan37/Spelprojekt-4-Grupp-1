@@ -286,6 +286,21 @@
     <ClInclude Include="PauseMenu.h">
       <Filter>Core\UI</Filter>
     </ClInclude>
+    <ClInclude Include="EffectSprite.h">
+      <Filter>Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEffect.h">
+      <Filter>Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEffectFactory.h">
+      <Filter>Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEffectTypes.hpp">
+      <Filter>Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleStats.hpp">
+      <Filter>Factories</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -471,6 +486,15 @@
     </ClCompile>
     <ClCompile Include="PauseMenu.cpp">
       <Filter>Core\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectSprite.cpp">
+      <Filter>Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEffect.cpp">
+      <Filter>Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEffectFactory.cpp">
+      <Filter>Factories</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
