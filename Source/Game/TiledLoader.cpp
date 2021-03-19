@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "DataManager.h"
+#include "TileSetLayer.hpp"
 
 #include "SpringObject.h"
 #include "Bonfire.hpp"
@@ -111,6 +112,35 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 				}
 
 				loadData.clear();
+			}
+			else
+			{					 
+				int z;
+				std::string layerName = (*layer)["name"].GetString();
+
+				if (layerName == "BG1")
+				{
+					z = myBG1z;
+				}
+				else if (layerName == "BG2")
+				{
+				 z = myBG2z;
+				}
+				else if (layerName == "FG1")
+				{
+					z = myFG1z;
+				}
+				else if (layerName == "FG2")
+				{
+					z = myFG2z;
+				}
+				else if (layerName == "HR")
+				{
+					z = myHRz;
+				}
+
+				TileSetLayer* tileSet = new TileSetLayer(aScene);
+				tileSet->LoadTileSetLayer(myTileSetLayerProperties, (*layer)["data"].GetArray(), (*layer)["width"].GetInt(), (*layer)["height"].GetInt(), z);
 			}
 		}
 	}

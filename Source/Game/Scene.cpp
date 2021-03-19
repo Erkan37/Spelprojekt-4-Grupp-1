@@ -10,6 +10,8 @@
 
 #include <algorithm>
 
+#include "TileSetLayer.hpp"
+
 std::vector<Scene*> Scene::ourScenes = std::vector<Scene*>();
 
 Scene::Scene()

@@ -171,7 +171,6 @@
     <ClInclude Include="DeadlyPlatform.hpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
-    <ClInclude Include="TiledMap.h" />
     <ClInclude Include="PlatformFactory.hpp">
       <Filter>Factories</Filter>
     </ClInclude>
@@ -283,6 +282,8 @@
     <ClInclude Include="PauseMenu.h">
       <Filter>Core\UI</Filter>
     </ClInclude>
+    <ClInclude Include="TileSetLayer.hpp" />
+    <ClInclude Include="TileSetLayerProperties.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -366,7 +367,6 @@
     <ClCompile Include="DeadlyPlatform.cpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
-    <ClCompile Include="TiledMap.cpp" />
     <ClCompile Include="PlatformFactory.cpp">
       <Filter>Factories</Filter>
     </ClCompile>
@@ -469,5 +469,7 @@
     <ClCompile Include="PauseMenu.cpp">
       <Filter>Core\UI</Filter>
     </ClCompile>
+    <ClCompile Include="TileSetLayer.cpp" />
+    <ClCompile Include="TileSetLayerProperties.cpp" />
   </ItemGroup>
 </Project>

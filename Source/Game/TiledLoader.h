@@ -4,6 +4,7 @@
 
 #include "TileSetLayerProperties.hpp"
 
+
 struct LoadData
 {
 	v2f myPosition;
@@ -11,6 +12,13 @@ struct LoadData
 	int myType;
 	std::string myWaypoints;
 	float mySpeed;
+};
+
+struct TileLayerData
+{
+	std::vector<int> myTiles;
+	v2f mySize;
+	int myZ;
 };
 
 class TiledLoader
@@ -34,8 +42,14 @@ private:
 
 	std::vector<v2f> GetWaypointPositions(const std::string somePositions, v2f aSpawnPos);
 
+	std::vector<TileLayerData> myTileLayerData;
 	v2f myTileSize = { 8, 8 };
 
 	TileSetLayerProperties myTileSetLayerProperties;
+	
+	int myBG1z = -20;
+	int myBG2z = -10;
+	int myFG1z = 10;
+	int myFG2z = 20;
+	int myHRz = 30;
 };
-
