@@ -4,6 +4,8 @@
 
 #include "TileSetLayerProperties.hpp"
 
+typedef rapidjson::GenericArray<true, rapidjson::GenericValue<rapidjson::UTF8<char>, rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>> GenericArray;
+
 class Scene;
 class SpritebatchComponent;
 class LoadData;
@@ -15,7 +17,7 @@ public:
     TileSetLayer(Scene* aLevelScene);
     ~TileSetLayer();
 
-    void LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerProperties, const rapidjson::GenericArray<true, int>& aLayerData, const int& aWidth, const int& aHeight, const int& aZIndex);
+    void LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerProperties, const GenericArray& aLayerData, const int& aWidth, const int& aHeight, const int& aZIndex);
 
 private:
     SpritebatchComponent* myBatch;
