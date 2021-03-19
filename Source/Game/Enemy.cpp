@@ -24,14 +24,14 @@ NormalEnemy::NormalEnemy(Scene* aScene) : Enemy(aScene)
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
 	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy1.dds");
 	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeY] });
-	this->SetZIndex(400);
+	this->SetZIndex(140);
 }
 ShootingEnemy::ShootingEnemy(Scene* aScene) : Enemy(aScene)
 {
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
 	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy2.dds");
 	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeY] });
-	this->SetZIndex(400);
+	this->SetZIndex(140);
 }
 
 void Enemy::InitEnemy(const std::vector<v2f>& someWayPoints, const float& aSpeed)
@@ -84,16 +84,18 @@ void NormalEnemy::Update(const float& aDeltaTime)
 {
 	if (IsMoving)
 	{
-		myWayPointComponent->Move(aDeltaTime);
+		GetComponent<WaypointComponent>()->Move(aDeltaTime);
 	}
+
 	GameObject::Update(aDeltaTime);
 }
 void ShootingEnemy::Update(const float& aDeltaTime)
 {
 	if (IsMoving)
 	{
-		myWayPointComponent->Move(aDeltaTime);
+		GetComponent<WaypointComponent>()->Move(aDeltaTime);
 	}
+
 	GameObject::Update(aDeltaTime);
 
 	v2f lengthToPlayer = dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition() - this->GetPosition();

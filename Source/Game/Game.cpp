@@ -114,9 +114,11 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Overlapped;
 #endif // DEBUG
 #ifdef _RETAIL
-	createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight);
-	createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth);
-	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Borderless;
+	//createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight);
+	//createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth);
+	//Tga2D::CEngine::GetInstance()->SetFullScreen(monitor);
+	//createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Borderless;
+	createParameters.myStartInFullScreen = true;
 #endif // RETAIL
 
 	createParameters.myUseLetterboxAndPillarbox;

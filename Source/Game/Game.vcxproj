@@ -190,7 +190,8 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TextComponent.h" />
     <ClInclude Include="TiledLoader.h" />
-    <ClInclude Include="TiledMap.h" />
+    <ClInclude Include="TileSetLayer.hpp" />
+    <ClInclude Include="TileSetLayerProperties.hpp" />
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UIManager.h" />
@@ -256,7 +257,8 @@
     <ClCompile Include="Subscriber.cpp" />
     <ClCompile Include="TextComponent.cpp" />
     <ClCompile Include="TiledLoader.cpp" />
-    <ClCompile Include="TiledMap.cpp" />
+    <ClCompile Include="TileSetLayer.cpp" />
+    <ClCompile Include="TileSetLayerProperties.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UIObject.cpp" />

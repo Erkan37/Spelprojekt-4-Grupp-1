@@ -34,9 +34,6 @@
     <Filter Include="Game Objects\Platforms">
       <UniqueIdentifier>{1f3f5638-6de1-4c16-b51c-6a68de44fd9d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Tileson">
-      <UniqueIdentifier>{f0781a0c-d56a-4858-93a3-aa363f8a151e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game Objects\Collectibles">
       <UniqueIdentifier>{16440345-a01a-4c7e-bc7e-6598b66bea8c}</UniqueIdentifier>
     </Filter>
@@ -174,7 +171,6 @@
     <ClInclude Include="DeadlyPlatform.hpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
-    <ClInclude Include="TiledMap.h" />
     <ClInclude Include="PlatformFactory.hpp">
       <Filter>Factories</Filter>
     </ClInclude>
@@ -289,6 +285,12 @@
     <ClInclude Include="PauseMenu.h">
       <Filter>Core\UI</Filter>
     </ClInclude>
+    <ClInclude Include="TileSetLayer.hpp">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="TileSetLayerProperties.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -372,7 +374,6 @@
     <ClCompile Include="DeadlyPlatform.cpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
-    <ClCompile Include="TiledMap.cpp" />
     <ClCompile Include="PlatformFactory.cpp">
       <Filter>Factories</Filter>
     </ClCompile>
@@ -477,6 +478,12 @@
     </ClCompile>
     <ClCompile Include="PauseMenu.cpp">
       <Filter>Core\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TileSetLayer.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="TileSetLayerProperties.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

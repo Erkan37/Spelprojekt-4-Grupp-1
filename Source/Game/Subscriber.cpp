@@ -12,7 +12,7 @@ Subscriber::~Subscriber()
 	myMessagesSubscribedTo.clear();
 }
 
-void Subscriber::Subscribe(eMessageType aMessageType)
+void Subscriber::Subscribe(const eMessageType& aMessageType)
 {
 	for (eMessageType& messageType : myMessagesSubscribedTo)
 	{
@@ -23,7 +23,7 @@ void Subscriber::Subscribe(eMessageType aMessageType)
 	PostMaster::GetInstance().AddSubcriber(this, aMessageType);
 }
 
-void Subscriber::Unsubscribe(eMessageType aMessageType)
+void Subscriber::Unsubscribe(const eMessageType& aMessageType)
 {
 	for (size_t messageTypeIndex = 0; messageTypeIndex < myMessagesSubscribedTo.size(); ++messageTypeIndex)
 	{

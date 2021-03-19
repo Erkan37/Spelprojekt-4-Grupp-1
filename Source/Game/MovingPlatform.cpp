@@ -15,6 +15,8 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	myWaypointComponent = AddComponent<WaypointComponent>();
 	myWaypointComponent->SetOwner(this);
 	myAddedButton = false;
+
+	SetZIndex(93);
 }
 
 void MovingPlatform::Update(const float& aDeltaTime)
@@ -38,7 +40,7 @@ void MovingPlatform::SetWaypoints(const std::vector<v2f>& aWaypoints)
 
 	for (const v2f& waypoint : aWaypoints)
 	{
-		adjustedWaypoints.push_back(waypoint - v2f(4.0f, 0.0f));
+		adjustedWaypoints.push_back(waypoint - v2f(xOffset, 0.0f));
 	}
 
 	myWaypointComponent->SetWaypoints(aWaypoints);

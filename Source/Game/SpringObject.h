@@ -18,9 +18,12 @@ private:
 #ifdef _DEBUG
 	void ImGuiUpdate();
 #endif // _DEBUG
+	Animation myAnimation;
 
 	v2f myPosition;
 	v2f mySize;
+
+	bool mySpringActive;
 
 	float myVelocityForce;
 	float myRetardation;
@@ -29,6 +32,4 @@ private:
 
 	void InitSprings(const v2f aPosition);
 	void CreateGroundSpring();
-
-	Animation myAnimations[3];
 };
