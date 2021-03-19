@@ -71,10 +71,19 @@ const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 {
 	myTimer += aDeltaTime;
 
-	v2f playerPosition = myPlayer->GetPosition();
-	playerPosition.y = playerPosition.y + (myPlayer->GetComponent<SpriteComponent>()->GetSizeY() / 2);
+	v2f position = {};
 
-	SetPosition(playerPosition);
+	if (myStats.myEffectTypeIndex == static_cast<int>(eParticleEffects::RunEffect))
+	{
+		position = myPlayer->GetPosition();
+		position.y = position.y + (myPlayer->GetComponent<SpriteComponent>()->GetSizeY() / 2);
+
+
+	}
+	else
+		position = GetPosition();
+	
+	SetPosition(position);
 
 	if (myTimer > mySpawnInterval)
 	{

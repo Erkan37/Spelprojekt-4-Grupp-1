@@ -118,14 +118,9 @@ void ParticleEffectFactory::SpawnEffect(v2f aPosition, const eParticleEffects aE
 	{
 		std::shared_ptr<ParticleEffect> effect = std::make_shared<ParticleEffect>(myScene);
 		effect->Init(myEffects[static_cast<int>(eParticleEffects::FallEffect)], myPlayer);
-		effect->SetIsActive(true);
-		myCreatedEffects.push_back(effect);
-
-	/*	std::shared_ptr<ParticleEffect> effect = std::make_shared<ParticleEffect>(myScene);
-		effect->Init(myEffects[static_cast<int>(aEffectType)], myPlayer);
 		effect->SetPosition(aPosition);
 		effect->SetIsActive(true);
-		myCreatedEffects.push_back(effect);*/
+		myCreatedEffects.push_back(effect);
 		break;
 	}
 	}
