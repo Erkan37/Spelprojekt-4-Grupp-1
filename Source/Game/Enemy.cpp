@@ -82,10 +82,20 @@ void ShootingEnemy::InitCollider()
 
 void NormalEnemy::Update(const float& aDeltaTime)
 {
+	if (IsMoving)
+	{
+		GetComponent<WaypointComponent>()->Move(aDeltaTime);
+	}
+
 	GameObject::Update(aDeltaTime);
 }
 void ShootingEnemy::Update(const float& aDeltaTime)
 {
+	if (IsMoving)
+	{
+		GetComponent<WaypointComponent>()->Move(aDeltaTime);
+	}
+
 	GameObject::Update(aDeltaTime);
 
 	v2f lengthToPlayer = dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition() - this->GetPosition();

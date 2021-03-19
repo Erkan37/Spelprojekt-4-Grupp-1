@@ -43,13 +43,13 @@ private:
 	std::vector<v2f> GetWaypointPositions(const std::string somePositions, v2f aSpawnPos);
 
 	std::vector<TileLayerData> myTileLayerData;
-	v2f myTileSize = { 8, 8 };
+	const v2f myTileSize = { 8, 8 };
 
 	TileSetLayerProperties myTileSetLayerProperties;
 	
-	int myBG1z = -20;
-	int myBG2z = -10;
-	int myFG1z = 10;
-	int myFG2z = 20;
-	int myHRz = 30;
+	const int myBG1z = 80;
+	const int myBG2z = 90;
+	const int myFG1z = 110;
+	const int myFG2z = 120;
+	const int myHRz = 130;
 };

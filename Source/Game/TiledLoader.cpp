@@ -124,7 +124,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 				}
 				else if (layerName == "BG2")
 				{
-				 z = myBG2z;
+					z = myBG2z;
 				}
 				else if (layerName == "FG1")
 				{
@@ -138,6 +138,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 				{
 					z = myHRz;
 				}
+
 
 				TileSetLayer* tileSet = new TileSetLayer(aScene);
 				tileSet->LoadTileSetLayer(myTileSetLayerProperties, (*layer)["data"].GetArray(), (*layer)["width"].GetInt(), (*layer)["height"].GetInt(), z);

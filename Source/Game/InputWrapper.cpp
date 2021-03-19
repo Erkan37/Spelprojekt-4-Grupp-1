@@ -103,7 +103,7 @@ bool InputWrapper::IsMovingRight()
 
 bool InputWrapper::IsJumping()
 {
-	if (GetInput()->GetKeyJustDown(Keys::SPACEBAR) || GetInput()->GetKeyJustDown(Keys::WKey) ||GetController()->IsButtonPressed(Controller::Button::Cross))
+	if (GetInput()->GetKeyJustDown(Keys::SPACEBAR) || GetInput()->GetKeyJustDown(Keys::WKey) || GetController()->IsButtonPressed(Controller::Button::Cross))
 		return true;
 	else
 		return false;
