@@ -183,6 +183,15 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity + mySpringVelocity);
 
+	if (physics->GetVelocityX() > 0)
+	{
+		myDirectionX = 1;
+	}
+	else if (physics->GetVelocityX() < 0)
+	{
+		myDirectionX = -1;
+	}
+
 	if (myCurrentVelocity.y > myJsonData->myFloatValueMap[PEnum::Trigger_Falling_Speed] && myAirCoyoteTimer <= 0)
 	{
 		myHasLanded = false;
@@ -261,8 +270,6 @@ void Player::GoRight(const float& aDeltaTime)
 	}
 
 	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, myJsonData->myFloatValueMap[PEnum::Max_Speed], myJsonData->myFloatValueMap[PEnum::Acceleration] * aDeltaTime);
-
-	myDirectionX = 1;
 }
 void Player::GoLeft(const float& aDeltaTime)
 {
@@ -282,8 +289,6 @@ void Player::GoLeft(const float& aDeltaTime)
 	}
 
 	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, -myJsonData->myFloatValueMap[PEnum::Max_Speed], myJsonData->myFloatValueMap[PEnum::Acceleration] * aDeltaTime);
-
-	myDirectionX = -1;
 }
 
 void Player::TryLetJumpWhenFalling(const float& aYDistance)
