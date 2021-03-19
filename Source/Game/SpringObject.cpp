@@ -18,6 +18,7 @@ SpringObject::SpringObject(Scene* aLevelScene) : GameObject(aLevelScene)
 
 void SpringObject::Init(const v2f aPosition)
 {
+	SetZIndex(-6);
 	InitSprings(aPosition);
 
 	GameObject::Init();

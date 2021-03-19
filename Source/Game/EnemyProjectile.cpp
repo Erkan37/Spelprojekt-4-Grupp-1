@@ -16,7 +16,7 @@ EnemyProjectile::EnemyProjectile(Scene* aScene, const v2f& aPosition, const v2f&
 	myJsonData = dynamic_cast<EnemyData*>(&DataManager::GetInstance().GetDataStruct(DataEnum::enemy));
 
 	this->Activate();
-	this->SetZIndex(400);
+	this->SetZIndex(41);
 
 	InitVisuals();
 	InitCollider();

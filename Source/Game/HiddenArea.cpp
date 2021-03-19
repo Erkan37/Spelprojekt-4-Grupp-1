@@ -17,7 +17,7 @@ HiddenArea::HiddenArea(Scene* aLevelScene, const v2f& aPosition, const v2f& aSiz
 	myOpacity(1.0f),
 	myOpacityChangeSpeed(3.0f)
 {
-	SetZIndex(600);
+	SetZIndex(30);
 	SetPosition(aPosition);
 
 	myHiddenSprite = AddComponent<SpriteComponent>();

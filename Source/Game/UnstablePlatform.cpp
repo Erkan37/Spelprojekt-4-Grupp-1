@@ -16,7 +16,7 @@ UnstablePlatform::UnstablePlatform(Scene* aLevelScene)
 	myCollidedWithPlayer(false),
 	myIsDeactivated(false)
 {
-
+	SetZIndex(-6);
 }
 
 void UnstablePlatform::Update(const float& aDeltaTime)

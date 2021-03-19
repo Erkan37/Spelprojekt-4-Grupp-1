@@ -16,7 +16,7 @@ void UIText::Init(const std::string aTextString, const char* aPathAndName, EFont
 	myText = AddComponent<TextComponent>();
 	myText->CreateText(aPathAndName, static_cast<EFontSize>(aFontSize), aBorderSize);
 	myText->SetText(aTextString);
-	SetZIndex(600);
+	SetZIndex(101);
 	myText->SetRelativePosition(referenceSize.x * 0.5f, referenceSize.y * 0.5f);
 }
 
