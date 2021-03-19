@@ -18,7 +18,7 @@ public:
 private:
 	Camera* myCamera;
 
-	std::unique_ptr<GameObject> myBackground;
+	GameObject* myBackground;
 
 	SpriteComponent* myBackgroundSprite1;
 	SpriteComponent* myBackgroundSprite2;

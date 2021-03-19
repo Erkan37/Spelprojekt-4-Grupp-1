@@ -25,7 +25,7 @@ Button::~Button()
 
 void Button::Init(const v2f myStartingPosition, const v2f myPositionFromStart)
 {
-	SetZIndex(5);
+	SetZIndex(105);
 	InitButton(myStartingPosition, myPositionFromStart);
 }
 

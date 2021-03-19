@@ -29,7 +29,7 @@ Collectible::Collectible(Scene* aLevelScene)
 	myIsSafe(false),
 	myWasTurnedIn(false)
 {
-	SetZIndex(31);
+	SetZIndex(131);
 }
 
 Collectible::~Collectible()

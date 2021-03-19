@@ -23,7 +23,7 @@ BashableObject::~BashableObject()
 
 void BashableObject::Init(const v2f& aPosition, const float& aRadius)
 {
-	SetZIndex(-3);
+	SetZIndex(97);
 
 	SetPosition(aPosition);
 	SetPivot(v2f(0.5f, 0.5f));
