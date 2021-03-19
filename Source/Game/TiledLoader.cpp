@@ -152,10 +152,11 @@ void TiledLoader::ParseEnemies(const std::vector<LoadData> someData, Scene* aSce
 
 void TiledLoader::ParseLedges(const std::vector<LoadData> someData, Scene* aScene)
 {
+	const v2f ledgeSize = v2f(2.0f, 1.0f);
 	for (int i = 0; i < someData.size(); ++i)
 	{
 		Ledge* ledge = new Ledge(aScene);
-		ledge->Init(someData[i].myPosition, someData[i].mySize);
+		ledge->Init(someData[i].myPosition, ledgeSize);
 	}
 }
 
