@@ -1,4 +1,12 @@
 { "columns":32,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"",
+         "target":"."
+        }
+    },
  "image":"..\/Sprites\/tileset.png",
  "imageheight":256,
  "imagewidth":256,
