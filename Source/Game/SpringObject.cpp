@@ -7,9 +7,11 @@
 #include "PhysicsComponent.h"
 #include "Player.hpp"
 #include "Game.h"
+#include <iostream>
 
 SpringObject::SpringObject(Scene* aLevelScene) : GameObject(aLevelScene)
 {
+	mySpringActive = {};
 	myRetardation = {};
 	myVelocityForce = {};
 }
@@ -23,6 +25,17 @@ void SpringObject::Init(const v2f aPosition)
 void SpringObject::Update(const float& aDeltaTime)
 {
 	myTimer += aDeltaTime;
+
+
+	if (mySpringActive)
+	{
+		GameObject::Update(aDeltaTime);
+
+		if (GetComponent<AnimationComponent>()->GetHasBeenDisplayedOnce())
+		{
+			mySpringActive = false;
+		}
+	}
 
 #ifdef _DEBUG
 	ImGuiUpdate();
@@ -44,10 +57,10 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 
 		if (playerPos.x >= spriteLeftPosX && playerPos.x <= spriteRightPosX && velo.y > 50.f && myTimer > mySpringTimerCooldown)
 		{
+			mySpringActive = true;
 			myTimer = {};
+			GetComponent<AnimationComponent>()->SetAnimation(&myAnimation);
 			player->ActivateSpringForce(-myVelocityForce, myRetardation);
-			GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[1]);
-			GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[2]);
 		}
 	}
 }
@@ -56,7 +69,7 @@ void SpringObject::InitSprings(const v2f aPosition)
 {
 	mySpringTimerCooldown = 0.1f;
 	myRetardation = 1.0f;
-	myVelocityForce = 250;
+	myVelocityForce = 250.f;
 	myPosition = aPosition;
 	mySize = { 16.0f, 16.0f };
 
@@ -81,14 +94,10 @@ void SpringObject::CreateGroundSpring()
 	sprite->SetSpritePath("Sprites/Objects/Mushroom.dds");
 	sprite->SetSize(mySize);
 
-	myAnimations[0] = Animation(false, true, false, 0, 1, 1, 0.08f, sprite, 16, 16);
-	myAnimations[1] = Animation(false, true, false, 0, 4, 4, 0.08f, sprite, 16, 16);
-	myAnimations[2] = Animation(true, true, false, 3, 4, 4, 0.08f, sprite, 16, 16);
-
 	AnimationComponent* animation = AddComponent<AnimationComponent>();
 	animation->SetSprite(sprite);
-	animation->SetAnimation(&myAnimations[0]);
-	sprite->SetSize(mySize);
+	myAnimation = Animation(false, false, false, 0, 4, 4, 0.06f, sprite, 16, 16);
+	animation->SetAnimation(&myAnimation);
 
 }
 
