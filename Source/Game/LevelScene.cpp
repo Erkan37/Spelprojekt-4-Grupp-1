@@ -82,14 +82,19 @@ void LevelScene::Update(const float& aDeltaTime)
 	const float zoomX = CGameWorld::GetInstance()->Game()->GetZoomX();
 	const float zoomY = CGameWorld::GetInstance()->Game()->GetZoomY();
 
+	constexpr float aspectRatioX = 16.0f;
+	constexpr float aspectRatioY = 9.0f;
+	constexpr float sizeX = 1920.0f;
+	constexpr float sizeY = 1080.0f;
+
 	float zoomFactor = 1.0f;
-	if (zoomX / 16.0f < zoomY / 9.0f)
+	if (zoomX / aspectRatioX < zoomY / aspectRatioY)
 	{
-		zoomFactor = zoomX / 1920.0f;
+		zoomFactor = zoomX / sizeX;
 	}
 	else
 	{
-		zoomFactor = zoomY / 1080.0f;
+		zoomFactor = zoomY / sizeY;
 	}
 
 	const float zoom = 6.0f * zoomFactor;
