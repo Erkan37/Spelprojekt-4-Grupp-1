@@ -2,23 +2,41 @@
 #include "LevelScene.h"
 #include "SpringObject.h"
 #include "SpriteComponent.h"
+#include "AnimationComponent.hpp"
 #include "ColliderComponent.h"
 #include "PhysicsComponent.h"
 #include "Player.hpp"
+#include "Game.h"
+#include <iostream>
 
 SpringObject::SpringObject(Scene* aLevelScene) : GameObject(aLevelScene)
 {
+	mySpringActive = {};
 	myRetardation = {};
 	myVelocityForce = {};
-	myActiveSpring = {};
 }
 
 void SpringObject::Init(const v2f aPosition)
 {
 	InitSprings(aPosition);
+
+	GameObject::Init();
 }
 void SpringObject::Update(const float& aDeltaTime)
 {
+	myTimer += aDeltaTime;
+
+
+	if (mySpringActive)
+	{
+		GameObject::Update(aDeltaTime);
+
+		if (GetComponent<AnimationComponent>()->GetHasBeenDisplayedOnce())
+		{
+			mySpringActive = false;
+		}
+	}
+
 #ifdef _DEBUG
 	ImGuiUpdate();
 #endif // _DEBUG
@@ -30,52 +48,52 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 
 	if (player != NULL)
 	{
-		v2f playerPos = player->GetPosition();
 		v2f velo = player->GetComponent<PhysicsComponent>()->GetVelocity();
-		v2f colliderPos = GetPosition();
-		v2f buttonSize = GetComponent<SpriteComponent>()->GetSize();
 
-		float spriteLeftPosX = (colliderPos.x + GetComponent<ColliderComponent>()->GetSize().x / 2.f) - buttonSize.x / 2.f;
-		float spriteRightPosX = (colliderPos.x + GetComponent<ColliderComponent>()->GetSize().x / 2.f) + buttonSize.x / 2.f;
-
-		if (velo.y > 50 && playerPos.x >= spriteLeftPosX - 5.f && playerPos.x <= spriteRightPosX + 5.f && myActiveSpring == false)
+		if (velo.y > 50.f && myTimer > mySpringTimerCooldown)
 		{
-			myActiveSpring = true;
+			mySpringActive = true;
+			myTimer = {};
+			GetComponent<AnimationComponent>()->SetAnimation(&myAnimation);
 			player->ActivateSpringForce(-myVelocityForce, myRetardation);
 		}
-		else
-			myActiveSpring = false;
 	}
 }
 
 void SpringObject::InitSprings(const v2f aPosition)
 {
+	mySpringTimerCooldown = 0.1f;
 	myRetardation = 1.0f;
-	myVelocityForce = 1000;
+	myVelocityForce = 250.f;
 	myPosition = aPosition;
-	mySize = { 32.f, 16.f };
+	mySize = { 16.0f, 16.0f };
 
 	SetPosition(myPosition);
-	SetPivot(v2f(0.f, 0.f));
+	SetPivot(v2f(0.5f, 1.0f));
 
 	CreateGroundSpring();
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
-	physics->SetCanCollide(true);
+	physics->SetCanCollide(false);
 	physics->SetIsStatic(true);
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
-	collider->SetSize(mySize);
-	collider->SetPosition({ mySize.x * 0.5f, mySize.y * 0.5f });
+	collider->SetSize({ mySize.x * 0.8f, mySize.y * 0.01f });
+	collider->SetPosition({ 0.f, -mySize.y * 0.99f });
 
-	GameObject::Init();
 }
 
 void SpringObject::CreateGroundSpring()
 {
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
-	sprite->SetSpritePath("Sprites/tempTrampoline.dds");
+	sprite->SetSpritePath("Sprites/Objects/Mushroom.dds");
 	sprite->SetSize(mySize);
+
+	AnimationComponent* animation = AddComponent<AnimationComponent>();
+	animation->SetSprite(sprite);
+	myAnimation = Animation(false, false, false, 0, 4, 4, 0.06f, sprite, 16, 16);
+	animation->SetAnimation(&myAnimation);
+
 }
 
 #ifdef _DEBUG

@@ -10,6 +10,9 @@
 #include "SpriteComponent.h"
 #include <math.h>
 
+#include "ColliderComponent.h"
+#include "PhysicsManager.h"
+
 GameObject::GameObject(Scene* aScene)
 	: myIsActive(false)
 	, myZIndex(0)
@@ -25,6 +28,8 @@ GameObject::~GameObject()
 	{
 		if (comp)
 		{
+			myScene->GetPhysics().RemoveCollider(dynamic_cast<ColliderComponent*>(comp));
+
 			delete comp;
 			comp = nullptr;
 		}

@@ -89,11 +89,11 @@ private:
 	void ImGuiUpdate();
 #endif // _DEBUG
 
-	Animation myAnimations[5];
+	Animation myAnimations[6];
 	std::vector<Collectible*> myCollectibles;
 
 	std::shared_ptr<InputWrapper> myInputHandler;
-	std::unique_ptr<BashAbility> myBashAbility;
+	BashAbility* myBashAbility;
 
 	Utils::Timer* myTimerInput;
 

@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="AnimationComponent.hpp" />
+    <ClInclude Include="AudioComponent.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="BashAbility.h" />
@@ -144,7 +145,6 @@
     <ClInclude Include="BashComponent.hpp" />
     <ClInclude Include="Bonfire.hpp" />
     <ClInclude Include="Button.h" />
-    <ClInclude Include="EffectSprite.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collectible.hpp" />
     <ClInclude Include="ColliderComponent.h" />
@@ -154,26 +154,31 @@
     <ClInclude Include="DeadlyPlatform.hpp" />
     <ClInclude Include="Debugger.h" />
     <ClInclude Include="DestructiblePlatform.hpp" />
+    <ClInclude Include="EFontsSizes.hpp" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyFactory.h" />
     <ClInclude Include="EnemyProjectile.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWorld.h" />
+    <ClInclude Include="HiddenArea.hpp" />
     <ClInclude Include="InputWrapper.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Ledge.h" />
+    <ClInclude Include="LevelManager.hpp" />
     <ClInclude Include="LevelScene.h" />
+    <ClInclude Include="MainMenuScene.h" />
+    <ClInclude Include="Message.hpp" />
+    <ClInclude Include="MessageTypes.hpp" />
     <ClInclude Include="MovingPlatform.hpp" />
-    <ClInclude Include="ParticleEffect.h" />
-    <ClInclude Include="ParticleEffectFactory.h" />
-    <ClInclude Include="ParticleEffectTypes.hpp" />
-    <ClInclude Include="ParticleStats.hpp" />
+    <ClInclude Include="PauseMenu.h" />
+    <ClInclude Include="Subscriber.hpp" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PlatformFactory.hpp" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="PostMaster.hpp" />
     <ClInclude Include="Random.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
@@ -182,16 +187,24 @@
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TextComponent.h" />
+    <ClInclude Include="TiledLoader.h" />
     <ClInclude Include="TiledMap.h" />
     <ClInclude Include="Transform.hpp" />
+    <ClInclude Include="UIButton.h" />
+    <ClInclude Include="UIManager.h" />
+    <ClInclude Include="UIObject.h" />
+    <ClInclude Include="UIText.h" />
     <ClInclude Include="UnstablePlatform.hpp" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector4.hpp" />
+    <ClInclude Include="WaypointComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationComponent.cpp" />
+    <ClCompile Include="AudioComponent.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="BashAbility.cpp" />
@@ -208,24 +221,26 @@
     <ClCompile Include="DeadlyPlatform.cpp" />
     <ClCompile Include="Debugger.cpp" />
     <ClCompile Include="DestructiblePlatform.cpp" />
-    <ClCompile Include="EffectSprite.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyFactory.cpp" />
     <ClCompile Include="EnemyProjectile.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWorld.cpp" />
+    <ClCompile Include="HiddenArea.cpp" />
     <ClCompile Include="InputWrapper.cpp" />
     <ClCompile Include="Ledge.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LevelScene.cpp" />
+    <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="MovingPlatform.cpp" />
-    <ClCompile Include="ParticleEffect.cpp" />
-    <ClCompile Include="ParticleEffectFactory.cpp" />
+    <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PlatformFactory.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PostMaster.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SpringObject.cpp" />
@@ -236,9 +251,17 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Retail|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Subscriber.cpp" />
+    <ClCompile Include="TextComponent.cpp" />
+    <ClCompile Include="TiledLoader.cpp" />
     <ClCompile Include="TiledMap.cpp" />
+    <ClCompile Include="UIButton.cpp" />
+    <ClCompile Include="UIManager.cpp" />
+    <ClCompile Include="UIObject.cpp" />
+    <ClCompile Include="UIText.cpp" />
     <ClCompile Include="UnstablePlatform.cpp" />
     <ClCompile Include="Utilities.cpp" />
+    <ClCompile Include="WaypointComponent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

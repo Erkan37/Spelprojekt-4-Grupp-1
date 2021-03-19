@@ -2,36 +2,35 @@
 #include "Platform.h"
 #include "Button.h"
 
+class WaypointComponent;
+
 class MovingPlatform : public Platform
 {
 public:
+	enum class eMovingPlatformType
+	{
+		MovingPlatform,
+		ReversePlatform,
+		PointAtoBPlatform
+	};
+
 	MovingPlatform(Scene* aLevelScene);
 
 	void Update(const float& aDeltaTime) override;
 
-	void Move(const float& aDeltaTime);
-
-	void CheckReachedWayPoint();
-	void SetNextWayPoint();
-
-	void SetSpeed(const float& aSpeed);
-
-	void AddWaypoint(const v2f& aWaypoint);
 	void SetWaypoints(const std::vector<v2f>& aWaypoints);
-	void SetButtonPosition();
 
-	void ClearWaypoints();
+	void AddButton(v2f aPosition, eMovingPlatformType aPlatformType);
 
 	void OnCollision(GameObject* aGameObject) override;
 
 private:
-	Button myButton;
-	std::vector<v2f> myWaypoints;
-	v2f myDirection;
+	eMovingPlatformType myType;
+	Button* myButton;
+	bool myAddedButton;
 
-	float mySpeed;
 
-	int myCurrentWayPointIndex;
+	WaypointComponent* myWaypointComponent;
 
 };
 

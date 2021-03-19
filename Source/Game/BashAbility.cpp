@@ -1,9 +1,11 @@
 #include "stdafx.h"
 #include "Player.hpp"
 #include "BashAbility.h"
-#include "PhysicsComponent.h"
+#include "SpriteComponent.h"
 #include "InputWrapper.h"
 #include "LevelScene.h"
+
+#include <iostream>
 
 
 BashAbility::BashAbility(LevelScene* aLevelScene)
@@ -38,14 +40,26 @@ BashAbility::~BashAbility()
 
 void BashAbility::Init()
 {
-	myAcceleration = 10.0f;
-	myRetardation = 1.0f;
-	myDashDuration = 0.5f;
+	SetZIndex(1000);
+	SetPivot(v2f(0.5f, 0.5f));
+
+	myDashDirection = v2f(0.0f, -1.0f);
+
+	myAcceleration = 100.0f;
+	myRetardation = 2.0f;
+	myDashDuration = 0.15f;
 	myMaxDashDuration = 2.0f;
 	myTimeScale = 0.0f;
 	myRadiusFromDash = true;
-	myDashSpeed = 1000.f;
+	myDashSpeed = 300.0f;
 	myAspectRatioFactorY = Tga2D::CEngine::GetInstance()->GetWindowSize().x / Tga2D::CEngine::GetInstance()->GetWindowSize().y;
+
+	SpriteComponent* sprite = AddComponent<SpriteComponent>();
+	sprite->SetSpritePath("Sprites/Objects/BashArrow.dds");
+	sprite->SetSize(v2f(8.0f, 8.0f));
+	sprite->Deactivate();
+
+	GameObject::Init();
 }
 
 void BashAbility::Update(const float& aDeltaTime)
@@ -59,6 +73,8 @@ void BashAbility::Update(const float& aDeltaTime)
 
 	CheckButtonPress();
 
+	GameObject::Update(aDeltaTime);
+
 #ifdef _DEBUG
 	ImGuiUpdate();
 #endif //DEBUG
@@ -69,21 +85,17 @@ void BashAbility::UpdateBashVelocity(const float& aDeltaTime)
 	myTimer -= aDeltaTime;
 	if (myTimer > 0)
 	{
-		myCurrentDashVelocity.x = Utils::Lerp(myCurrentDashVelocity.x, myDashDirection.x * myDashSpeed, myAcceleration * aDeltaTime);
-		myCurrentDashVelocity.y = Utils::Lerp(myCurrentDashVelocity.y, myDashDirection.y * myDashSpeed, myAcceleration * aDeltaTime) * myAspectRatioFactorY;
+		myCurrentDashVelocity.x = Utils::Lerp(myCurrentDashVelocity.x, myUsedDashDirection.x * myDashSpeed, myAcceleration * aDeltaTime);
+		myCurrentDashVelocity.y = Utils::Lerp(myCurrentDashVelocity.y, myUsedDashDirection.y * myDashSpeed, myAcceleration * aDeltaTime) * myAspectRatioFactorY;
 		myIsBashing = true;
 	}
 	else if(myTimer <= 0)
 	{
 		myTimer = 0;
 		myCurrentDashVelocity.x = Utils::Lerp(myCurrentDashVelocity.x, 0.0f, myRetardation * aDeltaTime);
-		myCurrentDashVelocity.y = Utils::Lerp(myCurrentDashVelocity.y, 0.0f, myRetardation * aDeltaTime);
+		myCurrentDashVelocity.y = Utils::Lerp(myCurrentDashVelocity.y, 0.0f, myRetardation * aDeltaTime) * myAspectRatioFactorY;
 		myIsBashing = false;
 	}
-}
-
-void BashAbility::Render()
-{
 }
 
 v2f BashAbility::GetVelocity()
@@ -154,11 +166,7 @@ void BashAbility::FreezeTime()
 
 void BashAbility::DashUse(const float& aDeltaTime)
 {
-	myDashDirection = myInput->GetAxisMovement();
-	if (myDashDirection.x == 0.0f && myDashDirection.y == 0.0f)
-	{
-		myDashDirection = v2f(0.0f, -1.0f);
-	}
+	myUsedDashDirection = myDashDirection;
 
 	myScene->GetCamera().Shake(myDashShakeDuration, myDashShakeIntensity, myDashShakeDropOff);
 	myInput->GetController()->Vibrate(myVibrationStrength, myVibrationStrength, myVibrationLength);
@@ -174,6 +182,8 @@ void BashAbility::DashUse(const float& aDeltaTime)
 
 	myBashObject->OnBashed();
 	myBashObject = nullptr;
+
+	myDashDirection = v2f(0.0f, -1.0f);
 }
 
 void BashAbility::UseBashAbility(const float& aDeltaTime)
@@ -182,9 +192,12 @@ void BashAbility::UseBashAbility(const float& aDeltaTime)
 	myMaxDashDurationTimer -= myTimerInput->GetDeltaTime();
 	myTimerInput->SetTimeScale(myTimeScale);
 
+	UpdateBashArrow();
+
 	if (myButtonHold == false || myMaxDashDurationTimer <= 0)
 	{
 		DashUse(aDeltaTime);
+		GetComponent<SpriteComponent>()->Deactivate();
 		myPlayer->EndLerp();
 	}
 }
@@ -201,6 +214,7 @@ void BashAbility::CheckButtonPress()
 	{
 		myButtonHold = true;
 		myDashAbilityActive = true;
+		GetComponent<SpriteComponent>()->Activate();
 		FreezeTime();
 	}
 	else if (myInput->IsDashingReleased())
@@ -217,4 +231,17 @@ const bool BashAbility::GetIsBashing()
 void BashAbility::ActivateBash(GameObject* aGameObject)
 {
 	myBashObject = aGameObject;
+}
+
+void BashAbility::UpdateBashArrow()
+{
+	const v2f axisInput = myInput->GetAxisMovement();
+
+	if (axisInput.x != 0.0f || axisInput.y != 0.0f)
+	{
+		myDashDirection = axisInput;
+	}
+
+	SetPosition(myPlayer->GetPosition() + myDashDirection * 16.0f);
+	SetRotation(atan2(myDashDirection.y, myDashDirection.x));
 }

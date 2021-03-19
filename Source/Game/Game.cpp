@@ -14,6 +14,7 @@
 
 using namespace std::placeholders;
 
+v2f Config::ourReferenceSize = { 320.f, 240.f };
 uint16_t Config::width = 1920U;
 uint16_t Config::height = 1080U;
 std::wstring Config::appName = L"Pass On";
@@ -71,7 +72,7 @@ LRESULT CGame::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_SIZE: 
 	{
-		SetResolution(LOWORD(lParam), HIWORD(lParam));
+		SetZoom(LOWORD(lParam), HIWORD(lParam));
 		return 0;
 	}
 		// this message is read when the window is closed
@@ -106,16 +107,21 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 	info.cbSize = sizeof(MONITORINFO);
 	GetMonitorInfo(monitor, &info);
 
+	int monitorWidth = info.rcMonitor.right - info.rcMonitor.left;
+	int monitorHeight = info.rcMonitor.bottom - info.rcMonitor.top;
+
 #ifdef _DEBUG
 	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Overlapped;
 #endif // DEBUG
 #ifdef _RETAIL
-	int monitorWidth = info.rcMonitor.right - info.rcMonitor.left;
-	int monitorHeight = info.rcMonitor.bottom - info.rcMonitor.top;
-	createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight);
-	createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth);
-	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Borderless;
+	//createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight);
+	//createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth);
+	//Tga2D::CEngine::GetInstance()->SetFullScreen(monitor);
+	//createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Borderless;
+	createParameters.myStartInFullScreen = true;
 #endif // RETAIL
+
+	createParameters.myUseLetterboxAndPillarbox;
 
 	createParameters.myTargetHeight = Config::height;
 	createParameters.myTargetWidth = Config::width;
@@ -145,10 +151,10 @@ void CGame::UpdateCallBack()
 	myGameWorld.Update();
 	myGameWorld.Render();
 
-	if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::ESCKey))
+	/*if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::ESCKey))
 	{
 		PostQuitMessage(0);
-	}
+	}*/
 
 #ifndef _RETAIL
 	if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::F1Key))

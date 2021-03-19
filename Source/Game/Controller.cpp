@@ -315,17 +315,27 @@ bool Controller::CheckActiveController()
 	return false;
 }
 
-void Controller::Vibrate(const int left, const int right, const float& aVibrationTime)
+void Controller::Vibrate(const int aLeftStrength, const int aRightStrength, const float& aVibrationTime)
 {
-	myVibrationTimer = aVibrationTime;
-
 	XINPUT_VIBRATION v;
 
 	ZeroMemory(&v, sizeof(XINPUT_VIBRATION));
 
-	v.wLeftMotorSpeed = left;
-	v.wRightMotorSpeed = right;
+	if (v.wLeftMotorSpeed < aLeftStrength)
+	{
+		v.wLeftMotorSpeed = aLeftStrength;
+	}
 
+	if (v.wRightMotorSpeed < aRightStrength)
+	{
+		v.wRightMotorSpeed = aRightStrength;
+	}
+
+	if (myVibrationTimer < aVibrationTime)
+	{
+		myVibrationTimer = aVibrationTime;
+	}
+	
 	XInputSetState(myControllerID, &v);
 }
 

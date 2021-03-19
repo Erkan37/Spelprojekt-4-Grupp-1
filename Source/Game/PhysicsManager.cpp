@@ -32,6 +32,7 @@ void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObje
 		{
 			continue;
 		}
+
 		PhysicsComponent* physics = object1->GetComponent<PhysicsComponent>();
 		if (physics == nullptr)
 		{
@@ -114,9 +115,9 @@ void PhysicsManager::CheckOverlap(GameObject* aObj1, GameObject* aObj2, PhysicsC
 
 	if (xAxisOverlap && yAxisOverlap)
 	{
+		OverlapCalculation(aObj1, aObj2, aObj1Physics, aObj2Physics, obj1min, obj1max, obj2min, obj2max);
 		aObj1->OnCollision(aObj2);
 		aObj2->OnCollision(aObj1);
-		OverlapCalculation(aObj1, aObj2, aObj1Physics, aObj2Physics, obj1min, obj1max, obj2min, obj2max);
 	}
 	else if (obj1min.x + insensitivity < obj2max.x && obj1max.x - insensitivity > obj2min.x)
 	{
@@ -244,5 +245,21 @@ void PhysicsManager::CheckBashCollision(GameObject* aObj1, GameObject* aObj2)
 	if (obj2BashComponent)
 	{
 		aObj1->BashCollision(aObj2, obj2BashComponent);
+	}
+}
+
+void PhysicsManager::RemoveCollider(ColliderComponent* aColliderComponent)
+{
+	if (!aColliderComponent)
+	{
+		return;
+	}
+
+	for (int collider = 0; collider < myColliders.size(); ++collider)
+	{
+		if (myColliders[collider] == aColliderComponent)
+		{
+			myColliders.erase(myColliders.begin() + collider);
+		}
 	}
 }

@@ -1,0 +1,22 @@
+{
+  "FilePathArray": [
+    {
+      "FilePath": "Levels/Level_01.json"
+    },
+    {
+      "FilePath": "Levels/Level_02.json"
+    },
+    {
+      "FilePath": "Levels/Level_06.json"
+    },
+    {
+      "FilePath": "Levels/Level_07.json"
+    },
+    {
+      "FilePath": "Levels/Level_08.json"
+    },
+    {
+      "FilePath": "Levels/test_level4.json"
+    }
+  ]
+}

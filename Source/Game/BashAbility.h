@@ -20,7 +20,6 @@ public:
 
 	void Update(const float& aDeltaTime);
 	void UpdateBashVelocity(const float& aDeltaTime);
-	void Render();
 
 	v2f GetVelocity();
 	void SetVelocity(const v2f& aDashVelocity);
@@ -34,6 +33,8 @@ public:
 	const bool GetIsBashing();
 
 	void ActivateBash(GameObject* aGameObject);
+
+	void UpdateBashArrow();
 
 	void ImGuiUpdate();
 
@@ -71,6 +72,7 @@ private:
 
 	v2f myDashDirection;
 	v2f myCurrentDashVelocity;
+	v2f myUsedDashDirection;
 
 	void FreezeTime();
 	void DashUse(const float& aDeltaTime);

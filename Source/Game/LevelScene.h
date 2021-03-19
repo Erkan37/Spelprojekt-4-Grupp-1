@@ -4,10 +4,11 @@
 #include "Platform.h"
 #include "BackGround.h"
 #include "SpringObject.h"
-#include "ParticleEffectFactory.h"
+#include "PauseMenu.h"
+
+#include "Subscriber.hpp"
 
 class GameObject;
-class TiledMap;
 
 class LevelScene :
     public Scene
@@ -22,14 +23,11 @@ public:
 
     void Update(const float& aDeltaTime) override;
 
-    GameObject* GetPlayer();
+    const GameObject* GetPlayer();
 private:
     GameObject* myPlayer;
-    GameObject* myEnemy;
+    Background* myBackground;
+    PauseMenu* myPauseMenu;
 
-    std::unique_ptr<ParticleEffectFactory> myFactory;
-    std::unique_ptr<Background> myBackground;
-    std::unique_ptr<SpringObject> mySpring;
-    std::unique_ptr<TiledMap> myTiledMap;
 };
 

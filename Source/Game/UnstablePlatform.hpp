@@ -12,6 +12,8 @@ public:
 
 	void OnCollision(GameObject* aGameObject) override;
 
+	void Landed(const int& aOverlapY) override;
+
 	void ActivatePlatform();
 	void DeactivatePlatform();
 
@@ -22,6 +24,8 @@ private:
 
 	bool myCollidedWithPlayer;
 	bool myIsDeactivated;
+
+	bool myPlayerIsOnTop;
 
 };
 

@@ -44,8 +44,8 @@ void Camera::Update(const float& aDeltaTime)
 		const v2f& targetPos = GetTargetPosition();
 		SetPosition
 		({
-			Utils::Lerp<float>(myX, targetPos.x - (static_cast<float>(Config::width) * myInverseZoom) * .5f, myLerp.x * aDeltaTime),
-			Utils::Lerp<float>(myY, targetPos.y - (static_cast<float>(Config::height) * myInverseZoom) * .5f, myLerp.y * aDeltaTime)
+			myLesserThanViewPortX * Utils::Lerp<float>(myX, targetPos.x - (static_cast<float>(Config::width) * myInverseZoom) * .5f, myLerp.x * aDeltaTime),
+			myLesserThanViewPortY * Utils::Lerp<float>(myY, targetPos.y - (static_cast<float>(Config::height) * myInverseZoom) * .5f, myLerp.y * aDeltaTime)
 		});
 
 		SetActive();
@@ -239,6 +239,21 @@ Camera& Camera::SetBounds(const v2f& aCoordinate, const v2f& aSize)
 	myBounds = aCoordinate;
 	myBoundSize = aSize;
 
+	myLesserThanViewPortX = true;
+	myLesserThanViewPortY = true;
+
+	constexpr float viewPortSizeX = 40.0f * 8.0f; //40 tiles
+	constexpr float viewPortSizeY = 23.0f * 8.0f; //23 tiles
+
+	if (aSize.x <= viewPortSizeX)
+	{
+		myLesserThanViewPortX = false;
+	}
+	if (aSize.y <= viewPortSizeY)
+	{
+		myLesserThanViewPortY = false;
+	}
+
 	return *this;
 }
 Camera& Camera::SetBounds(const float& anX, const float& aY, const float& aWidth, const float& aHeight)
@@ -299,7 +314,7 @@ Camera& Camera::ShakeUpdate(const float& aDeltaTime)
 	std::uniform_real_distribution<float> distribution(0.0f, 1.0f);
 	std::random_device randomDevice;
 
-	myCurrentShakeOffset = { distribution(randomDevice) * myShakeIntensity.x, distribution(randomDevice) * myShakeIntensity.y };
+	myCurrentShakeOffset = { myLesserThanViewPortX * distribution(randomDevice) * myShakeIntensity.x, myLesserThanViewPortY * distribution(randomDevice) * myShakeIntensity.y};
 
 	SetPosition(GetPosition() + myCurrentShakeOffset);
 

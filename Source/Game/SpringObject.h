@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Animation.hpp"
 
 class Player;
 
@@ -17,16 +18,18 @@ private:
 #ifdef _DEBUG
 	void ImGuiUpdate();
 #endif // _DEBUG
+	Animation myAnimation;
 
 	v2f myPosition;
 	v2f mySize;
 
-	bool myActiveSpring;
+	bool mySpringActive;
 
 	float myVelocityForce;
 	float myRetardation;
+	float myTimer;
+	float mySpringTimerCooldown;
 
 	void InitSprings(const v2f aPosition);
 	void CreateGroundSpring();
-
 };

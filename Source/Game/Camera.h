@@ -72,6 +72,7 @@ public:
 
 private:
 	Camera& ShakeUpdate(const float& aDeltaTime);
+	float GetScaleFactor();
 
 	bool myCameraActive;
 	float myX;
@@ -97,6 +98,9 @@ private:
 	float myShakeDuration;
 	float myShakeDropoff;
 	bool myIsShaking;
+
+	bool myLesserThanViewPortX;
+	bool myLesserThanViewPortY;
 
 	/* Camera Zoom */
 	float myZoom;
