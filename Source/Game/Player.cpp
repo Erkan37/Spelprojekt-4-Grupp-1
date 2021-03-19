@@ -39,7 +39,7 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	myBashAbility->AddPlayerRelation(this);
 	myBashAbility->AddTimer(world->GetTimer());
 
-	SetZIndex(500);
+	SetZIndex(1);
 	SetPosition({ 20.0f, 10.0f });
 
 	SetPivot(v2f(0.5f, 0.5f));

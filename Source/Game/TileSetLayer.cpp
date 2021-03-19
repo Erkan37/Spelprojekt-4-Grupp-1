@@ -14,14 +14,14 @@ typedef rapidjson::Value::ConstValueIterator iterator;
 
 TileSetLayer::TileSetLayer(Scene* aLevelScene)
 	: GameObject(aLevelScene),
-	myBatch(new SpritebatchComponent())
+	myBatch(AddComponent<SpritebatchComponent>())
 {
 	
 }
 
 TileSetLayer::~TileSetLayer()
 {
-	delete myBatch;
+	
 }
 
 void TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerProperties, const GenericArray& aLayerData, const int& aWidth, const int& aHeight, const int& aZIndex)
@@ -50,6 +50,7 @@ void TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerP
 
 		sprite->SetSpritePath(aTileSetLayerProperties.mySpritePath);
 		sprite->SetSamplerState(ESamplerFilter_Point);
+		sprite->SetSize({ aTileSetLayerProperties.mySpriteSizeX, aTileSetLayerProperties.mySpriteSizeY });
 		myBatch->AddSprite(sprite);
 
 		const int realQuad = data[dataIndex].GetInt() - 1.0f;

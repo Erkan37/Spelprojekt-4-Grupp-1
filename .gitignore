@@ -35,3 +35,11 @@ Project/Bin/Launcher_Debug.idb
 Project/Lib/Game_Debug.lib
 *.psd
 *.png
+Bin/vcruntime140d.dll
+Bin/vcruntime140_1d.dll
+Bin/ucrtbased.dll
+Bin/DLL_Fix/msvcp140d.dll
+Bin/DLL_Fix/ucrtbased.dll
+Bin/DLL_Fix/vcruntime140_1d.dll
+Bin/DLL_Fix/vcruntime140d.dll
+Bin/msvcp140d.dll

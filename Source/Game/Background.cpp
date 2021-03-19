@@ -10,6 +10,8 @@ Background::Background(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene)
 {
+	SetZIndex(-100);
+
 	myOrignalSpeed = {};
 	myBackgroundSpeedOneX = {};
 	myBackgroundSpeedTwoX = {};

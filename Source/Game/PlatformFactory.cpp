@@ -114,8 +114,5 @@ DeadlyPlatform* PlatformFactory::CreateDeadlyPlatform(Scene* aLevelScene, const 
 {
 	DeadlyPlatform* deadlyPlatform = new DeadlyPlatform(aLevelScene);
 	deadlyPlatform->Init(aCollisionSize, aSpriteSize, aPosition, false);
-	deadlyPlatform->AddComponent<SpriteComponent>();
-	deadlyPlatform->GetComponent<SpriteComponent>()->SetSpritePath("Sprites/Platforms/BreakableFloor.dds");
-	deadlyPlatform->GetComponent<SpriteComponent>()->SetSize(aSpriteSize);
 	return deadlyPlatform;
 }
