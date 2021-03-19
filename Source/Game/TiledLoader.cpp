@@ -118,6 +118,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 
 void TiledLoader::ParseGraphics(const std::vector<LoadData> someBG1Data, const std::vector<LoadData> someBG2Data, const std::vector<LoadData> someFG1Data, const std::vector<LoadData> someFG2Data, const std::vector<LoadData> someHRData, Scene* aScene)
 {
+
 }
 
 void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aScene)
