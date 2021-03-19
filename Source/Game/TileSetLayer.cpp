@@ -21,7 +21,7 @@ TileSetLayer::TileSetLayer(Scene* aLevelScene)
 
 TileSetLayer::~TileSetLayer()
 {
-	delete myBatch;
+	
 }
 
 void TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerProperties, const GenericArray& aLayerData, const int& aWidth, const int& aHeight, const int& aZIndex)
