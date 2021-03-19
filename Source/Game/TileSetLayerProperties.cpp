@@ -7,7 +7,7 @@
 
 TileSetLayerProperties::TileSetLayerProperties()
 {
-	std::ifstream tilesetFile = std::ifstream("Levels/PassOnTileset.json");
+	std::ifstream tilesetFile = std::ifstream("JSON/PassOnTileset.json");
 	rapidjson::IStreamWrapper tilesetFileStream(tilesetFile);
 
 	rapidjson::Document tileSet;
