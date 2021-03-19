@@ -48,14 +48,9 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 
 	if (player != NULL)
 	{
-		v2f playerPos = player->GetPosition();
 		v2f velo = player->GetComponent<PhysicsComponent>()->GetVelocity();
-		v2f colliderPos = GetPosition();
 
-		float spriteLeftPosX = (colliderPos.x - GetComponent<ColliderComponent>()->GetSize().x / 2.f);
-		float spriteRightPosX = (colliderPos.x + GetComponent<ColliderComponent>()->GetSize().x / 2.f);
-
-		if (playerPos.x >= spriteLeftPosX && playerPos.x <= spriteRightPosX && velo.y > 50.f && myTimer > mySpringTimerCooldown)
+		if (velo.y > 50.f && myTimer > mySpringTimerCooldown)
 		{
 			mySpringActive = true;
 			myTimer = {};
@@ -83,8 +78,8 @@ void SpringObject::InitSprings(const v2f aPosition)
 	physics->SetIsStatic(true);
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
-	collider->SetSize({ mySize.x, mySize.y * 0.05f });
-	collider->SetPosition({ 0.f, -mySize.y * 0.95f });
+	collider->SetSize({ mySize.x * 0.8f, mySize.y * 0.01f });
+	collider->SetPosition({ 0.f, -mySize.y * 0.99f });
 
 }
 
