@@ -162,6 +162,10 @@ void Collectible::TurnIn()
 	{
 		myPopUp->SetEasyActive(true);
 	}
+	if (myType == eCollectibleType::Medium)
+	{
+		myPopUp->SetMediumActive(true);
+	}
 	Destroy();
 }
 
