@@ -22,8 +22,6 @@ private:
 	v2f myPosition;
 	v2f mySize;
 
-	bool myActiveSpring;
-
 	float myVelocityForce;
 	float myRetardation;
 	float myTimer;
