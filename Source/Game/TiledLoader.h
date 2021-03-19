@@ -4,6 +4,7 @@
 
 #include "TileSetLayerProperties.hpp"
 
+
 struct LoadData
 {
 	v2f myPosition;
@@ -39,8 +40,6 @@ private:
 	void ParseBashableObjects(const std::vector<LoadData> someData, Scene*);
 	void ParseButtons(const std::vector<LoadData> someData, Scene*);
 
-	std::vector<TileLayerData> GetTileLayers();
-
 	std::vector<v2f> GetWaypointPositions(const std::string somePositions, v2f aSpawnPos);
 
 	std::vector<TileLayerData> myTileLayerData;
@@ -54,5 +53,3 @@ private:
 	int myFG2z = 20;
 	int myHRz = 30;
 };
-
-// Tile 0-412 är de som är intressanta och unika

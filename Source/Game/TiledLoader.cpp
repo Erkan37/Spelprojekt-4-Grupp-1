@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "DataManager.h"
+#include "TileSetLayer.hpp"
 
 #include "SpringObject.h"
 #include "Bonfire.hpp"
@@ -113,38 +114,33 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 				loadData.clear();
 			}
 			else
-			{
-				TileLayerData layerData;
+			{					 
+				int z;
 				std::string layerName = (*layer)["name"].GetString();
 
 				if (layerName == "BG1")
 				{
-					layerData.myZ = myBG1z;
+					z = myBG1z;
 				}
 				else if (layerName == "BG2")
 				{
-				 layerData.myZ = myBG2z;
+				 z = myBG2z;
 				}
 				else if (layerName == "FG1")
 				{
-					layerData.myZ = myFG1z;
+					z = myFG1z;
 				}
 				else if (layerName == "FG2")
 				{
-					layerData.myZ = myFG2z;
+					z = myFG2z;
 				}
 				else if (layerName == "HR")
 				{
-					layerData.myZ = myHRz;
+					z = myHRz;
 				}
 
-				layerData.mySize.x = (*layer)["width"].GetInt();
-				layerData.mySize.y = (*layer)["height"].GetInt();
-
-				for (iterator tile = (*layer)["data"].Begin(); tile != (*layer)["data"].End(); ++tile)
-				{
-					//layerData.myTiles.push_back();
-				}
+				TileSetLayer tileSet(aScene);
+				//tileSet.LoadTileSetLayer(myTileSetLayerProperties, (*layer)["data"].GetArray(), (*layer)["width"].GetInt(), (*layer)["height"].GetInt(), z);
 			}
 		}
 	}
