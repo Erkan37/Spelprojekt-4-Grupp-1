@@ -10,6 +10,8 @@ Background::Background(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene)
 {
+	SetZIndex(-100);
+
 	myOrignalSpeed = {};
 	myBackgroundSpeedOneX = {};
 	myBackgroundSpeedTwoX = {};
@@ -28,8 +30,6 @@ Background::Background(Scene* aLevelScene)
 
 void Background::Init(int /*someLevelIndex*/)
 {
-	SetZIndex(-100);
-	GameObject::Init();
 }
 
 void Background::Update(const float& /*aDeltaTime*/)
