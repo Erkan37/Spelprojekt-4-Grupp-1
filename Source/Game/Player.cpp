@@ -482,6 +482,7 @@ void Player::ActivateSpringForce(float aSpringVelocity, const float aRetardation
 	myHasLanded = false;
 	myActiveSpringJump = true;
 	myHasLandedOnSpring = true;
+	myCurrentVelocity = {};
 	mySpringVelocityRetardation = aRetardation;
 	mySpringVelocity.y = aSpringVelocity;
 }

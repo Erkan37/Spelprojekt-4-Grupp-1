@@ -57,7 +57,7 @@ void SpringObject::InitSprings(const v2f aPosition)
 {
 	mySpringTimerCooldown = 0.1f;
 	myRetardation = 1.0f;
-	myVelocityForce = 1000;
+	myVelocityForce = 250;
 	myPosition = aPosition;
 	mySize = { 16.0f, 16.0f };
 
