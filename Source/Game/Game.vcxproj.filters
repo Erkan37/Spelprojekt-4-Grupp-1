@@ -216,9 +216,6 @@
     <ClInclude Include="Bonfire.hpp">
       <Filter>Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="TiledMap.h">
-      <Filter>Core\Tileson</Filter>
-    </ClInclude>
     <ClInclude Include="WaypointComponent.hpp">
       <Filter>Components</Filter>
     </ClInclude>
@@ -282,8 +279,12 @@
     <ClInclude Include="PauseMenu.h">
       <Filter>Core\UI</Filter>
     </ClInclude>
-    <ClInclude Include="TileSetLayer.hpp" />
-    <ClInclude Include="TileSetLayerProperties.hpp" />
+    <ClInclude Include="TileSetLayer.hpp">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="TileSetLayerProperties.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -412,9 +413,6 @@
     <ClCompile Include="Bonfire.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
-    <ClCompile Include="TiledMap.cpp">
-      <Filter>Core\Tileson</Filter>
-    </ClCompile>
     <ClCompile Include="WaypointComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -469,7 +467,11 @@
     <ClCompile Include="PauseMenu.cpp">
       <Filter>Core\UI</Filter>
     </ClCompile>
-    <ClCompile Include="TileSetLayer.cpp" />
-    <ClCompile Include="TileSetLayerProperties.cpp" />
+    <ClCompile Include="TileSetLayer.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="TileSetLayerProperties.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

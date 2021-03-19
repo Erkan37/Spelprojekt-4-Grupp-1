@@ -43,8 +43,8 @@ void TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerP
 			continue;
 		}
 
-		float x = dataIndex % width + .5f;
-		float y = dataIndex / width + .5f;
+		float x = dataIndex % width + 0.5f;
+		float y = dataIndex / width + 0.5f;
 
 		SpriteComponent* sprite = AddComponent<SpriteComponent>();
 
