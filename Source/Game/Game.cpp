@@ -143,6 +143,10 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 void CGame::InitCallBack()
 {
 	myGameWorld.Init();
+
+#ifndef _RETAIL
+	InitDebugger();
+#endif _RETAIL
 }
 
 void CGame::UpdateCallBack()
@@ -173,3 +177,12 @@ void CGame::SetResolution(const uint16_t& aWidth, const uint16_t& aHeight)
 
 	Tga2D::CEngine::GetInstance()->SetTargetSize({ aWidth, aHeight });
 }
+
+#ifndef _RETAIL
+
+void CGame::InitDebugger()
+{
+	myDebugger.Init();
+}
+
+#endif _RETAIL

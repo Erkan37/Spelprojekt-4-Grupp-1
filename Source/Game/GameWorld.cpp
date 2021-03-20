@@ -63,3 +63,8 @@ void CGameWorld::Render()
 {
 	Scene::Manager::Render();
 }
+
+void CGameWorld::LoadDebugger()
+{
+	
+}

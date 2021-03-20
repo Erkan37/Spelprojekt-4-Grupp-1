@@ -56,6 +56,8 @@ public:
 		return myLevelManager;
 	}
 
+	void LoadDebugger();
+
 private:
 	/*** System ***/
 	std::unique_ptr<Utils::Timer> myTimer;
