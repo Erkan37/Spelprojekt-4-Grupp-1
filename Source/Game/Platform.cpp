@@ -22,6 +22,8 @@ Platform::~Platform()
 
 void Platform::Init(const v2f& aSize, const v2f& aSpriteSize, const v2f& aPosition, const bool& aIsOneway)
 {
+	SetZIndex(501);
+
 	SetPosition(aPosition);
 	SetPivot({ 0.0f, 0.0f });
 

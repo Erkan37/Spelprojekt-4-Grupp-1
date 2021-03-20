@@ -31,7 +31,7 @@ namespace Utils
         POINT GetMouseMovementSinceLastUpdate() const;
         Input& SetAbsoluteMousePosition(const POINT& aPoint);
         Input& SetMousePosition(const POINT& aPoint);
-        Input& ToggleCaptureCursor();
+        Input& ToggleCaptureCursor(const bool aIsConsole = false);
 
         const std::string KeyToString(const Keys& aKey);
 

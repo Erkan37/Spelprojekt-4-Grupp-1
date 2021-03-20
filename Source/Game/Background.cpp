@@ -10,7 +10,7 @@ Background::Background(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene)
 {
-	SetZIndex(0);
+	SetZIndex(-100);
 
 	myOrignalSpeed = {};
 	myBackgroundSpeedOneX = {};
@@ -90,7 +90,7 @@ void Background::LoadJson(Scene* /*aLevelScene*/)
 
 void Background::CreateBackgrounds(Scene* aLevelScene)
 {
-	myBackground = new GameObject(aLevelScene);
+	myBackground = std::make_unique<GameObject>(aLevelScene);
 	
 	myBackgroundSprite1 = myBackground->AddComponent<SpriteComponent>();
 	myBackgroundSprite1->SetSpritePath(myBackgroundPath1);

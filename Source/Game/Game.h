@@ -65,6 +65,7 @@ private:
 	int myZoomY = 0;
 
 #ifndef _RETAIL
+	void InitDebugger();
 	Debugger myDebugger;
 #endif
 };

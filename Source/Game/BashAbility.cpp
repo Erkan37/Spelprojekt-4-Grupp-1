@@ -40,7 +40,7 @@ BashAbility::~BashAbility()
 
 void BashAbility::Init()
 {
-	SetZIndex(150);
+	SetZIndex(1000);
 	SetPivot(v2f(0.5f, 0.5f));
 
 	myDashDirection = v2f(0.0f, -1.0f);

@@ -23,7 +23,7 @@ UIButton::~UIButton()
 
 void UIButton::Init(const std::string aPathString, const v2f aSize, const v2f aPosition, const std::string aAnimationPathString, const int aBoundX)
 {
-	SetZIndex(201);
+	SetZIndex(600);
 	myPosition = aPosition;
 
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();

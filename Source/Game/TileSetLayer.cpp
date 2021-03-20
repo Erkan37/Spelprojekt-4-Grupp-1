@@ -14,7 +14,7 @@ typedef rapidjson::Value::ConstValueIterator iterator;
 
 TileSetLayer::TileSetLayer(Scene* aLevelScene)
 	: GameObject(aLevelScene),
-	myBatch(nullptr)
+	myBatch(AddComponent<SpritebatchComponent>())
 {
 	
 }
@@ -28,7 +28,6 @@ void TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerP
 {
 	SetZIndex(aZIndex);
 
-	myBatch = AddComponent<SpritebatchComponent>();
 	myBatch->SetSpritePath(aTileSetLayerProperties.mySpritePath);
 	myBatch->Init();
 
@@ -52,17 +51,17 @@ void TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerP
 		sprite->SetSpritePath(aTileSetLayerProperties.mySpritePath);
 		sprite->SetSamplerState(ESamplerFilter_Point);
 		sprite->SetSize({ aTileSetLayerProperties.mySpriteSizeX, aTileSetLayerProperties.mySpriteSizeY });
+		myBatch->AddSprite(sprite);
 
-		const int realQuad = data[dataIndex].GetInt() - 1;
+		const int realQuad = data[dataIndex].GetInt() - 1.0f;
 		float xQ = static_cast<float>(realQuad % aTileSetLayerProperties.myQuadLengthX);
 		float yQ = static_cast<float>(realQuad / aTileSetLayerProperties.myQuadLengthX);
 
 		float texelX = 1.0f / aTileSetLayerProperties.myImageSizeX;
 		float texelY = 1.0f / aTileSetLayerProperties.myImageSizeY;
 
-		sprite->SetRelativePosition({ x * (aTileSetLayerProperties.mySpriteSizeX), y * (aTileSetLayerProperties.mySpriteSizeY) });
 		sprite->SetSpriteRect(texelX + xQ * aTileSetLayerProperties.myRectQuadX, texelY + yQ * aTileSetLayerProperties.myRectQuadY, (xQ + 1.0f) * aTileSetLayerProperties.myRectQuadX - texelX, (yQ + 1.0f) * aTileSetLayerProperties.myRectQuadY - texelY);
 
-		myBatch->AddSprite(sprite);
+		sprite->SetRelativePosition({ x * (aTileSetLayerProperties.mySpriteSizeX), y * (aTileSetLayerProperties.mySpriteSizeY) });
 	}
 }

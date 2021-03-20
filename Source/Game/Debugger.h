@@ -18,6 +18,8 @@ public:
 	void Deactivate();
 	void Toggle();
 
+	void Init();
+
 private:
 	bool myIsActive;
 };

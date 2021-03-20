@@ -2,7 +2,7 @@
 #include "PostMaster.hpp"
 #include "Subscriber.hpp"
 
-void PostMaster::AddSubcriber(Subscriber* aSubscriber, const eMessageType& aMessageType)
+void PostMaster::AddSubcriber(Subscriber* aSubscriber, eMessageType aMessageType)
 {
 	if (mySubscribers.find(aMessageType) == mySubscribers.end())
 	{
@@ -12,7 +12,7 @@ void PostMaster::AddSubcriber(Subscriber* aSubscriber, const eMessageType& aMess
 	mySubscribers[aMessageType].push_back(aSubscriber);
 }
 
-void PostMaster::RemoveSubcriber(Subscriber* aSubscriber, const eMessageType& aMessageType)
+void PostMaster::RemoveSubcriber(Subscriber* aSubscriber, eMessageType aMessageType)
 {
 	if (mySubscribers.find(aMessageType) != mySubscribers.end())
 	{
