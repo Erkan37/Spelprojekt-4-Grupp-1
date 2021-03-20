@@ -10,6 +10,8 @@
 #include <tga2d/engine.h>
 #include <Psapi.h>
 
+#include <iostream>
+
 uint32_t globalAllocCounter = 0Ui32;
 
 void* operator new(size_t aSize)
@@ -28,6 +30,54 @@ Debugger::Debugger()
 #endif
 	)
 {
+
+		std::cout << "mo------------.........................................``````````````````````````````````..........y\n";
+		std::cout << "mo-----------............................................````````````````````````````````..........y\n";
+		std::cout << "mo----------...............................-:/+oooooo+/:-..````````````````````````````````........y\n";
+		std::cout << "mo--------..............................:+yhhhyyyyyhhhhhyso/-.``````````````````````````````.......y\n";
+		std::cout << "mo-------............................-/oyhhhhhyyyyyhhhhyyyyyyo:.`````````````````````````````......y\n";
+		std::cout << "mo------...........................-:/+syhhhhhyysyyyyyyyyyso+ooo/.```````````````````````````......y\n";
+		std::cout << "mo------..........................:+oossssyyyssoooooooooooo++++/++-``````````````````````````......y\n";
+		std::cout << "mo-----.........................-+sooooooo++++++++++++++++++++++++/-``````````````````````````.....y\n";
+		std::cout << "mo-----........................:sysoooooo++++++++++++++++++++ooooo+/-`````````````````````````.....y\n";
+		std::cout << "mo----........................-syysoooooooo++++++++++++++++++oooosss+.````````````````````````.....y\n";
+		std::cout << "mo----......................../yyysooooooo+++++/+++///++++++++ooossys/`````````````````````````....y\n";
+		std::cout << "mo--..........................ohyysoooooo++++++++++++++++++++++oosyyy+.````````````````````````....y\n";
+		std::cout << "mo--..........................+hyysoooossssyyssssoooosyhhhhhyysoosyyyo.````````````````````...`....y\n";
+		std::cout << "mo-.........................../yyysosyhhhddmdhhssoooshdmddhhyyysoosyyo.`````````````````````.......y\n";
+		std::cout << "mo--..........................:yyyoosyyhhddmmmdyo+++shdmdmmdhhhsoosyy/``````````````````.```.......y\n";
+		std::cout << "mo-............................+yyoosyddhdmdhdyso+++osyhhhhhyyysoosys:..````````````````...........y\n";
+		std::cout << "mo-............................-oysossyyyyyyysooo++++ooossssoo+++oosoos/.`````````````.............y\n";
+		std::cout << "mo............................:+syooooooooooooooo+/+++o++++++++++++osoyo.```````````...............y\n";
+		std::cout << "mo-..........................-yhysoooooooooooooooo++oooo++++o++++oooyyo/.`````````.................y\n";
+		std::cout << "mo-...........................oyshooooooooooossyhyyyhdys++ooooooooossyo-...`.......................y\n";
+		std::cout << "mo-............................oyhyooooooooooshddhhhhhyo++ooooooooosoo+............................y\n";
+		std::cout << "mo-............................-osysoossssoooossyhyyyyso+ooooooosooso+-............................y\n";
+		std::cout << "mo--............................-+ssoosssssssssyyyyyyhyyyyhsoooooo+--..............................y\n";
+		std::cout << "mo--..............................::/ossssyhdddddhhhyhhhhyyyssoooo/................................y\n";
+		std::cout << "mo----...............................+sssssyssyyyyyyyyysooossssooo-................................y\n";
+		std::cout << "mo----...............................-ossssyssssyyyhyyssoosssssss/.................................y\n";
+		std::cout << "mo------..............................-ossssssssooooooooooooosss:..................................y\n";
+		std::cout << "mo--------.............................+osssoooooooooo++++oossso-..................................y\n";
+		std::cout << "mo--------.............................+ossssssssssssssssssyysss-..................................y\n";
+		std::cout << "mo------------.-.......................osssssyyyyhhhhhhhhyyyysso:..................................y\n";
+		std::cout << "mo-----------------....................ossssssssyyyhhhyysssyysso/..................................y\n";
+		std::cout << "mo-----------------...................:osssssssssyyyyyysssssssso+..................................y\n";
+		std::cout << "mo---------------------............-:+ooossssssssssyyyyyssssssooo:.................................y\n";
+		std::cout << "mo----------------------..---/o/::+oooooosssssssssyyyyysssssssooo+/:/:-............................y\n";
+		std::cout << "mo-----------------------/oshh+/++ooooooooosssssssyyyysssssssooooo++sdyo:-.........................y\n";
+		std::cout << "mo-----------------:/+osshdhmmh++++++ooooosssssssssysssssssssoooo++ymmddhs+/---....................y\n";
+		std::cout << "mo---------:/+ossyyhhhddhddddmmho++++ooooosssssssssyyysssssssoooosdmmmmmddhhysoo+/:---.............h\n";
+		std::cout << "mo----::/oyhddddddddddmmmmmmddmmdso++++ooooossssssssssssssssoooydmNmmmmmmmmmmmdddhysso+:-----------h\n";
+		std::cout << "mo::+syhdddddddddddddddddmmmmmdmmmdyoo++ooooossssyyyyyssssssshmNNNmmmmmmmmmmmddhyyyhdhhhys+:-------h\n";
+		std::cout << "myyhdddmmmddmmmmmmmmmmmmmmmmmmmmmmmmmhso+++++oosyyyyyyssyyhdNNNNmmmmmmmmmdddhyyhhddhhhhyhhhhs+:----h\n";
+		std::cout << "mddmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmNNmmdhyssssyyhhhddmNNNNNNmmmmmmmmmddddddmmmmmmdddddmmmmddhs/--h\n";
+		std::cout << "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmdhhs/h\n";
+		std::cout << "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNmmmmmmmmmmmmmmmmmmmmmmmmmmmmmdddddddhm\n";
+		std::cout << "mNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNmmmmmmmmNNmNNNmm\n";
+		std::cout << "mNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN\n";
+		std::cout << "mNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN\n";
+		std::cout << "mNNNNNNNNNNNNNNNNNmdNmdNdmmhhhNdNNNNNdmNdmmhhdNdNNNmmNdNdhhmNhhdNmhhmNdhdNmhhmNhNNdNNNNNNNNNNNNNNNNN\n";
 }
 
 Debugger::~Debugger()
