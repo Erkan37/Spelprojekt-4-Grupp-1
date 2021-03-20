@@ -47,9 +47,9 @@ private:
 
 	TileSetLayerProperties myTileSetLayerProperties;
 	
-	int myBG1z = -20;
-	int myBG2z = -10;
-	int myFG1z = 10;
-	int myFG2z = 20;
-	int myHRz = 30;
+	int myBG1z = 80;
+	int myBG2z = 90;
+	int myFG1z = 110;
+	int myFG2z = 120;
+	int myHRz = 130;
 };
