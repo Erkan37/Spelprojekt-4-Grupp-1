@@ -124,7 +124,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 				}
 				else if (layerName == "BG2")
 				{
-					z = myBG2z;
+				 z = myBG2z;
 				}
 				else if (layerName == "FG1")
 				{
@@ -139,7 +139,6 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 					z = myHRz;
 				}
 
-
 				TileSetLayer* tileSet = new TileSetLayer(aScene);
 				tileSet->LoadTileSetLayer(myTileSetLayerProperties, (*layer)["data"].GetArray(), (*layer)["width"].GetInt(), (*layer)["height"].GetInt(), z);
 			}
@@ -147,12 +146,12 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 	}
 }
 
-void TiledLoader::ParseGraphics(const std::vector<LoadData>& someBG1Data, const std::vector<LoadData>& someBG2Data, const std::vector<LoadData>& someFG1Data, const std::vector<LoadData>& someFG2Data, const std::vector<LoadData>& someHRData, Scene* aScene)
+void TiledLoader::ParseGraphics(const std::vector<LoadData> someBG1Data, const std::vector<LoadData> someBG2Data, const std::vector<LoadData> someFG1Data, const std::vector<LoadData> someFG2Data, const std::vector<LoadData> someHRData, Scene* aScene)
 {
 
 }
 
-void TiledLoader::ParseBonfires(const std::vector<LoadData>& someData, Scene* aScene)
+void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aScene)
 {
 	for (int i = 0; i < someData.size(); ++i)
 	{
@@ -161,11 +160,11 @@ void TiledLoader::ParseBonfires(const std::vector<LoadData>& someData, Scene* aS
 	}
 }
 
-void TiledLoader::ParseDoors(const std::vector<LoadData>& someData, Scene*)
+void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene*)
 {
 }
 
-void TiledLoader::ParseEnemies(const std::vector<LoadData>& someData, Scene* aScene)
+void TiledLoader::ParseEnemies(const std::vector<LoadData> someData, Scene* aScene)
 {
 	EnemyFactory enemyFactory;
 
@@ -183,7 +182,7 @@ void TiledLoader::ParseEnemies(const std::vector<LoadData>& someData, Scene* aSc
 	}
 }
 
-void TiledLoader::ParseLedges(const std::vector<LoadData>& someData, Scene* aScene)
+void TiledLoader::ParseLedges(const std::vector<LoadData> someData, Scene* aScene)
 {
 	const v2f ledgeSize = v2f(2.0f, 1.0f);
 	for (int i = 0; i < someData.size(); ++i)
@@ -193,7 +192,7 @@ void TiledLoader::ParseLedges(const std::vector<LoadData>& someData, Scene* aSce
 	}
 }
 
-void TiledLoader::ParseCollectables(const std::vector<LoadData>& someData, Scene* aScene)
+void TiledLoader::ParseCollectables(const std::vector<LoadData> someData, Scene* aScene)
 {
 	for (int i = 0; i < someData.size(); ++i)
 	{
@@ -218,11 +217,11 @@ void TiledLoader::ParseCollectables(const std::vector<LoadData>& someData, Scene
 	}
 }
 
-void TiledLoader::ParseCollectableZones(const std::vector<LoadData>& someData, Scene*)
+void TiledLoader::ParseCollectableZones(const std::vector<LoadData> someData, Scene*)
 {
 }
 
-void TiledLoader::ParsePlatforms(const std::vector<LoadData>& someData, Scene* aScene)
+void TiledLoader::ParsePlatforms(const std::vector<LoadData> someData, Scene* aScene)
 {
 	PlatformFactory platformFactory;
 
@@ -251,7 +250,7 @@ void TiledLoader::ParsePlatforms(const std::vector<LoadData>& someData, Scene* a
 	}
 }
 
-void TiledLoader::ParseHiddenRooms(const std::vector<LoadData>& someData, Scene* aScene)
+void TiledLoader::ParseHiddenRooms(const std::vector<LoadData> someData, Scene* aScene)
 {
 	for (int i = 0; i < someData.size(); ++i)
 	{
@@ -259,7 +258,7 @@ void TiledLoader::ParseHiddenRooms(const std::vector<LoadData>& someData, Scene*
 	}
 }
 
-void TiledLoader::ParseSprings(const std::vector<LoadData>& someData, Scene* aScene)
+void TiledLoader::ParseSprings(const std::vector<LoadData> someData, Scene* aScene)
 {
 	for (int i = 0; i < someData.size(); ++i)
 	{
@@ -268,7 +267,7 @@ void TiledLoader::ParseSprings(const std::vector<LoadData>& someData, Scene* aSc
 	}
 }
 
-void TiledLoader::ParseBashableObjects(const std::vector<LoadData>& someData, Scene* aScene)
+void TiledLoader::ParseBashableObjects(const std::vector<LoadData> someData, Scene* aScene)
 {
 	constexpr float radius = 20.0f;
 	for (int i = 0; i < someData.size(); ++i)
@@ -278,7 +277,7 @@ void TiledLoader::ParseBashableObjects(const std::vector<LoadData>& someData, Sc
 	}
 }
 
-void TiledLoader::ParseButtons(const std::vector<LoadData>& someData, Scene* aScene)
+void TiledLoader::ParseButtons(const std::vector<LoadData> someData, Scene* aScene)
 {
 	PlatformFactory platformFactory;
 

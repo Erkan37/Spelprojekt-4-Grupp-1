@@ -10,8 +10,8 @@ public:
 
 	virtual void Notify(const Message& aMessage) = 0;
 
-	void Subscribe(const eMessageType& aMessageType);
-	void Unsubscribe(const eMessageType& aMessageType);
+	void Subscribe(eMessageType aMessageType);
+	void Unsubscribe(eMessageType aMessageType);
 
 private:
 	std::vector<eMessageType> myMessagesSubscribedTo;

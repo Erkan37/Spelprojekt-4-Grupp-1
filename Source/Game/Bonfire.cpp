@@ -32,7 +32,7 @@ Bonfire::Bonfire(Scene* aScene)
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
 	collider->SetSize(64.0f, 64.0f);
 
-	SetZIndex(91);
+	SetZIndex(400);
 }
 
 Bonfire::~Bonfire()

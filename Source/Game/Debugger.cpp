@@ -1,5 +1,5 @@
 /*
-*	Author: Elia Rönning
+*	Author: Elia Rï¿½nning
 */
 
 #include "stdafx.h"

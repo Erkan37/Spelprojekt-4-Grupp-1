@@ -18,8 +18,8 @@ public:
 	void operator=(const PostMaster&) = delete;
 	~PostMaster() = default;
 
-	void AddSubcriber(Subscriber* aSubscriber, const eMessageType& aMessageType);
-	void RemoveSubcriber(Subscriber* aSubscriber, const eMessageType& aMessageType);
+	void AddSubcriber(Subscriber* aSubscriber, eMessageType aMessageType);
+	void RemoveSubcriber(Subscriber* aSubscriber, eMessageType aMessageType);
 
 	void ReceiveMessage(const Message& aMessage);
 

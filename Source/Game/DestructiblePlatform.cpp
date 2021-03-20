@@ -12,7 +12,7 @@ DestructiblePlatform::DestructiblePlatform(Scene* aLevelScene)
 	Platform(aLevelScene),
 	myWasDestroyed(false)
 {
-	SetZIndex(94);
+
 }
 
 void DestructiblePlatform::OnCollision(GameObject* aGameObject)

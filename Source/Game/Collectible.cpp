@@ -29,7 +29,7 @@ Collectible::Collectible(Scene* aLevelScene)
 	myIsSafe(false),
 	myWasTurnedIn(false)
 {
-	SetZIndex(131);
+	
 }
 
 Collectible::~Collectible()
@@ -39,6 +39,7 @@ Collectible::~Collectible()
 
 void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 {
+	SetZIndex(400);
 	SetPosition(aPosition);
 	mySpawnPosition = aPosition;
 
