@@ -83,9 +83,11 @@ void MainMenuScene::InitObjects()
 	v2f optionsBtnPos = {210.f, 120.f};
 	v2f exitGameBtnPos = {210.f, 140.f};
 	
-	myBackground->Init("Sprites/UI/startMenu/UI_startMenu_Background_320x180px.dds", { 520.f, 265.f }, backgroundPos, 599);
-	myTitleSprite->Init("Sprites/UI/startMenu/UI_startMenu_Title_171x32px.dds", { 270.f, 32.f }, titleSpritePos, 600);
-	myFireHighlight->InitAnimation("Sprites/UI/pauseMenu/UI_PauseMenu_Flame_16x16px.dds", { 16.0f, 16.0f }, { 200.0f, 70.0f }, 600);
+
+	myBackground->Init("Sprites/UI/startMenu/UI_startMenu_Background_320x180px.dds", { 520.f, 265.f }, backgroundPos, 200);
+	myTitleSprite->Init("Sprites/UI/startMenu/UI_startMenu_Title_171x32px.dds", { 270.f, 32.f }, titleSpritePos, 201);
+	myFireHighlight->InitAnimation("Sprites/UI/pauseMenu/UI_PauseMenu_Flame_16x16px.dds", { 16.0f, 16.0f }, { 200.0f, 70.0f }, 201);
+
 	myNewGameBtn->Init("Sprites/UI/startMenu/UI_StartMenu_Text_NewGame_56x16px_unmarked.dds", { 56.f,16.f }, newGameBtnPos, "Sprites/UI/startMenu/UI_StartMenu_Text_NewGame_56x16px_marked.dds", 56);
 	myLevelSelectBtn->Init("Sprites/UI/startMenu/UI_StartMenu_Text_LevelSelect_Unmarked_72x16px.dds", { 72.f,16.f }, levelSelectBtnPos, "Sprites/UI/startMenu/UI_StartMenu_Text_LevelSelect_Marked_72x16px.dds", 72);
 	myOptionsBtn->Init("Sprites/UI/startMenu/UI_StartMenu_Text_Option_44x16px_unmarked.dds", { 44.f,16.f }, optionsBtnPos, "Sprites/UI/startMenu/UI_StartMenu_Text_Option_44x16px_marked.dds", 44);

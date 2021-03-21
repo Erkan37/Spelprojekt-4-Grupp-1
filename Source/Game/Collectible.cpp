@@ -39,7 +39,8 @@ Collectible::~Collectible()
 
 void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 {
-	SetZIndex(400);
+	SetZIndex(131);
+
 	SetPosition(aPosition);
 	mySpawnPosition = aPosition;
 
