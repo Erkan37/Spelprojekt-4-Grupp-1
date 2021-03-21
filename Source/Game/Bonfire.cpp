@@ -16,6 +16,8 @@ Bonfire::Bonfire(Scene* aScene)
 	:
 	GameObject(aScene)
 {
+	SetZIndex(91);
+
 	myCollectibleIndex = 0;
 	myTurnInDistance = 50.0f;
 	myTurnInSpeed = 50.0f;

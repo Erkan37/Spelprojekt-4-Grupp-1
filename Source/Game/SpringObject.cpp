@@ -14,6 +14,8 @@ SpringObject::SpringObject(Scene* aLevelScene) : GameObject(aLevelScene)
 	mySpringActive = {};
 	myRetardation = {};
 	myVelocityForce = {};
+
+	SetZIndex(94);
 }
 
 void SpringObject::Init(const v2f aPosition)

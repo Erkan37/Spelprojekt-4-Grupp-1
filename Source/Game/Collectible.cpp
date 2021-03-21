@@ -39,6 +39,10 @@ Collectible::~Collectible()
 
 void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 {
+<<<<<<< Updated upstream
+=======
+	SetZIndex(131);
+>>>>>>> Stashed changes
 	SetPosition(aPosition);
 	mySpawnPosition = aPosition;
 

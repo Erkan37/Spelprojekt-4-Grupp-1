@@ -114,4 +114,128 @@ void Debugger::Toggle()
 	myIsActive = !myIsActive;
 }
 
+<<<<<<< Updated upstream
+=======
+void Debugger::Init()
+{
+	HWND console = GetConsoleWindow();
+	RECT r;
+	GetWindowRect(console, &r); //stores the console's current dimensions
+
+	MoveWindow(console, 0, 0, 1920, 1080, TRUE);
+
+	SetActiveWindow(console);
+
+	COORD coordinates;
+	coordinates.X = 0;
+	coordinates.Y = 0;
+
+	DWORD windowStyle = WS_VISIBLE | WS_POPUP | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
+
+	SetConsoleDisplayMode(console, windowStyle, &coordinates);
+
+	ShowWindow(console, SW_SHOWMAXIMIZED);
+
+	CGameWorld::GetInstance()->Input()->GetInput()->ToggleCaptureCursor(true);
+
+	constexpr int interval = 100;
+
+	std::cout << "mo------------.........................................``````````````````````````````````..........y\n";
+	Sleep(interval);
+	std::cout << "mo-----------............................................````````````````````````````````..........y\n";
+	Sleep(interval);
+	std::cout << "mo----------...............................-:/+oooooo+/:-..````````````````````````````````........y\n";
+	Sleep(interval);
+	std::cout << "mo--------..............................:+yhhhyyyyyhhhhhyso/-.``````````````````````````````.......y\n";
+	Sleep(interval);
+	std::cout << "mo-------............................-/oyhhhhhyyyyyhhhhyyyyyyo:.`````````````````````````````......y\n";
+	Sleep(interval);
+	std::cout << "mo------...........................-:/+syhhhhhyysyyyyyyyyyso+ooo/.```````````````````````````......y\n";
+	Sleep(interval);
+	std::cout << "mo------..........................:+oossssyyyssoooooooooooo++++/++-``````````````````````````......y\n";
+	Sleep(interval);
+	std::cout << "mo-----.........................-+sooooooo++++++++++++++++++++++++/-``````````````````````````.....y\n";
+	Sleep(interval);
+	std::cout << "mo-----........................:sysoooooo++++++++++++++++++++ooooo+/-`````````````````````````.....y\n";
+	Sleep(interval);
+	std::cout << "mo----........................-syysoooooooo++++++++++++++++++oooosss+.````````````````````````.....y\n";
+	Sleep(interval);
+	std::cout << "mo----......................../yyysooooooo+++++/+++///++++++++ooossys/`````````````````````````....y\n";
+	Sleep(interval);
+	std::cout << "mo--..........................ohyysoooooo++++++++++++++++++++++oosyyy+.````````````````````````....y\n";
+	Sleep(interval);
+	std::cout << "mo--..........................+hyysoooossssyyssssoooosyhhhhhyysoosyyyo.````````````````````...`....y\n";
+	Sleep(interval);
+	std::cout << "mo-.........................../yyysosyhhhddmdhhssoooshdmddhhyyysoosyyo.`````````````````````.......y\n";
+	Sleep(interval);
+	std::cout << "mo--..........................:yyyoosyyhhddmmmdyo+++shdmdmmdhhhsoosyy/``````````````````.```.......y\n";
+	Sleep(interval);
+	std::cout << "mo-............................+yyoosyddhdmdhdyso+++osyhhhhhyyysoosys:..````````````````...........y\n";
+	Sleep(interval);
+	std::cout << "mo-............................-oysossyyyyyyysooo++++ooossssoo+++oosoos/.`````````````.............y\n";
+	Sleep(interval);
+	std::cout << "mo............................:+syooooooooooooooo+/+++o++++++++++++osoyo.```````````...............y\n";
+	Sleep(interval);
+	std::cout << "mo-..........................-yhysoooooooooooooooo++oooo++++o++++oooyyo/.`````````.................y\n";
+	Sleep(interval);
+	std::cout << "mo-...........................oyshooooooooooossyhyyyhdys++ooooooooossyo-...`.......................y\n";
+	Sleep(interval);
+	std::cout << "mo-............................oyhyooooooooooshddhhhhhyo++ooooooooosoo+............................y\n";
+	Sleep(interval);
+	std::cout << "mo-............................-osysoossssoooossyhyyyyso+ooooooosooso+-............................y\n";
+	Sleep(interval);
+	std::cout << "mo--............................-+ssoosssssssssyyyyyyhyyyyhsoooooo+--..............................y\n";
+	Sleep(interval);
+	std::cout << "mo--..............................::/ossssyhdddddhhhyhhhhyyyssoooo/................................y\n";
+	Sleep(interval);
+	std::cout << "mo----...............................+sssssyssyyyyyyyyysooossssooo-................................y\n";
+	Sleep(interval);
+	std::cout << "mo----...............................-ossssyssssyyyhyyssoosssssss/.................................y\n";
+	Sleep(interval);
+	std::cout << "mo------..............................-ossssssssooooooooooooosss:..................................y\n";
+	Sleep(interval);
+	std::cout << "mo--------.............................+osssoooooooooo++++oossso-..................................y\n";
+	Sleep(interval);
+	std::cout << "mo--------.............................+ossssssssssssssssssyysss-..................................y\n";
+	Sleep(interval);
+	std::cout << "mo------------.-.......................osssssyyyyhhhhhhhhyyyysso:..................................y\n";
+	Sleep(interval);
+	std::cout << "mo-----------------....................ossssssssyyyhhhyysssyysso/..................................y\n";
+	Sleep(interval);
+	std::cout << "mo-----------------...................:osssssssssyyyyyysssssssso+..................................y\n";
+	Sleep(interval);
+	std::cout << "mo---------------------............-:+ooossssssssssyyyyyssssssooo:.................................y\n";
+	Sleep(interval);
+	std::cout << "mo----------------------..---/o/::+oooooosssssssssyyyyysssssssooo+/:/:-............................y\n";
+	Sleep(interval);
+	std::cout << "mo-----------------------/oshh+/++ooooooooosssssssyyyysssssssooooo++sdyo:-.........................y\n";
+	Sleep(interval);
+	std::cout << "mo-----------------:/+osshdhmmh++++++ooooosssssssssysssssssssoooo++ymmddhs+/---....................y\n";
+	Sleep(interval);
+	std::cout << "mo---------:/+ossyyhhhddhddddmmho++++ooooosssssssssyyysssssssoooosdmmmmmddhhysoo+/:---.............h\n";
+	Sleep(interval);
+	std::cout << "mo----::/oyhddddddddddmmmmmmddmmdso++++ooooossssssssssssssssoooydmNmmmmmmmmmmmdddhysso+:-----------h\n";
+	Sleep(interval);
+	std::cout << "mo::+syhdddddddddddddddddmmmmmdmmmdyoo++ooooossssyyyyyssssssshmNNNmmmmmmmmmmmddhyyyhdhhhys+:-------h\n";
+	Sleep(interval);
+	std::cout << "myyhdddmmmddmmmmmmmmmmmmmmmmmmmmmmmmmhso+++++oosyyyyyyssyyhdNNNNmmmmmmmmmdddhyyhhddhhhhyhhhhs+:----h\n";
+	Sleep(interval);
+	std::cout << "mddmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmNNmmdhyssssyyhhhddmNNNNNNmmmmmmmmmddddddmmmmmmdddddmmmmddhs/--h\n";
+	Sleep(interval);
+	std::cout << "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmdhhs/h\n";
+	Sleep(interval);
+	std::cout << "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNmmmmmmmmmmmmmmmmmmmmmmmmmmmmmdddddddhm\n";
+	Sleep(interval);
+	std::cout << "mNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNmmmmmmmmNNmNNNmm\n";
+	Sleep(interval);
+	std::cout << "mNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN\n";
+	Sleep(interval);
+	std::cout << "mNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN\n";
+	Sleep(interval);
+	std::cout << "mNNNNNNNNNNNNNNNNNmdNmdNdmmhhhNdNNNNNdmNdmmhhdNdNNNmmNdNdhhmNhhdNmhhmNdhdNmhhmNhNNdNNNNNNNNNNNNNNNNN\n";
+
+	CGameWorld::GetInstance()->Input()->GetInput()->ToggleCaptureCursor();
+}
+
+>>>>>>> Stashed changes
 #endif

@@ -17,6 +17,8 @@ Button::Button(Scene* aLevelScene)
 	myHasCollided = {};
 	myButtonActive = {};
 	mySize = {};
+
+	SetZIndex(95);
 }
 
 Button::~Button()
