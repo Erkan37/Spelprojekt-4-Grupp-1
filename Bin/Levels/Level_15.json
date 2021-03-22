@@ -84,10 +84,21 @@
          "draworder":"topdown",
          "id":12,
          "name":"HiddenRoom",
-         "objects":[],
+         "objects":[
+                {
+                 "height":32,
+                 "id":335,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":328,
+                 "y":16
+                }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -672,7 +683,7 @@
          "y":0
         }],
  "nextlayerid":18,
- "nextobjectid":335,
+ "nextobjectid":336,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
