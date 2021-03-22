@@ -37,18 +37,12 @@ HiddenArea::~HiddenArea()
 
 void HiddenArea::Update(const float& aDeltaTime)
 {
-	if (!myPlayerCollided)
-	{
-		myOpacity = Utils::Lerp(myOpacity, 1.0f, myOpacityChangeSpeed * aDeltaTime);
-	}
-	else
+	if (myPlayerCollided)
 	{
 		myOpacity = Utils::Lerp(myOpacity, 0.0f, myOpacityChangeSpeed * aDeltaTime);
 	}
 
 	myHiddenSpriteBatch->SetOpacity(myOpacity);
-
-	myPlayerCollided = false;
 
 	GameObject::Update(aDeltaTime);
 }
