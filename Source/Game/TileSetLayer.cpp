@@ -29,7 +29,7 @@ void TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerP
 	SetZIndex(aZIndex);
 
 	myBatch->SetSpritePath(aTileSetLayerProperties.mySpritePath);
-	myBatch->Init();
+	myBatch->SetSamplerFilter(ESamplerFilter_Point);
 
 	const GenericArray& data = aLayerData;
 
@@ -53,15 +53,16 @@ void TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerP
 		sprite->SetSize({ aTileSetLayerProperties.mySpriteSizeX, aTileSetLayerProperties.mySpriteSizeY });
 		myBatch->AddSprite(sprite);
 
-		const int realQuad = data[dataIndex].GetInt() - 1.0f;
-		float xQ = static_cast<float>(realQuad % aTileSetLayerProperties.myQuadLengthX);
-		float yQ = static_cast<float>(realQuad / aTileSetLayerProperties.myQuadLengthX);
+		const int realQuad = data[dataIndex].GetInt() - 1;
+		int xQ = static_cast<int>(realQuad % aTileSetLayerProperties.myQuadLengthX);
+		int yQ = static_cast<int>(realQuad / aTileSetLayerProperties.myQuadLengthX);
 
-		float texelX = 1.0f / aTileSetLayerProperties.myImageSizeX;
-		float texelY = 1.0f / aTileSetLayerProperties.myImageSizeY;
+		int texelX = static_cast<int>(1.0f / aTileSetLayerProperties.myImageSizeX);
+		int texelY = static_cast<int>(1.0f / aTileSetLayerProperties.myImageSizeY);
 
 		sprite->SetSpriteRect(texelX + xQ * aTileSetLayerProperties.myRectQuadX, texelY + yQ * aTileSetLayerProperties.myRectQuadY, (xQ + 1.0f) * aTileSetLayerProperties.myRectQuadX - texelX, (yQ + 1.0f) * aTileSetLayerProperties.myRectQuadY - texelY);
-
 		sprite->SetRelativePosition({ x * (aTileSetLayerProperties.mySpriteSizeX), y * (aTileSetLayerProperties.mySpriteSizeY) });
 	}
+
+	myBatch->Init();
 }

@@ -1,9 +1,6 @@
 {
   "FilePathArray": [
     {
-      "FilePath": "Levels/Level_16.json"
-    },
-    {
       "FilePath": "Levels/Level_15.json"
     },
     {
@@ -20,6 +17,9 @@
     },
     {
       "FilePath": "Levels/Level_08.json"
+    },
+    {
+      "FilePath": "Levels/Level_Hard_01.json"
     },
     {
       "FilePath": "Levels/test_level4.json"
