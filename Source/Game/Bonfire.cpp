@@ -24,7 +24,7 @@ Bonfire::Bonfire(Scene* aScene)
 
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
 	spriteIdle->SetSpritePath("Sprites/Objects/Bonfire.dds");
-	spriteIdle->SetSize(v2f(64.0f, 64.0f));
+	spriteIdle->SetSize(v2f(32.0f, 32.0f));
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
 	physics->SetCanCollide(false);
@@ -32,7 +32,15 @@ Bonfire::Bonfire(Scene* aScene)
 	physics->SetApplyGravity(false);
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
-	collider->SetSize(64.0f, 64.0f);
+	collider->SetSize(32.0f, 32.0f);
+
+	myAnimations[0] = Animation(false, false, false, 0, 1, 1, 0.1f, spriteIdle, 32, 32);
+	myAnimations[1] = Animation(false, true, false, 0, 2, 2, 0.1f, spriteIdle, 32, 32);
+
+	AnimationComponent* animation = AddComponent<AnimationComponent>();
+	animation->SetSprite(spriteIdle);
+	animation->SetAnimation(&myAnimations[0]);
+	spriteIdle->SetSize(v2f(32.0f, 32.0f));
 }
 
 Bonfire::~Bonfire()
@@ -45,6 +53,6 @@ void Bonfire::OnCollision(GameObject* aGameObject)
 	Player* player = dynamic_cast<Player*>(aGameObject);
 	if (player)
 	{
-		//Activate;
+		GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[1]);
 	}
 }
