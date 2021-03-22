@@ -31,6 +31,8 @@ Collectible::Collectible(Scene* aLevelScene)
 	myWasTurnedIn(false)
 {
 	Subscribe(eMessageType::PlayerSafeLanded);
+	Subscribe(eMessageType::PlayerDeath);
+	Subscribe(eMessageType::PlayerReachedBonfire);
 }
 
 Collectible::~Collectible()
@@ -162,6 +164,13 @@ void Collectible::Notify(const Message& aMessage)
 	else if (aMessage.myMessageType == eMessageType::PlayerDeath)
 	{
 		Reset();
+	}
+	else if (aMessage.myMessageType == eMessageType::PlayerReachedBonfire)
+	{
+		if (myWasCollected)
+		{
+			TurnIn();
+		}
 	}
 }
 
