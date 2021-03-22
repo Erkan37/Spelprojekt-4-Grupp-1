@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "AudioManager.h"
-
 #include "Random.hpp"
 #include "tga2d/audio/audio_out.h"
 #include "AudioClip.h"
@@ -36,12 +35,56 @@ void AudioManager::Init()
 
 void AudioManager::SetMusicVolume(float aVolume)
 {
-	myMusicVolume = std::clamp(aVolume, 0.f, 1.f);
+	for (auto const& [key, val] : myLibrary.myAudioList)
+	{
+		if (myLibrary.myAudioList[key]->GetLayer() == AudioLayer::Music)
+		{
+			myLibrary.myAudioList[key]->SetVolume(aVolume);
+		}
+	}
 }
 
 void AudioManager::SetSFXVolume(float aVolume)
 {
-	mySFXVolume = std::clamp(aVolume, 0.f, 1.f);
+	for (auto const& [key, val] : myLibrary.myAudioList)
+	{
+		if (myLibrary.myAudioList[key]->GetLayer() == AudioLayer::SoundEffect)
+		{
+			myLibrary.myAudioList[key]->SetVolume(aVolume);
+		}
+	}
+}
+
+void AudioManager::AddMusicVolume(float aVolume)
+{
+	for (auto const& [key, val] : myLibrary.myAudioList)
+	{
+		if (myLibrary.myAudioList[key]->GetLayer() == AudioLayer::Music)
+		{
+			myLibrary.myAudioList[key]->AddVolume(aVolume);
+		}
+	}
+}
+
+void AudioManager::AddSFXVolume(float aVolume)
+{
+	for (auto const& [key, val] : myLibrary.myAudioList)
+	{
+		if (myLibrary.myAudioList[key]->GetLayer() == AudioLayer::SoundEffect)
+		{
+			myLibrary.myAudioList[key]->AddVolume(aVolume);
+		}
+	}
+}
+
+void AudioManager::SetSoundVolume(AudioList aSound, const float& aVolume)
+{
+	myLibrary.myAudioList[aSound]->SetVolume(aVolume);
+}
+
+void AudioManager::SetSoundPosition(AudioList aSound, const VECTOR2F& aPosition)
+{
+	myLibrary.myAudioList[aSound]->SetPosition(aPosition);
 }
 
 float AudioManager::GetMusicVolume() const
@@ -54,34 +97,34 @@ float AudioManager::GetSFXVolume() const
 	return mySFXVolume;
 }
 
-void AudioManager::PlayMusic(const std::string & anAudioPath, float aVolume, bool aShouldLoop)
-{
-	Tga2D::AudioOut::Handle channel = {};
+//void AudioManager::PlayMusic(const std::string & anAudioPath, float aVolume, bool aShouldLoop)
+//{
+//	Tga2D::AudioOut::Handle channel = {};
+//
+//	if (!IsPlaying(anAudioPath))
+//	{
+//		const float volume = myMusicVolume * aVolume;
+//		StopCurrentMusic();
+//
+//		if (Utils::RandomInt(0, 100) == 100)
+//		{
+//			myAudioOut->PlayMusic("Sounds/Music/GameMusic.mp3", aShouldLoop, channel);
+//		}
+//		else
+//		{
+//			myAudioOut->PlayMusic(anAudioPath, aShouldLoop, channel);
+//		}
+//		
+//		myAudioOut->SetVolume(channel, volume);
+//	}
+//
+//	if (aShouldLoop)
+//	{
+//		BASS_ChannelFlags(channel, BASS_SAMPLE_LOOP, BASS_SAMPLE_LOOP);
+//	}
+//}
 
-	if (!IsPlaying(anAudioPath))
-	{
-		const float volume = myMusicVolume * aVolume;
-		StopCurrentMusic();
-
-		if (Utils::RandomInt(0, 100) == 100)
-		{
-			myAudioOut->PlayMusic("Sounds/Music/GameMusic.mp3", aShouldLoop, channel);
-		}
-		else
-		{
-			myAudioOut->PlayMusic(anAudioPath, aShouldLoop, channel);
-		}
-		
-		myAudioOut->SetVolume(channel, volume);
-	}
-
-	if (aShouldLoop)
-	{
-		BASS_ChannelFlags(channel, BASS_SAMPLE_LOOP, BASS_SAMPLE_LOOP);
-	}
-}
-
-void AudioManager::PlaySFX(AudioList aSound)
+void AudioManager::PlayAudio(AudioList aSound)
 {
 	myLibrary.myAudioList[aSound]->Play();
 	//Tga2D::AudioOut::Handle channel;
@@ -103,15 +146,15 @@ void AudioManager::Stop(AudioList aSound)
 	//myAudioOut->Stop(anAudioPath, true);
 }
 
-bool AudioManager::IsPlaying(const std::string & anAudioPath)
-{
-	return Tga2D::audio_helpers::IsNowPlaying(*myAudioOut, anAudioPath);
-}
-
-void AudioManager::StopAll(bool anOnlyRepeating)
-{
-	Tga2D::audio_helpers::StopAllNowPlaying(*myAudioOut, anOnlyRepeating);
-}
+//bool AudioManager::IsPlaying(const std::string & anAudioPath)
+//{
+//	return Tga2D::audio_helpers::IsNowPlaying(*myAudioOut, anAudioPath);
+//}
+//
+//void AudioManager::StopAll(bool anOnlyRepeating)
+//{
+//	Tga2D::audio_helpers::StopAllNowPlaying(*myAudioOut, anOnlyRepeating);
+//}
 
 void AudioManager::StopCurrentMusic()
 {

@@ -22,19 +22,22 @@ public:
 
 	void SetMusicVolume(float aVolume);
 	void SetSFXVolume(float aVolume);
+	void AddMusicVolume(float aVolume);
+	void AddSFXVolume(float aVolume);
+
+	void SetSoundVolume(AudioList aSound, const float& aVolume);
+	void SetSoundPosition(AudioList aSound, const VECTOR2F& aPosition);
 
 	float GetMusicVolume() const;
 	float GetSFXVolume() const;
 
-	void PlayMusic(const std::string& anAudioPath, float aVolume = 1.0f, bool aShouldLoop = true);
-	void PlaySFX(AudioList aSound);
-
+	void PlayAudio(AudioList aSound);
 
 	void Stop(AudioList aSound);
 
-	bool IsPlaying(const std::string& anAudioPath);
+	//bool IsPlaying(const std::string& anAudioPath);
 
-	void StopAll(bool anOnlyRepeating = false);
+	//void StopAll(bool anOnlyRepeating = false);
 
 	void LockAudio(AudioList anAudio);
 	void UnLockAudio(AudioList anAudio);

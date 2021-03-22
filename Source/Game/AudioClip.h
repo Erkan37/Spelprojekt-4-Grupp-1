@@ -11,11 +11,8 @@ class AudioClip
 {
 public:
 	AudioClip() = default;
-	AudioClip(const char* anAudioPath, const bool aIsLooping, const float& aVolume, AudioLayer aLayer);
-	AudioClip(AudioClip& anAudioClip);
+	AudioClip(const char* anAudioPath, const bool aIsLooping, const float& aVolume, const float& aMinVol, const float& aMaxVol, AudioLayer aLayer);
 	~AudioClip();
-
-	void Update(const float& someDeltaTime);
 
 	void SetVolume(const float& aVolChange);
 	void AddVolume(const float& aVolChange);
@@ -30,11 +27,13 @@ public:
 	void Lock();
 	void UnLock();
 
+	AudioLayer GetLayer();
+
 private:
-	bool myFade = false;
-	float myFadeSpeed = 1;
 	float myVolume = 0.0f;
-	Tga2D::CAudio* myAudio = nullptr;
+	const float myMinVolume;
+	const float myMaxVolume;
 	bool myCanPlay = true;
 	AudioLayer myLayer;
+	Tga2D::CAudio* myAudio = nullptr;
 };

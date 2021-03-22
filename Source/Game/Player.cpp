@@ -352,7 +352,7 @@ void Player::TryLetJumpWhenFalling(const float& aYDistance)
 }
 void Player::Jump()
 {
-	AudioManager::GetInstance()->PlaySFX(AudioList::PlayerJump);
+	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerJump);
 	v2f calculatedSpring = mySpringVelocity;
 	calculatedSpring.y = calculatedSpring.y;
 	myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Jump_Velocity] + myPlatformVelocity.y - calculatedSpring.y;
@@ -365,7 +365,7 @@ void Player::Jump()
 }
 void Player::DoubleJump()
 {
-	AudioManager::GetInstance()->PlaySFX(AudioList::PlayerJump);
+	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerJump);
 	myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Double_Jump_Velocity] + myPlatformVelocity.y - mySpringVelocity.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[3]);
 	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
@@ -556,6 +556,7 @@ void Player::Kill()
 {
 	if (!myHasDied)
 	{
+		AudioManager::GetInstance()->PlayAudio(AudioList::PlayerDeath);
 		KillReset();
 	}
 	else if (GetComponent<AnimationComponent>()->GetIsDisplayedOnce() && GetComponent<AnimationComponent>()->GetHasBeenDisplayedOnce())
