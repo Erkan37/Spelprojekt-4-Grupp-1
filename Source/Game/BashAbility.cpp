@@ -19,7 +19,7 @@ BashAbility::BashAbility(LevelScene* aLevelScene)
 	myMaxDashDuration = 2.0f;
 	myMaxDashDurationTimer = myMaxDashDuration;
 	myDashDuration = 1.0f;
-	myTimer = myDashDuration;
+	myTimer = 0.0f;
 	myTimeScale = 0.0f;
 	myIsBashing = false;
 	myAcceleration = {};
@@ -91,6 +91,12 @@ void BashAbility::UpdateBashVelocity(const float& aDeltaTime)
 	}
 	else if(myTimer <= 0)
 	{
+		if (myIsBashing)
+		{
+			myPlayer->SetAnimation(9);
+			myPlayer->SetNextAnimation(4);
+		}
+		
 		myTimer = 0;
 		myCurrentDashVelocity.x = Utils::Lerp(myCurrentDashVelocity.x, 0.0f, myRetardation * aDeltaTime);
 		myCurrentDashVelocity.y = Utils::Lerp(myCurrentDashVelocity.y, 0.0f, myRetardation * aDeltaTime) * myAspectRatioFactorY;
@@ -171,6 +177,8 @@ void BashAbility::DashUse(const float& aDeltaTime)
 	myScene->GetCamera().Shake(myDashShakeDuration, myDashShakeIntensity, myDashShakeDropOff);
 	myInput->GetController()->Vibrate(myVibrationStrength, myVibrationStrength, myVibrationLength);
 
+	myPlayer->SetAnimation(8);
+
 	myPlayer->ResetVelocity();
 	myPlayer->ReactivateDoubleJump();
 	ResetVelocity(true, true);
@@ -216,6 +224,12 @@ void BashAbility::CheckButtonPress()
 
 	if (myInput->IsDashing() && myBashObject)
 	{
+		if (!myDashAbilityActive)
+		{
+			myPlayer->SetAnimation(6);
+			myPlayer->SetNextAnimation(7);
+		}
+
 		myButtonHold = true;
 		myDashAbilityActive = true;
 		GetComponent<SpriteComponent>()->Activate();

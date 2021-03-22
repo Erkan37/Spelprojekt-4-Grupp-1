@@ -168,7 +168,6 @@
     <ClInclude Include="DeadlyPlatform.hpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClInclude>
-    <ClInclude Include="TiledMap.h" />
     <ClInclude Include="PlatformFactory.hpp">
       <Filter>Factories</Filter>
     </ClInclude>
@@ -254,6 +253,9 @@
     <ClInclude Include="UIObject.h" />
     <ClInclude Include="UIText.h" />
     <ClInclude Include="AudioLibrary.h" />
+    <ClInclude Include="Jesus.hpp" />
+    <ClInclude Include="TileSetLayer.hpp" />
+    <ClInclude Include="TileSetLayerProperties.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -337,7 +339,6 @@
     <ClCompile Include="DeadlyPlatform.cpp">
       <Filter>Game Objects\Platforms</Filter>
     </ClCompile>
-    <ClCompile Include="TiledMap.cpp" />
     <ClCompile Include="PlatformFactory.cpp">
       <Filter>Factories</Filter>
     </ClCompile>
@@ -420,5 +421,8 @@
     <ClCompile Include="UIObject.cpp" />
     <ClCompile Include="UIText.cpp" />
     <ClCompile Include="AudioLibrary.cpp" />
+    <ClCompile Include="Jesus.cpp" />
+    <ClCompile Include="TileSetLayer.cpp" />
+    <ClCompile Include="TileSetLayerProperties.cpp" />
   </ItemGroup>
 </Project>

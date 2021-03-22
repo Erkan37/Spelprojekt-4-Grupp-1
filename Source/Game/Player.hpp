@@ -82,12 +82,15 @@ public:
 
 	const bool& GetHasLanded();
 
+	void SetAnimation(const int& aAnimationIndex);
+	void SetNextAnimation(const int& aAnimationIndex);
+
 private:
 #ifdef _DEBUG
 	void ImGuiUpdate();
 #endif // _DEBUG
 
-	Animation myAnimations[6];
+	Animation myAnimations[10];
 	std::vector<Collectible*> myCollectibles;
 
 	std::shared_ptr<InputWrapper> myInputHandler;
