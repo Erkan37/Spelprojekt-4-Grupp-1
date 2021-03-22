@@ -14,6 +14,13 @@ class Animation;
 class PauseMenu
 {
 public:
+	enum class ePauseMenuButton
+	{
+		Continue,
+		LevelSelect,
+		MainMenu
+	};
+
 	PauseMenu(Scene* aLevelScene);
 
 	void InitMenu();

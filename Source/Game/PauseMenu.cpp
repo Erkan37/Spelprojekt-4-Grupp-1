@@ -96,13 +96,11 @@ bool PauseMenu::IsPauseActive()
 
 void PauseMenu::SelectButton()
 {
-	if (myMovingIndex == 0)
-	{
+	if (myMovingIndex == static_cast<int>(ePauseMenuButton::Continue))
 		SetActiveMenu(false);
-	}
-	else if (myMovingIndex == 1)
+	else if (myMovingIndex == static_cast<int>(ePauseMenuButton::LevelSelect))
 		CGameWorld::GetInstance()->GetLevelManager().ToggleImGui();
-	else if (myMovingIndex == 2)
+	else if (myMovingIndex == static_cast<int>(ePauseMenuButton::MainMenu))
 		CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::MainMenu);
 }
 
