@@ -2,6 +2,7 @@
 
 #include <string>
 #include <memory>
+#include "AudioLibrary.h"
 
 namespace Tga2D
 {
@@ -26,14 +27,17 @@ public:
 	float GetSFXVolume() const;
 
 	void PlayMusic(const std::string& anAudioPath, float aVolume = 1.0f, bool aShouldLoop = true);
-	void PlaySFX(const std::string& anAudioPath, float aVolume = 1.0f, bool aShouldLoop = false);
+	void PlaySFX(AudioList aSound);
 
 
-	void Stop(const std::string& anAudioPath);
+	void Stop(AudioList aSound);
 
 	bool IsPlaying(const std::string& anAudioPath);
 
 	void StopAll(bool anOnlyRepeating = false);
+
+	void LockAudio(AudioList anAudio);
+	void UnLockAudio(AudioList anAudio);
 
 private:
 
@@ -42,6 +46,8 @@ private:
 	float mySFXVolume;
 
 	void StopCurrentMusic();
+
+	AudioLibrary myLibrary = AudioLibrary();
 
 };
 

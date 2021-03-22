@@ -21,6 +21,7 @@ EnemyProjectile::EnemyProjectile(Scene* aScene, const v2f& aPosition, const v2f&
 	InitVisuals();
 	InitCollider();
 	SetDirection(aPosition, aTarget);
+	GameObject::Init();
 }
 
 void EnemyProjectile::SetDirection(const v2f& aPosition, const v2f& aTarget)

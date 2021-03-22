@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "TiledLoader.h"
-
+#include <sstream>
+#include <istream>
 #include <vector>
 
 #include "DataManager.h"
