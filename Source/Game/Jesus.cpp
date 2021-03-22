@@ -40,7 +40,7 @@ void Jesus::Init()
 
 	SetPivot(v2f(0.5f, 0.5f));
 
-	SetZIndex(499);
+	SetZIndex(145);
 
 	InitAnimations();
 
