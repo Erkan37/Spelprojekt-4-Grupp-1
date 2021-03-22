@@ -24,7 +24,7 @@ TileSetLayer::~TileSetLayer()
 	
 }
 
-void TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerProperties, const GenericArray& aLayerData, const int& aWidth, const int& aHeight, const int& aZIndex)
+SpritebatchComponent* TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerProperties, const GenericArray& aLayerData, const int& aWidth, const int& aHeight, const int& aZIndex)
 {
 	SetZIndex(aZIndex);
 
@@ -65,4 +65,5 @@ void TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerP
 	}
 
 	myBatch->Init();
+	return myBatch;
 }

@@ -207,6 +207,7 @@ void Jesus::Notify(const Message& aMessage)
 	}
 }
 
+
 #ifdef _DEBUG
 void Jesus::UpdateImGui()
 {

@@ -6,6 +6,8 @@
 
 
 class GameObject;
+class SpritebatchComponent;
+class HiddenArea;
 
 struct LoadData
 {
@@ -37,11 +39,13 @@ private:
 	void ParseCollectables(const std::vector<LoadData> someData, Scene*);
 	void ParseCollectableZones(const std::vector<LoadData> someData, Scene*);
 	void ParsePlatforms(const std::vector<LoadData> someData, Scene*);
-	void ParseHiddenRooms(const std::vector<LoadData> someData, Scene*);
+	void ParseHiddenRooms(const std::vector<LoadData> someData, Scene* aScene, std::vector<HiddenArea*>& aHiddenRoomsData);
 	void ParseSprings(const std::vector<LoadData> someData, Scene*);
 	void ParseBashableObjects(const std::vector<LoadData> someData, Scene*);
 	void ParseButtons(const std::vector<LoadData> someData, Scene*);
 	void ParseJesus(const std::vector<LoadData> someData, Scene* aScene, GameObject* aPlayer);
+
+	void SetBatchForHiddenRooms(SpritebatchComponent* aBatch, std::vector<HiddenArea*>& aHiddenRoomsData);
 
 	std::vector<v2f> GetWaypointPositions(const std::string somePositions, v2f aSpawnPos);
 

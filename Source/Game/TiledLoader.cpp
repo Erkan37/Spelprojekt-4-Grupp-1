@@ -23,6 +23,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 {
 	const rapidjson::Document& levelDoc = DataManager::GetInstance().GetLevel(aLevelIndex);
 	std::vector<LoadData> loadData;
+	std::vector<HiddenArea*> hiddenRoomsData;
 
 	if (levelDoc.IsObject())
 	{
@@ -97,7 +98,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 				}
 				else if (name == "HiddenRooms")
 				{
-					ParseHiddenRooms(loadData, aScene);
+					ParseHiddenRooms(loadData, aScene, hiddenRoomsData);
 				}
 				else if (name == "Springs")
 				{
@@ -145,7 +146,12 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 				}
 
 				TileSetLayer* tileSet = new TileSetLayer(aScene);
-				tileSet->LoadTileSetLayer(myTileSetLayerProperties, (*layer)["data"].GetArray(), (*layer)["width"].GetInt(), (*layer)["height"].GetInt(), z);
+				SpritebatchComponent* batch = tileSet->LoadTileSetLayer(myTileSetLayerProperties, (*layer)["data"].GetArray(), (*layer)["width"].GetInt(), (*layer)["height"].GetInt(), z);
+
+				if (layerName == "HR")
+				{
+					SetBatchForHiddenRooms(batch, hiddenRoomsData);
+				}
 			}
 		}
 	}
@@ -255,11 +261,12 @@ void TiledLoader::ParsePlatforms(const std::vector<LoadData> someData, Scene* aS
 	}
 }
 
-void TiledLoader::ParseHiddenRooms(const std::vector<LoadData> someData, Scene* aScene)
+void TiledLoader::ParseHiddenRooms(const std::vector<LoadData> someData, Scene* aScene, std::vector<HiddenArea*>& aHiddenRoomsData)
 {
 	for (int i = 0; i < someData.size(); ++i)
 	{
 		HiddenArea* hiddenArea = new HiddenArea(aScene, someData[i].myPosition, someData[i].mySize);
+		aHiddenRoomsData.push_back(hiddenArea);
 	}
 }
 
@@ -321,6 +328,14 @@ void TiledLoader::ParseJesus(const std::vector<LoadData> someData, Scene* aScene
 		Jesus* jesus = new Jesus(aScene);
 		jesus->Init(someData[jesusIndex].myPosition);
 		jesus->SetTarget(aPlayer);
+	}
+}
+
+void TiledLoader::SetBatchForHiddenRooms(SpritebatchComponent* aBatch, std::vector<HiddenArea*>& aHiddenRoomsData)
+{
+	for (HiddenArea* hiddenArea : aHiddenRoomsData)
+	{
+		hiddenArea->SetBatch(aBatch);
 	}
 }
 

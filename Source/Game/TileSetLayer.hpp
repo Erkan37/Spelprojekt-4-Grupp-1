@@ -17,7 +17,7 @@ public:
     TileSetLayer(Scene* aLevelScene);
     ~TileSetLayer();
 
-    void LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerProperties, const GenericArray& aLayerData, const int& aWidth, const int& aHeight, const int& aZIndex);
+    SpritebatchComponent* LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerProperties, const GenericArray& aLayerData, const int& aWidth, const int& aHeight, const int& aZIndex);
 
 private:
     SpritebatchComponent* myBatch;

@@ -21,7 +21,7 @@ public:
 	void SetTarget(GameObject* aTarget);
 
 	void OnCollision(GameObject* aGameObject) override;
-	
+
 	void Reset();
 
 	void Notify(const Message& aMessage) override;

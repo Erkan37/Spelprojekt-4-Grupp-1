@@ -2,8 +2,9 @@
 #include "HiddenArea.hpp"
 #include "Player.hpp"
 
-#include "SpriteComponent.h"
+#include "SpriteBatchComponent.h"
 #include "PhysicsComponent.h"
+#include "ColliderComponent.h"
 
 #include "Scene.h"
 
@@ -13,23 +14,20 @@ HiddenArea::HiddenArea(Scene* aLevelScene, const v2f& aPosition, const v2f& aSiz
 	:
 	GameObject(aLevelScene),
 	myPlayerCollided(false),
-	myHiddenSprite(nullptr),
+	myHiddenSpriteBatch(nullptr),
 	myOpacity(1.0f),
 	myOpacityChangeSpeed(3.0f)
 {
 	SetZIndex(600);
 	SetPosition(aPosition);
 
-	myHiddenSprite = AddComponent<SpriteComponent>();
-	myHiddenSprite->SetSpritePath("Sprites/Temp/HiddenArea.dds");
-	myHiddenSprite->SetSize(aSize);
-
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
 	physics->SetCanCollide(false);
 	physics->SetIsStatic(false);
 	physics->SetApplyGravity(false);
 
-	physics->CreateColliderFromSprite(myHiddenSprite, this);
+	ColliderComponent* collider = AddComponent<ColliderComponent>();
+	collider->SetSize(aSize);
 }
 
 HiddenArea::~HiddenArea()
@@ -48,10 +46,16 @@ void HiddenArea::Update(const float& aDeltaTime)
 		myOpacity = Utils::Lerp(myOpacity, 0.0f, myOpacityChangeSpeed * aDeltaTime);
 	}
 
-	myHiddenSprite->SetColor(v4f(1.0f, 1.0f, 1.0f, myOpacity));
+	myHiddenSpriteBatch->SetOpacity(myOpacity);
+
 	myPlayerCollided = false;
 
 	GameObject::Update(aDeltaTime);
+}
+
+void HiddenArea::SetBatch(SpritebatchComponent* aHiddenSpriteBatch)
+{
+	myHiddenSpriteBatch = aHiddenSpriteBatch;
 }
 
 void HiddenArea::OnCollision(GameObject* aGameObject)
