@@ -337,7 +337,7 @@ void Player::TryLetJumpWhenFalling(const float& aYDistance)
 }
 void Player::Jump()
 {
-	AudioManager::GetInstance()->PlaySFX(AudioList::PlayerJump);
+	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerJump);
 	v2f calculatedSpring = mySpringVelocity;
 	calculatedSpring.y = calculatedSpring.y;
 	myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Jump_Velocity] + myPlatformVelocity.y - calculatedSpring.y;
@@ -350,7 +350,7 @@ void Player::Jump()
 }
 void Player::DoubleJump()
 {
-	AudioManager::GetInstance()->PlaySFX(AudioList::PlayerJump);
+	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerJump);
 	myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Double_Jump_Velocity] + myPlatformVelocity.y - mySpringVelocity.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[3]);
 	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
@@ -539,6 +539,7 @@ void Player::BounceOnDestructibleWall()
 
 void Player::Kill()
 {
+	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerDeath);
 	KillReset();
 	Respawn();
 	PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerDeath, 0));

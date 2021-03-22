@@ -121,7 +121,7 @@ void Collectible::OnCollision(GameObject* aGameObject)
 			//SetAnimation;
 			myTarget = aGameObject;
 			myWasCollected = true;
-			AudioManager::GetInstance()->PlaySFX(AudioList::CollectableV1);
+			AudioManager::GetInstance()->PlayAudio(AudioList::CollectableV1);
 		}
 	}
 }

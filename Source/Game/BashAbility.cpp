@@ -201,7 +201,7 @@ void BashAbility::UseBashAbility(const float& aDeltaTime)
 	myTimerInput->SetTimeScale(myTimeScale);
 
 	UpdateBashArrow();
-	AudioManager::GetInstance()->PlaySFX(AudioList::BashCharge);
+	AudioManager::GetInstance()->PlayAudio(AudioList::BashCharge);
 	AudioManager::GetInstance()->LockAudio(AudioList::BashCharge);
 
 	if (myButtonHold == false || myMaxDashDurationTimer <= 0)
@@ -209,7 +209,7 @@ void BashAbility::UseBashAbility(const float& aDeltaTime)
 		DashUse(aDeltaTime);
 		GetComponent<SpriteComponent>()->Deactivate();
 		myPlayer->EndLerp();
-		AudioManager::GetInstance()->PlaySFX(AudioList::BashRelease);
+		AudioManager::GetInstance()->PlayAudio(AudioList::BashRelease);
 		AudioManager::GetInstance()->UnLockAudio(AudioList::BashCharge);
 	}
 }
