@@ -6,6 +6,7 @@
 #include "AnimationComponent.hpp"
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
+#include "AudioManager.h"
 
 #include "../External/Headers/CU/Utilities.h"
 
@@ -118,6 +119,7 @@ void Collectible::OnCollision(GameObject* aGameObject)
 			//SetAnimation;
 			myTarget = aGameObject;
 			myWasCollected = true;
+			AudioManager::GetInstance()->PlaySFX(AudioList::CollectableV1);
 		}
 	}
 }

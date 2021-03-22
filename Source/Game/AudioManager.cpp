@@ -3,7 +3,7 @@
 
 #include "Random.hpp"
 #include "tga2d/audio/audio_out.h"
-
+#include "AudioClip.h"
 #include <bass/bass.h>
 #include <algorithm>
 
@@ -28,9 +28,9 @@ AudioManager::~AudioManager() = default;
 
 void AudioManager::Init()
 {
-	myAudioOut = std::make_unique<Tga2D::AudioOut>();
-	SetMusicVolume(0.5f);
-	SetSFXVolume(0.5f);
+	//myAudioOut = std::make_unique<Tga2D::AudioOut>();
+	//SetMusicVolume(0.5f);
+	//SetSFXVolume(0.5f);
 	//PlayMusic("Sounds/Music/04 - Pushing Onwards.mp3", 0.025f);
 }
 
@@ -81,24 +81,26 @@ void AudioManager::PlayMusic(const std::string & anAudioPath, float aVolume, boo
 	}
 }
 
-void AudioManager::PlaySFX(const std::string & anAudioPath, float aVolume, bool aShouldLoop)
+void AudioManager::PlaySFX(AudioList aSound)
 {
-	Tga2D::AudioOut::Handle channel;
+	myLibrary.myAudioList[aSound]->Play();
+	//Tga2D::AudioOut::Handle channel;
 
-	const float volume = mySFXVolume * aVolume;
-	myAudioOut->Play(anAudioPath, false, channel);
+	//const float volume = mySFXVolume * aVolume;
+	//myAudioOut->Play(anAudioPath, false, channel);
 
-	myAudioOut->SetVolume(channel, volume);
+	//myAudioOut->SetVolume(channel, volume);
 
-	if (aShouldLoop)
-	{
-		BASS_ChannelFlags(channel, BASS_SAMPLE_LOOP, BASS_SAMPLE_LOOP);
-	}
+	//if (aShouldLoop)
+	//{
+	//	BASS_ChannelFlags(channel, BASS_SAMPLE_LOOP, BASS_SAMPLE_LOOP);
+	//}
 }
 
-void AudioManager::Stop(const std::string & anAudioPath)
+void AudioManager::Stop(AudioList aSound)
 {
-	myAudioOut->Stop(anAudioPath, true);
+	myLibrary.myAudioList[aSound]->Stop();
+	//myAudioOut->Stop(anAudioPath, true);
 }
 
 bool AudioManager::IsPlaying(const std::string & anAudioPath)
@@ -114,4 +116,14 @@ void AudioManager::StopAll(bool anOnlyRepeating)
 void AudioManager::StopCurrentMusic()
 {
 	myAudioOut->StopMusic(true);
+}
+
+void AudioManager::LockAudio(AudioList anAudio)
+{
+	myLibrary.myAudioList[anAudio]->Lock();
+}
+
+void AudioManager::UnLockAudio(AudioList anAudio)
+{
+	myLibrary.myAudioList[anAudio]->UnLock();
 }

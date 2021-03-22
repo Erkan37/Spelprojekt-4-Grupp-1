@@ -13,6 +13,7 @@
 #include "ColliderComponent.h"
 #include "BashComponent.hpp"
 #include "SpringObject.h"
+#include "AudioManager.h"
 
 #include "Collectible.hpp"
 
@@ -305,6 +306,7 @@ void Player::TryLetJumpWhenFalling(const float& aYDistance)
 }
 void Player::Jump()
 {
+	AudioManager::GetInstance()->PlaySFX(AudioList::PlayerJump);
 	v2f calculatedSpring = mySpringVelocity;
 	calculatedSpring.y = calculatedSpring.y;
 	myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Jump_Velocity] + myPlatformVelocity.y - calculatedSpring.y;
@@ -317,6 +319,7 @@ void Player::Jump()
 }
 void Player::DoubleJump()
 {
+	AudioManager::GetInstance()->PlaySFX(AudioList::PlayerJump);
 	myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Double_Jump_Velocity] + myPlatformVelocity.y - mySpringVelocity.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[3]);
 	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);

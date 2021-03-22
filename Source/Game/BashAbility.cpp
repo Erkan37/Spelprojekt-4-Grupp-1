@@ -4,7 +4,7 @@
 #include "SpriteComponent.h"
 #include "InputWrapper.h"
 #include "LevelScene.h"
-
+#include "AudioManager.h"
 #include <iostream>
 
 
@@ -193,12 +193,16 @@ void BashAbility::UseBashAbility(const float& aDeltaTime)
 	myTimerInput->SetTimeScale(myTimeScale);
 
 	UpdateBashArrow();
+	AudioManager::GetInstance()->PlaySFX(AudioList::BashCharge);
+	AudioManager::GetInstance()->LockAudio(AudioList::BashCharge);
 
 	if (myButtonHold == false || myMaxDashDurationTimer <= 0)
 	{
 		DashUse(aDeltaTime);
 		GetComponent<SpriteComponent>()->Deactivate();
 		myPlayer->EndLerp();
+		AudioManager::GetInstance()->PlaySFX(AudioList::BashRelease);
+		AudioManager::GetInstance()->UnLockAudio(AudioList::BashCharge);
 	}
 }
 
