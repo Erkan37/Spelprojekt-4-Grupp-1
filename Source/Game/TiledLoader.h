@@ -5,6 +5,8 @@
 #include "TileSetLayerProperties.hpp"
 
 
+class GameObject;
+
 struct LoadData
 {
 	v2f myPosition;
@@ -24,7 +26,7 @@ struct TileLayerData
 class TiledLoader
 {
 public:
-	void Load(Scene* aScene, int aLevelIndex);
+	void Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer);
 
 private:
 	void ParseGraphics(const std::vector<LoadData> someBG1Data, const std::vector<LoadData> someBG2Data, const std::vector<LoadData> someFG1Data, const std::vector<LoadData> someFG2Data, const std::vector<LoadData> someHRData, Scene* aScene);
@@ -39,6 +41,7 @@ private:
 	void ParseSprings(const std::vector<LoadData> someData, Scene*);
 	void ParseBashableObjects(const std::vector<LoadData> someData, Scene*);
 	void ParseButtons(const std::vector<LoadData> someData, Scene*);
+	void ParseJesus(const std::vector<LoadData> someData, Scene* aScene, GameObject* aPlayer);
 
 	std::vector<v2f> GetWaypointPositions(const std::string somePositions, v2f aSpawnPos);
 
