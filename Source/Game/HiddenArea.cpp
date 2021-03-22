@@ -3,6 +3,7 @@
 #include "Player.hpp"
 
 #include "SpriteBatchComponent.h"
+#include "SpriteComponent.h"
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
 
@@ -20,6 +21,7 @@ HiddenArea::HiddenArea(Scene* aLevelScene, const v2f& aPosition, const v2f& aSiz
 {
 	SetZIndex(130);
 	SetPosition(aPosition);
+	SetPivot(v2f(0.0f, 0.0f));
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
 	physics->SetCanCollide(false);
