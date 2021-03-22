@@ -29,7 +29,7 @@ void AudioComponent::SetRadius(const float& aRadius)
 {
 	myRadius = aRadius;
 	myHasRadius = true;
-	myAudioList[0]->SetVolume(0);//AudioLibrary::GetInstance().myAudioList[AudioList::ProjectileFly]->SetVolume(0);
+	//myAudioList[0]->SetVolume(0);//AudioLibrary::GetInstance().myAudioList[AudioList::ProjectileFly]->SetVolume(0);
 }
 
 void AudioComponent::SetHasRadius(bool aHasRadius)
