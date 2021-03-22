@@ -206,14 +206,14 @@ void PauseMenu::InitTexts()
 {
 	myTitleString = std::make_unique<UIText>(myScene);
 	myTitleString->Init("Pause Menu", "Text/alagard.ttf", EFontSize::EFontSize_100);
-	myTitleString->SetPosition({ 160.f, 110.f });
+	myTitleString->SetPosition({ 155.f, 85.f });
 	myCollectibleString = std::make_unique<UIText>(myScene);
 	myCollectibleString->Init("00/00", "Text/Peepo.ttf", EFontSize::EFontSize_48);
-	myCollectibleString->SetPosition({ 50.0f, 35.0f });
+	myCollectibleString->SetPosition({ 50.0f, 25.0f });
 	myCollectibleString2 = std::make_unique<UIText>(myScene);
 	myCollectibleString2->Init("00/00", "Text/Peepo.ttf", EFontSize::EFontSize_48);
-	myCollectibleString2->SetPosition({ 125.0f, 35.0f });
+	myCollectibleString2->SetPosition({ 125.0f, 25.0f });
 	myCollectibleString3 = std::make_unique<UIText>(myScene);
 	myCollectibleString3->Init("00/00", "Text/Peepo.ttf", EFontSize::EFontSize_48);
-	myCollectibleString3->SetPosition({ 205.0f, 35.0f });
+	myCollectibleString3->SetPosition({ 205.0f, 25.0f });
 }
