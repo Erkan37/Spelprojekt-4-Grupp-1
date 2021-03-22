@@ -40,6 +40,8 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	myBashAbility->AddPlayerRelation(this);
 	myBashAbility->AddTimer(world->GetTimer());
 
+	myHasDied = false;
+
 	SetZIndex(101);
 	SetPosition({ 20.0f, 10.0f });
 
@@ -128,16 +130,22 @@ void Player::InitAnimations()
 	spriteBashFlyingTransition->SetSize(mySize);
 	spriteBashFlyingTransition->Deactivate();
 
+	SpriteComponent* spriteDeath = AddComponent<SpriteComponent>();
+	spriteDeath->SetSpritePath("Sprites/Characters/PlayerDeath.dds");
+	spriteDeath->SetSize(mySize);
+	spriteDeath->Deactivate();
+
 	myAnimations[0] = Animation(false, false, false, 0, 74, 74, 0.10f, spriteIdle, 16, 16);
 	myAnimations[1] = Animation(false, false, false, 0, 12, 12, 0.09f, spriteRun, 16, 16);
 	myAnimations[2] = Animation(false, true, false, 0, 6, 6, 0.09f, spriteJump, 16, 16);
 	myAnimations[3] = Animation(false, true, false, 0, 5, 5, 0.09f, spriteDoubleJump, 16, 16);
 	myAnimations[4] = Animation(false, false, false, 0, 4, 4, 0.09f, spriteFall, 16, 16);
 	myAnimations[5] = Animation(false, false, false, 0, 22, 22, 0.125f, spriteLedgeGrab, 16, 16);
-	myAnimations[6] = Animation(false, true, false, 0, 13, 13, 0.070f, spriteBashStart, 16, 16);
+	myAnimations[6] = Animation(false, true, false, 0, 13, 13, 0.07f, spriteBashStart, 16, 16);
 	myAnimations[7] = Animation(false, false, false, 0, 9, 9, 0.10f, spriteBashLoop, 16, 16);
 	myAnimations[8] = Animation(false, false, false, 0, 4, 4, 0.10f, spriteBashFlying, 16, 16);
 	myAnimations[9] = Animation(false, true, false, 0, 4, 4, 0.10f, spriteBashFlyingTransition, 16, 16);
+	myAnimations[10] = Animation(false, true, false, 0, 22, 22, 0.07f, spriteDeath, 16, 16);
 
 	AnimationComponent* animation = AddComponent<AnimationComponent>();
 	animation->SetSprite(spriteIdle);
@@ -158,6 +166,14 @@ void Player::InitCollider()
 
 void Player::Update(const float& aDeltaTime)
 {
+	GameObject::Update(aDeltaTime);
+
+	if (myHasDied)
+	{
+		GetComponent<PhysicsComponent>()->SetVelocity(v2f(0.0f, 0.0f));
+		return;
+	}
+
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 
 	if (physics)
@@ -177,13 +193,6 @@ void Player::Update(const float& aDeltaTime)
 		}
 	}
 
-	/*
-	if (myTransform.myPosition.y + mySize.y > myScene->GetCamera().GetBounds().y + myScene->GetCamera().GetBoundSize().y)
-	{
-		Kill();
-	}
-	*/
-
 	if (CGameWorld::GetInstance()->GetTimer()->GetTimeScale() <= 0)
 	{
 		CGameWorld::GetInstance()->GetTimer()->SetTimeScale(1.0f);
@@ -192,7 +201,13 @@ void Player::Update(const float& aDeltaTime)
 	}
 
 	AnimationState();
-	GameObject::Update(aDeltaTime);
+
+	/*
+	if (myTransform.myPosition.y + mySize.y > myScene->GetCamera().GetBounds().y + myScene->GetCamera().GetBoundSize().y)
+	{
+		Kill();
+	}
+	*/
 
 #ifdef _DEBUG
 	ImGuiUpdate();
@@ -539,9 +554,15 @@ void Player::BounceOnDestructibleWall()
 
 void Player::Kill()
 {
-	KillReset();
-	Respawn();
-	PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerDeath, 0));
+	if (!myHasDied)
+	{
+		KillReset();
+	}
+	else if (GetComponent<AnimationComponent>()->GetIsDisplayedOnce() && GetComponent<AnimationComponent>()->GetHasBeenDisplayedOnce())
+	{
+		Respawn();
+		PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerDeath, 0));
+	}
 }
 
 void Player::Eaten()
@@ -563,13 +584,14 @@ void Player::KillReset()
 	ResetVelocity();
 	myBashAbility->ResetVelocity(true, true);
 	myPlatformVelocity = v2f();
-	Deactivate();
+	myHasDied = true;
+	SetAnimation(10);
 }
 
 void Player::Respawn()
 {
+	myHasDied = false;
 	SetPosition(mySpawnPosition);
-	Activate();
 }
 
 const bool& Player::GetIsBashing()

@@ -90,7 +90,7 @@ private:
 	void ImGuiUpdate();
 #endif // _DEBUG
 
-	Animation myAnimations[10];
+	Animation myAnimations[11];
 	std::vector<Collectible*> myCollectibles;
 
 	std::shared_ptr<InputWrapper> myInputHandler;
@@ -123,6 +123,7 @@ private:
 	bool myActiveSpringJump;
 	bool myGrabbedLedge;
 	bool myIsLerpingToPosition;
+	bool myHasDied;
 
 	PlayerData* myJsonData = new PlayerData();
 };
