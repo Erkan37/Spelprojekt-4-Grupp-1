@@ -1,14 +1,15 @@
 #pragma once
 #include "GameObject.h"
 #include "Animation.hpp"
+#include "Subscriber.hpp"
 
-class Jesus : public GameObject
+class Jesus : public GameObject, public Subscriber
 {
 public:
 	Jesus(Scene* aLevelScene);
 	~Jesus();
 
-	void Init();
+	void Init(const v2f& aPosition);
 	void InitAnimations();
 
 	void AnimationStates();
@@ -22,6 +23,8 @@ public:
 	void OnCollision(GameObject* aGameObject) override;
 	
 	void Reset();
+
+	void Notify(const Message& aMessage) override;
 
 	void UpdateImGui();
 

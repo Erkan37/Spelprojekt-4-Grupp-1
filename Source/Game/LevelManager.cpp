@@ -7,6 +7,8 @@
 
 #include "TiledLoader.h"
 
+#include "GameObject.h"
+
 LevelManager::LevelManager()
 {
 	myTiledLoader = std::make_shared<TiledLoader>();
@@ -109,12 +111,12 @@ const bool LevelManager::GetIsActive(eScenes aScene)
 	return myScenes[aScene]->IsActive();
 }
 
-void LevelManager::LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex)
+void LevelManager::LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, GameObject* aPlayer)
 {
 #ifndef _RETAIL
-	myTiledLoader->Load(aLevelScene, myLevelToLoad);
+	myTiledLoader->Load(aLevelScene, myLevelToLoad, aPlayer);
 	return;
 #endif //RETAIL
 
-	myTiledLoader->Load(aLevelScene, aLevelIndex);
+	myTiledLoader->Load(aLevelScene, aLevelIndex, aPlayer);
 }

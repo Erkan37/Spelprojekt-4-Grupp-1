@@ -7,6 +7,8 @@ class LevelScene;
 
 class TiledLoader;
 
+class GameObject;
+
 class LevelManager
 {
 public:
@@ -39,7 +41,7 @@ public:
 
 	const bool GetIsActive(eScenes aScene);
 
-	void LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex);
+	void LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, GameObject* aPlayer);
 
 private:
 	std::map<eScenes, Scene*> myScenes;

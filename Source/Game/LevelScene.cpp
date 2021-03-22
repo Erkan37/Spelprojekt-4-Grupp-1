@@ -3,32 +3,10 @@
 
 #include "GameWorld.h"
 
-#include "GameObject.h"
-#include "PhysicsComponent.h"
-#include "ColliderComponent.h"
-#include "SpriteComponent.h"
-
 #include "../External/Headers/CU/Utilities.h"
 
 #include "Player.hpp"
 
-#include "Ledge.h"
-
-#include "MovingPlatform.hpp"
-#include "UnstablePlatform.hpp"
-#include "DestructiblePlatform.hpp"
-#include "DeadlyPlatform.hpp"
-#include "PlatformFactory.hpp"
-
-#include "BashableObject.hpp"
-#include "BashableObjectFactory.hpp"
-
-#include "Bonfire.hpp"
-
-#include "EnemyFactory.h"
-#include "Enemy.h"
-
-#include "Collectible.hpp"
 #include "InputWrapper.h"
 
 #include "Jesus.hpp"
@@ -39,8 +17,6 @@
 #include "Game.h"
 
 #include "PostMaster.hpp"
-
-#include "TiledLoader.h"
 
 LevelScene::LevelScene()
 	: 
@@ -53,13 +29,9 @@ void LevelScene::Load()
 {
 	myPlayer = new Player(this);
 
-	Jesus* jesus = new Jesus(this);
-	jesus->Init();
-	jesus->SetTarget(myPlayer);
-
 	myBackground = new Background(this);
 
-	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, 0);
+	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, 0, myPlayer);
 
 	myPauseMenu = new PauseMenu(this);
 	myPauseMenu->InitMenu();

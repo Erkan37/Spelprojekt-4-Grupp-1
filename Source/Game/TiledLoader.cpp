@@ -15,10 +15,11 @@
 #include "HiddenArea.hpp"
 #include "BashableObject.hpp"
 #include "MovingPlatform.hpp"
+#include "Jesus.hpp"
 
 typedef rapidjson::Value::ConstValueIterator iterator;
 
-void TiledLoader::Load(Scene* aScene, int aLevelIndex)
+void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 {
 	const rapidjson::Document& levelDoc = DataManager::GetInstance().GetLevel(aLevelIndex);
 	std::vector<LoadData> loadData;
@@ -109,6 +110,10 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 				else if (name == "Buttons")
 				{
 					ParseButtons(loadData, aScene);
+				}
+				else if (name == "Jesus")
+				{
+					ParseJesus(loadData, aScene, aPlayer);
 				}
 
 				loadData.clear();
@@ -306,6 +311,16 @@ void TiledLoader::ParseButtons(const std::vector<LoadData> someData, Scene* aSce
 			}
 			platform->AddButton(someData[i].myPosition, aType);
 		}
+	}
+}
+
+void TiledLoader::ParseJesus(const std::vector<LoadData> someData, Scene* aScene, GameObject* aPlayer)
+{
+	for (size_t jesusIndex = 0; jesusIndex < someData.size(); ++jesusIndex)
+	{
+		Jesus* jesus = new Jesus(aScene);
+		jesus->Init(someData[jesusIndex].myPosition);
+		jesus->SetTarget(aPlayer);
 	}
 }
 

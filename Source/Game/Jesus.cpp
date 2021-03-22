@@ -33,10 +33,12 @@ Jesus::~Jesus()
 
 }
 
-void Jesus::Init()
+void Jesus::Init(const v2f& aPosition)
 {
-	SetPosition(v2f(0.0f, 0.0f));
-	mySpawnPosition = v2f(0.0f, 0.0f);
+	Subscribe(eMessageType::PlayerDeath);
+
+	SetPosition(aPosition);
+	mySpawnPosition = aPosition;
 
 	SetPivot(v2f(0.5f, 0.5f));
 
@@ -195,6 +197,14 @@ void Jesus::Reset()
 	myCurrentAnimationIndex = 0;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[0]);
 	myEatTarget = false;
+}
+
+void Jesus::Notify(const Message& aMessage)
+{
+	if (aMessage.myMessageType == eMessageType::PlayerDeath)
+	{
+		Reset();
+	}
 }
 
 #ifdef _DEBUG
