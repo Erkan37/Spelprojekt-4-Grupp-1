@@ -20,5 +20,7 @@ private:
 	float myTurnInDistance;
 	int myCollectibleIndex;
 
+	bool myHasBeenActivated;
+
 };
 

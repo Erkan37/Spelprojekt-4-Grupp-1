@@ -12,6 +12,8 @@
 
 #include "../External/Headers/CU/Utilities.h"
 
+#include "PostMaster.hpp"
+
 Bonfire::Bonfire(Scene* aScene)
 	:
 	GameObject(aScene)
@@ -21,6 +23,8 @@ Bonfire::Bonfire(Scene* aScene)
 	myCollectibleIndex = 0;
 	myTurnInDistance = 50.0f;
 	myTurnInSpeed = 50.0f;
+
+	myHasBeenActivated = false;
 
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
 	spriteIdle->SetSpritePath("Sprites/Objects/Bonfire.dds");
@@ -53,6 +57,13 @@ void Bonfire::OnCollision(GameObject* aGameObject)
 	Player* player = dynamic_cast<Player*>(aGameObject);
 	if (player)
 	{
-		GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[1]);
+		if (!myHasBeenActivated)
+		{
+			GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[1]);
+		}
+		
+		PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerReachedBonfire, 0));
+
+		myHasBeenActivated = true;
 	}
 }
