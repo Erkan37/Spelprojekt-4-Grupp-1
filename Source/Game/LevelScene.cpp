@@ -31,6 +31,7 @@
 #include "Collectible.hpp"
 #include "InputWrapper.h"
 
+#include "Jesus.hpp"
 #include "HiddenArea.hpp"
 
 #include "LevelManager.hpp"
@@ -51,6 +52,10 @@ LevelScene::LevelScene()
 void LevelScene::Load()
 {
 	myPlayer = new Player(this);
+
+	Jesus* jesus = new Jesus(this);
+	jesus->Init();
+	jesus->SetTarget(myPlayer);
 
 	myBackground = new Background(this);
 

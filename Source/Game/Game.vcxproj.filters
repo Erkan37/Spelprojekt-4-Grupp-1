@@ -216,6 +216,12 @@
     <ClInclude Include="Bonfire.hpp">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="TiledMap.h">
+      <Filter>Core\Tileson</Filter>
+    </ClInclude>
+    <ClInclude Include="Jesus.hpp">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
     <ClInclude Include="WaypointComponent.hpp">
       <Filter>Components</Filter>
     </ClInclude>
@@ -411,6 +417,12 @@
       <Filter>Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="Bonfire.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="TiledMap.cpp">
+      <Filter>Core\Tileson</Filter>
+    </ClCompile>
+    <ClCompile Include="Jesus.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="WaypointComponent.cpp">
