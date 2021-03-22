@@ -8,6 +8,8 @@
 
 #include "Player.hpp"
 
+#include "PostMaster.hpp"
+
 Platform::Platform(Scene* aScene)
 	:
 	GameObject(aScene)
@@ -22,8 +24,6 @@ Platform::~Platform()
 
 void Platform::Init(const v2f& aSize, const v2f& aSpriteSize, const v2f& aPosition, const bool& aIsOneway)
 {
-	SetZIndex(501);
-
 	SetPosition(aPosition);
 	SetPivot({ 0.0f, 0.0f });
 
@@ -54,5 +54,9 @@ void Platform::OnCollision(GameObject* aGameObject)
 	if (player)
 	{
 		player->SetPlatformVelocity(v2f(0.0f, 0.0f));
+		if (player->GetHasLanded())
+		{
+			PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerSafeLanded, 0));
+		}
 	}
 }

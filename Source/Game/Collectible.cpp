@@ -29,7 +29,7 @@ Collectible::Collectible(Scene* aLevelScene)
 	myIsSafe(false),
 	myWasTurnedIn(false)
 {
-	
+	Subscribe(eMessageType::PlayerSafeLanded);
 }
 
 Collectible::~Collectible()
@@ -39,7 +39,7 @@ Collectible::~Collectible()
 
 void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 {
-	SetZIndex(131);
+	SetZIndex(129);
 
 	SetPosition(aPosition);
 	mySpawnPosition = aPosition;
@@ -115,7 +115,6 @@ void Collectible::OnCollision(GameObject* aGameObject)
 		Player* player = dynamic_cast<Player*>(aGameObject);
 		if (player)
 		{
-			player->AddCollectible(this);
 			//SetAnimation;
 			myTarget = aGameObject;
 			myWasCollected = true;
@@ -128,21 +127,14 @@ void Collectible::Saved()
 	myIsSafe = true;
 }
 
-void Collectible::Reset(const bool aIsTurningIn)
+void Collectible::Reset()
 {
-	if (aIsTurningIn)
+	if (!myIsSafe)
 	{
+		myTarget = nullptr;
 		myWasCollected = false;
-	}
-	else
-	{
-		if (!myIsSafe)
-		{
-			myTarget = nullptr;
-			myWasCollected = false;
-			SetPosition(mySpawnPosition);
-			myTargetPosition = v2f();
-		}
+		SetPosition(mySpawnPosition);
+		myTargetPosition = mySpawnPosition;
 	}
 }
 
@@ -157,6 +149,18 @@ void Collectible::TurnIn()
 {
 	//Add To Score or whatever
 	Destroy();
+}
+
+void Collectible::Notify(const Message& aMessage)
+{
+	if (aMessage.myMessageType == eMessageType::PlayerSafeLanded)
+	{
+		Saved();
+	}
+	else if (aMessage.myMessageType == eMessageType::PlayerDeath)
+	{
+		Reset();
+	}
 }
 
 void Collectible::ImGuiUpdate()

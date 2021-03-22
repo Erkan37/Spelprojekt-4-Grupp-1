@@ -80,9 +80,7 @@ public:
 
 	void DecreaseSpringJump(const float& aDeltaTime);
 
-	void AddCollectible(Collectible* aCollectible);
-	std::vector<Collectible*> GetCollectibles();
-	void ClearCollectibles(const bool aIsTurningIn);
+	const bool& GetHasLanded();
 
 private:
 #ifdef _DEBUG
