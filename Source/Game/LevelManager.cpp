@@ -15,6 +15,11 @@ LevelManager::LevelManager()
 #ifndef _RETAIL
 	myImGuiIsActive = {};
 #endif //RETAIL
+
+	myLoadedLevel = 0;
+
+	Subscribe(eMessageType::LoadNext);
+	Subscribe(eMessageType::LoadPrevious);
 }
 
 LevelManager::~LevelManager()
@@ -111,12 +116,32 @@ const bool LevelManager::GetIsActive(eScenes aScene)
 	return myScenes[aScene]->IsActive();
 }
 
-void LevelManager::LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, GameObject* aPlayer)
+void LevelManager::LoadLevel(LevelScene* aLevelScene, GameObject* aPlayer)
 {
 #ifndef _RETAIL
 	myTiledLoader->Load(aLevelScene, myLevelToLoad, aPlayer);
 	return;
 #endif //RETAIL
 
+	myTiledLoader->Load(aLevelScene, myLoadedLevel, aPlayer);
+}
+
+void LevelManager::LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, GameObject* aPlayer)
+{
+	myLoadedLevel = aLevelIndex;
 	myTiledLoader->Load(aLevelScene, aLevelIndex, aPlayer);
+}
+
+void LevelManager::Notify(const Message& aMessage)
+{
+	if (aMessage.myMessageType == eMessageType::LoadNext)
+	{
+		++myLoadedLevel;
+		SingleLoadScene(eScenes::LevelScene);
+	}
+	else if (aMessage.myMessageType == eMessageType::LoadPrevious)
+	{
+		--myLoadedLevel;
+		SingleLoadScene(eScenes::LevelScene);
+	}
 }

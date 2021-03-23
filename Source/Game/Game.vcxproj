@@ -168,6 +168,7 @@
     <ClInclude Include="Jesus.hpp" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Ledge.h" />
+    <ClInclude Include="LevelDoor.hpp" />
     <ClInclude Include="LevelManager.hpp" />
     <ClInclude Include="LevelScene.h" />
     <ClInclude Include="MainMenuScene.h" />
@@ -237,6 +238,7 @@
     <ClCompile Include="InputWrapper.cpp" />
     <ClCompile Include="Jesus.cpp" />
     <ClCompile Include="Ledge.cpp" />
+    <ClCompile Include="LevelDoor.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LevelScene.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
