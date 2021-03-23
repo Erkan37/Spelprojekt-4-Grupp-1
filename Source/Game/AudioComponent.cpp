@@ -31,24 +31,9 @@ void AudioComponent::StopAudio()
 void AudioComponent::SetRadius(const float& aRadius)
 {
 	myRadius = aRadius;
+	AudioManager::GetInstance()->SetSoundVolume(myAudio, 0);
 	//myAudioList[0]->SetVolume(0);//AudioLibrary::GetInstance().myAudioList[AudioList::ProjectileFly]->SetVolume(0);
 }
-
-void AudioComponent::SetVolume(const int& anIndex, const float& aVolume)
-{
-	//myAudioList[anIndex - 1]->SetVolume(aVolume);
-}
-
-void AudioComponent::SetMinVolume(const float& aMinVolume)
-{
-	myMinVolume = aMinVolume;
-}
-
-void AudioComponent::SetMaxVolume(const float& aMaxVolume)
-{
-	myMaxVolume = aMaxVolume;
-}
-
 void AudioComponent::LockAudio(AudioList aSound)
 {
 	//AudioLibrary::GetInstance().myAudioList[aSound]->Lock();

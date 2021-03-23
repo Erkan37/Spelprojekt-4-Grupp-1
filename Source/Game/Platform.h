@@ -25,7 +25,7 @@ public:
 
 	virtual void OnCollision(GameObject* aGameObject) override;
 
+	int myTypeIndex = 1;
 private:
-
 };
 

@@ -2,7 +2,6 @@
 #include "AudioClip.h"
 #include "tga2d/audio/audio.h"
 #include "tga2d/audio/audio_out.h"
-#include <iostream>
 #include "AudioClip.h"
 
 AudioClip::AudioClip(const char* anAudioPath, const bool aIsLooping, const float& aVolume, const float& aMinVol, const float& aMaxVol, AudioLayer aLayer) :
@@ -32,7 +31,6 @@ void AudioClip::SetVolume(const float& aVolChange)
 	{
 		myVolume = myMaxVolume;
 	}
-	std::cout << myVolume << "\n";
 	myAudio->SetVolume(myVolume);
 }
 
