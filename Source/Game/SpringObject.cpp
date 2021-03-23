@@ -98,6 +98,11 @@ void SpringObject::CreateGroundSpring()
 
 }
 
+void SpringObject::LoadJson()
+{
+
+}
+
 #ifdef _DEBUG
 void SpringObject::ImGuiUpdate()
 {

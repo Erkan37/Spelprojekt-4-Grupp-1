@@ -32,4 +32,5 @@ private:
 
 	void InitSprings(const v2f aPosition);
 	void CreateGroundSpring();
+	void LoadJson();
 };
