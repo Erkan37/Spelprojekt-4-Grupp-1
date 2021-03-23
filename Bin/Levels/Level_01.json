@@ -172,32 +172,21 @@
                  "width":32,
                  "x":320,
                  "y":0
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":false,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":13,
-         "name":"CollectableZones",
-         "objects":[
+                }, 
                 {
-                 "height":88,
-                 "id":113,
+                 "height":64,
+                 "id":120,
                  "name":"",
                  "rotation":0,
-                 "type":"",
+                 "type":"0",
                  "visible":true,
                  "width":32,
-                 "x":288,
-                 "y":64
+                 "x":-32,
+                 "y":0
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -276,7 +265,7 @@
          "name":"Doors",
          "objects":[
                 {
-                 "height":24,
+                 "height":104,
                  "id":115,
                  "name":"",
                  "rotation":0,
@@ -284,7 +273,7 @@
                  "visible":true,
                  "width":16,
                  "x":-32,
-                 "y":144
+                 "y":64
                 }, 
                 {
                  "height":88,
@@ -296,21 +285,10 @@
                  "width":16,
                  "x":336,
                  "y":64
-                }, 
-                {
-                 "height":144,
-                 "id":117,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":-32,
-                 "y":0
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -337,7 +315,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":120,
+ "nextobjectid":121,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
