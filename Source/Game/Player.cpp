@@ -352,7 +352,7 @@ void Player::TryLetJumpWhenFalling(const float& aYDistance)
 }
 void Player::Jump()
 {
-	AudioManager::GetInstance()->UnLockAudio(AudioList::LandOnGrassEasy);
+	UnlockLandingSounds();
 	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerJump);
 	v2f calculatedSpring = mySpringVelocity;
 	calculatedSpring.y = calculatedSpring.y;
@@ -426,16 +426,7 @@ void Player::Landed(const int& aOverlapY)
 			Jump();
 		}
 	}
-	if (myCurrentVelocity.y > 200.0f)
-	{
-		AudioManager::GetInstance()->PlayAudio(AudioList::LandOnGrassHeavy);
-		AudioManager::GetInstance()->LockAudio(AudioList::LandOnGrassEasy);
-	}
-	else if( myCurrentVelocity.y != 0)
-	{
-		AudioManager::GetInstance()->PlayAudio(AudioList::LandOnGrassEasy);
-		AudioManager::GetInstance()->LockAudio(AudioList::LandOnGrassEasy);
-	}
+	LandingSoundCheck();
 	myCurrentVelocity.y = 0.0f;
 	myBashAbility->ResetVelocity(false, true);
 	if (!myHasLandedOnSpring)
@@ -485,7 +476,7 @@ void Player::AnimationState()
 
 	if (myCurrentAnimationIndex != 2 && myCurrentAnimationIndex != 3 && myCurrentAnimationIndex != 4 && !myHasLanded)
 	{
-		AudioManager::GetInstance()->UnLockAudio(AudioList::LandOnGrassEasy);
+		UnlockLandingSounds();
 		animation->SetAnimation(&myAnimations[4]);
 		myCurrentAnimationIndex = 4;
 	}
@@ -495,25 +486,7 @@ void Player::AnimationState()
 		animation.mySpriteComponent->SetSizeX(mySize.x * myDirectionX);
 	}
 
-	if (myCurrentAnimationIndex == 1)
-	{
-		//If is running
-		switch (animation->GetCurrentIndex())
-		{
-		case 1:
-			AudioManager::GetInstance()->PlayAudio(AudioList::WalkGrassRight);
-			AudioManager::GetInstance()->LockAudio(AudioList::WalkGrassRight);
-			break;
-		case 7:
-			AudioManager::GetInstance()->PlayAudio(AudioList::WalkGrassLeft);
-			AudioManager::GetInstance()->LockAudio(AudioList::WalkGrassLeft);
-			break;
-		default:
-			AudioManager::GetInstance()->UnLockAudio(AudioList::WalkGrassRight);
-			AudioManager::GetInstance()->UnLockAudio(AudioList::WalkGrassLeft);
-			break;
-		}
-	}
+	WalkingSoundCheck();
 }
 
 void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
@@ -680,6 +653,96 @@ void Player::SetAnimation(const int& aAnimationIndex)
 void Player::SetNextAnimation(const int& aAnimationIndex)
 {
 	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[aAnimationIndex]);
+}
+
+void Player::SetGroundIndex(const int& aGroundType)
+{
+	myGroundIndex = aGroundType;
+}
+
+void Player::WalkingSoundCheck()
+{
+	AnimationComponent* animation = GetComponent<AnimationComponent>();
+	if (myCurrentAnimationIndex == 1)
+	{
+		//If is running
+		switch (myGroundIndex)
+		{
+		case 0: // Grass
+			switch (animation->GetCurrentIndex())
+			{
+			case 1:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkGrassRight);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkGrassRight);
+				break;
+			case 7:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkGrassLeft);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkGrassLeft);
+				break;
+			default:
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkGrassRight);
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkGrassLeft);
+				break;
+			}
+			break;
+		case 1:
+			switch (animation->GetCurrentIndex())
+			{
+			case 1:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkStoneRight);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkStoneRight);
+				break;
+			case 7:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkStoneLeft);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkStoneLeft);
+				break;
+			default:
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkStoneRight);
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkStoneLeft);
+				break;
+			}
+		default:
+			break;
+		}
+	}
+}
+
+void Player::LandingSoundCheck()
+{
+	if (myCurrentVelocity.y > 200.0f)
+	{
+		switch (myGroundIndex)
+		{
+		case 0:
+			AudioManager::GetInstance()->PlayAudio(AudioList::LandOnGrassHeavy);
+			AudioManager::GetInstance()->LockAudio(AudioList::LandOnGrassEasy);
+			break;
+		case 1:
+			AudioManager::GetInstance()->PlayAudio(AudioList::LandOnStoneHeavy);
+			AudioManager::GetInstance()->LockAudio(AudioList::LandOnStoneLight);
+			break;
+		}
+	}
+	else if (myCurrentVelocity.y != 0)
+	{
+		switch (myGroundIndex)
+		{
+		case 0:
+			AudioManager::GetInstance()->PlayAudio(AudioList::LandOnGrassEasy);
+			AudioManager::GetInstance()->LockAudio(AudioList::LandOnGrassEasy);
+			break;
+		case 1:
+			AudioManager::GetInstance()->PlayAudio(AudioList::LandOnStoneLight);
+			AudioManager::GetInstance()->LockAudio(AudioList::LandOnStoneLight);
+			break;
+		}
+	}
+}
+
+void Player::UnlockLandingSounds()
+{
+	AudioManager::GetInstance()->UnLockAudio(AudioList::LandOnGrassEasy);
+	AudioManager::GetInstance()->UnLockAudio(AudioList::LandOnStoneLight);
 }
 
 void Player::SetSpawnPosition(const v2f& aSpawnPosition)
