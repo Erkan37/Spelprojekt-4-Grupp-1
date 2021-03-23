@@ -12,17 +12,23 @@
 
 #include "../External/Headers/CU/Utilities.h"
 
+#include "PostMaster.hpp"
+
 Bonfire::Bonfire(Scene* aScene)
 	:
 	GameObject(aScene)
 {
+	SetZIndex(91);
+
 	myCollectibleIndex = 0;
 	myTurnInDistance = 50.0f;
 	myTurnInSpeed = 50.0f;
 
+	myHasBeenActivated = false;
+
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
 	spriteIdle->SetSpritePath("Sprites/Objects/Bonfire.dds");
-	spriteIdle->SetSize(v2f(64.0f, 64.0f));
+	spriteIdle->SetSize(v2f(32.0f, 32.0f));
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
 	physics->SetCanCollide(false);
@@ -30,9 +36,15 @@ Bonfire::Bonfire(Scene* aScene)
 	physics->SetApplyGravity(false);
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
-	collider->SetSize(64.0f, 64.0f);
+	collider->SetSize(32.0f, 32.0f);
 
-	SetZIndex(400);
+	myAnimations[0] = Animation(false, false, false, 0, 1, 1, 0.1f, spriteIdle, 32, 32);
+	myAnimations[1] = Animation(false, true, false, 0, 2, 2, 0.1f, spriteIdle, 32, 32);
+
+	AnimationComponent* animation = AddComponent<AnimationComponent>();
+	animation->SetSprite(spriteIdle);
+	animation->SetAnimation(&myAnimations[0]);
+	spriteIdle->SetSize(v2f(32.0f, 32.0f));
 }
 
 Bonfire::~Bonfire()
@@ -40,42 +52,18 @@ Bonfire::~Bonfire()
 
 }
 
-void Bonfire::Update(const float& aDeltaTime)
-{
-	if (myRetrievedCollectibles.size() > 0)
-	{
-		TurnInCollectibles();
-	}
-
-	GameObject::Update(aDeltaTime);
-}
-
-void Bonfire::TurnInCollectibles()
-{
-	const v2f direction = myTransform.myPosition - myRetrievedCollectibles[myCollectibleIndex]->GetPosition();
-	const float distance = Utils::Abs(direction.LengthSqr());
-
-	if (distance < myTurnInDistance * myTurnInDistance)
-	{
-		myRetrievedCollectibles[myCollectibleIndex]->TurnIn();
-		myRetrievedCollectibles.erase(myRetrievedCollectibles.begin() + myCollectibleIndex);
-		--myCollectibleIndex;
-	}
-}
-
 void Bonfire::OnCollision(GameObject* aGameObject)
 {
 	Player* player = dynamic_cast<Player*>(aGameObject);
 	if (player)
 	{
-		for (Collectible* collectible : player->GetCollectibles())
+		if (!myHasBeenActivated)
 		{
-			myRetrievedCollectibles.push_back(collectible);
-			collectible->SetBonfire(this);
+			GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[1]);
 		}
+		
+		PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerReachedBonfire, 0));
 
-		player->ClearCollectibles(true);
-
-		myCollectibleIndex = static_cast<int>(myRetrievedCollectibles.size()) - 1;
+		myHasBeenActivated = true;
 	}
 }

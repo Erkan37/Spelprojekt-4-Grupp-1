@@ -2,5 +2,7 @@
 enum class eMessageType
 {
 	PlayerDeath,
+	PlayerSafeLanded,
+	PlayerReachedBonfire,
 	Vibrate
 };

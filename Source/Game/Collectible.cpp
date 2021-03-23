@@ -6,6 +6,7 @@
 #include "AnimationComponent.hpp"
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
+#include "AudioManager.h"
 
 #include "../External/Headers/CU/Utilities.h"
 
@@ -29,7 +30,9 @@ Collectible::Collectible(Scene* aLevelScene)
 	myIsSafe(false),
 	myWasTurnedIn(false)
 {
-	
+	Subscribe(eMessageType::PlayerSafeLanded);
+	Subscribe(eMessageType::PlayerDeath);
+	Subscribe(eMessageType::PlayerReachedBonfire);
 }
 
 Collectible::~Collectible()
@@ -39,7 +42,8 @@ Collectible::~Collectible()
 
 void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 {
-	SetZIndex(400);
+	SetZIndex(129);
+
 	SetPosition(aPosition);
 	mySpawnPosition = aPosition;
 
@@ -114,10 +118,10 @@ void Collectible::OnCollision(GameObject* aGameObject)
 		Player* player = dynamic_cast<Player*>(aGameObject);
 		if (player)
 		{
-			player->AddCollectible(this);
 			//SetAnimation;
 			myTarget = aGameObject;
 			myWasCollected = true;
+			AudioManager::GetInstance()->PlayAudio(AudioList::CollectableV1);
 		}
 	}
 }
@@ -127,21 +131,14 @@ void Collectible::Saved()
 	myIsSafe = true;
 }
 
-void Collectible::Reset(const bool aIsTurningIn)
+void Collectible::Reset()
 {
-	if (aIsTurningIn)
+	if (!myIsSafe)
 	{
+		myTarget = nullptr;
 		myWasCollected = false;
-	}
-	else
-	{
-		if (!myIsSafe)
-		{
-			myTarget = nullptr;
-			myWasCollected = false;
-			SetPosition(mySpawnPosition);
-			myTargetPosition = v2f();
-		}
+		SetPosition(mySpawnPosition);
+		myTargetPosition = mySpawnPosition;
 	}
 }
 
@@ -156,6 +153,25 @@ void Collectible::TurnIn()
 {
 	//Add To Score or whatever
 	Destroy();
+}
+
+void Collectible::Notify(const Message& aMessage)
+{
+	if (aMessage.myMessageType == eMessageType::PlayerSafeLanded)
+	{
+		Saved();
+	}
+	else if (aMessage.myMessageType == eMessageType::PlayerDeath)
+	{
+		Reset();
+	}
+	else if (aMessage.myMessageType == eMessageType::PlayerReachedBonfire)
+	{
+		if (myWasCollected)
+		{
+			TurnIn();
+		}
+	}
 }
 
 void Collectible::ImGuiUpdate()

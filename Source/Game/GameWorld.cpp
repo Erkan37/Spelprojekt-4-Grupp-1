@@ -7,7 +7,6 @@
 #include "GameObject.h"
 #include "InputWrapper.h"
 #include "AudioManager.h"
-#include "TiledMap.h"
 
 // Scene
 #include "Scene.h"
@@ -55,11 +54,6 @@ void CGameWorld::Update()
 	myDeltaTime = myTimer->GetDeltaTime();
 	myInput->Update(myDeltaTime);
 
-	if (myInput->GetInput()->GetKeyJustDown(Keys::NumericKeypad0Key) && myLevelManager.GetIsActive(LevelManager::eScenes::LevelScene))
-	{
-		myLevelManager.SingleLoadScene(LevelManager::eScenes::MainMenu);
-	}
-
 	myLevelManager.Update();
 
 	Scene::Manager::Update(myDeltaTime);
@@ -68,4 +62,9 @@ void CGameWorld::Update()
 void CGameWorld::Render()
 {
 	Scene::Manager::Render();
+}
+
+void CGameWorld::LoadDebugger()
+{
+	
 }

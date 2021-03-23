@@ -8,6 +8,7 @@
 #include "EnemyProjectile.h"
 #include "Enemy.h"
 #include "WaypointComponent.hpp"
+#include "AudioComponent.h"
 #ifdef _DEBUG
 #include "imgui.h"
 #endif // DEBUG
@@ -25,6 +26,10 @@ NormalEnemy::NormalEnemy(Scene* aScene) : Enemy(aScene)
 	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy1.dds");
 	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeY] });
 	this->SetZIndex(400);
+	//AudioComponent* audio = AddComponent<AudioComponent>();
+	//audio->AddAudio(AudioList::EnemyNormalIdle);
+	//audio->SetRadius(100);
+	//audio->PlayAudio();
 }
 ShootingEnemy::ShootingEnemy(Scene* aScene) : Enemy(aScene)
 {
@@ -32,6 +37,7 @@ ShootingEnemy::ShootingEnemy(Scene* aScene) : Enemy(aScene)
 	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy2.dds");
 	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeY] });
 	this->SetZIndex(400);
+	//AudioLibrary::GetInstance().myAudioList[AudioList::ProjectileFly]->Play();
 }
 
 void Enemy::InitEnemy(const std::vector<v2f>& someWayPoints, const float& aSpeed)

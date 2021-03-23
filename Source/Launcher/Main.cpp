@@ -41,6 +41,7 @@ void InitConsole()
 	setbuf(stdin, NULL);
 	setbuf(stdout, NULL);
 	setbuf(stderr, NULL);
+
 #pragma warning( pop )
 }
 

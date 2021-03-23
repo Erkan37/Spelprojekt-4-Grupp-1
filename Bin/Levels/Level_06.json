@@ -246,8 +246,8 @@
                  "properties":[
                         {
                          "name":"Speed",
-                         "type":"string",
-                         "value":"25"
+                         "type":"float",
+                         "value":25
                         }, 
                         {
                          "name":"Waypoints",
@@ -395,8 +395,8 @@
                  "properties":[
                         {
                          "name":"Speed",
-                         "type":"string",
-                         "value":"10"
+                         "type":"float",
+                         "value":10
                         }, 
                         {
                          "name":"Waypoints",

@@ -16,11 +16,12 @@ EnemyProjectile::EnemyProjectile(Scene* aScene, const v2f& aPosition, const v2f&
 	myJsonData = dynamic_cast<EnemyData*>(&DataManager::GetInstance().GetDataStruct(DataEnum::enemy));
 
 	this->Activate();
-	this->SetZIndex(400);
+	this->SetZIndex(141);
 
 	InitVisuals();
 	InitCollider();
 	SetDirection(aPosition, aTarget);
+	GameObject::Init();
 }
 
 void EnemyProjectile::SetDirection(const v2f& aPosition, const v2f& aTarget)

@@ -91,3 +91,11 @@ const ESamplerFilter& SpritebatchComponent::GetSamplerFilter() const
 {
 	return mySamplerFilter;
 }
+
+void SpritebatchComponent::SetOpacity(const float& aOpacity)
+{
+	for (SpriteComponent* sprite : mySprites)
+	{
+		sprite->SetColor(v4f(1.0f, 1.0f, 1.0f, aOpacity));
+	}
+}

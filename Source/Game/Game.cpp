@@ -14,6 +14,7 @@
 
 using namespace std::placeholders;
 
+v2f Config::ourReferenceSize = { 320.f, 180.f };
 uint16_t Config::width = 1920U;
 uint16_t Config::height = 1080U;
 std::wstring Config::appName = L"Pass On";
@@ -71,7 +72,6 @@ LRESULT CGame::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_SIZE: 
 	{
-		SetResolution(LOWORD(lParam), HIWORD(lParam));
 		SetZoom(LOWORD(lParam), HIWORD(lParam));
 		return 0;
 	}
@@ -114,9 +114,11 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Overlapped;
 #endif // DEBUG
 #ifdef _RETAIL
-	createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight);
-	createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth);
-	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Borderless;
+	//createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight);
+	//createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth);
+	//Tga2D::CEngine::GetInstance()->SetFullScreen(monitor);
+	//createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Borderless;
+	createParameters.myStartInFullScreen = true;
 #endif // RETAIL
 
 	createParameters.myUseLetterboxAndPillarbox;
@@ -141,6 +143,10 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 void CGame::InitCallBack()
 {
 	myGameWorld.Init();
+
+#ifndef _RETAIL
+	InitDebugger();
+#endif _RETAIL
 }
 
 void CGame::UpdateCallBack()
@@ -149,10 +155,10 @@ void CGame::UpdateCallBack()
 	myGameWorld.Update();
 	myGameWorld.Render();
 
-	if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::ESCKey))
+	/*if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::ESCKey))
 	{
 		PostQuitMessage(0);
-	}
+	}*/
 
 #ifndef _RETAIL
 	if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::F1Key))
@@ -166,8 +172,17 @@ void CGame::UpdateCallBack()
 
 void CGame::SetResolution(const uint16_t& aWidth, const uint16_t& aHeight)
 {
-	//Config::width = aWidth;
-	//Config::height = aHeight;
+	Config::width = aWidth;
+	Config::height = aHeight;
 
-	//Tga2D::CEngine::GetInstance()->SetTargetSize({ aWidth, aHeight });
+	Tga2D::CEngine::GetInstance()->SetTargetSize({ aWidth, aHeight });
 }
+
+#ifndef _RETAIL
+
+void CGame::InitDebugger()
+{
+	myDebugger.Init();
+}
+
+#endif _RETAIL
