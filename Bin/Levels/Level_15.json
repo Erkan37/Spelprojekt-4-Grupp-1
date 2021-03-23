@@ -75,7 +75,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -86,7 +86,7 @@
          "name":"HR",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":80,
          "x":0,
          "y":0
@@ -525,19 +525,7 @@
          "draworder":"topdown",
          "id":17,
          "name":"Jesus",
-         "objects":[
-                {
-                 "height":0,
-                 "id":331,
-                 "name":"",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":432,
-                 "y":56
-                }],
+         "objects":[],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
