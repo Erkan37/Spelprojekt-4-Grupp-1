@@ -51,7 +51,7 @@ void LevelDoor::OnCollision(GameObject* aGameObject)
 
 		if (myType == eDoorType::Exit)
 		{
-			PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::LoadNext, 0), true);
+			PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::LoadNext, 1), true);
 		}
 		else if (myType == eDoorType::Entry)
 		{

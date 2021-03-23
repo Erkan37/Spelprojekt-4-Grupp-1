@@ -18,6 +18,9 @@
 #include "MovingPlatform.hpp"
 #include "Jesus.hpp"
 #include "LevelDoor.hpp"
+#include "Player.hpp"
+
+#include "GameWorld.h"
 
 typedef rapidjson::Value::ConstValueIterator iterator;
 
@@ -76,7 +79,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 				}
 				else if (name == "Doors")
 				{
-					ParseDoors(loadData, aScene);
+					ParseDoors(loadData, aScene, dynamic_cast<Player*>(aPlayer));
 				}
 				else if (name == "Enemies")
 				{
@@ -173,11 +176,31 @@ void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aSc
 	}
 }
 
-void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene* aScene)
+void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene* aScene, Player* aPlayer)
 {
+
+	const int doorType = CGameWorld::GetInstance()->GetLevelManager().GetDoorType();
+
 	for (int i = 0; i < someData.size(); ++i)
 	{
 		LevelDoor* door = new LevelDoor(aScene);
+
+		if (doorType != someData[i].myType)
+		{
+			v2f doorOffset = v2f(0.0f, someData[i].mySize.y - 16.0f);
+			if (someData[i].myType == 0)
+			{
+				doorOffset.x = 8.0f + someData[i].mySize.x;
+			}
+			else if (someData[i].myType == 1)
+			{
+				doorOffset.x = -8.0f;
+			}
+
+			aPlayer->SetSpawnPosition(someData[i].myPosition + doorOffset);
+			aPlayer->SetPosition(someData[i].myPosition + doorOffset);
+		}
+
 		door->Init(static_cast<LevelDoor::eDoorType>(someData[i].myType), someData[i].mySize);
 		door->SetPosition(someData[i].myPosition);
 	}

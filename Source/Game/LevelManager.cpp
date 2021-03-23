@@ -19,6 +19,7 @@ LevelManager::LevelManager()
 #endif //RETAIL
 
 	myLoadedLevel = 0;
+	myLastDoorType = 1;
 
 	Subscribe(eMessageType::LoadNext);
 	Subscribe(eMessageType::LoadPrevious);
@@ -139,6 +140,8 @@ void LevelManager::Notify(const Message& aMessage)
 			myLoadedLevel = DataManager::GetInstance().GetLevelCount() - 1;
 		}
 
+		myLastDoorType = std::get<int>(aMessage.myData);
+
 		SingleLoadScene(eScenes::LevelScene);
 	}
 	else if (aMessage.myMessageType == eMessageType::LoadPrevious)
@@ -149,6 +152,13 @@ void LevelManager::Notify(const Message& aMessage)
 			myLoadedLevel = 0;
 		}
 
+		myLastDoorType = std::get<int>(aMessage.myData);
+
 		SingleLoadScene(eScenes::LevelScene);
 	}
+}
+
+const int LevelManager::GetDoorType()
+{
+	return myLastDoorType;
 }
