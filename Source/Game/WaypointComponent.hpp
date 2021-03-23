@@ -28,6 +28,7 @@ public:
 	void SetOwner(GameObject* aGameObject);
 
 	void ReverseWaypoints();
+	bool IsAtLastCheckPoint();
 
 private:
 	GameObject* myOwner;

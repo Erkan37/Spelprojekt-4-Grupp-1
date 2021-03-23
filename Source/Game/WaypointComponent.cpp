@@ -82,3 +82,12 @@ void WaypointComponent::ReverseWaypoints()
 {
 	myWaypointIncrement = -1;
 }
+
+bool WaypointComponent::IsAtLastCheckPoint()
+{
+	if (myCurrentWayPointIndex >= myWaypoints.size() - 1)
+		return true;
+	else
+		return false;
+
+}

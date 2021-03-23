@@ -22,12 +22,26 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 
 void MovingPlatform::Update(const float& aDeltaTime)
 {
-	if (myType != eMovingPlatformType::RegularPlatform)
+	if (myType == eMovingPlatformType::RegularPlatform || myType == eMovingPlatformType::ReversePlatform)
 		myWaypointComponent->Move(aDeltaTime);
-	else
+	
+	if (myAddedButton)
 	{
-		if (myButton->GetActiveButton())
-			myWaypointComponent->Move(aDeltaTime);
+		if (myType == eMovingPlatformType::ReversePlatform || myType == eMovingPlatformType::PointAtoBPlatform)
+		{
+			if (myButton->GetActiveButton())
+			{
+				if (myType == eMovingPlatformType::ReversePlatform)
+					myWaypointComponent->ReverseWaypoints();
+				else if (myType == eMovingPlatformType::MovingPlatform)
+					myWaypointComponent->Move(aDeltaTime);
+				else if (myType == eMovingPlatformType::PointAtoBPlatform)
+				{
+					if (!myWaypointComponent->IsAtLastCheckPoint())
+						myWaypointComponent->Move(aDeltaTime);
+				}
+			}
+		}
 	}
 	
 	Platform::Update(aDeltaTime);
