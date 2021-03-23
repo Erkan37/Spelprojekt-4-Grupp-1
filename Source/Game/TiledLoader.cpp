@@ -190,11 +190,11 @@ void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene* aScene
 			v2f doorOffset = v2f(0.0f, someData[i].mySize.y - 16.0f);
 			if (someData[i].myType == 0)
 			{
-				doorOffset.x = 8.0f + someData[i].mySize.x;
+				doorOffset.x = 24.0f + someData[i].mySize.x;
 			}
 			else if (someData[i].myType == 1)
 			{
-				doorOffset.x = -8.0f;
+				doorOffset.x = -24.0f;
 			}
 
 			aPlayer->SetSpawnPosition(someData[i].myPosition + doorOffset);
