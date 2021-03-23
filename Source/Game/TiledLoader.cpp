@@ -30,6 +30,8 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 	std::vector<LoadData> loadData;
 	std::vector<HiddenArea*> hiddenRoomsData;
 
+	aScene->GetCamera().SetBounds(v2f(), v2f(levelDoc["width"].GetInt() * 8, levelDoc["height"].GetInt() * 8));
+
 	if (levelDoc.IsObject())
 	{
 		for (iterator layer = levelDoc["layers"].Begin(); layer != levelDoc["layers"].End(); ++layer)
