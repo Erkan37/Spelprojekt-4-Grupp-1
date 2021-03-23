@@ -152,7 +152,7 @@
                  "y":0
                 }, 
                 {
-                 "height":128,
+                 "height":64,
                  "id":130,
                  "name":"",
                  "rotation":0,
@@ -172,28 +172,6 @@
                  "width":160,
                  "x":88,
                  "y":174
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":13,
-         "name":"CollectableZones",
-         "objects":[
-                {
-                 "height":96,
-                 "id":127,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":304,
-                 "y":56
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -276,22 +254,22 @@
          "name":"Doors",
          "objects":[
                 {
-                 "height":24,
+                 "height":88,
                  "id":124,
                  "name":"",
                  "rotation":0,
-                 "type":"",
+                 "type":"0",
                  "visible":true,
                  "width":16,
                  "x":-32,
-                 "y":128
+                 "y":64
                 }, 
                 {
                  "height":96,
                  "id":125,
                  "name":"",
                  "rotation":0,
-                 "type":"",
+                 "type":"1",
                  "visible":true,
                  "width":16,
                  "x":336,

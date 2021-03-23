@@ -22,6 +22,9 @@ public:
 	void RemoveSubcriber(Subscriber* aSubscriber, const eMessageType& aMessageType);
 
 	void ReceiveMessage(const Message& aMessage);
+	void ReceiveMessage(const Message& aMessage, const bool aWillWait);
+
+	void SendWaitingMessages();
 
 private:
 	PostMaster()
@@ -30,6 +33,7 @@ private:
 	}
 
 	std::map<eMessageType, std::vector<Subscriber*>> mySubscribers;
+	std::vector<Message> myWaitingMessages;
 
 };
 

@@ -352,6 +352,7 @@ void Player::TryLetJumpWhenFalling(const float& aYDistance)
 }
 void Player::Jump()
 {
+	AudioManager::GetInstance()->UnLockAudio(AudioList::LandOnGrassEasy);
 	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerJump);
 	v2f calculatedSpring = mySpringVelocity;
 	calculatedSpring.y = calculatedSpring.y;
@@ -378,7 +379,7 @@ void Player::DoubleJump()
 void Player::LedgeJump()
 {
 	myGrabbedLedge = false;
-
+	AudioManager::GetInstance()->UnLockAudio(AudioList::LandOnGrassEasy);
 	if (!myInputHandler->GetInput()->GetKeyDown(Keys::SKey) && myInputHandler->GetController()->GetLeftThumbStick().y < 0.3f)
 	{
 		myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Ledge_Jump_Velocity];
@@ -424,6 +425,16 @@ void Player::Landed(const int& aOverlapY)
 		{
 			Jump();
 		}
+	}
+	if (myCurrentVelocity.y > 200.0f)
+	{
+		AudioManager::GetInstance()->PlayAudio(AudioList::LandOnGrassHeavy);
+		AudioManager::GetInstance()->LockAudio(AudioList::LandOnGrassEasy);
+	}
+	else if( myCurrentVelocity.y != 0)
+	{
+		AudioManager::GetInstance()->PlayAudio(AudioList::LandOnGrassEasy);
+		AudioManager::GetInstance()->LockAudio(AudioList::LandOnGrassEasy);
 	}
 	myCurrentVelocity.y = 0.0f;
 	myBashAbility->ResetVelocity(false, true);
@@ -474,6 +485,7 @@ void Player::AnimationState()
 
 	if (myCurrentAnimationIndex != 2 && myCurrentAnimationIndex != 3 && myCurrentAnimationIndex != 4 && !myHasLanded)
 	{
+		AudioManager::GetInstance()->UnLockAudio(AudioList::LandOnGrassEasy);
 		animation->SetAnimation(&myAnimations[4]);
 		myCurrentAnimationIndex = 4;
 	}
@@ -481,6 +493,26 @@ void Player::AnimationState()
 	for (Animation& animation : myAnimations)
 	{
 		animation.mySpriteComponent->SetSizeX(mySize.x * myDirectionX);
+	}
+
+	if (myCurrentAnimationIndex == 1)
+	{
+		//If is running
+		switch (animation->GetCurrentIndex())
+		{
+		case 1:
+			AudioManager::GetInstance()->PlayAudio(AudioList::WalkGrassRight);
+			AudioManager::GetInstance()->LockAudio(AudioList::WalkGrassRight);
+			break;
+		case 7:
+			AudioManager::GetInstance()->PlayAudio(AudioList::WalkGrassLeft);
+			AudioManager::GetInstance()->LockAudio(AudioList::WalkGrassLeft);
+			break;
+		default:
+			AudioManager::GetInstance()->UnLockAudio(AudioList::WalkGrassRight);
+			AudioManager::GetInstance()->UnLockAudio(AudioList::WalkGrassLeft);
+			break;
+		}
 	}
 }
 
@@ -541,8 +573,8 @@ void Player::ActivateSpringForce(float aSpringVelocity, const float aRetardation
 	myHasLanded = false;
 	myActiveSpringJump = true;
 	myHasLandedOnSpring = true;
-	myBashAbility->ResetVelocity(true, true);
-	myCurrentVelocity = {};
+	myBashAbility->ResetVelocity(false, true);
+	myCurrentVelocity.y = {};
 	mySpringVelocityRetardation = aRetardation;
 	mySpringVelocity.y = aSpringVelocity;
 }
@@ -584,14 +616,17 @@ void Player::KillReset()
 
 	ResetVelocity();
 	myBashAbility->ResetVelocity(true, true);
+	myBashAbility->StopBashing();
 	myPlatformVelocity = v2f();
 	myHasDied = true;
 	SetAnimation(10);
+	GetComponent<AnimationComponent>()->SetNextAnimation(nullptr);
 }
 
 void Player::Respawn()
 {
 	myHasDied = false;
+	SetAnimation(0);
 	SetPosition(mySpawnPosition);
 }
 
@@ -645,6 +680,11 @@ void Player::SetAnimation(const int& aAnimationIndex)
 void Player::SetNextAnimation(const int& aAnimationIndex)
 {
 	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[aAnimationIndex]);
+}
+
+void Player::SetSpawnPosition(const v2f& aSpawnPosition)
+{
+	mySpawnPosition = aSpawnPosition;
 }
 
 #ifdef _DEBUG

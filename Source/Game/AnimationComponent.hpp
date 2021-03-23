@@ -31,6 +31,8 @@ public:
 	bool GetIsDisplayedOnce();
 	bool GetHasBeenDisplayedOnce();
 
+	const int GetCurrentIndex();
+
 private:
 	SpriteComponent* mySprite;
 	Animation* myNextAnimation;
