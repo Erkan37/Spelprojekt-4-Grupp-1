@@ -318,17 +318,6 @@
                  "y":24
                 }, 
                 {
-                 "height":2.00202020202022,
-                 "id":277,
-                 "name":"D\u00f6dlig",
-                 "rotation":0,
-                 "type":"4",
-                 "visible":true,
-                 "width":16,
-                 "x":102,
-                 "y":104
-                }, 
-                {
                  "height":24,
                  "id":278,
                  "name":"D\u00f6dlig",
@@ -349,6 +338,17 @@
                  "width":4,
                  "x":118,
                  "y":128
+                }, 
+                {
+                 "height":2,
+                 "id":281,
+                 "name":"",
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":14,
+                 "x":104,
+                 "y":104
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -562,7 +562,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":280,
+ "nextobjectid":282,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
