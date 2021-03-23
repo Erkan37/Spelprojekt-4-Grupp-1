@@ -555,6 +555,9 @@ void Player::BounceOnDestructibleWall()
 {
 	v2f dashVelocity = myBashAbility->GetVelocity();
 	dashVelocity.x *= -0.8f;
+
+	myBashAbility->InvertDashDirectionX();
+	myBashAbility->SetVelocity(dashVelocity);
 }
 
 void Player::Kill()
