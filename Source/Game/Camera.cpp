@@ -45,8 +45,8 @@ void Camera::Update(const float& aDeltaTime)
 		const v2f& targetPos = GetTargetPosition();
 		SetPosition
 		({
-			myLesserThanViewPortX * Utils::Lerp<float>(myX, targetPos.x - (static_cast<float>(Config::width) * myInverseZoom) * .5f, myLerp.x * aDeltaTime),
-			myLesserThanViewPortY * Utils::Lerp<float>(myY, targetPos.y - (static_cast<float>(Config::height) * myInverseZoom) * .5f, myLerp.y * aDeltaTime)
+			myLesserThanViewPortX * Utils::Lerp<float>(myX, targetPos.x - myWorldViewSize.x * 0.5f, myLerp.x * aDeltaTime),
+			myLesserThanViewPortY * Utils::Lerp<float>(myY, targetPos.y + myWorldViewSize.y * 0.5f, myLerp.y * aDeltaTime)
 		});
 
 		SetActive();
