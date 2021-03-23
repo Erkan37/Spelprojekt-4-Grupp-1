@@ -85,6 +85,8 @@ public:
 	void SetAnimation(const int& aAnimationIndex);
 	void SetNextAnimation(const int& aAnimationIndex);
 
+	void SetSpawnPosition(const v2f& aSpawnPosition);
+
 private:
 #ifdef _DEBUG
 	void ImGuiUpdate();
