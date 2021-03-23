@@ -31,7 +31,7 @@ void LevelScene::Load()
 
 	myBackground = new Background(this);
 
-	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, 0, myPlayer);
+	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, myPlayer);
 
 	myPauseMenu = new PauseMenu(this);
 	myPauseMenu->InitMenu();

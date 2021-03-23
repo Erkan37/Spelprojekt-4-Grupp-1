@@ -12,6 +12,8 @@
 #include <thread>
 #include "../External/Headers/CU/Utilities.h"
 
+#include "PostMaster.hpp"
+
 using namespace std::placeholders;
 
 v2f Config::ourReferenceSize = { 320.f, 180.f };
@@ -145,7 +147,7 @@ void CGame::InitCallBack()
 	myGameWorld.Init();
 
 #ifndef _RETAIL
-	InitDebugger();
+	//InitDebugger();
 #endif _RETAIL
 }
 
@@ -154,6 +156,8 @@ void CGame::UpdateCallBack()
 	myTimer->Update();
 	myGameWorld.Update();
 	myGameWorld.Render();
+
+	PostMaster::GetInstance().SendWaitingMessages();
 
 	/*if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::ESCKey))
 	{

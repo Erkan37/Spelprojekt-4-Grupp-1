@@ -29,6 +29,7 @@ HiddenArea::HiddenArea(Scene* aLevelScene, const v2f& aPosition, const v2f& aSiz
 	physics->SetApplyGravity(false);
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
+	collider->SetPosition({ aSize.x / 2.0f, aSize.y / 2.0f });
 	collider->SetSize(aSize);
 }
 
