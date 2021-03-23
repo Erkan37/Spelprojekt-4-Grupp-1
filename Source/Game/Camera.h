@@ -90,6 +90,7 @@ private:
 	/* Camera Bounds */
 	v2f myBounds;
 	v2f myBoundSize;
+	v2f myWorldViewSize;
 	bool myHasBounds;
 
 	/* Camera Shake */
