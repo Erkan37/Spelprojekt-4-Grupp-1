@@ -17,11 +17,12 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	myWaypointComponent = AddComponent<WaypointComponent>();
 	myWaypointComponent->SetOwner(this);
 	myAddedButton = false;
+	myType = eMovingPlatformType::RegularPlatform;
 }
 
 void MovingPlatform::Update(const float& aDeltaTime)
 {
-	if (!myAddedButton)
+	if (myType != eMovingPlatformType::RegularPlatform)
 		myWaypointComponent->Move(aDeltaTime);
 	else
 	{

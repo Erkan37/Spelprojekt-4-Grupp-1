@@ -9,6 +9,7 @@ class MovingPlatform : public Platform
 public:
 	enum class eMovingPlatformType
 	{
+		RegularPlatform,
 		MovingPlatform,
 		ReversePlatform,
 		PointAtoBPlatform

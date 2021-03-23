@@ -7,6 +7,8 @@ class GameObject;
 class WaypointComponent : public Component
 {
 public:
+	WaypointComponent();
+
 	void Move(const float& aDeltaTime);
 
 	void CheckReachedWayPoint();
@@ -25,6 +27,8 @@ public:
 
 	void SetOwner(GameObject* aGameObject);
 
+	void ReverseWaypoints();
+
 private:
 	GameObject* myOwner;
 
@@ -33,6 +37,7 @@ private:
 
 	float mySpeed;
 
+	int myWaypointIncrement;
 	int myCurrentWayPointIndex;
 
 };

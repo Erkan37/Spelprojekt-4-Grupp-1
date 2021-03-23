@@ -2,6 +2,11 @@
 #include "WaypointComponent.hpp"
 #include "GameObject.h"
 
+WaypointComponent::WaypointComponent()
+{
+	myWaypointIncrement = 1;
+}
+
 void WaypointComponent::Move(const float& aDeltaTime)
 {
 	if (static_cast<int>(myWaypoints.size()) > 0)
@@ -26,11 +31,13 @@ void WaypointComponent::CheckReachedWayPoint()
 
 void WaypointComponent::SetNextWayPoint()
 {
-	++myCurrentWayPointIndex;
+	myCurrentWayPointIndex = myCurrentWayPointIndex + myWaypointIncrement;
 	if (myCurrentWayPointIndex >= static_cast<int>(myWaypoints.size()))
 	{
 		myCurrentWayPointIndex = 0;
 	}
+	else if (myCurrentWayPointIndex < 0)
+		myCurrentWayPointIndex = static_cast<int>(myWaypoints.size() - 1);
 }
 
 void WaypointComponent::SetSpeed(const float& aSpeed)
@@ -69,4 +76,9 @@ const v2f WaypointComponent::GetVelocity()
 void WaypointComponent::SetOwner(GameObject* aGameObject)
 {
 	myOwner = aGameObject;
+}
+
+void WaypointComponent::ReverseWaypoints()
+{
+	myWaypointIncrement = -1;
 }
