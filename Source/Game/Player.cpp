@@ -650,6 +650,11 @@ void Player::SetNextAnimation(const int& aAnimationIndex)
 	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[aAnimationIndex]);
 }
 
+void Player::SetSpawnPosition(const v2f& aSpawnPosition)
+{
+	mySpawnPosition = aSpawnPosition;
+}
+
 #ifdef _DEBUG
 void Player::ImGuiUpdate()
 {
