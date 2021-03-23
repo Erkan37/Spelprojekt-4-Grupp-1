@@ -5,6 +5,8 @@
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
 
+#include "AudioManager.h"
+
 #include "Player.hpp"
 
 UnstablePlatform::UnstablePlatform(Scene* aLevelScene)
@@ -60,6 +62,7 @@ void UnstablePlatform::OnCollision(GameObject* aGameObject)
 	Player* player = dynamic_cast<Player*>(aGameObject);
 	if (player && (!myCollidedWithPlayer && !myIsDeactivated) && aGameObject->GetPositionY() < myTransform.myPosition.y)
 	{	
+		AudioManager::GetInstance()->PlayAudio(AudioList::WeakPlatform);
 		myCollidedWithPlayer = true;
 		myTimer = myDestroyTime;
 	}
@@ -84,6 +87,7 @@ void UnstablePlatform::ActivatePlatform()
 
 void UnstablePlatform::DeactivatePlatform()
 {
+	AudioManager::GetInstance()->Stop(AudioList::WeakPlatform);
 	GetComponent<PhysicsComponent>()->SetCanCollide(false);
 	GetComponent<SpriteComponent>()->Deactivate();
 	myIsDeactivated = true;

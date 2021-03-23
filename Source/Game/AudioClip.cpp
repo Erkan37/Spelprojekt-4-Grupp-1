@@ -2,9 +2,11 @@
 #include "AudioClip.h"
 #include "tga2d/audio/audio.h"
 #include "tga2d/audio/audio_out.h"
+#include <iostream>
 #include "AudioClip.h"
 
-AudioClip::AudioClip(const char* anAudioPath, const bool aIsLooping, const float& aVolume, AudioLayer aLayer)
+AudioClip::AudioClip(const char* anAudioPath, const bool aIsLooping, const float& aVolume, const float& aMinVol, const float& aMaxVol, AudioLayer aLayer) :
+	myMaxVolume(aMaxVol), myMinVolume(aMinVol)
 {
 	myAudio = new Tga2D::CAudio();
 	myVolume = aVolume;
@@ -13,43 +15,24 @@ AudioClip::AudioClip(const char* anAudioPath, const bool aIsLooping, const float
 	myAudio->SetVolume(myVolume);
 }
 
-AudioClip::AudioClip(AudioClip& anAudioClip)
-{
-	myAudio = new Tga2D::CAudio(*anAudioClip.myAudio);
-	myVolume = anAudioClip.myVolume;
-}
-
 AudioClip::~AudioClip()
 {
 	myAudio = nullptr;
 	delete myAudio;
 }
 
-void AudioClip::Update(const float& someDeltaTime)
-{
-	if (myFade)
-	{
-		myVolume -= myFadeSpeed * someDeltaTime;
-
-		if (myVolume < 0)
-		{
-			myFade = false;
-			myVolume = 0;
-		}
-	}
-}
-
 void AudioClip::SetVolume(const float& aVolChange)
 {
 	myVolume = aVolChange;
-	if (myVolume < 0)
+	if (myVolume < myMinVolume)
 	{
-		myVolume = 0;
+		myVolume = myMinVolume;
 	}
-	if (myVolume > 1)
+	if (myVolume > myMaxVolume)
 	{
-		myVolume = 1;
+		myVolume = myMaxVolume;
 	}
+	std::cout << myVolume << "\n";
 	myAudio->SetVolume(myVolume);
 }
 
@@ -69,7 +52,7 @@ void AudioClip::AddVolume(const float& aVolChange)
 
 void AudioClip::SetPosition(const VECTOR2F aPosition)
 {
-	myAudio->SetPosition(aPosition);
+	//myAudio->SetPosition(aPosition / 10);
 }
 
 void AudioClip::Play()
@@ -102,4 +85,9 @@ void AudioClip::Lock()
 void AudioClip::UnLock()
 {
 	myCanPlay = true;
+}
+
+AudioLayer AudioClip::GetLayer()
+{
+	return myLayer;
 }

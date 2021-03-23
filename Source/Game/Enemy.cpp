@@ -26,10 +26,10 @@ NormalEnemy::NormalEnemy(Scene* aScene) : Enemy(aScene)
 	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy1.dds");
 	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeY] });
 	this->SetZIndex(400);
-	AudioComponent* audio = AddComponent<AudioComponent>();
-	audio->AddAudio(AudioList::ProjectileFly);
-	audio->SetRadius(300);
-	audio->PlayAudio(AudioList::ProjectileFly);
+	//AudioComponent* audio = AddComponent<AudioComponent>();
+	//audio->AddAudio(AudioList::EnemyNormalIdle);
+	//audio->SetRadius(100);
+	//audio->PlayAudio();
 }
 ShootingEnemy::ShootingEnemy(Scene* aScene) : Enemy(aScene)
 {

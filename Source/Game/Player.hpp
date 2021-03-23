@@ -82,12 +82,15 @@ public:
 
 	const bool& GetHasLanded();
 
+	void SetAnimation(const int& aAnimationIndex);
+	void SetNextAnimation(const int& aAnimationIndex);
+
 private:
 #ifdef _DEBUG
 	void ImGuiUpdate();
 #endif // _DEBUG
 
-	Animation myAnimations[6];
+	Animation myAnimations[11];
 	std::vector<Collectible*> myCollectibles;
 
 	std::shared_ptr<InputWrapper> myInputHandler;
@@ -120,6 +123,7 @@ private:
 	bool myActiveSpringJump;
 	bool myGrabbedLedge;
 	bool myIsLerpingToPosition;
+	bool myHasDied;
 
 	PlayerData* myJsonData = new PlayerData();
 };

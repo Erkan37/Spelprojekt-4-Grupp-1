@@ -174,6 +174,7 @@ void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aSc
 
 void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene*)
 {
+
 }
 
 void TiledLoader::ParseEnemies(const std::vector<LoadData> someData, Scene* aScene)

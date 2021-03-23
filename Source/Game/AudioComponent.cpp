@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "AudioComponent.h"
+#include "AudioManager.h"
 #include "LevelScene.h"
-#include <iostream>
 #include "CU/Utilities.h"
 
 AudioComponent::AudioComponent() : Component()
@@ -11,30 +11,27 @@ AudioComponent::AudioComponent() : Component()
 
 void AudioComponent::AddAudio(AudioList aSound)
 {
-	//myAudioList.push_back(new AudioClip(*AudioLibrary::GetInstance().myAudioList[aSound]));
+	myAudio = aSound;
 }
 
-void AudioComponent::PlayAudio(AudioList aSound)
+void AudioComponent::PlayAudio()
 {
 	//myAudioList[0]->Play();
 	//AudioLibrary::GetInstance().myAudioList[aSound]->Play();
+	AudioManager::GetInstance()->PlayAudio(myAudio);
 }
 
-void AudioComponent::StopAudio(AudioList aSound)
+void AudioComponent::StopAudio()
 {
+	AudioManager::GetInstance()->Stop(myAudio);
+
 	//AudioLibrary::GetInstance().myAudioList[aSound]->Stop();
 }
 
 void AudioComponent::SetRadius(const float& aRadius)
 {
 	myRadius = aRadius;
-	myHasRadius = true;
 	//myAudioList[0]->SetVolume(0);//AudioLibrary::GetInstance().myAudioList[AudioList::ProjectileFly]->SetVolume(0);
-}
-
-void AudioComponent::SetHasRadius(bool aHasRadius)
-{
-	myHasRadius = aHasRadius;
 }
 
 void AudioComponent::SetVolume(const int& anIndex, const float& aVolume)
@@ -64,15 +61,17 @@ void AudioComponent::UnLockAudio(AudioList aSound)
 
 void AudioComponent::Update(Transform& aTransform, GameObject& aGameObject)
 {
-	if (myHasRadius)
+	v2f lengthFromPlayer = aGameObject.GetPosition() - dynamic_cast<LevelScene*>(aGameObject.GetScene())->GetPlayer()->GetPosition();
+	if (lengthFromPlayer.Length() <= myRadius)
 	{
-		v2f lengthFromPlayer = aGameObject.GetPosition() - dynamic_cast<LevelScene*>(aGameObject.GetScene())->GetPlayer()->GetPosition();
-		if (lengthFromPlayer.Length() <= myRadius)
-		{
-			//float length = lengthFromPlayer.Length();
-			//float volPercentage = length / myRadius;
-			//AudioLibrary::GetInstance().myAudioList[AudioList::ProjectileFly]->SetVolume(1 - volPercentage);
-			//AudioLibrary::GetInstance().myAudioList[AudioList::ProjectileFly]->SetPosition(lengthFromPlayer.GetNormalized());
-		}
+		float length = lengthFromPlayer.Length();
+		float volPercentage = length / myRadius;
+		AudioManager::GetInstance()->SetSoundVolume(myAudio, 1 - volPercentage);
+		AudioManager::GetInstance()->SetSoundPosition(myAudio, lengthFromPlayer.GetNormalized());
+		//AudioLibrary::GetInstance().myAudioList[AudioList::ProjectileFly]->SetPosition(lengthFromPlayer.GetNormalized());
+	}
+	else
+	{
+		AudioManager::GetInstance()->SetSoundVolume(myAudio, 0);
 	}
 }

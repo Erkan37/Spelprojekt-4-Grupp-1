@@ -4,14 +4,13 @@
 class AudioClip;
 enum class AudioList
 {
-	SoundStart,
 	PlayerJump, PlayerDoubleJump, PlayerLedgeGrab, PlayerDeath,
 	EnemyNormalIdle, EnemyShootingIdle, EnemyShootingShot,
 	ProjectileFly, ProjectileHit,
+	WeakPlatform, MovingPlatform,
 	WalkGravelRight, WalkGravelLeft,
 	BashCharge, BashRelease,
 	CollectableV1,
-	SoundAmount
 };
 
 enum class AudioLayer

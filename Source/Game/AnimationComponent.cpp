@@ -113,7 +113,7 @@ void AnimationComponent::Update(Transform& aTransform, GameObject& aGameObject)
 		return;
 	}
 
-	myTimer -= CGameWorld::GetInstance()->DeltaTime();
+	myTimer -= CGameWorld::GetInstance()->GetTimer()->GetDeltaTime();
 
 	if (myTimer < 0)
 	{
