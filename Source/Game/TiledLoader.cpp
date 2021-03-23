@@ -17,6 +17,7 @@
 #include "BashableObject.hpp"
 #include "MovingPlatform.hpp"
 #include "Jesus.hpp"
+#include "LevelDoor.hpp"
 
 typedef rapidjson::Value::ConstValueIterator iterator;
 
@@ -172,9 +173,14 @@ void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aSc
 	}
 }
 
-void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene*)
+void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene* aScene)
 {
-
+	for (int i = 0; i < someData.size(); ++i)
+	{
+		LevelDoor* door = new LevelDoor(aScene);
+		door->Init(static_cast<LevelDoor::eDoorType>(someData[i].myType), someData[i].mySize);
+		door->SetPosition(someData[i].myPosition);
+	}
 }
 
 void TiledLoader::ParseEnemies(const std::vector<LoadData> someData, Scene* aScene)

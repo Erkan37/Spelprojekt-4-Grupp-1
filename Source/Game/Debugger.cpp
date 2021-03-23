@@ -141,7 +141,7 @@ void Debugger::Init()
 
 	CGameWorld::GetInstance()->Input()->GetInput()->ToggleCaptureCursor(true);
 
-	/*constexpr int interval = 100;
+	constexpr int interval = 100;
 
 	std::cout << "mo------------.........................................``````````````````````````````````..........y\n";
 	Sleep(interval);
@@ -235,7 +235,7 @@ void Debugger::Init()
 	Sleep(interval);
 	std::cout << "mNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN\n";
 	Sleep(interval);
-	std::cout << "mNNNNNNNNNNNNNNNNNmdNmdNdmmhhhNdNNNNNdmNdmmhhdNdNNNmmNdNdhhmNhhdNmhhmNdhdNmhhmNhNNdNNNNNNNNNNNNNNNNN\n";*/
+	std::cout << "mNNNNNNNNNNNNNNNNNmdNmdNdmmhhhNdNNNNNdmNdmmhhdNdNNNmmNdNdhhmNhhdNmhhmNdhdNmhhmNhNNdNNNNNNNNNNNNNNNNN\n";
 
 	CGameWorld::GetInstance()->Input()->GetInput()->ToggleCaptureCursor();
 }

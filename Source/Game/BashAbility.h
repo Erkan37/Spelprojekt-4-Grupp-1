@@ -38,6 +38,8 @@ public:
 
 	void ImGuiUpdate();
 
+	void StopBashing();
+
 private:
 	std::shared_ptr<InputWrapper> myInput;
 	

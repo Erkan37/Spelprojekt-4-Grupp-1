@@ -2,6 +2,8 @@
 #include <map>
 #include <memory>
 
+#include "Subscriber.hpp"
+
 class Scene;
 class LevelScene;
 
@@ -9,7 +11,7 @@ class TiledLoader;
 
 class GameObject;
 
-class LevelManager
+class LevelManager : public Subscriber
 {
 public:
 	enum class eScenes
@@ -41,15 +43,19 @@ public:
 
 	const bool GetIsActive(eScenes aScene);
 
+	void LoadLevel(LevelScene* aLevelScene, GameObject* aPlayer);
 	void LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, GameObject* aPlayer);
+
+	void Notify(const Message& aMessage) override;
 
 private:
 	std::map<eScenes, Scene*> myScenes;
 	std::shared_ptr<TiledLoader> myTiledLoader;
 
+	int myLoadedLevel;
+
 #ifndef _RETAIL
 	bool myImGuiIsActive;
-	int myLevelToLoad = 0;
 #endif //RETAIL
 };
 
