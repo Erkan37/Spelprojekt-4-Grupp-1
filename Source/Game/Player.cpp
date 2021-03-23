@@ -591,7 +591,7 @@ void Player::Kill()
 		AudioManager::GetInstance()->PlayAudio(AudioList::PlayerDeath);
 		KillReset();
 	}
-	else if (GetComponent<AnimationComponent>()->GetIsDisplayedOnce() && GetComponent<AnimationComponent>()->GetHasBeenDisplayedOnce())
+	else if (myCurrentAnimationIndex == 10 && GetComponent<AnimationComponent>()->GetHasBeenDisplayedOnce())
 	{
 		Respawn();
 		PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerDeath, 0));
@@ -616,9 +616,12 @@ void Player::KillReset()
 
 	ResetVelocity();
 	myBashAbility->ResetVelocity(true, true);
+	myBashAbility->StopBashing();
 	myPlatformVelocity = v2f();
 	myHasDied = true;
 	SetAnimation(10);
+	GetComponent<AnimationComponent>()->SetNextAnimation(nullptr);
+	myCurrentAnimationIndex = 10;
 }
 
 void Player::Respawn()

@@ -263,3 +263,8 @@ void BashAbility::UpdateBashArrow()
 	SetPosition(myPlayer->GetPosition() + myDashDirection * 16.0f);
 	SetRotation(atan2(myDashDirection.y, myDashDirection.x));
 }
+
+void BashAbility::StopBashing()
+{
+	myIsBashing = false;
+}
