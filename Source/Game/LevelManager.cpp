@@ -9,6 +9,8 @@
 
 #include "GameObject.h"
 
+#include "DataManager.h"
+
 LevelManager::LevelManager()
 {
 	myTiledLoader = std::make_shared<TiledLoader>();
@@ -49,7 +51,7 @@ void LevelManager::ImGuiUpdate()
 		bool levelManager = true;
 		ImGui::Begin("Level Manager", &levelManager, ImGuiWindowFlags_AlwaysAutoResize);
 
-		ImGui::InputInt("Scene Path", &myLevelToLoad, ImGuiWindowFlags_AlwaysAutoResize);
+		ImGui::InputInt("Scene Path", &myLoadedLevel, ImGuiWindowFlags_AlwaysAutoResize);
 
 		if (ImGui::Button("Load Scene"))
 		{
@@ -118,11 +120,6 @@ const bool LevelManager::GetIsActive(eScenes aScene)
 
 void LevelManager::LoadLevel(LevelScene* aLevelScene, GameObject* aPlayer)
 {
-#ifndef _RETAIL
-	myTiledLoader->Load(aLevelScene, myLevelToLoad, aPlayer);
-	return;
-#endif //RETAIL
-
 	myTiledLoader->Load(aLevelScene, myLoadedLevel, aPlayer);
 }
 
@@ -137,11 +134,21 @@ void LevelManager::Notify(const Message& aMessage)
 	if (aMessage.myMessageType == eMessageType::LoadNext)
 	{
 		++myLoadedLevel;
+		if (myLoadedLevel >= DataManager::GetInstance().GetLevelCount())
+		{
+			myLoadedLevel = DataManager::GetInstance().GetLevelCount() - 1;
+		}
+
 		SingleLoadScene(eScenes::LevelScene);
 	}
 	else if (aMessage.myMessageType == eMessageType::LoadPrevious)
 	{
 		--myLoadedLevel;
+		if (myLoadedLevel < 0)
+		{
+			myLoadedLevel = 0;
+		}
+
 		SingleLoadScene(eScenes::LevelScene);
 	}
 }

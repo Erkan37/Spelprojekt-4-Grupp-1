@@ -147,7 +147,7 @@ void CGame::InitCallBack()
 	myGameWorld.Init();
 
 #ifndef _RETAIL
-	InitDebugger();
+	//InitDebugger();
 #endif _RETAIL
 }
 

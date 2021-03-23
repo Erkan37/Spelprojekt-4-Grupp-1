@@ -23,6 +23,8 @@ LevelDoor::~LevelDoor()
 
 void LevelDoor::Init(const eDoorType aDoorType, const v2f& aSize)
 {
+	SetPivot(v2f(0.0f, 0.0f));
+
 	myType = aDoorType;
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
@@ -31,6 +33,7 @@ void LevelDoor::Init(const eDoorType aDoorType, const v2f& aSize)
 	physics->SetApplyGravity(false);
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
+	collider->SetPosition({ aSize.x / 2.0f, aSize.y / 2.0f });
 	collider->SetSize(aSize);
 }
 

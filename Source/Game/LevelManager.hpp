@@ -56,7 +56,6 @@ private:
 
 #ifndef _RETAIL
 	bool myImGuiIsActive;
-	int myLevelToLoad = 0;
 #endif //RETAIL
 };
 
