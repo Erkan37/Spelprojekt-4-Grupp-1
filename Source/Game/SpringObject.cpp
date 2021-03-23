@@ -8,12 +8,14 @@
 #include "Player.hpp"
 #include "Game.h"
 #include <iostream>
+#include "rapidjson/istreamwrapper.h"
 
 SpringObject::SpringObject(Scene* aLevelScene) : GameObject(aLevelScene)
 {
 	mySpringActive = {};
 	myRetardation = {};
 	myVelocityForce = {};
+	myTimer = {};
 
 	SetZIndex(94);
 }
@@ -21,7 +23,7 @@ SpringObject::SpringObject(Scene* aLevelScene) : GameObject(aLevelScene)
 void SpringObject::Init(const v2f aPosition)
 {
 	InitSprings(aPosition);
-
+	LoadJson();
 	GameObject::Init();
 }
 void SpringObject::Update(const float& aDeltaTime)
@@ -39,9 +41,6 @@ void SpringObject::Update(const float& aDeltaTime)
 		}
 	}
 
-#ifdef _DEBUG
-	ImGuiUpdate();
-#endif // _DEBUG
 }
 
 void SpringObject::OnCollision(GameObject* aGameObject)
@@ -65,8 +64,6 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 void SpringObject::InitSprings(const v2f aPosition)
 {
 	mySpringTimerCooldown = 0.1f;
-	myRetardation = 1.0f;
-	myVelocityForce = 250.f;
 	myPosition = aPosition;
 	mySize = { 16.0f, 16.0f };
 
@@ -100,17 +97,26 @@ void SpringObject::CreateGroundSpring()
 
 void SpringObject::LoadJson()
 {
+	std::ifstream effectObjectFile("JSON/SpringObject.json");
+	rapidjson::IStreamWrapper effectObjectStream(effectObjectFile);
 
+	rapidjson::Document effectDocuments;
+	effectDocuments.ParseStream(effectObjectStream);
+
+	myRetardation = effectDocuments["Retardation"].GetFloat();
+	myVelocityForce = effectDocuments["Velocity"].GetFloat();
+
+	effectObjectFile.close();
 }
 
-#ifdef _DEBUG
-void SpringObject::ImGuiUpdate()
-{
-	ImGui::Begin("Spring", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
-
-	ImGui::SliderFloat("Spring Velocity Force", &myVelocityForce, 0.0f, 2000.0f);
-	ImGui::SliderFloat("Spring Velocity Retardation", &myRetardation, 0.0f, 5.0f);
-
-	ImGui::End();
-}
-#endif // _DEBUG
+//#ifdef _DEBUG
+//void SpringObject::ImGuiUpdate()
+//{
+//	ImGui::Begin("Spring", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
+//
+//	ImGui::SliderFloat("Spring Velocity Force", &myVelocityForce, 0.0f, 2000.0f);
+//	ImGui::SliderFloat("Spring Velocity Retardation", &myRetardation, 0.0f, 5.0f);
+//
+//	ImGui::End();
+//}
+//#endif // _DEBUG
