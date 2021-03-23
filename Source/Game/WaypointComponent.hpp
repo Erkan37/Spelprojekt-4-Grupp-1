@@ -40,6 +40,7 @@ private:
 
 	int myWaypointIncrement;
 	int myCurrentWayPointIndex;
-
+	bool myLastCheckpointReached;
+	bool myReverseBool;
 };
 

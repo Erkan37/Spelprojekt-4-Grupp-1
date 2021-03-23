@@ -324,7 +324,7 @@ void TiledLoader::ParseButtons(const std::vector<LoadData> someData, Scene* aSce
 				aType = MovingPlatform::eMovingPlatformType::PointAtoBPlatform;
 				break;
 			}
-			platform->AddButton(someData[i].myPosition, aType);
+			platform->AddButton({-30.f, 0.f}, aType);
 		}
 	}
 }

@@ -68,25 +68,19 @@ void Button::OnCollision(GameObject* aGameObject)
 {
 	Player* player = dynamic_cast<Player*>(aGameObject);
 
-	if (player != NULL && myHasCollided == false)
+	if (player != NULL)
 	{
-		v2f playerPos = player->GetPosition();
 		v2f velo = player->GetComponent<PhysicsComponent>()->GetVelocity();
-		v2f colliderPos = GetPosition();
-		v2f buttonSize = GetComponent<SpriteComponent>()->GetSize();
 
-		float spriteLeftPosX = (colliderPos.x + GetComponent<ColliderComponent>()->GetSize().x / 2.f) - buttonSize.x / 2.f;
-		float spriteRightPosX = (colliderPos.x + GetComponent<ColliderComponent>()->GetSize().x / 2.f) + buttonSize.x / 2.f;
-
-		if (velo.y > 50 && playerPos.x >= spriteLeftPosX + 0.5f && playerPos.x <= spriteRightPosX - 0.5f)
+		if (myHasCollided == false)
 		{
 			SpriteComponent* sprite = GetComponent<SpriteComponent>();
 			v2f smashedSize = { sprite->GetSize().x, sprite->GetSize().y * 0.2f };
 			sprite->SetSize(smashedSize);
 			myHasCollided = true;
 		}
-	
 	}
+
 }
 
 bool Button::GetActiveButton()
