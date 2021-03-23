@@ -287,6 +287,9 @@
       <Filter>Core\UI</Filter>
     </ClInclude>
     <ClInclude Include="PopUp.h" />
+    <ClInclude Include="OptionsMenu.h">
+      <Filter>Core\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -474,5 +477,8 @@
       <Filter>Core\UI</Filter>
     </ClCompile>
     <ClCompile Include="PopUp.cpp" />
+    <ClCompile Include="OptionsMenu.cpp">
+      <Filter>Core\UI</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

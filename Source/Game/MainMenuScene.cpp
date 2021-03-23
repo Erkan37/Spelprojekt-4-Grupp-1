@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MainMenuScene.h"
+#include "OptionsMenu.h"
 
 #include "UIObject.h"
 #include "UIButton.h"
@@ -13,6 +14,7 @@
 MainMenuScene::MainMenuScene()
 {
 	myMovingIndex = {};
+	mySubMenuActive = false;
 }
 
 void MainMenuScene::Load()
@@ -23,6 +25,11 @@ void MainMenuScene::Load()
 	myInput = CGameWorld::GetInstance()->Input();
 
 	InitObjects();
+
+	myOptionsMenu = new OptionsMenu(this);
+	myOptionsMenu->Init();
+
+	mySubMenuActive = false;
 
 	Scene::Load();
 }
@@ -61,8 +68,11 @@ void MainMenuScene::Update(const float& aDeltaTime)
 	Scene::Update(aDeltaTime);
 
 	UpdateObjects(aDeltaTime);
-	CheckButtonsPress();
-	
+	if (!mySubMenuActive)
+	{
+		CheckButtonsPress();
+	}
+	myOptionsMenu->Update(aDeltaTime);
 }
 
 void MainMenuScene::InitObjects()
@@ -129,6 +139,12 @@ void MainMenuScene::CheckButtonsPress()
 	{
 		if (myMovingIndex == static_cast<int>(eMainMenuButton::StartGame))
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
+		else if (myMovingIndex == static_cast<int>(eMainMenuButton::Options))
+		{
+			myOptionsMenu->SetActive(true);
+			mySubMenuActive = true;
+			SetActiveMenu(false);
+		}
 		else if (myMovingIndex == static_cast<int>(LevelManager::eScenes::LevelScene))
 			CGameWorld::GetInstance()->GetLevelManager().ToggleImGui();
 		else if (myMovingIndex == static_cast<int>(eMainMenuButton::ExitGame))

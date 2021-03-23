@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "OptionsMenu.h"
 
 class InputWrapper;
 class UIObject;
@@ -25,7 +26,6 @@ public:
 
     void Update(const float& aDeltaTime) override;
 
-
 private:
     std::unique_ptr<UIObject> myBackground;
     std::unique_ptr<UIObject> myTitleSprite;
@@ -42,12 +42,16 @@ private:
 
     int myMovingIndex;
 
+    bool mySubMenuActive;
+
     void InitObjects();
     void UpdateObjects(const float& aDeltaTime);
     void CheckButtonsPress();
 
     void SetActiveMenu(const bool aStateBool);
     void CheckActiveAnimations();
+
+    OptionsMenu* myOptionsMenu;
 
 };
 
