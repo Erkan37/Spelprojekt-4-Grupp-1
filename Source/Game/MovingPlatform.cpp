@@ -70,6 +70,9 @@ void MovingPlatform::AddButton(v2f aPosition, eMovingPlatformType aPlatformType)
 	myAddedButton = true;
 	myType = aPlatformType;
 	myButton->Init(GetPosition(), aPosition);
+
+	if (myType == eMovingPlatformType::ReversePlatform)
+		myWaypointComponent->AddReverseBool();
 }
 
 void MovingPlatform::OnCollision(GameObject* aGameObject)

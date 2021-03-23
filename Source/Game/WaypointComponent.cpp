@@ -37,7 +37,8 @@ void WaypointComponent::SetNextWayPoint()
 	if (myCurrentWayPointIndex >= static_cast<int>(myWaypoints.size()))
 	{
 		myLastCheckpointReached = true;
-		myCurrentWayPointIndex = 0;
+		if (!myReverseBool)
+			myCurrentWayPointIndex = 0;
 	}
 }
 
@@ -66,7 +67,7 @@ void WaypointComponent::SetWaypoints(const std::vector<v2f>& aWaypoints)
 void WaypointComponent::ClearWaypoints()
 {
 	myWaypoints.clear();
-	myCurrentWayPointIndex = 0;
+	//myCurrentWayPointIndex = 0;
 }
 
 const v2f WaypointComponent::GetVelocity()
@@ -83,6 +84,11 @@ void WaypointComponent::ReverseWaypoints()
 {
 	myCurrentWayPointIndex = 0;
 	myLastCheckpointReached = false;
+}
+
+void WaypointComponent::AddReverseBool()
+{
+	myReverseBool = true;
 }
 
 bool WaypointComponent::IsAtLastCheckPoint()
