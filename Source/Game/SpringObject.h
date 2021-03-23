@@ -15,9 +15,6 @@ public:
 	virtual void OnCollision(GameObject* aGameObject) override;
 
 private:
-#ifdef _DEBUG
-	void ImGuiUpdate();
-#endif // _DEBUG
 	Animation myAnimation;
 
 	v2f myPosition;
@@ -33,4 +30,5 @@ private:
 	void InitSprings(const v2f aPosition);
 	void CreateGroundSpring();
 	void LoadJson();
+	//void ImGuiUpdate();
 };
