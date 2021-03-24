@@ -17,6 +17,7 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	myWaypointComponent(nullptr)
 {
 	SetZIndex(93);
+	myType = eMovingPlatformType::RegularPlatform;
 	myTypeIndex = 1;
 	myPercentageYValue = {};
 	myWaypointComponent = AddComponent<WaypointComponent>();
@@ -28,15 +29,15 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	audio->SetRadius(200);
 	audio->PlayAudio();
 
-	std::ifstream effectObjectFile("JSON/Misc. Options.json");
-	rapidjson::IStreamWrapper effectObjectStream(effectObjectFile);
+	//std::ifstream effectObjectFile("JSON/Misc. Options.json");
+	//rapidjson::IStreamWrapper effectObjectStream(effectObjectFile);
 
-	rapidjson::Document effectDocuments;
-	effectDocuments.ParseStream(effectObjectStream);
+	//rapidjson::Document effectDocuments;
+	//effectDocuments.ParseStream(effectObjectStream);
 
-	myPercentageYValue = effectDocuments["ReducedJumpPowerYFromPlatform"].GetFloat();
+	//myPercentageYValue = effectDocuments["ReducedJumpPowerYFromPlatform"].GetFloat();
 
-	effectObjectFile.close();
+	//effectObjectFile.close();
 
 }
 
@@ -44,7 +45,6 @@ MovingPlatform::~MovingPlatform()
 {
 	AudioComponent* audio = GetComponent<AudioComponent>();
 	audio->StopAudio();
-	myType = eMovingPlatformType::RegularPlatform;
 }
 
 void MovingPlatform::AdjustXOffset()
@@ -113,10 +113,9 @@ void MovingPlatform::OnCollision(GameObject* aGameObject)
 		if (player)
 		{
 			v2f velo = myWaypointComponent->GetVelocity();
-			velo.y = velo.y * myPercentageYValue;
+			//velo.y = velo.y * myPercentageYValue;
 			player->SetGroundIndex(myTypeIndex);
 			player->SetPlatformVelocity(velo);
-			player->SetPlayerOnPlatform();
 		}
 	}
 }

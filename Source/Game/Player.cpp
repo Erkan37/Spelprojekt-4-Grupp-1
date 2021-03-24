@@ -202,8 +202,6 @@ void Player::Update(const float& aDeltaTime)
 		CGameWorld::GetInstance()->GetTimer()->SetTimeScale(0.0f);
 	}
 
-	CheckIfPlayerIsOnPlatform();
-
 	AnimationState();
 
 	/*
@@ -461,19 +459,6 @@ void Player::ResetVelocity()
 	myCurrentVelocity.y = 0;
 }
 
-void Player::SetPlayerOnPlatform()
-{
-	myIsOnPlatform = true;
-}
-
-void Player::CheckIfPlayerIsOnPlatform()
-{
-	if (myIsOnPlatform)
-	{
-		myIsOnPlatform = false;
-		SetPlatformVelocity({ 0.f,myPlatformVelocity.y });
-	}
-}
 
 const v2f Player::GetPlatformVelocity()
 {

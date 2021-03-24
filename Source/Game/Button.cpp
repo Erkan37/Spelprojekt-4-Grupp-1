@@ -43,7 +43,7 @@ void Button::Update(const float& aDeltaTime)
 
 void Button::InitButton(const v2f myStartingPosition, const v2f myPositionFromStart)
 {
-	v2f platformPosition = myStartingPosition + myPositionFromStart;
+	v2f platformPosition = myPositionFromStart;
 	mySize = { 8.f, 16.f };
 
 	SetPosition(platformPosition);
