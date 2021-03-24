@@ -45,6 +45,7 @@ void WaypointComponent::SetNextWayPoint()
 void WaypointComponent::SetSpeed(const float& aSpeed)
 {
 	mySpeed = aSpeed;
+	myOriginalSpeed = mySpeed;
 }
 
 void WaypointComponent::AddWaypoint(const v2f& aWaypoint)
@@ -77,8 +78,8 @@ const v2f WaypointComponent::GetVelocity()
 
 void WaypointComponent::ResetVelocity()
 {
-	mySpeed = {};
 	myDirection = {};
+	mySpeed = {};
 }
 
 void WaypointComponent::SetOwner(GameObject* aGameObject)
@@ -89,6 +90,7 @@ void WaypointComponent::SetOwner(GameObject* aGameObject)
 void WaypointComponent::ReverseWaypoints()
 {
 	myCurrentWayPointIndex = 0;
+	mySpeed = myOriginalSpeed;
 	myLastCheckpointReached = false;
 }
 

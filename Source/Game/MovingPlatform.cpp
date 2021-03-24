@@ -49,7 +49,6 @@ void MovingPlatform::Update(const float& aDeltaTime)
 		}
 	}
 
-
 	//Platform::Update(aDeltaTime);
 }
 

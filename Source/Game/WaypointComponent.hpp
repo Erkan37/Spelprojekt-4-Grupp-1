@@ -38,8 +38,10 @@ private:
 
 	std::vector<v2f> myWaypoints;
 	v2f myDirection;
+	v2f myOrignalDirection;
 
 	float mySpeed;
+	float myOriginalSpeed;
 
 	int myWaypointIncrement;
 	int myCurrentWayPointIndex;
