@@ -49,6 +49,7 @@ private:
     void CheckButtonsPress();
 
     void SetActiveMenu(const bool aStateBool);
+    void SetBackgroundActive(const bool aStateBool);
     void CheckActiveAnimations();
 
     OptionsMenu* myOptionsMenu;

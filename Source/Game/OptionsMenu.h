@@ -14,13 +14,14 @@ class OptionsMenu
 public:
 	enum class eOptionsMenu
 	{
+		Sound,
 		Credits,
 		ResetGame,
 		Back
 	};
 
 	OptionsMenu(Scene* aLevelScene);
-
+		
 	void Init();
 
 	void Update(const float& aDeltaTime);
@@ -35,14 +36,18 @@ private:
 
 	std::unique_ptr<UIObject> myBackground;
 	std::unique_ptr<UIObject> myFireHighlight;
+	std::unique_ptr<UIObject> myBar;
 
 	std::unique_ptr<UIButton> myResetBtn;
+	std::unique_ptr<UIButton> mySoundBtn;
 	std::unique_ptr<UIButton> myCreditsBtn;
 	std::unique_ptr<UIButton> myBackBtn;
 
 	std::vector<UIButton*> myButtons;
 
 	std::unique_ptr<UIText> myTitleString;
+	std::unique_ptr<UIText> myBGString;
+	std::unique_ptr<UIText> myVFXString;
 
 	std::shared_ptr<InputWrapper> myInput;
 
