@@ -170,6 +170,7 @@ void Player::Update(const float& aDeltaTime)
 
 	if (myHasDied)
 	{
+		Kill();
 		GetComponent<PhysicsComponent>()->SetVelocity(v2f(0.0f, 0.0f));
 		return;
 	}
@@ -493,11 +494,11 @@ void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
 {
 	if (myTransform.myPosition.x > aLedgePosition.x)
 	{
-		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-mySize.x);
+		myDirectionX = -1;
 	}
 	else if (myTransform.myPosition.x < aLedgePosition.x)
 	{
-		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(mySize.x);
+		myDirectionX = 1;
 	}
 
 	SetLerpPosition(aLedgeLerpPosition);
@@ -527,6 +528,15 @@ void Player::LerpToPosition(const v2f& aPosition)
 
 	myTransform.myPosition.x = Utils::Lerp(myTransform.myPosition.x, aPosition.x, myJsonData->myFloatValueMap[PEnum::Lerp_Acceleration] * myTimerInput->GetDeltaTime());
 	myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, aPosition.y, myJsonData->myFloatValueMap[PEnum::Lerp_Acceleration] * myTimerInput->GetDeltaTime());
+
+	if (aPosition.x > myTransform.myPosition.x)
+	{
+		myDirectionX = 1;
+	}
+	else if(aPosition.x < myTransform.myPosition.x)
+	{
+		myDirectionX = -1;
+	}
 
 	myTimerInput->SetTimeScale(timeScale);
 }
@@ -613,6 +623,11 @@ const bool& Player::GetIsBashing()
 
 void Player::BashCollision(GameObject* aGameObject, BashComponent* aBashComponent)
 {
+	if (myHasDied)
+	{
+		return;
+	}
+
 	if (aBashComponent->GetRadius() * aBashComponent->GetRadius() >= (aGameObject->GetPosition() - GetPosition()).LengthSqr())
 	{
 		if (myInputHandler->IsDashing() && !myBashAbility->GetIsBashing())
