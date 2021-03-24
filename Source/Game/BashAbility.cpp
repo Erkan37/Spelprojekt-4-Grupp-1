@@ -114,6 +114,11 @@ void BashAbility::SetVelocity(const v2f& aDashVelocity)
 	myCurrentDashVelocity = aDashVelocity;
 }
 
+void BashAbility::InvertDashDirectionX()
+{
+	myDashDirection.x = myDashDirection.x * -1;
+}
+
 void BashAbility::ResetVelocity(const bool aResetX, const bool aResetY)
 {
 	if (aResetX)
@@ -262,4 +267,9 @@ void BashAbility::UpdateBashArrow()
 
 	SetPosition(myPlayer->GetPosition() + myDashDirection * 16.0f);
 	SetRotation(atan2(myDashDirection.y, myDashDirection.x));
+}
+
+void BashAbility::StopBashing()
+{
+	myIsBashing = false;
 }

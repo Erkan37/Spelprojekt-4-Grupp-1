@@ -17,6 +17,10 @@
 #include "BashableObject.hpp"
 #include "MovingPlatform.hpp"
 #include "Jesus.hpp"
+#include "LevelDoor.hpp"
+#include "Player.hpp"
+
+#include "GameWorld.h"
 
 typedef rapidjson::Value::ConstValueIterator iterator;
 
@@ -25,6 +29,8 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 	const rapidjson::Document& levelDoc = DataManager::GetInstance().GetLevel(aLevelIndex);
 	std::vector<LoadData> loadData;
 	std::vector<HiddenArea*> hiddenRoomsData;
+
+	aScene->GetCamera().SetBounds(v2f(), v2f(levelDoc["width"].GetInt() * 8, levelDoc["height"].GetInt() * 8));
 
 	if (levelDoc.IsObject())
 	{
@@ -36,11 +42,11 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 				for (iterator object = (*layer)["objects"].Begin(); object != (*layer)["objects"].End(); ++object)
 				{
 					LoadData data;
-					data.myPosition.x = (*object)["x"].GetInt();
-					data.myPosition.y = (*object)["y"].GetInt();
+					data.myPosition.x = (*object)["x"].GetFloat();
+					data.myPosition.y = (*object)["y"].GetFloat();
 
-					data.mySize.x = (*object)["width"].GetInt();
-					data.mySize.y = (*object)["height"].GetInt();
+					data.mySize.x = (*object)["width"].GetFloat();
+					data.mySize.y = (*object)["height"].GetFloat();
 
 					std::string type = (*object)["type"].GetString();
 					std::stringstream degree(type);
@@ -75,7 +81,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 				}
 				else if (name == "Doors")
 				{
-					ParseDoors(loadData, aScene);
+					ParseDoors(loadData, aScene, dynamic_cast<Player*>(aPlayer));
 				}
 				else if (name == "Enemies")
 				{
@@ -172,9 +178,34 @@ void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aSc
 	}
 }
 
-void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene*)
+void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene* aScene, Player* aPlayer)
 {
 
+	const int doorType = CGameWorld::GetInstance()->GetLevelManager().GetDoorType();
+
+	for (int i = 0; i < someData.size(); ++i)
+	{
+		LevelDoor* door = new LevelDoor(aScene);
+
+		if (doorType != someData[i].myType)
+		{
+			v2f doorOffset = v2f(0.0f, someData[i].mySize.y - 8.0f);
+			if (someData[i].myType == 0)
+			{
+				doorOffset.x = 24.0f + someData[i].mySize.x;
+			}
+			else if (someData[i].myType == 1)
+			{
+				doorOffset.x = -24.0f;
+			}
+
+			aPlayer->SetSpawnPosition(someData[i].myPosition + doorOffset);
+			aPlayer->SetPosition(someData[i].myPosition + doorOffset);
+		}
+
+		door->Init(static_cast<LevelDoor::eDoorType>(someData[i].myType), someData[i].mySize);
+		door->SetPosition(someData[i].myPosition);
+	}
 }
 
 void TiledLoader::ParseEnemies(const std::vector<LoadData> someData, Scene* aScene)
@@ -349,9 +380,9 @@ std::vector<v2f> TiledLoader::GetWaypointPositions(const std::string somePositio
 	std::stringstream sstream;
 
 	sstream << somePositions;
-	std::string tempWord;
-	int tempNum;
-	int tempX;
+	std::string tempWord = {};
+	int tempNum = {};
+	int tempX = {};
 	bool hasX = false;
 
 	while (!sstream.eof())

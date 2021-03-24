@@ -54,6 +54,7 @@ void Platform::OnCollision(GameObject* aGameObject)
 	if (player)
 	{
 		player->SetPlatformVelocity(v2f(0.0f, 0.0f));
+		player->SetGroundIndex(myTypeIndex);
 		if (player->GetHasLanded())
 		{
 			PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerSafeLanded, 0));

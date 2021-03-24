@@ -207,3 +207,8 @@ void DataManager::AssignValues(const DataEnum anEnum, const rapidjson::Document 
 		break;
 	}
 }
+
+const int DataManager::GetLevelCount()
+{
+	return static_cast<int>(myLevelVector.size());
+}

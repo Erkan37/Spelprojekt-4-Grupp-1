@@ -25,6 +25,7 @@ Camera::Camera()
 	, myHasBounds(false)
 	, myBounds({ 0.0f, 0.0f })
 	, myBoundSize({ 0.0f, 0.0f })
+	, myWorldViewSize({ 320.0f, 180.0f })
 
 	, myIsShaking(false)
 	, myShakeDuration(-1.0f)
@@ -44,8 +45,8 @@ void Camera::Update(const float& aDeltaTime)
 		const v2f& targetPos = GetTargetPosition();
 		SetPosition
 		({
-			myLesserThanViewPortX * Utils::Lerp<float>(myX, targetPos.x - (static_cast<float>(Config::width) * myInverseZoom) * .5f, myLerp.x * aDeltaTime),
-			myLesserThanViewPortY * Utils::Lerp<float>(myY, targetPos.y - (static_cast<float>(Config::height) * myInverseZoom) * .5f, myLerp.y * aDeltaTime)
+			myLesserThanViewPortX * Utils::Lerp<float>(myX, targetPos.x - myWorldViewSize.x * 0.5f, myLerp.x * aDeltaTime),
+			myLesserThanViewPortY * Utils::Lerp<float>(myY, targetPos.y + myWorldViewSize.y * 0.5f, myLerp.y * aDeltaTime)
 		});
 
 		SetActive();
@@ -93,9 +94,9 @@ Camera& Camera::SetPositionX(const float& anX)
 		{
 			myX = myBounds.x;
 		}
-		else if (myX + Config::width / myZoom > myBounds.x + myBoundSize.x)
+		else if (myX > myBounds.x + myBoundSize.x - myWorldViewSize.x)
 		{
-			myX = myBounds.x + myBoundSize.x - Config::width / myZoom;
+			myX = myBounds.x + myBoundSize.x - myWorldViewSize.x;
 		}
 	}
 
@@ -111,9 +112,9 @@ Camera& Camera::SetPositionY(const float& aY)
 		{
 			myY = myBounds.y;
 		}
-		else if (myY + Config::height / myZoom > myBounds.y + myBoundSize.y)
+		else if (myY > myBounds.y + myBoundSize.y - myWorldViewSize.y)
 		{
-			myY = myBounds.y + myBoundSize.y - Config::height / myZoom;
+			myY = myBounds.y + myBoundSize.y - myWorldViewSize.y;
 		}
 	}
 
@@ -256,10 +257,12 @@ Camera& Camera::SetBounds(const v2f& aCoordinate, const v2f& aSize)
 
 	return *this;
 }
+
 Camera& Camera::SetBounds(const float& anX, const float& aY, const float& aWidth, const float& aHeight)
 {
 	return SetBounds({ anX, aY }, { aWidth, aHeight });
 }
+
 Camera& Camera::ResetBounds()
 {
 	myHasBounds = false;
@@ -271,10 +274,12 @@ const bool& Camera::HasBounds() const
 {
 	return myHasBounds;
 }
+
 const v2f& Camera::GetBounds() const
 {
 	return myBounds;
 }
+
 const v2f& Camera::GetBoundSize() const
 {
 	return myBoundSize;

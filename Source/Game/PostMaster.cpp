@@ -39,3 +39,18 @@ void PostMaster::ReceiveMessage(const Message& aMessage)
 		subscriber->Notify(aMessage);
 	}
 }
+
+void PostMaster::ReceiveMessage(const Message& aMessage, const bool aWillWait)
+{
+	myWaitingMessages.push_back(aMessage);
+}
+
+void PostMaster::SendWaitingMessages()
+{
+	for (const Message& message : myWaitingMessages)
+	{
+		ReceiveMessage(message);
+	}
+
+	myWaitingMessages.clear();
+}

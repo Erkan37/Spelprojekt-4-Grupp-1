@@ -1,6 +1,8 @@
 #pragma once
 #include "Platform.h"
 
+class SpriteComponent;
+
 class UnstablePlatform : public Platform
 {
 public:
@@ -14,10 +16,14 @@ public:
 
 	void Landed(const int& aOverlapY) override;
 
+	void SetSpriteToDisable(SpriteComponent* aSprite);
+
 	void ActivatePlatform();
 	void DeactivatePlatform();
 
 private:
+	SpriteComponent* mySpriteToDisable;
+
 	float myDestroyTime;
 	float myRespawnTime;
 	float myTimer;

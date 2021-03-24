@@ -12,6 +12,8 @@
 #include <thread>
 #include "../External/Headers/CU/Utilities.h"
 
+#include "PostMaster.hpp"
+
 using namespace std::placeholders;
 
 v2f Config::ourReferenceSize = { 320.f, 180.f };
@@ -70,6 +72,7 @@ LRESULT CGame::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_SIZE: 
 	{
 		SetZoom(LOWORD(lParam), HIWORD(lParam));
+		SetResolution(LOWORD(lParam), HIWORD(lParam));
 		return 0;
 	}
 		// this message is read when the window is closed
@@ -147,6 +150,8 @@ void CGame::UpdateCallBack()
 	myGameWorld.Update();
 	myGameWorld.Render();
 
+	PostMaster::GetInstance().SendWaitingMessages();
+
 #ifndef _RETAIL
 	if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::F1Key))
 	{
@@ -162,7 +167,7 @@ void CGame::SetResolution(const uint16_t& aWidth, const uint16_t& aHeight)
 	Config::width = aWidth;
 	Config::height = aHeight;
 
-	Tga2D::CEngine::GetInstance()->SetTargetSize({ aWidth, aHeight });
+	//Tga2D::CEngine::GetInstance()->SetTargetSize({ aWidth, aHeight });
 }
 
 #ifndef _RETAIL

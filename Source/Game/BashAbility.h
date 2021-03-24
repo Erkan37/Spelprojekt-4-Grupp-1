@@ -23,6 +23,7 @@ public:
 
 	v2f GetVelocity();
 	void SetVelocity(const v2f& aDashVelocity);
+	void InvertDashDirectionX();
 
 	void ResetVelocity(const bool aResetX, const bool aResetY);
 
@@ -37,6 +38,8 @@ public:
 	void UpdateBashArrow();
 
 	void ImGuiUpdate();
+
+	void StopBashing();
 
 private:
 	std::shared_ptr<InputWrapper> myInput;

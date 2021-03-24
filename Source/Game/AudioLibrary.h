@@ -8,7 +8,8 @@ enum class AudioList
 	EnemyNormalIdle, EnemyShootingIdle, EnemyShootingShot,
 	ProjectileFly, ProjectileHit,
 	WeakPlatform, MovingPlatform,
-	WalkGravelRight, WalkGravelLeft,
+	WalkGravelRight, WalkGravelLeft, WalkGrassRight, WalkGrassLeft, WalkStoneRight, WalkStoneLeft,
+	LandOnGrassHeavy, LandOnGrassEasy, LandOnStoneHeavy, LandOnStoneLight,
 	BashCharge, BashRelease,
 	CollectableV1,
 };

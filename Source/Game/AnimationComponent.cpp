@@ -224,3 +224,8 @@ bool AnimationComponent::GetHasBeenDisplayedOnce()
 {
 	return myHasBeenDisplayed;
 }
+
+const int AnimationComponent::GetCurrentIndex()
+{
+	return mySpriteIndex;
+}
