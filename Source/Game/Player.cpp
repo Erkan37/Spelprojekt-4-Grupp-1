@@ -41,6 +41,7 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	myBashAbility->AddTimer(world->GetTimer());
 
 	myHasDied = false;
+	myIsOnPlatform = false;
 
 	SetZIndex(101);
 	SetPosition({ 20.0f, 10.0f });
@@ -200,6 +201,8 @@ void Player::Update(const float& aDeltaTime)
 		GetComponent<AnimationComponent>()->Update(myTransform, *this);
 		CGameWorld::GetInstance()->GetTimer()->SetTimeScale(0.0f);
 	}
+
+	CheckIfPlayerIsOnPlatform();
 
 	AnimationState();
 
@@ -452,6 +455,21 @@ void Player::ResetVelocity()
 	myCurrentVelocity.x = 0;
 	myCurrentVelocity.y = 0;
 }
+
+void Player::SetPlayerOnPlatform()
+{
+	myIsOnPlatform = true;
+}
+
+void Player::CheckIfPlayerIsOnPlatform()
+{
+	if (myIsOnPlatform)
+	{
+		myIsOnPlatform = false;
+		SetPlatformVelocity({ 0.f, 0.f });
+	}
+}
+
 const v2f Player::GetPlatformVelocity()
 {
 	return myPlatformVelocity;

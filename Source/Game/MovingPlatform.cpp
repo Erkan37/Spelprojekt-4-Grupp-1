@@ -89,8 +89,10 @@ void MovingPlatform::OnCollision(GameObject* aGameObject)
 		Player* player = dynamic_cast<Player*>(aGameObject);
 		if (player)
 		{
+			v2f velo = myWaypointComponent->GetVelocity();
 			player->SetGroundIndex(myTypeIndex);
-			player->SetPlatformVelocity(myWaypointComponent->GetVelocity());
+			player->SetPlatformVelocity(velo);
+			player->SetPlayerOnPlatform();
 		}
 	}
 }

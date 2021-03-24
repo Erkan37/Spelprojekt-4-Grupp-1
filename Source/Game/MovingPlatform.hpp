@@ -30,6 +30,7 @@ public:
 private:
 	eMovingPlatformType myType;
 	Button* myButton;
+
 	bool myAddedButton;
 	bool myRevertOn;
 

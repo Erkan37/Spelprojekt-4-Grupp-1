@@ -49,6 +49,8 @@ public:
 	void SideCollision(const int& aOverlapX) override;
 
 	void ResetVelocity();
+	void SetPlayerOnPlatform();
+	void CheckIfPlayerIsOnPlatform();
 
 	const v2f GetPlatformVelocity();
 	void SetPlatformVelocity(const v2f& aPlatformVelocity);
@@ -133,6 +135,7 @@ private:
 	bool myGrabbedLedge;
 	bool myIsLerpingToPosition;
 	bool myHasDied;
+	bool myIsOnPlatform;
 
 	PlayerData* myJsonData = new PlayerData();
 };
