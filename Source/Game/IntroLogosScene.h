@@ -14,11 +14,11 @@ public:
 	void Load() override;
 	void Update(const float &aDeltaTime) override;
 
-	void DisplayLogo(const eIntroLogo anEnum);
+	void DisplayLogo(const float aTime);
 
 private:
 	GameObject* myLogo;
-	SpriteComponent* mySpriteComponent;
+	std::vector<SpriteComponent*> mySpriteVector;
 	float myTimeSinceInited;
 	float myTotalLogoTime;
 

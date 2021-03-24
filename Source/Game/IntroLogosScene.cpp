@@ -7,17 +7,21 @@
 
 enum class eIntroLogo
 {
-	Tga2D_logo, //Temporär som test
+	Tga2D_logo, // Temporär som test
+	de_e_nice, // Temporär som test
 
 	enum_intro_logo_size
 };
 
 IntroLogosScene::IntroLogosScene()
 {
-	mySpriteComponent = nullptr;
+	for (size_t i = 0; i < static_cast<size_t>(eIntroLogo::enum_intro_logo_size); i++)
+	{
+		mySpriteVector.push_back(nullptr);
+	}
 	myLogo = nullptr;
 	myTimeSinceInited = 0.0f;
-	myTotalLogoTime = 3.0f;
+	myTotalLogoTime = 2.0f;
 }
 IntroLogosScene::~IntroLogosScene()
 {
@@ -26,35 +30,45 @@ IntroLogosScene::~IntroLogosScene()
 
 void IntroLogosScene::Update(const float &aDeltaTime)
 {
+	myLogo->SetPosition({ static_cast<float>(Config::width) / 2.0f, static_cast<float>(Config::height) / 2.0f });
+	myTimeSinceInited += aDeltaTime;
+
 	if (myTimeSinceInited > myTotalLogoTime)
 	{
 		CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::MainMenu);
 	}
-	if (myTimeSinceInited < (myTotalLogoTime / static_cast<float>(eIntroLogo::enum_intro_logo_size)))
+	else if (myTimeSinceInited <= myTotalLogoTime)
 	{
-		DisplayLogo(eIntroLogo::Tga2D_logo);
+		DisplayLogo(myTimeSinceInited);
 	}
 
 	Scene::Update(aDeltaTime);
 }
 
-void IntroLogosScene::DisplayLogo(const eIntroLogo anEnum)
+void IntroLogosScene::DisplayLogo(const float aTime)
 {
-	switch (anEnum)
+	unsigned int timeInt = static_cast<int>(aTime);
+
+	switch (timeInt)
 	{
-	case eIntroLogo::Tga2D_logo:
+	case 0:
 	{
-		if (!(mySpriteComponent->GetSpritePath() == "Sprites/tga_logo.dds"))
+		if (!(mySpriteVector[timeInt]->IsActive()))
 		{
-			mySpriteComponent->SetSpritePath("Sprites/tga_logo.dds");
+			mySpriteVector[timeInt]->Activate();
 		}
 	}
 	break;
-
-	default:
+	case 1:
 	{
-		assert(false && "Invalid Enum passed to IntroLogosScene::DisplayLogo().");
+		if (!(mySpriteVector[timeInt]->IsActive()))
+		{
+			mySpriteVector[timeInt - 1]->Deactivate();
+			mySpriteVector[timeInt]->Activate();
+		}
 	}
+	break;
+	default:
 	break;
 	}
 }
@@ -62,12 +76,16 @@ void IntroLogosScene::DisplayLogo(const eIntroLogo anEnum)
 void IntroLogosScene::Load()
 {
 	myLogo = new GameObject(this);
-	mySpriteComponent = myLogo->AddComponent<SpriteComponent>();
-	
-	
-
 	myLogo->SetPivot({ 0.5f, 0.5f });
 	myLogo->SetPosition({ static_cast<float>(Config::width) / 2.0f, static_cast<float>(Config::height) / 2.0f });
+
+	mySpriteVector[static_cast<size_t>(eIntroLogo::Tga2D_logo)] = myLogo->AddComponent<SpriteComponent>();
+	mySpriteVector[static_cast<size_t>(eIntroLogo::Tga2D_logo)]->SetSpritePath("Sprites/tga_logo.dds");
+	mySpriteVector[static_cast<size_t>(eIntroLogo::Tga2D_logo)]->Deactivate();
+
+	mySpriteVector[static_cast<size_t>(eIntroLogo::de_e_nice)] = myLogo->AddComponent<SpriteComponent>();
+	mySpriteVector[static_cast<size_t>(eIntroLogo::de_e_nice)]->SetSpritePath("Sprites/w.png");
+	mySpriteVector[static_cast<size_t>(eIntroLogo::de_e_nice)]->Deactivate();
 
 	Scene::Load();
 }
