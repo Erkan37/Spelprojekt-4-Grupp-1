@@ -66,6 +66,16 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 							{
 								data.mySpeed = (*property)["value"].GetFloat();
 							}
+
+							if (std::string((*property)["name"].GetString()).compare("ButtonX") == 0)
+							{
+								data.myButtonPosition.x = (*property)["value"].GetFloat();
+							}
+
+							if (std::string((*property)["name"].GetString()).compare("ButtonY") == 0)
+							{
+								data.myButtonPosition.y = (*property)["value"].GetFloat();
+							}
 						}
 					}
 
@@ -349,7 +359,7 @@ void TiledLoader::ParseButtons(const std::vector<LoadData> someData, Scene* aSce
 				aType = MovingPlatform::eMovingPlatformType::PointAtoBPlatform;
 				break;
 			}
-			platform->AddButton(someData[i].myPosition, aType);
+			platform->AddButton(someData[i].myButtonPosition, aType);
 		}
 	}
 }

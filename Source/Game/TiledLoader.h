@@ -13,6 +13,7 @@ class Player;
 struct LoadData
 {
 	v2f myPosition;
+	v2f myButtonPosition;
 	v2f mySize;
 	int myType;
 	std::string myWaypoints;
