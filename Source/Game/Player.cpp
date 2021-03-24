@@ -250,11 +250,6 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 
 	if (myActiveSpringJump)
 		DecreaseSpringJump(aDeltaTime);
-
-	if (myCurrentVelocity.y > 0)
-	{
-		myPlatformVelocity.y = 0.0f;
-	}
 }
 
 void Player::CheckMove(const float& aDeltaTime)
@@ -377,6 +372,7 @@ void Player::Jump()
 }
 void Player::DoubleJump()
 {
+	myPlatformVelocity.y = 0;
 	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerJump);
 	myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Double_Jump_Velocity] + myPlatformVelocity.y - mySpringVelocity.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[3]);
