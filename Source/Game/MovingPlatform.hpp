@@ -24,6 +24,8 @@ public:
 
 	void AddButton(v2f aPosition, eMovingPlatformType aPlatformType);
 
+	void AdjustXOffset();
+
 	void OnCollision(GameObject* aGameObject) override;
 
 private:

@@ -253,6 +253,9 @@
     <ClInclude Include="Jesus.hpp" />
     <ClInclude Include="TileSetLayer.hpp" />
     <ClInclude Include="TileSetLayerProperties.hpp" />
+    <ClInclude Include="IntroLogosScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
     <ClInclude Include="LevelDoor.hpp">
       <Filter>Game Objects</Filter>
     </ClInclude>
@@ -423,6 +426,9 @@
     <ClCompile Include="TileSetLayerProperties.cpp" />
     <ClCompile Include="LevelDoor.cpp">
       <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroLogosScene.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
