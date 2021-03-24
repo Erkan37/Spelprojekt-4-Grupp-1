@@ -30,7 +30,7 @@ IntroLogosScene::~IntroLogosScene()
 
 void IntroLogosScene::Update(const float &aDeltaTime)
 {
-	myLogo->SetPosition({ static_cast<float>(Config::width) / 2.0f, static_cast<float>(Config::height) / 2.0f });
+	myLogo->SetPosition({ static_cast<float>(Config::windowWidth) / 2.0f, static_cast<float>(Config::windowHeight) / 2.0f });
 	myTimeSinceInited += aDeltaTime;
 
 	if (myTimeSinceInited > myTotalLogoTime)
@@ -77,7 +77,7 @@ void IntroLogosScene::Load()
 {
 	myLogo = new GameObject(this);
 	myLogo->SetPivot({ 0.5f, 0.5f });
-	myLogo->SetPosition({ static_cast<float>(Config::width) / 2.0f, static_cast<float>(Config::height) / 2.0f });
+	myLogo->SetPosition({ static_cast<float>(Config::windowWidth) / 2.0f, static_cast<float>(Config::windowHeight) / 2.0f });
 
 	mySpriteVector[static_cast<size_t>(eIntroLogo::Tga2D_logo)] = myLogo->AddComponent<SpriteComponent>();
 	mySpriteVector[static_cast<size_t>(eIntroLogo::Tga2D_logo)]->SetSpritePath("Sprites/tga_logo.dds");
