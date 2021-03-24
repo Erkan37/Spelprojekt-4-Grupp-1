@@ -59,26 +59,30 @@ UnstablePlatform* PlatformFactory::CreateUnstablePlatform(Scene* aLevelScene, co
 	std::string spritePath = "Sprites/Platforms/Unstable5.dds";
 
 	v2f adjustedSize = v2f(0.0f, 8.0f);
+	v2f adjustedSpriteSize = v2f(0.0f, 8.0f);
 	if (aCollisionSize.x >= 40.0f)
 	{
 		adjustedSize.x = 40.0f;
+		adjustedSpriteSize.x = 64.0f;
 		spritePath = "Sprites/Platforms/Unstable5.dds";
 	}
 	else if (aCollisionSize.x >= 24.0f)
 	{
 		adjustedSize.x = 24.0f;
+		adjustedSpriteSize.x = 32.0f;
 		spritePath = "Sprites/Platforms/Unstable3.dds";
 	}
 	else
 	{
 		adjustedSize.x = 8.0f;
+		adjustedSpriteSize.x = 8.0f;
 		spritePath = "Sprites/Platforms/Unstable1.dds";
 	}
 
 	unstablePlatform->Init(adjustedSize, adjustedSize, aPosition, false);
 	unstablePlatform->SetTimerProperties(aDestroyTime, aRespawnTime);
 	unstablePlatform->GetComponent<SpriteComponent>()->SetSpritePath(spritePath);
-	unstablePlatform->GetComponent<SpriteComponent>()->SetSize(aSpriteSize);
+	unstablePlatform->GetComponent<SpriteComponent>()->SetSize(adjustedSpriteSize);
 	return unstablePlatform;
 }
 
