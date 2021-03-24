@@ -19,6 +19,8 @@ using namespace std::placeholders;
 v2f Config::ourReferenceSize = { 320.f, 180.f };
 uint16_t Config::width = 1920U;
 uint16_t Config::height = 1080U;
+uint16_t Config::windowWidth = 1920U;
+uint16_t Config::windowHeight = 1080U;
 std::wstring Config::appName = L"Pass On";
 
 #ifdef _DEBUG
@@ -34,13 +36,10 @@ std::wstring BUILD_NAME = L"Release";
 std::wstring BUILD_NAME = L"Retail";
 #endif // DEBUG
 
-CGame::CGame()
-	: myGameWorld(this)
-	, myThread(nullptr)
-	, myActive(true)
-	, myTimer(new Utils::Timer())
-{}
+CGame::CGame() : myGameWorld(this), myThread(nullptr), myActive(true), myTimer(new Utils::Timer())
+{
 
+}
 CGame::~CGame()
 {
 	myActive = false;
@@ -75,6 +74,7 @@ LRESULT CGame::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_SIZE: 
 	{
 		SetZoom(LOWORD(lParam), HIWORD(lParam));
+		SetResolution(LOWORD(lParam), HIWORD(lParam));
 		return 0;
 	}
 		// this message is read when the window is closed
@@ -91,7 +91,6 @@ LRESULT CGame::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 	return 0;
 }
-
 
 bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 {
@@ -116,10 +115,6 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Overlapped;
 #endif // DEBUG
 #ifdef _RETAIL
-	//createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight);
-	//createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth);
-	//Tga2D::CEngine::GetInstance()->SetFullScreen(monitor);
-	//createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Borderless;
 	createParameters.myStartInFullScreen = true;
 #endif // RETAIL
 
@@ -159,11 +154,6 @@ void CGame::UpdateCallBack()
 
 	PostMaster::GetInstance().SendWaitingMessages();
 
-	/*if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::ESCKey))
-	{
-		PostQuitMessage(0);
-	}*/
-
 #ifndef _RETAIL
 	if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::F1Key))
 	{
@@ -176,10 +166,10 @@ void CGame::UpdateCallBack()
 
 void CGame::SetResolution(const uint16_t& aWidth, const uint16_t& aHeight)
 {
-	Config::width = aWidth;
-	Config::height = aHeight;
+	Config::windowWidth = aWidth;
+	Config::windowHeight = aHeight;
 
-	Tga2D::CEngine::GetInstance()->SetTargetSize({ aWidth, aHeight });
+	//Tga2D::CEngine::GetInstance()->SetTargetSize({ aWidth, aHeight });
 }
 
 #ifndef _RETAIL

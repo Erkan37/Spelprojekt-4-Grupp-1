@@ -5,6 +5,7 @@
 #include "AudioComponent.h"
 #include "WaypointComponent.hpp"
 #include "SpriteComponent.h"
+#include "ColliderComponent.h"
 #include <iostream>
 #include <fstream>
 #include "rapidjson/istreamwrapper.h"
@@ -46,6 +47,15 @@ MovingPlatform::~MovingPlatform()
 	myType = eMovingPlatformType::RegularPlatform;
 }
 
+void MovingPlatform::AdjustXOffset()
+{
+	constexpr float xOffset = 4.0f;
+
+	ColliderComponent* collider = GetComponent<ColliderComponent>();
+	collider->SetPosition(v2f(collider->GetSize().x / 2.0f - xOffset, 4.0f));
+	GetComponent<SpriteComponent>()->SetRelativePosition(v2f(-xOffset, 0.0f));
+}
+
 void MovingPlatform::Update(const float& aDeltaTime)
 {
 	if (myType == eMovingPlatformType::RegularPlatform || myType == eMovingPlatformType::ReversePlatform)
@@ -77,13 +87,11 @@ void MovingPlatform::Update(const float& aDeltaTime)
 
 void MovingPlatform::SetWaypoints(const std::vector<v2f>& aWaypoints)
 {
-	constexpr float xOffset = 4.0f; //To offset platform to middle of line
-
 	std::vector<v2f> adjustedWaypoints;
 
 	for (const v2f& waypoint : aWaypoints)
 	{
-		adjustedWaypoints.push_back(waypoint - v2f(4.0f, 0.0f));
+		adjustedWaypoints.push_back(waypoint);
 	}
 
 	myWaypointComponent->SetWaypoints(aWaypoints);

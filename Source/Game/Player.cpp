@@ -356,6 +356,11 @@ void Player::TryLetJumpWhenFalling(const float& aYDistance)
 }
 void Player::Jump()
 {
+	if (myPlatformVelocity.y > 0.0f)
+	{
+		myPlatformVelocity.y = 0;
+	}
+
 	UnlockLandingSounds();
 	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerJump);
 	v2f calculatedSpring = mySpringVelocity;

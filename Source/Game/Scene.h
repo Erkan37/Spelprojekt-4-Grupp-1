@@ -80,4 +80,5 @@ private:
 
 	bool myIsActive;
 	bool myIsLoaded;
+
 };

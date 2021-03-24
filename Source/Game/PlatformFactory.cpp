@@ -48,6 +48,7 @@ MovingPlatform* PlatformFactory::CreateMovingPlatform(Scene* aLevelScene, const 
 	movingPlatform->GetComponent<WaypointComponent>()->SetSpeed(aSpeed);
 	movingPlatform->GetComponent<SpriteComponent>()->SetSpritePath(spritePath);
 	movingPlatform->GetComponent<SpriteComponent>()->SetSize(adjustedSize);
+	movingPlatform->AdjustXOffset();
 	return movingPlatform;
 }
 
@@ -55,7 +56,10 @@ UnstablePlatform* PlatformFactory::CreateUnstablePlatform(Scene* aLevelScene, co
 {
 	UnstablePlatform* unstablePlatform = new UnstablePlatform(aLevelScene);
 
-	unstablePlatform->AddComponent<SpriteComponent>();
+	SpriteComponent* markSprite = unstablePlatform->AddComponent<SpriteComponent>();
+	SpriteComponent* mainSprite = unstablePlatform->AddComponent<SpriteComponent>();
+
+	std::string markSpritePath = "Sprites/Platforms/Unstable5Marking.dds";
 	std::string spritePath = "Sprites/Platforms/Unstable5.dds";
 
 	v2f adjustedSize = v2f(0.0f, 8.0f);
@@ -64,25 +68,33 @@ UnstablePlatform* PlatformFactory::CreateUnstablePlatform(Scene* aLevelScene, co
 	{
 		adjustedSize.x = 40.0f;
 		adjustedSpriteSize.x = 64.0f;
+		markSpritePath = "Sprites/Platforms/Unstable5Marking.dds";
 		spritePath = "Sprites/Platforms/Unstable5.dds";
 	}
 	else if (aCollisionSize.x >= 24.0f)
 	{
 		adjustedSize.x = 24.0f;
 		adjustedSpriteSize.x = 32.0f;
+		markSpritePath = "Sprites/Platforms/Unstable3Marking.dds";
 		spritePath = "Sprites/Platforms/Unstable3.dds";
 	}
 	else
 	{
 		adjustedSize.x = 8.0f;
 		adjustedSpriteSize.x = 8.0f;
+		markSpritePath = "Sprites/Platforms/Unstable1Marking.dds";
 		spritePath = "Sprites/Platforms/Unstable1.dds";
 	}
 
 	unstablePlatform->Init(adjustedSize, adjustedSize, aPosition, false);
 	unstablePlatform->SetTimerProperties(aDestroyTime, aRespawnTime);
-	unstablePlatform->GetComponent<SpriteComponent>()->SetSpritePath(spritePath);
-	unstablePlatform->GetComponent<SpriteComponent>()->SetSize(adjustedSpriteSize);
+	markSprite->SetSpritePath(markSpritePath);
+	markSprite->SetSize(adjustedSpriteSize);
+	mainSprite->SetSpritePath(spritePath);
+	mainSprite->SetSize(adjustedSpriteSize);
+
+	unstablePlatform->SetSpriteToDisable(mainSprite);
+
 	return unstablePlatform;
 }
 
