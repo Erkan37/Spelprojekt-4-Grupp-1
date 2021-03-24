@@ -26,17 +26,17 @@ LevelManager::LevelManager()
 	Subscribe(eMessageType::LoadNext);
 	Subscribe(eMessageType::LoadPrevious);
 }
-
 LevelManager::~LevelManager()
 {
 
 }
 
-void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelScene/*, Scene* aPauseMenuScene*/)
+void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelScene/*, Scene* aPauseMenuScene*/, Scene* anIntroLogosScene)
 {
 	myScenes.insert({ eScenes::MainMenu, aMainMenuScene });
 	myScenes.insert({ eScenes::LevelScene, aLevelScene });
 	//myScenes.insert({ eScenes::PauseMenu, aPauseMenuScene });
+	myScenes.insert({ eScenes::IntroLogos, anIntroLogosScene});
 }
 
 void LevelManager::Update()

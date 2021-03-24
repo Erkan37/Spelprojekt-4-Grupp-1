@@ -35,18 +35,15 @@ public:
 	bool Init(const std::wstring& aVersion = L"", HWND aHWND = nullptr);
 
 	static void SetResolution(const uint16_t& aWidth, const uint16_t& aHeight);
-
 	void SetZoom(const int aZoomX, const int aZoomY)
 	{
 		myZoomX = aZoomX;
 		myZoomY = aZoomY;
 	}
-
 	int GetZoomX()
 	{
 		return myZoomX;
 	}
-
 	int GetZoomY()
 	{
 		return myZoomY;
