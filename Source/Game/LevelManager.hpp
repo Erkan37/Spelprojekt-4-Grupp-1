@@ -57,6 +57,8 @@ private:
 	int myLoadedLevel;
 	int myLastDoorType;
 
+	bool myLevelTransition;
+
 #ifndef _RETAIL
 	bool myImGuiIsActive;
 #endif //RETAIL

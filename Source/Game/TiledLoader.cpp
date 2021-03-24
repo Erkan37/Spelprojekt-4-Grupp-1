@@ -189,7 +189,7 @@ void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene* aScene
 
 		if (doorType != someData[i].myType)
 		{
-			v2f doorOffset = v2f(0.0f, someData[i].mySize.y - 16.0f);
+			v2f doorOffset = v2f(0.0f, someData[i].mySize.y - 8.0f);
 			if (someData[i].myType == 0)
 			{
 				doorOffset.x = 24.0f + someData[i].mySize.x;
