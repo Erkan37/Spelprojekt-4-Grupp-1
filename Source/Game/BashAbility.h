@@ -23,6 +23,7 @@ public:
 
 	v2f GetVelocity();
 	void SetVelocity(const v2f& aDashVelocity);
+	void InvertDashDirectionX();
 
 	void ResetVelocity(const bool aResetX, const bool aResetY);
 

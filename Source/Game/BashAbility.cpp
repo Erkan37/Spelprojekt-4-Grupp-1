@@ -114,6 +114,11 @@ void BashAbility::SetVelocity(const v2f& aDashVelocity)
 	myCurrentDashVelocity = aDashVelocity;
 }
 
+void BashAbility::InvertDashDirectionX()
+{
+	myDashDirection.x = myDashDirection.x * -1;
+}
+
 void BashAbility::ResetVelocity(const bool aResetX, const bool aResetY)
 {
 	if (aResetX)

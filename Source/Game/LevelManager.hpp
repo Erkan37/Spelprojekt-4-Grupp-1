@@ -48,11 +48,16 @@ public:
 
 	void Notify(const Message& aMessage) override;
 
+	const int GetDoorType();
+
 private:
 	std::map<eScenes, Scene*> myScenes;
 	std::shared_ptr<TiledLoader> myTiledLoader;
 
 	int myLoadedLevel;
+	int myLastDoorType;
+
+	bool myLevelTransition;
 
 #ifndef _RETAIL
 	bool myImGuiIsActive;

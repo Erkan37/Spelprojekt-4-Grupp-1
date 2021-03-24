@@ -2,7 +2,7 @@
 #include "MovingPlatform.hpp"
 #include "Player.hpp"
 #include "Button.h"
-
+#include "AudioComponent.h"
 #include "WaypointComponent.hpp"
 #include "SpriteComponent.h"
 
@@ -13,10 +13,20 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	myWaypointComponent(nullptr)
 {
 	SetZIndex(93);
-
+	myTypeIndex = 1;
 	myWaypointComponent = AddComponent<WaypointComponent>();
 	myWaypointComponent->SetOwner(this);
 	myAddedButton = false;
+	AudioComponent* audio = AddComponent<AudioComponent>();
+	audio->AddAudio(AudioList::MovingPlatform);
+	audio->SetRadius(200);
+	audio->PlayAudio();
+}
+
+MovingPlatform::~MovingPlatform()
+{
+	AudioComponent* audio = GetComponent<AudioComponent>();
+	audio->StopAudio();
 	myType = eMovingPlatformType::RegularPlatform;
 }
 
@@ -84,6 +94,7 @@ void MovingPlatform::OnCollision(GameObject* aGameObject)
 		Player* player = dynamic_cast<Player*>(aGameObject);
 		if (player)
 		{
+			player->SetGroundIndex(myTypeIndex);
 			player->SetPlatformVelocity(myWaypointComponent->GetVelocity());
 		}
 	}

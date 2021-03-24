@@ -157,7 +157,7 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 10,10 10,10 0"
+                         "value":"0 10 10 10 10 0"
                         }],
                  "rotation":0,
                  "type":"1",
@@ -179,7 +179,7 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"10 0,10 -10,0 -10"
+                         "value":"10 0 10 -10 0 -10"
                         }],
                  "rotation":0,
                  "type":"1",
@@ -201,7 +201,7 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -10,-10 -10.-10 0"
+                         "value":"0 -10 -10 -10 -10 0"
                         }],
                  "rotation":0,
                  "type":"1",
@@ -223,7 +223,7 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"-10 0,-10 10.0 10"
+                         "value":"-10 0 -10 10 0 10"
                         }],
                  "rotation":0,
                  "type":"1",

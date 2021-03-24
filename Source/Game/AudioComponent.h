@@ -12,9 +12,6 @@ public:
 	void PlayAudio();
 	void StopAudio();
 	void SetRadius(const float& aRadius);
-	void SetVolume(const int& anIndex, const float& aVolume);
-	void SetMinVolume(const float& aMinVolume);
-	void SetMaxVolume(const float& aMaxVolume);
 	void LockAudio(AudioList aSound);
 	void UnLockAudio(AudioList aSound);
 

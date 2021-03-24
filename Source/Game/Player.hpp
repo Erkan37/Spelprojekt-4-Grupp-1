@@ -85,6 +85,14 @@ public:
 	void SetAnimation(const int& aAnimationIndex);
 	void SetNextAnimation(const int& aAnimationIndex);
 
+	void SetGroundIndex(const int& aGroundType);
+	void WalkingSoundCheck();
+	void LandingSoundCheck();
+
+	void UnlockLandingSounds();
+
+	void SetSpawnPosition(const v2f& aSpawnPosition);
+
 private:
 #ifdef _DEBUG
 	void ImGuiUpdate();
@@ -113,6 +121,7 @@ private:
 
 	int myCurrentAnimationIndex;
 	int myDirectionX;
+	int myGroundIndex;
 
 	bool myHasLanded;
 	bool myHasLandedVibration;

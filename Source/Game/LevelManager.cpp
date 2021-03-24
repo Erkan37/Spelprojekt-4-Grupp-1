@@ -19,6 +19,9 @@ LevelManager::LevelManager()
 #endif //RETAIL
 
 	myLoadedLevel = 0;
+	myLastDoorType = 1;
+
+	myLevelTransition = false;
 
 	Subscribe(eMessageType::LoadNext);
 	Subscribe(eMessageType::LoadPrevious);
@@ -38,6 +41,19 @@ void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelScene/*, Scene* aPau
 
 void LevelManager::Update()
 {
+	if (myLevelTransition)
+	{
+		LevelScene* levelScene = dynamic_cast<LevelScene*>(myScenes[eScenes::LevelScene]);
+		levelScene->Transitioning();
+		levelScene->IncreaseBlackScreen();
+
+		if (levelScene->GetReachedFullOpacity())
+		{
+			myLevelTransition = false;
+			SingleLoadScene(eScenes::LevelScene);
+		}
+	}
+
 #ifndef _RETAIL
 	ImGuiUpdate();
 #endif //RETAIL
@@ -139,7 +155,9 @@ void LevelManager::Notify(const Message& aMessage)
 			myLoadedLevel = DataManager::GetInstance().GetLevelCount() - 1;
 		}
 
-		SingleLoadScene(eScenes::LevelScene);
+		myLastDoorType = std::get<int>(aMessage.myData);
+
+		myLevelTransition = true;
 	}
 	else if (aMessage.myMessageType == eMessageType::LoadPrevious)
 	{
@@ -149,6 +167,13 @@ void LevelManager::Notify(const Message& aMessage)
 			myLoadedLevel = 0;
 		}
 
-		SingleLoadScene(eScenes::LevelScene);
+		myLastDoorType = std::get<int>(aMessage.myData);
+
+		myLevelTransition = true;
 	}
+}
+
+const int LevelManager::GetDoorType()
+{
+	return myLastDoorType;
 }

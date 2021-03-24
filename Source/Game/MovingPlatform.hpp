@@ -17,6 +17,8 @@ public:
 
 	MovingPlatform(Scene* aLevelScene);
 
+	~MovingPlatform();
+
 	void Update(const float& aDeltaTime) override;
 
 	void SetWaypoints(const std::vector<v2f>& aWaypoints);
