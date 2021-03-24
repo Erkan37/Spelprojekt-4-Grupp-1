@@ -19,6 +19,8 @@ using namespace std::placeholders;
 v2f Config::ourReferenceSize = { 320.f, 180.f };
 uint16_t Config::width = 1920U;
 uint16_t Config::height = 1080U;
+uint16_t Config::windowWidth = 1920U;
+uint16_t Config::windowHeight = 1080U;
 std::wstring Config::appName = L"Pass On";
 
 #ifdef _DEBUG
@@ -177,8 +179,8 @@ void CGame::UpdateCallBack()
 
 void CGame::SetResolution(const uint16_t& aWidth, const uint16_t& aHeight)
 {
-	Config::width = aWidth;
-	Config::height = aHeight;
+	Config::windowWidth = aWidth;
+	Config::windowHeight = aHeight;
 
 	//Tga2D::CEngine::GetInstance()->SetTargetSize({ aWidth, aHeight });
 }
