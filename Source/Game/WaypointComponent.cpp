@@ -6,7 +6,7 @@ WaypointComponent::WaypointComponent()
 {
 	myWaypointIncrement = 1;
 	myLastCheckpointReached = {};
-	myReverseBool = {};
+	myLoopedOnce = {};
 }
 
 void WaypointComponent::Move(const float& aDeltaTime)
@@ -33,13 +33,18 @@ void WaypointComponent::CheckReachedWayPoint()
 
 void WaypointComponent::SetNextWayPoint()
 {
+	if (myCurrentWayPointIndex == 0 && myLoopedOnce)
+		myLastCheckpointReached = true;
+
 	myCurrentWayPointIndex = myCurrentWayPointIndex + myWaypointIncrement;
+
 	if (myCurrentWayPointIndex >= static_cast<int>(myWaypoints.size()))
 	{
-		myLastCheckpointReached = true;
-		if (!myReverseBool)
-			myCurrentWayPointIndex = 0;
+		myLoopedOnce = true;
+		myCurrentWayPointIndex = 0;
 	}
+	else if (myCurrentWayPointIndex < 0)
+		myCurrentWayPointIndex = myWaypoints.size() - 1;
 }
 
 void WaypointComponent::SetSpeed(const float& aSpeed)
@@ -89,14 +94,12 @@ void WaypointComponent::SetOwner(GameObject* aGameObject)
 
 void WaypointComponent::ReverseWaypoints()
 {
-	myCurrentWayPointIndex = 0;
-	mySpeed = myOriginalSpeed;
-	myLastCheckpointReached = false;
-}
+	myWaypointIncrement = -1;
 
-void WaypointComponent::AddReverseBool()
-{
-	myReverseBool = true;
+	if (myCurrentWayPointIndex > 0)
+		myCurrentWayPointIndex = 0;
+	else
+		myCurrentWayPointIndex = myWaypoints.size() - 1;
 }
 
 bool WaypointComponent::IsAtLastCheckPoint()

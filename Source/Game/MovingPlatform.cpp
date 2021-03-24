@@ -17,6 +17,7 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	myWaypointComponent = AddComponent<WaypointComponent>();
 	myWaypointComponent->SetOwner(this);
 	myAddedButton = false;
+	myRevertOn = {};
 	AudioComponent* audio = AddComponent<AudioComponent>();
 	audio->AddAudio(AudioList::MovingPlatform);
 	audio->SetRadius(200);
@@ -32,23 +33,20 @@ MovingPlatform::~MovingPlatform()
 
 void MovingPlatform::Update(const float& aDeltaTime)
 {
-	if (myType == eMovingPlatformType::RegularPlatform)
+	if (myType == eMovingPlatformType::RegularPlatform || myType == eMovingPlatformType::ReversePlatform)
 		myWaypointComponent->Move(aDeltaTime);
 
 	if (myAddedButton)
 	{
-		if (myType == eMovingPlatformType::ReversePlatform)
-			if (!myWaypointComponent->IsAtLastCheckPoint())
- 				myWaypointComponent->Move(aDeltaTime);
-
 		if (myButton->GetActiveButton())
 		{
-			if (myType == eMovingPlatformType::ReversePlatform)
+			if (myType == eMovingPlatformType::MovingPlatform)
+				myWaypointComponent->Move(aDeltaTime);
+			else if (myType == eMovingPlatformType::ReversePlatform && !myRevertOn)
 			{
+				myRevertOn = true;
 				myWaypointComponent->ReverseWaypoints();
 			}
-			else if (myType == eMovingPlatformType::MovingPlatform)
-				myWaypointComponent->Move(aDeltaTime);
 			else if (myType == eMovingPlatformType::PointAtoBPlatform)
 			{
 				if (!myWaypointComponent->IsAtLastCheckPoint())
@@ -82,9 +80,6 @@ void MovingPlatform::AddButton(v2f aPosition, eMovingPlatformType aPlatformType)
 	myAddedButton = true;
 	myType = aPlatformType;
 	myButton->Init(GetPosition(), aPosition);
-
-	if (myType == eMovingPlatformType::ReversePlatform)
-		myWaypointComponent->AddReverseBool();
 }
 
 void MovingPlatform::OnCollision(GameObject* aGameObject)

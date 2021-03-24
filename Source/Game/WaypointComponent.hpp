@@ -30,7 +30,6 @@ public:
 	void SetOwner(GameObject* aGameObject);
 
 	void ReverseWaypoints();
-	void AddReverseBool();
 	bool IsAtLastCheckPoint();
 
 private:
@@ -38,7 +37,7 @@ private:
 
 	std::vector<v2f> myWaypoints;
 	v2f myDirection;
-	v2f myOrignalDirection;
+
 
 	float mySpeed;
 	float myOriginalSpeed;
@@ -46,6 +45,6 @@ private:
 	int myWaypointIncrement;
 	int myCurrentWayPointIndex;
 	bool myLastCheckpointReached;
-	bool myReverseBool;
+	bool myLoopedOnce;
 };
 
