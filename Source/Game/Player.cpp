@@ -232,11 +232,11 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity + mySpringVelocity);
 
-	if (myCurrentVelocity.y + myBashAbility->GetVelocity().y > 0)
+	if (myCurrentVelocity.x + myBashAbility->GetVelocity().x > 0)
 	{
 		myDirectionX = 1;
 	}
-	else if (myCurrentVelocity.y + myBashAbility->GetVelocity().y < 0)
+	else if (myCurrentVelocity.x + myBashAbility->GetVelocity().x < 0)
 	{
 		myDirectionX = -1;
 	}
