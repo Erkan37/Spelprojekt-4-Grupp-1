@@ -444,7 +444,7 @@ void Player::SideCollision(const int& aOverlapX)
 	aOverlapX;
 	myCurrentVelocity.x = 0.0f;
 	myBashAbility->ResetVelocity(true, false);
-	mySpringVelocity = {};
+	mySpringVelocity.x = {};
 }
 
 void Player::ResetVelocity()
