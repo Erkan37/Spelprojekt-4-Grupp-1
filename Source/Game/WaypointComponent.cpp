@@ -75,6 +75,12 @@ const v2f WaypointComponent::GetVelocity()
 	return myDirection * mySpeed;
 }
 
+void WaypointComponent::ResetVelocity()
+{
+	mySpeed = {};
+	myDirection = {};
+}
+
 void WaypointComponent::SetOwner(GameObject* aGameObject)
 {
 	myOwner = aGameObject;

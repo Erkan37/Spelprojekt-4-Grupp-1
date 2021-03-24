@@ -25,6 +25,8 @@ public:
 
 	const v2f GetVelocity();
 
+	void ResetVelocity();
+
 	void SetOwner(GameObject* aGameObject);
 
 	void ReverseWaypoints();

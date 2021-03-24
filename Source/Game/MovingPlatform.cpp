@@ -43,11 +43,14 @@ void MovingPlatform::Update(const float& aDeltaTime)
 			{
 				if (!myWaypointComponent->IsAtLastCheckPoint())
 					myWaypointComponent->Move(aDeltaTime);
+				else
+					myWaypointComponent->ResetVelocity();
 			}
 		}
 	}
 
-	Platform::Update(aDeltaTime);
+
+	//Platform::Update(aDeltaTime);
 }
 
 void MovingPlatform::SetWaypoints(const std::vector<v2f>& aWaypoints)

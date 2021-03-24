@@ -60,3 +60,8 @@ void Platform::OnCollision(GameObject* aGameObject)
 		}
 	}
 }
+
+void Platform::ResetVelocity()
+{
+	GetComponent<PhysicsComponent>()->SetVelocity({ 0.f, 0.f });
+}
