@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":69,
  "infinite":false,
  "layers":[
@@ -871,15 +878,15 @@
                  "y":392
                 }, 
                 {
-                 "height":168,
+                 "height":488,
                  "id":293,
                  "name":"",
                  "rotation":0,
                  "type":"0",
                  "visible":true,
-                 "width":8,
-                 "x":0,
-                 "y":320
+                 "width":40,
+                 "x":-32,
+                 "y":0
                 }, 
                 {
                  "height":16,
@@ -1205,7 +1212,7 @@
          "name":"Doors",
          "objects":[
                 {
-                 "height":56,
+                 "height":32,
                  "id":203,
                  "name":"",
                  "rotation":0,
@@ -1213,7 +1220,7 @@
                  "visible":true,
                  "width":16,
                  "x":-32,
-                 "y":464
+                 "y":488
                 }, 
                 {
                  "height":72,

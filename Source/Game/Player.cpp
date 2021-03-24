@@ -251,6 +251,11 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 
 	if (myActiveSpringJump)
 		DecreaseSpringJump(aDeltaTime);
+
+	if (myCurrentVelocity.y > 0)
+	{
+		myPlatformVelocity.y = 0.0f;
+	}
 }
 
 void Player::CheckMove(const float& aDeltaTime)
