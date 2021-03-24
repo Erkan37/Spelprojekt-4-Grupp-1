@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":23,
  "infinite":false,
  "layers":[
@@ -331,6 +338,17 @@
                  "width":2,
                  "x":320,
                  "y":104
+                }, 
+                {
+                 "height":2,
+                 "id":289,
+                 "name":"D\u00f6dlig",
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":304,
+                 "x":72,
+                 "y":182
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -544,7 +562,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":289,
+ "nextobjectid":290,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
