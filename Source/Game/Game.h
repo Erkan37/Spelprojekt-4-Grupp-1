@@ -21,6 +21,8 @@ public:
 
 	static uint16_t width;
 	static uint16_t height;
+	static uint16_t windowWidth;
+	static uint16_t windowHeight;
 	static std::wstring appName;
 	static v2f ourReferenceSize;
 };
