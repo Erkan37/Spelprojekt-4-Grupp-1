@@ -380,9 +380,9 @@ std::vector<v2f> TiledLoader::GetWaypointPositions(const std::string somePositio
 	std::stringstream sstream;
 
 	sstream << somePositions;
-	std::string tempWord;
-	int tempNum;
-	int tempX;
+	std::string tempWord = {};
+	int tempNum = {};
+	int tempX = {};
 	bool hasX = false;
 
 	while (!sstream.eof())
