@@ -42,11 +42,11 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 				for (iterator object = (*layer)["objects"].Begin(); object != (*layer)["objects"].End(); ++object)
 				{
 					LoadData data;
-					data.myPosition.x = (*object)["x"].GetInt();
-					data.myPosition.y = (*object)["y"].GetInt();
+					data.myPosition.x = (*object)["x"].GetFloat();
+					data.myPosition.y = (*object)["y"].GetFloat();
 
-					data.mySize.x = (*object)["width"].GetInt();
-					data.mySize.y = (*object)["height"].GetInt();
+					data.mySize.x = (*object)["width"].GetFloat();
+					data.mySize.y = (*object)["height"].GetFloat();
 
 					std::string type = (*object)["type"].GetString();
 					std::stringstream degree(type);
