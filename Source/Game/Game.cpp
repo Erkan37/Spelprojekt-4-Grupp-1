@@ -75,6 +75,7 @@ LRESULT CGame::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_SIZE: 
 	{
 		SetZoom(LOWORD(lParam), HIWORD(lParam));
+		SetResolution(LOWORD(lParam), HIWORD(lParam));
 		return 0;
 	}
 		// this message is read when the window is closed
@@ -179,7 +180,7 @@ void CGame::SetResolution(const uint16_t& aWidth, const uint16_t& aHeight)
 	Config::width = aWidth;
 	Config::height = aHeight;
 
-	Tga2D::CEngine::GetInstance()->SetTargetSize({ aWidth, aHeight });
+	//Tga2D::CEngine::GetInstance()->SetTargetSize({ aWidth, aHeight });
 }
 
 #ifndef _RETAIL

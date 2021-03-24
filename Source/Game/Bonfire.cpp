@@ -18,6 +18,8 @@ Bonfire::Bonfire(Scene* aScene)
 	:
 	GameObject(aScene)
 {
+	SetPivot(v2f(0.5f, 1.0f));
+
 	SetZIndex(91);
 
 	myCollectibleIndex = 0;
