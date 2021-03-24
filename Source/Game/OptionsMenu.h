@@ -38,7 +38,7 @@ private:
 	std::unique_ptr<UIObject> myFireHighlight;
 	std::unique_ptr<UIObject> myBar;
 
-	std::unique_ptr<UIButton> myResetBtn;
+	std::unique_ptr<UIButton> myTutorialsBtn;
 	std::unique_ptr<UIButton> mySoundBtn;
 	std::unique_ptr<UIButton> myCreditsBtn;
 	std::unique_ptr<UIButton> myBackBtn;
