@@ -466,7 +466,7 @@ void Player::CheckIfPlayerIsOnPlatform()
 	if (myIsOnPlatform)
 	{
 		myIsOnPlatform = false;
-		SetPlatformVelocity({ 0.f, 0.f });
+		SetPlatformVelocity({ 0.f,myPlatformVelocity.y });
 	}
 }
 

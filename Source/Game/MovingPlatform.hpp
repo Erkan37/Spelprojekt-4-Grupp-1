@@ -31,6 +31,7 @@ private:
 	eMovingPlatformType myType;
 	Button* myButton;
 
+	float myPercentageYValue;
 	bool myAddedButton;
 	bool myRevertOn;
 

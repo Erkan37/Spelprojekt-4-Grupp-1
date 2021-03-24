@@ -5,6 +5,9 @@
 #include "AudioComponent.h"
 #include "WaypointComponent.hpp"
 #include "SpriteComponent.h"
+#include <iostream>
+#include <fstream>
+#include "rapidjson/istreamwrapper.h"
 
 MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	:
@@ -14,6 +17,7 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 {
 	SetZIndex(93);
 	myTypeIndex = 1;
+	myPercentageYValue = {};
 	myWaypointComponent = AddComponent<WaypointComponent>();
 	myWaypointComponent->SetOwner(this);
 	myAddedButton = false;
@@ -22,6 +26,17 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	audio->AddAudio(AudioList::MovingPlatform);
 	audio->SetRadius(200);
 	audio->PlayAudio();
+
+	std::ifstream effectObjectFile("JSON/Misc. Options.json");
+	rapidjson::IStreamWrapper effectObjectStream(effectObjectFile);
+
+	rapidjson::Document effectDocuments;
+	effectDocuments.ParseStream(effectObjectStream);
+
+	myPercentageYValue = effectDocuments["ReducedJumpPowerYFromPlatform"].GetFloat();
+
+	effectObjectFile.close();
+
 }
 
 MovingPlatform::~MovingPlatform()
@@ -90,6 +105,7 @@ void MovingPlatform::OnCollision(GameObject* aGameObject)
 		if (player)
 		{
 			v2f velo = myWaypointComponent->GetVelocity();
+			velo.y = velo.y * myPercentageYValue;
 			player->SetGroundIndex(myTypeIndex);
 			player->SetPlatformVelocity(velo);
 			player->SetPlayerOnPlatform();

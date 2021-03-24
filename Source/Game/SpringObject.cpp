@@ -7,7 +7,6 @@
 #include "PhysicsComponent.h"
 #include "Player.hpp"
 #include "Game.h"
-#include <iostream>
 #include "rapidjson/istreamwrapper.h"
 
 SpringObject::SpringObject(Scene* aLevelScene) : GameObject(aLevelScene)
