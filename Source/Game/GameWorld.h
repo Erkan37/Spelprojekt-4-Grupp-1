@@ -1,7 +1,7 @@
 #pragma once
-
 #include "MainMenuScene.h"
 #include "LevelScene.h"
+#include "IntroLogosScene.h"
 #include "LevelManager.hpp"
 
 namespace Utils
@@ -65,11 +65,13 @@ private:
 	CGame* myGame;
 	float myDeltaTime;
 	float myTotalTime;
+	static CGameWorld* ourInstance;
 
+	/*** Scenes ***/
+	IntroLogosScene myIntroLogosScene;
 	MainMenuScene myMainMenuScene;
 	LevelScene myLevelScene;
 
 	LevelManager myLevelManager;
 
-	static CGameWorld* ourInstance;
 };

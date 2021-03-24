@@ -48,6 +48,7 @@ MovingPlatform* PlatformFactory::CreateMovingPlatform(Scene* aLevelScene, const 
 	movingPlatform->GetComponent<WaypointComponent>()->SetSpeed(aSpeed);
 	movingPlatform->GetComponent<SpriteComponent>()->SetSpritePath(spritePath);
 	movingPlatform->GetComponent<SpriteComponent>()->SetSize(adjustedSize);
+	movingPlatform->AdjustXOffset();
 	return movingPlatform;
 }
 
