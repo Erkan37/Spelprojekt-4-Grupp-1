@@ -522,18 +522,6 @@
          "objects":[
                 {
                  "height":0,
-                 "id":227,
-                 "name":"",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":296,
-                 "y":104
-                }, 
-                {
-                 "height":0,
                  "id":259,
                  "name":"",
                  "point":true,
