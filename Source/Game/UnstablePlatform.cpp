@@ -78,10 +78,15 @@ void UnstablePlatform::Landed(const int& aOverlapY)
 	}
 }
 
+void UnstablePlatform::SetSpriteToDisable(SpriteComponent* aSprite)
+{
+	mySpriteToDisable = aSprite;
+}
+
 void UnstablePlatform::ActivatePlatform()
 {
 	GetComponent<PhysicsComponent>()->SetCanCollide(true);
-	GetComponent<SpriteComponent>()->Activate();
+	mySpriteToDisable->Activate();
 	myIsDeactivated = false;
 }
 
@@ -89,6 +94,6 @@ void UnstablePlatform::DeactivatePlatform()
 {
 	AudioManager::GetInstance()->Stop(AudioList::WeakPlatform);
 	GetComponent<PhysicsComponent>()->SetCanCollide(false);
-	GetComponent<SpriteComponent>()->Deactivate();
+	mySpriteToDisable->Deactivate();
 	myIsDeactivated = true;
 }
