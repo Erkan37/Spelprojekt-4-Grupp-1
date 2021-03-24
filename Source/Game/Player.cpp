@@ -170,6 +170,7 @@ void Player::Update(const float& aDeltaTime)
 
 	if (myHasDied)
 	{
+		Kill();
 		GetComponent<PhysicsComponent>()->SetVelocity(v2f(0.0f, 0.0f));
 		return;
 	}
@@ -613,6 +614,11 @@ const bool& Player::GetIsBashing()
 
 void Player::BashCollision(GameObject* aGameObject, BashComponent* aBashComponent)
 {
+	if (myHasDied)
+	{
+		return;
+	}
+
 	if (aBashComponent->GetRadius() * aBashComponent->GetRadius() >= (aGameObject->GetPosition() - GetPosition()).LengthSqr())
 	{
 		if (myInputHandler->IsDashing() && !myBashAbility->GetIsBashing())
