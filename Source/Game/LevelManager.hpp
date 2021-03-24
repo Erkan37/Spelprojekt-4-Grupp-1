@@ -16,6 +16,7 @@ public:
 	{
 		MainMenu,
 		LevelScene,
+		IntroLogos,
 		//PauseMenu,
 		Count
 	};
@@ -23,7 +24,7 @@ public:
 	LevelManager();
 	~LevelManager();
 
-	void Init(Scene* aMainMenuScene, Scene* aLevelScene);
+	void Init(Scene* aMainMenuScene, Scene* aLevelScene, Scene* anIntroLogosScene);
 
 	void Update();
 

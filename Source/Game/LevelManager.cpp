@@ -16,17 +16,17 @@ LevelManager::LevelManager()
 	myImGuiIsActive = {};
 #endif //RETAIL
 }
-
 LevelManager::~LevelManager()
 {
 
 }
 
-void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelScene/*, Scene* aPauseMenuScene*/)
+void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelScene/*, Scene* aPauseMenuScene*/, Scene* anIntroLogosScene)
 {
 	myScenes.insert({ eScenes::MainMenu, aMainMenuScene });
 	myScenes.insert({ eScenes::LevelScene, aLevelScene });
 	//myScenes.insert({ eScenes::PauseMenu, aPauseMenuScene });
+	myScenes.insert({ eScenes::IntroLogos, anIntroLogosScene});
 }
 
 void LevelManager::Update()

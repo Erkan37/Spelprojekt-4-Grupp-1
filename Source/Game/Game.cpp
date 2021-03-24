@@ -32,13 +32,10 @@ std::wstring BUILD_NAME = L"Release";
 std::wstring BUILD_NAME = L"Retail";
 #endif // DEBUG
 
-CGame::CGame()
-	: myGameWorld(this)
-	, myThread(nullptr)
-	, myActive(true)
-	, myTimer(new Utils::Timer())
-{}
+CGame::CGame() : myGameWorld(this), myThread(nullptr), myActive(true), myTimer(new Utils::Timer())
+{
 
+}
 CGame::~CGame()
 {
 	myActive = false;
@@ -90,7 +87,6 @@ LRESULT CGame::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-
 bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 {
 	aVersion;
@@ -114,10 +110,6 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 	createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Overlapped;
 #endif // DEBUG
 #ifdef _RETAIL
-	//createParameters.myWindowHeight = static_cast<unsigned short>(monitorHeight);
-	//createParameters.myWindowWidth = static_cast<unsigned short>(monitorWidth);
-	//Tga2D::CEngine::GetInstance()->SetFullScreen(monitor);
-	//createParameters.myWindowSetting = Tga2D::EWindowSetting::EWindowSetting_Borderless;
 	createParameters.myStartInFullScreen = true;
 #endif // RETAIL
 
@@ -145,7 +137,7 @@ void CGame::InitCallBack()
 	myGameWorld.Init();
 
 #ifndef _RETAIL
-	InitDebugger();
+	//InitDebugger();
 #endif _RETAIL
 }
 
@@ -154,11 +146,6 @@ void CGame::UpdateCallBack()
 	myTimer->Update();
 	myGameWorld.Update();
 	myGameWorld.Render();
-
-	/*if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::ESCKey))
-	{
-		PostQuitMessage(0);
-	}*/
 
 #ifndef _RETAIL
 	if (myGameWorld.myInput->GetInput()->GetKeyJustDown(Keys::F1Key))
