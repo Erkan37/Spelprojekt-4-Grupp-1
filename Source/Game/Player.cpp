@@ -68,6 +68,9 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	myActiveSpringJump = false;
 	myGrabbedLedge = false;
 	myIsLerpingToPosition = false;
+	myIsGliding = false;
+
+	myGlideFactor = 0.1f;
 
 	mySpringVelocity = {};
 	myPercentageLeftVelocity = {};
@@ -226,7 +229,13 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 {
 	if (!myGrabbedLedge)
 	{
-		myCurrentVelocity.y = Utils::Min(myCurrentVelocity.y + PhysicsManager::ourGravity * aDeltaTime, myJsonData->myFloatValueMap[PEnum::Max_Fall_Speed]);
+		float fallDecreaseFactor = 1.0f;
+		if (myIsGliding)
+		{
+			fallDecreaseFactor = myGlideFactor;
+		}
+
+		myCurrentVelocity.y = Utils::Min(myCurrentVelocity.y + PhysicsManager::ourGravity * aDeltaTime, myJsonData->myFloatValueMap[PEnum::Max_Fall_Speed] * fallDecreaseFactor);
 	}
 
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
@@ -424,7 +433,11 @@ void Player::Landed(const int& aOverlapY)
 	{
 		myAirCoyoteTimer = myJsonData->myFloatValueMap[PEnum::Coyote_Time];
 		if (!myActiveSpringJump)
+		{
 			myHasLanded = true;
+			myIsGliding = false;
+		}
+
 		myHasDoubleJumped = false;
 
 		myBashAbility->ResetVelocity(true, true);
@@ -776,6 +789,12 @@ void Player::SetSpawnPosition(const v2f& aSpawnPosition)
 {
 	mySpawnPosition = aSpawnPosition;
 }
+
+void Player::StartGliding() 
+{
+	myIsGliding = true;
+}
+
 
 #ifdef _DEBUG
 void Player::ImGuiUpdate()

@@ -93,6 +93,8 @@ public:
 
 	void SetSpawnPosition(const v2f& aSpawnPosition);
 
+	void StartGliding();
+
 private:
 #ifdef _DEBUG
 	void ImGuiUpdate();
@@ -118,6 +120,7 @@ private:
 	float mySpringVelocityRetardation;
 	float myPercentageLeftVelocity;
 	float mySpringTimer;
+	float myGlideFactor;
 
 	int myCurrentAnimationIndex;
 	int myDirectionX;
@@ -134,6 +137,7 @@ private:
 	bool myIsLerpingToPosition;
 	bool myHasDied;
 	bool myIsOnPlatform;
+	bool myIsGliding;
 
 	PlayerData* myJsonData = new PlayerData();
 };

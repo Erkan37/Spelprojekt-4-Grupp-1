@@ -163,6 +163,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWorld.h" />
+    <ClInclude Include="Glide.hpp" />
     <ClInclude Include="HiddenArea.hpp" />
     <ClInclude Include="InputWrapper.h" />
     <ClInclude Include="IntroLogosScene.h" />
@@ -235,6 +236,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWorld.cpp" />
+    <ClCompile Include="Glide.cpp" />
     <ClCompile Include="HiddenArea.cpp" />
     <ClCompile Include="InputWrapper.cpp" />
     <ClCompile Include="IntroLogosScene.cpp" />
