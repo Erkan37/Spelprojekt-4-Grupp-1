@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-class SpriteComponent;
+class SpritebatchComponent;
 class Scene;
 
 class HiddenArea : public GameObject
@@ -12,10 +12,12 @@ public:
 
 	void Update(const float& aDeltaTime) override;
 
+	void SetBatch(SpritebatchComponent* aHiddenSpriteBatch);
+
 	void OnCollision(GameObject* aGameObject) override;
 
 private:
-	SpriteComponent* myHiddenSprite;
+	SpritebatchComponent* myHiddenSpriteBatch;
 	float myOpacity;
 	float myOpacityChangeSpeed;
 	bool myPlayerCollided;

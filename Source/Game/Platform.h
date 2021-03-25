@@ -20,12 +20,15 @@ public:
 	~Platform();
 
 	void Init(const v2f& aSize, const v2f& aSpriteSize, const v2f& aPosition, const bool& aIsOneway);
+	void Init(const v2f& aSize, const v2f& aSpriteSize, const v2f& aPosition, const bool& aIsOneway, const int& aMaterialIndex); // Temp
 
 	virtual void Update(const float& aDeltaTime) override;
 
 	virtual void OnCollision(GameObject* aGameObject) override;
 
+	void ResetVelocity();
+protected:
+	int myMaterial = {};
 private:
-
 };
 

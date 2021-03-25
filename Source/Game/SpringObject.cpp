@@ -6,25 +6,40 @@
 #include "ColliderComponent.h"
 #include "PhysicsComponent.h"
 #include "Player.hpp"
+#include "Game.h"
+#include "rapidjson/istreamwrapper.h"
 
 SpringObject::SpringObject(Scene* aLevelScene) : GameObject(aLevelScene)
 {
+	mySpringActive = {};
 	myRetardation = {};
 	myVelocityForce = {};
-	myActiveSpring = {};
+	myTimer = {};
+
+	SetZIndex(94);
 }
 
 void SpringObject::Init(const v2f aPosition)
 {
 	InitSprings(aPosition);
-
+	LoadJson();
 	GameObject::Init();
 }
 void SpringObject::Update(const float& aDeltaTime)
 {
-#ifdef _DEBUG
-	ImGuiUpdate();
-#endif // _DEBUG
+	myTimer += aDeltaTime;
+
+
+	if (mySpringActive)
+	{
+		GameObject::Update(aDeltaTime);
+
+		if (GetComponent<AnimationComponent>()->GetHasBeenDisplayedOnce())
+		{
+			mySpringActive = false;
+		}
+	}
+
 }
 
 void SpringObject::OnCollision(GameObject* aGameObject)
@@ -33,30 +48,21 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 
 	if (player != NULL)
 	{
-		v2f playerPos = player->GetPosition();
 		v2f velo = player->GetComponent<PhysicsComponent>()->GetVelocity();
-		v2f colliderPos = GetPosition();
-		v2f buttonSize = GetComponent<SpriteComponent>()->GetSize();
 
-		float spriteLeftPosX = (colliderPos.x + GetComponent<ColliderComponent>()->GetSize().x / 2.f) - buttonSize.x;
-		float spriteRightPosX = (colliderPos.x + GetComponent<ColliderComponent>()->GetSize().x / 2.f) + buttonSize.x / 2.f;
-
-		if (velo.y > 50 && playerPos.x >= spriteLeftPosX - 0.1f && playerPos.x <= spriteRightPosX + 0.1f && myActiveSpring == false)
+		if (velo.y > 50.f && myTimer > mySpringTimerCooldown)
 		{
-			myActiveSpring = true;
+			mySpringActive = true;
+			myTimer = {};
+			GetComponent<AnimationComponent>()->SetAnimation(&myAnimation);
 			player->ActivateSpringForce(-myVelocityForce, myRetardation);
-			GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[1]);
-			GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[2]);
 		}
-		else
-			myActiveSpring = false;
 	}
 }
 
 void SpringObject::InitSprings(const v2f aPosition)
 {
-	myRetardation = 1.0f;
-	myVelocityForce = 1000;
+	mySpringTimerCooldown = 0.1f;
 	myPosition = aPosition;
 	mySize = { 16.0f, 16.0f };
 
@@ -66,12 +72,13 @@ void SpringObject::InitSprings(const v2f aPosition)
 	CreateGroundSpring();
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
-	physics->SetCanCollide(true);
+	physics->SetCanCollide(false);
 	physics->SetIsStatic(true);
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
-	collider->SetSize({ mySize.x, mySize.y });
-	collider->SetPosition({ 0.f, -mySize.y * 0.1f });
+	collider->SetSize({ mySize.x * 0.8f, mySize.y * 0.01f });
+	collider->SetPosition({ 0.f, -mySize.y * 0.99f });
+
 }
 
 void SpringObject::CreateGroundSpring()
@@ -80,25 +87,35 @@ void SpringObject::CreateGroundSpring()
 	sprite->SetSpritePath("Sprites/Objects/Mushroom.dds");
 	sprite->SetSize(mySize);
 
-	myAnimations[0] = Animation(false, true, false, 0, 1, 1, 0.08f, sprite, 16, 16);
-	myAnimations[1] = Animation(false, true, false, 0, 4, 4, 0.08f, sprite, 16, 16);
-	myAnimations[2] = Animation(true, true, false, 3, 4, 4, 0.08f, sprite, 16, 16);
-
 	AnimationComponent* animation = AddComponent<AnimationComponent>();
 	animation->SetSprite(sprite);
-	animation->SetAnimation(&myAnimations[0]);
-	sprite->SetSize(mySize);
+	myAnimation = Animation(false, false, false, 0, 4, 4, 0.06f, sprite, 16, 16);
+	animation->SetAnimation(&myAnimation);
 
 }
 
-#ifdef _DEBUG
-void SpringObject::ImGuiUpdate()
+void SpringObject::LoadJson()
 {
-	ImGui::Begin("Spring", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
+	std::ifstream effectObjectFile("JSON/SpringObject.json");
+	rapidjson::IStreamWrapper effectObjectStream(effectObjectFile);
 
-	ImGui::SliderFloat("Spring Velocity Force", &myVelocityForce, 0.0f, 2000.0f);
-	ImGui::SliderFloat("Spring Velocity Retardation", &myRetardation, 0.0f, 5.0f);
+	rapidjson::Document effectDocuments;
+	effectDocuments.ParseStream(effectObjectStream);
 
-	ImGui::End();
+	myRetardation = effectDocuments["Retardation"].GetFloat();
+	myVelocityForce = effectDocuments["Velocity"].GetFloat();
+
+	effectObjectFile.close();
 }
-#endif // _DEBUG
+
+//#ifdef _DEBUG
+//void SpringObject::ImGuiUpdate()
+//{
+//	ImGui::Begin("Spring", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
+//
+//	ImGui::SliderFloat("Spring Velocity Force", &myVelocityForce, 0.0f, 2000.0f);
+//	ImGui::SliderFloat("Spring Velocity Retardation", &myRetardation, 0.0f, 5.0f);
+//
+//	ImGui::End();
+//}
+//#endif // _DEBUG

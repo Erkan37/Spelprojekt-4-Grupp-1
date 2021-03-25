@@ -80,16 +80,27 @@ public:
 
 	void DecreaseSpringJump(const float& aDeltaTime);
 
-	void AddCollectible(Collectible* aCollectible);
-	std::vector<Collectible*> GetCollectibles();
-	void ClearCollectibles(const bool aIsTurningIn);
+	const bool& GetHasLanded();
+
+	void SetAnimation(const int& aAnimationIndex);
+	void SetNextAnimation(const int& aAnimationIndex);
+
+	void SetGroundIndex(const int& aGroundType);
+	void WalkingSoundCheck();
+	void LandingSoundCheck();
+
+	void UnlockLandingSounds();
+
+	void SetSpawnPosition(const v2f& aSpawnPosition);
+
+	void StartGliding();
 
 private:
 #ifdef _DEBUG
 	void ImGuiUpdate();
 #endif // _DEBUG
 
-	Animation myAnimations[6];
+	Animation myAnimations[11];
 	std::vector<Collectible*> myCollectibles;
 
 	std::shared_ptr<InputWrapper> myInputHandler;
@@ -109,9 +120,13 @@ private:
 	float mySpringVelocityRetardation;
 	float myPercentageLeftVelocity;
 	float mySpringTimer;
+	float myGlideFactor;
 
 	int myCurrentAnimationIndex;
 	int myDirectionX;
+	int myGroundIndex;
+
+	int myLedgeSoundIndex;
 
 	bool myHasLanded;
 	bool myHasLandedVibration;
@@ -122,6 +137,9 @@ private:
 	bool myActiveSpringJump;
 	bool myGrabbedLedge;
 	bool myIsLerpingToPosition;
+	bool myHasDied;
+	bool myIsOnPlatform;
+	bool myIsGliding;
 
 	PlayerData* myJsonData = new PlayerData();
 };

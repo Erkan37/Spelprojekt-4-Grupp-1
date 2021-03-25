@@ -1,5 +1,5 @@
 /*
-*	Author: Elia Rönning
+*	Author: Elia Rï¿½nning
 */
 
 #include "stdafx.h"
@@ -80,13 +80,18 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 	float height = static_cast<float>(CGameWorld::GetInstance()->Game()->GetZoomY());
 	float width = static_cast<float>(CGameWorld::GetInstance()->Game()->GetZoomX());
 
-	if (width / 16.0f < height / 9.0f)
+	constexpr float aspectRatioX = 16.0f;
+	constexpr float aspectRatioY = 9.0f;
+	constexpr float aspectRatio = aspectRatioX / aspectRatioY;
+	constexpr float inversedAspectRatio = aspectRatioY / aspectRatioX;
+
+	if (width / aspectRatioX < height / aspectRatioY)
 	{
-		height = width * (9.0f / 16.0f);
+		height = width * inversedAspectRatio;
 	}
 	else
 	{
-		width = height * (16.0f / 9.0f);
+		width = height * aspectRatio;
 	}
 
 	float alpha = myAlpha;

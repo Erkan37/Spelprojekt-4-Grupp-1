@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Animation.hpp"
 
 class Scene;
 class Collectible;
@@ -10,17 +11,16 @@ public:
 	Bonfire(Scene* aScene);
 	~Bonfire();
 
-	void Update(const float& aDeltaTime) override;
-
-	void TurnInCollectibles();
-
 	void OnCollision(GameObject* aGameObject) override;
 
 private:
-	std::vector<Collectible*> myRetrievedCollectibles;
+	Animation myAnimations[2];
+
 	float myTurnInSpeed;
 	float myTurnInDistance;
 	int myCollectibleIndex;
+
+	bool myHasBeenActivated;
 
 };
 

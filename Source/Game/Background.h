@@ -31,7 +31,7 @@ private:
 	v2f myCurrentRenderSize;
 	v2f myStartingCameraPos;
 
-	float myOrignalSpeed;
+	float myOriginalSpeed;
 
 	float myBackgroundSpeedOneX;
 	float myBackgroundSpeedTwoX;

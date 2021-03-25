@@ -4,7 +4,7 @@
 #include "SpriteComponent.h"
 #include "InputWrapper.h"
 #include "LevelScene.h"
-
+#include "AudioManager.h"
 #include <iostream>
 
 
@@ -19,7 +19,7 @@ BashAbility::BashAbility(LevelScene* aLevelScene)
 	myMaxDashDuration = 2.0f;
 	myMaxDashDurationTimer = myMaxDashDuration;
 	myDashDuration = 1.0f;
-	myTimer = myDashDuration;
+	myTimer = 0.0f;
 	myTimeScale = 0.0f;
 	myIsBashing = false;
 	myAcceleration = {};
@@ -40,7 +40,7 @@ BashAbility::~BashAbility()
 
 void BashAbility::Init()
 {
-	SetZIndex(1000);
+	SetZIndex(150);
 	SetPivot(v2f(0.5f, 0.5f));
 
 	myDashDirection = v2f(0.0f, -1.0f);
@@ -91,6 +91,12 @@ void BashAbility::UpdateBashVelocity(const float& aDeltaTime)
 	}
 	else if(myTimer <= 0)
 	{
+		if (myIsBashing)
+		{
+			myPlayer->SetAnimation(9);
+			myPlayer->SetNextAnimation(4);
+		}
+		
 		myTimer = 0;
 		myCurrentDashVelocity.x = Utils::Lerp(myCurrentDashVelocity.x, 0.0f, myRetardation * aDeltaTime);
 		myCurrentDashVelocity.y = Utils::Lerp(myCurrentDashVelocity.y, 0.0f, myRetardation * aDeltaTime) * myAspectRatioFactorY;
@@ -106,6 +112,11 @@ v2f BashAbility::GetVelocity()
 void BashAbility::SetVelocity(const v2f& aDashVelocity)
 {
 	myCurrentDashVelocity = aDashVelocity;
+}
+
+void BashAbility::InvertDashDirectionX()
+{
+	myDashDirection.x = myDashDirection.x * -1;
 }
 
 void BashAbility::ResetVelocity(const bool aResetX, const bool aResetY)
@@ -171,6 +182,8 @@ void BashAbility::DashUse(const float& aDeltaTime)
 	myScene->GetCamera().Shake(myDashShakeDuration, myDashShakeIntensity, myDashShakeDropOff);
 	myInput->GetController()->Vibrate(myVibrationStrength, myVibrationStrength, myVibrationLength);
 
+	myPlayer->SetAnimation(8);
+
 	myPlayer->ResetVelocity();
 	myPlayer->ReactivateDoubleJump();
 	ResetVelocity(true, true);
@@ -193,12 +206,16 @@ void BashAbility::UseBashAbility(const float& aDeltaTime)
 	myTimerInput->SetTimeScale(myTimeScale);
 
 	UpdateBashArrow();
+	AudioManager::GetInstance()->PlayAudio(AudioList::BashCharge);
+	AudioManager::GetInstance()->LockAudio(AudioList::BashCharge);
 
 	if (myButtonHold == false || myMaxDashDurationTimer <= 0)
 	{
 		DashUse(aDeltaTime);
 		GetComponent<SpriteComponent>()->Deactivate();
 		myPlayer->EndLerp();
+		AudioManager::GetInstance()->PlayAudio(AudioList::BashRelease);
+		AudioManager::GetInstance()->UnLockAudio(AudioList::BashCharge);
 	}
 }
 
@@ -212,6 +229,12 @@ void BashAbility::CheckButtonPress()
 
 	if (myInput->IsDashing() && myBashObject)
 	{
+		if (!myDashAbilityActive)
+		{
+			myPlayer->SetAnimation(6);
+			myPlayer->SetNextAnimation(7);
+		}
+
 		myButtonHold = true;
 		myDashAbilityActive = true;
 		GetComponent<SpriteComponent>()->Activate();
@@ -244,4 +267,9 @@ void BashAbility::UpdateBashArrow()
 
 	SetPosition(myPlayer->GetPosition() + myDashDirection * 16.0f);
 	SetRotation(atan2(myDashDirection.y, myDashDirection.x));
+}
+
+void BashAbility::StopBashing()
+{
+	myIsBashing = false;
 }

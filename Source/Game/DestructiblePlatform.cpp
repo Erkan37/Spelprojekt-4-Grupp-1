@@ -12,7 +12,7 @@ DestructiblePlatform::DestructiblePlatform(Scene* aLevelScene)
 	Platform(aLevelScene),
 	myWasDestroyed(false)
 {
-
+	SetZIndex(94);
 }
 
 void DestructiblePlatform::OnCollision(GameObject* aGameObject)
@@ -22,6 +22,8 @@ void DestructiblePlatform::OnCollision(GameObject* aGameObject)
 		Player* player = dynamic_cast<Player*>(aGameObject);
 		if (player)
 		{
+			player->SetPlatformVelocity(v2f(0.0f, 0.0f));
+
 			if (player->GetIsBashing())
 			{
 				GetComponent<PhysicsComponent>()->SetCanCollide(false);
@@ -31,7 +33,5 @@ void DestructiblePlatform::OnCollision(GameObject* aGameObject)
 				myWasDestroyed = true;
 			}
 		}
-
-		Platform::OnCollision(aGameObject);
 	}
 }

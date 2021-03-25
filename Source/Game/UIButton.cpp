@@ -23,21 +23,24 @@ UIButton::~UIButton()
 
 void UIButton::Init(const std::string aPathString, const v2f aSize, const v2f aPosition, const std::string aAnimationPathString, const int aBoundX)
 {
-	SetZIndex(600);
+	SetZIndex(201);
 	myPosition = aPosition;
 
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
 	sprite->SetSpritePath(aPathString);
+
 	//sprite->SetSize(aSize);
+
 
 	mySprite = new SpriteComponent();
 	mySprite = AddComponent<SpriteComponent>();
 	mySprite->SetSpritePath(aAnimationPathString);
-	mySprite->SetSize(aSize);
+
 	AnimationComponent* animation = AddComponent<AnimationComponent>();
 	animation->SetSprite(mySprite);
 	Animation idleAnimation = Animation(false, false, false, 0, 8, 8, 0.15f, mySprite, aBoundX, 16);
 	animation->SetAnimation(&idleAnimation);
+	mySprite->SetSize(aSize);
 
 	SetPivot({0.f, 0.f});
 

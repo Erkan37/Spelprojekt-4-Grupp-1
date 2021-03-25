@@ -33,6 +33,8 @@ public:
     void SetSamplerFilter(const ESamplerFilter& aSamplerFilter);
     const ESamplerFilter& GetSamplerFilter() const;
 
+    void SetOpacity(const float& aOpacity);
+
 private:
     void Reset();
 
@@ -43,4 +45,6 @@ private:
 
     EBlendState myBlendState;
     ESamplerFilter mySamplerFilter;
+
+    float myOpacity;
 };

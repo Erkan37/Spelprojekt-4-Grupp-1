@@ -13,6 +13,7 @@
 #include "ColliderComponent.h"
 #include "BashComponent.hpp"
 #include "SpringObject.h"
+#include "AudioManager.h"
 
 #include "Collectible.hpp"
 
@@ -39,7 +40,10 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	myBashAbility->AddPlayerRelation(this);
 	myBashAbility->AddTimer(world->GetTimer());
 
-	SetZIndex(500);
+	myHasDied = false;
+	myIsOnPlatform = false;
+
+	SetZIndex(101);
 	SetPosition({ 20.0f, 10.0f });
 
 	SetPivot(v2f(0.5f, 0.5f));
@@ -64,11 +68,16 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	myActiveSpringJump = false;
 	myGrabbedLedge = false;
 	myIsLerpingToPosition = false;
+	myIsGliding = false;
+
+	myGlideFactor = 0.1f;
 
 	mySpringVelocity = {};
 	myPercentageLeftVelocity = {};
 	mySpringVelocityRetardation = {};
 	mySpringTimer = {};
+
+	myLedgeSoundIndex = {};
 }
 
 Player::~Player()
@@ -107,12 +116,42 @@ void Player::InitAnimations()
 	spriteLedgeGrab->SetSize(mySize);
 	spriteLedgeGrab->Deactivate();
 
-	myAnimations[0] = Animation(false, false, false, 0, 74, 74, 0.08f, spriteIdle, 16, 16);
-	myAnimations[1] = Animation(false, false, false, 0, 12, 12, 0.05f, spriteRun, 16, 16);
-	myAnimations[2] = Animation(false, true, false, 0, 6, 6, 0.10f, spriteJump, 16, 16);
-	myAnimations[3] = Animation(false, true, false, 0, 5, 5, 0.10f, spriteDoubleJump, 16, 16);
-	myAnimations[4] = Animation(false, false, false, 0, 4, 4, 0.10f, spriteFall, 16, 16);
-	myAnimations[5] = Animation(false, false, false, 0, 22, 22, 0.10f, spriteLedgeGrab, 16, 16);
+	SpriteComponent* spriteBashStart = AddComponent<SpriteComponent>();
+	spriteBashStart->SetSpritePath("Sprites/Characters/PlayerBashStart.dds");
+	spriteBashStart->SetSize(mySize);
+	spriteBashStart->Deactivate();
+
+	SpriteComponent* spriteBashLoop = AddComponent<SpriteComponent>();
+	spriteBashLoop->SetSpritePath("Sprites/Characters/PlayerBashLoop.dds");
+	spriteBashLoop->SetSize(mySize);
+	spriteBashLoop->Deactivate();
+
+	SpriteComponent* spriteBashFlying = AddComponent<SpriteComponent>();
+	spriteBashFlying->SetSpritePath("Sprites/Characters/PlayerBashFlyingLoop.dds");
+	spriteBashFlying->SetSize(mySize);
+	spriteBashFlying->Deactivate();
+
+	SpriteComponent* spriteBashFlyingTransition = AddComponent<SpriteComponent>();
+	spriteBashFlyingTransition->SetSpritePath("Sprites/Characters/PlayerBashFlyingTransition.dds");
+	spriteBashFlyingTransition->SetSize(mySize);
+	spriteBashFlyingTransition->Deactivate();
+
+	SpriteComponent* spriteDeath = AddComponent<SpriteComponent>();
+	spriteDeath->SetSpritePath("Sprites/Characters/PlayerDeath.dds");
+	spriteDeath->SetSize(mySize);
+	spriteDeath->Deactivate();
+
+	myAnimations[0] = Animation(false, false, false, 0, 74, 74, 0.10f, spriteIdle, 16, 16);
+	myAnimations[1] = Animation(false, false, false, 0, 12, 12, 0.09f, spriteRun, 16, 16);
+	myAnimations[2] = Animation(false, true, false, 0, 6, 6, 0.09f, spriteJump, 16, 16);
+	myAnimations[3] = Animation(false, true, false, 0, 5, 5, 0.09f, spriteDoubleJump, 16, 16);
+	myAnimations[4] = Animation(false, false, false, 0, 4, 4, 0.09f, spriteFall, 16, 16);
+	myAnimations[5] = Animation(false, false, false, 0, 22, 22, 0.125f, spriteLedgeGrab, 16, 16);
+	myAnimations[6] = Animation(false, true, false, 0, 13, 13, 0.07f, spriteBashStart, 16, 16);
+	myAnimations[7] = Animation(false, false, false, 0, 9, 9, 0.10f, spriteBashLoop, 16, 16);
+	myAnimations[8] = Animation(false, false, false, 0, 4, 4, 0.10f, spriteBashFlying, 16, 16);
+	myAnimations[9] = Animation(false, true, false, 0, 4, 4, 0.10f, spriteBashFlyingTransition, 16, 16);
+	myAnimations[10] = Animation(false, true, false, 0, 22, 22, 0.07f, spriteDeath, 16, 16);
 
 	AnimationComponent* animation = AddComponent<AnimationComponent>();
 	animation->SetSprite(spriteIdle);
@@ -133,6 +172,15 @@ void Player::InitCollider()
 
 void Player::Update(const float& aDeltaTime)
 {
+	GameObject::Update(aDeltaTime);
+
+	if (myHasDied)
+	{
+		Kill();
+		GetComponent<PhysicsComponent>()->SetVelocity(v2f(0.0f, 0.0f));
+		return;
+	}
+
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 
 	if (physics)
@@ -152,15 +200,21 @@ void Player::Update(const float& aDeltaTime)
 		}
 	}
 
+	if (CGameWorld::GetInstance()->GetTimer()->GetTimeScale() <= 0)
+	{
+		CGameWorld::GetInstance()->GetTimer()->SetTimeScale(1.0f);
+		GetComponent<AnimationComponent>()->Update(myTransform, *this);
+		CGameWorld::GetInstance()->GetTimer()->SetTimeScale(0.0f);
+	}
+
+	AnimationState();
+
 	/*
 	if (myTransform.myPosition.y + mySize.y > myScene->GetCamera().GetBounds().y + myScene->GetCamera().GetBoundSize().y)
 	{
 		Kill();
 	}
 	*/
-
-	AnimationState();
-	GameObject::Update(aDeltaTime);
 
 #ifdef _DEBUG
 	ImGuiUpdate();
@@ -177,11 +231,26 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 {
 	if (!myGrabbedLedge)
 	{
-		myCurrentVelocity.y = Utils::Min(myCurrentVelocity.y + PhysicsManager::ourGravity * aDeltaTime, myJsonData->myFloatValueMap[PEnum::Max_Fall_Speed]);
+		float fallDecreaseFactor = 1.0f;
+		if (myIsGliding)
+		{
+			fallDecreaseFactor = myGlideFactor;
+		}
+
+		myCurrentVelocity.y = Utils::Min(myCurrentVelocity.y + PhysicsManager::ourGravity * aDeltaTime, myJsonData->myFloatValueMap[PEnum::Max_Fall_Speed] * fallDecreaseFactor);
 	}
 
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity + mySpringVelocity);
+
+	if (myCurrentVelocity.x + myBashAbility->GetVelocity().x > 0)
+	{
+		myDirectionX = 1;
+	}
+	else if (myCurrentVelocity.x + myBashAbility->GetVelocity().x < 0)
+	{
+		myDirectionX = -1;
+	}
 
 	if (myCurrentVelocity.y > myJsonData->myFloatValueMap[PEnum::Trigger_Falling_Speed] && myAirCoyoteTimer <= 0)
 	{
@@ -261,8 +330,6 @@ void Player::GoRight(const float& aDeltaTime)
 	}
 
 	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, myJsonData->myFloatValueMap[PEnum::Max_Speed], myJsonData->myFloatValueMap[PEnum::Acceleration] * aDeltaTime);
-
-	myDirectionX = 1;
 }
 void Player::GoLeft(const float& aDeltaTime)
 {
@@ -282,8 +349,6 @@ void Player::GoLeft(const float& aDeltaTime)
 	}
 
 	myCurrentVelocity.x = Utils::Lerp(myCurrentVelocity.x, -myJsonData->myFloatValueMap[PEnum::Max_Speed], myJsonData->myFloatValueMap[PEnum::Acceleration] * aDeltaTime);
-
-	myDirectionX = -1;
 }
 
 void Player::TryLetJumpWhenFalling(const float& aYDistance)
@@ -300,6 +365,13 @@ void Player::TryLetJumpWhenFalling(const float& aYDistance)
 }
 void Player::Jump()
 {
+	if (myPlatformVelocity.y > 0.0f)
+	{
+		myPlatformVelocity.y = 0;
+	}
+
+	UnlockLandingSounds();
+	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerJump);
 	v2f calculatedSpring = mySpringVelocity;
 	calculatedSpring.y = calculatedSpring.y;
 	myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Jump_Velocity] + myPlatformVelocity.y - calculatedSpring.y;
@@ -312,6 +384,8 @@ void Player::Jump()
 }
 void Player::DoubleJump()
 {
+	myPlatformVelocity.y = 0;
+	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerJump);
 	myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Double_Jump_Velocity] + myPlatformVelocity.y - mySpringVelocity.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[3]);
 	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
@@ -324,7 +398,7 @@ void Player::DoubleJump()
 void Player::LedgeJump()
 {
 	myGrabbedLedge = false;
-
+	AudioManager::GetInstance()->UnLockAudio(AudioList::LandOnGrassEasy);
 	if (!myInputHandler->GetInput()->GetKeyDown(Keys::SKey) && myInputHandler->GetController()->GetLeftThumbStick().y < 0.3f)
 	{
 		myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Ledge_Jump_Velocity];
@@ -361,7 +435,11 @@ void Player::Landed(const int& aOverlapY)
 	{
 		myAirCoyoteTimer = myJsonData->myFloatValueMap[PEnum::Coyote_Time];
 		if (!myActiveSpringJump)
+		{
 			myHasLanded = true;
+			myIsGliding = false;
+		}
+
 		myHasDoubleJumped = false;
 
 		myBashAbility->ResetVelocity(true, true);
@@ -371,10 +449,16 @@ void Player::Landed(const int& aOverlapY)
 			Jump();
 		}
 	}
+	LandingSoundCheck();
 	myCurrentVelocity.y = 0.0f;
 	myBashAbility->ResetVelocity(false, true);
 	if (!myHasLandedOnSpring)
 		mySpringVelocity.y = {};
+}
+
+const bool& Player::GetHasLanded()
+{
+	return myHasLanded;
 }
 
 void Player::SideCollision(const int& aOverlapX)
@@ -382,7 +466,7 @@ void Player::SideCollision(const int& aOverlapX)
 	aOverlapX;
 	myCurrentVelocity.x = 0.0f;
 	myBashAbility->ResetVelocity(true, false);
-	mySpringVelocity = {};
+	mySpringVelocity.x = {};
 }
 
 void Player::ResetVelocity()
@@ -390,6 +474,8 @@ void Player::ResetVelocity()
 	myCurrentVelocity.x = 0;
 	myCurrentVelocity.y = 0;
 }
+
+
 const v2f Player::GetPlatformVelocity()
 {
 	return myPlatformVelocity;
@@ -415,6 +501,7 @@ void Player::AnimationState()
 
 	if (myCurrentAnimationIndex != 2 && myCurrentAnimationIndex != 3 && myCurrentAnimationIndex != 4 && !myHasLanded)
 	{
+		UnlockLandingSounds();
 		animation->SetAnimation(&myAnimations[4]);
 		myCurrentAnimationIndex = 4;
 	}
@@ -423,17 +510,19 @@ void Player::AnimationState()
 	{
 		animation.mySpriteComponent->SetSizeX(mySize.x * myDirectionX);
 	}
+
+	WalkingSoundCheck();
 }
 
 void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
 {
 	if (myTransform.myPosition.x > aLedgePosition.x)
 	{
-		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(-mySize.x);
+		myDirectionX = -1;
 	}
 	else if (myTransform.myPosition.x < aLedgePosition.x)
 	{
-		myAnimations[myCurrentAnimationIndex].mySpriteComponent->SetSizeX(mySize.x);
+		myDirectionX = 1;
 	}
 
 	SetLerpPosition(aLedgeLerpPosition);
@@ -444,11 +533,23 @@ void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
 	myGrabbedLedge = true;
 	myCurrentVelocity.y = 0;
 	myBashAbility->ResetVelocity(true, true);
+	++myLedgeSoundIndex;
+	if (myLedgeSoundIndex > 2) myLedgeSoundIndex = 1;
+	switch (myLedgeSoundIndex)
+	{
+	case 1:
+		AudioManager::GetInstance()->PlayAudio(AudioList::GrabLedge);
+		break;
+	case 2:
+		AudioManager::GetInstance()->PlayAudio(AudioList::GrabLedge2);
+		break;
+	}
 }
 void Player::LeaveLedge()
 {
 	myGrabbedLedge = false;
 	myIsLerpingToPosition = false;
+	AudioManager::GetInstance()->PlayAudio(AudioList::LeaveLedge);
 }
 const bool Player::GetLedgeIsGrabbed()
 {
@@ -463,6 +564,15 @@ void Player::LerpToPosition(const v2f& aPosition)
 
 	myTransform.myPosition.x = Utils::Lerp(myTransform.myPosition.x, aPosition.x, myJsonData->myFloatValueMap[PEnum::Lerp_Acceleration] * myTimerInput->GetDeltaTime());
 	myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, aPosition.y, myJsonData->myFloatValueMap[PEnum::Lerp_Acceleration] * myTimerInput->GetDeltaTime());
+
+	if (aPosition.x > myTransform.myPosition.x)
+	{
+		myDirectionX = 1;
+	}
+	else if(aPosition.x < myTransform.myPosition.x)
+	{
+		myDirectionX = -1;
+	}
 
 	myTimerInput->SetTimeScale(timeScale);
 }
@@ -482,6 +592,8 @@ void Player::ActivateSpringForce(float aSpringVelocity, const float aRetardation
 	myHasLanded = false;
 	myActiveSpringJump = true;
 	myHasLandedOnSpring = true;
+	myBashAbility->ResetVelocity(false, true);
+	myCurrentVelocity.y = {};
 	mySpringVelocityRetardation = aRetardation;
 	mySpringVelocity.y = aSpringVelocity;
 }
@@ -489,13 +601,30 @@ void Player::BounceOnDestructibleWall()
 {
 	v2f dashVelocity = myBashAbility->GetVelocity();
 	dashVelocity.x *= -0.8f;
+
+	myBashAbility->InvertDashDirectionX();
+	myBashAbility->SetVelocity(dashVelocity);
 }
 
 void Player::Kill()
 {
-	KillReset();
-	Respawn();
-	PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerDeath, 0));
+	if (myBashAbility->GetIsBashing())
+	{
+		return;
+	}
+
+	if (!myHasDied)
+	{
+		AudioManager::GetInstance()->PlayAudio(AudioList::PlayerDeath);
+		KillReset();
+	}
+	else if (GetComponent<AnimationComponent>()->GetIsDisplayedOnce() && GetComponent<AnimationComponent>()->GetHasBeenDisplayedOnce())
+	{
+		Respawn();
+		PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerDeath, 0));
+		AudioManager::GetInstance()->UnLockAudio(AudioList::SpikeDeath);
+		AudioManager::GetInstance()->UnLockAudio(AudioList::SpikeHit);
+	}
 }
 
 void Player::Eaten()
@@ -516,22 +645,32 @@ void Player::KillReset()
 
 	ResetVelocity();
 	myBashAbility->ResetVelocity(true, true);
+	myBashAbility->StopBashing();
 	myPlatformVelocity = v2f();
-	Deactivate();
+	myHasDied = true;
+	SetAnimation(10);
+	GetComponent<AnimationComponent>()->SetNextAnimation(nullptr);
 }
 
 void Player::Respawn()
 {
+	myHasDied = false;
+	SetAnimation(0);
 	SetPosition(mySpawnPosition);
-	Activate();
 }
 
 const bool& Player::GetIsBashing()
 {
 	return myBashAbility->GetIsBashing();
 }
+
 void Player::BashCollision(GameObject* aGameObject, BashComponent* aBashComponent)
 {
+	if (myHasDied)
+	{
+		return;
+	}
+
 	if (aBashComponent->GetRadius() * aBashComponent->GetRadius() >= (aGameObject->GetPosition() - GetPosition()).LengthSqr())
 	{
 		if (myInputHandler->IsDashing() && !myBashAbility->GetIsBashing())
@@ -566,31 +705,117 @@ void Player::DecreaseSpringJump(const float& aDeltaTime)
 	}
 }
 
-void Player::AddCollectible(Collectible* aCollectible)
+void Player::SetAnimation(const int& aAnimationIndex)
 {
-	myCollectibles.push_back(aCollectible);
+	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[aAnimationIndex]);
 }
 
-std::vector<Collectible*> Player::GetCollectibles()
+
+void Player::SetNextAnimation(const int& aAnimationIndex)
 {
-	return myCollectibles;
+	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[aAnimationIndex]);
 }
 
-void Player::ClearCollectibles(const bool aIsTurningIn)
+void Player::SetGroundIndex(const int& aGroundType)
 {
-	if (aIsTurningIn)
+	myGroundIndex = aGroundType;
+}
+
+void Player::WalkingSoundCheck()
+{
+	AnimationComponent* animation = GetComponent<AnimationComponent>();
+	if (myCurrentAnimationIndex == 1)
 	{
-		myCollectibles.clear();
-	}
-	else
-	{
-		for (int collectible = static_cast<int>(myCollectibles.size()) - 1; collectible >= 0; --collectible)
+		//If is running
+		switch (myGroundIndex)
 		{
-			myCollectibles[collectible]->Reset(false);
+		case 0: // Grass
+			switch (animation->GetCurrentIndex())
+			{
+			case 1:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkGrassRight);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkGrassRight);
+				break;
+			case 7:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkGrassLeft);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkGrassLeft);
+				break;
+			default:
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkGrassRight);
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkGrassLeft);
+				break;
+			}
+			break;
+		case 1:
+			switch (animation->GetCurrentIndex())
+			{
+			case 1:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkStoneRight);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkStoneRight);
+				break;
+			case 7:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkStoneLeft);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkStoneLeft);
+				break;
+			default:
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkStoneRight);
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkStoneLeft);
+				break;
+			}
+		default:
+			break;
 		}
 	}
-	
 }
+
+void Player::LandingSoundCheck()
+{
+	if (myCurrentVelocity.y > 200.0f)
+	{
+		switch (myGroundIndex)
+		{
+		case 0:
+			AudioManager::GetInstance()->PlayAudio(AudioList::LandOnGrassHeavy);
+			AudioManager::GetInstance()->LockAudio(AudioList::LandOnGrassEasy);
+			break;
+		case 1:
+			AudioManager::GetInstance()->PlayAudio(AudioList::LandOnStoneHeavy);
+			AudioManager::GetInstance()->LockAudio(AudioList::LandOnStoneLight);
+			break;
+		}
+	}
+	else if (myCurrentVelocity.y != 0)
+	{
+		switch (myGroundIndex)
+		{
+		case 0:
+			AudioManager::GetInstance()->PlayAudio(AudioList::LandOnGrassEasy);
+			AudioManager::GetInstance()->LockAudio(AudioList::LandOnGrassEasy);
+			break;
+		case 1:
+			AudioManager::GetInstance()->PlayAudio(AudioList::LandOnStoneLight);
+			AudioManager::GetInstance()->LockAudio(AudioList::LandOnStoneLight);
+			break;
+		}
+	}
+}
+
+void Player::UnlockLandingSounds()
+{
+	AudioManager::GetInstance()->UnLockAudio(AudioList::LandOnGrassEasy);
+	AudioManager::GetInstance()->UnLockAudio(AudioList::LandOnStoneLight);
+}
+
+void Player::SetSpawnPosition(const v2f& aSpawnPosition)
+{
+	mySpawnPosition = aSpawnPosition;
+}
+
+void Player::StartGliding() 
+{
+	myIsGliding = true;
+}
+
 
 #ifdef _DEBUG
 void Player::ImGuiUpdate()

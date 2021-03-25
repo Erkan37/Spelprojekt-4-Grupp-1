@@ -2,18 +2,23 @@
 #include <map>
 #include <memory>
 
+#include "Subscriber.hpp"
+
 class Scene;
 class LevelScene;
 
-class TiledMap;
+class TiledLoader;
 
-class LevelManager
+class GameObject;
+
+class LevelManager : public Subscriber
 {
 public:
 	enum class eScenes
 	{
 		MainMenu,
 		LevelScene,
+		IntroLogos,
 		//PauseMenu,
 		Count
 	};
@@ -21,7 +26,7 @@ public:
 	LevelManager();
 	~LevelManager();
 
-	void Init(Scene* aMainMenuScene, Scene* aLevelScene);
+	void Init(Scene* aMainMenuScene, Scene* aLevelScene, Scene* anIntroLogosScene);
 
 	void Update();
 
@@ -39,15 +44,24 @@ public:
 
 	const bool GetIsActive(eScenes aScene);
 
-	void LoadLevel(LevelScene* aLevelScene, const std::string& aLevelPath);
+	void LoadLevel(LevelScene* aLevelScene, GameObject* aPlayer);
+	void LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, GameObject* aPlayer);
+
+	void Notify(const Message& aMessage) override;
+
+	const int GetDoorType();
 
 private:
 	std::map<eScenes, Scene*> myScenes;
-	std::shared_ptr<TiledMap> myTiledMap;
+	std::shared_ptr<TiledLoader> myTiledLoader;
+
+	int myLoadedLevel;
+	int myLastDoorType;
+
+	bool myLevelTransition;
 
 #ifndef _RETAIL
 	bool myImGuiIsActive;
-	char myLevelToLoad[1024] = "Levels/test_level2.json";
 #endif //RETAIL
 };
 

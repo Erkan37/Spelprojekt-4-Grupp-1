@@ -101,6 +101,11 @@ Data& DataManager::GetDataStruct(const DataEnum aDataEnum)
 }
 const rapidjson::Document& DataManager::GetLevel(const unsigned int aLevelIndex) const
 {
+	if (aLevelIndex < 0 || aLevelIndex >= myLevelVector.size())
+	{
+		return myLevelVector[0];
+	}
+
 	return myLevelVector[aLevelIndex];
 }
 
@@ -201,4 +206,9 @@ void DataManager::AssignValues(const DataEnum anEnum, const rapidjson::Document 
 		assert((false) && "Invalid Enum given to DataManager::AssignValues().");
 		break;
 	}
+}
+
+const int DataManager::GetLevelCount()
+{
+	return static_cast<int>(myLevelVector.size());
 }

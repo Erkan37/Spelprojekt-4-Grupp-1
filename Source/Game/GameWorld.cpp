@@ -7,7 +7,6 @@
 #include "GameObject.h"
 #include "InputWrapper.h"
 #include "AudioManager.h"
-#include "TiledMap.h"
 
 // Scene
 #include "Scene.h"
@@ -26,6 +25,7 @@ CGameWorld::CGameWorld(CGame* aGame)
 	, myTotalTime(0.0f)
 	, myLevelScene(LevelScene())
 	, myMainMenuScene(MainMenuScene())
+	, myIntroLogosScene(IntroLogosScene())
 {
 	myTimer = std::make_unique<Utils::Timer>();
 	myInput = std::make_shared<InputWrapper>();
@@ -37,7 +37,6 @@ CGameWorld::CGameWorld(CGame* aGame)
 		ourInstance = this;
 	}
 }
-
 CGameWorld::~CGameWorld() 
 {
 	myLevelManager.UnloadAllScenes();
@@ -45,8 +44,11 @@ CGameWorld::~CGameWorld()
 
 void CGameWorld::Init()
 {
-	myLevelManager.Init(&myMainMenuScene, &myLevelScene);
-	myLevelManager.SingleLoadScene(LevelManager::eScenes::MainMenu);
+	myLevelManager.Init(&myMainMenuScene, &myLevelScene, &myIntroLogosScene);
+	myLevelManager.SingleLoadScene(LevelManager::eScenes::IntroLogos);
+
+
+	//myLevelManager.SingleLoadScene(LevelManager::eScenes::MainMenu);
 }
 
 void CGameWorld::Update()
@@ -54,11 +56,6 @@ void CGameWorld::Update()
 	myTimer->Update();
 	myDeltaTime = myTimer->GetDeltaTime();
 	myInput->Update(myDeltaTime);
-
-	if (myInput->GetInput()->GetKeyJustDown(Keys::NumericKeypad0Key) && myLevelManager.GetIsActive(LevelManager::eScenes::LevelScene))
-	{
-		myLevelManager.SingleLoadScene(LevelManager::eScenes::MainMenu);
-	}
 
 	myLevelManager.Update();
 
@@ -68,4 +65,9 @@ void CGameWorld::Update()
 void CGameWorld::Render()
 {
 	Scene::Manager::Render();
+}
+
+void CGameWorld::LoadDebugger()
+{
+	
 }
