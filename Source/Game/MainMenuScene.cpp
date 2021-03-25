@@ -7,6 +7,8 @@
 #include "LevelManager.hpp"
 #include "InputWrapper.h"
 
+#include "CutsceneManager.h"
+
 #include "Game.h"
 
 
@@ -130,7 +132,10 @@ void MainMenuScene::CheckButtonsPress()
 	if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey) || myInput->GetController()->IsButtonPressed(Controller::Button::Cross))
 	{
 		if (myMovingIndex == static_cast<int>(eMainMenuButton::StartGame))
+		{
+			CutsceneManager::GetInstance().PlayVideo(CutsceneType::Intro);
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
+		}
 		else if (myMovingIndex == static_cast<int>(LevelManager::eScenes::LevelScene))
 		{
 #ifndef _RETAIL
