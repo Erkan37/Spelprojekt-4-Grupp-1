@@ -77,6 +77,7 @@ void Button::OnCollision(GameObject* aGameObject)
 			SpriteComponent* sprite = GetComponent<SpriteComponent>();
 			v2f smashedSize = { sprite->GetSize().x, sprite->GetSize().y * 0.2f };
 			sprite->SetSize(smashedSize);
+			GetComponent<PhysicsComponent>()->SetCanCollide(false);
 			myHasCollided = true;
 		}
 	}
