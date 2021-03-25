@@ -105,7 +105,7 @@ void PhysicsManager::CheckOverlap(GameObject* aObj1, GameObject* aObj2, PhysicsC
 	const bool yAxisOverlap = obj1min.y <= obj2max.y && obj1max.y >= obj2min.y;
 
 	const float insensitivity = 5.0f;
-	const float onewWayInsensitivity = 0.5f;
+	const float onewWayInsensitivity = 2.0f;
 
 	CheckBashCollision(aObj1, aObj2);
 
