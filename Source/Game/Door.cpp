@@ -15,24 +15,28 @@ Door::Door(Scene* aLevelScene)
 
 void Door::Init(const v2f aPosition)
 {
-	SetPosition(aPosition);
+	v2f position = aPosition;
+
+	SetPivot({0.f, 0.f});
+	SetPosition(position);
+	mySize = {8, 24};
 
 	myClosedDoorSprite = AddComponent<SpriteComponent>();
 	myClosedDoorSprite->SetSpritePath("Sprites/tempDoorClosed.dds");
 	myClosedDoorSprite->Activate();
-
-	mySize = myClosedDoorSprite->GetSize();
+	myClosedDoorSprite->SetSize(mySize);
 
 	myOpenDoorSprite = AddComponent<SpriteComponent>();
 	myOpenDoorSprite->SetSpritePath("Sprites/tempDoorOpen.dds");
+	myOpenDoorSprite->SetSize({ 16.f, 24.f });
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
-	physics->SetCanCollide(false);
+	physics->SetCanCollide(true);
 	physics->SetIsStatic(true);
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
 	collider->SetSize({ mySize.x, mySize.y });
-	collider->SetPosition({ 0.f, -mySize.y * 0.99f });
+	collider->SetPosition({ mySize.x / 2.f, mySize.y / 2.f});
 
 	GameObject::Init();
 
@@ -48,8 +52,7 @@ void Door::Update(const float& aDeltaTime)
 		myClosedDoorSprite->Deactivate();
 		myOpenDoorSprite->Activate();
 
-		GetComponent<ColliderComponent>()->SetSize(myOpenDoorSprite->GetSize());
-
+		GetComponent<PhysicsComponent>()->SetCanCollide(false);
 	}
 
 	GameObject::Update(aDeltaTime);

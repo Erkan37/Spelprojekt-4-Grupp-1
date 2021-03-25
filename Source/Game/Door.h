@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Button.h"
 
-class Animation;
+class AnimationComponent;
 class SpriteComponent;
 class Scene;
 
@@ -17,6 +17,8 @@ public:
 	void AddButton(const v2f aPosition);
 	
 private:
+	Animation myAnimation[2];
+
 	SpriteComponent* myClosedDoorSprite;
 	SpriteComponent* myOpenDoorSprite;
 	Button* myButton;
