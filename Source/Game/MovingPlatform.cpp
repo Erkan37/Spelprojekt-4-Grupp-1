@@ -10,6 +10,8 @@
 #include <fstream>
 #include "rapidjson/istreamwrapper.h"
 
+#include "../External/Headers/CU/Utilities.h"
+
 MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	:
 	Platform(aLevelScene),
@@ -119,7 +121,11 @@ void MovingPlatform::OnCollision(GameObject* aGameObject)
 			{
 				player->SetGroundIndex(myMaterial);
 				player->SetPlatformVelocity(velo);
-				player->PullPlayerDownwards(myWaypointComponent->GetSpeed() * 2.0f);
+
+				if (Utils::Abs(player->GetPosition().x - (GetPosition().x + GetComponent<ColliderComponent>()->GetWidth() / 2) + 4.0f) <= GetComponent<ColliderComponent>()->GetWidth() / 2)
+				{
+					player->PullPlayerDownwards(myWaypointComponent->GetSpeed() * 2.0f);
+				}
 			}
 		}
 	}
