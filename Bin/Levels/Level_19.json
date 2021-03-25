@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":30,
  "infinite":false,
  "layers":[
@@ -285,6 +292,17 @@
                  "width":8,
                  "x":64,
                  "y":208
+                }, 
+                {
+                 "height":143,
+                 "id":606,
+                 "name":"",
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":50,
+                 "x":480,
+                 "y":97
                 }],
          "opacity":1,
          "properties":[
@@ -534,7 +552,7 @@
          "y":0
         }],
  "nextlayerid":18,
- "nextobjectid":606,
+ "nextobjectid":607,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
