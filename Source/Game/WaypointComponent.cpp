@@ -88,6 +88,11 @@ void WaypointComponent::ResetVelocity()
 	mySpeed = {};
 }
 
+const float& WaypointComponent::GetSpeed()
+{
+	return mySpeed;
+}
+
 void WaypointComponent::SetOwner(GameObject* aGameObject)
 {
 	myOwner = aGameObject;
