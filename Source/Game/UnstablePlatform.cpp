@@ -28,7 +28,7 @@ void UnstablePlatform::Update(const float& aDeltaTime)
 		myTimer -= aDeltaTime;
 	}
 
-	if (myCollidedWithPlayer && myTimer <= 0)
+	if (myCollidedWithPlayer && myTimer <= 0 && !myCollidedLastFrame)
 	{
 		myTimer = myRespawnTime;
 		myCollidedWithPlayer = false;
@@ -40,6 +40,7 @@ void UnstablePlatform::Update(const float& aDeltaTime)
 	}
 
 	myPlayerIsOnTop = false;
+	myCollidedLastFrame = false;
 
 	Platform::Update(aDeltaTime);
 }
@@ -64,6 +65,7 @@ void UnstablePlatform::OnCollision(GameObject* aGameObject)
 	{	
 		AudioManager::GetInstance()->PlayAudio(AudioList::WeakPlatform);
 		myCollidedWithPlayer = true;
+		myCollidedLastFrame = true;
 		myTimer = myDestroyTime;
 	}
 

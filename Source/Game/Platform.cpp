@@ -43,6 +43,12 @@ void Platform::Init(const v2f& aSize, const v2f& aSpriteSize, const v2f& aPositi
 	GameObject::Init();
 }
 
+void Platform::Init(const v2f& aSize, const v2f& aSpriteSize, const v2f& aPosition, const bool& aIsOneway, const int& aMaterialIndex)
+{
+	myMaterial = aMaterialIndex;
+	Init(aSize, aSpriteSize, aPosition, aIsOneway);
+}
+
 void Platform::Update(const float& aDeltaTime)
 {
 	GameObject::Update(aDeltaTime);
@@ -54,7 +60,7 @@ void Platform::OnCollision(GameObject* aGameObject)
 	if (player)
 	{
 		player->SetPlatformVelocity(v2f(0.0f, 0.0f));
-		player->SetGroundIndex(myTypeIndex);
+		player->SetGroundIndex(myMaterial);
 		if (player->GetHasLanded())
 		{
 			PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerSafeLanded, 0));
