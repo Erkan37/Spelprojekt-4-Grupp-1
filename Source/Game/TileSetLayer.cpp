@@ -14,7 +14,7 @@ typedef rapidjson::Value::ConstValueIterator iterator;
 
 TileSetLayer::TileSetLayer(Scene* aLevelScene)
 	: GameObject(aLevelScene),
-	myBatch(AddComponent<SpritebatchComponent>())
+	myBatch(nullptr)
 {
 	
 }
@@ -28,6 +28,7 @@ SpritebatchComponent* TileSetLayer::LoadTileSetLayer(const TileSetLayerPropertie
 {
 	SetZIndex(aZIndex);
 
+	myBatch = AddComponent<SpritebatchComponent>();
 	myBatch->SetSpritePath(aTileSetLayerProperties.mySpritePath);
 	myBatch->SetSamplerFilter(ESamplerFilter_Point);
 
