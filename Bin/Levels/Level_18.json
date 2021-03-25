@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":23,
  "infinite":false,
  "layers":[
@@ -519,7 +526,43 @@
          "draworder":"topdown",
          "id":7,
          "name":"Ledges",
-         "objects":[],
+         "objects":[
+                {
+                 "height":0,
+                 "id":574,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":64,
+                 "y":152
+                }, 
+                {
+                 "height":0,
+                 "id":575,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":424,
+                 "y":168
+                }, 
+                {
+                 "height":0,
+                 "id":577,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":448,
+                 "y":24
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -664,7 +707,7 @@
          "y":0
         }],
  "nextlayerid":18,
- "nextobjectid":574,
+ "nextobjectid":578,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
