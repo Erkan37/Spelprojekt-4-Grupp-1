@@ -22,9 +22,7 @@ Enemy::Enemy(Scene* aScene) : GameObject(aScene)
 }
 NormalEnemy::NormalEnemy(Scene* aScene) : Enemy(aScene)
 {
-	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy1.dds");
-	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeY] });
+	InitAnimation();
 	this->SetZIndex(400);
 	//AudioComponent* audio = AddComponent<AudioComponent>();
 	//audio->AddAudio(AudioList::EnemyNormalIdle);
@@ -116,6 +114,33 @@ void ShootingEnemy::Update(const float& aDeltaTime)
 #ifdef _DEBUG
 	ImGuiUpdate();
 #endif // _DEBUG
+}
+
+void NormalEnemy::InitAnimation()
+{
+	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
+	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy1.dds");
+	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeY] });
+
+	myAnimation = Animation(false, false, false, 0, 10, 10, 0.1f, spriteIdle, 16, 16);
+
+	AnimationComponent* anime = AddComponent<AnimationComponent>();
+	anime->SetSprite(spriteIdle);
+	anime->SetAnimation(&myAnimation);
+}
+
+void ShootingEnemy::InitAnimation()
+{
+	//SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
+	//spriteIdle->SetSpritePath("Sprites/Enemies/Enemy1.dds");
+	//spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeY] });
+
+	//myAnimations[0] = Animation(false, false, false, 0, 10, 10, 0.1f, spriteIdle, 16, 16);
+	//myAnimations[1] = Animation(false, false, false, 0, 10, 10, 0.1f, spriteIdle, 16, 16);
+
+	//AnimationComponent* anime = AddComponent<AnimationComponent>();
+	//anime->SetSprite(spriteIdle);
+	//anime->SetAnimation(&myAnimations[0]);
 }
 
 void ShootingEnemy::Shoot()

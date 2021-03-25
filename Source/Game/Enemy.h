@@ -37,8 +37,9 @@ public:
 	void Update(const float& aDeltaTime);
 
 private:
+	void InitAnimation();
 	void InitCollider() override;
-
+	Animation myAnimation;
 };
 
 class ShootingEnemy : public Enemy
@@ -50,9 +51,11 @@ public:
 	void Update(const float& aDeltaTime);
 
 private:
+	void InitAnimation();
 	void Shoot();
 	void InitCollider() override;
 	float myShotTimer = 0.0f;
+	Animation myAnimations[2];
 
 #ifdef _DEBUG
 	void ImGuiUpdate();
