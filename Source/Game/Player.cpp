@@ -41,6 +41,7 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	myBashAbility->AddTimer(world->GetTimer());
 
 	myHasDied = false;
+	myIsOnPlatform = false;
 
 	SetZIndex(101);
 	SetPosition({ 20.0f, 10.0f });
@@ -72,6 +73,8 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	myPercentageLeftVelocity = {};
 	mySpringVelocityRetardation = {};
 	mySpringTimer = {};
+
+	myLedgeSoundIndex = {};
 }
 
 Player::~Player()
@@ -231,11 +234,11 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity + mySpringVelocity);
 
-	if (physics->GetVelocityX() > 0)
+	if (myCurrentVelocity.x + myBashAbility->GetVelocity().x > 0)
 	{
 		myDirectionX = 1;
 	}
-	else if (physics->GetVelocityX() < 0)
+	else if (myCurrentVelocity.x + myBashAbility->GetVelocity().x < 0)
 	{
 		myDirectionX = -1;
 	}
@@ -458,6 +461,8 @@ void Player::ResetVelocity()
 	myCurrentVelocity.x = 0;
 	myCurrentVelocity.y = 0;
 }
+
+
 const v2f Player::GetPlatformVelocity()
 {
 	return myPlatformVelocity;
@@ -515,11 +520,23 @@ void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
 	myGrabbedLedge = true;
 	myCurrentVelocity.y = 0;
 	myBashAbility->ResetVelocity(true, true);
+	++myLedgeSoundIndex;
+	if (myLedgeSoundIndex > 2) myLedgeSoundIndex = 1;
+	switch (myLedgeSoundIndex)
+	{
+	case 1:
+		AudioManager::GetInstance()->PlayAudio(AudioList::GrabLedge);
+		break;
+	case 2:
+		AudioManager::GetInstance()->PlayAudio(AudioList::GrabLedge2);
+		break;
+	}
 }
 void Player::LeaveLedge()
 {
 	myGrabbedLedge = false;
 	myIsLerpingToPosition = false;
+	AudioManager::GetInstance()->PlayAudio(AudioList::LeaveLedge);
 }
 const bool Player::GetLedgeIsGrabbed()
 {
@@ -587,6 +604,8 @@ void Player::Kill()
 	{
 		Respawn();
 		PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerDeath, 0));
+		AudioManager::GetInstance()->UnLockAudio(AudioList::SpikeDeath);
+		AudioManager::GetInstance()->UnLockAudio(AudioList::SpikeHit);
 	}
 }
 

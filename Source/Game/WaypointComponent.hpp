@@ -7,6 +7,8 @@ class GameObject;
 class WaypointComponent : public Component
 {
 public:
+	WaypointComponent();
+
 	void Move(const float& aDeltaTime);
 
 	void CheckReachedWayPoint();
@@ -23,7 +25,12 @@ public:
 
 	const v2f GetVelocity();
 
+	void ResetVelocity();
+
 	void SetOwner(GameObject* aGameObject);
+
+	void ReverseWaypoints();
+	bool IsAtLastCheckPoint();
 
 private:
 	GameObject* myOwner;
@@ -31,9 +38,13 @@ private:
 	std::vector<v2f> myWaypoints;
 	v2f myDirection;
 
+
 	float mySpeed;
+	float myOriginalSpeed;
 
+	int myWaypointIncrement;
 	int myCurrentWayPointIndex;
-
+	bool myLastCheckpointReached;
+	bool myLoopedOnce;
 };
 

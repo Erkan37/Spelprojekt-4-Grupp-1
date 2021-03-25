@@ -6,6 +6,8 @@ enum class AudioList
 {
 	PlayerJump, PlayerDoubleJump, PlayerLedgeGrab, PlayerDeath,
 	EnemyNormalIdle, EnemyShootingIdle, EnemyShootingShot,
+	GrabLedge, GrabLedge2, LeaveLedge,
+	SpikeDeath, SpikeHit,
 	ProjectileFly, ProjectileHit,
 	WeakPlatform, MovingPlatform,
 	WalkGravelRight, WalkGravelLeft, WalkGrassRight, WalkGrassLeft, WalkStoneRight, WalkStoneLeft,

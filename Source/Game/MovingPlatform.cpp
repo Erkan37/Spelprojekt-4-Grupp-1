@@ -6,6 +6,9 @@
 #include "WaypointComponent.hpp"
 #include "SpriteComponent.h"
 #include "ColliderComponent.h"
+#include <iostream>
+#include <fstream>
+#include "rapidjson/istreamwrapper.h"
 
 MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	:
@@ -14,14 +17,28 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	myWaypointComponent(nullptr)
 {
 	SetZIndex(93);
+	myType = eMovingPlatformType::RegularPlatform;
 	myTypeIndex = 1;
+	myPercentageYValue = {};
 	myWaypointComponent = AddComponent<WaypointComponent>();
 	myWaypointComponent->SetOwner(this);
 	myAddedButton = false;
+	myRevertOn = {};
 	AudioComponent* audio = AddComponent<AudioComponent>();
 	audio->AddAudio(AudioList::MovingPlatform);
 	audio->SetRadius(200);
 	audio->PlayAudio();
+
+	//std::ifstream effectObjectFile("JSON/Misc. Options.json");
+	//rapidjson::IStreamWrapper effectObjectStream(effectObjectFile);
+
+	//rapidjson::Document effectDocuments;
+	//effectDocuments.ParseStream(effectObjectStream);
+
+	//myPercentageYValue = effectDocuments["ReducedJumpPowerYFromPlatform"].GetFloat();
+
+	//effectObjectFile.close();
+
 }
 
 MovingPlatform::~MovingPlatform()
@@ -41,15 +58,31 @@ void MovingPlatform::AdjustXOffset()
 
 void MovingPlatform::Update(const float& aDeltaTime)
 {
-	if (!myAddedButton)
+	if (myType == eMovingPlatformType::RegularPlatform || myType == eMovingPlatformType::ReversePlatform)
 		myWaypointComponent->Move(aDeltaTime);
-	else
+
+	if (myAddedButton)
 	{
 		if (myButton->GetActiveButton())
-			myWaypointComponent->Move(aDeltaTime);
+		{
+			if (myType == eMovingPlatformType::MovingPlatform)
+				myWaypointComponent->Move(aDeltaTime);
+			else if (myType == eMovingPlatformType::ReversePlatform && !myRevertOn)
+			{
+				myRevertOn = true;
+				myWaypointComponent->ReverseWaypoints();
+			}
+			else if (myType == eMovingPlatformType::PointAtoBPlatform)
+			{
+				if (!myWaypointComponent->IsAtLastCheckPoint())
+					myWaypointComponent->Move(aDeltaTime);
+				else
+					myWaypointComponent->ResetVelocity();
+			}
+		}
 	}
-	
-	Platform::Update(aDeltaTime);
+
+	//Platform::Update(aDeltaTime);
 }
 
 void MovingPlatform::SetWaypoints(const std::vector<v2f>& aWaypoints)
@@ -79,8 +112,10 @@ void MovingPlatform::OnCollision(GameObject* aGameObject)
 		Player* player = dynamic_cast<Player*>(aGameObject);
 		if (player)
 		{
+			v2f velo = myWaypointComponent->GetVelocity();
+			//velo.y = velo.y * myPercentageYValue;
 			player->SetGroundIndex(myTypeIndex);
-			player->SetPlatformVelocity(myWaypointComponent->GetVelocity());
+			player->SetPlatformVelocity(velo);
 		}
 	}
 }

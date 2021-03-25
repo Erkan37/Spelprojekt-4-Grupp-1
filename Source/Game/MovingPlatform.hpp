@@ -9,6 +9,7 @@ class MovingPlatform : public Platform
 public:
 	enum class eMovingPlatformType
 	{
+		RegularPlatform,
 		MovingPlatform,
 		ReversePlatform,
 		PointAtoBPlatform
@@ -31,8 +32,10 @@ public:
 private:
 	eMovingPlatformType myType;
 	Button* myButton;
-	bool myAddedButton;
 
+	float myPercentageYValue;
+	bool myAddedButton;
+	bool myRevertOn;
 
 	WaypointComponent* myWaypointComponent;
 

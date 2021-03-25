@@ -123,6 +123,8 @@ private:
 	int myDirectionX;
 	int myGroundIndex;
 
+	int myLedgeSoundIndex;
+
 	bool myHasLanded;
 	bool myHasLandedVibration;
 	bool myHasDoubleJumped;
@@ -133,6 +135,7 @@ private:
 	bool myGrabbedLedge;
 	bool myIsLerpingToPosition;
 	bool myHasDied;
+	bool myIsOnPlatform;
 
 	PlayerData* myJsonData = new PlayerData();
 };
