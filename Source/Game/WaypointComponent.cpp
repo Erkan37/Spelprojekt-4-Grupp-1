@@ -33,13 +33,14 @@ void WaypointComponent::CheckReachedWayPoint()
 
 void WaypointComponent::SetNextWayPoint()
 {
-	if (myCurrentWayPointIndex == 0 && myLoopedOnce)
-		myLastCheckpointReached = true;
+	/*if (myCurrentWayPointIndex == 0 && myLoopedOnce)
+		myLastCheckpointReached = true;*/
 
 	myCurrentWayPointIndex = myCurrentWayPointIndex + myWaypointIncrement;
 
 	if (myCurrentWayPointIndex >= static_cast<int>(myWaypoints.size()))
 	{
+		myLastCheckpointReached = true;
 		myLoopedOnce = true;
 		myCurrentWayPointIndex = 0;
 	}
@@ -96,10 +97,11 @@ void WaypointComponent::ReverseWaypoints()
 {
 	myWaypointIncrement = -1;
 
-	if (myCurrentWayPointIndex > 0)
-		myCurrentWayPointIndex = 0;
-	else
+	myCurrentWayPointIndex = myCurrentWayPointIndex - 1;
+
+	if (myCurrentWayPointIndex < 0)
 		myCurrentWayPointIndex = myWaypoints.size() - 1;
+
 }
 
 bool WaypointComponent::IsAtLastCheckPoint()

@@ -608,6 +608,11 @@ void Player::BounceOnDestructibleWall()
 
 void Player::Kill()
 {
+	if (myBashAbility->GetIsBashing())
+	{
+		return;
+	}
+
 	if (!myHasDied)
 	{
 		AudioManager::GetInstance()->PlayAudio(AudioList::PlayerDeath);
