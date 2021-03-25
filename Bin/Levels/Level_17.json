@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":23,
  "infinite":false,
  "layers":[
@@ -233,7 +240,7 @@
                  "y":46
                 }, 
                 {
-                 "height":2,
+                 "height":4,
                  "id":529,
                  "name":"",
                  "rotation":0,
@@ -241,7 +248,7 @@
                  "visible":true,
                  "width":61,
                  "x":214,
-                 "y":16
+                 "y":14
                 }, 
                 {
                  "height":144,
@@ -403,7 +410,7 @@
                  "id":524,
                  "name":"",
                  "rotation":0,
-                 "type":"1",
+                 "type":"0",
                  "visible":true,
                  "width":32,
                  "x":-49,
@@ -460,8 +467,19 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":17,
+         "name":"Glide",
+         "objects":[],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":17,
+ "nextlayerid":18,
  "nextobjectid":538,
  "orientation":"orthogonal",
  "renderorder":"right-down",

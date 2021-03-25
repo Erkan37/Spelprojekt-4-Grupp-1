@@ -20,6 +20,8 @@
 
 #include "SpriteComponent.h"
 
+#include "Glide.hpp"
+
 LevelScene::LevelScene()
 	: 
 	myPlayer(nullptr),

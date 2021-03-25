@@ -34,27 +34,29 @@ void Button::Update(const float& aDeltaTime)
 {
 	GameObject::Update(aDeltaTime);
 
-	if (myHasCollided && myButtonActive == false)
-	{
-		GetComponent<ColliderComponent>()->SetSize({ 0.f,0.f });
-		myButtonActive = true;
-	}
 }
 
 void Button::InitButton(const v2f myStartingPosition, const v2f myPositionFromStart)
 {
 	v2f platformPosition = myPositionFromStart;
-	mySize = { 8.f, 16.f };
+	mySize = { 16.f, 8.f };
 
 	SetPosition(platformPosition);
 	SetPivot({ 0.f, 1.f });
 
-	SpriteComponent* gsprite = AddComponent<SpriteComponent>();
-	gsprite->SetSpritePath("Sprites/Objects/Button.dds");
-	gsprite->SetSize(mySize);
+	SpriteComponent* sprite = AddComponent<SpriteComponent>();
+	sprite->SetSpritePath("Sprites/Objects/Button.dds");
+	sprite->SetSize(mySize);
+
+	myAnimation[0] = Animation(false, true, false, 0, 1, 1, 0.10f, sprite, 16, 8);
+	myAnimation[1] = Animation(false, true, false, 0, 2, 2, 0.10f, sprite, 16, 8);
+
+	AnimationComponent* animation = AddComponent<AnimationComponent>();
+	animation->SetSprite(sprite);
+	animation->SetAnimation(&myAnimation[0]);
 
 	PhysicsComponent* gphys = AddComponent<PhysicsComponent>();
-	gphys->SetCanCollide(true);
+	gphys->SetCanCollide(false);
 	gphys->SetIsStatic(true);
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
@@ -74,9 +76,8 @@ void Button::OnCollision(GameObject* aGameObject)
 
 		if (myHasCollided == false)
 		{
-			SpriteComponent* sprite = GetComponent<SpriteComponent>();
-			v2f smashedSize = { sprite->GetSize().x, sprite->GetSize().y * 0.2f };
-			sprite->SetSize(smashedSize);
+			GetComponent<AnimationComponent>()->SetAnimation(&myAnimation[1]);
+			myButtonActive = true;
 			myHasCollided = true;
 		}
 	}
