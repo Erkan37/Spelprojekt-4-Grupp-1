@@ -12,10 +12,10 @@
 #include "SpriteComponent.h"
 #include "WaypointComponent.hpp"
 
-Platform* PlatformFactory::CreateStaticPlatform(Scene* aLevelScene, const v2f& aPosition, const v2f& aCollisionSize, const v2f& aSpriteSize, const bool aIsOneWay)
+Platform* PlatformFactory::CreateStaticPlatform(Scene* aLevelScene, const v2f& aPosition, const v2f& aCollisionSize, const v2f& aSpriteSize, const bool aIsOneWay, const int aMaterial)
 {
 	Platform* staticPlatform = new Platform(aLevelScene);
-	staticPlatform->Init(aCollisionSize, aSpriteSize, aPosition, aIsOneWay);
+	staticPlatform->Init(aCollisionSize, aSpriteSize, aPosition, aIsOneWay, aMaterial);
 	return staticPlatform;
 }
 

@@ -78,6 +78,11 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 							{
 								data.myButtonPosition.y = (*property)["value"].GetFloat();
 							}
+
+							if (std::string((*property)["name"].GetString()).compare("Material") == 0)
+							{
+								data.myPlatformMaterial = (*property)["value"].GetInt();
+							}
 						}
 					}
 
@@ -299,7 +304,7 @@ void TiledLoader::ParsePlatforms(const std::vector<LoadData> someData, Scene* aS
 		switch (someData[i].myType)
 		{
 		case 0:
-			platformFactory.CreateStaticPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, false);
+			platformFactory.CreateStaticPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, false, someData[i].myPlatformMaterial);
 			break;
 		case 1:
 			platformFactory.CreateMovingPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, GetWaypointPositions(someData[i].myWaypoints, someData[i].myPosition), someData[i].mySpeed);
@@ -314,7 +319,8 @@ void TiledLoader::ParsePlatforms(const std::vector<LoadData> someData, Scene* aS
 			platformFactory.CreateDeadlyPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize);
 			break;
 		case 5:
-			platformFactory.CreateStaticPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, true);
+			//Change to correct material when we have a list of materials, will always be wood
+			platformFactory.CreateStaticPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, true, 0);
 		}
 	}
 }
