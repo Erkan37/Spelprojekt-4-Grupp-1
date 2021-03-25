@@ -27,6 +27,8 @@ public:
 
 	void ResetVelocity();
 
+	const float& GetSpeed();
+
 	void SetOwner(GameObject* aGameObject);
 
 	void ReverseWaypoints();
