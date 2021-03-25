@@ -18,7 +18,7 @@ Glide::Glide(Scene* aScene)
 
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
 	sprite->SetSpritePath("Sprites/Objects/GlidePowerup.dds");
-	sprite->SetSize(v2f(32.0f, 32.0f));
+	sprite->SetSize(v2f(16.0f, 16.0f));
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
 	physics->SetCanCollide(false);
@@ -26,7 +26,7 @@ Glide::Glide(Scene* aScene)
 	physics->SetApplyGravity(false);
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
-	collider->SetSize(32.0f, 32.0f);
+	collider->SetSize(16.0f, 16.0f);
 }
 
 Glide::~Glide()

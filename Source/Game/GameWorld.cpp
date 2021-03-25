@@ -16,6 +16,7 @@
 #include "Keys.h"
 #include <math.h>
 #include "../External/Headers/CU/Utilities.h"
+#include "CutsceneManager.h"
 
 CGameWorld* CGameWorld::ourInstance = nullptr;
 
@@ -57,14 +58,27 @@ void CGameWorld::Update()
 	myDeltaTime = myTimer->GetDeltaTime();
 	myInput->Update(myDeltaTime);
 
-	myLevelManager.Update();
-
-	Scene::Manager::Update(myDeltaTime);
+	if (!CutsceneManager::GetInstance().IsPlaying())
+	{
+		myLevelManager.Update();
+		Scene::Manager::Update(myDeltaTime);
+	}
+	else
+	{
+		CutsceneManager::GetInstance().Update(myDeltaTime);
+	}
 }
 
 void CGameWorld::Render()
 {
-	Scene::Manager::Render();
+	if (!CutsceneManager::GetInstance().IsPlaying())
+	{
+		Scene::Manager::Render();
+	}
+	else
+	{
+		CutsceneManager::GetInstance().Render();
+	}
 }
 
 void CGameWorld::LoadDebugger()

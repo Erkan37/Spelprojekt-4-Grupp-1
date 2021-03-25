@@ -61,7 +61,7 @@ void Button::InitButton(const v2f myStartingPosition, const v2f myPositionFromSt
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
 	collider->SetSize({mySize.x, mySize.y * 0.05f});
-	collider->SetPosition({ mySize.x * 0.5f, -mySize.y * 0.1f });
+	collider->SetPosition({ mySize.x / 2.f, -mySize.y * 0.1f });
 
 	GameObject::Init();
 }
