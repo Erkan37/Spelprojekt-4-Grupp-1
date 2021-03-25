@@ -18,6 +18,7 @@ struct LoadData
 	int myType;
 	std::string myWaypoints;
 	float mySpeed;
+	int myPlatformMaterial;
 };
 
 struct TileLayerData
