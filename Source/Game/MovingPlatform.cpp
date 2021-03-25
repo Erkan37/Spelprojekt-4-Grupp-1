@@ -114,8 +114,13 @@ void MovingPlatform::OnCollision(GameObject* aGameObject)
 		{
 			v2f velo = myWaypointComponent->GetVelocity();
 			//velo.y = velo.y * myPercentageYValue;
-			player->SetGroundIndex(myMaterial);
-			player->SetPlatformVelocity(velo);
+
+			if (player->GetPosition().y + 7.5f < GetPosition().y)
+			{
+				player->SetGroundIndex(myMaterial);
+				player->SetPlatformVelocity(velo);
+				player->PullPlayerDownwards(myWaypointComponent->GetSpeed() * 2.0f);
+			}
 		}
 	}
 }

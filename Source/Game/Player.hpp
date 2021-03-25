@@ -93,6 +93,8 @@ public:
 
 	void SetSpawnPosition(const v2f& aSpawnPosition);
 
+	void PullPlayerDownwards(const float& aPullY);
+
 	void StartGliding();
 
 private:
@@ -111,6 +113,7 @@ private:
 	v2f myCurrentVelocity;
 	v2f myPlatformVelocity;
 	v2f mySpringVelocity;
+	v2f myPullForce;
 	v2f myLerpPosition;
 	v2f mySize;
 	v2f mySpawnPosition;
