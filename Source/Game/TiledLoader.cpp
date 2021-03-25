@@ -20,6 +20,7 @@
 #include "LevelDoor.hpp"
 #include "Player.hpp"
 #include "Glide.hpp"
+#include "Door.h"
 
 #include "GameWorld.h"
 
@@ -354,7 +355,9 @@ void TiledLoader::ParseButtons(const std::vector<LoadData> someData, Scene* aSce
 	{
 		if (someData[i].myType == 3)
 		{
-			//door
+			Door* myDoor = new Door(aScene);
+			myDoor->Init(someData[i].myPosition);
+			myDoor->AddButton(someData[i].myButtonPosition);
 		}
 		else
 		{
