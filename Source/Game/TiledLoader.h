@@ -39,6 +39,7 @@ private:
 	void ParseEnemies(const std::vector<LoadData> someData, Scene*);
 	void ParseLedges(const std::vector<LoadData> someData, Scene*);
 	void ParseCollectables(const std::vector<LoadData> someData, Scene*);
+	void ParseGlide(const std::vector<LoadData> someData, Scene*);
 	void ParseCollectableZones(const std::vector<LoadData> someData, Scene*);
 	void ParsePlatforms(const std::vector<LoadData> someData, Scene*);
 	void ParseHiddenRooms(const std::vector<LoadData> someData, Scene* aScene, std::vector<HiddenArea*>& aHiddenRoomsData);

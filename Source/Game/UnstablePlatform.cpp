@@ -34,12 +34,13 @@ void UnstablePlatform::Update(const float& aDeltaTime)
 		myCollidedWithPlayer = false;
 		DeactivatePlatform();
 	}
-	else if(myTimer <= 0)
+	else if(myTimer <= 0 && !myCollidedLastFrame)
 	{
 		ActivatePlatform();
 	}
 
 	myPlayerIsOnTop = false;
+	myCollidedLastFrame = false;
 
 	Platform::Update(aDeltaTime);
 }
@@ -54,17 +55,22 @@ void UnstablePlatform::SetTimerProperties(const float& aDestroyTime, const float
 
 void UnstablePlatform::OnCollision(GameObject* aGameObject)
 {
-	if (!myPlayerIsOnTop)
-	{
-		return;
-	}
-
 	Player* player = dynamic_cast<Player*>(aGameObject);
-	if (player && (!myCollidedWithPlayer && !myIsDeactivated) && aGameObject->GetPositionY() < myTransform.myPosition.y)
+	if (player)
 	{	
-		AudioManager::GetInstance()->PlayAudio(AudioList::WeakPlatform);
-		myCollidedWithPlayer = true;
-		myTimer = myDestroyTime;
+		myCollidedLastFrame = true;
+
+		if (!myPlayerIsOnTop)
+		{
+			return;
+		}
+
+		if (!myCollidedWithPlayer && !myIsDeactivated && aGameObject->GetPositionY() < myTransform.myPosition.y)
+		{
+			AudioManager::GetInstance()->PlayAudio(AudioList::WeakPlatform);
+			myCollidedWithPlayer = true;
+			myTimer = myDestroyTime;
+		}
 	}
 
 	Platform::OnCollision(aGameObject);

@@ -29,6 +29,7 @@ private:
 	float myTimer;
 
 	bool myCollidedWithPlayer;
+	bool myCollidedLastFrame;
 	bool myIsDeactivated;
 
 	bool myPlayerIsOnTop;
