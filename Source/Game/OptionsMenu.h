@@ -28,21 +28,29 @@ public:
 
 	void SetActive(const bool aStatement);
 	bool IsOptionsActive();
-	void SelectButton();
+
 
 private:
 	Scene* myScene;
 	Camera& myCamera;
 
+	float myVolume;
+
 	std::unique_ptr<UIObject> myBackground;
 	std::unique_ptr<UIObject> myFireHighlight;
 	std::unique_ptr<UIObject> myBar;
+	std::unique_ptr<UIObject> mySoundSettings;
+	std::unique_ptr<UIObject> mySoundSettingsHlght;
+	std::unique_ptr<UIObject> myBGDot;
+	std::unique_ptr<UIObject> mySFXDot;
 
 	std::unique_ptr<UIButton> myTutorialsBtn;
 	std::unique_ptr<UIButton> mySoundBtn;
 	std::unique_ptr<UIButton> myCreditsBtn;
 	std::unique_ptr<UIButton> myBackBtn;
 
+
+	
 	std::vector<UIButton*> myButtons;
 
 	std::unique_ptr<UIText> myTitleString;
@@ -54,6 +62,7 @@ private:
 	int myMovingIndex;
 
 	bool myMenuAcitve;
+	bool mySoundSettingsActive = false;
 
 	void CheckIndexPress();
 	void ActivateMenu();
@@ -61,5 +70,6 @@ private:
 	void InitTexts();
 	void UpdateUIElements(const float& aDeltaTime);
 	void CheckActiveAnimations();
+	void UpdateSoundSettings(const float& aDeltaTime);
 };
 

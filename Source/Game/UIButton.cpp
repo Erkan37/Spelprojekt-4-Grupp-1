@@ -28,7 +28,7 @@ void UIButton::Init(const std::string aPathString, const v2f aSize, const v2f aP
 
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
 	sprite->SetSpritePath(aPathString);
-	sprite->SetSize(aSize);
+	//sprite->SetSize(aSize);
 
 	mySprite = new SpriteComponent();
 	mySprite = AddComponent<SpriteComponent>();
