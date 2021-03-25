@@ -10,6 +10,8 @@
 #include <fstream>
 #include "rapidjson/istreamwrapper.h"
 
+#include "../External/Headers/CU/Utilities.h"
+
 MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	:
 	Platform(aLevelScene),
@@ -114,8 +116,18 @@ void MovingPlatform::OnCollision(GameObject* aGameObject)
 		{
 			v2f velo = myWaypointComponent->GetVelocity();
 			//velo.y = velo.y * myPercentageYValue;
+
 			player->SetGroundIndex(myMaterial);
 			player->SetPlatformVelocity(velo);
+
+			//Magic platform! Spooky wooh!
+			const float platformPositionX = GetPosition().x + GetComponent<ColliderComponent>()->GetWidth() / 2;
+			const float xOffset = 4.0f;
+
+			if (Utils::Abs(player->GetPosition().x - platformPositionX + xOffset) <= GetComponent<ColliderComponent>()->GetWidth() / 2)
+			{
+				player->PullPlayerDownwards(myWaypointComponent->GetSpeed() * 2.0f);
+			}
 		}
 	}
 }

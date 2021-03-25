@@ -241,7 +241,8 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 	}
 
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
-	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity + mySpringVelocity);
+	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity + mySpringVelocity + myPullForce);
+	myPullForce = v2f();
 
 	if (myCurrentVelocity.x + myBashAbility->GetVelocity().x > 0)
 	{
@@ -809,6 +810,11 @@ void Player::UnlockLandingSounds()
 void Player::SetSpawnPosition(const v2f& aSpawnPosition)
 {
 	mySpawnPosition = aSpawnPosition;
+}
+
+void Player::PullPlayerDownwards(const float& aPullY)
+{
+	myPullForce = v2f(0.0f, aPullY);
 }
 
 void Player::StartGliding() 
