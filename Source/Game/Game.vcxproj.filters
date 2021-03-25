@@ -265,6 +265,9 @@
     <ClInclude Include="Glide.hpp">
       <Filter>Game Objects\Powerups</Filter>
     </ClInclude>
+    <ClInclude Include="CutsceneManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -438,6 +441,9 @@
     </ClCompile>
     <ClCompile Include="Glide.cpp">
       <Filter>Game Objects\Powerups</Filter>
+    </ClCompile>
+    <ClCompile Include="CutsceneManager.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
