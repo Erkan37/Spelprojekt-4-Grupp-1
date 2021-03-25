@@ -18,7 +18,7 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 {
 	SetZIndex(93);
 	myType = eMovingPlatformType::RegularPlatform;
-	myTypeIndex = 1;
+	myMaterial = 1;
 	myPercentageYValue = {};
 	myWaypointComponent = AddComponent<WaypointComponent>();
 	myWaypointComponent->SetOwner(this);
@@ -114,7 +114,7 @@ void MovingPlatform::OnCollision(GameObject* aGameObject)
 		{
 			v2f velo = myWaypointComponent->GetVelocity();
 			//velo.y = velo.y * myPercentageYValue;
-			player->SetGroundIndex(myTypeIndex);
+			player->SetGroundIndex(myMaterial);
 			player->SetPlatformVelocity(velo);
 		}
 	}

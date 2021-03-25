@@ -64,6 +64,9 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{bbe69fe7-de48-45c2-b985-f537615c48ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Objects\Powerups">
+      <UniqueIdentifier>{ce4035b9-f661-4369-8300-3bf677e44c45}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -259,6 +262,12 @@
     <ClInclude Include="LevelDoor.hpp">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Glide.hpp">
+      <Filter>Game Objects\Powerups</Filter>
+    </ClInclude>
+    <ClInclude Include="CutsceneManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -429,6 +438,12 @@
     </ClCompile>
     <ClCompile Include="IntroLogosScene.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Glide.cpp">
+      <Filter>Game Objects\Powerups</Filter>
+    </ClCompile>
+    <ClCompile Include="CutsceneManager.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

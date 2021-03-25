@@ -19,6 +19,7 @@
 #include "Jesus.hpp"
 #include "LevelDoor.hpp"
 #include "Player.hpp"
+#include "Glide.hpp"
 
 #include "GameWorld.h"
 
@@ -108,6 +109,10 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 				else if (name == "CollectableZones")
 				{
 					ParseCollectableZones(loadData, aScene);
+				}
+				else if (name == "Glide")
+				{
+					ParseGlide(loadData, aScene);
 				}
 				else if (name == "Platforms")
 				{
@@ -268,6 +273,15 @@ void TiledLoader::ParseCollectables(const std::vector<LoadData> someData, Scene*
 
 		Collectible* collectible = new Collectible(aScene);
 		collectible->Init(someData[i].myPosition, aType);
+	}
+}
+
+void TiledLoader::ParseGlide(const std::vector<LoadData> someData, Scene* aScene)
+{
+	for (int i = 0; i < someData.size(); ++i)
+	{
+		Glide* glide = new Glide(aScene);
+		glide->Init(someData[i].myPosition);
 	}
 }
 
