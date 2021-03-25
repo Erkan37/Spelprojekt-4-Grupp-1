@@ -76,6 +76,8 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	myPercentageLeftVelocity = {};
 	mySpringVelocityRetardation = {};
 	mySpringTimer = {};
+
+	myLedgeSoundIndex = {};
 }
 
 Player::~Player()
@@ -531,11 +533,23 @@ void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
 	myGrabbedLedge = true;
 	myCurrentVelocity.y = 0;
 	myBashAbility->ResetVelocity(true, true);
+	++myLedgeSoundIndex;
+	if (myLedgeSoundIndex > 2) myLedgeSoundIndex = 1;
+	switch (myLedgeSoundIndex)
+	{
+	case 1:
+		AudioManager::GetInstance()->PlayAudio(AudioList::GrabLedge);
+		break;
+	case 2:
+		AudioManager::GetInstance()->PlayAudio(AudioList::GrabLedge2);
+		break;
+	}
 }
 void Player::LeaveLedge()
 {
 	myGrabbedLedge = false;
 	myIsLerpingToPosition = false;
+	AudioManager::GetInstance()->PlayAudio(AudioList::LeaveLedge);
 }
 const bool Player::GetLedgeIsGrabbed()
 {
@@ -603,6 +617,8 @@ void Player::Kill()
 	{
 		Respawn();
 		PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerDeath, 0));
+		AudioManager::GetInstance()->UnLockAudio(AudioList::SpikeDeath);
+		AudioManager::GetInstance()->UnLockAudio(AudioList::SpikeHit);
 	}
 }
 

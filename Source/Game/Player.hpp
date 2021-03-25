@@ -126,6 +126,8 @@ private:
 	int myDirectionX;
 	int myGroundIndex;
 
+	int myLedgeSoundIndex;
+
 	bool myHasLanded;
 	bool myHasLandedVibration;
 	bool myHasDoubleJumped;
