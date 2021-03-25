@@ -112,7 +112,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 				}
 				else if (name == "Glide")
 				{
-
+					ParseGlide(loadData, aScene);
 				}
 				else if (name == "Platforms")
 				{
