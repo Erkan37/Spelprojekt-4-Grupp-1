@@ -1,22 +1,22 @@
 {
   "BackgroundPaths": [
     {
-      "FilePath": "Sprites/LevelSprites/BackgroundSky1.dds"
+      "FilePath": "Sprites/LevelSprites/BG01/BackgroundSky1.dds"
     },
     {
-      "FilePath": "Sprites/LevelSprites/BackgroundClouds1.dds"
+      "FilePath": "Sprites/LevelSprites/BG01/BackgroundClouds1.dds"
     },
     {
-      "FilePath": "Sprites/LevelSprites/BackgroundMountain1.dds"
+      "FilePath": "Sprites/LevelSprites/BG01/BackgroundMountain1.dds"
     },
     {
-      "FilePath": "Sprites/LevelSprites/BackgroundForest2.dds"
+      "FilePath": "Sprites/LevelSprites/BG01/BackgroundForest3.dds"
     },
     {
-      "FilePath": "Sprites/LevelSprites/BackgroundForest3.dds"
+      "FilePath": "Sprites/LevelSprites/BG01/BackgroundForest2.dds"
     },
     {
-      "FilePath": "Sprites/LevelSprites/BackgroundForestClosest1.dds"
+      "FilePath": "Sprites/LevelSprites/BG01/BackgroundForestClosest1.dds"
     }
   ]
 }
