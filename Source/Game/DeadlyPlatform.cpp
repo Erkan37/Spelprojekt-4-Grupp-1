@@ -3,11 +3,20 @@
 #include "AudioManager.h"
 #include "Player.hpp"
 
+#include "PhysicsComponent.h"
+
 DeadlyPlatform::DeadlyPlatform(Scene* aLevelScene)
 	:
 	Platform(aLevelScene)
 {
 
+}
+
+void DeadlyPlatform::Init(const v2f& aSize, const v2f& aSpriteSize, const v2f& aPosition, const bool& aIsOneway)
+{
+	Platform::Init(aSize, aSpriteSize, aPosition, aIsOneway);
+
+	GetComponent<PhysicsComponent>()->SetCanCollide(false);
 }
 
 void DeadlyPlatform::OnCollision(GameObject* aGameObject)

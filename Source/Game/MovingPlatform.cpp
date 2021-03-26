@@ -112,7 +112,7 @@ void MovingPlatform::OnCollision(GameObject* aGameObject)
 
 		if (Utils::Abs(player->GetPosition().x - platformPositionX + xOffset) <= GetComponent<ColliderComponent>()->GetWidth() / 2)
 		{
-			player->PullPlayerDownwards(myWaypointComponent->GetSpeed() * 2.0f);
+			player->SetPositionY(GetPositionY() - 7.8f);
 		}
 	}
 }
