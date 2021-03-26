@@ -38,6 +38,13 @@ void SpritebatchComponent::Render(Transform& aTransform, GameObject& aGameObject
 	aTransform;
 	aGameObject;
 
+	/*
+	for (SpriteComponent* sprite : mySprites)
+	{
+		sprite->Render(aTransform, aGameObject);
+	}
+	*/
+
 	myBatch->Render();
 }
 
