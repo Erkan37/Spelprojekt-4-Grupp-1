@@ -112,7 +112,7 @@ void Background::LoadJson(Scene* aLevelScene)
 	backgroundDocuments.ParseStream(backgroundObjectStream);
 
 
-	std::ifstream backgroundPathObjectsFile(backgroundDocuments["BackgroundArray"][1]["FilePath"].GetString());
+	std::ifstream backgroundPathObjectsFile(backgroundDocuments["BackgroundArray"][0]["FilePath"].GetString());
 	rapidjson::IStreamWrapper backgroundPathObjectStream(backgroundPathObjectsFile);
 
 	rapidjson::Document backgroundPathDocuments;
