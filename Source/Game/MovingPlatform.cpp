@@ -84,7 +84,7 @@ void MovingPlatform::Update(const float& aDeltaTime)
 		}
 	}
 
-	//Platform::Update(aDeltaTime);
+	Platform::Update(aDeltaTime);
 }
 
 void MovingPlatform::SetWaypoints(const std::vector<v2f>& aWaypoints)
@@ -109,25 +109,23 @@ void MovingPlatform::AddButton(v2f aPosition, eMovingPlatformType aPlatformType)
 
 void MovingPlatform::OnCollision(GameObject* aGameObject)
 {
-	if (!myAddedButton || myButton->GetActiveButton())
+	Player* player = dynamic_cast<Player*>(aGameObject);
+
+	if (player)
 	{
-		Player* player = dynamic_cast<Player*>(aGameObject);
-		if (player)
+		v2f velo = myWaypointComponent->GetVelocity();
+		//velo.y = velo.y * myPercentageYValue;
+
+		player->SetGroundIndex(myMaterial);
+		player->SetPlatformVelocity(velo);
+
+		//Magic platform! Spooky wooh!
+		const float platformPositionX = GetPosition().x + GetComponent<ColliderComponent>()->GetWidth() / 2;
+		const float xOffset = 4.0f;
+
+		if (Utils::Abs(player->GetPosition().x - platformPositionX + xOffset) <= GetComponent<ColliderComponent>()->GetWidth() / 2)
 		{
-			v2f velo = myWaypointComponent->GetVelocity();
-			//velo.y = velo.y * myPercentageYValue;
-
-			player->SetGroundIndex(myMaterial);
-			player->SetPlatformVelocity(velo);
-
-			//Magic platform! Spooky wooh!
-			const float platformPositionX = GetPosition().x + GetComponent<ColliderComponent>()->GetWidth() / 2;
-			const float xOffset = 4.0f;
-
-			if (Utils::Abs(player->GetPosition().x - platformPositionX + xOffset) <= GetComponent<ColliderComponent>()->GetWidth() / 2)
-			{
-				player->PullPlayerDownwards(myWaypointComponent->GetSpeed() * 2.0f);
-			}
+			player->PullPlayerDownwards(myWaypointComponent->GetSpeed() * 2.0f);
 		}
 	}
 }
