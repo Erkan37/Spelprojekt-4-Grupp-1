@@ -3,6 +3,7 @@
 
 #include "UIObject.h"
 #include "UIButton.h"
+#include "OptionsMenu.h"
 
 #include "LevelManager.hpp"
 #include "InputWrapper.h"
@@ -15,6 +16,7 @@
 MainMenuScene::MainMenuScene()
 {
 	myMovingIndex = {};
+	mySubMenuActive = false;
 }
 
 void MainMenuScene::Load()
@@ -31,6 +33,7 @@ void MainMenuScene::Load()
 
 void MainMenuScene::Activate()
 {
+	SetBackgroundActive(true);
 	Scene::Activate();
 }
 
@@ -60,11 +63,19 @@ void MainMenuScene::Update(const float& aDeltaTime)
 
 	GetCamera().SetBounds(v2f(0.0f, 0.0f), v2f(1920.0f, 1080.0f));
 
-	Scene::Update(aDeltaTime);
-
 	UpdateObjects(aDeltaTime);
-	CheckButtonsPress();
-	
+
+	if (!mySubMenuActive)
+	{
+		CheckButtonsPress();
+	}
+	else
+	{
+		myOptionsMenu->Update(aDeltaTime);
+	}
+
+
+	Scene::Update(aDeltaTime);
 }
 
 void MainMenuScene::InitObjects()
@@ -79,12 +90,16 @@ void MainMenuScene::InitObjects()
 
 	v2f backgroundPos = { 0.f, 0.f };
 	v2f titleSpritePos = { 105.f, 25.f };
-	
-	v2f newGameBtnPos = {210.f, 80.f};
+
+	v2f newGameBtnPos = { 210.f, 80.f };
 	v2f levelSelectBtnPos = { 210.f, 100.f };
-	v2f optionsBtnPos = {210.f, 120.f};
-	v2f exitGameBtnPos = {210.f, 140.f};
-	
+	v2f optionsBtnPos = { 210.f, 120.f };
+	v2f exitGameBtnPos = { 210.f, 140.f };
+
+	myOptionsMenu = new OptionsMenu(this);
+	myOptionsMenu->Init();
+
+	mySubMenuActive = false;
 
 	myBackground->Init("Sprites/UI/startMenu/UI_startMenu_Background_320x180px.dds", { 520.f, 265.f }, backgroundPos, 200);
 	myTitleSprite->Init("Sprites/UI/startMenu/UI_startMenu_Title_171x32px.dds", { 270.f, 32.f }, titleSpritePos, 201);
@@ -94,9 +109,10 @@ void MainMenuScene::InitObjects()
 	myLevelSelectBtn->Init("Sprites/UI/startMenu/UI_StartMenu_Text_LevelSelect_Unmarked_72x16px.dds", { 72.f,16.f }, levelSelectBtnPos, "Sprites/UI/startMenu/UI_StartMenu_Text_LevelSelect_Marked_72x16px.dds", 72);
 	myOptionsBtn->Init("Sprites/UI/startMenu/UI_StartMenu_Text_Option_44x16px_unmarked.dds", { 44.f,16.f }, optionsBtnPos, "Sprites/UI/startMenu/UI_StartMenu_Text_Option_44x16px_marked.dds", 44);
 	myExitGameBtn->Init("Sprites/UI/startMenu/UI_StartMenu_Text_QuitGame_56x16px_Unmarked.dds", { 56.f,16.f }, exitGameBtnPos, "Sprites/UI/startMenu/UI_StartMenu_Text_QuitGame_56x16px_Marked.dds", 56);
-	
+
 	SetActiveMenu(true);
-	
+	SetBackgroundActive(true);
+
 	myButtons.push_back(myNewGameBtn.get());
 	myButtons.push_back(myLevelSelectBtn.get());
 	myButtons.push_back(myOptionsBtn.get());
@@ -136,6 +152,12 @@ void MainMenuScene::CheckButtonsPress()
 			//CutsceneManager::GetInstance().PlayVideo(CutsceneType::Intro);
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
 		}
+		else if (myMovingIndex == static_cast<int>(eMainMenuButton::Options))
+		{
+			myOptionsMenu->SetActive(true);
+			mySubMenuActive = true;
+			SetActiveMenu(false);
+		}
 		else if (myMovingIndex == static_cast<int>(LevelManager::eScenes::LevelScene))
 		{
 #ifndef _RETAIL
@@ -149,13 +171,17 @@ void MainMenuScene::CheckButtonsPress()
 
 void MainMenuScene::SetActiveMenu(const bool aStateBool)
 {
-	myBackground->SetActive(aStateBool);
 	myTitleSprite->SetActive(aStateBool);
 	myNewGameBtn->SetActive(aStateBool);
 	myLevelSelectBtn->SetActive(aStateBool);
 	myOptionsBtn->SetActive(aStateBool);
 	myExitGameBtn->SetActive(aStateBool);
 	myFireHighlight->SetActive(aStateBool);
+}
+
+void MainMenuScene::SetBackgroundActive(const bool aStateBool)
+{
+	myBackground->SetActive(aStateBool);
 }
 
 void MainMenuScene::CheckActiveAnimations()

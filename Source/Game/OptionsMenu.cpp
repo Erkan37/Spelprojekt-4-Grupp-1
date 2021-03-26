@@ -18,14 +18,17 @@ OptionsMenu::OptionsMenu(Scene* aLevelScene)
 	myMovingIndex = {};
 	myMenuAcitve = {};
 	mySoundMovingIndex = {};
-	myVolume = 0;
-	myVolumeStep = 2.0f;
+	myMusicVol = 0;
+	mySFXVol = 0;
+	myMusicStep = 2.0f;
+	mySFXStep = 2.0f;
 }
 
 void OptionsMenu::Init()
 {
 	v2f referenceSize = Config::ourReferenceSize;
-	myVolume = myAudioManager->GetInstance()->GetMusicVolume();
+	myMusicVol = myAudioManager->GetInstance()->GetMusicVolume();
+	mySFXVol = myAudioManager->GetInstance()->GetSFXVolume();
 	myInput = CGameWorld::GetInstance()->Input();
 
 	myBackground = std::make_unique<UIObject>(myScene);
@@ -41,8 +44,6 @@ void OptionsMenu::Init()
 	myBGDot = std::make_unique<UIObject>(myScene);
 	mySFXDot = std::make_unique<UIObject>(myScene);
 
-	
-
 	v2f backgroundPos = { 5.f, 5.f };
 	v2f barPos = { 30.0f, 75.0f };
 	v2f soundPos = { 140.f, 85.f };
@@ -51,7 +52,7 @@ void OptionsMenu::Init()
 	v2f backPos = { 140.f, 145.f };
 	v2f resetPos = { 30.f, 170.f };
 	v2f soundSettingPos = { 210.f, 85.f };
-	v2f bgDot = { 210.f, 90.f };
+	v2f bgDot = { 210.f + myMusicVol, 90.f };
 	v2f SFXDot = { 210.f, 105.f };
 
 	myBackground->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Background.dds", { 520.f, 265.f }, backgroundPos, 201);
@@ -61,6 +62,7 @@ void OptionsMenu::Init()
 	myCreditsBtn->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Credits_45x10px_Unmarked.dds", { 45.f, 16.f }, creditsPos, "Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Credits_45x10px_Marked.dds", 45);
 	myTutorialsBtn->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Tutorials_48x10px_Unmarked.dds", { 48.f, 16.f }, tutorialPos, "Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Tutorials_48x10px_Marked.dds", 48);
 	myBackBtn->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_MainMenu_Unmarked_64x16px.dds", { 64.f,16.f }, backPos, "Sprites/UI/optionsMenu/UI_OptionsMenu_Text_MainMenu_Marked_64x16px.dds", 64);
+	myResetBtn->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_ResetSave_65x16px_Unmarked.dds", { 65.f,16.f }, resetPos, "Sprites/UI/optionsMenu/UI_OptionsMenu_Text_ResetSave_65x16px_Marked.dds", 65);
 	mySoundSettings->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Sound_Setting_74x26px_Unmarked.dds", { 72.f, 26.f }, soundSettingPos, 202);
 	mySoundSettingsHlght->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Sound_Setting_74x26px_Marked.dds", { 72.f, 26.f }, soundSettingPos, 203);
 	myBGDot->Init("Sprites/UI/optionsMenu/tempDot.dds", { 8.f, 8.f }, bgDot, 202);
@@ -72,7 +74,9 @@ void OptionsMenu::Init()
 	myButtons.push_back(myBackBtn.get());
 	myButtons.push_back(myResetBtn.get());
 	mySoundSettingsHlght->SetActive(false);
+
 	InitTexts();
+	myTitleString->Deactivate();
 }
 
 void OptionsMenu::Update(const float& aDeltaTime)
@@ -141,25 +145,29 @@ void OptionsMenu::CheckIndexPress()
 
 	if (mySoundSettingsActive == true)
 	{
-		if (myInput->GetInput()->GetKeyJustDown(Keys::RIGHTARROWKey) && myVolume < 1.0f)
+		if (myInput->GetInput()->GetKeyJustDown(Keys::RIGHTARROWKey) && myMusicVol < 1.0f)
 		{
-			myVolume += 0.05f;
-			myBGDot->SetPositionX(myBGDot->GetPositionX() + myVolumeStep);
+			myMusicVol += 0.05f;
+			myBGDot->SetPositionX(myBGDot->GetPositionX() + myMusicStep);
 			UpdateSoundSettings();
 		}
-		else if (myInput->GetInput()->GetKeyJustDown(Keys::LEFTARROWKey) && myVolume > 0.0f)
+		else if (myInput->GetInput()->GetKeyJustDown(Keys::LEFTARROWKey) && myMusicVol > 0.0f)
 		{
-			myVolume -= 0.05f;
-			myBGDot->SetPositionX(myBGDot->GetPositionX() - myVolumeStep);
+			myMusicVol -= 0.05f;
+			myBGDot->SetPositionX(myBGDot->GetPositionX() - myMusicStep);
 			UpdateSoundSettings();
 		}
 		if (myInput->GetInput()->GetKeyJustDown(Keys::UPARROWKey))
 		{
-
+			mySoundMovingIndex--;
+			if (mySoundMovingIndex < 0)
+				mySoundMovingIndex = myButtons.size() - 1;
 		}
 		else if (myInput->GetInput()->GetKeyJustDown(Keys::DOWNARROWKey))
 		{
-
+			mySoundMovingIndex++;
+			if (mySoundMovingIndex > myButtons.size() - 1)
+				mySoundMovingIndex = 0;
 		}
 	}
 	
@@ -228,7 +236,7 @@ void OptionsMenu::CheckActiveAnimations()
 
 void OptionsMenu::UpdateSoundSettings()
 {
-	myAudioManager->GetInstance()->SetMusicVolume(myVolume);
+	myAudioManager->GetInstance()->SetMusicVolume(myMusicVol);
 }
 
 

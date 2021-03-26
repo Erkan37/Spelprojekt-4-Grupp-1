@@ -36,8 +36,10 @@ private:
 	Camera& myCamera;
 	AudioManager* myAudioManager;
 
-	float myVolume;
-	float myVolumeStep;
+	float myMusicVol;
+	float mySFXVol;
+	float myMusicStep;
+	float mySFXStep;
 
 	std::unique_ptr<UIObject> myBackground;
 	std::unique_ptr<UIObject> myOptionsTitle;
@@ -55,7 +57,7 @@ private:
 	std::unique_ptr<UIButton> myResetBtn;
 
 
-	
+	std::vector<UIObject*> mySoundObjects;
 	std::vector<UIButton*> myButtons;
 
 	std::unique_ptr<UIText> myTitleString;
