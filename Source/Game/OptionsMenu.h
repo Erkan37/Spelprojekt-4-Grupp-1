@@ -8,6 +8,7 @@
 class InputWrapper;
 class Scene;
 class SpriteComponent;
+class AudioManager;
 
 class OptionsMenu
 {
@@ -33,10 +34,13 @@ public:
 private:
 	Scene* myScene;
 	Camera& myCamera;
+	AudioManager* myAudioManager;
 
 	float myVolume;
+	float myVolumeStep;
 
 	std::unique_ptr<UIObject> myBackground;
+	std::unique_ptr<UIObject> myOptionsTitle;
 	std::unique_ptr<UIObject> myFireHighlight;
 	std::unique_ptr<UIObject> myBar;
 	std::unique_ptr<UIObject> mySoundSettings;
@@ -48,6 +52,7 @@ private:
 	std::unique_ptr<UIButton> mySoundBtn;
 	std::unique_ptr<UIButton> myCreditsBtn;
 	std::unique_ptr<UIButton> myBackBtn;
+	std::unique_ptr<UIButton> myResetBtn;
 
 
 	
@@ -60,6 +65,7 @@ private:
 	std::shared_ptr<InputWrapper> myInput;
 
 	int myMovingIndex;
+	int mySoundMovingIndex;
 
 	bool myMenuAcitve;
 	bool mySoundSettingsActive = false;
@@ -70,6 +76,6 @@ private:
 	void InitTexts();
 	void UpdateUIElements(const float& aDeltaTime);
 	void CheckActiveAnimations();
-	void UpdateSoundSettings(const float& aDeltaTime);
+	void UpdateSoundSettings();
 };
 
