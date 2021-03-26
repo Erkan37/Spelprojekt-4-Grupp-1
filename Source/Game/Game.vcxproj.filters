@@ -34,9 +34,6 @@
     <Filter Include="Game Objects\Platforms">
       <UniqueIdentifier>{1f3f5638-6de1-4c16-b51c-6a68de44fd9d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Tileson">
-      <UniqueIdentifier>{f0781a0c-d56a-4858-93a3-aa363f8a151e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game Objects\Collectibles">
       <UniqueIdentifier>{16440345-a01a-4c7e-bc7e-6598b66bea8c}</UniqueIdentifier>
     </Filter>
@@ -66,6 +63,21 @@
     </Filter>
     <Filter Include="Game Objects\Powerups">
       <UniqueIdentifier>{ce4035b9-f661-4369-8300-3bf677e44c45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Tiles">
+      <UniqueIdentifier>{d9d59f8e-2433-410c-8744-28f8da6c7efa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{785f9dff-b981-4c0d-abad-57941df9cd75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Menu">
+      <UniqueIdentifier>{c592c9eb-afc2-4ba2-a558-e69f4598f1b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Audio">
+      <UniqueIdentifier>{be1810a8-6ecd-4e74-a621-69dd6ff48cc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\PostMaster">
+      <UniqueIdentifier>{d5fb8d88-d3ed-4c95-8480-3cecd1eb7809}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -201,9 +213,6 @@
     <ClInclude Include="Enemy.h">
       <Filter>Game Objects\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="AudioManager.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyFactory.h">
       <Filter>Factories</Filter>
     </ClInclude>
@@ -213,9 +222,6 @@
     <ClInclude Include="SpringObject.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="DataManager.h" />
-    <ClInclude Include="EnemyProjectile.h" />
-    <ClInclude Include="Random.hpp" />
     <ClInclude Include="Bonfire.hpp">
       <Filter>Game Objects</Filter>
     </ClInclude>
@@ -237,25 +243,7 @@
     <ClInclude Include="AudioComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="AudioClip.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="EFontsSizes.hpp" />
-    <ClInclude Include="Message.hpp" />
-    <ClInclude Include="MessageTypes.hpp" />
-    <ClInclude Include="PauseMenu.h" />
-    <ClInclude Include="Subscriber.hpp" />
-    <ClInclude Include="PostMaster.hpp" />
-    <ClInclude Include="TextComponent.h" />
-    <ClInclude Include="TiledLoader.h" />
-    <ClInclude Include="UIButton.h" />
-    <ClInclude Include="UIManager.h" />
-    <ClInclude Include="UIObject.h" />
-    <ClInclude Include="UIText.h" />
-    <ClInclude Include="AudioLibrary.h" />
     <ClInclude Include="Jesus.hpp" />
-    <ClInclude Include="TileSetLayer.hpp" />
-    <ClInclude Include="TileSetLayerProperties.hpp" />
     <ClInclude Include="IntroLogosScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
@@ -265,11 +253,71 @@
     <ClInclude Include="Glide.hpp">
       <Filter>Game Objects\Powerups</Filter>
     </ClInclude>
-    <ClInclude Include="CutsceneManager.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="Door.h">
       <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="TextComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="DataManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="TiledLoader.h">
+      <Filter>Game Objects\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="TileSetLayer.hpp">
+      <Filter>Game Objects\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="TileSetLayerProperties.hpp">
+      <Filter>Game Objects\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyProjectile.h">
+      <Filter>Game Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="UIText.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIObject.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseMenu.h">
+      <Filter>UI\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.hpp">
+      <Filter>Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="CutsceneManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioClip.h">
+      <Filter>Core\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioManager.h">
+      <Filter>Core\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioLibrary.h">
+      <Filter>Core\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Message.hpp">
+      <Filter>Core\PostMaster</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageTypes.hpp">
+      <Filter>Core\PostMaster</Filter>
+    </ClInclude>
+    <ClInclude Include="PostMaster.hpp">
+      <Filter>Core\PostMaster</Filter>
+    </ClInclude>
+    <ClInclude Include="Subscriber.hpp">
+      <Filter>Core\PostMaster</Filter>
+    </ClInclude>
+    <ClInclude Include="EFontsSizes.hpp">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -384,9 +432,6 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Game Objects\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="AudioManager.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyFactory.cpp">
       <Filter>Factories</Filter>
     </ClCompile>
@@ -396,9 +441,6 @@
     <ClCompile Include="SpringObject.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
-    <ClCompile Include="DataManager.cpp" />
-    <ClCompile Include="EnemyProjectile.cpp" />
-    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Bonfire.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
@@ -420,22 +462,7 @@
     <ClCompile Include="AudioComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="AudioClip.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseMenu.cpp" />
-    <ClCompile Include="PostMaster.cpp" />
-    <ClCompile Include="Subscriber.cpp" />
-    <ClCompile Include="TextComponent.cpp" />
-    <ClCompile Include="TiledLoader.cpp" />
-    <ClCompile Include="UIButton.cpp" />
-    <ClCompile Include="UIManager.cpp" />
-    <ClCompile Include="UIObject.cpp" />
-    <ClCompile Include="UIText.cpp" />
-    <ClCompile Include="AudioLibrary.cpp" />
     <ClCompile Include="Jesus.cpp" />
-    <ClCompile Include="TileSetLayer.cpp" />
-    <ClCompile Include="TileSetLayerProperties.cpp" />
     <ClCompile Include="LevelDoor.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
@@ -445,11 +472,62 @@
     <ClCompile Include="Glide.cpp">
       <Filter>Game Objects\Powerups</Filter>
     </ClCompile>
-    <ClCompile Include="CutsceneManager.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="Door.cpp">
       <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="TextComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="TiledLoader.cpp">
+      <Filter>Game Objects\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="TileSetLayer.cpp">
+      <Filter>Game Objects\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="TileSetLayerProperties.cpp">
+      <Filter>Game Objects\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyProjectile.cpp">
+      <Filter>Game Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIObject.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIText.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseMenu.cpp">
+      <Filter>UI\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>Utils\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="CutsceneManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioClip.cpp">
+      <Filter>Core\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Core\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioLibrary.cpp">
+      <Filter>Core\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="PostMaster.cpp">
+      <Filter>Core\PostMaster</Filter>
+    </ClCompile>
+    <ClCompile Include="Subscriber.cpp">
+      <Filter>Core\PostMaster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

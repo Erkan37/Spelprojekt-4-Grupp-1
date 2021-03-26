@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Controller.h"
+#include "GameWorld.h"
+#include "../External/Headers/CU/Utilities.h"
 
 #pragma comment(lib, "Xinput9_1_0.lib")
 #pragma comment(lib, "XInput.lib")
@@ -98,7 +100,7 @@ void Controller::Init()
 	CheckActiveController();
 }
 
-void Controller::Update(const float& aDeltaTime)
+void Controller::Update()
 {
 	if (IsControllerActive())
 	{
@@ -109,7 +111,7 @@ void Controller::Update(const float& aDeltaTime)
 		{
 			UpdateLeftThumbStick(myCurrentControllerState);
 			UpdateRightThumbStick(myCurrentControllerState);
-			UpdateVibration(aDeltaTime);
+			UpdateVibration();
 		}
 		else
 		{
@@ -339,9 +341,12 @@ void Controller::Vibrate(const int aLeftStrength, const int aRightStrength, cons
 	XInputSetState(myControllerID, &v);
 }
 
-void Controller::UpdateVibration(const float& aDeltaTime)
+void Controller::UpdateVibration()
 {
-	myVibrationTimer -= aDeltaTime;
+	const float timeScale = CGameWorld::GetInstance()->GetTimer()->GetTimeScale();
+
+	CGameWorld::GetInstance()->GetTimer()->SetTimeScale(1.0f);
+	myVibrationTimer -= CGameWorld::GetInstance()->GetTimer()->GetDeltaTime();
 	if (myVibrationTimer <= 0)
 	{
 		myVibrationTimer = 0;
@@ -354,4 +359,5 @@ void Controller::UpdateVibration(const float& aDeltaTime)
 
 		XInputSetState(myControllerID, &v);
 	}
+	CGameWorld::GetInstance()->GetTimer()->SetTimeScale(timeScale);
 }

@@ -143,7 +143,7 @@ void Player::InitAnimations()
 
 	myAnimations[0] = Animation(false, false, false, 0, 74, 74, 0.10f, spriteIdle, 16, 16);
 	myAnimations[1] = Animation(false, false, false, 0, 12, 12, 0.09f, spriteRun, 16, 16);
-	myAnimations[2] = Animation(false, true, false, 0, 6, 6, 0.09f, spriteJump, 16, 16);
+	myAnimations[2] = Animation(false, true, false, 0, 6, 6, 0.07f, spriteJump, 16, 16);
 	myAnimations[3] = Animation(false, true, false, 0, 5, 5, 0.09f, spriteDoubleJump, 16, 16);
 	myAnimations[4] = Animation(false, false, false, 0, 4, 4, 0.09f, spriteFall, 16, 16);
 	myAnimations[5] = Animation(false, false, false, 0, 22, 22, 0.125f, spriteLedgeGrab, 16, 16);
@@ -241,8 +241,7 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 	}
 
 	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
-	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity + mySpringVelocity + myPullForce);
-	myPullForce = v2f();
+	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity + mySpringVelocity);
 
 	if (myCurrentVelocity.x + myBashAbility->GetVelocity().x > 0)
 	{
@@ -609,7 +608,7 @@ void Player::BounceOnDestructibleWall()
 
 void Player::Kill()
 {
-	if (myBashAbility->GetIsBashing())
+	if (myBashAbility->GetDashIsActive())
 	{
 		return;
 	}
@@ -810,11 +809,6 @@ void Player::UnlockLandingSounds()
 void Player::SetSpawnPosition(const v2f& aSpawnPosition)
 {
 	mySpawnPosition = aSpawnPosition;
-}
-
-void Player::PullPlayerDownwards(const float& aPullY)
-{
-	myPullForce = v2f(0.0f, aPullY);
 }
 
 void Player::StartGliding() 

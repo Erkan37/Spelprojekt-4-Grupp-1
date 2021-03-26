@@ -229,3 +229,8 @@ const int AnimationComponent::GetCurrentIndex()
 {
 	return mySpriteIndex;
 }
+
+bool AnimationComponent::GetHasEnded()
+{
+	return myHasReachedEnd;
+}

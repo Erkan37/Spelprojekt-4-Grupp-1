@@ -133,7 +133,7 @@ void MainMenuScene::CheckButtonsPress()
 	{
 		if (myMovingIndex == static_cast<int>(eMainMenuButton::StartGame))
 		{
-			CutsceneManager::GetInstance().PlayVideo(CutsceneType::Intro);
+			//CutsceneManager::GetInstance().PlayVideo(CutsceneType::Intro);
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
 		}
 		else if (myMovingIndex == static_cast<int>(LevelManager::eScenes::LevelScene))

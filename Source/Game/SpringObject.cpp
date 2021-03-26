@@ -50,7 +50,7 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 	{
 		v2f velo = player->GetComponent<PhysicsComponent>()->GetVelocity();
 
-		if (velo.y > 50.f && myTimer > mySpringTimerCooldown)
+		if (/*velo.y > 50.f &&*/ myTimer > mySpringTimerCooldown)
 		{
 			mySpringActive = true;
 			myTimer = {};
@@ -76,8 +76,8 @@ void SpringObject::InitSprings(const v2f aPosition)
 	physics->SetIsStatic(true);
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
-	collider->SetSize({ mySize.x * 0.8f, mySize.y * 0.01f });
-	collider->SetPosition({ 0.f, -mySize.y * 0.99f });
+	collider->SetSize({ mySize.x, mySize.y * 0.01f });
+	collider->SetPosition({ 0.f, -mySize.y * 0.2f });
 
 }
 

@@ -10,6 +10,8 @@
 
 #include "TiledLoader.h"
 
+#include <iostream>
+
 typedef rapidjson::Value::ConstValueIterator iterator;
 
 TileSetLayer::TileSetLayer(Scene* aLevelScene)
@@ -50,9 +52,7 @@ SpritebatchComponent* TileSetLayer::LoadTileSetLayer(const TileSetLayerPropertie
 		SpriteComponent* sprite = AddComponent<SpriteComponent>();
 
 		sprite->SetSpritePath(aTileSetLayerProperties.mySpritePath);
-		sprite->SetSamplerState(ESamplerFilter_Point);
 		sprite->SetSize({ aTileSetLayerProperties.mySpriteSizeX, aTileSetLayerProperties.mySpriteSizeY });
-		myBatch->AddSprite(sprite);
 
 		const int realQuad = data[dataIndex].GetInt() - 1;
 		int xQ = static_cast<int>(realQuad % aTileSetLayerProperties.myQuadLengthX);
@@ -63,6 +63,9 @@ SpritebatchComponent* TileSetLayer::LoadTileSetLayer(const TileSetLayerPropertie
 
 		sprite->SetSpriteRect(texelX + xQ * aTileSetLayerProperties.myRectQuadX, texelY + yQ * aTileSetLayerProperties.myRectQuadY, (xQ + 1.0f) * aTileSetLayerProperties.myRectQuadX - texelX, (yQ + 1.0f) * aTileSetLayerProperties.myRectQuadY - texelY);
 		sprite->SetRelativePosition({ x * (aTileSetLayerProperties.mySpriteSizeX), y * (aTileSetLayerProperties.mySpriteSizeY) });
+
+
+		myBatch->AddSprite(sprite);
 	}
 
 	myBatch->Init();
