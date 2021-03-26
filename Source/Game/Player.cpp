@@ -438,6 +438,7 @@ void Player::Landed(const int& aOverlapY)
 		{
 			myHasLanded = true;
 			myIsGliding = false;
+			AudioManager::GetInstance()->Stop(AudioList::PlayerHover);
 		}
 
 		myHasDoubleJumped = false;
@@ -616,6 +617,7 @@ void Player::Kill()
 	if (!myHasDied)
 	{
 		AudioManager::GetInstance()->PlayAudio(AudioList::PlayerDeath);
+		AudioManager::GetInstance()->PlayAudio(AudioList::PlayerRespawn);
 		KillReset();
 	}
 	else if (GetComponent<AnimationComponent>()->GetIsDisplayedOnce() && GetComponent<AnimationComponent>()->GetHasBeenDisplayedOnce())
@@ -814,6 +816,8 @@ void Player::SetSpawnPosition(const v2f& aSpawnPosition)
 void Player::StartGliding() 
 {
 	myIsGliding = true;
+	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerHover);
+	AudioManager::GetInstance()->LockAudio(AudioList::PlayerHover);
 }
 
 
