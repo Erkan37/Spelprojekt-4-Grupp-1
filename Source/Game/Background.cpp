@@ -46,7 +46,7 @@ void Background::UpdateBackground(const float& aDeltaTime)
 {
 	if (myCamera->GetActive() && myAddedCameraPos == false)
 	{
-		myStartingCameraPos = myCamera->GetPosition();
+		myStartingCameraPos = { 0.f, myCamera->GetPosition().y };
 		myAddedCameraPos = true;
 	}
 
@@ -55,31 +55,34 @@ void Background::UpdateBackground(const float& aDeltaTime)
 
 void Background::ResizeBackground()
 {
-	myCurrentRenderSize.x = Config::ourReferenceSize.x;
+	myCurrentRenderSize.x = myBackgroundSprite1->GetSizeX();
 	myCurrentRenderSize.y = Config::ourReferenceSize.y;
 
 	myBackground->SetPosition({ myCurrentRenderSize.x / 2.f, myCurrentRenderSize.y / 2.f });
-	myCloud->SetPosition({ myCurrentRenderSize.x / 2.f, myCurrentRenderSize.y / 4.f });
 }
 
 void Background::MoveBackground(const float& aDeltaTime)
 {
 	v2f backgroundSpeedOne;
-	backgroundSpeedOne = { (myStartingCameraPos.x - myCamera->GetPosition().x) * (myOriginalSpeed * myBackgroundSpeedOneX),
-						   (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOriginalSpeed * myBackgroundSpeedOneY) };
+	backgroundSpeedOne = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedOneX,
+						   (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedOneY };
 
 	v2f backgroundSpeedThree;
-	backgroundSpeedThree = { (myStartingCameraPos.x - myCamera->GetPosition().x) * (myOriginalSpeed * myBackgroundSpeedThreeX),
-						   (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOriginalSpeed * myBackgroundSpeedThreeY) };
+	backgroundSpeedThree = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedThreeX,
+						   (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedThreeY };
+
 	v2f backgroundSpeedFour;
-	backgroundSpeedFour = { (myStartingCameraPos.x - myCamera->GetPosition().x) * (myOriginalSpeed * myBackgroundSpeedFourX),
-						   (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOriginalSpeed * myBackgroundSpeedFourY) };
+	backgroundSpeedFour = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedFourX,
+						   (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedFourY };
+
 	v2f backgroundSpeedFive;
-	backgroundSpeedFive = { (myStartingCameraPos.x - myCamera->GetPosition().x) * (myOriginalSpeed * myBackgroundSpeedFiveX),
-						   (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOriginalSpeed * myBackgroundSpeedFiveY) };
+	backgroundSpeedFive = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedFiveX,
+						   (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedFiveY };
+
 	v2f backgroundSpeedSix;
-	backgroundSpeedSix = { (myStartingCameraPos.x - myCamera->GetPosition().x) * (myOriginalSpeed * myBackgroundSpeedSixX),
-						   (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOriginalSpeed * myBackgroundSpeedSixY) };
+	backgroundSpeedSix = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedSixX,
+						  (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedSixY };
+
 
 	myBackgroundSprite1->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedOne + myOffsetBackground1);
 	myBackgroundSprite3->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedThree + myOffsetBackground3);
@@ -90,8 +93,8 @@ void Background::MoveBackground(const float& aDeltaTime)
 	myCloudDistance = myCloudDistance + (aDeltaTime * myCloudSpeed);
 
 	v2f backgroundSpeedTwo;
-	backgroundSpeedTwo = { ((myStartingCameraPos.x - myCamera->GetPosition().x)) * (myOriginalSpeed * myBackgroundSpeedTwoX),
-						   (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOriginalSpeed * myBackgroundSpeedTwoY) };
+	backgroundSpeedTwo = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedTwoX,
+						   (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedTwoX };
 
 	backgroundSpeedTwo.x = backgroundSpeedTwo.x + myCloudDistance;
 
@@ -144,7 +147,6 @@ void Background::LoadJson(Scene* aLevelScene)
 void Background::LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDocuments)
 {
 	myBackground = std::make_unique<GameObject>(aLevelScene);
-	myCloud = std::make_unique<GameObject>(aLevelScene);
 
 	int backgroundSizeArray = someDocuments["BackgroundPaths"].Size();
 
@@ -160,22 +162,11 @@ void Background::LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDo
 
 void Background::CreateBackgrounds(Scene* aLevelScene, const std::string aPath, const int aIndex, const v2f anOffset)
 {
-	float backgroundSizeX = Config::ourReferenceSize.x;
-	float backgroundSizeY = Config::ourReferenceSize.y;
-
-	//myOffsetBackground1 = { 0.f, 0.f };
-	//myOffsetBackground2 = { 0.f, -20.f };
-	//myOffsetBackground3 = { 0.f, 0.f };
-	//myOffsetBackground4 = { 0.f, 30.f };
-	//myOffsetBackground5 = { 0.f, 30.f };
-	//myOffsetBackground6 = { 0.f, 30.f };
-
 	switch (aIndex)
 	{
 	case 0:
 		myBackgroundSprite1 = myBackground->AddComponent<SpriteComponent>();
 		myBackgroundSprite1->SetSpritePath(aPath);
-		myBackgroundSprite1->SetRelativePositionY({-5.0f});
 		myBackgroundSprite1->SetZIndex(1);
 		myOffsetBackground1 = anOffset;
 		break;
@@ -190,28 +181,24 @@ void Background::CreateBackgrounds(Scene* aLevelScene, const std::string aPath, 
 		myBackgroundSprite3->SetSpritePath(aPath);
 		myBackgroundSprite3->SetZIndex(3);
 		myOffsetBackground3 = anOffset;
-		//myBackgroundSprite3->Deactivate();
 		break;
 	case 3:
 		myBackgroundSprite4 = myBackground->AddComponent<SpriteComponent>();
 		myBackgroundSprite4->SetSpritePath(aPath);
 		myBackgroundSprite4->SetZIndex(4);
 		myOffsetBackground4 = anOffset;
-		//myBackgroundSprite4->Deactivate();
 		break;
 	case 4:
 		myBackgroundSprite5 = myBackground->AddComponent<SpriteComponent>();
 		myBackgroundSprite5->SetSpritePath(aPath);
 		myBackgroundSprite5->SetZIndex(5);
 		myOffsetBackground5 = anOffset;
-		//myBackgroundSprite5->Deactivate();
 		break;
 	case 5:
 		myBackgroundSprite6 = myBackground->AddComponent<SpriteComponent>();
 		myBackgroundSprite6->SetSpritePath(aPath);
 		myBackgroundSprite6->SetZIndex(6);
 		myOffsetBackground6 = anOffset;
-		//myBackgroundSprite6->Deactivate();
 		break;
 	default:
 		break;

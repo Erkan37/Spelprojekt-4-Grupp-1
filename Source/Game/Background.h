@@ -20,7 +20,6 @@ private:
 	Camera* myCamera;
 
 	std::unique_ptr<GameObject> myBackground;
-	std::unique_ptr<GameObject> myCloud;
 
 	SpriteComponent* myBackgroundSprite1;
 	SpriteComponent* myBackgroundSprite2;
