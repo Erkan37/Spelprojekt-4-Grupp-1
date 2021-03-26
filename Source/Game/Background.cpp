@@ -93,9 +93,6 @@ void Background::MoveBackground(const float& aDeltaTime)
 	backgroundSpeedTwo = { ((myStartingCameraPos.x - myCamera->GetPosition().x)) * (myOriginalSpeed * myBackgroundSpeedTwoX),
 						   (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOriginalSpeed * myBackgroundSpeedTwoY) };
 
-
-	v2f camPos = myCamera->GetPosition();
-
 	backgroundSpeedTwo.x = backgroundSpeedTwo.x + myCloudDistance;
 
 	myBackgroundSprite2->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedTwo);
