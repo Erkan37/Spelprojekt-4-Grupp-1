@@ -4,7 +4,7 @@
       "FilePath": "JSON/BackgroundsJson/Background01.json"
     },
     {
-      "FilePath": "JSON/BackgroundsJson/Background01.json"
+      "FilePath": "JSON/BackgroundsJson/Background02.json"
     },
     {
       "FilePath": "JSON/BackgroundsJson/Background01.json"
@@ -17,10 +17,10 @@
     },
     {
       "SpeedTwoX": 0.0,
-      "SpeedTwoY": 0.1
+      "SpeedTwoY": 0.0
     },
     {
-      "SpeedThreeX": 0.0,
+      "SpeedThreeX": 0.05,
       "SpeedThreeY": 0.0
     },
     {
@@ -28,11 +28,11 @@
       "SpeedFourY": 0.0
     },
     {
-      "SpeedFiveX": 0.6,
+      "SpeedFiveX": 0.7,
       "SpeedFiveY": 0.0
     },
     {
-      "SpeedSixX": 1.0,
+      "SpeedSixX": 1.3,
       "SpeedSixY": 0.0
     }
   ],
