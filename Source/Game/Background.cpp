@@ -81,11 +81,11 @@ void Background::MoveBackground(const float& aDeltaTime)
 	backgroundSpeedSix = { (myStartingCameraPos.x - myCamera->GetPosition().x) * (myOriginalSpeed * myBackgroundSpeedSixX),
 						   (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOriginalSpeed * myBackgroundSpeedSixY) };
 
-	myBackgroundSprite1->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedOne);
-	myBackgroundSprite3->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedThree);
-	myBackgroundSprite4->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedFour);
-	myBackgroundSprite5->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedFive);
-	myBackgroundSprite6->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedSix);
+	myBackgroundSprite1->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedOne + myOffsetBackground1);
+	myBackgroundSprite3->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedThree + myOffsetBackground3);
+	myBackgroundSprite4->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedFour + myOffsetBackground4);
+	myBackgroundSprite5->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedFive + myOffsetBackground5);
+	myBackgroundSprite6->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedSix + myOffsetBackground6);
 
 	myCloudDistance = myCloudDistance + (aDeltaTime * myCloudSpeed);
 
@@ -95,7 +95,7 @@ void Background::MoveBackground(const float& aDeltaTime)
 
 	backgroundSpeedTwo.x = backgroundSpeedTwo.x + myCloudDistance;
 
-	myBackgroundSprite2->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedTwo);
+	myBackgroundSprite2->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedTwo + myOffsetBackground2);
 }
 
 void Background::LoadJson(Scene* aLevelScene)
@@ -109,7 +109,7 @@ void Background::LoadJson(Scene* aLevelScene)
 	backgroundDocuments.ParseStream(backgroundObjectStream);
 
 
-	std::ifstream backgroundPathObjectsFile(backgroundDocuments["BackgroundArray"][0]["FilePath"].GetString());
+	std::ifstream backgroundPathObjectsFile(backgroundDocuments["BackgroundArray"][1]["FilePath"].GetString());
 	rapidjson::IStreamWrapper backgroundPathObjectStream(backgroundPathObjectsFile);
 
 	rapidjson::Document backgroundPathDocuments;
@@ -150,57 +150,67 @@ void Background::LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDo
 
 	for (int i = 0; i < backgroundSizeArray; i++)
 	{
-		CreateBackgrounds(aLevelScene, someDocuments["BackgroundPaths"][i]["FilePath"].GetString(), i);
+		v2f offset = { someDocuments["OffSets"][i]["PositionX"].GetFloat() , someDocuments["OffSets"][i]["PositionY"].GetFloat() };
+		CreateBackgrounds(aLevelScene, someDocuments["BackgroundPaths"][i]["FilePath"].GetString(), i, offset);
 	}
 
 	myBackground->Init();
 	ResizeBackground();
 }
 
-void Background::CreateBackgrounds(Scene* aLevelScene, const std::string aPath, const int aIndex)
+void Background::CreateBackgrounds(Scene* aLevelScene, const std::string aPath, const int aIndex, const v2f anOffset)
 {
+	float backgroundSizeX = Config::ourReferenceSize.x;
 	float backgroundSizeY = Config::ourReferenceSize.y;
+
+	//myOffsetBackground1 = { 0.f, 0.f };
+	//myOffsetBackground2 = { 0.f, -20.f };
+	//myOffsetBackground3 = { 0.f, 0.f };
+	//myOffsetBackground4 = { 0.f, 30.f };
+	//myOffsetBackground5 = { 0.f, 30.f };
+	//myOffsetBackground6 = { 0.f, 30.f };
 
 	switch (aIndex)
 	{
 	case 0:
 		myBackgroundSprite1 = myBackground->AddComponent<SpriteComponent>();
 		myBackgroundSprite1->SetSpritePath(aPath);
-		myBackgroundSprite1->SetSize({ myBackgroundSprite1->GetSizeX(), backgroundSizeY });
+		myBackgroundSprite1->SetRelativePositionY({-5.0f});
 		myBackgroundSprite1->SetZIndex(1);
+		myOffsetBackground1 = anOffset;
 		break;
 	case 1:
 		myBackgroundSprite2 = myBackground->AddComponent<SpriteComponent>();
 		myBackgroundSprite2->SetSpritePath(aPath);
-		myBackgroundSprite2->SetSize({ myBackgroundSprite2->GetSizeX(), backgroundSizeY });
 		myBackgroundSprite2->SetZIndex(2);
+		myOffsetBackground2 = anOffset;
 		break;
 	case 2:
 		myBackgroundSprite3 = myBackground->AddComponent<SpriteComponent>();
 		myBackgroundSprite3->SetSpritePath(aPath);
-		myBackgroundSprite3->SetSize({ myBackgroundSprite3->GetSizeX(), backgroundSizeY });
 		myBackgroundSprite3->SetZIndex(3);
+		myOffsetBackground3 = anOffset;
 		//myBackgroundSprite3->Deactivate();
 		break;
 	case 3:
 		myBackgroundSprite4 = myBackground->AddComponent<SpriteComponent>();
 		myBackgroundSprite4->SetSpritePath(aPath);
-		myBackgroundSprite4->SetSize({ myBackgroundSprite4->GetSizeX(), backgroundSizeY });
 		myBackgroundSprite4->SetZIndex(4);
+		myOffsetBackground4 = anOffset;
 		//myBackgroundSprite4->Deactivate();
 		break;
 	case 4:
 		myBackgroundSprite5 = myBackground->AddComponent<SpriteComponent>();
 		myBackgroundSprite5->SetSpritePath(aPath);
-		myBackgroundSprite5->SetSize({ myBackgroundSprite5->GetSizeX(), backgroundSizeY });
 		myBackgroundSprite5->SetZIndex(5);
+		myOffsetBackground5 = anOffset;
 		//myBackgroundSprite5->Deactivate();
 		break;
 	case 5:
 		myBackgroundSprite6 = myBackground->AddComponent<SpriteComponent>();
 		myBackgroundSprite6->SetSpritePath(aPath);
-		myBackgroundSprite6->SetSize({ myBackgroundSprite6->GetSizeX(), backgroundSizeY });
 		myBackgroundSprite6->SetZIndex(6);
+		myOffsetBackground6 = anOffset;
 		//myBackgroundSprite6->Deactivate();
 		break;
 	default:

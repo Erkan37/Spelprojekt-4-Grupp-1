@@ -18,5 +18,31 @@
     {
       "FilePath": "Sprites/LevelSprites/BG01/BackgroundForestClosest1.dds"
     }
+  ],
+  "OffSets": [
+    {
+      "PositionX": 0.0,
+      "PositionY": 0.0
+    },
+    {
+      "PositionX": 0.0,
+      "PositionY": -20.0
+    },
+    {
+      "PositionX": 0.0,
+      "PositionY": 0.0
+    },
+    {
+      "PositionX": 0.0,
+      "PositionY": 30.0
+    },
+    {
+      "PositionX": 0.0,
+      "PositionY": 30.0
+    },
+    {
+      "PositionX": 0.0,
+      "PositionY": 30.0
+    }
   ]
 }

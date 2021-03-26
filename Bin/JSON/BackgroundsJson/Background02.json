@@ -18,5 +18,31 @@
     {
       "FilePath": "Sprites/LevelSprites/BG02/BackgroundTown1.dds"
     }
+  ],
+  "OffSets": [
+    {
+      "PositionX": 0.0,
+      "PositionY": 0.0
+    },
+    {
+      "PositionX": 0.0,
+      "PositionY": -20.0
+    },
+    {
+      "PositionX": 0.0,
+      "PositionY": 10.0
+    },
+    {
+      "PositionX": 0.0,
+      "PositionY": -20.0
+    },
+    {
+      "PositionX": 0.0,
+      "PositionY": 30.0
+    },
+    {
+      "PositionX": 0.0,
+      "PositionY": 40.0
+    }
   ]
 }

@@ -31,6 +31,13 @@ private:
 
 	v2f myCurrentRenderSize;
 	v2f myStartingCameraPos;
+	
+	v2f myOffsetBackground1;
+	v2f myOffsetBackground2;
+	v2f myOffsetBackground3;
+	v2f myOffsetBackground4;
+	v2f myOffsetBackground5;
+	v2f myOffsetBackground6;
 
 	float myOriginalSpeed;
 	float myCloudSpeed;
@@ -57,7 +64,7 @@ private:
 	void MoveBackground(const float& aDeltaTime);
 	void LoadJson(Scene* aLevelScene);
 	void LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDocuments);
-	void CreateBackgrounds(Scene* aLevelScene, const std::string aPath, const int aIndex);
+	void CreateBackgrounds(Scene* aLevelScene, const std::string aPath, const int aIndex, const v2f anOffset);
 	void SetSpeedVariables(const std::string aPath);
 
 };
