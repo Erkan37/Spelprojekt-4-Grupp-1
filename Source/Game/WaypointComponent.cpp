@@ -6,7 +6,7 @@ WaypointComponent::WaypointComponent()
 {
 	myWaypointIncrement = 1;
 	myLastCheckpointReached = {};
-	myLoopedOnce = {};
+	myCurrentWayPointIndex = {};
 }
 
 void WaypointComponent::Move(const float& aDeltaTime)
@@ -33,15 +33,11 @@ void WaypointComponent::CheckReachedWayPoint()
 
 void WaypointComponent::SetNextWayPoint()
 {
-	/*if (myCurrentWayPointIndex == 0 && myLoopedOnce)
-		myLastCheckpointReached = true;*/
-
 	myCurrentWayPointIndex = myCurrentWayPointIndex + myWaypointIncrement;
 
 	if (myCurrentWayPointIndex >= static_cast<int>(myWaypoints.size()))
 	{
 		myLastCheckpointReached = true;
-		myLoopedOnce = true;
 		myCurrentWayPointIndex = 0;
 	}
 	else if (myCurrentWayPointIndex < 0)
