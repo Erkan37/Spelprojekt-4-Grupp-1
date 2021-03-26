@@ -11,10 +11,14 @@ public:
 
 	void Init(const v2f& aPosition);
 
+	void Update(const float& aDeltaTime) override;
+
 	void OnCollision(GameObject* aGameObject) override;
 
 private:
+	float myTimer;
+	float myDisappearTime;
 
-
+	bool myIsTaken;
 };
 

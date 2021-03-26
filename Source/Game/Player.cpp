@@ -141,6 +141,16 @@ void Player::InitAnimations()
 	spriteDeath->SetSize(mySize);
 	spriteDeath->Deactivate();
 
+	SpriteComponent* spriteGlideTransition = AddComponent<SpriteComponent>();
+	spriteGlideTransition->SetSpritePath("Sprites/Characters/PlayerGlidingTransition.dds");
+	spriteGlideTransition->SetSize(mySize);
+	spriteGlideTransition->Deactivate();
+
+	SpriteComponent* spriteGlide = AddComponent<SpriteComponent>();
+	spriteGlide->SetSpritePath("Sprites/Characters/PlayerGlidingLoop.dds");
+	spriteGlide->SetSize(mySize);
+	spriteGlide->Deactivate();
+
 	myAnimations[0] = Animation(false, false, false, 0, 74, 74, 0.10f, spriteIdle, 16, 16);
 	myAnimations[1] = Animation(false, false, false, 0, 12, 12, 0.09f, spriteRun, 16, 16);
 	myAnimations[2] = Animation(false, true, false, 0, 6, 6, 0.07f, spriteJump, 16, 16);
@@ -152,6 +162,8 @@ void Player::InitAnimations()
 	myAnimations[8] = Animation(false, false, false, 0, 4, 4, 0.10f, spriteBashFlying, 16, 16);
 	myAnimations[9] = Animation(false, true, false, 0, 4, 4, 0.10f, spriteBashFlyingTransition, 16, 16);
 	myAnimations[10] = Animation(false, true, false, 0, 22, 22, 0.07f, spriteDeath, 16, 16);
+	myAnimations[11] = Animation(false, true, false, 0, 4, 4, 0.07f, spriteGlideTransition, 16, 16);
+	myAnimations[12] = Animation(false, false, false, 0, 4, 4, 0.085f, spriteGlide, 16, 16);
 
 	AnimationComponent* animation = AddComponent<AnimationComponent>();
 	animation->SetSprite(spriteIdle);
@@ -376,7 +388,16 @@ void Player::Jump()
 	calculatedSpring.y = calculatedSpring.y;
 	myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Jump_Velocity] + myPlatformVelocity.y - calculatedSpring.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
-	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
+
+	if (myIsGliding)
+	{
+		GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[12]);
+	}
+	else
+	{
+		GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
+	}
+	
 	myCurrentAnimationIndex = 2;
 	myHasLanded = false;
 	myWillJumpWhenFalling = false;
@@ -388,7 +409,15 @@ void Player::DoubleJump()
 	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerJump);
 	myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Double_Jump_Velocity] + myPlatformVelocity.y - mySpringVelocity.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[3]);
-	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
+
+	if (myIsGliding)
+	{
+		GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[12]);
+	}
+	else
+	{
+		GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
+	}
 	myCurrentAnimationIndex = 3;
 	myHasLanded = false;
 	myHasDoubleJumped = true;
@@ -503,7 +532,16 @@ void Player::AnimationState()
 	if (myCurrentAnimationIndex != 2 && myCurrentAnimationIndex != 3 && myCurrentAnimationIndex != 4 && !myHasLanded)
 	{
 		UnlockLandingSounds();
-		animation->SetAnimation(&myAnimations[4]);
+
+		if (myIsGliding)
+		{
+			animation->SetAnimation(&myAnimations[12]);
+		}
+		else
+		{
+			animation->SetAnimation(&myAnimations[4]);
+		}
+
 		myCurrentAnimationIndex = 4;
 	}
 
@@ -816,6 +854,10 @@ void Player::SetSpawnPosition(const v2f& aSpawnPosition)
 void Player::StartGliding() 
 {
 	myIsGliding = true;
+
+	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[11]);
+	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[12]);
+
 	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerHover);
 	AudioManager::GetInstance()->LockAudio(AudioList::PlayerHover);
 }
