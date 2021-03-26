@@ -7,8 +7,6 @@
 #include "SpriteComponent.h"
 #include "ColliderComponent.h"
 #include <iostream>
-#include <fstream>
-#include "rapidjson/istreamwrapper.h"
 
 #include "../External/Headers/CU/Utilities.h"
 
@@ -30,16 +28,6 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	audio->AddAudio(AudioList::MovingPlatform);
 	audio->SetRadius(200);
 	audio->PlayAudio();
-
-	//std::ifstream effectObjectFile("JSON/Misc. Options.json");
-	//rapidjson::IStreamWrapper effectObjectStream(effectObjectFile);
-
-	//rapidjson::Document effectDocuments;
-	//effectDocuments.ParseStream(effectObjectStream);
-
-	//myPercentageYValue = effectDocuments["ReducedJumpPowerYFromPlatform"].GetFloat();
-
-	//effectObjectFile.close();
 
 }
 
@@ -114,7 +102,6 @@ void MovingPlatform::OnCollision(GameObject* aGameObject)
 	if (player)
 	{
 		v2f velo = myWaypointComponent->GetVelocity();
-		//velo.y = velo.y * myPercentageYValue;
 
 		player->SetGroundIndex(myMaterial);
 		player->SetPlatformVelocity(velo);
