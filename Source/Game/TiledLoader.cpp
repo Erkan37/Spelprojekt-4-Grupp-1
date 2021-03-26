@@ -319,8 +319,7 @@ void TiledLoader::ParsePlatforms(const std::vector<LoadData> someData, Scene* aS
 			platformFactory.CreateDeadlyPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize);
 			break;
 		case 5:
-			//Change to correct material when we have a list of materials, will always be wood
-			platformFactory.CreateStaticPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, true, 0);
+			platformFactory.CreateStaticPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, true, 3);
 		}
 	}
 }

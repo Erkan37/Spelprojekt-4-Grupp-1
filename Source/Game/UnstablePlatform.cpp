@@ -98,7 +98,6 @@ void UnstablePlatform::ActivatePlatform()
 
 void UnstablePlatform::DeactivatePlatform()
 {
-	AudioManager::GetInstance()->Stop(AudioList::WeakPlatform);
 	GetComponent<PhysicsComponent>()->SetCanCollide(false);
 	mySpriteToDisable->Deactivate();
 	myIsDeactivated = true;

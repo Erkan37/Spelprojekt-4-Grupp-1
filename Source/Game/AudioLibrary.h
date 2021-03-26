@@ -4,9 +4,11 @@
 class AudioClip;
 enum class AudioList
 {
-	PlayerJump, PlayerDoubleJump, PlayerLedgeGrab, PlayerDeath,
-	EnemyNormalIdle, EnemyShootingIdle, EnemyShootingShot,
+	PlayerJump, PlayerDoubleJump, PlayerDeath, PlayerRespawn, PlayerHover, PlayerJumpPad,
+	EnemyNormalIdle, EnemyShootingIdle, EnemyShooting,
+	MenuMove, MenuSelect,
 	GrabLedge, GrabLedge2, LeaveLedge,
+	ButtonPress,
 	SpikeDeath, SpikeHit,
 	ProjectileFly, ProjectileHit,
 	WeakPlatform, MovingPlatform,

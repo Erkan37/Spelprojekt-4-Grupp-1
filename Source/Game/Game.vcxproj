@@ -140,6 +140,7 @@
     <ClInclude Include="AudioComponent.h" />
     <ClInclude Include="AudioLibrary.h" />
     <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="AudioObject.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="BashAbility.h" />
     <ClInclude Include="BashableObject.hpp" />
@@ -217,6 +218,7 @@
     <ClCompile Include="AudioComponent.cpp" />
     <ClCompile Include="AudioLibrary.cpp" />
     <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="AudioObject.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="BashAbility.cpp" />
     <ClCompile Include="BashableObject.cpp" />
