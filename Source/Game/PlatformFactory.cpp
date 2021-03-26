@@ -43,11 +43,11 @@ MovingPlatform* PlatformFactory::CreateMovingPlatform(Scene* aLevelScene, const 
 		spritePath = "Sprites/Platforms/Moving2.dds";
 	}
 
+	movingPlatform->GetComponent<SpriteComponent>()->SetSpritePath(spritePath);
+	movingPlatform->GetComponent<SpriteComponent>()->SetSize(adjustedSize);
 	movingPlatform->Init(adjustedSize, adjustedSize, aPosition, true);
 	movingPlatform->SetWaypoints(aWayPoints);
 	movingPlatform->GetComponent<WaypointComponent>()->SetSpeed(aSpeed);
-	movingPlatform->GetComponent<SpriteComponent>()->SetSpritePath(spritePath);
-	movingPlatform->GetComponent<SpriteComponent>()->SetSize(adjustedSize);
 	movingPlatform->AdjustXOffset();
 	return movingPlatform;
 }
