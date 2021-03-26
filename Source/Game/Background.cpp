@@ -25,6 +25,7 @@ Background::Background(Scene* aLevelScene)
 	myBackgroundSpeedThreeY = {};
 	myAddedCameraPos = {};
 	myCloudSpeed = {};
+	myCloudDistance = {};
 
 	assert(&aLevelScene->GetCamera() != NULL);
 	myCamera = &aLevelScene->GetCamera();
@@ -59,13 +60,6 @@ void Background::ResizeBackground()
 
 	myBackground->SetPosition({ myCurrentRenderSize.x / 2.f, myCurrentRenderSize.y / 2.f });
 	myCloud->SetPosition({ myCurrentRenderSize.x / 2.f, myCurrentRenderSize.y / 4.f });
-		/*
-	myBackgroundSprite1->SetSize({ myCurrentRenderSize.x + 10, myCurrentRenderSize.y + 10 });
-	myBackgroundSprite2->SetSize({ myCurrentRenderSize.x + 10, myCurrentRenderSize.y + 10 });
-	myBackgroundSprite3->SetSize({ myCurrentRenderSize.x + 10, myCurrentRenderSize.y + 10 });
-	myBackgroundSprite4->SetSize({ myCurrentRenderSize.x + 10, myCurrentRenderSize.y + 10 });
-	myBackgroundSprite5->SetSize({ myCurrentRenderSize.x + 10, myCurrentRenderSize.y + 10 });
-	myBackgroundSprite6->SetSize({ myCurrentRenderSize.x + 10, myCurrentRenderSize.y + 10 });*/
 }
 
 void Background::MoveBackground(const float& aDeltaTime)
@@ -93,23 +87,18 @@ void Background::MoveBackground(const float& aDeltaTime)
 	myBackgroundSprite5->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedFive);
 	myBackgroundSprite6->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedSix);
 
-	//v2f myCameraPos = myCamera->GetPosition();
-	////myCameraPos.x = myCameraPos.x - myBackgroundSprite2->GetRelativePositionX();
-
-	float xPositionCloud = myCloud->GetPosition().x + (aDeltaTime * myCloudSpeed);
+	myCloudDistance = myCloudDistance + (aDeltaTime * myCloudSpeed);
 
 	v2f backgroundSpeedTwo;
-	backgroundSpeedTwo = { (xPositionCloud),
-						   (myCloud->GetPositionY()) + (aDeltaTime * myBackgroundSpeedTwoY) };
-	////
-	////v2f position = myCamera->GetPosition() + backgroundSpeedTwo;
-	////position.x = (myBackgroundSprite2->GetRelativePositionX() + position.x) + myCloudSpeed * aDeltaTime;
-
-	//v2f pos = GetPosition();
-	//pos.x = -pos.x;
+	backgroundSpeedTwo = { ((myStartingCameraPos.x - myCamera->GetPosition().x)) * (myOriginalSpeed * myBackgroundSpeedTwoX),
+						   (myStartingCameraPos.y - myCamera->GetPosition().y) * (myOriginalSpeed * myBackgroundSpeedTwoY) };
 
 
-	myCloud->SetPosition(backgroundSpeedTwo /*+ myCamera->GetPosition()*/);
+	v2f camPos = myCamera->GetPosition();
+
+	backgroundSpeedTwo.x = backgroundSpeedTwo.x + myCloudDistance;
+
+	myBackgroundSprite2->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedTwo);
 }
 
 void Background::LoadJson(Scene* aLevelScene)
@@ -184,7 +173,7 @@ void Background::CreateBackgrounds(Scene* aLevelScene, const std::string aPath, 
 		myBackgroundSprite1->SetZIndex(1);
 		break;
 	case 1:
-		myBackgroundSprite2 = myCloud->AddComponent<SpriteComponent>();
+		myBackgroundSprite2 = myBackground->AddComponent<SpriteComponent>();
 		myBackgroundSprite2->SetSpritePath(aPath);
 		myBackgroundSprite2->SetSize({ myBackgroundSprite2->GetSizeX(), backgroundSizeY });
 		myBackgroundSprite2->SetZIndex(2);
@@ -194,24 +183,28 @@ void Background::CreateBackgrounds(Scene* aLevelScene, const std::string aPath, 
 		myBackgroundSprite3->SetSpritePath(aPath);
 		myBackgroundSprite3->SetSize({ myBackgroundSprite3->GetSizeX(), backgroundSizeY });
 		myBackgroundSprite3->SetZIndex(3);
+		//myBackgroundSprite3->Deactivate();
 		break;
 	case 3:
 		myBackgroundSprite4 = myBackground->AddComponent<SpriteComponent>();
 		myBackgroundSprite4->SetSpritePath(aPath);
 		myBackgroundSprite4->SetSize({ myBackgroundSprite4->GetSizeX(), backgroundSizeY });
 		myBackgroundSprite4->SetZIndex(4);
+		//myBackgroundSprite4->Deactivate();
 		break;
 	case 4:
 		myBackgroundSprite5 = myBackground->AddComponent<SpriteComponent>();
 		myBackgroundSprite5->SetSpritePath(aPath);
 		myBackgroundSprite5->SetSize({ myBackgroundSprite5->GetSizeX(), backgroundSizeY });
 		myBackgroundSprite5->SetZIndex(5);
+		//myBackgroundSprite5->Deactivate();
 		break;
 	case 5:
 		myBackgroundSprite6 = myBackground->AddComponent<SpriteComponent>();
 		myBackgroundSprite6->SetSpritePath(aPath);
 		myBackgroundSprite6->SetSize({ myBackgroundSprite6->GetSizeX(), backgroundSizeY });
 		myBackgroundSprite6->SetZIndex(6);
+		//myBackgroundSprite6->Deactivate();
 		break;
 	default:
 		break;

@@ -17,10 +17,10 @@
     },
     {
       "SpeedTwoX": 0.0,
-      "SpeedTwoY": 0.0
+      "SpeedTwoY": 0.1
     },
     {
-      "SpeedThreeX": 0.4,
+      "SpeedThreeX": 0.0,
       "SpeedThreeY": 0.0
     },
     {
@@ -38,7 +38,7 @@
   ],
   "Cloud": [
     {
-      "SpeedX": -10.0
+      "SpeedX": -0.8
     }
   ]
 }

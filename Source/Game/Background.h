@@ -34,6 +34,7 @@ private:
 
 	float myOriginalSpeed;
 	float myCloudSpeed;
+	float myCloudDistance;
 
 	float myBackgroundSpeedOneX;
 	float myBackgroundSpeedTwoX;
