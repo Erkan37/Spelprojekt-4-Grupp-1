@@ -608,7 +608,7 @@ void Player::BounceOnDestructibleWall()
 
 void Player::Kill()
 {
-	if (myBashAbility->GetIsBashing())
+	if (myBashAbility->GetDashIsActive())
 	{
 		return;
 	}
