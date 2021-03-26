@@ -52,7 +52,6 @@ SpritebatchComponent* TileSetLayer::LoadTileSetLayer(const TileSetLayerPropertie
 		SpriteComponent* sprite = AddComponent<SpriteComponent>();
 
 		sprite->SetSpritePath(aTileSetLayerProperties.mySpritePath);
-		sprite->SetSamplerState(ESamplerFilter_Point);
 		sprite->SetSize({ aTileSetLayerProperties.mySpriteSizeX, aTileSetLayerProperties.mySpriteSizeY });
 
 		const int realQuad = data[dataIndex].GetInt() - 1;
@@ -64,6 +63,8 @@ SpritebatchComponent* TileSetLayer::LoadTileSetLayer(const TileSetLayerPropertie
 
 		sprite->SetSpriteRect(texelX + xQ * aTileSetLayerProperties.myRectQuadX, texelY + yQ * aTileSetLayerProperties.myRectQuadY, (xQ + 1.0f) * aTileSetLayerProperties.myRectQuadX - texelX, (yQ + 1.0f) * aTileSetLayerProperties.myRectQuadY - texelY);
 		sprite->SetRelativePosition({ x * (aTileSetLayerProperties.mySpriteSizeX), y * (aTileSetLayerProperties.mySpriteSizeY) });
+
+
 		myBatch->AddSprite(sprite);
 	}
 
