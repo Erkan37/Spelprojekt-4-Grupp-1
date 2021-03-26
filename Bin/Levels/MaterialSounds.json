@@ -104,11 +104,85 @@
                  "height":8,
                  "id":490,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":0
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
-                 "width":392,
+                 "width":88,
                  "x":-16,
+                 "y":176
+                }, 
+                {
+                 "height":8,
+                 "id":518,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":72,
+                 "x":72,
+                 "y":176
+                }, 
+                {
+                 "height":8,
+                 "id":519,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":72,
+                 "x":144,
+                 "y":176
+                }, 
+                {
+                 "height":8,
+                 "id":520,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":72,
+                 "x":216,
+                 "y":176
+                }, 
+                {
+                 "height":8,
+                 "id":521,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":72,
+                 "x":288,
                  "y":176
                 }],
          "opacity":1,
@@ -239,7 +313,7 @@
          "y":0
         }],
  "nextlayerid":18,
- "nextobjectid":518,
+ "nextobjectid":522,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
