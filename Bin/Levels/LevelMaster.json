@@ -1,26 +1,14 @@
 {
   "FilePathArray": [
     {
-      "FilePath": "Levels/Level_25.json"
-    },
+      "FilePath": "Levels/Level_01.json"
+    },    
     {
-      "FilePath": "Levels/Level_20.json"
-    },
+      "FilePath": "Levels/Level_02.json"
+    },    
     {
-      "FilePath": "Levels/Level_26.json"
-    },
-    {
-      "FilePath": "Levels/Level_24.json"
-    },
-    {
-      "FilePath": "Levels/Level_23.json"
-    },
-    {
-      "FilePath": "Levels/Level_22.json"
-    },
-    {
-      "FilePath": "Levels/Level_21.json"
-    },
+      "FilePath": "Levels/Level_03.json"
+    },    
     {
       "FilePath": "Levels/Level_06.json"
     },
@@ -64,10 +52,46 @@
       "FilePath": "Levels/Level_19.json"
     },
     {
+      "FilePath": "Levels/Level_20.json"
+    },
+    {
       "FilePath": "Levels/Level_21.json"
     },
     {
+      "FilePath": "Levels/Level_22.json"
+    },
+    {
+      "FilePath": "Levels/Level_23.json"
+    },
+    {
+      "FilePath": "Levels/Level_24.json"
+    },
+    {
+      "FilePath": "Levels/Level_25.json"
+    },
+    {
+      "FilePath": "Levels/Level_26.json"
+    },
+    {
+      "FilePath": "Levels/Level_27.json"
+    },
+    {
       "FilePath": "Levels/Level_30.json"
+    },
+    {
+      "FilePath": "Levels/Henke_blockout_1.json"
+    },
+    {
+      "FilePath": "Levels/Henke_blockout_2.json"
+    },
+    {
+      "FilePath": "Levels/Henke_blockout_3.json"
+    },
+    {
+      "FilePath": "Levels/Henke_blockout_4.json"
+    },
+    {
+      "FilePath": "Levels/Henke_blockout_5.json"
     },
     {
       "FilePath": "Levels/Level_Hard_01.json"
