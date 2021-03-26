@@ -114,7 +114,12 @@ void SpriteComponent::Render(Transform & aTransform, GameObject& aGameObject)
 		if (!(spriteMin.x <= cameraMax.x && spriteMax.x >= cameraMin.x &&
 			spriteMin.y <= cameraMax.y && spriteMax.y >= cameraMin.y) && !myForceRender)
 		{
+			mySprite->SetShouldRender(false);
 			return;
+		}
+		else
+		{
+			mySprite->SetShouldRender(true);
 		}
 
 
