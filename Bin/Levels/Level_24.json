@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":23,
  "infinite":false,
  "layers":[
@@ -571,8 +578,8 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":348,
-                 "y":164
+                 "x":48,
+                 "y":32
                 }],
          "opacity":1,
          "type":"objectgroup",
