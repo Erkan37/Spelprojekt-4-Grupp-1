@@ -32,6 +32,7 @@ public:
 	void AddTimer(Utils::Timer* aTimer);
 
 	const bool GetIsBashing();
+	const bool GetDashIsActive();
 
 	void ActivateBash(GameObject* aGameObject);
 
