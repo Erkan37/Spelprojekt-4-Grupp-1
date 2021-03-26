@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "rapidjson/document.h"
 
 class Camera;
 class SpriteComponent;
@@ -19,35 +20,44 @@ private:
 	Camera* myCamera;
 
 	std::unique_ptr<GameObject> myBackground;
+	std::unique_ptr<GameObject> myCloud;
 
 	SpriteComponent* myBackgroundSprite1;
 	SpriteComponent* myBackgroundSprite2;
 	SpriteComponent* myBackgroundSprite3;
-
-	std::string myBackgroundPath1;
-	std::string myBackgroundPath2;
-	std::string myBackgroundPath3;
+	SpriteComponent* myBackgroundSprite4;
+	SpriteComponent* myBackgroundSprite5;
+	SpriteComponent* myBackgroundSprite6;
 
 	v2f myCurrentRenderSize;
 	v2f myStartingCameraPos;
 
 	float myOriginalSpeed;
+	float myCloudSpeed;
 
 	float myBackgroundSpeedOneX;
 	float myBackgroundSpeedTwoX;
 	float myBackgroundSpeedThreeX;
+	float myBackgroundSpeedFourX;
+	float myBackgroundSpeedFiveX;
+	float myBackgroundSpeedSixX;
 
 	float myBackgroundSpeedOneY;
 	float myBackgroundSpeedTwoY;
 	float myBackgroundSpeedThreeY;
+	float myBackgroundSpeedFourY;
+	float myBackgroundSpeedFiveY;
+	float myBackgroundSpeedSixY;
 
 	bool myAddedCameraPos;
 
-	void UpdateBackground();
+	void UpdateBackground(const float& aDeltaTime);
 	void ResizeBackground();
-	void MoveBackground();
+	void MoveBackground(const float& aDeltaTime);
 	void LoadJson(Scene* aLevelScene);
-	void CreateBackgrounds(Scene* aLevelScene);
+	void LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDocuments);
+	void CreateBackgrounds(Scene* aLevelScene, const std::string aPath, const int aIndex);
+	void SetSpeedVariables(const std::string aPath);
 
 };
 

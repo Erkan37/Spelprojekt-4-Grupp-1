@@ -1,0 +1,44 @@
+{
+  "BackgroundArray": [
+    {
+      "FilePath": "JSON/BackgroundsJson/Background01.json"
+    },
+    {
+      "FilePath": "JSON/BackgroundsJson/Background01.json"
+    },
+    {
+      "FilePath": "JSON/BackgroundsJson/Background01.json"
+    }
+  ],
+  "SpeedVariables": [
+    {
+      "SpeedOneX": 0.0,
+      "SpeedOneY": 0.0
+    },
+    {
+      "SpeedTwoX": 0.0,
+      "SpeedTwoY": 0.0
+    },
+    {
+      "SpeedThreeX": 0.4,
+      "SpeedThreeY": 0.0
+    },
+    {
+      "SpeedFourX": 0.5,
+      "SpeedFourY": 0.0
+    },
+    {
+      "SpeedFiveX": 0.6,
+      "SpeedFiveY": 0.0
+    },
+    {
+      "SpeedSixX": 1.0,
+      "SpeedSixY": 0.0
+    }
+  ],
+  "Cloud": [
+    {
+      "SpeedX": -10.0
+    }
+  ]
+}
