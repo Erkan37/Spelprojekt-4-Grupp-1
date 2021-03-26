@@ -786,7 +786,7 @@ void Player::WalkingSoundCheck()
 				break;
 			}
 			break;
-		case 1:
+		case 1: // Stone
 			switch (animation->GetCurrentIndex())
 			{
 			case 1:
@@ -802,6 +802,58 @@ void Player::WalkingSoundCheck()
 				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkStoneLeft);
 				break;
 			}
+			break;
+		case 2: //Brick
+			switch (animation->GetCurrentIndex())
+			{
+			case 1:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkBrickRight);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkBrickRight);
+				break;
+			case 7:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkBrickLeft);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkBrickLeft);
+				break;
+			default:
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkBrickRight);
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkBrickLeft);
+				break;
+			}
+			break;
+		case 3: // Wood
+			switch (animation->GetCurrentIndex())
+			{
+			case 1:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkWoodRight);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkWoodRight);
+				break;
+			case 7:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkWoodLeft);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkWoodLeft);
+				break;
+			default:
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkWoodRight);
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkWoodLeft);
+				break;
+			}
+			break;
+		case 4: // Gravel
+			switch (animation->GetCurrentIndex())
+			{
+			case 1:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkGravelRight);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkGravelRight);
+				break;
+			case 7:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkGravelLeft);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkGravelLeft);
+				break;
+			default:
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkGravelRight);
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkGravelLeft);
+				break;
+			}
+			break;
 		default:
 			break;
 		}
