@@ -8,6 +8,7 @@
 #include "Player.hpp"
 #include "Game.h"
 #include "rapidjson/istreamwrapper.h"
+#include "AudioManager.h"
 
 SpringObject::SpringObject(Scene* aLevelScene) : GameObject(aLevelScene)
 {
@@ -52,6 +53,7 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 
 		if (/*velo.y > 50.f &&*/ myTimer > mySpringTimerCooldown)
 		{
+			AudioManager::GetInstance()->PlayAudio(AudioList::PlayerJumpPad);
 			mySpringActive = true;
 			myTimer = {};
 			GetComponent<AnimationComponent>()->SetAnimation(&myAnimation);

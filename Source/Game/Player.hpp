@@ -100,7 +100,7 @@ private:
 	void ImGuiUpdate();
 #endif // _DEBUG
 
-	Animation myAnimations[11];
+	Animation myAnimations[13];
 	std::vector<Collectible*> myCollectibles;
 
 	std::shared_ptr<InputWrapper> myInputHandler;
