@@ -268,8 +268,9 @@
     <ClInclude Include="CutsceneManager.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="PopUp.h" />
-    <ClInclude Include="OptionsMenu.h" />
+    <ClInclude Include="Door.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -447,7 +448,8 @@
     <ClCompile Include="CutsceneManager.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="PopUp.cpp" />
-    <ClCompile Include="OptionsMenu.cpp" />
+    <ClCompile Include="Door.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

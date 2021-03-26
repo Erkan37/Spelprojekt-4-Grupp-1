@@ -18,6 +18,7 @@ struct LoadData
 	int myType;
 	std::string myWaypoints;
 	float mySpeed;
+	int myPlatformMaterial;
 };
 
 struct TileLayerData
@@ -52,7 +53,6 @@ private:
 
 	std::vector<v2f> GetWaypointPositions(const std::string somePositions, v2f aSpawnPos);
 
-	std::vector<TileLayerData> myTileLayerData;
 	v2f myTileSize = { 8, 8 };
 
 	TileSetLayerProperties myTileSetLayerProperties;

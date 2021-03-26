@@ -27,7 +27,7 @@ void InputWrapper::Update(const float& aDeltaTime)
 	GetCursorPos(&myCursor);
 
 	myInput->Update();
-	myController->Update(aDeltaTime);
+	myController->Update();
 	CheckMousePosition(aDeltaTime);
 	CalculateMouseAxis();
 }

@@ -12,10 +12,10 @@
 #include "SpriteComponent.h"
 #include "WaypointComponent.hpp"
 
-Platform* PlatformFactory::CreateStaticPlatform(Scene* aLevelScene, const v2f& aPosition, const v2f& aCollisionSize, const v2f& aSpriteSize, const bool aIsOneWay)
+Platform* PlatformFactory::CreateStaticPlatform(Scene* aLevelScene, const v2f& aPosition, const v2f& aCollisionSize, const v2f& aSpriteSize, const bool aIsOneWay, const int aMaterial)
 {
 	Platform* staticPlatform = new Platform(aLevelScene);
-	staticPlatform->Init(aCollisionSize, aSpriteSize, aPosition, aIsOneWay);
+	staticPlatform->Init(aCollisionSize, aSpriteSize, aPosition, aIsOneWay, aMaterial);
 	return staticPlatform;
 }
 
@@ -43,11 +43,11 @@ MovingPlatform* PlatformFactory::CreateMovingPlatform(Scene* aLevelScene, const 
 		spritePath = "Sprites/Platforms/Moving2.dds";
 	}
 
+	movingPlatform->GetComponent<SpriteComponent>()->SetSpritePath(spritePath);
+	movingPlatform->GetComponent<SpriteComponent>()->SetSize(adjustedSize);
 	movingPlatform->Init(adjustedSize, adjustedSize, aPosition, true);
 	movingPlatform->SetWaypoints(aWayPoints);
 	movingPlatform->GetComponent<WaypointComponent>()->SetSpeed(aSpeed);
-	movingPlatform->GetComponent<SpriteComponent>()->SetSpritePath(spritePath);
-	movingPlatform->GetComponent<SpriteComponent>()->SetSize(adjustedSize);
 	movingPlatform->AdjustXOffset();
 	return movingPlatform;
 }

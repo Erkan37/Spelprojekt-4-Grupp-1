@@ -205,7 +205,7 @@ void PauseMenu::DeactivateMenu()
 void PauseMenu::InitTexts()
 {
 	myTitleString = std::make_unique<UIText>(myScene);
-	myTitleString->Init("Pause Menu", "Text/alagard.ttf", EFontSize::EFontSize_100);
+	myTitleString->Init("Pause Menu", "Text/alagard.ttf", EFontSize::EFontSize_48);
 	myTitleString->SetPosition({ 155.f, 85.f });
 	myCollectibleString = std::make_unique<UIText>(myScene);
 	myCollectibleString->Init("00/00", "Text/Peepo.ttf", EFontSize::EFontSize_48);
