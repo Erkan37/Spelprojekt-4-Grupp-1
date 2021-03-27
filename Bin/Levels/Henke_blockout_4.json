@@ -182,7 +182,7 @@
                         {
                          "name":"Speed",
                          "type":"float",
-                         "value":40
+                         "value":50
                         }, 
                         {
                          "name":"Waypoints",
