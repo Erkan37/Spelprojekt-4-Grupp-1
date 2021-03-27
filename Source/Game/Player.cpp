@@ -141,9 +141,19 @@ void Player::InitAnimations()
 	spriteDeath->SetSize(mySize);
 	spriteDeath->Deactivate();
 
+	SpriteComponent* spriteGlideTransition = AddComponent<SpriteComponent>();
+	spriteGlideTransition->SetSpritePath("Sprites/Characters/PlayerGlidingTransition.dds");
+	spriteGlideTransition->SetSize(mySize);
+	spriteGlideTransition->Deactivate();
+
+	SpriteComponent* spriteGlide = AddComponent<SpriteComponent>();
+	spriteGlide->SetSpritePath("Sprites/Characters/PlayerGlidingLoop.dds");
+	spriteGlide->SetSize(mySize);
+	spriteGlide->Deactivate();
+
 	myAnimations[0] = Animation(false, false, false, 0, 74, 74, 0.10f, spriteIdle, 16, 16);
 	myAnimations[1] = Animation(false, false, false, 0, 12, 12, 0.09f, spriteRun, 16, 16);
-	myAnimations[2] = Animation(false, true, false, 0, 6, 6, 0.09f, spriteJump, 16, 16);
+	myAnimations[2] = Animation(false, true, false, 0, 6, 6, 0.07f, spriteJump, 16, 16);
 	myAnimations[3] = Animation(false, true, false, 0, 5, 5, 0.09f, spriteDoubleJump, 16, 16);
 	myAnimations[4] = Animation(false, false, false, 0, 4, 4, 0.09f, spriteFall, 16, 16);
 	myAnimations[5] = Animation(false, false, false, 0, 22, 22, 0.125f, spriteLedgeGrab, 16, 16);
@@ -152,6 +162,8 @@ void Player::InitAnimations()
 	myAnimations[8] = Animation(false, false, false, 0, 4, 4, 0.10f, spriteBashFlying, 16, 16);
 	myAnimations[9] = Animation(false, true, false, 0, 4, 4, 0.10f, spriteBashFlyingTransition, 16, 16);
 	myAnimations[10] = Animation(false, true, false, 0, 22, 22, 0.07f, spriteDeath, 16, 16);
+	myAnimations[11] = Animation(false, true, false, 0, 4, 4, 0.07f, spriteGlideTransition, 16, 16);
+	myAnimations[12] = Animation(false, false, false, 0, 4, 4, 0.085f, spriteGlide, 16, 16);
 
 	AnimationComponent* animation = AddComponent<AnimationComponent>();
 	animation->SetSprite(spriteIdle);
@@ -376,7 +388,16 @@ void Player::Jump()
 	calculatedSpring.y = calculatedSpring.y;
 	myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Jump_Velocity] + myPlatformVelocity.y - calculatedSpring.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[2]);
-	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
+
+	if (myIsGliding)
+	{
+		GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[12]);
+	}
+	else
+	{
+		GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
+	}
+	
 	myCurrentAnimationIndex = 2;
 	myHasLanded = false;
 	myWillJumpWhenFalling = false;
@@ -388,7 +409,15 @@ void Player::DoubleJump()
 	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerJump);
 	myCurrentVelocity.y = -myJsonData->myFloatValueMap[PEnum::Double_Jump_Velocity] + myPlatformVelocity.y - mySpringVelocity.y;
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[3]);
-	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
+
+	if (myIsGliding)
+	{
+		GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[12]);
+	}
+	else
+	{
+		GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
+	}
 	myCurrentAnimationIndex = 3;
 	myHasLanded = false;
 	myHasDoubleJumped = true;
@@ -438,6 +467,7 @@ void Player::Landed(const int& aOverlapY)
 		{
 			myHasLanded = true;
 			myIsGliding = false;
+			AudioManager::GetInstance()->Stop(AudioList::PlayerHover);
 		}
 
 		myHasDoubleJumped = false;
@@ -502,7 +532,16 @@ void Player::AnimationState()
 	if (myCurrentAnimationIndex != 2 && myCurrentAnimationIndex != 3 && myCurrentAnimationIndex != 4 && !myHasLanded)
 	{
 		UnlockLandingSounds();
-		animation->SetAnimation(&myAnimations[4]);
+
+		if (myIsGliding)
+		{
+			animation->SetAnimation(&myAnimations[12]);
+		}
+		else
+		{
+			animation->SetAnimation(&myAnimations[4]);
+		}
+
 		myCurrentAnimationIndex = 4;
 	}
 
@@ -608,7 +647,7 @@ void Player::BounceOnDestructibleWall()
 
 void Player::Kill()
 {
-	if (myBashAbility->GetIsBashing())
+	if (myBashAbility->GetDashIsActive())
 	{
 		return;
 	}
@@ -616,6 +655,7 @@ void Player::Kill()
 	if (!myHasDied)
 	{
 		AudioManager::GetInstance()->PlayAudio(AudioList::PlayerDeath);
+		AudioManager::GetInstance()->PlayAudio(AudioList::PlayerRespawn);
 		KillReset();
 	}
 	else if (GetComponent<AnimationComponent>()->GetIsDisplayedOnce() && GetComponent<AnimationComponent>()->GetHasBeenDisplayedOnce())
@@ -746,7 +786,7 @@ void Player::WalkingSoundCheck()
 				break;
 			}
 			break;
-		case 1:
+		case 1: // Stone
 			switch (animation->GetCurrentIndex())
 			{
 			case 1:
@@ -762,6 +802,58 @@ void Player::WalkingSoundCheck()
 				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkStoneLeft);
 				break;
 			}
+			break;
+		case 2: //Brick
+			switch (animation->GetCurrentIndex())
+			{
+			case 1:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkBrickRight);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkBrickRight);
+				break;
+			case 7:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkBrickLeft);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkBrickLeft);
+				break;
+			default:
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkBrickRight);
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkBrickLeft);
+				break;
+			}
+			break;
+		case 3: // Wood
+			switch (animation->GetCurrentIndex())
+			{
+			case 1:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkWoodRight);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkWoodRight);
+				break;
+			case 7:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkWoodLeft);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkWoodLeft);
+				break;
+			default:
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkWoodRight);
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkWoodLeft);
+				break;
+			}
+			break;
+		case 4: // Gravel
+			switch (animation->GetCurrentIndex())
+			{
+			case 1:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkGravelRight);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkGravelRight);
+				break;
+			case 7:
+				AudioManager::GetInstance()->PlayAudio(AudioList::WalkGravelLeft);
+				AudioManager::GetInstance()->LockAudio(AudioList::WalkGravelLeft);
+				break;
+			default:
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkGravelRight);
+				AudioManager::GetInstance()->UnLockAudio(AudioList::WalkGravelLeft);
+				break;
+			}
+			break;
 		default:
 			break;
 		}
@@ -814,6 +906,12 @@ void Player::SetSpawnPosition(const v2f& aSpawnPosition)
 void Player::StartGliding() 
 {
 	myIsGliding = true;
+
+	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[11]);
+	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[12]);
+
+	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerHover);
+	AudioManager::GetInstance()->LockAudio(AudioList::PlayerHover);
 }
 
 

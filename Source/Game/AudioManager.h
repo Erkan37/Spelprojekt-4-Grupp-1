@@ -45,8 +45,8 @@ public:
 private:
 
 	std::unique_ptr<Tga2D::AudioOut> myAudioOut;
-	float myMusicVolume;
-	float mySFXVolume;
+	float myMusicVolume = 1;
+	float mySFXVolume = 1;
 
 	void StopCurrentMusic();
 

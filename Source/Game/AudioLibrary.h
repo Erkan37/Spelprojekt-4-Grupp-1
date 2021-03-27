@@ -4,13 +4,15 @@
 class AudioClip;
 enum class AudioList
 {
-	PlayerJump, PlayerDoubleJump, PlayerLedgeGrab, PlayerDeath,
-	EnemyNormalIdle, EnemyShootingIdle, EnemyShootingShot,
+	PlayerJump, PlayerDoubleJump, PlayerDeath, PlayerRespawn, PlayerHover, PlayerJumpPad,
+	EnemyNormalIdle, EnemyShootingIdle, EnemyShooting,
+	MenuMove, MenuSelect, MenuAmbience,
 	GrabLedge, GrabLedge2, LeaveLedge,
+	ButtonPress,
 	SpikeDeath, SpikeHit,
 	ProjectileFly, ProjectileHit,
 	WeakPlatform, MovingPlatform,
-	WalkGravelRight, WalkGravelLeft, WalkGrassRight, WalkGrassLeft, WalkStoneRight, WalkStoneLeft,
+	WalkGravelRight, WalkGravelLeft, WalkGrassRight, WalkGrassLeft, WalkStoneRight, WalkStoneLeft, WalkWoodLeft, WalkWoodRight, WalkBrickLeft, WalkBrickRight,
 	LandOnGrassHeavy, LandOnGrassEasy, LandOnStoneHeavy, LandOnStoneLight,
 	BashCharge, BashRelease,
 	CollectableV1,

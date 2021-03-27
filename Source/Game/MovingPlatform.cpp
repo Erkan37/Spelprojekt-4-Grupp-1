@@ -7,8 +7,8 @@
 #include "SpriteComponent.h"
 #include "ColliderComponent.h"
 #include <iostream>
-#include <fstream>
-#include "rapidjson/istreamwrapper.h"
+
+#include "../External/Headers/CU/Utilities.h"
 
 MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	:
@@ -28,16 +28,6 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	audio->AddAudio(AudioList::MovingPlatform);
 	audio->SetRadius(200);
 	audio->PlayAudio();
-
-	//std::ifstream effectObjectFile("JSON/Misc. Options.json");
-	//rapidjson::IStreamWrapper effectObjectStream(effectObjectFile);
-
-	//rapidjson::Document effectDocuments;
-	//effectDocuments.ParseStream(effectObjectStream);
-
-	//myPercentageYValue = effectDocuments["ReducedJumpPowerYFromPlatform"].GetFloat();
-
-	//effectObjectFile.close();
 
 }
 
@@ -82,7 +72,7 @@ void MovingPlatform::Update(const float& aDeltaTime)
 		}
 	}
 
-	//Platform::Update(aDeltaTime);
+	Platform::Update(aDeltaTime);
 }
 
 void MovingPlatform::SetWaypoints(const std::vector<v2f>& aWaypoints)
@@ -107,15 +97,22 @@ void MovingPlatform::AddButton(v2f aPosition, eMovingPlatformType aPlatformType)
 
 void MovingPlatform::OnCollision(GameObject* aGameObject)
 {
-	if (!myAddedButton || myButton->GetActiveButton())
+	Player* player = dynamic_cast<Player*>(aGameObject);
+
+	if (player)
 	{
-		Player* player = dynamic_cast<Player*>(aGameObject);
-		if (player)
+		v2f velo = myWaypointComponent->GetVelocity();
+
+		player->SetGroundIndex(myMaterial);
+		player->SetPlatformVelocity(velo);
+
+		//Magic platform! Spooky wooh!
+		const float platformPositionX = GetPosition().x + GetComponent<ColliderComponent>()->GetWidth() / 2;
+		const float xOffset = 4.0f;
+
+		if (Utils::Abs(player->GetPosition().x - platformPositionX + xOffset) <= GetComponent<ColliderComponent>()->GetWidth() / 2)
 		{
-			v2f velo = myWaypointComponent->GetVelocity();
-			//velo.y = velo.y * myPercentageYValue;
-			player->SetGroundIndex(myMaterial);
-			player->SetPlatformVelocity(velo);
+			player->SetPositionY(GetPositionY() - 7.8f);
 		}
 	}
 }

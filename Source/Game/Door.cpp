@@ -22,12 +22,12 @@ void Door::Init(const v2f aPosition)
 	mySize = {8, 24};
 
 	myClosedDoorSprite = AddComponent<SpriteComponent>();
-	myClosedDoorSprite->SetSpritePath("Sprites/tempDoorClosed.dds");
+	myClosedDoorSprite->SetSpritePath("Sprites/Objects/DoorClosed.dds");
 	myClosedDoorSprite->Activate();
 	myClosedDoorSprite->SetSize(mySize);
 
 	myOpenDoorSprite = AddComponent<SpriteComponent>();
-	myOpenDoorSprite->SetSpritePath("Sprites/tempDoorOpen.dds");
+	myOpenDoorSprite->SetSpritePath("Sprites/Objects/DoorOpen.dds");
 	myOpenDoorSprite->SetSize({ 16.f, 24.f });
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();

@@ -33,6 +33,8 @@ public:
 
 	const int GetCurrentIndex();
 
+	bool GetHasEnded();
+
 private:
 	SpriteComponent* mySprite;
 	Animation* myNextAnimation;

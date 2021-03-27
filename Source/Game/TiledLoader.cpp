@@ -21,6 +21,7 @@
 #include "Player.hpp"
 #include "Glide.hpp"
 #include "Door.h"
+#include "AudioObject.h"
 
 #include "GameWorld.h"
 
@@ -78,6 +79,21 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 							{
 								data.myButtonPosition.y = (*property)["value"].GetFloat();
 							}
+
+							if (std::string((*property)["name"].GetString()).compare("Material") == 0)
+							{
+								data.myPlatformMaterial = (*property)["value"].GetInt();
+							}
+
+							if (std::string((*property)["name"].GetString()).compare("SoundType") == 0)
+							{
+								data.mySound = (*property)["value"].GetInt();
+							}
+
+							if (std::string((*property)["name"].GetString()).compare("SoundRadius") == 0)
+							{
+								data.mySoundRadius = (*property)["value"].GetFloat();
+							}
 						}
 					}
 
@@ -107,9 +123,9 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 				{
 					ParseCollectables(loadData, aScene);
 				}
-				else if (name == "CollectableZones")
+				else if (name == "AudioObjects") //Fix when I know the correct name of the layer
 				{
-					ParseCollectableZones(loadData, aScene);
+					ParseAudioObjects(loadData, aScene);
 				}
 				else if (name == "Glide")
 				{
@@ -178,11 +194,6 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 			}
 		}
 	}
-}
-
-void TiledLoader::ParseGraphics(const std::vector<LoadData> someBG1Data, const std::vector<LoadData> someBG2Data, const std::vector<LoadData> someFG1Data, const std::vector<LoadData> someFG2Data, const std::vector<LoadData> someHRData, Scene* aScene)
-{
-
 }
 
 void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aScene)
@@ -286,8 +297,13 @@ void TiledLoader::ParseGlide(const std::vector<LoadData> someData, Scene* aScene
 	}
 }
 
-void TiledLoader::ParseCollectableZones(const std::vector<LoadData> someData, Scene*)
+void TiledLoader::ParseAudioObjects(const std::vector<LoadData> someData, Scene* aScene)
 {
+	//Uncomment hen everyting else is done with AudioObjects
+	//for (int i = 0; i < someData.size(); ++i)
+	//{
+	//	AudioObject* audioObj = new AudioObject(aScene, someData[i].mySoundRadius, someData[i].mySound, someData[i].myPosition);
+	//}
 }
 
 void TiledLoader::ParsePlatforms(const std::vector<LoadData> someData, Scene* aScene)
@@ -299,7 +315,7 @@ void TiledLoader::ParsePlatforms(const std::vector<LoadData> someData, Scene* aS
 		switch (someData[i].myType)
 		{
 		case 0:
-			platformFactory.CreateStaticPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, false);
+			platformFactory.CreateStaticPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, false, someData[i].myPlatformMaterial);
 			break;
 		case 1:
 			platformFactory.CreateMovingPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, GetWaypointPositions(someData[i].myWaypoints, someData[i].myPosition), someData[i].mySpeed);
@@ -314,7 +330,7 @@ void TiledLoader::ParsePlatforms(const std::vector<LoadData> someData, Scene* aS
 			platformFactory.CreateDeadlyPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize);
 			break;
 		case 5:
-			platformFactory.CreateStaticPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, true);
+			platformFactory.CreateStaticPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, true, 3);
 		}
 	}
 }

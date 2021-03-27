@@ -5,6 +5,7 @@
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
 #include "AnimationComponent.hpp"
+#include "AudioManager.h"
 #include "Player.hpp"
 #include "Camera.h"
 
@@ -79,6 +80,7 @@ void Button::OnCollision(GameObject* aGameObject)
 			GetComponent<AnimationComponent>()->SetAnimation(&myAnimation[1]);
 			myButtonActive = true;
 			myHasCollided = true;
+			AudioManager::GetInstance()->PlayAudio(AudioList::ButtonPress);
 		}
 	}
 

@@ -237,6 +237,7 @@ void BashAbility::CheckButtonPress()
 
 		myButtonHold = true;
 		myDashAbilityActive = true;
+		UpdateBashArrow();
 		GetComponent<SpriteComponent>()->Activate();
 		FreezeTime();
 	}
@@ -249,6 +250,11 @@ void BashAbility::CheckButtonPress()
 const bool BashAbility::GetIsBashing()
 {
 	return myIsBashing;
+}
+
+const bool BashAbility::GetDashIsActive()
+{
+	return myDashAbilityActive;
 }
 
 void BashAbility::ActivateBash(GameObject* aGameObject)

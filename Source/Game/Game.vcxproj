@@ -140,6 +140,7 @@
     <ClInclude Include="AudioComponent.h" />
     <ClInclude Include="AudioLibrary.h" />
     <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="AudioObject.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="BashAbility.h" />
     <ClInclude Include="BashableObject.hpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="MessageTypes.hpp" />
     <ClInclude Include="MovingPlatform.hpp" />
     <ClInclude Include="PauseMenu.h" />
+    <ClInclude Include="CameraStaticDistance.hpp" />
     <ClInclude Include="Subscriber.hpp" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
@@ -217,6 +219,7 @@
     <ClCompile Include="AudioComponent.cpp" />
     <ClCompile Include="AudioLibrary.cpp" />
     <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="AudioObject.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="BashAbility.cpp" />
     <ClCompile Include="BashableObject.cpp" />
