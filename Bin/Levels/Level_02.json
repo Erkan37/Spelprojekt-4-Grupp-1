@@ -111,10 +111,16 @@
                  "height":32,
                  "id":110,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":0
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
-                 "width":112,
+                 "width":72,
                  "x":-32,
                  "y":152
                 }, 
@@ -122,11 +128,17 @@
                  "height":32,
                  "id":120,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":0
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
-                 "width":96,
-                 "x":256,
+                 "width":40,
+                 "x":312,
                  "y":152
                 }, 
                 {
@@ -172,6 +184,74 @@
                  "width":176,
                  "x":80,
                  "y":174
+                }, 
+                {
+                 "height":32,
+                 "id":134,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":16,
+                 "x":40,
+                 "y":152
+                }, 
+                {
+                 "height":32,
+                 "id":135,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":24,
+                 "x":56,
+                 "y":152
+                }, 
+                {
+                 "height":32,
+                 "id":136,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":40,
+                 "x":256,
+                 "y":152
+                }, 
+                {
+                 "height":32,
+                 "id":137,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":16,
+                 "x":296,
+                 "y":152
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -316,7 +396,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":134,
+ "nextobjectid":138,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
