@@ -12,6 +12,7 @@ class Player;
 
 struct LoadData
 {
+	std::string myName;
 	v2f myPosition;
 	v2f myButtonPosition;
 	v2f mySize;

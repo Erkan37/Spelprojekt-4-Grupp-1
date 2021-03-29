@@ -88,6 +88,14 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 							{
 								data.myType = (*property)["value"].GetInt();
 							}
+
+
+
+
+							if (std::string((*property)["name"].GetString()).compare("ID") == 0)
+							{
+								data.myType = (*property)["value"].GetInt();
+							}
 						}
 					}
 
@@ -296,7 +304,7 @@ void TiledLoader::ParseAudioObjects(const std::vector<LoadData> someData, Scene*
 	//Uncomment hen everyting else is done with AudioObjects
 	//for (int i = 0; i < someData.size(); ++i)
 	//{
-	//	AudioObject* audioObj = new AudioObject(aScene, someData[i].mySoundRadius, someData[i].mySound, someData[i].myPosition);
+	//	AudioObject* audioObj = new AudioObject(aScene, someData[i].myName, someData[i].myPosition);
 	//}
 }
 
