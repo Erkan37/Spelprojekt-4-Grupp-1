@@ -29,7 +29,6 @@ void UIButton::Init(const std::string aPathString, const v2f aSize, const v2f aP
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
 	sprite->SetSpritePath(aPathString);
 
-	mySprite = new SpriteComponent();
 	mySprite = AddComponent<SpriteComponent>();
 	mySprite->SetSpritePath(aAnimationPathString);
 
@@ -42,6 +41,12 @@ void UIButton::Init(const std::string aPathString, const v2f aSize, const v2f aP
 	SetPivot({0.f, 0.f});
 
 	GameObject::Init();
+}
+
+void UIButton::Update(const float& aDeltaTime)
+{
+	UpdateButton(aDeltaTime);
+	GameObject::Update(aDeltaTime);
 }
 
 void UIButton::UpdateButton(const float& aDeltaTime)

@@ -62,7 +62,7 @@ void LevelScene::Deactivate()
 {
 	if (!myReachedFullOpacity)
 	{
-		IncreaseBlackScreen();
+		IncreaseBlackScreen(1.0f);
 		return;
 	}
 
@@ -136,10 +136,10 @@ void LevelScene::DecreaseBlackScreen()
 	}
 }
 
-void LevelScene::IncreaseBlackScreen()
+void LevelScene::IncreaseBlackScreen(const float& aOpacitySpeedFactor)
 {
 	myBlackScreen->GetComponent<SpriteComponent>()->SetColor(v4f(1.0f, 1.0f, 1.0f, myBlackScreenOpacity));
-	myBlackScreenOpacity += CGameWorld::GetInstance()->GetTimer()->GetDeltaTime() * myBlackScreenOpacitySpeed;
+	myBlackScreenOpacity += CGameWorld::GetInstance()->GetTimer()->GetDeltaTime() * myBlackScreenOpacitySpeed * aOpacitySpeedFactor;
 
 	if (myBlackScreenOpacity >= 1.0f)
 	{

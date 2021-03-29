@@ -19,6 +19,9 @@
 
 #include "Ledge.h"
 
+#include "GameWorld.h"
+#include "LevelManager.hpp"
+
 #include "PostMaster.hpp"
 
 #ifdef _DEBUG
@@ -672,10 +675,21 @@ void Player::Kill()
 	}
 	else if (GetComponent<AnimationComponent>()->GetIsDisplayedOnce() && GetComponent<AnimationComponent>()->GetHasBeenDisplayedOnce())
 	{
+		LevelScene* levelScene = dynamic_cast<LevelScene*>(myScene);
+		if (levelScene)
+		{
+			levelScene->IncreaseBlackScreen(0.25f);
+			if (!levelScene->GetReachedFullOpacity())
+			{
+				return;
+			}
+		}
+
 		Respawn();
 		PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerDeath, 0));
 		AudioManager::GetInstance()->UnLockAudio(AudioList::SpikeDeath);
 		AudioManager::GetInstance()->UnLockAudio(AudioList::SpikeHit);
+		CGameWorld::GetInstance()->GetLevelManager().ReloadScene(LevelManager::eScenes::LevelScene);
 	}
 }
 
