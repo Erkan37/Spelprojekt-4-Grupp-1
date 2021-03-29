@@ -10,6 +10,7 @@ class Scene;
 class SpriteComponent;
 class AudioManager;
 
+
 class OptionsMenu
 {
 public:
@@ -38,6 +39,7 @@ private:
 	Camera& myCamera;
 	AudioManager* myAudioManager;
 
+
 	float myMusicVol;
 	float myVFXVol;
 	float myMusicStep;
@@ -56,6 +58,7 @@ private:
 	std::unique_ptr<UIObject> my720pHgh;
 	std::unique_ptr<UIObject> my1080pHgh;
 	std::unique_ptr<UIObject> my4KHgh;
+	std::unique_ptr<UIObject> myScreenSizeDot;
 
 	std::unique_ptr<UIButton> myTutorialsBtn;
 	std::unique_ptr<UIButton> myScreenBtn;
@@ -82,7 +85,8 @@ private:
 	bool mySoundSettingsActive = false;
 
 	bool myScreenSettingsActive = false;
-
+	bool myCreditsActive = false;
+	
 	void CheckIndexPress();
 	void ActivateMenu();
 	void DeactivateMenu();
