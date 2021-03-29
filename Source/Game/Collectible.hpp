@@ -30,8 +30,6 @@ public:
 
 	void Reset();
 
-	void SetBonfire(GameObject* aGameObject);
-
 	void TurnIn();
 
 	void Notify(const Message& aMessage) override;
@@ -51,7 +49,6 @@ private:
 
 	eCollectibleType myType;
 	bool myWasCollected;
-	bool myIsSafe;
 	bool myWasTurnedIn;
 };
 

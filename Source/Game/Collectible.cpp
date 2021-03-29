@@ -27,7 +27,6 @@ Collectible::Collectible(Scene* aLevelScene)
 	myTimeOffset(0.0f),
 	myType(eCollectibleType::Easy),
 	myWasCollected(false),
-	myIsSafe(false),
 	myWasTurnedIn(false)
 {
 	Subscribe(eMessageType::PlayerSafeLanded);
@@ -119,8 +118,8 @@ void Collectible::OnCollision(GameObject* aGameObject)
 		if (player)
 		{
 			//SetAnimation;
-			myTarget = aGameObject;
 			myWasCollected = true;
+			myTarget = aGameObject;
 			AudioManager::GetInstance()->PlayAudio(AudioList::CollectableV1);
 		}
 	}
@@ -134,13 +133,6 @@ void Collectible::Reset()
 	myTargetPosition = mySpawnPosition;
 }
 
-void Collectible::SetBonfire(GameObject* aGameObject)
-{
-	myTarget = aGameObject;
-	myTargetPosition = aGameObject->GetPosition();
-	myWasTurnedIn = true;
-}
-
 void Collectible::TurnIn()
 {
 	//Add To Score or whatever
@@ -151,7 +143,10 @@ void Collectible::Notify(const Message& aMessage)
 {
 	if (aMessage.myMessageType == eMessageType::PlayerSafeLanded)
 	{
-		TurnIn();
+		if (myWasCollected)
+		{
+			TurnIn();
+		}
 	}
 	else if (aMessage.myMessageType == eMessageType::PlayerDeath)
 	{
