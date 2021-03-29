@@ -1,13 +1,14 @@
 #pragma once
 #include "GameObject.h"
 
+enum class AudioList;
+
 class AudioObject : public GameObject
 {
 public:
-	AudioObject(Scene* aScene, const float aRadius, const int aSound, const v2f aPos);
+	AudioObject(Scene* aScene, const int aType);
 
 private:
-	
-	
+	AudioList myType;
 };
 
