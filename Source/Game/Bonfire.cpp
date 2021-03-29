@@ -14,12 +14,9 @@
 
 #include "PostMaster.hpp"
 
-Bonfire::Bonfire(Scene* aScene)
-	:
-	GameObject(aScene)
+Bonfire::Bonfire(Scene* aScene, const unsigned int anIndex) : GameObject(aScene), myBonfireIndex(anIndex)
 {
 	SetPivot(v2f(0.5f, 1.0f));
-
 	SetZIndex(91);
 
 	myCollectibleIndex = 0;
@@ -48,7 +45,6 @@ Bonfire::Bonfire(Scene* aScene)
 	animation->SetAnimation(&myAnimations[0]);
 	spriteIdle->SetSize(v2f(32.0f, 32.0f));
 }
-
 Bonfire::~Bonfire()
 {
 
@@ -66,6 +62,9 @@ void Bonfire::OnCollision(GameObject* aGameObject)
 		
 		PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerReachedBonfire, 0));
 
-		myHasBeenActivated = true;
+		if (!myHasBeenActivated)
+		{
+			myHasBeenActivated = true;
+		}
 	}
 }

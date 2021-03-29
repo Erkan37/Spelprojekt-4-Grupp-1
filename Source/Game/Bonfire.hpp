@@ -8,7 +8,7 @@ class Collectible;
 class Bonfire : public GameObject
 {
 public:
-	Bonfire(Scene* aScene);
+	Bonfire(Scene* aScene, const unsigned int anIndex);
 	~Bonfire();
 
 	void OnCollision(GameObject* aGameObject) override;
@@ -19,6 +19,7 @@ private:
 	float myTurnInSpeed;
 	float myTurnInDistance;
 	int myCollectibleIndex;
+	const int myBonfireIndex;
 
 	bool myHasBeenActivated;
 
