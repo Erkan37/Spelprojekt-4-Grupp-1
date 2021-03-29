@@ -37,7 +37,7 @@ public:
 
 	//bool IsPlaying(const std::string& anAudioPath);
 
-	//void StopAll(bool anOnlyRepeating = false);
+	void StopAllSounds(bool anAndMusic = false);
 
 	void LockAudio(AudioList anAudio);
 	void UnLockAudio(AudioList anAudio);
