@@ -194,8 +194,8 @@ void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aSc
 {
 	for (int i = 0; i < someData.size(); ++i)
 	{
-		Bonfire* bonfire = new Bonfire(aScene);
-		bonfire->SetPosition(someData[i].myPosition, someData[i].myType);
+		Bonfire* bonfire = new Bonfire(aScene, someData[i].myType);
+		bonfire->SetPosition(someData[i].myPosition);
 	}
 }
 
