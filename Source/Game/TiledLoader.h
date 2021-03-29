@@ -12,6 +12,7 @@ class Player;
 
 struct LoadData
 {
+	std::string myName;
 	v2f myPosition;
 	v2f myButtonPosition;
 	v2f mySize;
@@ -19,8 +20,6 @@ struct LoadData
 	std::string myWaypoints;
 	float mySpeed;
 	int myPlatformMaterial;
-	float mySoundRadius;
-	int mySound;
 };
 
 struct TileLayerData
