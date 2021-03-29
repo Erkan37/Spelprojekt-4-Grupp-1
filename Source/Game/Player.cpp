@@ -678,7 +678,7 @@ void Player::Kill()
 		LevelScene* levelScene = dynamic_cast<LevelScene*>(myScene);
 		if (levelScene)
 		{
-			levelScene->IncreaseBlackScreen();
+			levelScene->IncreaseBlackScreen(0.25f);
 			if (!levelScene->GetReachedFullOpacity())
 			{
 				return;

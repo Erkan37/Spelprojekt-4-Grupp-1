@@ -61,7 +61,7 @@ void Platform::OnCollision(GameObject* aGameObject)
 	{
 		player->SetPlatformVelocity(v2f(0.0f, 0.0f));
 		player->SetGroundIndex(myMaterial);
-		if (player->GetHasLanded())
+		if (player->GetHasLanded() && GetComponent<PhysicsComponent>()->GetCollisionType() == PhysicsComponent::eCollisionType::TwoWay)
 		{
 			PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerSafeLanded, 0));
 		}

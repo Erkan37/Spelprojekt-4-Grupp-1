@@ -25,7 +25,7 @@ public:
 
     void AddBlackScreen();
     void DecreaseBlackScreen();
-    void IncreaseBlackScreen();
+    void IncreaseBlackScreen(const float& aOpacitySpeedFactor);
     const bool GetReachedFullOpacity();
     void Transitioning();
 
