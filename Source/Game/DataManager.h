@@ -89,7 +89,6 @@ struct SaveFile: public Data
 	SaveFile();
 	~SaveFile() override {}
 
-	// Float Components
 	enum class SaveFileEnum
 	{
 
@@ -135,5 +134,6 @@ private:
 	PlayerData myPlayerData;
 	EnemyData myEnemyData;
 	std::vector<rapidjson::Document> myLevelVector;
+
 
 };

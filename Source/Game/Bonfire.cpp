@@ -13,6 +13,7 @@
 #include "../External/Headers/CU/Utilities.h"
 
 #include "PostMaster.hpp"
+#include "DataManager.h"
 
 Bonfire::Bonfire(Scene* aScene, const unsigned int anIndex) : GameObject(aScene), myBonfireIndex(anIndex)
 {
