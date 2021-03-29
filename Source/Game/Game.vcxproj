@@ -176,6 +176,7 @@
     <ClInclude Include="LevelDoor.hpp" />
     <ClInclude Include="LevelManager.hpp" />
     <ClInclude Include="LevelScene.h" />
+    <ClInclude Include="LevelSelect.hpp" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="Message.hpp" />
     <ClInclude Include="MessageTypes.hpp" />
@@ -252,6 +253,7 @@
     <ClCompile Include="LevelDoor.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LevelScene.cpp" />
+    <ClCompile Include="LevelSelect.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="MovingPlatform.cpp" />
     <ClCompile Include="PauseMenu.cpp" />
