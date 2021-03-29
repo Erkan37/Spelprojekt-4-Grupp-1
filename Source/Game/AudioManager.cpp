@@ -161,6 +161,19 @@ void AudioManager::StopCurrentMusic()
 	myAudioOut->StopMusic(true);
 }
 
+void AudioManager::StopAllSounds(bool anAndMusic)
+{
+	if (anAndMusic)
+	{
+		StopCurrentMusic();
+	}
+
+	for (auto const& [key, val] : myLibrary.myAudioList)
+	{
+		val->Stop();
+	}
+}
+
 void AudioManager::LockAudio(AudioList anAudio)
 {
 	myLibrary.myAudioList[anAudio]->Lock();
