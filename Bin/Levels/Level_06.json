@@ -130,7 +130,7 @@
                  "y":120
                 }, 
                 {
-                 "height":1.99999999999992,
+                 "height":3.99999999999993,
                  "id":193,
                  "name":"D\u00f6dlig",
                  "rotation":0,
@@ -138,10 +138,10 @@
                  "visible":true,
                  "width":128,
                  "x":48,
-                 "y":174
+                 "y":172
                 }, 
                 {
-                 "height":2,
+                 "height":4,
                  "id":204,
                  "name":"D\u00f6dlig",
                  "rotation":0,
@@ -149,7 +149,7 @@
                  "visible":true,
                  "width":144,
                  "x":208,
-                 "y":174
+                 "y":172
                 }, 
                 {
                  "height":88,
