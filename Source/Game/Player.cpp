@@ -241,10 +241,12 @@ void Player::UpdateCoyoteTime(const float& aDeltaTime)
 }
 void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 {
+	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
+
 	if (!myGrabbedLedge)
 	{
 		float fallDecreaseFactor = 1.0f;
-		if (myIsGliding)
+		if (myIsGliding && physics->GetVelocity().y > 0.0f)
 		{
 			fallDecreaseFactor = myGlideFactor;
 		}
@@ -252,7 +254,6 @@ void Player::UpdatePlayerVelocity(const float& aDeltaTime)
 		myCurrentVelocity.y = Utils::Min(myCurrentVelocity.y + PhysicsManager::ourGravity * aDeltaTime, myJsonData->myFloatValueMap[PEnum::Max_Fall_Speed] * fallDecreaseFactor);
 	}
 
-	PhysicsComponent* physics = GetComponent<PhysicsComponent>();
 	physics->SetVelocity(myCurrentVelocity + myBashAbility->GetVelocity() + myPlatformVelocity + mySpringVelocity);
 
 	if (myCurrentVelocity.x + myBashAbility->GetVelocity().x > 0)
