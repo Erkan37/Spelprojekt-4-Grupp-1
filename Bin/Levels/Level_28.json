@@ -394,63 +394,8 @@
                  "y":-72
                 }, 
                 {
-                 "height":48,
-                 "id":464,
-                 "name":"",
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":16,
-                 "x":216,
-                 "y":160
-                }, 
-                {
-                 "height":48,
-                 "id":466,
-                 "name":"",
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":16,
-                 "x":216,
-                 "y":104
-                }, 
-                {
-                 "height":48,
-                 "id":468,
-                 "name":"",
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":16,
-                 "x":216,
-                 "y":48
-                }, 
-                {
-                 "height":48,
-                 "id":476,
-                 "name":"",
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":16,
-                 "x":120,
-                 "y":128
-                }, 
-                {
-                 "height":48,
-                 "id":478,
-                 "name":"",
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":16,
-                 "x":120,
-                 "y":72
-                }, 
-                {
-                 "height":48,
-                 "id":479,
+                 "height":216,
+                 "id":480,
                  "name":"",
                  "rotation":0,
                  "type":"0",
@@ -460,18 +405,7 @@
                  "y":16
                 }, 
                 {
-                 "height":48,
-                 "id":480,
-                 "name":"",
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":16,
-                 "x":120,
-                 "y":184
-                }, 
-                {
-                 "height":56,
+                 "height":224,
                  "id":481,
                  "name":"",
                  "rotation":0,
@@ -479,7 +413,7 @@
                  "visible":true,
                  "width":16,
                  "x":216,
-                 "y":216
+                 "y":48
                 }],
          "opacity":1,
          "type":"objectgroup",
