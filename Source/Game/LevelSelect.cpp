@@ -119,28 +119,31 @@ void LevelSelect::CheckButtonPress()
 	if ((myInput->GetInput()->GetKeyJustDown(Keys::DOWNARROWKey) || myInput->GetController()->IsButtonPressed(Controller::Button::DPadDown)) ||
 		myInput->GetInput()->GetKeyJustDown(Keys::UPARROWKey) || myInput->GetController()->IsButtonPressed(Controller::Button::DPadUp))
 	{
-		myIsSelectingLevel = !myIsSelectingLevel;
-		AudioManager::GetInstance()->PlayAudio(AudioList::MenuMove);
-
-		if (myIsSelectingLevel)
+		if (static_cast<int>(myLevelButtons.size()) > 0)
 		{
-			myBackButton->SetIsHighlightActive(false);
-			myBackButtonFire->SetActive(false);
+			myIsSelectingLevel = !myIsSelectingLevel;
+			AudioManager::GetInstance()->PlayAudio(AudioList::MenuMove);
 
-			if (static_cast<int>(myLevelButtons.size()) > 0)
+			if (myIsSelectingLevel)
 			{
-				myLevelButtons[myLevelIndex]->SetIsHighlightActive(true);
-			}
-		}
-		else
-		{
-			if (static_cast<int>(myLevelButtons.size()) > 0)
-			{
-				myLevelButtons[myLevelIndex]->SetIsHighlightActive(false);
-			}
+				myBackButton->SetIsHighlightActive(false);
+				myBackButtonFire->SetActive(false);
 
-			myBackButton->SetIsHighlightActive(true);
-			myBackButtonFire->SetActive(true);
+				if (static_cast<int>(myLevelButtons.size()) > 0)
+				{
+					myLevelButtons[myLevelIndex]->SetIsHighlightActive(true);
+				}
+			}
+			else
+			{
+				if (static_cast<int>(myLevelButtons.size()) > 0)
+				{
+					myLevelButtons[myLevelIndex]->SetIsHighlightActive(false);
+				}
+
+				myBackButton->SetIsHighlightActive(true);
+				myBackButtonFire->SetActive(true);
+			}
 		}
 	}
 
@@ -200,5 +203,11 @@ void LevelSelect::InitiateButtons()
 	if (static_cast<int>(myLevelButtons.size()) > 0)
 	{
 		myLevelButtons[0]->SetIsHighlightActive(true);
+	}
+	else
+	{
+		myBackButton->SetIsHighlightActive(true);
+		myBackButtonFire->SetActive(true);
+		myIsSelectingLevel = false;
 	}
 }
