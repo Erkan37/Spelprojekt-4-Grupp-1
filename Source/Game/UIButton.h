@@ -15,6 +15,7 @@ public:
 
 	void Init(const std::string aPathString, const v2f aSize, const v2f aPosition, const std::string aAnimationPathString, const int aBoundX);
 
+	void Update(const float& aDeltaTime) override;
 	void UpdateButton(const float& aDeltaTime);
 	void Render() override;
 

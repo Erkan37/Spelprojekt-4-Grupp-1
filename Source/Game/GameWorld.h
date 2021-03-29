@@ -1,5 +1,6 @@
 #pragma once
 #include "MainMenuScene.h"
+#include "LevelSelect.hpp"
 #include "LevelScene.h"
 #include "IntroLogosScene.h"
 #include "LevelManager.hpp"
@@ -70,6 +71,7 @@ private:
 	/*** Scenes ***/
 	IntroLogosScene myIntroLogosScene;
 	MainMenuScene myMainMenuScene;
+	LevelSelect myLevelSelect;
 	LevelScene myLevelScene;
 
 	LevelManager myLevelManager;
