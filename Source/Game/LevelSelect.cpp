@@ -37,11 +37,13 @@ void LevelSelect::Load()
 	InitiateButtons();
 
 	GameObject* background = new GameObject(this);
+
+	SpriteComponent* sprite = background->AddComponent<SpriteComponent>();
+	sprite->SetSpritePath("Sprites/UI/levelSelect/UI_levelSelect_Background_304x164px.dds");
+	background->SetZIndex(200);
+
 	background->SetPosition(v2f(0.0f, 0.0f));
 	background->SetPivot(v2f(0.0f, 0.0f));
-	background->AddComponent<SpriteComponent>();
-	background->GetComponent<SpriteComponent>()->SetSpritePath("Sprites/UI/startMenu/UI_startMenu_Background_320x180px.dds");
-	background->SetZIndex(200);
 
 	Scene::Load();
 }
@@ -138,16 +140,16 @@ void LevelSelect::CheckButtonPress()
 
 void LevelSelect::InitiateButtons()
 {
-	for (int i = 0; i < 7; ++i)
+	for (int i = 0; i < 8; ++i)
 	{
 		UIButton* levelButton = new UIButton(this);
 		myLevelButtons.push_back(levelButton);
 	}
 
 	myBackButton = new UIButton(this);
-	myBackButton->Init("Sprites/UI/levelSelect/UnselectedLevel.dds", v2f(16.0f, 16.0f), v2f(16.0f, 160.0f), "Sprites/UI/levelSelect/SelectedLevel.dds", 16);
+	myBackButton->Init("Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Unmarked_64x16px.dds", v2f(64.0f, 16.0f), v2f(32.0f, 160.0f), "Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Marked_64x16px.dds", 64);
 	myBackButton->SetPosition(v2f(16.0f, 160.0f));
-	myBackButton->GetComponent<SpriteComponent>()->SetSize(v2f(16.0f, 16.0f));
+	myBackButton->GetComponent<SpriteComponent>()->SetSize(v2f(64.0f, 16.0f));
 	myBackButton->SetPivot(v2f(0.0f, 0.0f));
 	myBackButton->SetActive(true);
 
@@ -157,10 +159,11 @@ void LevelSelect::InitiateButtons()
 	{
 		myLevelButtons[buttonIndex]->SetPositionX((buttonIndex + 1) * offsetX);
 		myLevelButtons[buttonIndex]->SetPositionY(50.0f);
-		myLevelButtons[buttonIndex]->Init("Sprites/UI/levelSelect/UnselectedLevel.dds", v2f(16.0f, 16.0f), v2f((buttonIndex) * offsetX + 16.0f, 50.0f), "Sprites/UI/levelSelect/SelectedLevel.dds", 16);
+		myLevelButtons[buttonIndex]->Init("Sprites/UI/levelSelect/UI_levelSelect_Stage_320x180px_Marked.dds", v2f(16.0f, 16.0f), v2f((buttonIndex) * offsetX + 16.0f, 50.0f), "Sprites/UI/levelSelect/UI_levelSelect_Flame_16x16px.dds", 16);
 		myLevelButtons[buttonIndex]->GetComponent<SpriteComponent>()->SetSize(v2f(16.0f, 16.0f));
 		myLevelButtons[buttonIndex]->SetPivot(v2f(0.0f, 0.0f));
 		myLevelButtons[buttonIndex]->SetActive(true);
+		myLevelButtons[buttonIndex]->SetHighlightOffset(v2f(-4.0f, -4.0f));
 	}
 
 	myLevelButtons[0]->SetIsHighlightActive(true);

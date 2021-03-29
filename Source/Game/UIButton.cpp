@@ -78,3 +78,8 @@ void UIButton::SetActive(const bool aActiveState)
 {
 	myIsActive = aActiveState;
 }
+
+void UIButton::SetHighlightOffset(const v2f& aOffset)
+{
+	mySprite->SetRelativePosition(aOffset);
+}

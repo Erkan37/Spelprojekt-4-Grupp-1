@@ -96,6 +96,8 @@ public:
 	void StartGliding();
 	const bool GetIsGliding();
 
+	const bool GetHasDied();
+
 private:
 #ifdef _DEBUG
 	void ImGuiUpdate();

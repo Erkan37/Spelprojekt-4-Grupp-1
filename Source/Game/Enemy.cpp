@@ -163,7 +163,10 @@ void Enemy::OnCollision(GameObject* aGameObject)
 	Player* player = dynamic_cast<Player*>(aGameObject);
 	if (player)
 	{
-		player->Kill();
+		if (!player->GetHasDied())
+		{
+			player->Kill();
+		}
 	}
 }
 

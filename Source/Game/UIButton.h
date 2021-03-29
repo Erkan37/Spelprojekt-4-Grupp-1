@@ -22,6 +22,7 @@ public:
 	void SetIsHighlightActive(const bool aHighlightBool);
 	void SetActive(const bool aActiveState);
 
+	void SetHighlightOffset(const v2f& aOffset);
 
 private:
 	Camera& myCamera;
