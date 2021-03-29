@@ -2,11 +2,11 @@
   "FilePathArray": [
     {
       "Id": 0,
-      "FilePath": "Levels/Level_02.json"
+      "FilePath": "Levels/Level_00.json"
     },
     {
       "Id": 1,
-      "FilePath": "Levels/Level_Hard_04.json"
+      "FilePath": "Levels/Level_01.json"
     },
     {
       "Id": 2,
