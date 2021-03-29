@@ -92,10 +92,10 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 
 
 
-							if (std::string((*property)["name"].GetString()).compare("ID") == 0)
-							{
-								data.myType = (*property)["value"].GetInt();
-							}
+							//if (std::string((*property)["name"].GetString()).compare("ID") == 0)
+							//{
+							//	data.myType = (*property)["value"].GetInt();
+							//}
 						}
 					}
 
