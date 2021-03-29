@@ -28,8 +28,6 @@ public:
 
 	void OnCollision(GameObject* aGameObject) override;
 
-	void Saved();
-
 	void Reset();
 
 	void SetBonfire(GameObject* aGameObject);

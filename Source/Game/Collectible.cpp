@@ -32,7 +32,6 @@ Collectible::Collectible(Scene* aLevelScene)
 {
 	Subscribe(eMessageType::PlayerSafeLanded);
 	Subscribe(eMessageType::PlayerDeath);
-	Subscribe(eMessageType::PlayerReachedBonfire);
 }
 
 Collectible::~Collectible()
@@ -69,15 +68,16 @@ void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 	}
 
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath(spritePath); //Get correct image depending on type
-	spriteIdle->SetSize(v2f(16.0f, 16.0f)); //Get size from data manager instead
+	spriteIdle->SetSpritePath(spritePath);
+	spriteIdle->SetSize(v2f(16.0f, 16.0f));
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
 	physics->SetCanCollide(false);
 	physics->SetIsStatic(false);
 	physics->SetApplyGravity(false);
 
-	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this); //Get collision size from data manager
+	ColliderComponent* collider = AddComponent<ColliderComponent>();
+	collider->SetSize(v2f(24.0f, 24.0f));
 
 	GameObject::Init();
 }
@@ -126,20 +126,12 @@ void Collectible::OnCollision(GameObject* aGameObject)
 	}
 }
 
-void Collectible::Saved()
-{
-	myIsSafe = true;
-}
-
 void Collectible::Reset()
 {
-	if (!myIsSafe)
-	{
-		myTarget = nullptr;
-		myWasCollected = false;
-		SetPosition(mySpawnPosition);
-		myTargetPosition = mySpawnPosition;
-	}
+	myTarget = nullptr;
+	myWasCollected = false;
+	SetPosition(mySpawnPosition);
+	myTargetPosition = mySpawnPosition;
 }
 
 void Collectible::SetBonfire(GameObject* aGameObject)
@@ -159,18 +151,11 @@ void Collectible::Notify(const Message& aMessage)
 {
 	if (aMessage.myMessageType == eMessageType::PlayerSafeLanded)
 	{
-		Saved();
+		TurnIn();
 	}
 	else if (aMessage.myMessageType == eMessageType::PlayerDeath)
 	{
 		Reset();
-	}
-	else if (aMessage.myMessageType == eMessageType::PlayerReachedBonfire)
-	{
-		if (myWasCollected)
-		{
-			TurnIn();
-		}
 	}
 }
 
