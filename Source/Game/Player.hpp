@@ -94,6 +94,7 @@ public:
 	void SetSpawnPosition(const v2f& aSpawnPosition);
 
 	void StartGliding();
+	const bool GetIsGliding();
 
 private:
 #ifdef _DEBUG

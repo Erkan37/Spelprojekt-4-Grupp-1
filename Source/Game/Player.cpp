@@ -914,6 +914,10 @@ void Player::StartGliding()
 	AudioManager::GetInstance()->LockAudio(AudioList::PlayerHover);
 }
 
+const bool Player::GetIsGliding()
+{
+	return myIsGliding;
+}
 
 #ifdef _DEBUG
 void Player::ImGuiUpdate()
