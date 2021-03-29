@@ -322,6 +322,9 @@
     <ClInclude Include="AudioObject.h">
       <Filter>Core\Audio</Filter>
     </ClInclude>
+    <ClInclude Include="CameraStaticDistance.hpp">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
