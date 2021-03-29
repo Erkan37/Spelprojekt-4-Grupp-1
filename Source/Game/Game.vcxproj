@@ -181,6 +181,7 @@
     <ClInclude Include="MessageTypes.hpp" />
     <ClInclude Include="MovingPlatform.hpp" />
     <ClInclude Include="PauseMenu.h" />
+    <ClInclude Include="CameraStaticDistance.hpp" />
     <ClInclude Include="Subscriber.hpp" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />

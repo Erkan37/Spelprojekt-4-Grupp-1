@@ -94,7 +94,14 @@ void BashAbility::UpdateBashVelocity(const float& aDeltaTime)
 		if (myIsBashing)
 		{
 			myPlayer->SetAnimation(9);
-			myPlayer->SetNextAnimation(4);
+			if (myPlayer->GetIsGliding())
+			{
+				myPlayer->SetNextAnimation(12);
+			}
+			else
+			{
+				myPlayer->SetNextAnimation(4);
+			}
 		}
 		
 		myTimer = 0;
