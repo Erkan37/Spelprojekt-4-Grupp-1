@@ -94,5 +94,6 @@ private:
 	void UpdateUIElements(const float& aDeltaTime);
 	void CheckActiveAnimations();
 	void UpdateSoundSettings();
+
 };
 

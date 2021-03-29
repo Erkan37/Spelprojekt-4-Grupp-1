@@ -325,6 +325,12 @@
     <ClInclude Include="CameraStaticDistance.hpp">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="OptionsMenu.h">
+      <Filter>UI\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="PopUp.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -537,6 +543,12 @@
     </ClCompile>
     <ClCompile Include="AudioObject.cpp">
       <Filter>Core\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionsMenu.cpp">
+      <Filter>UI\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="PopUp.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

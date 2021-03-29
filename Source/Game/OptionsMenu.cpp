@@ -64,8 +64,8 @@ void OptionsMenu::Init()
 	v2f backPos = { 140.f, 150.f };
 	v2f resetPos = { 30.f, 160.f };
 	v2f soundSettingPos = { 215.f, 90.f };
-	v2f bgDot = { 215.f + myMusicVol, 95.f };
-	v2f SFXDot = { 215.f + myVFXVol, 110.f };
+	v2f bgDot = { 215.f + (myMusicVol*40.f), 95.f };
+	v2f SFXDot = { 215.f + (myVFXVol *40.f), 110.f };
 	v2f resolutionPos = { 215, 73.f };
 
 	//Misc
@@ -85,15 +85,15 @@ void OptionsMenu::Init()
 	mySoundSettings->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Sound_Setting_74x26px_Unmarked.dds", { 72.f, 26.f }, soundSettingPos, 202);
 	myBGHighlight->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Sound_Setting_74x26px_BG_Marked.dds", { 74.f,26.f }, soundSettingPos, 203);
 	myVFXHighlight->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Sound_Setting_74x26px_VFX_Marked.dds", { 74.f,26.f }, soundSettingPos, 203);
-	myBGDot->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Sound_SettingsMark_3x3px.dds", { 3.f, 3.f }, bgDot, 202);
-	myVFXDot->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Sound_SettingsMark_3x3px.dds", { 3.f, 3.f }, SFXDot, 202);
+	myBGDot->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Sound_SettingsMark_3x3px.dds", { 3.f, 3.f }, bgDot, 204);
+	myVFXDot->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Sound_SettingsMark_3x3px.dds", { 3.f, 3.f }, SFXDot, 204);
 
 	//Screen
 	myResolutions->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Screensize_Resolutions_All_73x7px_Unmarked.dds", { 73.f, 7.f }, resolutionPos, 202);
 	my720pHgh->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Screensize_Resolutions_720p_73x7pxMarked.dds", { 73.f,7.f }, resolutionPos, 203);
 	my1080pHgh->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Screensize_Resolutions_1080p_73x7pxMarked.dds", { 73.f,7.f }, resolutionPos, 203);
 	my4KHgh->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Screensize_Resolutions_4k_73x7pxMarked.dds", { 73.f,7.f }, resolutionPos, 203);
-	myScreenSizeDot->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Screensize_Resolutions_73x7px_Marked.dds", { 73.f, 7.f }, resolutionPos, 204);
+	myScreenSizeDot->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Screensize_Resolutions_73x7px_Marked.dds", { 8.f, 8.f }, resolutionPos, 204);
 
 	myButtons.push_back(myScreenBtn.get());
 	myButtons.push_back(mySoundBtn.get());
@@ -110,7 +110,6 @@ void OptionsMenu::Init()
 	myResolutionObj.push_back(my4KHgh.get());
 
 	InitTexts();
-	myTitleString->Deactivate();
 }
 
 void OptionsMenu::Update(const float& aDeltaTime)
@@ -121,7 +120,6 @@ void OptionsMenu::Update(const float& aDeltaTime)
 		CheckActiveAnimations();
 		CheckIndexPress();
 		UpdateUIElements(aDeltaTime);
-
 	}
 	else
 		DeactivateMenu();
@@ -175,7 +173,7 @@ void OptionsMenu::CheckIndexPress()
 			{
 				myCreditsActive = true;
 				//Picture with credits
-				//Backbutton, but with no function
+				//Backbutton for visual, men behövs bara trycka på enter för att komma ur
 			}
 			else
 				myCreditsActive = false;
@@ -210,7 +208,7 @@ void OptionsMenu::CheckIndexPress()
 			{
 				myVFXVol += 0.05f;
 				myVFXDot->SetPositionX(myVFXDot->GetPositionX() + myVFXStep);
-				//Update VFXVolume
+				myAudioManager->GetInstance()->SetSFXVolume(myVFXVol);
 			}
 		}
 		else if (myInput->GetInput()->GetKeyJustDown(Keys::LEFTARROWKey))
@@ -225,12 +223,12 @@ void OptionsMenu::CheckIndexPress()
 			{
 				myVFXVol -= 0.05f;
 				myVFXDot->SetPositionX(myVFXDot->GetPositionX() - myVFXStep);
-				//Update VFXVolume
+				myAudioManager->GetInstance()->SetSFXVolume(myVFXVol);
 			}
 		}
 	}
 
-	else if (myScreenSettingsActive == true)
+	if (myScreenSettingsActive == true)
 	{
 		if (myInput->GetInput()->GetKeyJustDown(Keys::LEFTARROWKey))
 		{
@@ -248,14 +246,17 @@ void OptionsMenu::CheckIndexPress()
 		{
 			if (myScreenMovingIndex == 0)
 			{
-				CGame::SetResolution(1280U, 720U);
+				myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX());
+				CGame::SetResolution(480U, 720U);
 			}
 			else if (myScreenMovingIndex == 1)
 			{
+				myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX() + 27.f);
 				CGame::SetResolution(1920U, 1080U);
 			}
 			else if (myScreenMovingIndex == 2)
 			{
+				myScreenSizeDot->SetPositionX(my4KHgh->GetPositionX() + 58.f);
 				CGame::SetResolution(3840U, 2160U);
 			}
 		}
@@ -275,6 +276,7 @@ void OptionsMenu::CheckIndexPress()
 				myMovingIndex = 0;
 		}
 	}
+	
 }
 
 void OptionsMenu::ActivateMenu()
@@ -285,11 +287,11 @@ void OptionsMenu::ActivateMenu()
 	myBackground->SetActive(true);
 	myFireHighlight->SetActive(true);
 	myBar->SetActive(true);
-	myTitleString->Activate();
 	mySoundSettings->SetActive(true);
 	myBGDot->SetActive(true);
 	myVFXDot->SetActive(true);
 	myResolutions->SetActive(true);
+	myScreenSizeDot->SetActive(true);
 }
 
 void OptionsMenu::DeactivateMenu()
@@ -371,13 +373,12 @@ void OptionsMenu::CheckActiveAnimations()
 		{
 			if (i == myScreenMovingIndex)
 			{
-				myScreenSizeDot->SetActive(true);
-				myScreenSizeDot->SetPositionX(myResolutionObj[i]->GetPositionX());
 				myResolutionObj[i]->SetActive(true);
 			}
 			else
+			{
 				myResolutionObj[i]->SetActive(false);
-			myScreenSizeDot->SetActive(false);
+			}
 		}
 	}
 }
