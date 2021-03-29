@@ -46,7 +46,7 @@ void LevelManager::Update()
 	{
 		LevelScene* levelScene = dynamic_cast<LevelScene*>(myScenes[eScenes::LevelScene]);
 		levelScene->Transitioning();
-		levelScene->IncreaseBlackScreen();
+		levelScene->IncreaseBlackScreen(1.0f);
 
 		if (levelScene->GetReachedFullOpacity())
 		{
