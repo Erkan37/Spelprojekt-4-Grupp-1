@@ -32,11 +32,7 @@ public:
 
 	void OnCollision(GameObject* aGameObject) override;
 
-	void Saved();
-
 	void Reset();
-
-	void SetBonfire(GameObject* aGameObject);
 
 	void TurnIn();
 
@@ -57,7 +53,6 @@ private:
 
 	eCollectibleType myType;
 	bool myWasCollected;
-	bool myIsSafe;
 	bool myWasTurnedIn;
 
 	PopUp* myPopUp;

@@ -8,6 +8,7 @@
 #include "Player.hpp"
 #include "Game.h"
 #include "rapidjson/istreamwrapper.h"
+#include "AudioManager.h"
 
 SpringObject::SpringObject(Scene* aLevelScene) : GameObject(aLevelScene)
 {
@@ -52,6 +53,7 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 
 		if (/*velo.y > 50.f &&*/ myTimer > mySpringTimerCooldown)
 		{
+			AudioManager::GetInstance()->PlayAudio(AudioList::PlayerJumpPad);
 			mySpringActive = true;
 			myTimer = {};
 			GetComponent<AnimationComponent>()->SetAnimation(&myAnimation);
@@ -96,16 +98,16 @@ void SpringObject::CreateGroundSpring()
 
 void SpringObject::LoadJson()
 {
-	std::ifstream effectObjectFile("JSON/SpringObject.json");
-	rapidjson::IStreamWrapper effectObjectStream(effectObjectFile);
+	std::ifstream springObjectFile("JSON/SpringObject.json");
+	rapidjson::IStreamWrapper springsObjectStream(springObjectFile);
 
-	rapidjson::Document effectDocuments;
-	effectDocuments.ParseStream(effectObjectStream);
+	rapidjson::Document springDocuments;
+	springDocuments.ParseStream(springsObjectStream);
 
-	myRetardation = effectDocuments["Retardation"].GetFloat();
-	myVelocityForce = effectDocuments["Velocity"].GetFloat();
+	myRetardation = springDocuments["Retardation"].GetFloat();
+	myVelocityForce = springDocuments["Velocity"].GetFloat();
 
-	effectObjectFile.close();
+	springObjectFile.close();
 }
 
 //#ifdef _DEBUG

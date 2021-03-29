@@ -319,6 +319,12 @@
     <ClInclude Include="EFontsSizes.hpp">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="AudioObject.h">
+      <Filter>Core\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraStaticDistance.hpp">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -528,6 +534,9 @@
     </ClCompile>
     <ClCompile Include="Subscriber.cpp">
       <Filter>Core\PostMaster</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioObject.cpp">
+      <Filter>Core\Audio</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

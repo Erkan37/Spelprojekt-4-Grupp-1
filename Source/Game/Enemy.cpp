@@ -8,7 +8,7 @@
 #include "EnemyProjectile.h"
 #include "Enemy.h"
 #include "WaypointComponent.hpp"
-#include "AudioComponent.h"
+#include "AudioManager.h"
 #ifdef _DEBUG
 #include "imgui.h"
 #endif // DEBUG
@@ -155,6 +155,7 @@ void ShootingEnemy::Shoot()
 {
 	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[1]);
 	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[0]);
+	AudioManager::GetInstance()->PlayAudio(AudioList::EnemyShooting);
 	EnemyProjectile* projectile = new EnemyProjectile(this->myScene, this->GetPosition(), dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition());
 }
 void Enemy::OnCollision(GameObject* aGameObject)

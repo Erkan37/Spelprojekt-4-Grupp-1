@@ -9,6 +9,7 @@
 #include "InputWrapper.h"
 
 #include "CutsceneManager.h"
+#include "AudioManager.h"
 
 #include "Game.h"
 
@@ -25,6 +26,7 @@ void MainMenuScene::Load()
 	myMovingIndex = {};
 
 	myInput = CGameWorld::GetInstance()->Input();
+	AudioManager::GetInstance()->PlayAudio(AudioList::MenuAmbience);
 
 	InitObjects();
 
@@ -135,21 +137,25 @@ void MainMenuScene::CheckButtonsPress()
 	if (myInput->GetInput()->GetKeyJustDown(Keys::UPARROWKey) || myInput->GetController()->IsButtonPressed(Controller::Button::DPadUp))
 	{
 		myMovingIndex--;
+		AudioManager::GetInstance()->PlayAudio(AudioList::MenuMove);
 		if (myMovingIndex < 0)
 			myMovingIndex = myButtons.size() - 1;
 	}
 	else if (myInput->GetInput()->GetKeyJustDown(Keys::DOWNARROWKey) || myInput->GetController()->IsButtonPressed(Controller::Button::DPadDown))
 	{
 		myMovingIndex++;
+		AudioManager::GetInstance()->PlayAudio(AudioList::MenuMove);
 		if (myMovingIndex > myButtons.size() - 1)
 			myMovingIndex = 0;
 	}
 
 	if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey) || myInput->GetController()->IsButtonPressed(Controller::Button::Cross))
 	{
+		AudioManager::GetInstance()->PlayAudio(AudioList::MenuSelect);
 		if (myMovingIndex == static_cast<int>(eMainMenuButton::StartGame))
 		{
 			//CutsceneManager::GetInstance().PlayVideo(CutsceneType::Intro);
+			AudioManager::GetInstance()->Stop(AudioList::MenuAmbience);
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
 		}
 		else if (myMovingIndex == static_cast<int>(eMainMenuButton::Options))
@@ -195,7 +201,8 @@ void MainMenuScene::CheckActiveAnimations()
 			myFireHighlight->SetPositionY(myButtons[i]->GetPositionY() + 4.f);
 		}
 		else
+		{
 			myButtons[i]->SetIsHighlightActive(false);
-
+		}
 	}
 }

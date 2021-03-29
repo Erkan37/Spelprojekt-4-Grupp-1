@@ -27,6 +27,11 @@ Glide::Glide(Scene* aScene)
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
 	collider->SetSize(16.0f, 16.0f);
+
+	myDisappearTime = 1.0f;
+	myTimer = myDisappearTime;
+
+	myIsTaken = false;
 }
 
 Glide::~Glide()
@@ -41,11 +46,31 @@ void Glide::Init(const v2f& aPosition)
 	GameObject::Init();
 }
 
+void Glide::Update(const float& aDeltaTime)
+{
+	myTimer -= aDeltaTime;
+	if (myTimer <= 0 && myIsTaken)
+	{
+		Activate();
+		myIsTaken = false;
+	}
+
+	GameObject::Update(aDeltaTime);
+}
+
 void Glide::OnCollision(GameObject* aGameObject)
 {
 	Player* player = dynamic_cast<Player*>(aGameObject);
 	if (player)
 	{
-		player->StartGliding();
+		if (!myIsTaken)
+		{
+			Deactivate();
+
+			player->StartGliding();
+
+			myTimer = myDisappearTime;
+			myIsTaken = true;
+		}
 	}
 }

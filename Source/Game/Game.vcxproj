@@ -140,6 +140,7 @@
     <ClInclude Include="AudioComponent.h" />
     <ClInclude Include="AudioLibrary.h" />
     <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="AudioObject.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="BashAbility.h" />
     <ClInclude Include="BashableObject.hpp" />
@@ -179,9 +180,8 @@
     <ClInclude Include="Message.hpp" />
     <ClInclude Include="MessageTypes.hpp" />
     <ClInclude Include="MovingPlatform.hpp" />
-    <ClInclude Include="OptionsMenu.h" />
     <ClInclude Include="PauseMenu.h" />
-    <ClInclude Include="PopUp.h" />
+    <ClInclude Include="CameraStaticDistance.hpp" />
     <ClInclude Include="Subscriber.hpp" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
@@ -219,6 +219,7 @@
     <ClCompile Include="AudioComponent.cpp" />
     <ClCompile Include="AudioLibrary.cpp" />
     <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="AudioObject.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="BashAbility.cpp" />
     <ClCompile Include="BashableObject.cpp" />
@@ -253,14 +254,12 @@
     <ClCompile Include="LevelScene.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="MovingPlatform.cpp" />
-    <ClCompile Include="OptionsMenu.cpp" />
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PlatformFactory.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PopUp.cpp" />
     <ClCompile Include="PostMaster.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Scene.cpp" />
