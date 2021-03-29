@@ -419,6 +419,7 @@ void Player::DoubleJump()
 	{
 		GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[4]);
 	}
+
 	myCurrentAnimationIndex = 3;
 	myHasLanded = false;
 	myHasDoubleJumped = true;
@@ -590,6 +591,16 @@ void Player::LeaveLedge()
 	myGrabbedLedge = false;
 	myIsLerpingToPosition = false;
 	AudioManager::GetInstance()->PlayAudio(AudioList::LeaveLedge);
+
+	AnimationComponent* animation = GetComponent<AnimationComponent>();
+	if (myIsGliding)
+	{
+		animation->SetNextAnimation(&myAnimations[12]);
+	}
+	else
+	{
+		animation->SetNextAnimation(&myAnimations[4]);
+	}
 }
 const bool Player::GetLedgeIsGrabbed()
 {
