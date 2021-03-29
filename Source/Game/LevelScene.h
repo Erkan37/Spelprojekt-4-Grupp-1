@@ -30,7 +30,7 @@ public:
     const bool GetReachedFullOpacity();
     void Transitioning();
 
-    const GameObject* GetPlayer();
+    GameObject* GetPlayer();
 private:
     GameObject* myBlackScreen;
     GameObject* myPlayer;

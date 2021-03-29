@@ -47,6 +47,7 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 			stats.myEffectType = (*particleStat)["EffectType"].GetString();
 			stats.mySpritePath = (*particleStat)["SpritePath"].GetString();
 			stats.myIsRepeating = (*particleStat)["IsRepeating"].GetBool();
+			stats.myLockedPosition = (*particleStat)["LockPosition"].GetBool();
 			stats.myEmitTime = (*particleStat)["EmitTime"].GetFloat();
 			stats.myPauseTime = (*particleStat)["PauseTime"].GetFloat();
 			stats.myStartScale = (*particleStat)["StartScale"].GetFloat();
@@ -62,6 +63,7 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 			stats.myMaxParticleAngularVel = (*particleStat)["MaxParticleAngularVel"].GetFloat();
 			stats.myEmitterAngle = (*particleStat)["EmitterAngle"].GetFloat();
 			stats.myEmitterWidth = (*particleStat)["EmitterWidth"].GetFloat();
+			stats.myEmitterHeigth = (*particleStat)["EmitterHeigth"].GetFloat();
 			stats.myMinEmitterAngularVelocity = (*particleStat)["MinEmitterAngularVelocity"].GetFloat();
 			stats.myMaxEmitterAngularVelocity = (*particleStat)["MaxEmitterAngularVelocity"].GetFloat();
 			stats.myMinParticleLifeTime = (*particleStat)["MinParticleLifeTime"].GetFloat();
@@ -69,6 +71,7 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 			stats.myEmitterLifeTime = (*particleStat)["EmitterLifeTime"].GetFloat();
 			stats.myStartColor = { (*particleStat)["StartColor"][0].GetFloat(), (*particleStat)["StartColor"][1].GetFloat(), (*particleStat)["StartColor"][2].GetFloat(), (*particleStat)["StartColor"][3].GetFloat() };
 			stats.myEndColor = { (*particleStat)["EndColor"][0].GetFloat(), (*particleStat)["EndColor"][1].GetFloat(), (*particleStat)["EndColor"][2].GetFloat(), (*particleStat)["EndColor"][3].GetFloat() };
+
 
 			myEffects.push_back(stats);
 		}

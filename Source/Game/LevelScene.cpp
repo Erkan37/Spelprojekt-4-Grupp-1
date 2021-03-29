@@ -79,10 +79,10 @@ void LevelScene::Update(const float& aDeltaTime)
 {
 	if (CGameWorld::GetInstance()->Input()->GetInput()->GetKeyJustDown(Keys::RKey))
 	{
-		myEffectFactory->SpawnEffect(myPlayer->GetPosition(), eParticleEffects::FallEffect);
+		v2f position = myPlayer->GetPosition();
+		myEffectFactory->SpawnEffect(position, eParticleEffects::FallEffect);
 	}
 
-	
 
 	const float zoomX = CGameWorld::GetInstance()->Game()->GetZoomX();
 	const float zoomY = CGameWorld::GetInstance()->Game()->GetZoomY();
@@ -163,7 +163,7 @@ const bool LevelScene::GetReachedFullOpacity()
 	return myReachedFullOpacity;
 }
 
-const GameObject* LevelScene::GetPlayer()
+GameObject* LevelScene::GetPlayer()
 {
 	return myPlayer;
 }

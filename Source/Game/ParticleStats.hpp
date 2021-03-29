@@ -16,7 +16,9 @@ private:
 	std::string myEffectType = {};
 	std::string mySpritePath = {};
 	int myEffectTypeIndex = {};
+
 	bool myIsRepeating = {};
+	bool myLockedPosition = {};
 
 	float myEmitTime = {};
 	float myPauseTime = {};
@@ -39,6 +41,7 @@ private:
 
 	float myEmitterAngle = {};
 	float myEmitterWidth = {};
+	float myEmitterHeigth = {};
 
 	float myMinEmitterAngularVelocity = {};
 	float myMaxEmitterAngularVelocity = {};

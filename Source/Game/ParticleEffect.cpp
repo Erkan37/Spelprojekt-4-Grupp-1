@@ -30,9 +30,9 @@ void ParticleEffect::Init(ParticleStats aStats, Player* aPlayer)
 	if (static_cast<eParticleEffects>(myStats.myEffectTypeIndex) == eParticleEffects::RunEffect)
 		myIsActive = true;
 
-	SetPivot({ 0.5f, 0.5f });
 	SetPosition(myPlayer->GetPosition());
-	SetZIndex(2000.f);
+	SetZIndex(100.f);
+	SetPivot({ 0.5f, 0.5f });
 	Activate();
 }
 
@@ -100,11 +100,18 @@ const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 		sprite->myMaxScale = myStats.myEndScale;
 		sprite->mySpawnAngle = myStats.myParticleAngleInterval;
 		sprite->myEmitterAngle = myStats.myEmitterAngle;
+		sprite->myEmitterStartAngle = myStats.myMinEmitterAngularVelocity;
+		sprite->myEmitterEndAngle = myStats.myMaxEmitterAngularVelocity;
 		sprite->myEmitterWidth = myStats.myEmitterWidth;
+		sprite->myEmitterHeigth = myStats.myEmitterHeigth;
 		sprite->myEmiterLifetime = myStats.myEmitterLifeTime;
 		sprite->myStartColor = myStats.myStartColor;
 		sprite->myEndColor = myStats.myEndColor;
+		sprite->myIsLockedPos = myStats.myLockedPosition;
 		sprite->myPosition = GetPosition();
+
+		if (sprite->myIsLockedPos)
+			SetPivot({ 0.f, 1.0f });
 
 		sprite->AddSprite(AddComponent<SpriteComponent>());
 

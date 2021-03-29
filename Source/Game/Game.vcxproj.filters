@@ -79,6 +79,9 @@
     <Filter Include="Core\PostMaster">
       <UniqueIdentifier>{d5fb8d88-d3ed-4c95-8480-3cecd1eb7809}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Particles">
+      <UniqueIdentifier>{4587dd5d-bd42-4074-8c2f-50f3ec443d49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -326,19 +329,19 @@
       <Filter>Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="EffectSprite.h">
-      <Filter>Factories</Filter>
+      <Filter>Core\Particles</Filter>
     </ClInclude>
     <ClInclude Include="ParticleEffect.h">
-      <Filter>Factories</Filter>
+      <Filter>Core\Particles</Filter>
     </ClInclude>
     <ClInclude Include="ParticleEffectFactory.h">
-      <Filter>Factories</Filter>
+      <Filter>Core\Particles</Filter>
     </ClInclude>
     <ClInclude Include="ParticleEffectTypes.hpp">
-      <Filter>Factories</Filter>
+      <Filter>Core\Particles</Filter>
     </ClInclude>
     <ClInclude Include="ParticleStats.hpp">
-      <Filter>Factories</Filter>
+      <Filter>Core\Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -554,13 +557,13 @@
       <Filter>Core\Audio</Filter>
     </ClCompile>
     <ClCompile Include="EffectSprite.cpp">
-      <Filter>Factories</Filter>
+      <Filter>Core\Particles</Filter>
     </ClCompile>
     <ClCompile Include="ParticleEffect.cpp">
-      <Filter>Factories</Filter>
+      <Filter>Core\Particles</Filter>
     </ClCompile>
     <ClCompile Include="ParticleEffectFactory.cpp">
-      <Filter>Factories</Filter>
+      <Filter>Core\Particles</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
