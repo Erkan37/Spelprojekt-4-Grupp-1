@@ -7,19 +7,23 @@
 #include "PhysicsComponent.h"
 #include "Player.hpp"
 #include "Game.h"
-#include <iostream>
+#include "rapidjson/istreamwrapper.h"
+#include "AudioManager.h"
 
 SpringObject::SpringObject(Scene* aLevelScene) : GameObject(aLevelScene)
 {
 	mySpringActive = {};
 	myRetardation = {};
 	myVelocityForce = {};
+	myTimer = {};
+
+	SetZIndex(94);
 }
 
 void SpringObject::Init(const v2f aPosition)
 {
 	InitSprings(aPosition);
-
+	LoadJson();
 	GameObject::Init();
 }
 void SpringObject::Update(const float& aDeltaTime)
@@ -37,9 +41,6 @@ void SpringObject::Update(const float& aDeltaTime)
 		}
 	}
 
-#ifdef _DEBUG
-	ImGuiUpdate();
-#endif // _DEBUG
 }
 
 void SpringObject::OnCollision(GameObject* aGameObject)
@@ -50,8 +51,9 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 	{
 		v2f velo = player->GetComponent<PhysicsComponent>()->GetVelocity();
 
-		if (velo.y > 50.f && myTimer > mySpringTimerCooldown)
+		if (/*velo.y > 50.f &&*/ myTimer > mySpringTimerCooldown)
 		{
+			AudioManager::GetInstance()->PlayAudio(AudioList::PlayerJumpPad);
 			mySpringActive = true;
 			myTimer = {};
 			GetComponent<AnimationComponent>()->SetAnimation(&myAnimation);
@@ -63,8 +65,6 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 void SpringObject::InitSprings(const v2f aPosition)
 {
 	mySpringTimerCooldown = 0.1f;
-	myRetardation = 1.0f;
-	myVelocityForce = 250.f;
 	myPosition = aPosition;
 	mySize = { 16.0f, 16.0f };
 
@@ -78,8 +78,8 @@ void SpringObject::InitSprings(const v2f aPosition)
 	physics->SetIsStatic(true);
 
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
-	collider->SetSize({ mySize.x * 0.8f, mySize.y * 0.01f });
-	collider->SetPosition({ 0.f, -mySize.y * 0.99f });
+	collider->SetSize({ mySize.x, mySize.y * 0.01f });
+	collider->SetPosition({ 0.f, -mySize.y * 0.2f });
 
 }
 
@@ -96,14 +96,28 @@ void SpringObject::CreateGroundSpring()
 
 }
 
-#ifdef _DEBUG
-void SpringObject::ImGuiUpdate()
+void SpringObject::LoadJson()
 {
-	ImGui::Begin("Spring", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
+	std::ifstream springObjectFile("JSON/SpringObject.json");
+	rapidjson::IStreamWrapper springsObjectStream(springObjectFile);
 
-	ImGui::SliderFloat("Spring Velocity Force", &myVelocityForce, 0.0f, 2000.0f);
-	ImGui::SliderFloat("Spring Velocity Retardation", &myRetardation, 0.0f, 5.0f);
+	rapidjson::Document springDocuments;
+	springDocuments.ParseStream(springsObjectStream);
 
-	ImGui::End();
+	myRetardation = springDocuments["Retardation"].GetFloat();
+	myVelocityForce = springDocuments["Velocity"].GetFloat();
+
+	springObjectFile.close();
 }
-#endif // _DEBUG
+
+//#ifdef _DEBUG
+//void SpringObject::ImGuiUpdate()
+//{
+//	ImGui::Begin("Spring", &myIsActive, ImGuiWindowFlags_AlwaysAutoResize);
+//
+//	ImGui::SliderFloat("Spring Velocity Force", &myVelocityForce, 0.0f, 2000.0f);
+//	ImGui::SliderFloat("Spring Velocity Retardation", &myRetardation, 0.0f, 5.0f);
+//
+//	ImGui::End();
+//}
+//#endif // _DEBUG

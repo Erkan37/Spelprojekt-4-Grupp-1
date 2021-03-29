@@ -7,28 +7,53 @@
 
 #include "TiledLoader.h"
 
+#include "GameObject.h"
+
+#include "DataManager.h"
+
 LevelManager::LevelManager()
 {
 	myTiledLoader = std::make_shared<TiledLoader>();
 #ifndef _RETAIL
 	myImGuiIsActive = {};
 #endif //RETAIL
-}
 
+	myLoadedLevel = 0;
+	myLastDoorType = 1;
+
+	myLevelTransition = false;
+
+	Subscribe(eMessageType::LoadNext);
+	Subscribe(eMessageType::LoadPrevious);
+}
 LevelManager::~LevelManager()
 {
 
 }
 
-void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelScene/*, Scene* aPauseMenuScene*/)
+void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelScene/*, Scene* aPauseMenuScene*/, Scene* anIntroLogosScene)
 {
 	myScenes.insert({ eScenes::MainMenu, aMainMenuScene });
 	myScenes.insert({ eScenes::LevelScene, aLevelScene });
 	//myScenes.insert({ eScenes::PauseMenu, aPauseMenuScene });
+	myScenes.insert({ eScenes::IntroLogos, anIntroLogosScene});
 }
 
 void LevelManager::Update()
 {
+	if (myLevelTransition)
+	{
+		LevelScene* levelScene = dynamic_cast<LevelScene*>(myScenes[eScenes::LevelScene]);
+		levelScene->Transitioning();
+		levelScene->IncreaseBlackScreen();
+
+		if (levelScene->GetReachedFullOpacity())
+		{
+			myLevelTransition = false;
+			SingleLoadScene(eScenes::LevelScene);
+		}
+	}
+
 #ifndef _RETAIL
 	ImGuiUpdate();
 #endif //RETAIL
@@ -42,7 +67,7 @@ void LevelManager::ImGuiUpdate()
 		bool levelManager = true;
 		ImGui::Begin("Level Manager", &levelManager, ImGuiWindowFlags_AlwaysAutoResize);
 
-		ImGui::InputInt("Scene Path", &myLevelToLoad, ImGuiWindowFlags_AlwaysAutoResize);
+		ImGui::InputInt("Scene Path", &myLoadedLevel, ImGuiWindowFlags_AlwaysAutoResize);
 
 		if (ImGui::Button("Load Scene"))
 		{
@@ -109,12 +134,46 @@ const bool LevelManager::GetIsActive(eScenes aScene)
 	return myScenes[aScene]->IsActive();
 }
 
-void LevelManager::LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex)
+void LevelManager::LoadLevel(LevelScene* aLevelScene, GameObject* aPlayer)
 {
-#ifndef _RETAIL
-	myTiledLoader->Load(aLevelScene, myLevelToLoad);
-	return;
-#endif //RETAIL
+	myTiledLoader->Load(aLevelScene, myLoadedLevel, aPlayer);
+}
 
-	myTiledLoader->Load(aLevelScene, aLevelIndex);
+void LevelManager::LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, GameObject* aPlayer)
+{
+	myLoadedLevel = aLevelIndex;
+	myTiledLoader->Load(aLevelScene, aLevelIndex, aPlayer);
+}
+
+void LevelManager::Notify(const Message& aMessage)
+{
+	if (aMessage.myMessageType == eMessageType::LoadNext)
+	{
+		++myLoadedLevel;
+		if (myLoadedLevel >= DataManager::GetInstance().GetLevelCount())
+		{
+			myLoadedLevel = DataManager::GetInstance().GetLevelCount() - 1;
+		}
+
+		myLastDoorType = std::get<int>(aMessage.myData);
+
+		myLevelTransition = true;
+	}
+	else if (aMessage.myMessageType == eMessageType::LoadPrevious)
+	{
+		--myLoadedLevel;
+		if (myLoadedLevel < 0)
+		{
+			myLoadedLevel = 0;
+		}
+
+		myLastDoorType = std::get<int>(aMessage.myData);
+
+		myLevelTransition = true;
+	}
+}
+
+const int LevelManager::GetDoorType()
+{
+	return myLastDoorType;
 }

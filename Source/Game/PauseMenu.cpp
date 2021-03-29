@@ -46,12 +46,14 @@ void PauseMenu::InitMenu()
 	myMainMenuBtn = std::make_unique<UIButton>(myScene);
 	v2f mainMenuPos = { 165.f, 145.f };
 	
-	myBackground->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Bakground_304x164px.dds", {520.f, 265.f}, backgroundPos, 599);
-	myBar->Init("Sprites/UI/pauseMenu/UI_PauseMenu_PauseBarScreen_241x3px.dds", { 275.0f, 5.f }, barPos, 600);
-	myFire->InitAnimation("Sprites/UI/pauseMenu/UI_Collectible_Soul_Red_16x16px.dds", { 16.0f, 16.0f }, firePos, 600);
-	myFire2->InitAnimation("Sprites/UI/pauseMenu/UI_Collectible_Soul_Yellow_16x16px.dds", { 16.0f, 16.0f }, firePos2, 600);
-	myFire3->InitAnimation("Sprites/UI/pauseMenu/UI_Collectible_Soul_Green_16x16px.dds", { 16.0f, 16.0f }, firePos3, 600);
-	myFireHighlight->InitAnimation("Sprites/UI/pauseMenu/UI_PauseMenu_Flame_16x16px.dds", { 16.0f, 16.0f }, { 200.0f, 70.0f }, 600);
+
+	myBackground->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Bakground_304x164px.dds", {520.f, 265.f}, backgroundPos, 200);
+	myBar->Init("Sprites/UI/pauseMenu/UI_PauseMenu_PauseBarScreen_241x3px.dds", { 275.0f, 5.f }, barPos, 201);
+	myFire->InitAnimation("Sprites/UI/pauseMenu/UI_Collectible_Soul_Red_16x16px.dds", { 16.0f, 16.0f }, firePos, 201);
+	myFire2->InitAnimation("Sprites/UI/pauseMenu/UI_Collectible_Soul_Yellow_16x16px.dds", { 16.0f, 16.0f }, firePos2, 201);
+	myFire3->InitAnimation("Sprites/UI/pauseMenu/UI_Collectible_Soul_Green_16x16px.dds", { 16.0f, 16.0f }, firePos3, 201);
+	myFireHighlight->InitAnimation("Sprites/UI/pauseMenu/UI_PauseMenu_Flame_16x16px.dds", { 16.0f, 16.0f }, { 200.0f, 70.0f }, 201);
+
 	myContinueBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_Continue_Unmarked_64x16px.dds", { 64.f,16.f }, continuePos, "Sprites/UI/pauseMenu/UI_PauseMenu_Text_Continue_Marked_64x16px.dds", 64);
 	myLevelSelectBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_LevelSelect_Unmarked_72x16px.dds", { 72.f,16.f }, levelSelectPos,"Sprites/UI/pauseMenu/UI_PauseMenu_Text_LevelSelect_Marked_72x16px.dds", 72);
 	myMainMenuBtn->Init("Sprites/UI/pauseMenu/UI_PauseMenu_Text_MainMenu_Unmarked_64x16px.dds", { 64.f,16.f }, mainMenuPos, "Sprites/UI/pauseMenu/UI_PauseMenu_Text_MainMenu_Marked_64x16px.dds", 64);
@@ -203,15 +205,15 @@ void PauseMenu::DeactivateMenu()
 void PauseMenu::InitTexts()
 {
 	myTitleString = std::make_unique<UIText>(myScene);
-	myTitleString->Init("Pause Menu", "Text/alagard.ttf", EFontSize::EFontSize_100);
-	myTitleString->SetPosition({ 160.f, 110.f });
+	myTitleString->Init("Pause Menu", "Text/alagard.ttf", EFontSize::EFontSize_48);
+	myTitleString->SetPosition({ 155.f, 85.f });
 	myCollectibleString = std::make_unique<UIText>(myScene);
 	myCollectibleString->Init("00/00", "Text/Peepo.ttf", EFontSize::EFontSize_48);
-	myCollectibleString->SetPosition({ 50.0f, 35.0f });
+	myCollectibleString->SetPosition({ 50.0f, 25.0f });
 	myCollectibleString2 = std::make_unique<UIText>(myScene);
 	myCollectibleString2->Init("00/00", "Text/Peepo.ttf", EFontSize::EFontSize_48);
-	myCollectibleString2->SetPosition({ 125.0f, 35.0f });
+	myCollectibleString2->SetPosition({ 125.0f, 25.0f });
 	myCollectibleString3 = std::make_unique<UIText>(myScene);
 	myCollectibleString3->Init("00/00", "Text/Peepo.ttf", EFontSize::EFontSize_48);
-	myCollectibleString3->SetPosition({ 205.0f, 35.0f });
+	myCollectibleString3->SetPosition({ 205.0f, 25.0f });
 }

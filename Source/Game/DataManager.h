@@ -103,6 +103,8 @@ public:
 
 	const rapidjson::Document& GetLevel(const unsigned int aLevelIndex) const;
 
+	const int GetLevelCount();
+
 private:
 	//Private Methods
 	DataManager();

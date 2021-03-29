@@ -24,12 +24,25 @@ public:
 
     void Update(const float& aDeltaTime) override;
 
-    GameObject* GetPlayer();
+    void AddBlackScreen();
+    void DecreaseBlackScreen();
+    void IncreaseBlackScreen();
+    const bool GetReachedFullOpacity();
+    void Transitioning();
+
+    const GameObject* GetPlayer();
 private:
+    GameObject* myBlackScreen;
     GameObject* myPlayer;
     Background* myBackground;
     PauseMenu* myPauseMenu;
     ParticleEffectFactory* myEffectFactory;
+
+    float myBlackScreenOpacity;
+    float myBlackScreenOpacitySpeed;
+
+    bool myReachedFullOpacity;
+    bool myIsTransitioning;
 
 };
 

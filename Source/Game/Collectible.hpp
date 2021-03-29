@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Subscriber.hpp"
 
 class Scene;
 
@@ -8,7 +9,7 @@ namespace Utils
 	class Timer;
 }
 
-class Collectible : public GameObject
+class Collectible : public GameObject, public Subscriber
 {
 public:
 	enum class eCollectibleType
@@ -27,13 +28,11 @@ public:
 
 	void OnCollision(GameObject* aGameObject) override;
 
-	void Saved();
-
-	void Reset(const bool aIsTurningIn);
-
-	void SetBonfire(GameObject* aGameObject);
+	void Reset();
 
 	void TurnIn();
+
+	void Notify(const Message& aMessage) override;
 
 	void ImGuiUpdate();
 
@@ -50,7 +49,6 @@ private:
 
 	eCollectibleType myType;
 	bool myWasCollected;
-	bool myIsSafe;
 	bool myWasTurnedIn;
 };
 

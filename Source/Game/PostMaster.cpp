@@ -2,7 +2,7 @@
 #include "PostMaster.hpp"
 #include "Subscriber.hpp"
 
-void PostMaster::AddSubcriber(Subscriber* aSubscriber, eMessageType aMessageType)
+void PostMaster::AddSubcriber(Subscriber* aSubscriber, const eMessageType& aMessageType)
 {
 	if (mySubscribers.find(aMessageType) == mySubscribers.end())
 	{
@@ -12,7 +12,7 @@ void PostMaster::AddSubcriber(Subscriber* aSubscriber, eMessageType aMessageType
 	mySubscribers[aMessageType].push_back(aSubscriber);
 }
 
-void PostMaster::RemoveSubcriber(Subscriber* aSubscriber, eMessageType aMessageType)
+void PostMaster::RemoveSubcriber(Subscriber* aSubscriber, const eMessageType& aMessageType)
 {
 	if (mySubscribers.find(aMessageType) != mySubscribers.end())
 	{
@@ -38,4 +38,19 @@ void PostMaster::ReceiveMessage(const Message& aMessage)
 	{
 		subscriber->Notify(aMessage);
 	}
+}
+
+void PostMaster::ReceiveMessage(const Message& aMessage, const bool aWillWait)
+{
+	myWaitingMessages.push_back(aMessage);
+}
+
+void PostMaster::SendWaitingMessages()
+{
+	for (const Message& message : myWaitingMessages)
+	{
+		ReceiveMessage(message);
+	}
+
+	myWaitingMessages.clear();
 }

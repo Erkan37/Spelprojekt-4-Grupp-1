@@ -23,6 +23,7 @@ public:
 
 	v2f GetVelocity();
 	void SetVelocity(const v2f& aDashVelocity);
+	void InvertDashDirectionX();
 
 	void ResetVelocity(const bool aResetX, const bool aResetY);
 
@@ -31,12 +32,15 @@ public:
 	void AddTimer(Utils::Timer* aTimer);
 
 	const bool GetIsBashing();
+	const bool GetDashIsActive();
 
 	void ActivateBash(GameObject* aGameObject);
 
 	void UpdateBashArrow();
 
 	void ImGuiUpdate();
+
+	void StopBashing();
 
 private:
 	std::shared_ptr<InputWrapper> myInput;

@@ -1,9 +1,11 @@
 #include "stdafx.h"
 #include "TiledLoader.h"
-
+#include <sstream>
+#include <istream>
 #include <vector>
 
 #include "DataManager.h"
+#include "TileSetLayer.hpp"
 
 #include "SpringObject.h"
 #include "Bonfire.hpp"
@@ -14,13 +16,24 @@
 #include "HiddenArea.hpp"
 #include "BashableObject.hpp"
 #include "MovingPlatform.hpp"
+#include "Jesus.hpp"
+#include "LevelDoor.hpp"
+#include "Player.hpp"
+#include "Glide.hpp"
+#include "Door.h"
+#include "AudioObject.h"
+
+#include "GameWorld.h"
 
 typedef rapidjson::Value::ConstValueIterator iterator;
 
-void TiledLoader::Load(Scene* aScene, int aLevelIndex)
+void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 {
 	const rapidjson::Document& levelDoc = DataManager::GetInstance().GetLevel(aLevelIndex);
 	std::vector<LoadData> loadData;
+	std::vector<HiddenArea*> hiddenRoomsData;
+
+	aScene->GetCamera().SetBounds(v2f(), v2f(levelDoc["width"].GetInt() * 8, levelDoc["height"].GetInt() * 8));
 
 	if (levelDoc.IsObject())
 	{
@@ -32,11 +45,11 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 				for (iterator object = (*layer)["objects"].Begin(); object != (*layer)["objects"].End(); ++object)
 				{
 					LoadData data;
-					data.myPosition.x = (*object)["x"].GetInt();
-					data.myPosition.y = (*object)["y"].GetInt();
+					data.myPosition.x = (*object)["x"].GetFloat();
+					data.myPosition.y = (*object)["y"].GetFloat();
 
-					data.mySize.x = (*object)["width"].GetInt();
-					data.mySize.y = (*object)["height"].GetInt();
+					data.mySize.x = (*object)["width"].GetFloat();
+					data.mySize.y = (*object)["height"].GetFloat();
 
 					std::string type = (*object)["type"].GetString();
 					std::stringstream degree(type);
@@ -56,6 +69,31 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 							{
 								data.mySpeed = (*property)["value"].GetFloat();
 							}
+
+							if (std::string((*property)["name"].GetString()).compare("ButtonX") == 0)
+							{
+								data.myButtonPosition.x = (*property)["value"].GetFloat();
+							}
+
+							if (std::string((*property)["name"].GetString()).compare("ButtonY") == 0)
+							{
+								data.myButtonPosition.y = (*property)["value"].GetFloat();
+							}
+
+							if (std::string((*property)["name"].GetString()).compare("Material") == 0)
+							{
+								data.myPlatformMaterial = (*property)["value"].GetInt();
+							}
+
+							if (std::string((*property)["name"].GetString()).compare("SoundType") == 0)
+							{
+								data.mySound = (*property)["value"].GetInt();
+							}
+
+							if (std::string((*property)["name"].GetString()).compare("SoundRadius") == 0)
+							{
+								data.mySoundRadius = (*property)["value"].GetFloat();
+							}
 						}
 					}
 
@@ -71,7 +109,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 				}
 				else if (name == "Doors")
 				{
-					ParseDoors(loadData, aScene);
+					ParseDoors(loadData, aScene, dynamic_cast<Player*>(aPlayer));
 				}
 				else if (name == "Enemies")
 				{
@@ -85,9 +123,13 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 				{
 					ParseCollectables(loadData, aScene);
 				}
-				else if (name == "CollectableZones")
+				else if (name == "AudioObjects") //Fix when I know the correct name of the layer
 				{
-					ParseCollectableZones(loadData, aScene);
+					ParseAudioObjects(loadData, aScene);
+				}
+				else if (name == "Glide")
+				{
+					ParseGlide(loadData, aScene);
 				}
 				else if (name == "Platforms")
 				{
@@ -95,7 +137,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 				}
 				else if (name == "HiddenRooms")
 				{
-					ParseHiddenRooms(loadData, aScene);
+					ParseHiddenRooms(loadData, aScene, hiddenRoomsData);
 				}
 				else if (name == "Springs")
 				{
@@ -109,15 +151,49 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex)
 				{
 					ParseButtons(loadData, aScene);
 				}
+				else if (name == "Jesus")
+				{
+					ParseJesus(loadData, aScene, aPlayer);
+				}
 
 				loadData.clear();
 			}
+			else
+			{					 
+				int z;
+				std::string layerName = (*layer)["name"].GetString();
+
+				if (layerName == "BG1")
+				{
+					z = myBG1z;
+				}
+				else if (layerName == "BG2")
+				{
+				 z = myBG2z;
+				}
+				else if (layerName == "FG1")
+				{
+					z = myFG1z;
+				}
+				else if (layerName == "FG2")
+				{
+					z = myFG2z;
+				}
+				else if (layerName == "HR")
+				{
+					z = myHRz;
+				}
+
+				TileSetLayer* tileSet = new TileSetLayer(aScene);
+				SpritebatchComponent* batch = tileSet->LoadTileSetLayer(myTileSetLayerProperties, (*layer)["data"].GetArray(), (*layer)["width"].GetInt(), (*layer)["height"].GetInt(), z);
+
+				if (layerName == "HR")
+				{
+					SetBatchForHiddenRooms(batch, hiddenRoomsData);
+				}
+			}
 		}
 	}
-}
-
-void TiledLoader::ParseGraphics(const std::vector<LoadData> someBG1Data, const std::vector<LoadData> someBG2Data, const std::vector<LoadData> someFG1Data, const std::vector<LoadData> someFG2Data, const std::vector<LoadData> someHRData, Scene* aScene)
-{
 }
 
 void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aScene)
@@ -129,8 +205,34 @@ void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aSc
 	}
 }
 
-void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene*)
+void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene* aScene, Player* aPlayer)
 {
+
+	const int doorType = CGameWorld::GetInstance()->GetLevelManager().GetDoorType();
+
+	for (int i = 0; i < someData.size(); ++i)
+	{
+		LevelDoor* door = new LevelDoor(aScene);
+
+		if (doorType != someData[i].myType)
+		{
+			v2f doorOffset = v2f(0.0f, someData[i].mySize.y - 8.0f);
+			if (someData[i].myType == 0)
+			{
+				doorOffset.x = 24.0f + someData[i].mySize.x;
+			}
+			else if (someData[i].myType == 1)
+			{
+				doorOffset.x = -24.0f;
+			}
+
+			aPlayer->SetSpawnPosition(someData[i].myPosition + doorOffset);
+			aPlayer->SetPosition(someData[i].myPosition + doorOffset);
+		}
+
+		door->Init(static_cast<LevelDoor::eDoorType>(someData[i].myType), someData[i].mySize);
+		door->SetPosition(someData[i].myPosition);
+	}
 }
 
 void TiledLoader::ParseEnemies(const std::vector<LoadData> someData, Scene* aScene)
@@ -186,8 +288,22 @@ void TiledLoader::ParseCollectables(const std::vector<LoadData> someData, Scene*
 	}
 }
 
-void TiledLoader::ParseCollectableZones(const std::vector<LoadData> someData, Scene*)
+void TiledLoader::ParseGlide(const std::vector<LoadData> someData, Scene* aScene)
 {
+	for (int i = 0; i < someData.size(); ++i)
+	{
+		Glide* glide = new Glide(aScene);
+		glide->Init(someData[i].myPosition);
+	}
+}
+
+void TiledLoader::ParseAudioObjects(const std::vector<LoadData> someData, Scene* aScene)
+{
+	//Uncomment hen everyting else is done with AudioObjects
+	//for (int i = 0; i < someData.size(); ++i)
+	//{
+	//	AudioObject* audioObj = new AudioObject(aScene, someData[i].mySoundRadius, someData[i].mySound, someData[i].myPosition);
+	//}
 }
 
 void TiledLoader::ParsePlatforms(const std::vector<LoadData> someData, Scene* aScene)
@@ -199,7 +315,7 @@ void TiledLoader::ParsePlatforms(const std::vector<LoadData> someData, Scene* aS
 		switch (someData[i].myType)
 		{
 		case 0:
-			platformFactory.CreateStaticPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, false);
+			platformFactory.CreateStaticPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, false, someData[i].myPlatformMaterial);
 			break;
 		case 1:
 			platformFactory.CreateMovingPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, GetWaypointPositions(someData[i].myWaypoints, someData[i].myPosition), someData[i].mySpeed);
@@ -214,16 +330,17 @@ void TiledLoader::ParsePlatforms(const std::vector<LoadData> someData, Scene* aS
 			platformFactory.CreateDeadlyPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize);
 			break;
 		case 5:
-			platformFactory.CreateStaticPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, true);
+			platformFactory.CreateStaticPlatform(aScene, someData[i].myPosition, someData[i].mySize, someData[i].mySize, true, 3);
 		}
 	}
 }
 
-void TiledLoader::ParseHiddenRooms(const std::vector<LoadData> someData, Scene* aScene)
+void TiledLoader::ParseHiddenRooms(const std::vector<LoadData> someData, Scene* aScene, std::vector<HiddenArea*>& aHiddenRoomsData)
 {
 	for (int i = 0; i < someData.size(); ++i)
 	{
 		HiddenArea* hiddenArea = new HiddenArea(aScene, someData[i].myPosition, someData[i].mySize);
+		aHiddenRoomsData.push_back(hiddenArea);
 	}
 }
 
@@ -254,7 +371,9 @@ void TiledLoader::ParseButtons(const std::vector<LoadData> someData, Scene* aSce
 	{
 		if (someData[i].myType == 3)
 		{
-			//door
+			Door* myDoor = new Door(aScene);
+			myDoor->Init(someData[i].myPosition);
+			myDoor->AddButton(someData[i].myButtonPosition);
 		}
 		else
 		{
@@ -273,8 +392,26 @@ void TiledLoader::ParseButtons(const std::vector<LoadData> someData, Scene* aSce
 				aType = MovingPlatform::eMovingPlatformType::PointAtoBPlatform;
 				break;
 			}
-			platform->AddButton(someData[i].myPosition, aType);
+			platform->AddButton(someData[i].myButtonPosition, aType);
 		}
+	}
+}
+
+void TiledLoader::ParseJesus(const std::vector<LoadData> someData, Scene* aScene, GameObject* aPlayer)
+{
+	for (size_t jesusIndex = 0; jesusIndex < someData.size(); ++jesusIndex)
+	{
+		Jesus* jesus = new Jesus(aScene);
+		jesus->Init(someData[jesusIndex].myPosition);
+		jesus->SetTarget(aPlayer);
+	}
+}
+
+void TiledLoader::SetBatchForHiddenRooms(SpritebatchComponent* aBatch, std::vector<HiddenArea*>& aHiddenRoomsData)
+{
+	for (HiddenArea* hiddenArea : aHiddenRoomsData)
+	{
+		hiddenArea->SetBatch(aBatch);
 	}
 }
 
@@ -286,9 +423,9 @@ std::vector<v2f> TiledLoader::GetWaypointPositions(const std::string somePositio
 	std::stringstream sstream;
 
 	sstream << somePositions;
-	std::string tempWord;
-	int tempNum;
-	int tempX;
+	std::string tempWord = {};
+	int tempNum = {};
+	int tempX = {};
 	bool hasX = false;
 
 	while (!sstream.eof())

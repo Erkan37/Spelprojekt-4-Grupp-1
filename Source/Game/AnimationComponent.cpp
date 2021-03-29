@@ -113,7 +113,7 @@ void AnimationComponent::Update(Transform& aTransform, GameObject& aGameObject)
 		return;
 	}
 
-	myTimer -= CGameWorld::GetInstance()->DeltaTime();
+	myTimer -= CGameWorld::GetInstance()->GetTimer()->GetDeltaTime();
 
 	if (myTimer < 0)
 	{
@@ -223,4 +223,14 @@ bool AnimationComponent::GetIsDisplayedOnce()
 bool AnimationComponent::GetHasBeenDisplayedOnce()
 {
 	return myHasBeenDisplayed;
+}
+
+const int AnimationComponent::GetCurrentIndex()
+{
+	return mySpriteIndex;
+}
+
+bool AnimationComponent::GetHasEnded()
+{
+	return myHasReachedEnd;
 }

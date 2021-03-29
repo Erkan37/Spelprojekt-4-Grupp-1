@@ -38,6 +38,13 @@ void SpritebatchComponent::Render(Transform& aTransform, GameObject& aGameObject
 	aTransform;
 	aGameObject;
 
+	/*
+	for (SpriteComponent* sprite : mySprites)
+	{
+		sprite->Render(aTransform, aGameObject);
+	}
+	*/
+
 	myBatch->Render();
 }
 
@@ -90,4 +97,12 @@ void SpritebatchComponent::SetSamplerFilter(const ESamplerFilter& aSamplerFilter
 const ESamplerFilter& SpritebatchComponent::GetSamplerFilter() const
 {
 	return mySamplerFilter;
+}
+
+void SpritebatchComponent::SetOpacity(const float& aOpacity)
+{
+	for (SpriteComponent* sprite : mySprites)
+	{
+		sprite->SetColor(v4f(1.0f, 1.0f, 1.0f, aOpacity));
+	}
 }

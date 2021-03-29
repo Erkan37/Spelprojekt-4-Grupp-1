@@ -8,6 +8,7 @@
 #include "EnemyProjectile.h"
 #include "Enemy.h"
 #include "WaypointComponent.hpp"
+#include "AudioManager.h"
 #ifdef _DEBUG
 #include "imgui.h"
 #endif // DEBUG
@@ -21,17 +22,18 @@ Enemy::Enemy(Scene* aScene) : GameObject(aScene)
 }
 NormalEnemy::NormalEnemy(Scene* aScene) : Enemy(aScene)
 {
-	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy1.dds");
-	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeY] });
+	InitAnimation();
 	this->SetZIndex(400);
+	//AudioComponent* audio = AddComponent<AudioComponent>();
+	//audio->AddAudio(AudioList::EnemyNormalIdle);
+	//audio->SetRadius(100);
+	//audio->PlayAudio();
 }
 ShootingEnemy::ShootingEnemy(Scene* aScene) : Enemy(aScene)
 {
-	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy2.dds");
-	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeY] });
+	InitAnimation();
 	this->SetZIndex(400);
+	//AudioLibrary::GetInstance().myAudioList[AudioList::ProjectileFly]->Play();
 }
 
 void Enemy::InitEnemy(const std::vector<v2f>& someWayPoints, const float& aSpeed)
@@ -96,6 +98,11 @@ void ShootingEnemy::Update(const float& aDeltaTime)
 	}
 	GameObject::Update(aDeltaTime);
 
+	if (GetComponent<AnimationComponent>()->GetHasEnded())
+	{
+		GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[0]);
+	}
+
 	v2f lengthToPlayer = dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition() - this->GetPosition();
 	if (lengthToPlayer.Length() <= myJsonData->myFloatValueMap[EEnum::FireRadius])
 	{
@@ -112,8 +119,43 @@ void ShootingEnemy::Update(const float& aDeltaTime)
 #endif // _DEBUG
 }
 
+void NormalEnemy::InitAnimation()
+{
+	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
+	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy1.dds");
+	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::NE_SpriteSizeY] });
+
+	myAnimation = Animation(false, false, false, 0, 10, 10, 0.1f, spriteIdle, 16, 16);
+
+	AnimationComponent* anime = AddComponent<AnimationComponent>();
+	anime->SetSprite(spriteIdle);
+	anime->SetAnimation(&myAnimation);
+}
+
+void ShootingEnemy::InitAnimation()
+{
+	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
+	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy2.dds");
+	spriteIdle->SetSize({ myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeY] });
+
+	SpriteComponent* spriteAttack = AddComponent<SpriteComponent>();
+	spriteAttack->SetSpritePath("Sprites/Enemies/Enemy2Attack.dds");
+	spriteAttack->SetSize({ myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeX], myJsonData->myFloatValueMap[EEnum::SE_SpriteSizeY] });
+	spriteAttack->Deactivate();
+
+	myAnimations[0] = Animation(false, false, false, 0, 10, 10, 0.1f, spriteIdle, 16, 16);
+	myAnimations[1] = Animation(false, false, false, 0, 10, 10, 0.1f, spriteAttack, 16, 16);
+
+	AnimationComponent* anime = AddComponent<AnimationComponent>();
+	anime->SetSprite(spriteIdle);
+	anime->SetAnimation(&myAnimations[0]);
+}
+
 void ShootingEnemy::Shoot()
 {
+	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[1]);
+	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[0]);
+	AudioManager::GetInstance()->PlayAudio(AudioList::EnemyShooting);
 	EnemyProjectile* projectile = new EnemyProjectile(this->myScene, this->GetPosition(), dynamic_cast<LevelScene*>(this->myScene)->GetPlayer()->GetPosition());
 }
 void Enemy::OnCollision(GameObject* aGameObject)

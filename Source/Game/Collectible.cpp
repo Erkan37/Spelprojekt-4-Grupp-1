@@ -6,6 +6,7 @@
 #include "AnimationComponent.hpp"
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
+#include "AudioManager.h"
 
 #include "../External/Headers/CU/Utilities.h"
 
@@ -26,10 +27,10 @@ Collectible::Collectible(Scene* aLevelScene)
 	myTimeOffset(0.0f),
 	myType(eCollectibleType::Easy),
 	myWasCollected(false),
-	myIsSafe(false),
 	myWasTurnedIn(false)
 {
-	
+	Subscribe(eMessageType::PlayerSafeLanded);
+	Subscribe(eMessageType::PlayerDeath);
 }
 
 Collectible::~Collectible()
@@ -39,7 +40,8 @@ Collectible::~Collectible()
 
 void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 {
-	SetZIndex(400);
+	SetZIndex(129);
+
 	SetPosition(aPosition);
 	mySpawnPosition = aPosition;
 
@@ -65,15 +67,16 @@ void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 	}
 
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
-	spriteIdle->SetSpritePath(spritePath); //Get correct image depending on type
-	spriteIdle->SetSize(v2f(16.0f, 16.0f)); //Get size from data manager instead
+	spriteIdle->SetSpritePath(spritePath);
+	spriteIdle->SetSize(v2f(16.0f, 16.0f));
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
 	physics->SetCanCollide(false);
 	physics->SetIsStatic(false);
 	physics->SetApplyGravity(false);
 
-	physics->CreateColliderFromSprite(GetComponent<SpriteComponent>(), this); //Get collision size from data manager
+	ColliderComponent* collider = AddComponent<ColliderComponent>();
+	collider->SetSize(v2f(24.0f, 24.0f));
 
 	GameObject::Init();
 }
@@ -114,48 +117,41 @@ void Collectible::OnCollision(GameObject* aGameObject)
 		Player* player = dynamic_cast<Player*>(aGameObject);
 		if (player)
 		{
-			player->AddCollectible(this);
 			//SetAnimation;
-			myTarget = aGameObject;
 			myWasCollected = true;
+			myTarget = aGameObject;
+			AudioManager::GetInstance()->PlayAudio(AudioList::CollectableV1);
 		}
 	}
 }
 
-void Collectible::Saved()
+void Collectible::Reset()
 {
-	myIsSafe = true;
-}
-
-void Collectible::Reset(const bool aIsTurningIn)
-{
-	if (aIsTurningIn)
-	{
-		myWasCollected = false;
-	}
-	else
-	{
-		if (!myIsSafe)
-		{
-			myTarget = nullptr;
-			myWasCollected = false;
-			SetPosition(mySpawnPosition);
-			myTargetPosition = v2f();
-		}
-	}
-}
-
-void Collectible::SetBonfire(GameObject* aGameObject)
-{
-	myTarget = aGameObject;
-	myTargetPosition = aGameObject->GetPosition();
-	myWasTurnedIn = true;
+	myTarget = nullptr;
+	myWasCollected = false;
+	SetPosition(mySpawnPosition);
+	myTargetPosition = mySpawnPosition;
 }
 
 void Collectible::TurnIn()
 {
 	//Add To Score or whatever
 	Destroy();
+}
+
+void Collectible::Notify(const Message& aMessage)
+{
+	if (aMessage.myMessageType == eMessageType::PlayerSafeLanded)
+	{
+		if (myWasCollected)
+		{
+			TurnIn();
+		}
+	}
+	else if (aMessage.myMessageType == eMessageType::PlayerDeath)
+	{
+		Reset();
+	}
 }
 
 void Collectible::ImGuiUpdate()

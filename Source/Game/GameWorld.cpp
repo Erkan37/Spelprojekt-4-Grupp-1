@@ -7,7 +7,6 @@
 #include "GameObject.h"
 #include "InputWrapper.h"
 #include "AudioManager.h"
-#include "TiledMap.h"
 
 // Scene
 #include "Scene.h"
@@ -17,6 +16,7 @@
 #include "Keys.h"
 #include <math.h>
 #include "../External/Headers/CU/Utilities.h"
+#include "CutsceneManager.h"
 
 CGameWorld* CGameWorld::ourInstance = nullptr;
 
@@ -26,6 +26,7 @@ CGameWorld::CGameWorld(CGame* aGame)
 	, myTotalTime(0.0f)
 	, myLevelScene(LevelScene())
 	, myMainMenuScene(MainMenuScene())
+	, myIntroLogosScene(IntroLogosScene())
 {
 	myTimer = std::make_unique<Utils::Timer>();
 	myInput = std::make_shared<InputWrapper>();
@@ -37,7 +38,6 @@ CGameWorld::CGameWorld(CGame* aGame)
 		ourInstance = this;
 	}
 }
-
 CGameWorld::~CGameWorld() 
 {
 	myLevelManager.UnloadAllScenes();
@@ -45,8 +45,11 @@ CGameWorld::~CGameWorld()
 
 void CGameWorld::Init()
 {
-	myLevelManager.Init(&myMainMenuScene, &myLevelScene);
-	myLevelManager.SingleLoadScene(LevelManager::eScenes::MainMenu);
+	myLevelManager.Init(&myMainMenuScene, &myLevelScene, &myIntroLogosScene);
+	myLevelManager.SingleLoadScene(LevelManager::eScenes::IntroLogos);
+
+
+	//myLevelManager.SingleLoadScene(LevelManager::eScenes::MainMenu);
 }
 
 void CGameWorld::Update()
@@ -55,12 +58,30 @@ void CGameWorld::Update()
 	myDeltaTime = myTimer->GetDeltaTime();
 	myInput->Update(myDeltaTime);
 
-	myLevelManager.Update();
-
-	Scene::Manager::Update(myDeltaTime);
+	if (!CutsceneManager::GetInstance().IsPlaying())
+	{
+		myLevelManager.Update();
+		Scene::Manager::Update(myDeltaTime);
+	}
+	else
+	{
+		CutsceneManager::GetInstance().Update(myDeltaTime);
+	}
 }
 
 void CGameWorld::Render()
 {
-	Scene::Manager::Render();
+	if (!CutsceneManager::GetInstance().IsPlaying())
+	{
+		Scene::Manager::Render();
+	}
+	else
+	{
+		CutsceneManager::GetInstance().Render();
+	}
+}
+
+void CGameWorld::LoadDebugger()
+{
+	
 }

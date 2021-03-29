@@ -2,36 +2,14 @@
 #include "LevelScene.h"
 
 #include "GameWorld.h"
-#include "TiledMap.h"
-
-#include "GameObject.h"
-#include "PhysicsComponent.h"
-#include "ColliderComponent.h"
-#include "SpriteComponent.h"
 
 #include "../External/Headers/CU/Utilities.h"
 
 #include "Player.hpp"
 
-#include "Ledge.h"
-
-#include "MovingPlatform.hpp"
-#include "UnstablePlatform.hpp"
-#include "DestructiblePlatform.hpp"
-#include "DeadlyPlatform.hpp"
-#include "PlatformFactory.hpp"
-
-#include "BashableObject.hpp"
-#include "BashableObjectFactory.hpp"
-
-#include "Bonfire.hpp"
-
-#include "EnemyFactory.h"
-#include "Enemy.h"
-
-#include "Collectible.hpp"
 #include "InputWrapper.h"
 
+#include "Jesus.hpp"
 #include "HiddenArea.hpp"
 
 #include "LevelManager.hpp"
@@ -40,7 +18,9 @@
 
 #include "PostMaster.hpp"
 
-#include "TiledLoader.h"
+#include "SpriteComponent.h"
+
+#include "Glide.hpp"
 
 LevelScene::LevelScene()
 	: 
@@ -51,11 +31,19 @@ LevelScene::LevelScene()
 
 void LevelScene::Load()
 {
+	myBlackScreenOpacity = 1.0f;
+	myBlackScreenOpacitySpeed = 4.3f;
+
+	myReachedFullOpacity = true;
+	myIsTransitioning = false;
+
+	AddBlackScreen();
+
 	myPlayer = new Player(this);
 
 	myBackground = new Background(this);
 
-	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, 0);
+	CGameWorld::GetInstance()->GetLevelManager().LoadLevel(this, myPlayer);
 
 	myPauseMenu = new PauseMenu(this);
 	myPauseMenu->InitMenu();
@@ -76,6 +64,12 @@ void LevelScene::Activate()
 
 void LevelScene::Deactivate()
 {
+	if (!myReachedFullOpacity)
+	{
+		IncreaseBlackScreen();
+		return;
+	}
+
 	Scene::Deactivate();
 
 	GetCamera().StopFollowing();
@@ -112,7 +106,17 @@ void LevelScene::Update(const float& aDeltaTime)
 
 	GetCamera().SetZoom(zoom);
 
-	GetCamera().SetBounds(v2f(0.0f, 0.0f), v2f(1920.0f, 1080.0f));
+	if (myIsTransitioning)
+	{
+		return;
+	}
+
+	myBlackScreen->SetPosition(GetCamera().GetPosition());
+
+	if (myReachedFullOpacity)
+	{
+		DecreaseBlackScreen();
+	}
 
 	myPauseMenu->Update(aDeltaTime);
 
@@ -120,7 +124,51 @@ void LevelScene::Update(const float& aDeltaTime)
 		Scene::Update(aDeltaTime);
 }
 
-GameObject* LevelScene::GetPlayer()
+void LevelScene::AddBlackScreen()
+{
+	myBlackScreen = new GameObject(this);
+	myBlackScreen->SetZIndex(1000);
+
+	myBlackScreen->SetPosition(v2f(160.0f, 92.0f));
+
+	SpriteComponent* sprite = myBlackScreen->AddComponent<SpriteComponent>();
+	sprite->SetSpritePath("Sprites/BlackScreen.dds");
+	sprite->SetSize(v2f(640.0f, 368.0f));
+}
+
+void LevelScene::DecreaseBlackScreen()
+{
+	myBlackScreen->GetComponent<SpriteComponent>()->SetColor(v4f(1.0f, 1.0f, 1.0f, myBlackScreenOpacity));
+	myBlackScreenOpacity -= CGameWorld::GetInstance()->GetTimer()->GetDeltaTime() * myBlackScreenOpacitySpeed;
+
+	if (myBlackScreenOpacity <= 0.0f)
+	{
+		myReachedFullOpacity = false;
+	}
+}
+
+void LevelScene::IncreaseBlackScreen()
+{
+	myBlackScreen->GetComponent<SpriteComponent>()->SetColor(v4f(1.0f, 1.0f, 1.0f, myBlackScreenOpacity));
+	myBlackScreenOpacity += CGameWorld::GetInstance()->GetTimer()->GetDeltaTime() * myBlackScreenOpacitySpeed;
+
+	if (myBlackScreenOpacity >= 1.0f)
+	{
+		myReachedFullOpacity = true;
+	}
+}
+
+const bool LevelScene::GetReachedFullOpacity()
+{
+	return myReachedFullOpacity;
+}
+
+const GameObject* LevelScene::GetPlayer()
 {
 	return myPlayer;
+}
+
+void LevelScene::Transitioning()
+{
+	myIsTransitioning = true;
 }
