@@ -3,6 +3,7 @@
 
 class InputWrapper;
 class UIButton;
+class UIObject;
 
 class LevelSelect : public Scene
 {
@@ -20,6 +21,7 @@ private:
 
 	std::vector<UIButton*> myLevelButtons;
 	UIButton* myBackButton;
+	UIObject* myBackButtonFire;
 
 	std::shared_ptr<InputWrapper> myInput;
 

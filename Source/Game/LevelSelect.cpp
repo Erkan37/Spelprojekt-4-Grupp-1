@@ -10,6 +10,9 @@
 
 #include "SpriteComponent.h"
 
+#include "UIButton.h"
+#include "UIObject.h"
+
 LevelSelect::LevelSelect()
 {
 	myIsSelectingLevel = true;
@@ -116,12 +119,14 @@ void LevelSelect::CheckButtonPress()
 		if (myIsSelectingLevel)
 		{
 			myBackButton->SetIsHighlightActive(false);
+			myBackButtonFire->SetActive(false);
 			myLevelButtons[myLevelIndex]->SetIsHighlightActive(true);
 		}
 		else
 		{
 			myLevelButtons[myLevelIndex]->SetIsHighlightActive(false);
 			myBackButton->SetIsHighlightActive(true);
+			myBackButtonFire->SetActive(true);
 		}
 	}
 
@@ -147,11 +152,16 @@ void LevelSelect::InitiateButtons()
 	}
 
 	myBackButton = new UIButton(this);
-	myBackButton->Init("Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Unmarked_64x16px.dds", v2f(64.0f, 16.0f), v2f(32.0f, 160.0f), "Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Marked_64x16px.dds", 64);
-	myBackButton->SetPosition(v2f(16.0f, 160.0f));
+	myBackButton->Init("Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Unmarked_64x16px.dds", v2f(64.0f, 16.0f), v2f(250.0f, 160.0f), "Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Marked_64x16px.dds", 64);
+	myBackButton->SetPosition(v2f(250.0f, 160.0f));
 	myBackButton->GetComponent<SpriteComponent>()->SetSize(v2f(64.0f, 16.0f));
 	myBackButton->SetPivot(v2f(0.0f, 0.0f));
 	myBackButton->SetActive(true);
+
+	myBackButtonFire = new UIObject(this);
+	myBackButtonFire->InitAnimation("Sprites/UI/levelSelect/UI_levelSelect_Flame_16x16px.dds", v2f(16.0f, 16.0f), v2f(232.0f, 156), 201);
+	myBackButtonFire->SetPosition(v2f(232.0f, 156.0f));
+	myBackButtonFire->SetPivot(v2f(0.0f, 0.0f));
 
 	const float offsetX = 320.0f / static_cast<float>(myLevelButtons.size());
 
