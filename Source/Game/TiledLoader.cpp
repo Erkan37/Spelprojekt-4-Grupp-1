@@ -84,15 +84,9 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 							{
 								data.myPlatformMaterial = (*property)["value"].GetInt();
 							}
-
-							if (std::string((*property)["name"].GetString()).compare("SoundType") == 0)
+							if (std::string((*property)["name"].GetString()).compare("ID") == 0)
 							{
-								data.mySound = (*property)["value"].GetInt();
-							}
-
-							if (std::string((*property)["name"].GetString()).compare("SoundRadius") == 0)
-							{
-								data.mySoundRadius = (*property)["value"].GetFloat();
+								data.myType = (*property)["value"].GetInt();
 							}
 						}
 					}
@@ -123,7 +117,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 				{
 					ParseCollectables(loadData, aScene);
 				}
-				else if (name == "AudioObjects") //Fix when I know the correct name of the layer
+				else if (name == "AudioObjects")
 				{
 					ParseAudioObjects(loadData, aScene);
 				}
@@ -201,7 +195,7 @@ void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aSc
 	for (int i = 0; i < someData.size(); ++i)
 	{
 		Bonfire* bonfire = new Bonfire(aScene);
-		bonfire->SetPosition(someData[i].myPosition);
+		bonfire->SetPosition(someData[i].myPosition, someData[i].myType);
 	}
 }
 
