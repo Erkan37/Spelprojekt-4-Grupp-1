@@ -2,48 +2,56 @@
   "Bonfires": [
     {
       "Unlocked": 1,
+      "LevelIndex":  0,
       "X": 20.0,
       "Y": 113.0
     },
 
     {
       "Unlocked": 1,
+      "LevelIndex": 0,
       "X": 60.0,
       "Y": 129.0
     },
 
     {
       "Unlocked": 1,
+      "LevelIndex": 0,
       "X": 97.0,
       "Y": 129.0
     },
 
     {
       "Unlocked": 0,
+      "LevelIndex": 0,
       "X": 132.0,
       "Y": 113.0
     },
 
     {
       "Unlocked": 0,
+      "LevelIndex": 0,
       "X": 163.0,
       "Y": 98.0
     },
 
     {
       "Unlocked": 0,
+      "LevelIndex": 0,
       "X": 201.0,
       "Y": 98.0
     },
 
     {
       "Unlocked": 0,
+      "LevelIndex": 0,
       "X": 239.0,
       "Y": 98.0
     },
 
     {
       "Unlocked": 0,
+      "LevelIndex": 0,
       "X": 278.0,
       "Y": 79.0
     }

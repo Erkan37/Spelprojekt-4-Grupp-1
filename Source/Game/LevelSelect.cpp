@@ -156,6 +156,7 @@ void LevelSelect::CheckButtonPress()
 				return;
 			}
 
+			CGameWorld::GetInstance()->GetLevelManager().SetLevelIndex(myLevelIndexes[myLevelIndex]);
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
 		}
 		else
@@ -197,6 +198,8 @@ void LevelSelect::InitiateButtons()
 			levelButton->SetActive(true);
 			levelButton->SetHighlightOffset(v2f(-2.0f, -3.0f));
 			myLevelButtons.push_back(levelButton);
+
+			myLevelIndexes.push_back((*iterator)["LevelIndex"].GetInt());
 		}
 	}
 
