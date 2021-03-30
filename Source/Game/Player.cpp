@@ -678,7 +678,7 @@ void Player::Kill()
 		LevelScene* levelScene = dynamic_cast<LevelScene*>(myScene);
 		if (levelScene)
 		{
-			levelScene->IncreaseBlackScreen(0.25f);
+			levelScene->IncreaseBlackScreen(1.0f);
 			if (!levelScene->GetReachedFullOpacity())
 			{
 				return;
@@ -943,6 +943,11 @@ void Player::StartGliding()
 const bool Player::GetIsGliding()
 {
 	return myIsGliding;
+}
+
+const bool Player::GetHasDied()
+{
+	return myHasDied;
 }
 
 #ifdef _DEBUG

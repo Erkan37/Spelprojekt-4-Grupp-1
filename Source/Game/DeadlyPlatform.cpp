@@ -28,6 +28,10 @@ void DeadlyPlatform::OnCollision(GameObject* aGameObject)
 		AudioManager::GetInstance()->LockAudio(AudioList::SpikeDeath);
 		AudioManager::GetInstance()->PlayAudio(AudioList::SpikeHit);
 		AudioManager::GetInstance()->LockAudio(AudioList::SpikeHit);
-		player->Kill();
+
+		if (!player->GetHasDied())
+		{
+			player->Kill();
+		}
 	}
 }
