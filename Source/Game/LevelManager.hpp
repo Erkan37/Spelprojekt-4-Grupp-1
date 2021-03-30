@@ -20,6 +20,7 @@ public:
 		LevelSelect,
 		LevelScene,
 		IntroLogos,
+		WinScene,
 		//PauseMenu,
 		Count
 	};
@@ -27,7 +28,7 @@ public:
 	LevelManager();
 	~LevelManager();
 
-	void Init(Scene* aMainMenuScene, Scene* aLevelSelect, Scene* aLevelScene, Scene* anIntroLogosScene);
+	void Init(Scene* aMainMenuScene, Scene* aLevelSelect, Scene* aLevelScene, Scene* anIntroLogosScene, Scene* aWinScene);
 
 	void Update();
 
@@ -44,24 +45,29 @@ public:
 	void UnloadAllScenes();
 
 	const bool GetIsActive(eScenes aScene);
+	bool GetIsSpeedrunMode();
 
 	void LoadLevel(LevelScene* aLevelScene, GameObject* aPlayer);
 	void LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, GameObject* aPlayer);
 
 	void SetLevelIndex(const int& aLevelIndex);
+	void SetIsSpeedrunMode(bool aIsSpeedrunMode);
 
 	void Notify(const Message& aMessage) override;
 
-	const int GetDoorType();
+	const int& GetDoorType();
 
 private:
 	std::map<eScenes, Scene*> myScenes;
 	std::shared_ptr<TiledLoader> myTiledLoader;
 
-	int myLoadedLevel;
 	int myLastDoorType;
 
+	int myLoadedLevel;
+
+	bool myLoadingHiddenRoom;
 	bool myLevelTransition;
+	bool myIsSpeedrunMode;
 
 #ifndef _RETAIL
 	bool myImGuiIsActive;

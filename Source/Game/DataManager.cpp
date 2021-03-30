@@ -20,6 +20,15 @@ DataManager::DataManager()
 		ReadFileIntoDocument(myLevelMasterDoc["FilePathArray"].GetArray()[i]["FilePath"].GetString(), myLevelVector.back());
 	}
 
+	ReadFileIntoDocument("HiddenRooms/HiddenRooms.json", myHiddenRoomMasterDoc);
+	for (size_t i = 0; i < myHiddenRoomMasterDoc["HiddenRooms"].GetArray().Size(); i++)
+	{
+		const int hiddenRoomKey = myHiddenRoomMasterDoc["HiddenRooms"].GetArray()[i]["LevelIndex"].GetInt();
+
+		myHiddenRooms.insert({ hiddenRoomKey, rapidjson::Document() });
+		ReadFileIntoDocument(myHiddenRoomMasterDoc["HiddenRooms"].GetArray()[i]["FilePath"].GetString(), myHiddenRooms.at(hiddenRoomKey));
+	}
+
 	//Assign PlayerDoc
 	std::string playerDataPath = myMasterDoc["PlayerData"].GetString();
 	rapidjson::Document playerDoc;
@@ -99,8 +108,16 @@ Data& DataManager::GetDataStruct(const DataEnum aDataEnum)
 	break;
 	}
 }
-const rapidjson::Document& DataManager::GetLevel(const unsigned int aLevelIndex) const
+const rapidjson::Document& DataManager::GetLevel(const unsigned int aLevelIndex, const bool aIsHiddenRoom) const
 {
+	if (aIsHiddenRoom)
+	{
+		if (myHiddenRooms.find(static_cast<int>(aLevelIndex)) != myHiddenRooms.end())
+		{
+			return myHiddenRooms.at(static_cast<int>(aLevelIndex));
+		}
+	}
+
 	if (aLevelIndex < 0 || aLevelIndex >= myLevelVector.size())
 	{
 		return myLevelVector[0];
