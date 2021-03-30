@@ -66,17 +66,14 @@ void EffectSprite::AddSprite(SpriteComponent* aSprite)
 
 	if (myIsLockedPos)
 	{
-		v2f rotationDirection = {};
-		v2f rotationDirection2 = {};
-
-		
 		myDirection.x = Utils::RandomFloat(myEmitterAngular.x, myEmitterAngular.z);
 		myDirection.y = Utils::RandomFloat(myEmitterAngular.y, myEmitterAngular.w);
-
 	}
+
+	position = mySprite->GetRelativePosition() + position + myOffset;
 	
 	mySprite->SetSize(size);
-	mySprite->SetRelativePosition({ mySprite->GetRelativePosition().x + position.x , mySprite->GetRelativePosition().y + position.y});
+	mySprite->SetRelativePosition(position);
 	mySprite->SetRelativeRotation(myRotation);
 	mySprite->Activate();
 

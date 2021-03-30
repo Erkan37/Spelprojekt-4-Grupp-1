@@ -70,6 +70,7 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 			stats.myMinParticleLifeTime = (*particleStat)["MinParticleLifeTime"].GetFloat();
 			stats.myMaxParticleLifeTime = (*particleStat)["MaxParticleLifeTime"].GetFloat();
 			stats.myEmitterLifeTime = (*particleStat)["EmitterLifeTime"].GetFloat();
+			stats.myOffset = { (*particleStat)["Offset"][0]["X"].GetFloat(), (*particleStat)["Offset"][1]["Y"].GetFloat() };
 
 			stats.myEmitterAngular = { (*particleStat)["EmitterAngular"][0].GetFloat(), (*particleStat)["EmitterAngular"][1].GetFloat(), (*particleStat)["EmitterAngular"][2].GetFloat(), (*particleStat)["EmitterAngular"][3].GetFloat() };
 			stats.myStartColor = { (*particleStat)["StartColor"][0].GetFloat(), (*particleStat)["StartColor"][1].GetFloat(), (*particleStat)["StartColor"][2].GetFloat(), (*particleStat)["StartColor"][3].GetFloat() };
@@ -95,17 +96,6 @@ void ParticleEffectFactory::Init()
 	//SpawnCharacterEffects2();
 }
 
-void ParticleEffectFactory::Update(const float& aDeltaTime)
-{
-	for (auto effect : myCreatedEffects)
-		effect->Update(aDeltaTime);
-}
-
-void ParticleEffectFactory::Render()
-{
-	for (auto effect : myCreatedEffects)
-		effect->Render();
-}
 
 void ParticleEffectFactory::SpawnEffect(v2f aPosition, const eParticleEffects aEffectType)
 {

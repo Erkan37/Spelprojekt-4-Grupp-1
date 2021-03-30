@@ -13,9 +13,6 @@ public:
 
 	void Init();
 
-	void Update(const float& aDeltaTime);
-	void Render();
-
 	void SpawnEffect(v2f aPosition, const eParticleEffects aEffectType);
 
 

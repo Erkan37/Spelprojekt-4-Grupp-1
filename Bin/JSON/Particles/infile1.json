@@ -11,10 +11,10 @@
       "EndScale": 0.03,
       "MinTimeBetweenSpawns": 0.2,
       "MaxTimeBetweenSpawns": 0.4,
-      "MinStartSpeed": 100.0,
-      "MaxStartSpeed": 150.0,
-      "MinAcceleration": -0.15000000596046449,
-      "MaxAcceleration": 0.27000001072883608,
+      "MinStartSpeed": 300.0,
+      "MaxStartSpeed": 300.0,
+      "MinAcceleration": 0.2,
+      "MaxAcceleration": 0.4,
       "ParticleAngleInterval": 0.6806784272193909,
       "MinParticleAngularVel": -1.0,
       "MaxParticleAngularVel": 1.0,
@@ -26,8 +26,16 @@
       "MaxEmitterAngularVelocity": 165.0,
       "MinParticleLifeTime": 5.0,
       "MaxParticleLifeTime": 8.0,
-      "EmitterLifeTime": 2.253999948501587,
+      "EmitterLifeTime": 3.0,
 
+      "Offset": [
+        {
+          "X": 0.0
+        },
+        {
+          "Y": 5.0
+        }
+      ],
 
       "LockPosition": true,
 

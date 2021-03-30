@@ -25,7 +25,16 @@
       "MaxEmitterAngularVelocity": 0.0,
       "MinParticleLifeTime": 0.2,
       "MaxParticleLifeTime": 0.5,
-      "EmitterLifeTime": 1.0,
+      "EmitterLifeTime": 0.0,
+
+      "Offset": [
+        {
+          "X": 0.0
+        },
+        {
+          "Y": 0.0
+        }
+      ],
 
       "LockPosition": false,
 

@@ -25,6 +25,7 @@ public:
 	v2f myPosition = {};
 	v2f myScale = {};
 	v2f myMaxVectorScale = {};
+	v2f myOffset = {};
 
 	v4f myEmitterAngular = {};
 
@@ -40,9 +41,9 @@ public:
 	float myRotation = {};
 	float myEmitterWidth = {};
 	float myEmitterHeigth = {};
-	float myEmiterLifetime = {};
 	float mySpawnAngle = {};
 	float myEmitterAngle = {};
+	float myAccelaration = {};
 
 	float myEmitterStartAngle = {};
 	float myEmitterEndAngle = {};

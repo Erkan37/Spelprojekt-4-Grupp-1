@@ -52,6 +52,7 @@ private:
 	float myEmitterLifeTime = {};
 
 	v4f myEmitterAngular = {};
+	v2f myOffset = {};
 
 	Tga2D::CColor myStartColor = {};
 	Tga2D::CColor myEndColor = {};

@@ -12,6 +12,7 @@ class ParticleEffect : public GameObject
 {
 public:
 	ParticleEffect(Scene* aLevelScene);
+	~ParticleEffect();
 
 	void Init(ParticleStats aStats, Player* aPlayer);
 
@@ -28,14 +29,21 @@ private:
 	std::vector<EffectSprite*> mySprites;
 	ParticleStats myStats;
 
+	float myEmitterTime;
 	float mySpawnInterval;
+	float myLifeTime;
 	float myTimer;
-	bool myIsActive;
+	bool myActiveEffect;
+	bool myCreatingSprites;
+	bool myAddedEmitter;
 
 	Player* myPlayer;
-
+	
 	const void UpdateParticle(const float& aDeltaTime);
 	const void UpdatePlayerEffect(const float& aDeltaTime);
+	const void SpawnSprite();
+	const void CheckIfEffectIsDead();
+	const void CheckIfSpritesAreDead(const float& aDeltaTime);
 
 };
 
