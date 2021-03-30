@@ -50,6 +50,10 @@ void LevelScene::Load()
 	myPauseMenu = new PauseMenu(this);
 	myPauseMenu->InitMenu();
 
+	myTimer = new Timer(this);
+	myTimer->Init({ 10, 10 });
+	myTimer->Start();
+
 	Scene::Load();
 }
 

@@ -5,6 +5,7 @@
 #include "BackGround.h"
 #include "SpringObject.h"
 #include "PauseMenu.h"
+#include "Timer.h" 
 
 #include "Subscriber.hpp"
 
@@ -36,6 +37,7 @@ private:
     GameObject* myPlayer;
     Background* myBackground;
     PauseMenu* myPauseMenu;
+    Timer* myTimer;
 
     float myBlackScreenOpacity;
     float myBlackScreenOpacitySpeed;

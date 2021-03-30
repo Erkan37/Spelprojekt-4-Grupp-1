@@ -86,7 +86,11 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 							}
 							if (std::string((*property)["name"].GetString()).compare("ID") == 0)
 							{
-								data.myType = (*property)["value"].GetInt();
+								data.myID = (*property)["value"].GetInt();
+							}
+							if (std::string((*property)["name"].GetString()).compare("BonfireID") == 0)
+							{
+								data.myBonfireID = (*property)["value"].GetInt();
 							}
 						}
 					}
@@ -194,7 +198,7 @@ void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aSc
 {
 	for (int i = 0; i < someData.size(); ++i)
 	{
-		Bonfire* bonfire = new Bonfire(aScene); //, someData[i].myType);
+		Bonfire* bonfire = new Bonfire(aScene); // , someData[i].myID);
 		bonfire->SetPosition(someData[i].myPosition);
 	}
 }
@@ -276,7 +280,7 @@ void TiledLoader::ParseCollectables(const std::vector<LoadData> someData, Scene*
 			break;
 		}
 
-
+		//Send in someData[i].myID and someData[i].myBonfireID when collectibles can handle them
 		Collectible* collectible = new Collectible(aScene);
 		collectible->Init(someData[i].myPosition, aType);
 	}
