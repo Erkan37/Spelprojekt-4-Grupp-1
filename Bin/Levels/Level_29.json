@@ -63,13 +63,13 @@
          "name":"HiddenRooms",
          "objects":[
                 {
-                 "height":40,
+                 "height":56,
                  "id":498,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":4,
+                 "width":28,
                  "x":924,
                  "y":128
                 }],
@@ -339,7 +339,7 @@
                  "y":72
                 }, 
                 {
-                 "height":56,
+                 "height":64,
                  "id":491,
                  "name":"",
                  "rotation":0,
@@ -347,7 +347,7 @@
                  "visible":true,
                  "width":8,
                  "x":920,
-                 "y":168
+                 "y":160
                 }, 
                 {
                  "height":40,
@@ -391,7 +391,7 @@
                  "visible":true,
                  "width":16,
                  "x":928,
-                 "y":168
+                 "y":160
                 }, 
                 {
                  "height":31,
@@ -939,7 +939,7 @@
                  "visible":true,
                  "width":40,
                  "x":912,
-                 "y":208
+                 "y":200
                 }],
          "opacity":1,
          "type":"objectgroup",
