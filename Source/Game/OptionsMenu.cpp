@@ -99,7 +99,7 @@ void OptionsMenu::Init()
 	myCredits->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Background.dds", { 100.f, 100.f }, creditScreenPos, 205);
 
 	//Tutorial
-	myTutorial->Init("Sprites/UI/optionsMenu/tempTutorial.dds", { 100.f, 100.f }, creditScreenPos, 205);
+	myTutorial->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Background.dds", { 100.f, 100.f }, creditScreenPos, 205);
 
 	//Screen
 	myResolutions->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Screensize_Resolutions_All_73x7px_Unmarked.dds", { 73.f, 7.f }, resolutionPos, 202);
