@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Subscriber.hpp"
+#include "Animation.hpp"
 
 class Scene;
 
@@ -37,6 +38,8 @@ public:
 	void ImGuiUpdate();
 
 private:
+	Animation myAnimations[2];
+
 	v2f mySpawnPosition;
 	v2f myTargetPosition;
 	GameObject* myTarget;
