@@ -84,20 +84,6 @@ struct EnemyData : public Data
 	std::map<EnemyFloatEnum, std::string> myFloatNameMap;
 	std::map<EnemyFloatEnum, float> myFloatValueMap;
 };
-struct SaveFile: public Data
-{
-	SaveFile();
-	~SaveFile() override {}
-
-	enum class SaveFileEnum
-	{
-
-
-		SaveFile_Size
-	};
-	std::map<SaveFileEnum, std::string> myFloatNameMap;
-	std::map<SaveFileEnum, float> myFloatValueMap;
-};
 
 class DataManager
 {
@@ -118,7 +104,8 @@ public:
 	const rapidjson::Document& GetLevel(const unsigned int aLevelIndex) const;
 	const int GetLevelCount();
 
-
+	void SaveBonfireState(const unsigned int anIndex, const bool aState);
+	const bool GetBonfireState(const unsigned int anIndex) const;
 
 private:
 	//Private Methods
@@ -135,5 +122,6 @@ private:
 	EnemyData myEnemyData;
 	std::vector<rapidjson::Document> myLevelVector;
 
-
+	//SaveFile
+	rapidjson::Document mySaveFile;
 };

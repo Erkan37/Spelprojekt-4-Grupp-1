@@ -8,8 +8,9 @@
 
 DataManager::DataManager()
 {
-	//Assign MasterDoc
+	//Assign MasterDoc & SaveFile
 	ReadFileIntoDocument("Master.json", myMasterDoc);
+	ReadFileIntoDocument("JSON/SaveFile.json", mySaveFile);
 
 	//Assign LevelDocs
 	ReadFileIntoDocument("Levels/LevelMaster.json", myLevelMasterDoc);
@@ -119,7 +120,7 @@ void DataManager::ReadFileIntoDocument(std::string aFilePath, rapidjson::Documen
 	dataFile.close();
 }
 
-// Constructors är bara här för att undvika varningar. Initializera gärna variablerna här.
+// Constructors är bara här för att undvika varningar.
 PlayerData::PlayerData()
 {
 	for (size_t i = 0; i < static_cast<size_t>(PlayerData::PlayerFloatEnum::Player_FloatEnum_Size); i++)
@@ -211,4 +212,13 @@ void DataManager::AssignValues(const DataEnum anEnum, const rapidjson::Document 
 const int DataManager::GetLevelCount()
 {
 	return static_cast<int>(myLevelVector.size());
+}
+
+void DataManager::SaveBonfireState(const unsigned int anIndex, const bool aState)
+{
+	mySaveFile["Bonfires"].GetArray()[anIndex]["Bonfire"]["IsActive"].SetBool(aState);
+}
+const bool DataManager::GetBonfireState(const unsigned int anIndex) const
+{
+	return mySaveFile["Bonfires"].GetArray()[anIndex].GetBool();
 }

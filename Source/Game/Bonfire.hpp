@@ -13,6 +13,9 @@ public:
 
 	void OnCollision(GameObject* aGameObject) override;
 
+	const unsigned int GetBonfireIndex() const;
+	void SetState(const bool aState);
+
 private:
 	Animation myAnimations[2];
 

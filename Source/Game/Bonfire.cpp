@@ -24,7 +24,7 @@ Bonfire::Bonfire(Scene* aScene, const unsigned int anIndex) : GameObject(aScene)
 	myTurnInDistance = 50.0f;
 	myTurnInSpeed = 50.0f;
 
-	myHasBeenActivated = false;
+	myHasBeenActivated = DataManager::GetInstance().GetBonfireState(anIndex);
 
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
 	spriteIdle->SetSpritePath("Sprites/Objects/Bonfire.dds");
@@ -66,6 +66,15 @@ void Bonfire::OnCollision(GameObject* aGameObject)
 		if (!myHasBeenActivated)
 		{
 			myHasBeenActivated = true;
+			DataManager::GetInstance().SaveBonfireState(myBonfireIndex, myHasBeenActivated);
 		}
 	}
+}
+const unsigned int Bonfire::GetBonfireIndex() const
+{
+	return myBonfireIndex;
+}
+void SetState(const bool aState)
+{
+
 }

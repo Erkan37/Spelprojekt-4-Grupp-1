@@ -1,5 +1,44 @@
 {
-  "Bonfire1": {
-    "IsActive": false
-  }
+  "Bonfires": [
+    {
+      "Bonfire": {
+        "IsActive": false
+      }
+    },
+    {
+      "Bonfire": {
+        "IsActive": false
+      }
+    },
+    {
+      "Bonfire": {
+        "IsActive": false
+      }
+    },
+    {
+      "Bonfire": {
+        "IsActive": false
+      }
+    },
+    {
+      "Bonfire": {
+        "IsActive": false
+      }
+    },
+    {
+      "Bonfire": {
+        "IsActive": false
+      }
+    },
+    {
+      "Bonfire": {
+        "IsActive": false
+      }
+    },
+    {
+      "Bonfire": {
+        "IsActive": false
+      }
+    }
+  ]
 }
