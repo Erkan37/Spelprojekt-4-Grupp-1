@@ -131,7 +131,7 @@ void OptionsMenu::Update(const float& aDeltaTime)
 	{
 		ActivateMenu();
 		CheckActiveAnimations();
-		CheckIndexPress();
+		CheckIndexPress(aDeltaTime);
 		UpdateUIElements(aDeltaTime);
 		if (myCreditsActive == true)
 		{
@@ -153,10 +153,10 @@ bool OptionsMenu::IsOptionsActive()
 }
 
 
-void OptionsMenu::CheckIndexPress()
+void OptionsMenu::CheckIndexPress(const float& aDeltaTime)
 {
 
-	if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey))
+	if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey) && myScreenSettingsActive == false)
 	{
 		if (myMovingIndex == static_cast<int>(eOptionsMenu::Back))
 		{
@@ -182,12 +182,10 @@ void OptionsMenu::CheckIndexPress()
 			if (!myScreenSettingsActive)
 			{
 				myScreenSettingsActive = true;
-				mySubMenuActive = true;
 			}
 			else
 			{
 				myScreenSettingsActive = false;
-				mySubMenuActive = false;
 			}
 		}
 		else if (myMovingIndex == static_cast<int>(eOptionsMenu::Credits))
@@ -213,6 +211,30 @@ void OptionsMenu::CheckIndexPress()
 				myTutorial->SetActive(false);
 			}
 		}
+	}
+	else if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey) && myScreenSettingsActive == true)
+	{
+		if (myScreenMovingIndex == 0)
+		{
+			myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX());
+			CGame::SetResolution(480U, 720U);
+
+
+		}
+		else if (myScreenMovingIndex == 1)
+		{
+			myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX() + 27.f);
+			CGame::SetResolution(1920U, 1080U);
+			myScreenSizeDot->UpdateUIObjects(aDeltaTime);
+
+		}
+		else if (myScreenMovingIndex == 2)
+		{
+			myScreenSizeDot->SetPositionX(my4KHgh->GetPositionX() + 58.f);
+			CGame::SetResolution(3840U, 2160U);
+
+		}
+		myScreenSettingsActive = false;
 	}
 
 	if (mySoundSettingsActive == true)
@@ -278,7 +300,7 @@ void OptionsMenu::CheckIndexPress()
 			if (myScreenMovingIndex > myResolutionObj.size() - 1)
 				myScreenMovingIndex = 0;
 		}
-		if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey))
+		/*if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey))
 		{
 			if (myScreenMovingIndex == 0)
 			{
@@ -297,9 +319,9 @@ void OptionsMenu::CheckIndexPress()
 				CGame::SetResolution(3840U, 2160U);
 			}
 			mySubMenuActive = false;
-		}
+		}*/
 	}
-	else
+	else if (mySoundSettingsActive == false && myScreenSettingsActive == false)
 	{
 		if (myInput->GetInput()->GetKeyJustDown(Keys::UPARROWKey))
 		{
