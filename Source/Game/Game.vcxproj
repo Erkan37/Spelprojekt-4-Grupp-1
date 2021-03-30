@@ -184,6 +184,7 @@
     <ClInclude Include="OptionsMenu.h" />
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="CameraStaticDistance.hpp" />
+    <ClInclude Include="SpeedrunScene.h" />
     <ClInclude Include="Subscriber.hpp" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
@@ -203,6 +204,7 @@
     <ClInclude Include="TiledLoader.h" />
     <ClInclude Include="TileSetLayer.hpp" />
     <ClInclude Include="TileSetLayerProperties.hpp" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UIManager.h" />
@@ -268,6 +270,7 @@
     <ClCompile Include="PostMaster.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SpeedrunScene.cpp" />
     <ClCompile Include="SpringObject.cpp" />
     <ClCompile Include="SpritebatchComponent.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
@@ -281,6 +284,7 @@
     <ClCompile Include="TiledLoader.cpp" />
     <ClCompile Include="TileSetLayer.cpp" />
     <ClCompile Include="TileSetLayerProperties.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UIObject.cpp" />

@@ -337,7 +337,15 @@
     <ClInclude Include="WinScene.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="OptionsMenu.h" />
+    <ClInclude Include="SpeedrunScene.h">
+      <Filter>Scenes\MainMenu\Submenus</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionsMenu.h">
+      <Filter>Scenes\MainMenu\Submenus</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -557,6 +565,14 @@
     <ClCompile Include="WinScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="OptionsMenu.cpp" />
+    <ClCompile Include="SpeedrunScene.cpp">
+      <Filter>Scenes\MainMenu\Submenus</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionsMenu.cpp">
+      <Filter>Scenes\MainMenu\Submenus</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

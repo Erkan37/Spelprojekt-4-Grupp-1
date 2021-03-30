@@ -18,7 +18,6 @@
 MainMenuScene::MainMenuScene()
 {
 	myMovingIndex = {};
-	CGameWorld::GetInstance()->GetLevelManager().SetIsSpeedrunMode(false);
 }
 
 void MainMenuScene::Load()
@@ -26,6 +25,7 @@ void MainMenuScene::Load()
 	myButtons.clear();
 	myMovingIndex = {};
 
+	CGameWorld::GetInstance()->GetLevelManager().SetIsSpeedrunMode(false);
 	myInput = CGameWorld::GetInstance()->Input();
 	AudioManager::GetInstance()->PlayAudio(AudioList::MenuAmbience);
 
@@ -82,6 +82,7 @@ void MainMenuScene::InitObjects()
 	myTitleSprite = std::make_unique<UIObject>(this);
 	myFireHighlight = std::make_unique<UIObject>(this);
 	myNewGameBtn = std::make_unique<UIButton>(this);
+	mySpeedrunModeBtn = std::make_unique<UIButton>(this);
 	myLevelSelectBtn = std::make_unique<UIButton>(this);
 	myOptionsBtn = std::make_unique<UIButton>(this);
 	myExitGameBtn = std::make_unique<UIButton>(this);
@@ -91,8 +92,9 @@ void MainMenuScene::InitObjects()
 	
 	v2f newGameBtnPos = {210.f, 80.f};
 	v2f levelSelectBtnPos = { 210.f, 100.f };
-	v2f optionsBtnPos = {210.f, 120.f};
-	v2f exitGameBtnPos = {210.f, 140.f};
+	v2f speedrunModeBtnPos = { 210.f, 120.f };
+	v2f optionsBtnPos = {210.f, 140.f};
+	v2f exitGameBtnPos = {210.f, 160.f};
 	
 	myOptions = new OptionsMenu(this);
 	myOptions->Init();
@@ -104,6 +106,7 @@ void MainMenuScene::InitObjects()
 
 	myNewGameBtn->Init("Sprites/UI/startMenu/UI_StartMenu_Text_NewGame_56x16px_unmarked.dds", { 56.f,16.f }, newGameBtnPos, "Sprites/UI/startMenu/UI_StartMenu_Text_NewGame_56x16px_marked.dds", 56);
 	myLevelSelectBtn->Init("Sprites/UI/startMenu/UI_StartMenu_Text_LevelSelect_Unmarked_72x16px.dds", { 72.f,16.f }, levelSelectBtnPos, "Sprites/UI/startMenu/UI_StartMenu_Text_LevelSelect_Marked_72x16px.dds", 72);
+	mySpeedrunModeBtn->Init("Sprites/UI/startMenu/UI_StartMenu_Text_Speedrun_57x16px_Unmarked.dds", { 57.f,16.f }, speedrunModeBtnPos, "Sprites/UI/startMenu/UI_StartMenu_Text_Speedrun_57x16px_Marked.dds", 57);
 	myOptionsBtn->Init("Sprites/UI/startMenu/UI_StartMenu_Text_Option_44x16px_unmarked.dds", { 44.f,16.f }, optionsBtnPos, "Sprites/UI/startMenu/UI_StartMenu_Text_Option_44x16px_marked.dds", 44);
 	myExitGameBtn->Init("Sprites/UI/startMenu/UI_StartMenu_Text_QuitGame_56x16px_Unmarked.dds", { 56.f,16.f }, exitGameBtnPos, "Sprites/UI/startMenu/UI_StartMenu_Text_QuitGame_56x16px_Marked.dds", 56);
 	
@@ -112,6 +115,7 @@ void MainMenuScene::InitObjects()
 
 	myButtons.push_back(myNewGameBtn.get());
 	myButtons.push_back(myLevelSelectBtn.get());
+	myButtons.push_back(mySpeedrunModeBtn.get());
 	myButtons.push_back(myOptionsBtn.get());
 	myButtons.push_back(myExitGameBtn.get());
 }
@@ -183,6 +187,7 @@ void MainMenuScene::SetActiveMenu(const bool aStateBool)
 	myTitleSprite->SetActive(aStateBool);
 	myNewGameBtn->SetActive(aStateBool);
 	myLevelSelectBtn->SetActive(aStateBool);
+	mySpeedrunModeBtn->SetActive(aStateBool);
 	myOptionsBtn->SetActive(aStateBool);
 	myExitGameBtn->SetActive(aStateBool);
 	myFireHighlight->SetActive(aStateBool);

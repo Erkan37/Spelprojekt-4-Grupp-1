@@ -22,14 +22,16 @@ LevelManager::LevelManager()
 	myLastDoorType = 1;
 
 	myLevelTransition = false;
+	myLoadingHiddenRoom = false;
 	myIsSpeedrunMode = false;
 
 	Subscribe(eMessageType::LoadNext);
 	Subscribe(eMessageType::LoadPrevious);
+	Subscribe(eMessageType::LoadHiddenRoom);
+	Subscribe(eMessageType::LoadMainRoom);
 }
 LevelManager::~LevelManager()
 {
-
 }
 
 void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelSelect, Scene* aLevelScene, Scene* anIntroLogosScene, Scene* aWinScene)
@@ -53,6 +55,7 @@ void LevelManager::Update()
 		if (levelScene->GetReachedFullOpacity())
 		{
 			myLevelTransition = false;
+			myLoadingHiddenRoom = false;
 			SingleLoadScene(eScenes::LevelScene);
 		}
 	}
@@ -145,13 +148,13 @@ bool LevelManager::GetIsSpeedrunMode()
 
 void LevelManager::LoadLevel(LevelScene* aLevelScene, GameObject* aPlayer)
 {
-	myTiledLoader->Load(aLevelScene, myLoadedLevel, aPlayer);
+	myTiledLoader->Load(aLevelScene, myLoadedLevel, aPlayer, myLoadingHiddenRoom);
 }
 
 void LevelManager::LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, GameObject* aPlayer)
 {
 	myLoadedLevel = aLevelIndex;
-	myTiledLoader->Load(aLevelScene, aLevelIndex, aPlayer);
+	myTiledLoader->Load(aLevelScene, aLevelIndex, aPlayer, myLoadingHiddenRoom);
 }
 
 void LevelManager::SetLevelIndex(const int& aLevelIndex)
@@ -161,7 +164,7 @@ void LevelManager::SetLevelIndex(const int& aLevelIndex)
 
 void LevelManager::SetIsSpeedrunMode(bool aIsSpeedrunMode)
 {
-	//myIsSpeedrunMode = aIsSpeedrunMode;
+	myIsSpeedrunMode = aIsSpeedrunMode;
 }
 
 void LevelManager::Notify(const Message& aMessage)
@@ -192,9 +195,25 @@ void LevelManager::Notify(const Message& aMessage)
 
 		myLevelTransition = true;
 	}
+	else if (aMessage.myMessageType == eMessageType::LoadHiddenRoom)
+	{
+		myLoadingHiddenRoom = true;
+
+		myLastDoorType = std::get<int>(aMessage.myData);
+
+		myLevelTransition = true;
+	}
+	else if (aMessage.myMessageType == eMessageType::LoadMainRoom)
+	{
+		myLoadingHiddenRoom = false;
+
+		myLastDoorType = std::get<int>(aMessage.myData);
+
+		myLevelTransition = true;
+	}
 }
 
-const int LevelManager::GetDoorType()
+const int& LevelManager::GetDoorType()
 {
 	return myLastDoorType;
 }
