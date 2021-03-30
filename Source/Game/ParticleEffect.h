@@ -12,7 +12,6 @@ class ParticleEffect : public GameObject
 {
 public:
 	ParticleEffect(Scene* aLevelScene);
-	~ParticleEffect() = default;
 
 	void Init(ParticleStats aStats, Player* aPlayer);
 
@@ -26,7 +25,7 @@ public:
 
 
 private:
-	std::vector<std::shared_ptr<EffectSprite>> mySprites;
+	std::vector<EffectSprite*> mySprites;
 	ParticleStats myStats;
 
 	float mySpawnInterval;

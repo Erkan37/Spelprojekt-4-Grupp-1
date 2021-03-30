@@ -20,6 +20,19 @@ ParticleEffect::ParticleEffect(Scene* aLevelScene)
 	myIsActive = {};
 	myTimer = {};
 }
+/*
+{
+	for (int x = mySprites.size() - 1; x >= 0; x--)
+	{
+		mySprites[x]->SetInactive();
+
+		if (mySprites[x]->IsAlive() == false)
+		{
+			mySprites.erase(mySprites.begin() + x);
+			DeleteInactiveComponents();
+		}
+	}
+}*/
 
 void ParticleEffect::Init(ParticleStats aStats, Player* aPlayer)
 {
@@ -89,7 +102,7 @@ const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 	{
 		myTimer = {};
 
-		std::shared_ptr<EffectSprite> sprite = std::make_shared<EffectSprite>();
+		EffectSprite* sprite = new EffectSprite();
 
 		sprite->myPathString = myStats.mySpritePath;
 		sprite->mySpeedInterval = Utils::RandomFloat(myStats.myMinStartSpeed, myStats.myMaxStartSpeed);
@@ -108,6 +121,7 @@ const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 		sprite->myStartColor = myStats.myStartColor;
 		sprite->myEndColor = myStats.myEndColor;
 		sprite->myIsLockedPos = myStats.myLockedPosition;
+		sprite->myEmitterAngular = myStats.myEmitterAngular;
 		sprite->myPosition = GetPosition();
 
 		if (sprite->myIsLockedPos)
@@ -125,6 +139,7 @@ const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 		mySprites[x]->Update(aDeltaTime);
 		if (mySprites[x]->IsAlive() == false)
 		{
+			delete mySprites[x];
 			mySprites.erase(mySprites.begin() + x);
 			DeleteInactiveComponents();
 			break;

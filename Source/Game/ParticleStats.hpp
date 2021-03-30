@@ -1,5 +1,6 @@
 #pragma once
 #include "..\tga2dcore\tga2d\math\color.h"
+#include "..\External\Headers\CU\Vector4.hpp"
 #include <string>
 
 namespace Tga2D
@@ -49,6 +50,8 @@ private:
 	float myMinParticleLifeTime = {};
 	float myMaxParticleLifeTime = {};
 	float myEmitterLifeTime = {};
+
+	v4f myEmitterAngular = {};
 
 	Tga2D::CColor myStartColor = {};
 	Tga2D::CColor myEndColor = {};

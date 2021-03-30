@@ -50,8 +50,6 @@ void EffectSprite::Update(const float& aDeltatime)
 
 void EffectSprite::AddSprite(SpriteComponent* aSprite)
 {
-	
-
 	mySprite = aSprite;
 	mySprite->SetSpritePath(myPathString);
 	
@@ -71,11 +69,10 @@ void EffectSprite::AddSprite(SpriteComponent* aSprite)
 		v2f rotationDirection = {};
 		v2f rotationDirection2 = {};
 
-		rotationDirection = { std::cosf((myEmitterStartAngle * myPI) / 180.f), std::sinf((myEmitterStartAngle * myPI) / 180.f) };
-		rotationDirection2 = { std::cosf((myEmitterEndAngle * myPI) / 180.f), std::sinf((myEmitterEndAngle * myPI) / 180.f) };
+		
+		myDirection.x = Utils::RandomFloat(myEmitterAngular.x, myEmitterAngular.z);
+		myDirection.y = Utils::RandomFloat(myEmitterAngular.y, myEmitterAngular.w);
 
-		myDirection.x = Utils::RandomFloat(rotationDirection.x, rotationDirection2.x);
-		myDirection.y = Utils::RandomFloat(rotationDirection.y, rotationDirection2.y);
 	}
 	
 	mySprite->SetSize(size);
@@ -88,4 +85,9 @@ void EffectSprite::AddSprite(SpriteComponent* aSprite)
 bool EffectSprite::IsAlive()
 {
 	return myIsAlive;
+}
+
+void EffectSprite::SetInactive()
+{
+	myIsAlive = false;
 }

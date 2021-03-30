@@ -23,7 +23,7 @@ private:
 	Scene* myScene;
 	Player* myPlayer;
 	std::vector<ParticleStats> myEffects;
-	std::vector<std::shared_ptr<ParticleEffect>> myCreatedEffects;
+	std::vector<ParticleEffect*> myCreatedEffects;
 
 	void SpawnCharacterEffects();
 	void SpawnCharacterEffects2();

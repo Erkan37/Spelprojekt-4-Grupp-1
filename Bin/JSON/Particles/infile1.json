@@ -5,7 +5,6 @@
       "EffectType": "FallEffect",
       "SpritePath": "Sprites/Particles/point.dds",
       "IsRepeating": true,
-      "LockPosition": true,
       "EmitTime": 0.0,
       "PauseTime": 0.0,
       "StartScale": 0.1,
@@ -19,14 +18,26 @@
       "ParticleAngleInterval": 0.6806784272193909,
       "MinParticleAngularVel": -1.0,
       "MaxParticleAngularVel": 1.0,
-      "EmitterAngle": 180.0,
+      "EmitterAngle": 0.0,
       "EmitterWidth": 0.0,
       "EmitterHeigth": 0.0,
+
       "MinEmitterAngularVelocity": 0.0,
-      "MaxEmitterAngularVelocity": 180.0,
+      "MaxEmitterAngularVelocity": 165.0,
       "MinParticleLifeTime": 5.0,
       "MaxParticleLifeTime": 8.0,
       "EmitterLifeTime": 2.253999948501587,
+
+
+      "LockPosition": true,
+
+      "EmitterAngular": [
+        -1.0,
+        -1.0,
+        1.0,
+        1.0
+      ],
+
       "StartColor": [
         0.23972046375274659,
         0.6414141654968262,

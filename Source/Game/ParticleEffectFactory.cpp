@@ -11,6 +11,7 @@
 
 ParticleEffectFactory::ParticleEffectFactory(Scene* aLevelScene)
 {
+	myCreatedEffects.clear();
 }
 
 void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
@@ -69,6 +70,8 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 			stats.myMinParticleLifeTime = (*particleStat)["MinParticleLifeTime"].GetFloat();
 			stats.myMaxParticleLifeTime = (*particleStat)["MaxParticleLifeTime"].GetFloat();
 			stats.myEmitterLifeTime = (*particleStat)["EmitterLifeTime"].GetFloat();
+
+			stats.myEmitterAngular = { (*particleStat)["EmitterAngular"][0].GetFloat(), (*particleStat)["EmitterAngular"][1].GetFloat(), (*particleStat)["EmitterAngular"][2].GetFloat(), (*particleStat)["EmitterAngular"][3].GetFloat() };
 			stats.myStartColor = { (*particleStat)["StartColor"][0].GetFloat(), (*particleStat)["StartColor"][1].GetFloat(), (*particleStat)["StartColor"][2].GetFloat(), (*particleStat)["StartColor"][3].GetFloat() };
 			stats.myEndColor = { (*particleStat)["EndColor"][0].GetFloat(), (*particleStat)["EndColor"][1].GetFloat(), (*particleStat)["EndColor"][2].GetFloat(), (*particleStat)["EndColor"][3].GetFloat() };
 
@@ -110,7 +113,7 @@ void ParticleEffectFactory::SpawnEffect(v2f aPosition, const eParticleEffects aE
 	{
 	case eParticleEffects::RunEffect:
 	{
-		std::shared_ptr<ParticleEffect> effect = std::make_shared<ParticleEffect>(myScene);
+		ParticleEffect* effect = new ParticleEffect(myScene);
 		effect->Init(myEffects[static_cast<int>(aEffectType)], myPlayer);
 		effect->SetPosition(aPosition);
 		effect->SetIsActive(true);
@@ -119,7 +122,7 @@ void ParticleEffectFactory::SpawnEffect(v2f aPosition, const eParticleEffects aE
 	}
 	case eParticleEffects::FallEffect:
 	{
-		std::shared_ptr<ParticleEffect> effect = std::make_shared<ParticleEffect>(myScene);
+		ParticleEffect* effect = new ParticleEffect(myScene);
 		effect->Init(myEffects[static_cast<int>(eParticleEffects::FallEffect)], myPlayer);
 		effect->SetPosition(aPosition);
 		effect->SetIsActive(true);
@@ -131,7 +134,7 @@ void ParticleEffectFactory::SpawnEffect(v2f aPosition, const eParticleEffects aE
 
 void ParticleEffectFactory::SpawnCharacterEffects()
 {
-	std::shared_ptr<ParticleEffect> effect = std::make_shared<ParticleEffect>(myScene);
+	ParticleEffect* effect = new ParticleEffect(myScene);
 	effect->Init(myEffects[static_cast<int>(eParticleEffects::RunEffect)], myPlayer);
 	effect->SetIsActive(true);
 	myCreatedEffects.push_back(effect);
@@ -139,7 +142,7 @@ void ParticleEffectFactory::SpawnCharacterEffects()
 
 void ParticleEffectFactory::SpawnCharacterEffects2()
 {
-	std::shared_ptr<ParticleEffect> effect = std::make_shared<ParticleEffect>(myScene);
+	ParticleEffect* effect = new ParticleEffect(myScene);
 	effect->Init(myEffects[static_cast<int>(eParticleEffects::FallEffect)], myPlayer);
 	effect->SetIsActive(true);
 	myCreatedEffects.push_back(effect);

@@ -1,5 +1,6 @@
 #pragma once
 #include "../External/Headers/CU/Vector2.hpp"
+#include "../External/Headers/CU/Vector4.hpp"
 
 class SpriteComponent;
 
@@ -14,6 +15,8 @@ public:
 	void AddSprite(SpriteComponent* aSprite);
 	bool IsAlive();
 
+	void SetInactive();
+
 
 	SpriteComponent* mySprite;
 
@@ -22,6 +25,8 @@ public:
 	v2f myPosition = {};
 	v2f myScale = {};
 	v2f myMaxVectorScale = {};
+
+	v4f myEmitterAngular = {};
 
 	const float myPI = 3.14159265359f;
 
