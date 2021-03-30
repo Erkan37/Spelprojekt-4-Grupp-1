@@ -52,23 +52,40 @@ void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 	myType = aType;
 
 	std::string spritePath;
+	std::string spritePickupPath;
 
 	switch (aType)
 	{
 		case eCollectibleType::Easy:
-			spritePath = "Sprites/Objects/Collectible1.dds";
+			spritePath = "Sprites/Objects/Collectible3.dds";
+			spritePickupPath = "Sprites/Objects/Collectible3Pickup.dds";
 			break;
 		case eCollectibleType::Medium:
 			spritePath = "Sprites/Objects/Collectible2.dds";
+			spritePickupPath = "Sprites/Objects/Collectible2Pickup.dds";
 			break;
 		case eCollectibleType::Hard:
-			spritePath = "Sprites/Objects/Collectible3.dds";
+			spritePath = "Sprites/Objects/Collectible1.dds";
+			spritePickupPath = "Sprites/Objects/Collectible1Pickup.dds";
 			break;
 	}
 
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
 	spriteIdle->SetSpritePath(spritePath);
 	spriteIdle->SetSize(v2f(16.0f, 16.0f));
+
+	SpriteComponent* spritePickup = AddComponent<SpriteComponent>();
+	spritePickup->SetSpritePath(spritePickupPath);
+	spritePickup->SetSize(v2f(16.0f, 16.0f));
+	spritePickup->Deactivate();
+
+	myAnimations[0] = Animation(false, false, false, 0, 7, 7, 0.14f, spriteIdle, 16, 16);
+	myAnimations[1] = Animation(false, true, false, 0, 8, 8, 0.09f, spritePickup, 16, 16);
+
+	AnimationComponent* animation = AddComponent<AnimationComponent>();
+	animation->SetSprite(spriteIdle);
+	animation->SetAnimation(&myAnimations[0]);
+	spriteIdle->SetSize(v2f(16.0f, 16.0));
 
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
 	physics->SetCanCollide(false);
@@ -103,6 +120,11 @@ void Collectible::Update(const float& aDeltaTime)
 	myTransform.myPosition.x = Utils::Lerp(myTransform.myPosition.x, myTargetPosition.x, mySpeed * aDeltaTime);
 	myTransform.myPosition.y = Utils::Lerp(myTransform.myPosition.y, myTargetPosition.y + offset, mySpeed * aDeltaTime);
 
+	if (myWasTurnedIn)
+	{
+		TurnIn();
+	}
+
 #ifdef _DEBUG
 	ImGuiUpdate();
 #endif // DEBUG
@@ -135,8 +157,15 @@ void Collectible::Reset()
 
 void Collectible::TurnIn()
 {
-	//Add To Score or whatever
-	Destroy();
+	if (!myWasTurnedIn)
+	{
+		GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[1]);
+		myWasTurnedIn = true;
+	}
+	else if (GetComponent<AnimationComponent>()->GetIsDisplayedOnce() && GetComponent<AnimationComponent>()->GetHasBeenDisplayedOnce())
+	{
+		Destroy();
+	}
 }
 
 void Collectible::Notify(const Message& aMessage)
