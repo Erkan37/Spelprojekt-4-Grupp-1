@@ -28,6 +28,7 @@ CGameWorld::CGameWorld(CGame* aGame)
 	, myMainMenuScene(MainMenuScene())
 	, myLevelSelect(LevelSelect())
 	, myIntroLogosScene(IntroLogosScene())
+	, myWinScene(WinScene())
 {
 	myTimer = std::make_unique<Utils::Timer>();
 	myInput = std::make_shared<InputWrapper>();
@@ -46,7 +47,7 @@ CGameWorld::~CGameWorld()
 
 void CGameWorld::Init()
 {
-	myLevelManager.Init(&myMainMenuScene, &myLevelSelect, &myLevelScene, &myIntroLogosScene);
+	myLevelManager.Init(&myMainMenuScene, &myLevelSelect, &myLevelScene, &myIntroLogosScene, &myWinScene);
 	myLevelManager.SingleLoadScene(LevelManager::eScenes::IntroLogos);
 
 

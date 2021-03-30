@@ -4,6 +4,7 @@
 class InputWrapper;
 class UIObject;
 class UIButton;
+class OptionsMenu;
 
 class MainMenuScene : public Scene
 {
@@ -41,6 +42,8 @@ private:
 
     std::shared_ptr<InputWrapper> myInput;
 
+    bool mySubMenuActive = false;
+
     int myMovingIndex;
 
     void InitObjects();
@@ -48,7 +51,9 @@ private:
     void CheckButtonsPress();
 
     void SetActiveMenu(const bool aStateBool);
+    void SetBackgroundActive(const bool aStateBool);
     void CheckActiveAnimations();
 
+    OptionsMenu* myOptions;
 };
 
