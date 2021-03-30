@@ -29,6 +29,7 @@ void EffectSprite::Update(const float& aDeltatime)
 
 	if (!myIsLockedPos)
 	{
+		mySpeedInterval = mySpeedInterval + mySpeedInterval * myAcceleration * aDeltatime;
 		position.x = mySprite->GetRelativePositionX() + direction.x * mySpeedInterval * aDeltatime;
 		position.y = mySprite->GetRelativePositionY() + direction.y * mySpeedInterval * aDeltatime;
 	}

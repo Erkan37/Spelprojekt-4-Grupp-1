@@ -47,7 +47,6 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 			stats.myEffectTypeIndex = (*particleStat)["EffectTypeIndex"].GetInt();
 			stats.myEffectType = (*particleStat)["EffectType"].GetString();
 			stats.mySpritePath = (*particleStat)["SpritePath"].GetString();
-			stats.myIsRepeating = (*particleStat)["IsRepeating"].GetBool();
 			stats.myLockedPosition = (*particleStat)["LockPosition"].GetBool();
 			stats.myEmitTime = (*particleStat)["EmitTime"].GetFloat();
 			stats.myPauseTime = (*particleStat)["PauseTime"].GetFloat();
@@ -59,7 +58,6 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 			stats.myMaxStartSpeed = (*particleStat)["MaxStartSpeed"].GetFloat();
 			stats.myMinAcceleration = (*particleStat)["MinAcceleration"].GetFloat();
 			stats.myMaxAcceleration = (*particleStat)["MaxAcceleration"].GetFloat();
-			stats.myParticleAngleInterval = (*particleStat)["ParticleAngleInterval"].GetFloat();
 			stats.myMinParticleAngularVel = (*particleStat)["MinParticleAngularVel"].GetFloat();
 			stats.myMaxParticleAngularVel = (*particleStat)["MaxParticleAngularVel"].GetFloat();
 			stats.myEmitterAngle = (*particleStat)["EmitterAngle"].GetFloat();

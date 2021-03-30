@@ -18,7 +18,6 @@ private:
 	std::string mySpritePath = {};
 	int myEffectTypeIndex = {};
 
-	bool myIsRepeating = {};
 	bool myLockedPosition = {};
 
 	float myEmitTime = {};
@@ -36,7 +35,6 @@ private:
 	float myMinAcceleration = {};
 	float myMaxAcceleration = {};
 
-	float myParticleAngleInterval = {};
 	float myMinParticleAngularVel = {};
 	float myMaxParticleAngularVel = {};
 

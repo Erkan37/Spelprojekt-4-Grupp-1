@@ -43,7 +43,6 @@ public:
 	float myEmitterHeigth = {};
 	float mySpawnAngle = {};
 	float myEmitterAngle = {};
-	float myAccelaration = {};
 
 	float myEmitterStartAngle = {};
 	float myEmitterEndAngle = {};

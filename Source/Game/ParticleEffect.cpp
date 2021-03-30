@@ -127,7 +127,6 @@ const void ParticleEffect::SpawnSprite()
 	sprite->myRotation = Utils::RandomFloat(myStats.myMinParticleAngularVel, myStats.myMaxParticleAngularVel);
 	sprite->myMinScale = myStats.myStartScale;
 	sprite->myMaxScale = myStats.myEndScale;
-	sprite->mySpawnAngle = myStats.myParticleAngleInterval;
 	sprite->myEmitterAngle = myStats.myEmitterAngle;
 	sprite->myEmitterStartAngle = myStats.myMinEmitterAngularVelocity;
 	sprite->myEmitterEndAngle = myStats.myMaxEmitterAngularVelocity;
