@@ -4,14 +4,15 @@
 #include "tga2d/audio/audio_out.h"
 #include "AudioClip.h"
 
-AudioClip::AudioClip(const char* anAudioPath, const bool aIsLooping, const float& aVolume, const float& aMinVol, const float& aMaxVol, AudioLayer aLayer) :
-	myMaxVolume(aMaxVol), myMinVolume(aMinVol)
+AudioClip::AudioClip(const char* anAudioPath, const bool aIsLooping, const float& aVolume, const float& aMaxVol, AudioLayer aLayer) :
+	myMaxVolume(aMaxVol), myVolProcent(aMaxVol / 100.0f)
 {
 	myAudio = new Tga2D::CAudio();
 	myVolume = aVolume;
 	myAudio->Init(anAudioPath, aIsLooping);
 	myLayer = aLayer;
 	myAudio->SetVolume(myVolume);
+	myIsPlaying = true;
 }
 
 AudioClip::~AudioClip()
@@ -22,10 +23,10 @@ AudioClip::~AudioClip()
 
 void AudioClip::SetVolume(const float& aVolChange)
 {
-	myVolume = aVolChange;
-	if (myVolume < myMinVolume)
+	myVolume = GetVolPercentage(aVolChange);
+	if (myVolume < 0)
 	{
-		myVolume = myMinVolume;
+		myVolume = 0;
 	}
 	if (myVolume > myMaxVolume)
 	{
@@ -58,6 +59,11 @@ void AudioClip::Play()
 	if (myCanPlay) myAudio->Play();
 }
 
+void AudioClip::PlayIfAvailable()
+{
+	if (!myIsPlaying && myCanPlay) myAudio->Play();
+}
+
 void AudioClip::Mute()
 {
 	//myAudio->Stop(true);
@@ -72,6 +78,7 @@ void AudioClip::UnMute()
 void AudioClip::Stop()
 {
 	myAudio->Stop();
+	myIsPlaying = false;
 	UnLock();
 }
 
@@ -88,4 +95,9 @@ void AudioClip::UnLock()
 AudioLayer AudioClip::GetLayer()
 {
 	return myLayer;
+}
+
+float AudioClip::GetVolPercentage(const float& aVolume)
+{
+	return myVolProcent * (aVolume * 100);
 }

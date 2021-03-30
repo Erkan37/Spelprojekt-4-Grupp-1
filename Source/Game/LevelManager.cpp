@@ -31,9 +31,10 @@ LevelManager::~LevelManager()
 
 }
 
-void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelScene/*, Scene* aPauseMenuScene*/, Scene* anIntroLogosScene)
+void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelSelect, Scene* aLevelScene/*, Scene* aPauseMenuScene*/, Scene* anIntroLogosScene)
 {
 	myScenes.insert({ eScenes::MainMenu, aMainMenuScene });
+	myScenes.insert({ eScenes::LevelSelect, aLevelSelect });
 	myScenes.insert({ eScenes::LevelScene, aLevelScene });
 	//myScenes.insert({ eScenes::PauseMenu, aPauseMenuScene });
 	myScenes.insert({ eScenes::IntroLogos, anIntroLogosScene});
@@ -45,7 +46,7 @@ void LevelManager::Update()
 	{
 		LevelScene* levelScene = dynamic_cast<LevelScene*>(myScenes[eScenes::LevelScene]);
 		levelScene->Transitioning();
-		levelScene->IncreaseBlackScreen();
+		levelScene->IncreaseBlackScreen(1.0f);
 
 		if (levelScene->GetReachedFullOpacity())
 		{
@@ -143,6 +144,11 @@ void LevelManager::LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, Ga
 {
 	myLoadedLevel = aLevelIndex;
 	myTiledLoader->Load(aLevelScene, aLevelIndex, aPlayer);
+}
+
+void LevelManager::SetLevelIndex(const int& aLevelIndex)
+{
+	myLoadedLevel = aLevelIndex;
 }
 
 void LevelManager::Notify(const Message& aMessage)

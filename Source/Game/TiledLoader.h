@@ -19,8 +19,6 @@ struct LoadData
 	std::string myWaypoints;
 	float mySpeed;
 	int myPlatformMaterial;
-	float mySoundRadius;
-	int mySound;
 };
 
 struct TileLayerData

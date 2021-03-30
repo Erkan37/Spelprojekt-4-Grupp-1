@@ -126,9 +126,6 @@ void MainMenuScene::UpdateObjects(const float& aDeltaTime)
 	myBackground->UpdateUIObjects(aDeltaTime);
 	myTitleSprite->UpdateUIObjects(aDeltaTime);
 
-	for (auto button : myButtons)
-		button->UpdateButton(aDeltaTime);
-
 	CheckActiveAnimations();
 }
 
@@ -158,18 +155,24 @@ void MainMenuScene::CheckButtonsPress()
 			AudioManager::GetInstance()->Stop(AudioList::MenuAmbience);
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
 		}
+
 		else if (myMovingIndex == static_cast<int>(eMainMenuButton::Options))
 		{
 			myOptionsMenu->SetActive(true);
 			mySubMenuActive = true;
 			SetActiveMenu(false);
 		}
-		else if (myMovingIndex == static_cast<int>(LevelManager::eScenes::LevelScene))
+
+		else if (myMovingIndex == static_cast<int>(eMainMenuButton::LevelSelect))
+
 		{
+			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelSelect);
+
 #ifndef _RETAIL
 			CGameWorld::GetInstance()->GetLevelManager().ToggleImGui();
 #endif //RETAIL
 		}
+
 		else if (myMovingIndex == static_cast<int>(eMainMenuButton::ExitGame))
 			PostQuitMessage(0);
 	}

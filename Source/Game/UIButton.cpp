@@ -29,10 +29,6 @@ void UIButton::Init(const std::string aPathString, const v2f aSize, const v2f aP
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
 	sprite->SetSpritePath(aPathString);
 
-	//sprite->SetSize(aSize);
-
-
-	mySprite = new SpriteComponent();
 	mySprite = AddComponent<SpriteComponent>();
 	mySprite->SetSpritePath(aAnimationPathString);
 
@@ -45,6 +41,12 @@ void UIButton::Init(const std::string aPathString, const v2f aSize, const v2f aP
 	SetPivot({0.f, 0.f});
 
 	GameObject::Init();
+}
+
+void UIButton::Update(const float& aDeltaTime)
+{
+	UpdateButton(aDeltaTime);
+	GameObject::Update(aDeltaTime);
 }
 
 void UIButton::UpdateButton(const float& aDeltaTime)
@@ -75,4 +77,9 @@ void UIButton::SetIsHighlightActive(const bool aHighlightBool)
 void UIButton::SetActive(const bool aActiveState)
 {
 	myIsActive = aActiveState;
+}
+
+void UIButton::SetHighlightOffset(const v2f& aOffset)
+{
+	mySprite->SetRelativePosition(aOffset);
 }

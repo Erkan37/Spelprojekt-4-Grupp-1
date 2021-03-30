@@ -17,6 +17,7 @@ public:
 	enum class eScenes
 	{
 		MainMenu,
+		LevelSelect,
 		LevelScene,
 		IntroLogos,
 		//PauseMenu,
@@ -26,7 +27,7 @@ public:
 	LevelManager();
 	~LevelManager();
 
-	void Init(Scene* aMainMenuScene, Scene* aLevelScene, Scene* anIntroLogosScene);
+	void Init(Scene* aMainMenuScene, Scene* aLevelSelect, Scene* aLevelScene, Scene* anIntroLogosScene);
 
 	void Update();
 
@@ -46,6 +47,8 @@ public:
 
 	void LoadLevel(LevelScene* aLevelScene, GameObject* aPlayer);
 	void LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, GameObject* aPlayer);
+
+	void SetLevelIndex(const int& aLevelIndex);
 
 	void Notify(const Message& aMessage) override;
 

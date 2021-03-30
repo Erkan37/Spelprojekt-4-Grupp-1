@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":23,
  "infinite":false,
  "layers":[
@@ -582,29 +589,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":465,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":49.91
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"6 -8 3 -12 0 -8 6 0 0 -8 3 -12 6 -8"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":636,
-                 "y":112
-                }, 
-                {
-                 "height":0,
                  "id":468,
                  "name":"",
                  "point":true,
@@ -832,6 +816,29 @@
                  "width":0,
                  "x":812,
                  "y":0
+                }, 
+                {
+                 "height":0,
+                 "id":501,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Speed",
+                         "type":"float",
+                         "value":49.91
+                        }, 
+                        {
+                         "name":"Waypoints",
+                         "type":"string",
+                         "value":"6 8 3 12 0 8 6 0 0 8 3 12 6 8"
+                        }],
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":0,
+                 "x":724,
+                 "y":32
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -975,7 +982,7 @@
          "y":0
         }],
  "nextlayerid":21,
- "nextobjectid":501,
+ "nextobjectid":502,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
