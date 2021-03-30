@@ -32,8 +32,7 @@ private:
 	float myMinStartSpeed = {};
 	float myMaxStartSpeed = {};
 
-	float myMinAcceleration = {};
-	float myMaxAcceleration = {};
+	float myAcceleration = {};
 
 	float myMinParticleAngularVel = {};
 	float myMaxParticleAngularVel = {};

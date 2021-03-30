@@ -121,8 +121,9 @@ const void ParticleEffect::SpawnSprite()
 	EffectSprite* sprite = new EffectSprite();
 
 	sprite->myPathString = myStats.mySpritePath;
-	sprite->mySpeedInterval = Utils::RandomFloat(myStats.myMinStartSpeed, myStats.myMaxStartSpeed);
-	sprite->myAcceleration = Utils::RandomFloat(myStats.myMinAcceleration, myStats.myMaxAcceleration);
+	sprite->myMinSpeed = myStats.myMinStartSpeed;
+	sprite->myMaxSpeed = myStats.myMaxStartSpeed;
+	sprite->myAcceleration = myStats.myAcceleration;
 	sprite->myLifeTime = Utils::RandomFloat(myStats.myMinParticleLifeTime, myStats.myMaxParticleLifeTime);
 	sprite->myRotation = Utils::RandomFloat(myStats.myMinParticleAngularVel, myStats.myMaxParticleAngularVel);
 	sprite->myMinScale = myStats.myStartScale;

@@ -22,6 +22,9 @@ void EffectSprite::Update(const float& aDeltatime)
 
 	const float timer = myTotalTimer / myLifeTime;
 
+	myMinSpeed = Utils::Lerp(myMinSpeed, myMaxSpeed, myAcceleration);
+	mySpeedInterval = myMinSpeed;
+
 	myScale.x = Utils::Lerp(mySprite->GetSize().x, myMaxVectorScale.x, timer);
 	myScale.y = Utils::Lerp(mySprite->GetSize().y, myMaxVectorScale.y, timer);
 
@@ -29,7 +32,6 @@ void EffectSprite::Update(const float& aDeltatime)
 
 	if (!myIsLockedPos)
 	{
-		mySpeedInterval = mySpeedInterval + mySpeedInterval * myAcceleration * aDeltatime;
 		position.x = mySprite->GetRelativePositionX() + direction.x * mySpeedInterval * aDeltatime;
 		position.y = mySprite->GetRelativePositionY() + direction.y * mySpeedInterval * aDeltatime;
 	}

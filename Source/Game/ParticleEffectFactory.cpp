@@ -56,8 +56,7 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 			stats.myMaxBetweenSpawn = (*particleStat)["MaxTimeBetweenSpawns"].GetFloat();
 			stats.myMinStartSpeed = (*particleStat)["MinStartSpeed"].GetFloat();
 			stats.myMaxStartSpeed = (*particleStat)["MaxStartSpeed"].GetFloat();
-			stats.myMinAcceleration = (*particleStat)["MinAcceleration"].GetFloat();
-			stats.myMaxAcceleration = (*particleStat)["MaxAcceleration"].GetFloat();
+			stats.myAcceleration = (*particleStat)["Acceleration"].GetFloat();
 			stats.myMinParticleAngularVel = (*particleStat)["MinParticleAngularVel"].GetFloat();
 			stats.myMaxParticleAngularVel = (*particleStat)["MaxParticleAngularVel"].GetFloat();
 			stats.myEmitterAngle = (*particleStat)["EmitterAngle"].GetFloat();

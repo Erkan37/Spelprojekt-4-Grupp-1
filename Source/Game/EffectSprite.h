@@ -35,6 +35,8 @@ public:
 
 	float myMinScale = {};
 	float myMaxScale = {};
+	float myMinSpeed = {};
+	float myMaxSpeed = {};
 	float mySpeedInterval = {};
 	float myAcceleration = {};
 	float myLifeTime = {};
