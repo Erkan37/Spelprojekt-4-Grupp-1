@@ -55,8 +55,6 @@ private:
 	LRESULT WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	CGameWorld myGameWorld;
-	std::thread* myThread;
-	std::atomic<bool> myActive;
 
 	Utils::Timer* myTimer;
 

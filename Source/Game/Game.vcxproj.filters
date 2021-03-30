@@ -79,7 +79,10 @@
     <Filter Include="Core\PostMaster">
       <UniqueIdentifier>{d5fb8d88-d3ed-4c95-8480-3cecd1eb7809}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UI\Menu\Submenu">
+    <Filter Include="Scenes\MainMenu">
+      <UniqueIdentifier>{7230b32b-bcaf-4aa9-9cb4-5db6438fba2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\MainMenu\Submenus">
       <UniqueIdentifier>{b1086777-92b6-46dc-96ee-512f47c33f79}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -240,9 +243,6 @@
     <ClInclude Include="LevelScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenuScene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="AudioComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -329,7 +329,13 @@
       <Filter>Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="LevelSelect.hpp">
-      <Filter>UI\Menu\Submenu</Filter>
+      <Filter>Scenes\MainMenu\Submenus</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>Scenes\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="WinScene.hpp">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -468,9 +474,6 @@
     <ClCompile Include="LevelScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenuScene.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="AudioComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -545,7 +548,13 @@
       <Filter>Core\Audio</Filter>
     </ClCompile>
     <ClCompile Include="LevelSelect.cpp">
-      <Filter>UI\Menu\Submenu</Filter>
+      <Filter>Scenes\MainMenu\Submenus</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>Scenes\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="WinScene.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
