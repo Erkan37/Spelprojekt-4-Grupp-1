@@ -146,6 +146,11 @@ void LevelManager::LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, Ga
 	myTiledLoader->Load(aLevelScene, aLevelIndex, aPlayer);
 }
 
+void LevelManager::SetLevelIndex(const int& aLevelIndex)
+{
+	myLoadedLevel = aLevelIndex;
+}
+
 void LevelManager::Notify(const Message& aMessage)
 {
 	if (aMessage.myMessageType == eMessageType::LoadNext)

@@ -48,6 +48,8 @@ public:
 	void LoadLevel(LevelScene* aLevelScene, GameObject* aPlayer);
 	void LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, GameObject* aPlayer);
 
+	void SetLevelIndex(const int& aLevelIndex);
+
 	void Notify(const Message& aMessage) override;
 
 	const int GetDoorType();

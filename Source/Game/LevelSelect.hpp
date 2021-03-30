@@ -20,6 +20,8 @@ private:
 	void InitiateButtons();
 
 	std::vector<UIButton*> myLevelButtons;
+	std::vector<int> myLevelIndexes;
+
 	UIButton* myBackButton;
 	UIObject* myBackButtonFire;
 
