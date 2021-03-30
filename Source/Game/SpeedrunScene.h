@@ -1,5 +1,9 @@
 #pragma once
-class SpeedrunScene
+#include "Scene.h"
+
+class SpeedrunScene : public Scene
 {
+
+
 };
 
