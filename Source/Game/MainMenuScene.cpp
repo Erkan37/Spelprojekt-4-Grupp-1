@@ -3,6 +3,7 @@
 
 #include "UIObject.h"
 #include "UIButton.h"
+#include "OptionsMenu.h"
 
 #include "LevelManager.hpp"
 #include "InputWrapper.h"
@@ -88,7 +89,8 @@ void MainMenuScene::InitObjects()
 	v2f optionsBtnPos = {210.f, 120.f};
 	v2f exitGameBtnPos = {210.f, 140.f};
 	
-	
+	myOptions = new OptionsMenu(this);
+	myOptions->Init();
 
 
 	myBackground->Init("Sprites/UI/startMenu/UI_startMenu_Background_320x180px.dds", { 520.f, 265.f }, backgroundPos, 200);
@@ -141,6 +143,10 @@ void MainMenuScene::CheckButtonsPress()
 			//CutsceneManager::GetInstance().PlayVideo(CutsceneType::Intro);
 			AudioManager::GetInstance()->Stop(AudioList::MenuAmbience);
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
+		}
+		else if (myMovingIndex == static_cast<int>(eMainMenuButton::Options))
+		{
+
 		}
 		else if (myMovingIndex == static_cast<int>(eMainMenuButton::LevelSelect))
 		{

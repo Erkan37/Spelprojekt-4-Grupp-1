@@ -41,6 +41,8 @@ private:
 
     std::shared_ptr<InputWrapper> myInput;
 
+    bool mySubMenuActive = false;
+
     int myMovingIndex;
 
     void InitObjects();
