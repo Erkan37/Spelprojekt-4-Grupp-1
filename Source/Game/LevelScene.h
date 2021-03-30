@@ -30,6 +30,7 @@ public:
     void Transitioning();
 
     GameObject* GetPlayer();
+
 private:
     GameObject* myBlackScreen;
     GameObject* myPlayer;
@@ -41,6 +42,6 @@ private:
 
     bool myReachedFullOpacity;
     bool myIsTransitioning;
-
+    bool myIsSpeedrun;
 };
 

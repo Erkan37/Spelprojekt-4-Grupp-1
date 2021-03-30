@@ -4,6 +4,7 @@
 class InputWrapper;
 class UIObject;
 class UIButton;
+class OptionsMenu;
 
 class MainMenuScene : public Scene
 {
@@ -12,6 +13,7 @@ public:
     {
         StartGame,
         LevelSelect,
+        SpeedrunMode,
         Options,
         ExitGame
     };
@@ -35,10 +37,13 @@ private:
 
     std::unique_ptr<UIButton> myNewGameBtn;
     std::unique_ptr<UIButton> myLevelSelectBtn;
+    std::unique_ptr<UIButton> mySpeedrunModeBtn;
     std::unique_ptr<UIButton> myOptionsBtn;
     std::unique_ptr<UIButton> myExitGameBtn;
 
     std::shared_ptr<InputWrapper> myInput;
+
+    bool mySubMenuActive = false;
 
     int myMovingIndex;
 
@@ -47,7 +52,9 @@ private:
     void CheckButtonsPress();
 
     void SetActiveMenu(const bool aStateBool);
+    void SetBackgroundActive(const bool aStateBool);
     void CheckActiveAnimations();
 
+    OptionsMenu* myOptions;
 };
 
