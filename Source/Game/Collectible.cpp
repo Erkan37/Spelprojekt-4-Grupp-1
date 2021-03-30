@@ -19,7 +19,6 @@
 Collectible::Collectible(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene),
-	myPopUp(new PopUp(aLevelScene)),
 	myTarget(nullptr),
 	mySpeed(1.0f),
 	myIdleMovementSpeed(5.0f),
@@ -79,7 +78,7 @@ void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 	ColliderComponent* collider = AddComponent<ColliderComponent>();
 	collider->SetSize(v2f(24.0f, 24.0f));
 
-	myPopUp->InitPopUp();
+
 
 	GameObject::Init();
 }
@@ -139,14 +138,7 @@ void Collectible::Reset()
 void Collectible::TurnIn()
 {
 	//Add To Score or whatever
-	if (myType == eCollectibleType::Easy)
-	{
-		myPopUp->SetEasyActive(true);
-	}
-	if (myType == eCollectibleType::Medium)
-	{
-		myPopUp->SetMediumActive(true);
-	}
+
 	Destroy();
 }
 

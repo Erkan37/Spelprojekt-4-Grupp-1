@@ -1,7 +1,6 @@
 #pragma once
 #include "GameObject.h"
 
-#include "PopUp.h"
 
 #include "Subscriber.hpp"
 
@@ -55,6 +54,5 @@ private:
 	bool myWasCollected;
 	bool myWasTurnedIn;
 
-	PopUp* myPopUp;
 };
 
