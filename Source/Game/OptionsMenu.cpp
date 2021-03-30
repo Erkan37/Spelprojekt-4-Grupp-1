@@ -34,6 +34,7 @@ void OptionsMenu::Init()
 
 	myBackground = std::make_unique<UIObject>(myScene);
 	myBar = std::make_unique<UIObject>(myScene);
+	myTitle = std::make_unique<UIObject>(myScene);
 
 	myFireHighlight = std::make_unique<UIObject>(myScene);
 	mySoundBtn = std::make_unique<UIButton>(myScene);
@@ -59,6 +60,7 @@ void OptionsMenu::Init()
 	myScreenSizeDot = std::make_unique<UIObject>(myScene);
 
 	v2f backgroundPos = { 5.f, 5.f };
+	v2f titlePos = { 140.f, 35.f };
 	v2f barPos = { 30.0f, 60.0f };
 	v2f screenPos = { 140.f, 70.f };
 	v2f soundPos = { 140.f, 90.f };
@@ -75,6 +77,7 @@ void OptionsMenu::Init()
 	//Misc
 	myBackground->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Background.dds", { 520.f, 265.f }, backgroundPos, 201);
 	myBar->Init("Sprites/UI/pauseMenu/UI_PauseMenu_PauseBarScreen_241x3px.dds", { 275.0f, 5.f }, barPos, 202);
+	myTitle->Init("Sprites/UI/optionsMenu/UI_options_MenuTitle_143_20px.dds", { 250.f, 35.f }, titlePos, 202);
 
 	//Buttons
 	myFireHighlight->InitAnimation("Sprites/UI/pauseMenu/UI_PauseMenu_Flame_16x16px.dds", { 16.0f, 16.0f }, { 200.0f, 70.0f }, 202);
@@ -320,6 +323,7 @@ void OptionsMenu::ActivateMenu()
 		button->SetActive(true);
 
 	myBackground->SetActive(true);
+	myTitle->SetActive(true);
 	myFireHighlight->SetActive(true);
 	myBar->SetActive(true);
 	mySoundSettings->SetActive(true);
@@ -341,9 +345,9 @@ void OptionsMenu::DeactivateMenu()
 		res->SetActive(false);
 
 	myBackground->SetActive(false);
+	myTitle->SetActive(true);
 	myBackBtn->SetActive(false);
 	myBar->SetActive(false);
-	myTitleString->Deactivate();
 	mySoundSettings->SetActive(false);
 	myBGDot->SetActive(false);
 	myVFXDot->SetActive(false);
@@ -352,15 +356,13 @@ void OptionsMenu::DeactivateMenu()
 
 void OptionsMenu::InitTexts()
 {
-	myTitleString = std::make_unique<UIText>(myScene);
-	myTitleString->Init("Options Menu", "Text/alagard.ttf", EFontSize::EFontSize_100);
-	myTitleString->SetPosition({ 140.f, 50.f });
 
 }
 
 void OptionsMenu::UpdateUIElements(const float& aDeltaTime)
 {
 	myBackground->UpdateUIObjects(aDeltaTime);
+	myTitle->UpdateUIObjects(aDeltaTime);
 	myBar->UpdateUIObjects(aDeltaTime);
 	mySoundSettings->UpdateUIObjects(aDeltaTime);
 	myBGDot->UpdateUIObjects(aDeltaTime);

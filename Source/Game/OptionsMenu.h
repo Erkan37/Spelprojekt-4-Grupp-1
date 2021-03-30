@@ -46,6 +46,7 @@ private:
 	float myVFXStep;
 
 	std::unique_ptr<UIObject> myBackground;
+	std::unique_ptr<UIObject> myTitle;
 	std::unique_ptr<UIObject> myOptionsTitle;
 	std::unique_ptr<UIObject> myFireHighlight;
 	std::unique_ptr<UIObject> myBar;
@@ -76,10 +77,6 @@ private:
 	std::vector<UIObject*> myResolutionObj;
 	std::vector<UIObject*> mySoundObjects;
 	std::vector<UIButton*> myButtons;
-
-	std::unique_ptr<UIText> myTitleString;
-	std::unique_ptr<UIText> myBGString;
-	std::unique_ptr<UIText> myVFXString;
 
 	std::shared_ptr<InputWrapper> myInput;
 
