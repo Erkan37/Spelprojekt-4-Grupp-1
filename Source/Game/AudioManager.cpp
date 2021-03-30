@@ -18,8 +18,10 @@ const std::unique_ptr<AudioManager>& AudioManager::GetInstance()
 AudioManager::AudioManager()
 {
 	myAudioOut = {};
-	mySFXVolume = {};
-	myMusicVolume = {};
+	mySFXVolume = 0.2f;
+	myMusicVolume = 0.5f;
+	SetMusicVolume(mySFXVolume);
+	SetSFXVolume(mySFXVolume);
 };
 
 AudioManager::~AudioManager() = default;
@@ -140,6 +142,11 @@ void AudioManager::PlayAudio(AudioList aSound)
 	//}
 }
 
+void AudioManager::PlayIfAvailable(AudioList aSound)
+{
+	myLibrary.myAudioList[aSound]->PlayIfAvailable();
+}
+
 void AudioManager::Stop(AudioList aSound)
 {
 	myLibrary.myAudioList[aSound]->Stop();
@@ -159,6 +166,19 @@ void AudioManager::Stop(AudioList aSound)
 void AudioManager::StopCurrentMusic()
 {
 	myAudioOut->StopMusic(true);
+}
+
+void AudioManager::StopAllSounds(bool anAndMusic)
+{
+	if (anAndMusic)
+	{
+		StopCurrentMusic();
+	}
+
+	for (auto const& [key, val] : myLibrary.myAudioList)
+	{
+		val->Stop();
+	}
 }
 
 void AudioManager::LockAudio(AudioList anAudio)

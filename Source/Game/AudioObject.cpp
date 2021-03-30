@@ -1,12 +1,13 @@
 #include "stdafx.h"
 #include "AudioObject.h"
+#include "AudioLibrary.h"
 #include "AudioComponent.h"
+#include "AudioManager.h"
 
-AudioObject::AudioObject(Scene* aScene, const float aRadius, const int aSound, const v2f aPos)
+AudioObject::AudioObject(Scene* aScene, const int aType)
+	:
+	GameObject(aScene),
+	myType(static_cast<AudioList>(aType))
 {
-	//Do something with aPos
-	AudioComponent* audio = AddComponent<AudioComponent>();
-	audio->AddAudio(AudioList::MovingPlatform); //aSound
-	audio->SetRadius(aRadius);
-	audio->PlayAudio();
+	AudioManager::GetInstance()->PlayAudio(myType);
 }

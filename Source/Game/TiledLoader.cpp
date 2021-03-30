@@ -88,14 +88,6 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
 							{
 								data.myType = (*property)["value"].GetInt();
 							}
-
-
-
-
-							//if (std::string((*property)["name"].GetString()).compare("ID") == 0)
-							//{
-							//	data.myType = (*property)["value"].GetInt();
-							//}
 						}
 					}
 
@@ -202,7 +194,7 @@ void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aSc
 {
 	for (int i = 0; i < someData.size(); ++i)
 	{
-		Bonfire* bonfire = new Bonfire(aScene, someData[i].myType);
+		Bonfire* bonfire = new Bonfire(aScene); //, someData[i].myType);
 		bonfire->SetPosition(someData[i].myPosition);
 	}
 }
@@ -301,11 +293,10 @@ void TiledLoader::ParseGlide(const std::vector<LoadData> someData, Scene* aScene
 
 void TiledLoader::ParseAudioObjects(const std::vector<LoadData> someData, Scene* aScene)
 {
-	//Uncomment hen everyting else is done with AudioObjects
-	//for (int i = 0; i < someData.size(); ++i)
-	//{
-	//	AudioObject* audioObj = new AudioObject(aScene, someData[i].myName, someData[i].myPosition);
-	//}
+	for (int i = 0; i < someData.size(); ++i)
+	{
+		AudioObject* audioObj = new AudioObject(aScene, someData[i].myType);
+	}
 }
 
 void TiledLoader::ParsePlatforms(const std::vector<LoadData> someData, Scene* aScene)

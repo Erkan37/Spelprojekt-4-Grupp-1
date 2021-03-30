@@ -176,10 +176,12 @@
     <ClInclude Include="LevelDoor.hpp" />
     <ClInclude Include="LevelManager.hpp" />
     <ClInclude Include="LevelScene.h" />
+    <ClInclude Include="LevelSelect.hpp" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="Message.hpp" />
     <ClInclude Include="MessageTypes.hpp" />
     <ClInclude Include="MovingPlatform.hpp" />
+    <ClInclude Include="OptionsMenu.h" />
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="CameraStaticDistance.hpp" />
     <ClInclude Include="Subscriber.hpp" />
@@ -211,6 +213,7 @@
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector4.hpp" />
     <ClInclude Include="WaypointComponent.hpp" />
+    <ClInclude Include="WinScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
@@ -252,8 +255,10 @@
     <ClCompile Include="LevelDoor.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LevelScene.cpp" />
+    <ClCompile Include="LevelSelect.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="MovingPlatform.cpp" />
+    <ClCompile Include="OptionsMenu.cpp" />
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
@@ -283,6 +288,7 @@
     <ClCompile Include="UnstablePlatform.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="WaypointComponent.cpp" />
+    <ClCompile Include="WinScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
