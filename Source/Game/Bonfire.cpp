@@ -13,20 +13,18 @@
 #include "../External/Headers/CU/Utilities.h"
 
 #include "PostMaster.hpp"
+#include "DataManager.h"
 
-Bonfire::Bonfire(Scene* aScene)
-	:
-	GameObject(aScene)
+Bonfire::Bonfire(Scene* aScene, const unsigned int anIndex) : GameObject(aScene), myBonfireIndex(anIndex)
 {
 	SetPivot(v2f(0.5f, 1.0f));
-
 	SetZIndex(91);
 
 	myCollectibleIndex = 0;
 	myTurnInDistance = 50.0f;
 	myTurnInSpeed = 50.0f;
 
-	myHasBeenActivated = false;
+	myHasBeenActivated = DataManager::GetInstance().GetBonfireState(anIndex);
 
 	SpriteComponent* spriteIdle = AddComponent<SpriteComponent>();
 	spriteIdle->SetSpritePath("Sprites/Objects/Bonfire.dds");
@@ -47,8 +45,12 @@ Bonfire::Bonfire(Scene* aScene)
 	animation->SetSprite(spriteIdle);
 	animation->SetAnimation(&myAnimations[0]);
 	spriteIdle->SetSize(v2f(32.0f, 32.0f));
-}
 
+	if (myHasBeenActivated)
+	{
+		GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[1]);
+	}
+}
 Bonfire::~Bonfire()
 {
 
@@ -66,6 +68,14 @@ void Bonfire::OnCollision(GameObject* aGameObject)
 		
 		PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerReachedBonfire, 0));
 
-		myHasBeenActivated = true;
+		if (!myHasBeenActivated)
+		{
+			myHasBeenActivated = true;
+			DataManager::GetInstance().SaveBonfireState(myBonfireIndex, myHasBeenActivated);
+		}
 	}
+}
+const unsigned int Bonfire::GetBonfireIndex() const
+{
+	return myBonfireIndex;
 }
