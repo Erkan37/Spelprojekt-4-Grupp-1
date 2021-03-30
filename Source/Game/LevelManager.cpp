@@ -160,7 +160,7 @@ void LevelManager::SetLevelIndex(const int& aLevelIndex)
 
 void LevelManager::SetIsSpeedrunMode(bool aIsSpeedrunMode)
 {
-	//myIsSpeedrunMode = aIsSpeedrunMode;
+	myIsSpeedrunMode = aIsSpeedrunMode;
 }
 
 void LevelManager::Notify(const Message& aMessage)

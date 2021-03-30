@@ -37,6 +37,7 @@ private:
 
     std::unique_ptr<UIButton> myNewGameBtn;
     std::unique_ptr<UIButton> myLevelSelectBtn;
+    std::unique_ptr<UIButton> mySpeedrunModeBtn;
     std::unique_ptr<UIButton> myOptionsBtn;
     std::unique_ptr<UIButton> myExitGameBtn;
 
