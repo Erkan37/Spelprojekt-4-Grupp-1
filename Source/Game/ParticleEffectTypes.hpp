@@ -4,5 +4,6 @@
 enum class eParticleEffects
 {
 	RunEffect,
-	FallEffect
+	FallEffect,
+	TestEffect
 };

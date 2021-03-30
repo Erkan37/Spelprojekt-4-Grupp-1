@@ -22,7 +22,7 @@ void EffectSprite::Update(const float& aDeltatime)
 
 	const float timer = myTotalTimer / myLifeTime;
 
-	myMinSpeed = Utils::Lerp(myMinSpeed, myMaxSpeed, myAcceleration);
+	myMinSpeed = Utils::Lerp(myMinSpeed, myMaxSpeed, myAcceleration * aDeltatime);
 	mySpeedInterval = myMinSpeed;
 
 	myScale.x = Utils::Lerp(mySprite->GetSize().x, myMaxVectorScale.x, timer);
@@ -37,8 +37,11 @@ void EffectSprite::Update(const float& aDeltatime)
 	}
 	else
 	{
-		position.x = mySprite->GetRelativePositionX() + myDirection.x * mySpeedInterval * aDeltatime;
-		position.y = mySprite->GetRelativePositionY() + myDirection.y * mySpeedInterval * aDeltatime;
+		float speedX = myDirection.x * mySpeedInterval * aDeltatime;
+		float speedY = myDirection.y * mySpeedInterval * aDeltatime;
+
+		position.x = mySprite->GetRelativePositionX() + speedX;
+		position.y = mySprite->GetRelativePositionY() + speedY;
 	}
 
 	mySprite->SetRelativePosition(position);

@@ -1,0 +1,61 @@
+{
+  "particle": [
+    {
+      "EffectTypeIndex": 2,
+      "EffectType": "TestEffect",
+      "SpritePath": "Sprites/Particles/point.dds",
+      "EmitTime": 0.0,
+      "PauseTime": 0.0,
+      "StartScale": 0.02,
+      "EndScale": 0.01,
+      "MinTimeBetweenSpawns": 0.05,
+      "MaxTimeBetweenSpawns": 0.05,
+      "MinStartSpeed": 10.0,
+      "MaxStartSpeed": 10.0,
+      "Acceleration": 0.0,
+      "MinParticleAngularVel": -10.0,
+      "MaxParticleAngularVel": 10.0,
+      "EmitterAngle": 0.0,
+      "EmitterWidth": 5.0,
+      "EmitterHeigth": 0.0,
+      "MinEmitterAngularVelocity": 0.0,
+      "MaxEmitterAngularVelocity": 0.0,
+      "MinParticleLifeTime": 0.5,
+      "MaxParticleLifeTime": 0.9,
+      "EmitterLifeTime": 1.5,
+
+      "Offset": [
+        {
+          "X": -4.0
+        },
+        {
+          "Y": 0.0
+        }
+      ],
+
+      "LockPosition": true,
+
+      "EmitterAngular": [
+        -1.0,
+        -1.0,
+        1.0,
+        1.0
+      ],
+
+      "StartColor": [
+        0.23972046375274659,
+        0.6414141654968262,
+        0.42230841517448428,
+        1.0
+      ],
+      "EndColor": [
+        0.8150427937507629,
+        0.8232322931289673,
+        0.5529792904853821,
+        1.0
+      ],
+      "BlendState": "Additive"
+    }
+  ]
+
+}

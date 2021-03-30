@@ -11,7 +11,7 @@
 
 ParticleEffectFactory::ParticleEffectFactory(Scene* aLevelScene)
 {
-	myCreatedEffects.clear();
+	//myCreatedEffects.clear();
 }
 
 void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
@@ -89,8 +89,7 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 
 void ParticleEffectFactory::Init()
 {
-	SpawnCharacterEffects();
-	//SpawnCharacterEffects2();
+	//SpawnCharacterEffects();
 }
 
 
@@ -104,7 +103,7 @@ void ParticleEffectFactory::SpawnEffect(v2f aPosition, const eParticleEffects aE
 		effect->Init(myEffects[static_cast<int>(aEffectType)], myPlayer);
 		effect->SetPosition(aPosition);
 		effect->SetIsActive(true);
-		myCreatedEffects.push_back(effect);
+		//myCreatedEffects.push_back(effect);
 		break;
 	}
 	case eParticleEffects::FallEffect:
@@ -113,7 +112,15 @@ void ParticleEffectFactory::SpawnEffect(v2f aPosition, const eParticleEffects aE
 		effect->Init(myEffects[static_cast<int>(eParticleEffects::FallEffect)], myPlayer);
 		effect->SetPosition(aPosition);
 		effect->SetIsActive(true);
-		myCreatedEffects.push_back(effect);
+		//myCreatedEffects.push_back(effect);
+		break;
+	}
+	case eParticleEffects::TestEffect:
+	{
+		ParticleEffect* effect = new ParticleEffect(myScene);
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::TestEffect)], myPlayer);
+		effect->SetPosition(aPosition);
+		effect->SetIsActive(true);
 		break;
 	}
 	}
@@ -124,7 +131,7 @@ void ParticleEffectFactory::SpawnCharacterEffects()
 	ParticleEffect* effect = new ParticleEffect(myScene);
 	effect->Init(myEffects[static_cast<int>(eParticleEffects::RunEffect)], myPlayer);
 	effect->SetIsActive(true);
-	myCreatedEffects.push_back(effect);
+	//myCreatedEffects.push_back(effect);
 }
 
 void ParticleEffectFactory::SpawnCharacterEffects2()
@@ -132,5 +139,5 @@ void ParticleEffectFactory::SpawnCharacterEffects2()
 	ParticleEffect* effect = new ParticleEffect(myScene);
 	effect->Init(myEffects[static_cast<int>(eParticleEffects::FallEffect)], myPlayer);
 	effect->SetIsActive(true);
-	myCreatedEffects.push_back(effect);
+	//myCreatedEffects.push_back(effect);
 }

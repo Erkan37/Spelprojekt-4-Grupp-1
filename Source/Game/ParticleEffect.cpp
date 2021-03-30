@@ -84,8 +84,7 @@ const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 		myEmitterTime = myStats.myEmitterLifeTime;
 	}
 
-
-	v2f position = {};
+	/*v2f position = {};
 
 	if (myStats.myEffectTypeIndex == static_cast<int>(eParticleEffects::RunEffect))
 	{
@@ -94,8 +93,8 @@ const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 	}
 	else
 		position = GetPosition();
-	
-	SetPosition(position);
+	*/
+	SetPosition(GetPosition());
 
 	if (myTimer > mySpawnInterval && myCreatingSprites)
 	{
@@ -165,7 +164,10 @@ const void ParticleEffect::CheckIfEffectIsDead()
 		for (int x = 0; x < mySprites.size(); x++)
 		{
 			if (mySprites[x]->IsAlive())
+			{
 				spritesAreMoving = true;
+				break;
+			}
 		}
 
 		if (!spritesAreMoving)
@@ -178,7 +180,7 @@ const void ParticleEffect::CheckIfEffectIsDead()
 
 const void ParticleEffect::CheckIfSpritesAreDead(const float& aDeltaTime)
 {
-	for (int x = 0; x < mySprites.size(); x++)
+	for (int x = mySprites.size() - 1; x >= 0; x--)
 	{
 		mySprites[x]->Update(aDeltaTime);
 		if (mySprites[x]->IsAlive() == false)
@@ -186,7 +188,6 @@ const void ParticleEffect::CheckIfSpritesAreDead(const float& aDeltaTime)
 			delete mySprites[x];
 			mySprites.erase(mySprites.begin() + x);
 			DeleteInactiveComponents();
-			break;
 		}
 	}
 }

@@ -5,6 +5,9 @@
     },
     {
       "file2": "JSON/Particles/infile1.json"
+    },
+    {
+      "file3": "JSON/Particles/infile2.json"
     }
   ]
 }
