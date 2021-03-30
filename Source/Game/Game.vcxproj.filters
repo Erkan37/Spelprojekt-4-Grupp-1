@@ -331,6 +331,7 @@
     <ClInclude Include="LevelSelect.hpp">
       <Filter>UI\Menu\Submenu</Filter>
     </ClInclude>
+    <ClInclude Include="OptionsMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -547,5 +548,6 @@
     <ClCompile Include="LevelSelect.cpp">
       <Filter>UI\Menu\Submenu</Filter>
     </ClCompile>
+    <ClCompile Include="OptionsMenu.cpp" />
   </ItemGroup>
 </Project>

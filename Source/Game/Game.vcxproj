@@ -181,6 +181,7 @@
     <ClInclude Include="Message.hpp" />
     <ClInclude Include="MessageTypes.hpp" />
     <ClInclude Include="MovingPlatform.hpp" />
+    <ClInclude Include="OptionsMenu.h" />
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="CameraStaticDistance.hpp" />
     <ClInclude Include="Subscriber.hpp" />
@@ -256,6 +257,7 @@
     <ClCompile Include="LevelSelect.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="MovingPlatform.cpp" />
+    <ClCompile Include="OptionsMenu.cpp" />
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />

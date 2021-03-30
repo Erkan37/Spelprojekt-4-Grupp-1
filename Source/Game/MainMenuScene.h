@@ -4,6 +4,7 @@
 class InputWrapper;
 class UIObject;
 class UIButton;
+class OptionsMenu;
 
 class MainMenuScene : public Scene
 {
@@ -49,5 +50,6 @@ private:
     void SetActiveMenu(const bool aStateBool);
     void CheckActiveAnimations();
 
+    OptionsMenu* myOptions;
 };
 

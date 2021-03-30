@@ -9,6 +9,7 @@
 
 #include "CutsceneManager.h"
 #include "AudioManager.h"
+#include "OptionsMenu.h"
 
 #include "Game.h"
 
@@ -87,6 +88,8 @@ void MainMenuScene::InitObjects()
 	v2f optionsBtnPos = {210.f, 120.f};
 	v2f exitGameBtnPos = {210.f, 140.f};
 	
+	
+
 
 	myBackground->Init("Sprites/UI/startMenu/UI_startMenu_Background_320x180px.dds", { 520.f, 265.f }, backgroundPos, 200);
 	myTitleSprite->Init("Sprites/UI/startMenu/UI_startMenu_Title_171x32px.dds", { 270.f, 32.f }, titleSpritePos, 201);
