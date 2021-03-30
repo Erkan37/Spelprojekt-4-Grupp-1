@@ -12,6 +12,7 @@ public:
     {
         StartGame,
         LevelSelect,
+        SpeedrunMode,
         Options,
         ExitGame
     };
