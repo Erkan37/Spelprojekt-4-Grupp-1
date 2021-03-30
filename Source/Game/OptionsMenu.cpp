@@ -49,6 +49,9 @@ void OptionsMenu::Init()
 	myBGDot = std::make_unique<UIObject>(myScene);
 	myVFXDot = std::make_unique<UIObject>(myScene);
 
+	myCredits = std::make_unique<UIObject>(myScene);
+	myTutorial = std::make_unique<UIObject>(myScene);
+
 	myResolutions = std::make_unique<UIObject>(myScene);
 	my720pHgh = std::make_unique<UIObject>(myScene);
 	my1080pHgh = std::make_unique<UIObject>(myScene);
@@ -64,9 +67,10 @@ void OptionsMenu::Init()
 	v2f backPos = { 140.f, 150.f };
 	v2f resetPos = { 30.f, 160.f };
 	v2f soundSettingPos = { 215.f, 90.f };
-	v2f bgDot = { 215.f + (myMusicVol*40.f), 95.f };
-	v2f SFXDot = { 215.f + (myVFXVol *40.f), 110.f };
+	v2f bgDot = { 215.f + (myMusicVol * 40.f), 95.f };
+	v2f SFXDot = { 215.f + (myVFXVol * 40.f), 110.f };
 	v2f resolutionPos = { 215, 73.f };
+	v2f creditScreenPos = { 120.f, 50.f };
 
 	//Misc
 	myBackground->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Background.dds", { 520.f, 265.f }, backgroundPos, 201);
@@ -87,6 +91,12 @@ void OptionsMenu::Init()
 	myVFXHighlight->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Sound_Setting_74x26px_VFX_Marked.dds", { 74.f,26.f }, soundSettingPos, 203);
 	myBGDot->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Sound_SettingsMark_3x3px.dds", { 3.f, 3.f }, bgDot, 204);
 	myVFXDot->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Sound_SettingsMark_3x3px.dds", { 3.f, 3.f }, SFXDot, 204);
+
+	//Credits
+	myCredits->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Background.dds", { 100.f, 100.f }, creditScreenPos, 205);
+
+	//Tutorial
+	myTutorial->Init("Sprites/UI/optionsMenu/tempTutorial.dds", { 100.f, 100.f }, creditScreenPos, 205);
 
 	//Screen
 	myResolutions->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Screensize_Resolutions_All_73x7px_Unmarked.dds", { 73.f, 7.f }, resolutionPos, 202);
@@ -120,6 +130,10 @@ void OptionsMenu::Update(const float& aDeltaTime)
 		CheckActiveAnimations();
 		CheckIndexPress();
 		UpdateUIElements(aDeltaTime);
+		if (myCreditsActive == true)
+		{
+			ActivateCredits();
+		}
 	}
 	else
 		DeactivateMenu();
@@ -150,6 +164,8 @@ void OptionsMenu::CheckIndexPress()
 			if (!mySoundSettingsActive)
 			{
 				mySoundSettingsActive = true;
+				mySubMenuActive = true;
+
 			}
 			else
 			{
@@ -163,20 +179,36 @@ void OptionsMenu::CheckIndexPress()
 			if (!myScreenSettingsActive)
 			{
 				myScreenSettingsActive = true;
+				mySubMenuActive = true;
 			}
 			else
+			{
 				myScreenSettingsActive = false;
+				mySubMenuActive = false;
+			}
 		}
 		else if (myMovingIndex == static_cast<int>(eOptionsMenu::Credits))
 		{
 			if (!myCreditsActive)
-			{
 				myCreditsActive = true;
-				//Picture with credits
-				//Backbutton for visual, men behövs bara trycka på enter för att komma ur
+			else
+			{
+				myCreditsActive = false;
+				myCredits->SetActive(false);
+			}
+		}
+		else if (myMovingIndex == static_cast<int>(eOptionsMenu::Tutorial))
+		{
+			if (!myTutorialActtive)
+			{
+				myTutorialActtive = true;
+				myTutorial->SetActive(true);
 			}
 			else
-				myCreditsActive = false;
+			{
+				myTutorialActtive = false;
+				myTutorial->SetActive(false);
+			}
 		}
 	}
 
@@ -226,9 +258,10 @@ void OptionsMenu::CheckIndexPress()
 				myAudioManager->GetInstance()->SetSFXVolume(myVFXVol);
 			}
 		}
+
 	}
 
-	if (myScreenSettingsActive == true)
+	else if (myScreenSettingsActive == true)
 	{
 		if (myInput->GetInput()->GetKeyJustDown(Keys::LEFTARROWKey))
 		{
@@ -248,6 +281,7 @@ void OptionsMenu::CheckIndexPress()
 			{
 				myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX());
 				CGame::SetResolution(480U, 720U);
+
 			}
 			else if (myScreenMovingIndex == 1)
 			{
@@ -259,6 +293,7 @@ void OptionsMenu::CheckIndexPress()
 				myScreenSizeDot->SetPositionX(my4KHgh->GetPositionX() + 58.f);
 				CGame::SetResolution(3840U, 2160U);
 			}
+			mySubMenuActive = false;
 		}
 	}
 	else
@@ -276,7 +311,7 @@ void OptionsMenu::CheckIndexPress()
 				myMovingIndex = 0;
 		}
 	}
-	
+
 }
 
 void OptionsMenu::ActivateMenu()
@@ -386,6 +421,11 @@ void OptionsMenu::CheckActiveAnimations()
 void OptionsMenu::UpdateSoundSettings()
 {
 	myAudioManager->GetInstance()->SetMusicVolume(myMusicVol);
+}
+
+void OptionsMenu::ActivateCredits()
+{
+	myCredits->SetActive(true);
 }
 
 

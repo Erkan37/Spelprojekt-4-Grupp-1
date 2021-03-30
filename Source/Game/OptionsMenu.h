@@ -60,6 +60,12 @@ private:
 	std::unique_ptr<UIObject> my4KHgh;
 	std::unique_ptr<UIObject> myScreenSizeDot;
 
+	//Credits
+	std::unique_ptr<UIObject> myCredits;
+
+	//Tutorial
+	std::unique_ptr<UIObject> myTutorial;
+
 	std::unique_ptr<UIButton> myTutorialsBtn;
 	std::unique_ptr<UIButton> myScreenBtn;
 	std::unique_ptr<UIButton> mySoundBtn;
@@ -86,6 +92,8 @@ private:
 
 	bool myScreenSettingsActive = false;
 	bool myCreditsActive = false;
+	bool myTutorialActtive = false;
+	bool mySubMenuActive = false;
 	
 	void CheckIndexPress();
 	void ActivateMenu();
@@ -94,6 +102,8 @@ private:
 	void UpdateUIElements(const float& aDeltaTime);
 	void CheckActiveAnimations();
 	void UpdateSoundSettings();
+	void ActivateCredits();
+	
 
 };
 
