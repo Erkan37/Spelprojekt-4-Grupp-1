@@ -12,6 +12,7 @@ AudioLibrary::AudioLibrary()
 	myAudioList.insert_or_assign(AudioList::PlayerJumpPad,   new AudioClip("Sounds/Effects/spring.wav",           false, 0.4f, 1,    AudioLayer::SoundEffect));
 	myAudioList.insert_or_assign(AudioList::SpikeDeath,      new AudioClip("Sounds/Effects/EnemySpeared.mp3",     false, 0.8f, 1,    AudioLayer::SoundEffect));
 
+	myAudioList.insert_or_assign(AudioList::EnemyNormalIdle, new AudioClip("Sounds/Effects/IdleEnemy.wav",        true,  0.1f, 0.4f, AudioLayer::SoundEffect));
 	myAudioList.insert_or_assign(AudioList::EnemyShooting,   new AudioClip("Sounds/Effects/EnemyFire.wav",        false, 0.1f, 1,    AudioLayer::SoundEffect));
 
 	myAudioList.insert_or_assign(AudioList::GrabLedge,       new AudioClip("Sounds/Effects/GrabLedge.wav",        false, 0.1f, 1,    AudioLayer::SoundEffect));
