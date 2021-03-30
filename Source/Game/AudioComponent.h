@@ -3,12 +3,14 @@
 #include "AudioClip.h"
 #include <vector>
 #include "AudioLibrary.h"
+class Scene;
+
 class AudioComponent : public Component
 {
 public:
 	AudioComponent();
 	
-	void AddAudio(AudioList aSound);
+	void AddAudio(AudioList aSound, Scene* aScene);
 	void PlayAudio();
 	void StopAudio();
 	void SetRadius(const float& aRadius);
@@ -23,6 +25,7 @@ private:
 	float myMinVolume = 0.1f;
 	float myMaxVolume = 0.4f;
 	float myAudioSpectrum = 0;
+	Scene* myScene;
 	AudioList myAudio;
 };
 
