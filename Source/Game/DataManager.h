@@ -104,8 +104,10 @@ public:
 	const rapidjson::Document& GetLevel(const unsigned int aLevelIndex) const;
 	const int GetLevelCount();
 
+	// Save Methods
 	void SaveBonfireState(const unsigned int anIndex, const bool aState);
 	const bool GetBonfireState(const unsigned int anIndex) const;
+	void ResetBonfires();
 
 private:
 	//Private Methods

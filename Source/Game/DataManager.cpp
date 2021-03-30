@@ -216,9 +216,27 @@ const int DataManager::GetLevelCount()
 
 void DataManager::SaveBonfireState(const unsigned int anIndex, const bool aState)
 {
+	assert((mySaveFile["Bonfires"].IsArray()) && "Bonfires is not Array.");
+	assert((mySaveFile["Bonfires"][anIndex]["Bonfire"].IsObject()) && "Bonfire is not Object.");
+	assert((mySaveFile["Bonfires"][anIndex]["Bonfire"]["IsActive"].IsBool()) && "IsActive is not Boolean.");
+
+	std::string dataPath = "JSON/SaveFile.json";
+
 	mySaveFile["Bonfires"].GetArray()[anIndex]["Bonfire"]["IsActive"].SetBool(aState);
+
+	std::ofstream ofs{ dataPath };
+	rapidjson::OStreamWrapper osw{ ofs };
+	rapidjson::Writer<rapidjson::OStreamWrapper> writer{ osw };
+	mySaveFile.Accept(writer);
 }
 const bool DataManager::GetBonfireState(const unsigned int anIndex) const
 {
-	return mySaveFile["Bonfires"].GetArray()[anIndex].GetBool();
+	return mySaveFile["Bonfires"].GetArray()[anIndex]["Bonfire"]["IsActive"].GetBool();
+}
+void DataManager::ResetBonfires()
+{
+	for (size_t i = 0; i < mySaveFile["Bonfires"].GetArray().Size(); i++)
+	{
+		mySaveFile["Bonfires"].GetArray()[i]["Bonfire"]["IsActive"].SetBool(false);
+	}
 }

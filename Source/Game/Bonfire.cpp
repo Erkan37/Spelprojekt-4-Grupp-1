@@ -45,6 +45,11 @@ Bonfire::Bonfire(Scene* aScene, const unsigned int anIndex) : GameObject(aScene)
 	animation->SetSprite(spriteIdle);
 	animation->SetAnimation(&myAnimations[0]);
 	spriteIdle->SetSize(v2f(32.0f, 32.0f));
+
+	if (myHasBeenActivated)
+	{
+		GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[1]);
+	}
 }
 Bonfire::~Bonfire()
 {
@@ -73,8 +78,4 @@ void Bonfire::OnCollision(GameObject* aGameObject)
 const unsigned int Bonfire::GetBonfireIndex() const
 {
 	return myBonfireIndex;
-}
-void SetState(const bool aState)
-{
-
 }
