@@ -18,6 +18,7 @@
 MainMenuScene::MainMenuScene()
 {
 	myMovingIndex = {};
+	CGameWorld::GetInstance()->GetLevelManager().SetIsSpeedrunMode(false);
 }
 
 void MainMenuScene::Load()
@@ -158,6 +159,15 @@ void MainMenuScene::CheckButtonsPress()
 		else if (myMovingIndex == static_cast<int>(eMainMenuButton::LevelSelect))
 		{
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelSelect);
+
+#ifndef _RETAIL
+			CGameWorld::GetInstance()->GetLevelManager().ToggleImGui();
+#endif //RETAIL
+		}
+		else if (myMovingIndex == static_cast<int>(eMainMenuButton::SpeedrunMode))
+		{
+			CGameWorld::GetInstance()->GetLevelManager().SetLevelIndex(0);
+			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
 
 #ifndef _RETAIL
 			CGameWorld::GetInstance()->GetLevelManager().ToggleImGui();

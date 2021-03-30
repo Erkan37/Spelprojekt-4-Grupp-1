@@ -22,6 +22,7 @@ LevelManager::LevelManager()
 	myLastDoorType = 1;
 
 	myLevelTransition = false;
+	myIsSpeedrunMode = false;
 
 	Subscribe(eMessageType::LoadNext);
 	Subscribe(eMessageType::LoadPrevious);
@@ -136,6 +137,11 @@ const bool LevelManager::GetIsActive(eScenes aScene)
 	return myScenes[aScene]->IsActive();
 }
 
+bool LevelManager::GetIsSpeedrunMode()
+{
+	return myIsSpeedrunMode;
+}
+
 void LevelManager::LoadLevel(LevelScene* aLevelScene, GameObject* aPlayer)
 {
 	myTiledLoader->Load(aLevelScene, myLoadedLevel, aPlayer);
@@ -150,6 +156,11 @@ void LevelManager::LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, Ga
 void LevelManager::SetLevelIndex(const int& aLevelIndex)
 {
 	myLoadedLevel = aLevelIndex;
+}
+
+void LevelManager::SetIsSpeedrunMode(bool aIsSpeedrunMode)
+{
+	//myIsSpeedrunMode = aIsSpeedrunMode;
 }
 
 void LevelManager::Notify(const Message& aMessage)
