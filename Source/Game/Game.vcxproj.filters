@@ -343,6 +343,9 @@
     <ClInclude Include="OptionsMenu.h">
       <Filter>Scenes\MainMenu\Submenus</Filter>
     </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -567,6 +570,9 @@
     </ClCompile>
     <ClCompile Include="OptionsMenu.cpp">
       <Filter>Scenes\MainMenu\Submenus</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -204,6 +204,7 @@
     <ClInclude Include="TiledLoader.h" />
     <ClInclude Include="TileSetLayer.hpp" />
     <ClInclude Include="TileSetLayerProperties.hpp" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UIManager.h" />
@@ -283,6 +284,7 @@
     <ClCompile Include="TiledLoader.cpp" />
     <ClCompile Include="TileSetLayer.cpp" />
     <ClCompile Include="TileSetLayerProperties.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UIObject.cpp" />

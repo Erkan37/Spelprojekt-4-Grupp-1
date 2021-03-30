@@ -42,5 +42,6 @@ private:
 
     bool myReachedFullOpacity;
     bool myIsTransitioning;
+    bool myIsSpeedrun;
 };
 
