@@ -194,7 +194,7 @@ void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aSc
 {
 	for (int i = 0; i < someData.size(); ++i)
 	{
-		Bonfire* bonfire = new Bonfire(aScene); //, someData[i].myType);
+		Bonfire* bonfire = new Bonfire(aScene, someData[i].myType);
 		bonfire->SetPosition(someData[i].myPosition);
 	}
 }
@@ -227,13 +227,13 @@ void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene* aScene
 		else if (someData[i].myPosition.y < 0.0f && lastDoorType == 3)
 		{
 			doorOffset.x = 24.0f;
-			doorOffset.y = -40.0f;
+			doorOffset.y = 40.0f;
 			doorFound = true;
 		}
 		else if (someData[i].myPosition.y > roomSize.y && lastDoorType == 2)
 		{
 			doorOffset.x = 24.0f;
-			doorOffset.y = 48.0f;
+			doorOffset.y = -48.0f;
 			doorFound = true;
 		}
 

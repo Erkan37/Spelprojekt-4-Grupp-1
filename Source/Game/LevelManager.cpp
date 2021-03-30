@@ -79,21 +79,22 @@ void LevelManager::ImGuiUpdate()
 		{
 			SingleLoadScene(eScenes::LevelScene);
 		}
-
 		if (ImGui::Button("MainMenu"))
 		{
 			SingleLoadScene(eScenes::MainMenu);
+		}
+		if (ImGui::Button("Reset Bonfires"))
+		{
+			DataManager::GetInstance().ResetBonfires();
 		}
 
 		ImGui::End();
 	}
 }
-
 void LevelManager::ToggleImGui()
 {
 	myImGuiIsActive = !myImGuiIsActive;
 }
-
 #endif //RETAIL
 
 void LevelManager::SingleLoadScene(eScenes aScene)

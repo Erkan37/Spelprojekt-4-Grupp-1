@@ -1,8 +1,8 @@
 {
   "HiddenRooms": [
     {
-      "LevelIndex": 0,
-      "FilePath": "Snorre Sturlason"
+      "LevelIndex": 50,
+      "FilePath": "Levels/HiddenRoom_03.json"
     }
   ]
 }

@@ -1,0 +1,12 @@
+{
+  "Bonfires": [
+    { "Bonfire": { "IsActive": false } },
+    { "Bonfire": { "IsActive": false } },
+    { "Bonfire": { "IsActive": false } },
+    { "Bonfire": { "IsActive": false } },
+    { "Bonfire": { "IsActive": false } },
+    { "Bonfire": { "IsActive": false } },
+    { "Bonfire": { "IsActive": false } },
+    { "Bonfire": { "IsActive": false } }
+  ]
+}
