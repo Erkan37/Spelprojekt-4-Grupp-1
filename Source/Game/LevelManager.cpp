@@ -55,8 +55,8 @@ void LevelManager::Update()
 		if (levelScene->GetReachedFullOpacity())
 		{
 			myLevelTransition = false;
-			myLoadingHiddenRoom = false;
 			SingleLoadScene(eScenes::LevelScene);
+			myLoadingHiddenRoom = false;
 		}
 	}
 
