@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Animation.hpp"
 
 class Scene;
 
@@ -15,6 +16,7 @@ public:
 
 
 private:
+	Animation myAnimations[1];
 
 };
 

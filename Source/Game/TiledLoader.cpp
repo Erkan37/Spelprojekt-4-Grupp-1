@@ -27,9 +27,9 @@
 
 typedef rapidjson::Value::ConstValueIterator iterator;
 
-void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer)
+void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer, const bool aIsHiddenRoom)
 {
-	const rapidjson::Document& levelDoc = DataManager::GetInstance().GetLevel(aLevelIndex);
+	const rapidjson::Document& levelDoc = DataManager::GetInstance().GetLevel(aLevelIndex, aIsHiddenRoom);
 	std::vector<LoadData> loadData;
 	std::vector<HiddenArea*> hiddenRoomsData;
 
@@ -205,25 +205,44 @@ void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aSc
 
 void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene* aScene, Player* aPlayer)
 {
+	const v2f roomSize = aScene->GetCamera().GetBoundSize();
 
-	const int doorType = CGameWorld::GetInstance()->GetLevelManager().GetDoorType();
+	const int lastDoorType = CGameWorld::GetInstance()->GetLevelManager().GetDoorType();
 
 	for (int i = 0; i < someData.size(); ++i)
 	{
 		LevelDoor* door = new LevelDoor(aScene);
+		
+		bool doorFound = false;
 
-		if (doorType != someData[i].myType)
+		v2f doorOffset = v2f(0.0f, 0.0f);
+		if (someData[i].myPosition.x < 0.0f && lastDoorType == 1)
 		{
-			v2f doorOffset = v2f(0.0f, someData[i].mySize.y - 8.0f);
-			if (someData[i].myType == 0)
-			{
-				doorOffset.x = 24.0f + someData[i].mySize.x;
-			}
-			else if (someData[i].myType == 1)
-			{
-				doorOffset.x = -24.0f;
-			}
+			doorOffset.x = 24.0f + someData[i].mySize.x;
+			doorOffset.y = someData[i].mySize.y - 8.0f;
+			doorFound = true;
+		}
+		else if (someData[i].myPosition.x > roomSize.x && lastDoorType == 0)
+		{
+			doorOffset.x = -24.0f;
+			doorOffset.y = someData[i].mySize.y - 8.0f;
+			doorFound = true;
+		}
+		else if (someData[i].myPosition.y < 0.0f && lastDoorType == 3)
+		{
+			doorOffset.x = 24.0f;
+			doorOffset.y = 40.0f;
+			doorFound = true;
+		}
+		else if (someData[i].myPosition.y > roomSize.y && lastDoorType == 2)
+		{
+			doorOffset.x = 24.0f;
+			doorOffset.y = -48.0f;
+			doorFound = true;
+		}
 
+		if (doorFound)
+		{
 			aPlayer->SetSpawnPosition(someData[i].myPosition + doorOffset);
 			aPlayer->SetPosition(someData[i].myPosition + doorOffset);
 		}

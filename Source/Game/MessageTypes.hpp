@@ -3,6 +3,8 @@ enum class eMessageType
 {
 	LoadNext,
 	LoadPrevious,
+	LoadHiddenRoom,
+	LoadMainRoom,
 	PlayerDeath,
 	PlayerSafeLanded,
 	PlayerReachedBonfire,
