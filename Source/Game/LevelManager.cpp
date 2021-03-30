@@ -31,13 +31,14 @@ LevelManager::~LevelManager()
 
 }
 
-void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelSelect, Scene* aLevelScene/*, Scene* aPauseMenuScene*/, Scene* anIntroLogosScene)
+void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelSelect, Scene* aLevelScene, Scene* anIntroLogosScene, Scene* aWinScene)
 {
 	myScenes.insert({ eScenes::MainMenu, aMainMenuScene });
 	myScenes.insert({ eScenes::LevelSelect, aLevelSelect });
 	myScenes.insert({ eScenes::LevelScene, aLevelScene });
 	//myScenes.insert({ eScenes::PauseMenu, aPauseMenuScene });
 	myScenes.insert({ eScenes::IntroLogos, anIntroLogosScene});
+	myScenes.insert({ eScenes::WinScene, aWinScene });
 }
 
 void LevelManager::Update()
@@ -159,6 +160,8 @@ void LevelManager::Notify(const Message& aMessage)
 		if (myLoadedLevel >= DataManager::GetInstance().GetLevelCount())
 		{
 			myLoadedLevel = DataManager::GetInstance().GetLevelCount() - 1;
+			SingleLoadScene(eScenes::WinScene);
+			return;
 		}
 
 		myLastDoorType = std::get<int>(aMessage.myData);

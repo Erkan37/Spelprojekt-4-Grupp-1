@@ -3,6 +3,7 @@
 #include "LevelSelect.hpp"
 #include "LevelScene.h"
 #include "IntroLogosScene.h"
+#include "WinScene.hpp"
 #include "LevelManager.hpp"
 
 namespace Utils
@@ -73,6 +74,7 @@ private:
 	MainMenuScene myMainMenuScene;
 	LevelSelect myLevelSelect;
 	LevelScene myLevelScene;
+	WinScene myWinScene;
 
 	LevelManager myLevelManager;
 

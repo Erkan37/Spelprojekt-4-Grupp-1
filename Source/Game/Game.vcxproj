@@ -213,6 +213,7 @@
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector4.hpp" />
     <ClInclude Include="WaypointComponent.hpp" />
+    <ClInclude Include="WinScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
@@ -287,6 +288,7 @@
     <ClCompile Include="UnstablePlatform.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="WaypointComponent.cpp" />
+    <ClCompile Include="WinScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
