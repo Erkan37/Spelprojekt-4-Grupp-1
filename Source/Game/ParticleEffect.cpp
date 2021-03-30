@@ -20,19 +20,6 @@ ParticleEffect::ParticleEffect(Scene* aLevelScene)
 	myIsActive = {};
 	myTimer = {};
 }
-/*
-{
-	for (int x = mySprites.size() - 1; x >= 0; x--)
-	{
-		mySprites[x]->SetInactive();
-
-		if (mySprites[x]->IsAlive() == false)
-		{
-			mySprites.erase(mySprites.begin() + x);
-			DeleteInactiveComponents();
-		}
-	}
-}*/
 
 void ParticleEffect::Init(ParticleStats aStats, Player* aPlayer)
 {
