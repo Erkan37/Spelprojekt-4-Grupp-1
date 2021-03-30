@@ -2,7 +2,15 @@
   "FilePathArray": [
     {
       "Id": 0,
-      "FilePath": "Levels/Level_41.json"
+      "FilePath": "Levels/Henke_blockout_6.json.json"
+    },
+    {
+      "Id": 0,
+      "FilePath": "Levels/Henke_blockout_7.json.json"
+    },
+    {
+      "Id": 0,
+      "FilePath": "Levels/Henke_blockout_8.json.json"
     },
     {
       "Id": 1,
