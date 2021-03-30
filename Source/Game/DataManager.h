@@ -102,6 +102,7 @@ public:
 	void SetDataStruct(const DataEnum aDataEnum);
 
 	const rapidjson::Document& GetLevel(const unsigned int aLevelIndex, const bool aIsHiddenRoom) const;
+	const int DataManager::GetLevelCount() const;
 
 	// Save Methods
 	void SaveBonfireState(const unsigned int anIndex, const bool aState);
