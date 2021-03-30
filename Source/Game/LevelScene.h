@@ -5,6 +5,7 @@
 #include "BackGround.h"
 #include "SpringObject.h"
 #include "PauseMenu.h"
+#include "Timer.h" 
 
 #include "Subscriber.hpp"
 
@@ -30,17 +31,19 @@ public:
     void Transitioning();
 
     GameObject* GetPlayer();
+
 private:
     GameObject* myBlackScreen;
     GameObject* myPlayer;
     Background* myBackground;
     PauseMenu* myPauseMenu;
+    Timer* myTimer;
 
     float myBlackScreenOpacity;
     float myBlackScreenOpacitySpeed;
 
     bool myReachedFullOpacity;
     bool myIsTransitioning;
-
+    bool myIsSpeedrun;
 };
 

@@ -8,7 +8,9 @@ public:
 	enum class eDoorType
 	{
 		Entry, 
-		Exit
+		Exit,
+		HiddenRoom,
+		MainRoom
 	};
 
 	LevelDoor(Scene* aScene);
