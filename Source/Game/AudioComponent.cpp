@@ -3,22 +3,25 @@
 #include "AudioManager.h"
 #include "LevelScene.h"
 #include "CU/Utilities.h"
+#include "Player.hpp"
+#include "Scene.h"
 
 AudioComponent::AudioComponent() : Component()
 {
 
 }
 
-void AudioComponent::AddAudio(AudioList aSound)
+void AudioComponent::AddAudio(AudioList aSound, Scene* aScene)
 {
 	myAudio = aSound;
+	myScene = aScene;
 }
 
 void AudioComponent::PlayAudio()
 {
 	//myAudioList[0]->Play();
 	//AudioLibrary::GetInstance().myAudioList[aSound]->Play();
-	AudioManager::GetInstance()->PlayAudio(myAudio);
+	//AudioManager::GetInstance()->PlayIfAvailable(myAudio);
 }
 
 void AudioComponent::StopAudio()
@@ -50,13 +53,28 @@ void AudioComponent::Update(Transform& aTransform, GameObject& aGameObject)
 	if (lengthFromPlayer.Length() <= myRadius)
 	{
 		float length = lengthFromPlayer.Length();
-		float volPercentage = length / myRadius;
-		AudioManager::GetInstance()->SetSoundVolume(myAudio, 1 - volPercentage);
-		AudioManager::GetInstance()->SetSoundPosition(myAudio, lengthFromPlayer.GetNormalized());
+		//If is closest to player. 
+		// Set the new distance
+		// play 
+		//else
+		//Stop
+		//if (dynamic_cast<Player*>(dynamic_cast<LevelScene*>(this->myScene)->GetPlayer())->GetClosestPlatform() > length)
+		//{
+		//	dynamic_cast<Player*>(dynamic_cast<LevelScene*>(this->myScene)->GetPlayer())->SetClosestPlatform(length);
+		//	float volPercentage = length / myRadius;
+		//	AudioManager::GetInstance()->SetSoundVolume(myAudio, 1 - volPercentage);
+		//	AudioManager::GetInstance()->SetSoundPosition(myAudio, lengthFromPlayer.GetNormalized());
+		//	AudioManager::GetInstance()->PlayIfAvailable(myAudio);
+		//}
+		//else
+		//{
+		//	AudioManager::GetInstance()->Stop(myAudio);
+		//}
 		//AudioLibrary::GetInstance().myAudioList[AudioList::ProjectileFly]->SetPosition(lengthFromPlayer.GetNormalized());
 	}
 	else
 	{
-		AudioManager::GetInstance()->SetSoundVolume(myAudio, 0);
+		//AudioManager::GetInstance()->SetSoundVolume(myAudio, 0);
+		//AudioManager::GetInstance()->Stop(myAudio);
 	}
 }

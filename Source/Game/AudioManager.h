@@ -32,6 +32,7 @@ public:
 	float GetSFXVolume() const;
 
 	void PlayAudio(AudioList aSound);
+	void PlayIfAvailable(AudioList aSound);
 
 	void Stop(AudioList aSound);
 

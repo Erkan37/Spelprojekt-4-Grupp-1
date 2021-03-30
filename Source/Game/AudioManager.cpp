@@ -18,8 +18,10 @@ const std::unique_ptr<AudioManager>& AudioManager::GetInstance()
 AudioManager::AudioManager()
 {
 	myAudioOut = {};
-	mySFXVolume = {};
-	myMusicVolume = {};
+	mySFXVolume = 0.2f;
+	myMusicVolume = 0.5f;
+	SetMusicVolume(mySFXVolume);
+	SetSFXVolume(mySFXVolume);
 };
 
 AudioManager::~AudioManager() = default;
@@ -138,6 +140,11 @@ void AudioManager::PlayAudio(AudioList aSound)
 	//{
 	//	BASS_ChannelFlags(channel, BASS_SAMPLE_LOOP, BASS_SAMPLE_LOOP);
 	//}
+}
+
+void AudioManager::PlayIfAvailable(AudioList aSound)
+{
+	myLibrary.myAudioList[aSound]->PlayIfAvailable();
 }
 
 void AudioManager::Stop(AudioList aSound)

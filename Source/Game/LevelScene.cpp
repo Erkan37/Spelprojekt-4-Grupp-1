@@ -152,7 +152,7 @@ const bool LevelScene::GetReachedFullOpacity()
 	return myReachedFullOpacity;
 }
 
-const GameObject* LevelScene::GetPlayer()
+GameObject* LevelScene::GetPlayer()
 {
 	return myPlayer;
 }

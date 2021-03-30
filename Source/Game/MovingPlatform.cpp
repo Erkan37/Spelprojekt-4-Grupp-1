@@ -18,17 +18,15 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 {
 	SetZIndex(93);
 	myType = eMovingPlatformType::RegularPlatform;
-	myMaterial = 1;
+	myMaterial = 3;
 	myPercentageYValue = {};
 	myWaypointComponent = AddComponent<WaypointComponent>();
 	myWaypointComponent->SetOwner(this);
 	myAddedButton = false;
 	myRevertOn = {};
 	AudioComponent* audio = AddComponent<AudioComponent>();
-	audio->AddAudio(AudioList::MovingPlatform);
+	audio->AddAudio(AudioList::MovingPlatform, this->myScene);
 	audio->SetRadius(200);
-	audio->PlayAudio();
-
 }
 
 MovingPlatform::~MovingPlatform()
