@@ -45,6 +45,6 @@ AudioLibrary::AudioLibrary()
 	myAudioList.insert_or_assign(AudioList::PlayerDeath,     new AudioClip("Sounds/Effects/death.wav",            false, 0.3f, 1,    AudioLayer::SoundEffect));
 	myAudioList.insert_or_assign(AudioList::ButtonPress,     new AudioClip("Sounds/Effects/ButtonPress.wav",      false, 0.4f, 1,    AudioLayer::SoundEffect));
 
-	myAudioList.insert_or_assign(AudioList::MenuAmbience,    new AudioClip("Sounds/Effects/MenuAmbience.wav",     true,  0.1f, 1,    AudioLayer::SoundEffect));
+	myAudioList.insert_or_assign(AudioList::MenuAmbience,    new AudioClip("Sounds/Effects/MenuAmbience.wav",     true,  0.1f, 0.5f,    AudioLayer::SoundEffect));
 
 }

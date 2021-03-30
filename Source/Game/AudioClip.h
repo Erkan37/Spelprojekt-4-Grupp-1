@@ -1,11 +1,12 @@
 #pragma once
-#include "AudioLibrary.h"
 
 namespace Tga2D
 {
 	class AudioOut;
 	class CAudio;
 }
+
+enum class AudioLayer;
 
 class AudioClip
 {
