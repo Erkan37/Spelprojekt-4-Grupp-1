@@ -10,14 +10,15 @@
       "FilePath": "Sprites/LevelSprites/BG02/BackgroundForestBg22.dds"
     },
     {
-      "FilePath": "Sprites/LevelSprites/BG02/BackgroundForestBg21.dds"
-    },
-    {
       "FilePath": "Sprites/LevelSprites/BG02/BackgroundTown2.dds"
     },
     {
       "FilePath": "Sprites/LevelSprites/BG02/BackgroundTown1.dds"
+    },
+    {
+      "FilePath": "Sprites/LevelSprites/BG02/BackgroundForestBg21.dds"
     }
+    
   ],
   "OffSets": [
     {
@@ -30,11 +31,7 @@
     },
     {
       "PositionX": 0.0,
-      "PositionY": 10.0
-    },
-    {
-      "PositionX": 0.0,
-      "PositionY": -20.0
+      "PositionY": 20.0
     },
     {
       "PositionX": 0.0,
@@ -42,7 +39,11 @@
     },
     {
       "PositionX": 0.0,
-      "PositionY": 40.0
+      "PositionY": 35.0
+    },
+    {
+      "PositionX": 0.0,
+      "PositionY": 50.0
     }
   ]
 }
