@@ -67,15 +67,23 @@ LRESULT CGame::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		SetResolution(LOWORD(lParam), HIWORD(lParam));
 		return 0;
 	}
+	case WM_KILLFOCUS:
+	{
+		myTimer->SetTimeScale(0.0f);
+		break;
+	}
+
+	case WM_SETFOCUS:
+	{
+		myTimer->SetTimeScale(1.0f);
+		break;
+	}
 		// this message is read when the window is closed
 	case WM_DESTROY:
 	{
 		// close the application entirely
 		PostQuitMessage(0);
 		return 0;
-	}
-	case WM_KILLFOCUS:
-	{
 	}
 	}
 
