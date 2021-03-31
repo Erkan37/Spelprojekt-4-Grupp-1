@@ -217,24 +217,28 @@ void OptionsMenu::CheckIndexPress(const float& aDeltaTime)
 		if (myScreenMovingIndex == 0)
 		{
 			myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX());
+
 			Tga2D::CEngine::GetInstance()->SetResolution({ 1225, 720 }, true);
 			Tga2D::CEngine::GetInstance()->SetTargetSize({ 1280, 720 });
-
 		}
 		else if (myScreenMovingIndex == 1)
 		{
 			myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX() + 27.f);
 			Tga2D::CEngine::GetInstance()->SetResolution({ 1865, 1080 }, true);
 			Tga2D::CEngine::GetInstance()->SetTargetSize({ 1920, 1080 });
-
 		}
 		else if (myScreenMovingIndex == 2)
 		{
 			myScreenSizeDot->SetPositionX(my4KHgh->GetPositionX() + 58.f);
-			Tga2D::CEngine::GetInstance()->SetResolution({ 3785, 2160 }, true);
+			//Tga2D::CEngine::GetInstance()->SetFullScreen();
+			Tga2D::CEngine::GetInstance()->SetResolution({ 3840, 2160 }, true);
 			Tga2D::CEngine::GetInstance()->SetTargetSize({ 3840, 2160 });
 		}
 		myScreenSettingsActive = false;
+		for (int i = 0; i < myResolutionObj.size(); i++)
+		{
+			myResolutionObj[i]->SetActive(false);
+		}
 	}
 
 	if (mySoundSettingsActive == true)
@@ -396,6 +400,7 @@ void OptionsMenu::CheckActiveAnimations()
 	}
 	if (mySoundSettingsActive == true)
 	{
+		InactivateHighlight();
 		for (int i = 0; i < mySoundObjects.size(); i++)
 		{
 			if (i == mySoundMovingIndex)
@@ -408,6 +413,11 @@ void OptionsMenu::CheckActiveAnimations()
 	}
 	if (myScreenSettingsActive == true)
 	{
+		InactivateHighlight();
+		for (int i = 0; i < myButtons.size(); i++)
+		{
+			myButtons[i]->SetIsHighlightActive(false);
+		}
 		for (int i = 0; i < myResolutionObj.size(); i++)
 		{
 			if (i == myScreenMovingIndex)
@@ -415,9 +425,7 @@ void OptionsMenu::CheckActiveAnimations()
 				myResolutionObj[i]->SetActive(true);
 			}
 			else
-			{
 				myResolutionObj[i]->SetActive(false);
-			}
 		}
 	}
 }
@@ -430,6 +438,15 @@ void OptionsMenu::UpdateSoundSettings()
 void OptionsMenu::ActivateCredits()
 {
 	myCredits->SetActive(true);
+}
+
+void OptionsMenu::InactivateHighlight()
+{
+	myFireHighlight->SetActive(false);
+	for (int i = 0; i < myButtons.size(); i++)
+	{
+		myButtons[i]->SetIsHighlightActive(false);
+	}
 }
 
 

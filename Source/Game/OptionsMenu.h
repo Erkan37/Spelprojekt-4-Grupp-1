@@ -101,6 +101,7 @@ private:
 	void CheckActiveAnimations();
 	void UpdateSoundSettings();
 	void ActivateCredits();
+	void InactivateHighlight();
 	
 
 };
