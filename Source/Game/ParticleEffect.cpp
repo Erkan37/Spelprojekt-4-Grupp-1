@@ -73,6 +73,8 @@ const eParticleEffects ParticleEffect::GetType() const
 
 const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 {
+	std::cout << GetZIndex() << std::endl;
+
 	myTimer += aDeltaTime;
 	myLifeTime += aDeltaTime;
 	myPauseTimer += aDeltaTime;

@@ -120,10 +120,10 @@ void ParticleEffectFactory::SpawnEffect(v2f aPosition, const eParticleEffects aE
 		effect->SetIsActive(true);
 		break;
 	}
-	case eParticleEffects::WindEffect:
+	case eParticleEffects::SnowEffect:
 	{
 		ParticleEffect* effect = new ParticleEffect(myScene);
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::WindEffect)], myPlayer);
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::SnowEffect)], myPlayer);
 		effect->SetPosition(aPosition);
 		effect->SetIsActive(true);
 		break;

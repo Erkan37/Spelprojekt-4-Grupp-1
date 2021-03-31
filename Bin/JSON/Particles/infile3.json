@@ -3,7 +3,7 @@
     {
       "EffectType": "SnowEffect",
 
-      "ZIndex": 100,
+      "ZIndex": 50,
 
       "EffectTypeIndex": 3,
       "SpritePath": "Sprites/Particles/point.dds",
