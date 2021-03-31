@@ -162,6 +162,11 @@ void LevelManager::SetLevelIndex(const int& aLevelIndex)
 	myLoadedLevel = aLevelIndex;
 }
 
+void LevelManager::UsedLevelSelect()
+{
+	myTiledLoader->UsedLevelSelect();
+}
+
 void LevelManager::SetIsSpeedrunMode(bool aIsSpeedrunMode)
 {
 	myIsSpeedrunMode = aIsSpeedrunMode;
