@@ -6,7 +6,9 @@
 #include "WaypointComponent.hpp"
 #include "SpriteComponent.h"
 #include "ColliderComponent.h"
-#include <iostream>
+
+#include "GameWorld.h"
+#include "Timer.h"
 
 #include "../External/Headers/CU/Utilities.h"
 
@@ -26,7 +28,7 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	myRevertOn = {};
 	AudioComponent* audio = AddComponent<AudioComponent>();
 	audio->AddAudio(AudioList::MovingPlatform);
-	audio->SetRadius(200);
+	audio->SetRadius(170);
 }
 
 MovingPlatform::~MovingPlatform()

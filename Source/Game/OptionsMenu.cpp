@@ -7,7 +7,7 @@
 #include "MainMenuScene.h"
 #include "Camera.h"
 #include "Game.h"
-
+#include "tga2d/engine.h"
 #include "AudioManager.h"
 #include "AnimationComponent.hpp"
 
@@ -131,7 +131,7 @@ void OptionsMenu::Update(const float& aDeltaTime)
 	{
 		ActivateMenu();
 		CheckActiveAnimations();
-		CheckIndexPress();
+		CheckIndexPress(aDeltaTime);
 		UpdateUIElements(aDeltaTime);
 		if (myCreditsActive == true)
 		{
@@ -153,10 +153,10 @@ bool OptionsMenu::IsOptionsActive()
 }
 
 
-void OptionsMenu::CheckIndexPress()
+void OptionsMenu::CheckIndexPress(const float& aDeltaTime)
 {
 
-	if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey))
+	if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey) && myScreenSettingsActive == false)
 	{
 		if (myMovingIndex == static_cast<int>(eOptionsMenu::Back))
 		{
@@ -182,12 +182,10 @@ void OptionsMenu::CheckIndexPress()
 			if (!myScreenSettingsActive)
 			{
 				myScreenSettingsActive = true;
-				mySubMenuActive = true;
 			}
 			else
 			{
 				myScreenSettingsActive = false;
-				mySubMenuActive = false;
 			}
 		}
 		else if (myMovingIndex == static_cast<int>(eOptionsMenu::Credits))
@@ -212,6 +210,34 @@ void OptionsMenu::CheckIndexPress()
 				myTutorialActtive = false;
 				myTutorial->SetActive(false);
 			}
+		}
+	}
+	else if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey) && myScreenSettingsActive == true)
+	{
+		if (myScreenMovingIndex == 0)
+		{
+			myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX());
+
+			Tga2D::CEngine::GetInstance()->SetResolution({ 1225, 720 }, true);
+			Tga2D::CEngine::GetInstance()->SetTargetSize({ 1280, 720 });
+		}
+		else if (myScreenMovingIndex == 1)
+		{
+			myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX() + 27.f);
+			Tga2D::CEngine::GetInstance()->SetResolution({ 1865, 1080 }, true);
+			Tga2D::CEngine::GetInstance()->SetTargetSize({ 1920, 1080 });
+		}
+		else if (myScreenMovingIndex == 2)
+		{
+			myScreenSizeDot->SetPositionX(my4KHgh->GetPositionX() + 58.f);
+			//Tga2D::CEngine::GetInstance()->SetFullScreen();
+			Tga2D::CEngine::GetInstance()->SetResolution({ 3840, 2160 }, true);
+			Tga2D::CEngine::GetInstance()->SetTargetSize({ 3840, 2160 });
+		}
+		myScreenSettingsActive = false;
+		for (int i = 0; i < myResolutionObj.size(); i++)
+		{
+			myResolutionObj[i]->SetActive(false);
 		}
 	}
 
@@ -278,28 +304,8 @@ void OptionsMenu::CheckIndexPress()
 			if (myScreenMovingIndex > myResolutionObj.size() - 1)
 				myScreenMovingIndex = 0;
 		}
-		if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey))
-		{
-			if (myScreenMovingIndex == 0)
-			{
-				myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX());
-				CGame::SetResolution(480U, 720U);
-
-			}
-			else if (myScreenMovingIndex == 1)
-			{
-				myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX() + 27.f);
-				CGame::SetResolution(1920U, 1080U);
-			}
-			else if (myScreenMovingIndex == 2)
-			{
-				myScreenSizeDot->SetPositionX(my4KHgh->GetPositionX() + 58.f);
-				CGame::SetResolution(3840U, 2160U);
-			}
-			mySubMenuActive = false;
-		}
 	}
-	else
+	else if (mySoundSettingsActive == false && myScreenSettingsActive == false && myCreditsActive == false && myTutorialActtive == false)
 	{
 		if (myInput->GetInput()->GetKeyJustDown(Keys::UPARROWKey))
 		{
@@ -394,6 +400,7 @@ void OptionsMenu::CheckActiveAnimations()
 	}
 	if (mySoundSettingsActive == true)
 	{
+		InactivateHighlight();
 		for (int i = 0; i < mySoundObjects.size(); i++)
 		{
 			if (i == mySoundMovingIndex)
@@ -406,6 +413,11 @@ void OptionsMenu::CheckActiveAnimations()
 	}
 	if (myScreenSettingsActive == true)
 	{
+		InactivateHighlight();
+		for (int i = 0; i < myButtons.size(); i++)
+		{
+			myButtons[i]->SetIsHighlightActive(false);
+		}
 		for (int i = 0; i < myResolutionObj.size(); i++)
 		{
 			if (i == myScreenMovingIndex)
@@ -413,10 +425,12 @@ void OptionsMenu::CheckActiveAnimations()
 				myResolutionObj[i]->SetActive(true);
 			}
 			else
-			{
 				myResolutionObj[i]->SetActive(false);
-			}
 		}
+	}
+	if (myCreditsActive == true || myTutorialActtive == true)
+	{
+		InactivateHighlight();
 	}
 }
 
@@ -428,6 +442,15 @@ void OptionsMenu::UpdateSoundSettings()
 void OptionsMenu::ActivateCredits()
 {
 	myCredits->SetActive(true);
+}
+
+void OptionsMenu::InactivateHighlight()
+{
+	myFireHighlight->SetActive(false);
+	for (int i = 0; i < myButtons.size(); i++)
+	{
+		myButtons[i]->SetIsHighlightActive(false);
+	}
 }
 
 

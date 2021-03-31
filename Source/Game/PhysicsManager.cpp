@@ -205,8 +205,10 @@ bool PhysicsManager::OneWayCheck(const float& aInSensitivity, GameObject* aObj1,
 		}
 
 		const float objVelocity = aObj2->GetComponent<PhysicsComponent>()->GetVelocityY() - playerPlatformVelocity;
+
+		const float adjustedInsensitivity = aInSensitivity + objVelocity * CGameWorld::GetInstance()->GetTimer()->GetDeltaTime();
 		
-		if (aObj2Max.y > aObj1Min.y + aInSensitivity || objVelocity < 0)
+		if (aObj2Max.y > aObj1Min.y + adjustedInsensitivity || objVelocity < 0)
 		{
 			return true;
 		}
@@ -224,7 +226,9 @@ bool PhysicsManager::OneWayCheck(const float& aInSensitivity, GameObject* aObj1,
 
 		const float objVelocity = aObj1->GetComponent<PhysicsComponent>()->GetVelocityY() - playerPlatformVelocity;
 
-		if (aObj1Max.y > aObj2Min.y + aInSensitivity || objVelocity < 0)
+		const float adjustedInsensitivity = aInSensitivity + objVelocity * CGameWorld::GetInstance()->GetTimer()->GetDeltaTime();
+
+		if (aObj1Max.y > aObj2Min.y + adjustedInsensitivity || objVelocity < 0)
 		{
 			return true;
 		}

@@ -93,7 +93,7 @@ private:
 	bool myTutorialActtive = false;
 	bool mySubMenuActive = false;
 	
-	void CheckIndexPress();
+	void CheckIndexPress(const float& aDeltaTime);
 	void ActivateMenu();
 	void DeactivateMenu();
 	void InitTexts();
@@ -101,6 +101,7 @@ private:
 	void CheckActiveAnimations();
 	void UpdateSoundSettings();
 	void ActivateCredits();
+	void InactivateHighlight();
 	
 
 };
