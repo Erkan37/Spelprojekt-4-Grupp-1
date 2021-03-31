@@ -110,11 +110,9 @@ void MovingPlatform::OnCollision(GameObject* aGameObject)
 		const float platformPositionX = GetPosition().x + GetComponent<ColliderComponent>()->GetWidth() / 2;
 		const float xOffset = 4.0f;
 
-		const float insensitivity = CGameWorld::GetInstance()->GetTimer()->GetDeltaTime() * velo.y;
-
 		if (Utils::Abs(player->GetPosition().x - platformPositionX + xOffset) <= GetComponent<ColliderComponent>()->GetWidth() / 2)
 		{
-			player->SetPositionY(GetPositionY() - (7.8f - insensitivity));
+			player->SetPositionY(GetPositionY() - 7.8f);
 		}
 	}
 }
