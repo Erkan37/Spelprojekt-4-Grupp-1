@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Animation.hpp"
 
 class Scene;
 
@@ -16,6 +17,8 @@ public:
 	void OnCollision(GameObject* aGameObject) override;
 
 private:
+	Animation myAnimations[1];
+
 	float myTimer;
 	float myDisappearTime;
 

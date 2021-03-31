@@ -24,13 +24,15 @@ void DeadlyPlatform::OnCollision(GameObject* aGameObject)
 	Player* player = dynamic_cast<Player*>(aGameObject);
 	if (player)
 	{
-		AudioManager::GetInstance()->PlayAudio(AudioList::SpikeDeath);
-		AudioManager::GetInstance()->LockAudio(AudioList::SpikeDeath);
-		AudioManager::GetInstance()->PlayAudio(AudioList::SpikeHit);
-		AudioManager::GetInstance()->LockAudio(AudioList::SpikeHit);
-
+		myMaterial = 6; // temp
 		if (!player->GetHasDied())
 		{
+			switch (myMaterial)
+			{
+			case 5: AudioManager::GetInstance()->PlayAudio(AudioList::FallDeath); break;
+			case 6: AudioManager::GetInstance()->PlayAudio(AudioList::SpikeHit); AudioManager::GetInstance()->PlayAudio(AudioList::SpikeDeath); break;
+			case 7: AudioManager::GetInstance()->PlayAudio(AudioList::ThornDeath); AudioManager::GetInstance()->PlayAudio(AudioList::SpikeDeath); break;
+			}
 			player->Kill();
 		}
 	}

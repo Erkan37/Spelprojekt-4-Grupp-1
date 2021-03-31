@@ -72,10 +72,10 @@ void EnemyProjectile::InitVisuals()
 	spriteIdle->SetSpritePath("Sprites/Enemies/Enemy2Bullet.dds");
 	spriteIdle->SetSize(mySpriteSize);
 
-	//myAnimation = Animation(false, false, true, 1, 1, 1, 0.15f, spriteIdle, 512, 512);
+	myAnimation = Animation(false, false, false, 0, 5, 5, 0.1f, spriteIdle, 8, 8);
 
-	//AnimationComponent* animation = AddComponent<AnimationComponent>();
-	//animation->SetSprite(spriteIdle);
-	//animation->SetAnimation(&myAnimation);
-	//spriteIdle->SetSize(mySize);
+	AnimationComponent* animation = AddComponent<AnimationComponent>();
+	animation->SetSprite(spriteIdle);
+	animation->SetAnimation(&myAnimation);
+	spriteIdle->SetSize(v2f(8.0f, 8.0f));
 }
