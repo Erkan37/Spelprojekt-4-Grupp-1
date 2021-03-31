@@ -14,6 +14,8 @@ public:
 	void OnCollision(GameObject* aGameObject) override;
 
 private:
+	Animation myAnimation;
+
 	v2f mySpriteSize = { 10.0f, 10.0f };
 	v2f myColliderSize = {10.0f, 10.0f};
 	v2f myDirection;

@@ -158,6 +158,7 @@ void LevelSelect::CheckButtonPress()
 				return;
 			}
 
+			CGameWorld::GetInstance()->GetLevelManager().UsedLevelSelect();
 			CGameWorld::GetInstance()->GetLevelManager().SetLevelIndex(myLevelIndexes[myLevelIndex]);
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
 		}
@@ -170,6 +171,9 @@ void LevelSelect::CheckButtonPress()
 
 void LevelSelect::InitiateButtons()
 {
+	myLevelButtons.clear();
+	myLevelIndexes.clear();
+
 	myBackButton = new UIButton(this);
 	myBackButton->Init("Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Unmarked_64x16px.dds", v2f(64.0f, 16.0f), v2f(250.0f, 160.0f), "Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Marked_64x16px.dds", 64);
 	myBackButton->SetPosition(v2f(250.0f, 160.0f));
