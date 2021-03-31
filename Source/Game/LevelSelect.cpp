@@ -158,6 +158,7 @@ void LevelSelect::CheckButtonPress()
 				return;
 			}
 
+			CGameWorld::GetInstance()->GetLevelManager().UsedLevelSelect();
 			CGameWorld::GetInstance()->GetLevelManager().SetLevelIndex(myLevelIndexes[myLevelIndex]);
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
 		}
