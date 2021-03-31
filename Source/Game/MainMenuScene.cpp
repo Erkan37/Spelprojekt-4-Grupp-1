@@ -170,6 +170,7 @@ void MainMenuScene::CheckButtonsPress()
 		}
 		else if (myMovingIndex == static_cast<int>(eMainMenuButton::SpeedrunMode))
 		{
+			CGameWorld::GetInstance()->GetLevelManager().SetIsSpeedrunMode(true);
 			CGameWorld::GetInstance()->GetLevelManager().SetLevelIndex(0);
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
 
