@@ -26,11 +26,13 @@ LevelScene::LevelScene()
 	: 
 	myPlayer(nullptr),
 	myBackground(nullptr),
+	myIsSpeedrun(false),
 	Scene()
 {}
 
 void LevelScene::Load()
 {
+	myIsSpeedrun = CGameWorld::GetInstance()->GetLevelManager().GetIsSpeedrunMode();
 	myBlackScreenOpacity = 1.0f;
 	myBlackScreenOpacitySpeed = 4.3f;
 
@@ -47,6 +49,10 @@ void LevelScene::Load()
 
 	myPauseMenu = new PauseMenu(this);
 	myPauseMenu->InitMenu();
+
+	myTimer = new Timer(this);
+	myTimer->Init({ 10, 10 });
+	myTimer->Start();
 
 	Scene::Load();
 }

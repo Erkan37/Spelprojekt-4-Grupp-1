@@ -35,6 +35,13 @@ void BashableObject::Init(const v2f& aPosition, const float& aRadius)
 	spriteIdle->SetSpritePath("Sprites/Objects/Bashable.dds");
 	spriteIdle->SetSize(v2f(16.0f, 16.0));
 
+	myAnimations[0] = Animation(false, false, false, 0, 7, 7, 0.125f, spriteIdle, 16, 16);
+
+	AnimationComponent* animation = AddComponent<AnimationComponent>();
+	animation->SetSprite(spriteIdle);
+	animation->SetAnimation(&myAnimations[0]);
+	spriteIdle->SetSize(v2f(16.0f, 16.0));
+
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
 	physics->SetCanCollide(false);
 	physics->SetIsStatic(false);

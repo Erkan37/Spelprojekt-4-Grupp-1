@@ -8,6 +8,8 @@
 #include "Game.h"
 #include "LevelManager.hpp"
 
+#include "DataManager.h"
+
 #include "SpriteComponent.h"
 
 #include "UIButton.h"
@@ -186,9 +188,10 @@ void LevelSelect::InitiateButtons()
 	rapidjson::Document levelSelect;
 	levelSelect.ParseStream(levelSelectStream);
 
+	int bonfireIndex = 0;
 	for (rapidjson::Value::ConstValueIterator iterator = levelSelect["Bonfires"].Begin(); iterator != levelSelect["Bonfires"].End(); ++iterator)
 	{
-		if ((*iterator)["Unlocked"].GetInt() == 1)
+		if (DataManager::GetInstance().GetBonfireState(bonfireIndex))
 		{
 			UIButton* levelButton = new UIButton(this);
 			levelButton->SetPosition(v2f((*iterator)["X"].GetFloat(), (*iterator)["Y"].GetFloat()));
@@ -201,6 +204,8 @@ void LevelSelect::InitiateButtons()
 
 			myLevelIndexes.push_back((*iterator)["LevelIndex"].GetInt());
 		}
+
+		++bonfireIndex;
 	}
 
 	if (static_cast<int>(myLevelButtons.size()) > 0)

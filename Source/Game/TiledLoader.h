@@ -19,6 +19,9 @@ struct LoadData
 	std::string myWaypoints;
 	float mySpeed;
 	int myPlatformMaterial;
+
+	int myID;
+	int myBonfireID;
 };
 
 struct TileLayerData
@@ -31,7 +34,7 @@ struct TileLayerData
 class TiledLoader
 {
 public:
-	void Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer);
+	void Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer, const bool aIsHiddenRoom);
 
 private:
 	void ParseBonfires(const std::vector<LoadData> someData, Scene*);

@@ -101,9 +101,13 @@ public:
 	Data& GetDataStruct(const DataEnum aDataEnum);
 	void SetDataStruct(const DataEnum aDataEnum);
 
-	const rapidjson::Document& GetLevel(const unsigned int aLevelIndex) const;
+	const rapidjson::Document& GetLevel(const unsigned int aLevelIndex, const bool aIsHiddenRoom) const;
+	const int DataManager::GetLevelCount() const;
 
-	const int GetLevelCount();
+	// Save Methods
+	void SaveBonfireState(const unsigned int anIndex, const bool aState);
+	const bool GetBonfireState(const unsigned int anIndex) const;
+	void ResetBonfires();
 
 private:
 	//Private Methods
@@ -114,10 +118,14 @@ private:
 	//Master Documents
 	rapidjson::Document myMasterDoc;
 	rapidjson::Document myLevelMasterDoc;
+	rapidjson::Document myHiddenRoomMasterDoc;
 
 	//Data Structs
 	PlayerData myPlayerData;
 	EnemyData myEnemyData;
 	std::vector<rapidjson::Document> myLevelVector;
+	std::map<int, rapidjson::Document> myHiddenRooms;
 
+	//SaveFile
+	rapidjson::Document mySaveFile;
 };

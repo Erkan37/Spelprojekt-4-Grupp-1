@@ -25,7 +25,7 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	myAddedButton = false;
 	myRevertOn = {};
 	AudioComponent* audio = AddComponent<AudioComponent>();
-	audio->AddAudio(AudioList::MovingPlatform, this->myScene);
+	audio->AddAudio(AudioList::MovingPlatform);
 	audio->SetRadius(200);
 }
 
