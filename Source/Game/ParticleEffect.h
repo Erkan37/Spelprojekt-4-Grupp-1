@@ -29,21 +29,25 @@ private:
 	std::vector<EffectSprite*> mySprites;
 	ParticleStats myStats;
 
-	float myEmitterTime;
 	float mySpawnInterval;
 	float myLifeTime;
 	float myTimer;
+	float myPauseTimer;
+
 	bool myActiveEffect;
 	bool myCreatingSprites;
 	bool myAddedEmitter;
+	bool myAddedPauseTimer;
 
 	Player* myPlayer;
 	
 	const void UpdateParticle(const float& aDeltaTime);
 	const void UpdatePlayerEffect(const float& aDeltaTime);
+	const void CheckWhenToSpawnSprites();
 	const void SpawnSprite();
 	const void CheckIfEffectIsDead();
 	const void CheckIfSpritesAreDead(const float& aDeltaTime);
+	const void CheckActiveStats();
 
 };
 

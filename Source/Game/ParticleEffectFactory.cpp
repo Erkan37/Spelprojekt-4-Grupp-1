@@ -48,15 +48,16 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 			stats.myEffectType = (*particleStat)["EffectType"].GetString();
 			stats.mySpritePath = (*particleStat)["SpritePath"].GetString();
 			stats.myLockedPosition = (*particleStat)["LockPosition"].GetBool();
-			stats.myEmitTime = (*particleStat)["EmitTime"].GetFloat();
-			stats.myPauseTime = (*particleStat)["PauseTime"].GetFloat();
+			stats.myPauseTimer = (*particleStat)["PauseTimer"].GetFloat();
+			stats.myPauseSeconds = (*particleStat)["PauseSeconds"].GetFloat();
 			stats.myStartScale = (*particleStat)["StartScale"].GetFloat();
 			stats.myEndScale = (*particleStat)["EndScale"].GetFloat();
 			stats.myMinBetweenSpawn = (*particleStat)["MinTimeBetweenSpawns"].GetFloat();
 			stats.myMaxBetweenSpawn = (*particleStat)["MaxTimeBetweenSpawns"].GetFloat();
-			stats.myMinStartSpeed = (*particleStat)["MinStartSpeed"].GetFloat();
-			stats.myMaxStartSpeed = (*particleStat)["MaxStartSpeed"].GetFloat();
-			stats.myAcceleration = (*particleStat)["Acceleration"].GetFloat();
+			stats.myMinSpeed = (*particleStat)["MinSpeed"].GetFloat();
+			stats.myMaxSpeed = (*particleStat)["MaxSpeed"].GetFloat();
+			stats.mySpeedAcceleration = (*particleStat)["SpeedAcceleration"].GetFloat();
+			stats.myGrowthAcceleration = (*particleStat)["GrowthAcceleration"].GetFloat();
 			stats.myMinParticleAngularVel = (*particleStat)["MinParticleAngularVel"].GetFloat();
 			stats.myMaxParticleAngularVel = (*particleStat)["MaxParticleAngularVel"].GetFloat();
 			stats.myEmitterAngle = (*particleStat)["EmitterAngle"].GetFloat();
@@ -69,9 +70,9 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 			stats.myEmitterLifeTime = (*particleStat)["EmitterLifeTime"].GetFloat();
 			stats.myOffset = { (*particleStat)["Offset"][0]["X"].GetFloat(), (*particleStat)["Offset"][1]["Y"].GetFloat() };
 
-			stats.myEmitterAngular = { (*particleStat)["EmitterAngular"][0].GetFloat(), (*particleStat)["EmitterAngular"][1].GetFloat(), (*particleStat)["EmitterAngular"][2].GetFloat(), (*particleStat)["EmitterAngular"][3].GetFloat() };
-			stats.myStartColor = { (*particleStat)["StartColor"][0].GetFloat(), (*particleStat)["StartColor"][1].GetFloat(), (*particleStat)["StartColor"][2].GetFloat(), (*particleStat)["StartColor"][3].GetFloat() };
-			stats.myEndColor = { (*particleStat)["EndColor"][0].GetFloat(), (*particleStat)["EndColor"][1].GetFloat(), (*particleStat)["EndColor"][2].GetFloat(), (*particleStat)["EndColor"][3].GetFloat() };
+			stats.myEmitterAngular = { (*particleStat)["LockedAngular"][0].GetFloat(), (*particleStat)["LockedAngular"][1].GetFloat(), (*particleStat)["LockedAngular"][2].GetFloat(), (*particleStat)["LockedAngular"][3].GetFloat() };
+			stats.myStartColor = { (*particleStat)["StartColor"][0].GetFloat() / 255.f, (*particleStat)["StartColor"][1].GetFloat() / 255.f, (*particleStat)["StartColor"][2].GetFloat() / 255.f, (*particleStat)["StartColor"][3].GetFloat()};
+			stats.myEndColor = { (*particleStat)["EndColor"][0].GetFloat() / 255.f, (*particleStat)["EndColor"][1].GetFloat() / 255.f, (*particleStat)["EndColor"][2].GetFloat() / 255.f, (*particleStat)["EndColor"][3].GetFloat()};
 
 
 			myEffects.push_back(stats);

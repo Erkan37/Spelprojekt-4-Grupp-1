@@ -4,25 +4,36 @@
       "EffectTypeIndex": 0,
       "EffectType": "RunEffect",
       "SpritePath": "Sprites/Particles/point.dds",
-      "EmitTime": 0.0,
-      "PauseTime": 0.0,
+
+      "PauseTimer": 0.0,
+      "PauseSeconds": 0.0,
+
+      "EmitterLifeTime": 5.0,
+
       "StartScale": 0.02,
       "EndScale": 0.01,
+      "GrowthAcceleration": 0.0,
+
       "MinTimeBetweenSpawns": 0.1,
       "MaxTimeBetweenSpawns": 0.3,
-      "MinStartSpeed": 30.0,
-      "MaxStartSpeed": 30.0,
-      "Acceleration": 0.0,
+
+      "MinSpeed": 30.0,
+      "MaxSpeed": 30.0,
+      "SpeedAcceleration": 0.0,
+
       "MinParticleAngularVel": -10.0,
       "MaxParticleAngularVel": 10.0,
+
       "EmitterAngle": 0.0,
+
       "EmitterWidth": 5.0,
       "EmitterHeigth": 0.0,
+
       "MinEmitterAngularVelocity": 0.0,
       "MaxEmitterAngularVelocity": 0.0,
+
       "MinParticleLifeTime": 0.5,
       "MaxParticleLifeTime": 0.5,
-      "EmitterLifeTime": 5.0,
 
       "Offset": [
         {
@@ -35,7 +46,7 @@
 
       "LockPosition": true,
 
-      "EmitterAngular": [
+      "LockedAngular": [
         -1.0,
         -1.0,
         1.0,

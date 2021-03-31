@@ -159,6 +159,7 @@ void GameObject::DeleteInactiveComponents()
 		{
 			if (cast->IsActive() == false)
 			{
+				delete myComponents[i];
 				myComponents.erase(myComponents.begin() + i);
 				break;
 			}

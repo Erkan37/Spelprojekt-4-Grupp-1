@@ -19,9 +19,9 @@ private:
 	int myEffectTypeIndex = {};
 
 	bool myLockedPosition = {};
-
-	float myEmitTime = {};
-	float myPauseTime = {};
+	
+	float myPauseTimer = {};
+	float myPauseSeconds = {};
 
 	float myStartScale = {};
 	float myEndScale = {};
@@ -29,10 +29,11 @@ private:
 	float myMinBetweenSpawn = {};
 	float myMaxBetweenSpawn = {};
 
-	float myMinStartSpeed = {};
-	float myMaxStartSpeed = {};
+	float myMinSpeed = {};
+	float myMaxSpeed = {};
 
-	float myAcceleration = {};
+	float mySpeedAcceleration = {};
+	float myGrowthAcceleration = {};
 
 	float myMinParticleAngularVel = {};
 	float myMaxParticleAngularVel = {};

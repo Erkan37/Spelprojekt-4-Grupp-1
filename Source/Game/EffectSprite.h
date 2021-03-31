@@ -33,12 +33,14 @@ public:
 
 	float myTotalTimer = {};
 
+	float myPauseTime = {};
 	float myMinScale = {};
 	float myMaxScale = {};
 	float myMinSpeed = {};
 	float myMaxSpeed = {};
 	float mySpeedInterval = {};
-	float myAcceleration = {};
+	float myGrowthAcceleration = {};
+	float mySpeedAcceleration = {};
 	float myLifeTime = {};
 	float myRotation = {};
 	float myEmitterWidth = {};
@@ -52,7 +54,16 @@ public:
 	bool myIsAlive = true;
 	bool myIsLockedPos = false;
 
+	Tga2D::CColor myCurrentColor = {};
+
 	Tga2D::CColor myStartColor = {};
 	Tga2D::CColor myEndColor = {};
+
+private:
+	void LerpSpeed(const float& aDeltatime);
+	void LerpScale(const float& aDeltatime);
+	void LerpColor(const float& aDeltatime);
+
+	void ResetColor();
 
 };

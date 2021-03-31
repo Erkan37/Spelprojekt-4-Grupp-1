@@ -77,10 +77,11 @@ void LevelScene::Deactivate()
 
 void LevelScene::Update(const float& aDeltaTime)
 {
-	if (CGameWorld::GetInstance()->Input()->GetInput()->GetKeyJustDown(Keys::RKey))
+	if (CGameWorld::GetInstance()->Input()->GetInput()->GetKeyJustDown(Keys::LeftMouseButton))
 	{
-		v2f position = myPlayer->GetPosition();
-		myEffectFactory->SpawnEffect(position, eParticleEffects::FallEffect);
+		v2f position = GetPlayer()->GetPosition();
+
+		myEffectFactory->SpawnEffect(position, eParticleEffects::TestEffect);
 	}
 
 

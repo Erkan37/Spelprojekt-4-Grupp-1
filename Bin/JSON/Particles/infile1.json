@@ -4,25 +4,36 @@
       "EffectTypeIndex": 1,
       "EffectType": "FallEffect",
       "SpritePath": "Sprites/Particles/point.dds",
-      "EmitTime": 0.0,
-      "PauseTime": 0.0,
+
+      "PauseTimer": 0.0,
+      "PauseSeconds": 0.0,
+
+      "EmitterLifeTime": 3.0,
+
       "StartScale": 0.01,
       "EndScale": 0.05,
+      "GrowthAcceleration": 0.0,
+
       "MinTimeBetweenSpawns": 0.05,
       "MaxTimeBetweenSpawns": 0.1,
-      "MinStartSpeed": 100.0,
-      "MaxStartSpeed": 500.0,
-      "Acceleration": 2.0,
+
+      "MinSpeed": 100.0,
+      "MaxSpeed": 500.0,
+      "SpeedAcceleration": 2.0,
+
       "MinParticleAngularVel": -1.0,
       "MaxParticleAngularVel": 1.0,
+
       "EmitterAngle": 0.0,
+
       "EmitterWidth": 0.0,
       "EmitterHeigth": 0.0,
+
       "MinEmitterAngularVelocity": 0.0,
       "MaxEmitterAngularVelocity": 165.0,
+
       "MinParticleLifeTime": 5.0,
       "MaxParticleLifeTime": 8.0,
-      "EmitterLifeTime": 3.0,
 
       "Offset": [
         {
@@ -35,7 +46,7 @@
 
       "LockPosition": true,
 
-      "EmitterAngular": [
+      "LockedAngular": [
         -1.0,
         -1.0,
         1.0,

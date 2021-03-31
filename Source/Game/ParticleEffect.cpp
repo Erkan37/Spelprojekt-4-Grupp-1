@@ -19,15 +19,16 @@ ParticleEffect::ParticleEffect(Scene* aLevelScene)
 	myPlayer = {};
 	myActiveEffect = {};
 	myTimer = {};
-	myEmitterTime = {};
 	myLifeTime = {};
 	myCreatingSprites = {};
 	myAddedEmitter = {};
+	myPauseTimer = {};
+	myAddedPauseTimer = {};
 }
 
 ParticleEffect::~ParticleEffect() = default;
 
-void ParticleEffect::Init(ParticleStats aStats, Player* aPlayer)
+void ParticleEffect::Init(ParticleStats aStats, Player * aPlayer)
 {
 	assert(aPlayer != NULL);
 	myPlayer = aPlayer;
@@ -37,6 +38,7 @@ void ParticleEffect::Init(ParticleStats aStats, Player* aPlayer)
 	if (static_cast<eParticleEffects>(myStats.myEffectTypeIndex) == eParticleEffects::RunEffect)
 		myActiveEffect = true;
 
+	SetPosition(GetPosition());
 	SetZIndex(100.f);
 	SetPivot({ 0.5f, 0.5f });
 	Activate();
@@ -77,29 +79,11 @@ const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 {
 	myTimer += aDeltaTime;
 	myLifeTime += aDeltaTime;
+	myPauseTimer += aDeltaTime;
 
-	if (myActiveEffect && !myAddedEmitter && myStats.myEmitterLifeTime > 0)
-	{
-		myAddedEmitter = true;
-		myEmitterTime = myStats.myEmitterLifeTime;
-	}
+	CheckActiveStats();
 
-	/*v2f position = {};
-
-	if (myStats.myEffectTypeIndex == static_cast<int>(eParticleEffects::RunEffect))
-	{
-		position = myPlayer->GetPosition();
-		position.y = position.y + (myPlayer->GetComponent<SpriteComponent>()->GetSizeY() / 2);
-	}
-	else
-		position = GetPosition();
-	*/
-	SetPosition(GetPosition());
-
-	if (myTimer > mySpawnInterval && myCreatingSprites)
-	{
-		SpawnSprite();
-	}
+	CheckWhenToSpawnSprites();
 
 	CheckIfSpritesAreDead(aDeltaTime);
 	CheckIfEffectIsDead();
@@ -113,6 +97,29 @@ const void ParticleEffect::UpdatePlayerEffect(const float& aDeltaTime)
 	}
 }
 
+const void ParticleEffect::CheckWhenToSpawnSprites()
+{
+	if (myTimer > mySpawnInterval && myCreatingSprites)
+	{
+		if (myAddedPauseTimer)
+		{
+			if (myPauseTimer <= myStats.myPauseTimer)
+			{
+				SpawnSprite();
+			}
+			else
+			{
+				if (myPauseTimer >= myStats.myPauseTimer + myStats.myPauseSeconds)
+					myPauseTimer = {};
+			}
+		}
+		else
+		{
+			SpawnSprite();
+		}
+	}
+}
+
 const void ParticleEffect::SpawnSprite()
 {
 	myTimer = {};
@@ -120,9 +127,11 @@ const void ParticleEffect::SpawnSprite()
 	EffectSprite* sprite = new EffectSprite();
 
 	sprite->myPathString = myStats.mySpritePath;
-	sprite->myMinSpeed = myStats.myMinStartSpeed;
-	sprite->myMaxSpeed = myStats.myMaxStartSpeed;
-	sprite->myAcceleration = myStats.myAcceleration;
+	sprite->myMinSpeed = myStats.myMinSpeed;
+	sprite->myMaxSpeed = myStats.myMaxSpeed;
+	sprite->mySpeedAcceleration = myStats.mySpeedAcceleration;
+	sprite->myGrowthAcceleration = myStats.myGrowthAcceleration;
+	sprite->myPauseTime = myStats.myPauseTimer;
 	sprite->myLifeTime = Utils::RandomFloat(myStats.myMinParticleLifeTime, myStats.myMaxParticleLifeTime);
 	sprite->myRotation = Utils::RandomFloat(myStats.myMinParticleAngularVel, myStats.myMaxParticleAngularVel);
 	sprite->myMinScale = myStats.myStartScale;
@@ -139,9 +148,6 @@ const void ParticleEffect::SpawnSprite()
 	sprite->myOffset = myStats.myOffset;
 	sprite->myPosition = GetPosition();
 
-	if (sprite->myIsLockedPos)
-		SetPivot({ 0.f, 1.0f });
-
 	sprite->AddSprite(AddComponent<SpriteComponent>());
 
 	mySprites.push_back(sprite);
@@ -153,7 +159,7 @@ const void ParticleEffect::CheckIfEffectIsDead()
 {
 	if (myAddedEmitter)
 	{
-		if (myLifeTime > myEmitterTime)
+		if (myLifeTime > myStats.myEmitterLifeTime)
 			myCreatingSprites = false;
 	}
 
@@ -190,6 +196,18 @@ const void ParticleEffect::CheckIfSpritesAreDead(const float& aDeltaTime)
 			DeleteInactiveComponents();
 		}
 	}
+}
+
+const void ParticleEffect::CheckActiveStats()
+{
+	if (myActiveEffect && !myAddedEmitter && myStats.myEmitterLifeTime > 0)
+	{
+		myAddedEmitter = true;
+	}
+
+	if (myStats.myPauseTimer > 0)
+		myAddedPauseTimer = true;
+
 }
 
 const void ParticleEffect::SetEffect(ParticleStats aEffect)
