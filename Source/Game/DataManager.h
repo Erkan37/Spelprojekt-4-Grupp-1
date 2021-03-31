@@ -85,6 +85,12 @@ struct EnemyData : public Data
 	std::map<EnemyFloatEnum, float> myFloatValueMap;
 };
 
+struct CollectableInfo
+{
+	int myID;
+	int myBonfireID;
+};
+
 class DataManager
 {
 public:
@@ -109,6 +115,10 @@ public:
 	const bool GetBonfireState(const unsigned int anIndex) const;
 	void ResetBonfires();
 
+	// Get Collectable Info
+	void ParseCollectableInfo();
+	std::vector<CollectableInfo> GetCollectableInfo();
+
 private:
 	//Private Methods
 	DataManager();
@@ -125,6 +135,7 @@ private:
 	EnemyData myEnemyData;
 	std::vector<rapidjson::Document> myLevelVector;
 	std::map<int, rapidjson::Document> myHiddenRooms;
+	std::vector<CollectableInfo> myCollectableInfo;
 
 	//SaveFile
 	rapidjson::Document mySaveFile;
