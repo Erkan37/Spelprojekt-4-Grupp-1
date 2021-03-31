@@ -10,7 +10,7 @@
 #include "Game.h"
 
 
-Background::Background(Scene* aLevelScene) 
+Background::Background(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene)
 {
@@ -30,7 +30,7 @@ Background::Background(Scene* aLevelScene)
 	assert(&aLevelScene->GetCamera() != NULL);
 	myCamera = &aLevelScene->GetCamera();
 	LoadJson(aLevelScene);
-		
+
 }
 
 void Background::Init(int /*someLevelIndex*/)
@@ -55,10 +55,9 @@ void Background::UpdateBackground(const float& aDeltaTime)
 
 void Background::ResizeBackground()
 {
-	myCurrentRenderSize.x = myBackgroundSprite1->GetSizeX();
+	myCurrentRenderSize.x = myBackgroundSprite1->GetComponent<SpriteComponent>()->GetSize().x;
 	myCurrentRenderSize.y = Config::ourReferenceSize.y;
 
-	myBackground->SetPosition({ myCurrentRenderSize.x / 2.f, myCurrentRenderSize.y / 2.f });
 }
 
 void Background::MoveBackground(const float& aDeltaTime)
@@ -84,11 +83,14 @@ void Background::MoveBackground(const float& aDeltaTime)
 						  (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedSixY };
 
 
-	myBackgroundSprite1->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedOne + myOffsetBackground1);
-	myBackgroundSprite3->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedThree + myOffsetBackground3);
-	myBackgroundSprite4->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedFour + myOffsetBackground4);
-	myBackgroundSprite5->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedFive + myOffsetBackground5);
-	myBackgroundSprite6->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedSix + myOffsetBackground6);
+	v2f spriteSize = {};
+	spriteSize.x = myBackgroundSprite5->GetComponent<SpriteComponent>()->GetSize().x / 2.f;
+
+	myBackgroundSprite1->SetPosition(myCamera->GetPosition() + backgroundSpeedOne + spriteSize + myOffsetBackground1);
+	myBackgroundSprite3->SetPosition(myCamera->GetPosition() + backgroundSpeedThree + spriteSize + myOffsetBackground3);
+	myBackgroundSprite4->SetPosition(myCamera->GetPosition() + backgroundSpeedFour + spriteSize + myOffsetBackground4);
+	myBackgroundSprite5->SetPosition(myCamera->GetPosition() + backgroundSpeedFive + spriteSize + myOffsetBackground5);
+	myBackgroundSprite6->SetPosition(myCamera->GetPosition() + backgroundSpeedSix + spriteSize + myOffsetBackground6);
 
 	myCloudDistance = myCloudDistance + (aDeltaTime * myCloudSpeed);
 
@@ -98,7 +100,8 @@ void Background::MoveBackground(const float& aDeltaTime)
 
 	backgroundSpeedTwo.x = backgroundSpeedTwo.x + myCloudDistance;
 
-	myBackgroundSprite2->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedTwo + myOffsetBackground2);
+
+	myBackgroundSprite2->SetPosition(myCamera->GetPosition() + backgroundSpeedTwo + spriteSize + myOffsetBackground2);
 }
 
 void Background::LoadJson(Scene* aLevelScene)
@@ -112,14 +115,14 @@ void Background::LoadJson(Scene* aLevelScene)
 	backgroundDocuments.ParseStream(backgroundObjectStream);
 
 
-	std::ifstream backgroundPathObjectsFile(backgroundDocuments["BackgroundArray"][1]["FilePath"].GetString());
+	std::ifstream backgroundPathObjectsFile(backgroundDocuments["BackgroundArray"][0]["FilePath"].GetString());
 	rapidjson::IStreamWrapper backgroundPathObjectStream(backgroundPathObjectsFile);
 
 	rapidjson::Document backgroundPathDocuments;
 	backgroundPathDocuments.ParseStream(backgroundPathObjectStream);
 
 	LoadBackgrounds(aLevelScene, backgroundPathDocuments);
-	
+
 	myBackgroundSpeedOneX = backgroundDocuments["SpeedVariables"][0]["SpeedOneX"].GetFloat();
 	myBackgroundSpeedOneY = backgroundDocuments["SpeedVariables"][0]["SpeedOneY"].GetFloat();
 
@@ -146,8 +149,6 @@ void Background::LoadJson(Scene* aLevelScene)
 
 void Background::LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDocuments)
 {
-	myBackground = std::make_unique<GameObject>(aLevelScene);
-
 	int backgroundSizeArray = someDocuments["BackgroundPaths"].Size();
 
 	for (int i = 0; i < backgroundSizeArray; i++)
@@ -156,7 +157,6 @@ void Background::LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDo
 		CreateBackgrounds(aLevelScene, someDocuments["BackgroundPaths"][i]["FilePath"].GetString(), i, offset);
 	}
 
-	myBackground->Init();
 	ResizeBackground();
 }
 
@@ -165,45 +165,72 @@ void Background::CreateBackgrounds(Scene* aLevelScene, const std::string aPath, 
 	switch (aIndex)
 	{
 	case 0:
-		myBackgroundSprite1 = myBackground->AddComponent<SpriteComponent>();
-		myBackgroundSprite1->SetSpritePath(aPath);
+	{
+		myBackgroundSprite1 = new GameObject(aLevelScene);
+		SpriteComponent* sprite = myBackgroundSprite1->AddComponent<SpriteComponent>();
+		sprite->SetSpritePath(aPath);
 		myBackgroundSprite1->SetZIndex(1);
 		myOffsetBackground1 = anOffset;
 		break;
+	}
+
 	case 1:
-		myBackgroundSprite2 = myBackground->AddComponent<SpriteComponent>();
-		myBackgroundSprite2->SetSpritePath(aPath);
+	{
+		myBackgroundSprite2 = new GameObject(aLevelScene);
+		SpriteComponent* sprite = myBackgroundSprite2->AddComponent<SpriteComponent>();
+		sprite->SetSpritePath(aPath);
 		myBackgroundSprite2->SetZIndex(2);
 		myOffsetBackground2 = anOffset;
 		break;
+	}
+
 	case 2:
-		myBackgroundSprite3 = myBackground->AddComponent<SpriteComponent>();
-		myBackgroundSprite3->SetSpritePath(aPath);
+	{
+		myBackgroundSprite3 = new GameObject(aLevelScene);
+		SpriteComponent* sprite = myBackgroundSprite3->AddComponent<SpriteComponent>();
+   		sprite->SetSpritePath(aPath);
 		myBackgroundSprite3->SetZIndex(3);
 		myOffsetBackground3 = anOffset;
 		break;
+	}
+
 	case 3:
-		myBackgroundSprite4 = myBackground->AddComponent<SpriteComponent>();
-		myBackgroundSprite4->SetSpritePath(aPath);
+	{
+		myBackgroundSprite4 = new GameObject(aLevelScene);
+		SpriteComponent* sprite = myBackgroundSprite4->AddComponent<SpriteComponent>();
+		sprite->SetSpritePath(aPath);
 		myBackgroundSprite4->SetZIndex(4);
 		myOffsetBackground4 = anOffset;
 		break;
+	}
+
 	case 4:
-		myBackgroundSprite5 = myBackground->AddComponent<SpriteComponent>();
-		myBackgroundSprite5->SetSpritePath(aPath);
+	{
+		myBackgroundSprite5 = new GameObject(aLevelScene);
+		SpriteComponent* sprite = myBackgroundSprite5->AddComponent<SpriteComponent>();
+		sprite->SetSpritePath(aPath);
 		myBackgroundSprite5->SetZIndex(5);
 		myOffsetBackground5 = anOffset;
 		break;
+	}
+
 	case 5:
-		myBackgroundSprite6 = myBackground->AddComponent<SpriteComponent>();
-		myBackgroundSprite6->SetSpritePath(aPath);
+	{
+		myBackgroundSprite6 = new GameObject(aLevelScene);
+		SpriteComponent* sprite = myBackgroundSprite6->AddComponent<SpriteComponent>();
+		sprite->SetSpritePath(aPath);
 		myBackgroundSprite6->SetZIndex(6);
 		myOffsetBackground6 = anOffset;
 		break;
-	default:
-		break;
 	}
-	
+
+	default:
+	{
+		break;
+
+	}
+	}
+
 }
 
 void Background::SetSpeedVariables(const std::string aPath)

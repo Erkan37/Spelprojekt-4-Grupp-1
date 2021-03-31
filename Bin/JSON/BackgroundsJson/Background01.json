@@ -26,23 +26,23 @@
     },
     {
       "PositionX": 0.0,
-      "PositionY": -20.0
-    },
-    {
-      "PositionX": 0.0,
-      "PositionY": -50.0
-    },
-    {
-      "PositionX": 0.0,
       "PositionY": 40.0
     },
     {
       "PositionX": 0.0,
-      "PositionY": 40.0
+      "PositionY": 60.0
     },
     {
       "PositionX": 0.0,
-      "PositionY": 40.0
+      "PositionY": 100.0
+    },
+    {
+      "PositionX": 0.0,
+      "PositionY": 100.0
+    },
+    {
+      "PositionX": 0.0,
+      "PositionY": 100.0
     }
   ]
 }

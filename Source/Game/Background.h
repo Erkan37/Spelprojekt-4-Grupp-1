@@ -19,14 +19,12 @@ public:
 private:
 	Camera* myCamera;
 
-	std::unique_ptr<GameObject> myBackground;
-
-	SpriteComponent* myBackgroundSprite1;
-	SpriteComponent* myBackgroundSprite2;
-	SpriteComponent* myBackgroundSprite3;
-	SpriteComponent* myBackgroundSprite4;
-	SpriteComponent* myBackgroundSprite5;
-	SpriteComponent* myBackgroundSprite6;
+	GameObject* myBackgroundSprite1;
+	GameObject* myBackgroundSprite2;
+	GameObject* myBackgroundSprite3;
+	GameObject* myBackgroundSprite4;
+	GameObject* myBackgroundSprite5;
+	GameObject* myBackgroundSprite6;
 
 	v2f myCurrentRenderSize;
 	v2f myStartingCameraPos;
