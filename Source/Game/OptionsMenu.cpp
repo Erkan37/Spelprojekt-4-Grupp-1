@@ -7,7 +7,7 @@
 #include "MainMenuScene.h"
 #include "Camera.h"
 #include "Game.h"
-
+#include "tga2d/engine.h"
 #include "AudioManager.h"
 #include "AnimationComponent.hpp"
 
@@ -217,22 +217,23 @@ void OptionsMenu::CheckIndexPress(const float& aDeltaTime)
 		if (myScreenMovingIndex == 0)
 		{
 			myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX());
-			CGame::SetResolution(480U, 720U);
-
+			Tga2D::CEngine::GetInstance()->SetResolution({ 1225, 720 }, true);
+			Tga2D::CEngine::GetInstance()->SetTargetSize({ 1280, 720 });
 
 		}
 		else if (myScreenMovingIndex == 1)
 		{
 			myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX() + 27.f);
-			CGame::SetResolution(1920U, 1080U);
-			myScreenSizeDot->UpdateUIObjects(aDeltaTime);
+			Tga2D::CEngine::GetInstance()->SetResolution({ 1865, 1080 }, true);
+			Tga2D::CEngine::GetInstance()->SetTargetSize({ 1920, 1080 });
 
 		}
 		else if (myScreenMovingIndex == 2)
 		{
 			myScreenSizeDot->SetPositionX(my4KHgh->GetPositionX() + 58.f);
-			CGame::SetResolution(3840U, 2160U);
-
+			Tga2D::CEngine::GetInstance()->SetFullScreen(true);
+			//Tga2D::CEngine::GetInstance()->SetResolution({ 3785, 2160 }, true);
+			//Tga2D::CEngine::GetInstance()->SetTargetSize({ 3840, 2160 });
 		}
 		myScreenSettingsActive = false;
 	}
@@ -300,26 +301,6 @@ void OptionsMenu::CheckIndexPress(const float& aDeltaTime)
 			if (myScreenMovingIndex > myResolutionObj.size() - 1)
 				myScreenMovingIndex = 0;
 		}
-		/*if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey))
-		{
-			if (myScreenMovingIndex == 0)
-			{
-				myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX());
-				CGame::SetResolution(480U, 720U);
-
-			}
-			else if (myScreenMovingIndex == 1)
-			{
-				myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX() + 27.f);
-				CGame::SetResolution(1920U, 1080U);
-			}
-			else if (myScreenMovingIndex == 2)
-			{
-				myScreenSizeDot->SetPositionX(my4KHgh->GetPositionX() + 58.f);
-				CGame::SetResolution(3840U, 2160U);
-			}
-			mySubMenuActive = false;
-		}*/
 	}
 	else if (mySoundSettingsActive == false && myScreenSettingsActive == false)
 	{
