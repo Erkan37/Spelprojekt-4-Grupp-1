@@ -60,7 +60,7 @@
         {
          "draworder":"topdown",
          "id":12,
-         "name":"HiddenRoom",
+         "name":"HiddenRooms",
          "objects":[],
          "opacity":1,
          "type":"objectgroup",
