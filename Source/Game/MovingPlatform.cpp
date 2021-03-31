@@ -6,6 +6,7 @@
 #include "WaypointComponent.hpp"
 #include "SpriteComponent.h"
 #include "ColliderComponent.h"
+#include "PhysicsComponent.h"
 
 #include "GameWorld.h"
 #include "Timer.h"
@@ -106,13 +107,16 @@ void MovingPlatform::OnCollision(GameObject* aGameObject)
 		player->SetGroundIndex(myMaterial);
 		player->SetPlatformVelocity(velo);
 
+		float insensitivity = CGameWorld::GetInstance()->GetTimer()->GetDeltaTime() * velo.y;
+		insensitivity = Utils::Min(1.8f, Utils::Abs(insensitivity));
+
 		//Magic platform! Spooky wooh!
 		const float platformPositionX = GetPosition().x + GetComponent<ColliderComponent>()->GetWidth() / 2;
 		const float xOffset = 4.0f;
 
 		if (Utils::Abs(player->GetPosition().x - platformPositionX + xOffset) <= GetComponent<ColliderComponent>()->GetWidth() / 2)
 		{
-			player->SetPositionY(GetPositionY() - 7.8f);
+			player->SetPositionY(GetPositionY() - (7.8f - insensitivity));
 		}
 	}
 }
