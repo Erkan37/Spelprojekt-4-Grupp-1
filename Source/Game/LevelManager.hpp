@@ -51,6 +51,7 @@ public:
 	void LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, GameObject* aPlayer);
 
 	void SetLevelIndex(const int& aLevelIndex);
+	void UsedLevelSelect();
 	void SetIsSpeedrunMode(bool aIsSpeedrunMode);
 
 	void Notify(const Message& aMessage) override;
