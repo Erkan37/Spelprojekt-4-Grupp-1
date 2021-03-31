@@ -231,9 +231,8 @@ void OptionsMenu::CheckIndexPress(const float& aDeltaTime)
 		else if (myScreenMovingIndex == 2)
 		{
 			myScreenSizeDot->SetPositionX(my4KHgh->GetPositionX() + 58.f);
-			Tga2D::CEngine::GetInstance()->SetFullScreen(true);
-			//Tga2D::CEngine::GetInstance()->SetResolution({ 3785, 2160 }, true);
-			//Tga2D::CEngine::GetInstance()->SetTargetSize({ 3840, 2160 });
+			Tga2D::CEngine::GetInstance()->SetResolution({ 3785, 2160 }, true);
+			Tga2D::CEngine::GetInstance()->SetTargetSize({ 3840, 2160 });
 		}
 		myScreenSettingsActive = false;
 	}
