@@ -159,6 +159,7 @@
     <ClInclude Include="Debugger.h" />
     <ClInclude Include="DestructiblePlatform.hpp" />
     <ClInclude Include="Door.h" />
+    <ClInclude Include="EffectSprite.h" />
     <ClInclude Include="EFontsSizes.hpp" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyFactory.h" />
@@ -182,6 +183,10 @@
     <ClInclude Include="MessageTypes.hpp" />
     <ClInclude Include="MovingPlatform.hpp" />
     <ClInclude Include="OptionsMenu.h" />
+    <ClInclude Include="ParticleEffect.h" />
+    <ClInclude Include="ParticleEffectFactory.h" />
+    <ClInclude Include="ParticleEffectTypes.hpp" />
+    <ClInclude Include="ParticleStats.hpp" />
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="CameraStaticDistance.hpp" />
     <ClInclude Include="SpeedrunScene.h" />
@@ -242,6 +247,7 @@
     <ClCompile Include="Debugger.cpp" />
     <ClCompile Include="DestructiblePlatform.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="EffectSprite.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyFactory.cpp" />
     <ClCompile Include="EnemyProjectile.cpp" />
@@ -261,6 +267,8 @@
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="MovingPlatform.cpp" />
     <ClCompile Include="OptionsMenu.cpp" />
+    <ClCompile Include="ParticleEffect.cpp" />
+    <ClCompile Include="ParticleEffectFactory.cpp" />
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
