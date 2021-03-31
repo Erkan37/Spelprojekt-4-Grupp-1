@@ -50,9 +50,6 @@ void CGameWorld::Init()
 	myLevelManager.Init(&myMainMenuScene, &myLevelSelect, &myLevelScene, &myIntroLogosScene, &myWinScene);
 	myLevelManager.SingleLoadScene(LevelManager::eScenes::IntroLogos);
 
-	Tga2D::CEngine::GetInstance()->SetResolution({ 1865, 1080 }, true);
-	Tga2D::CEngine::GetInstance()->SetTargetSize({ 1920, 1080 });
-
 	//myLevelManager.SingleLoadScene(LevelManager::eScenes::MainMenu);
 }
 
