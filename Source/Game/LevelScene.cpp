@@ -81,7 +81,7 @@ void LevelScene::Update(const float& aDeltaTime)
 	{
 		v2f position = GetPlayer()->GetPosition();
 
-		myEffectFactory->SpawnEffect(position, eParticleEffects::TestEffect);
+		myEffectFactory->SpawnEffect(position, eParticleEffects::WindEffect);
 	}
 
 

@@ -7,7 +7,10 @@
       "file2": "JSON/Particles/infile1.json"
     },
     {
-      "file3": "JSON/Particles/infile2.json"
+      "file3": "JSON/Particles/infile3.json"
+    },
+    {
+      "file3": "JSON/Particles/infile4.json"
     }
   ]
 }

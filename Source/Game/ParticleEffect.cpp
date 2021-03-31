@@ -24,6 +24,7 @@ ParticleEffect::ParticleEffect(Scene* aLevelScene)
 	myAddedEmitter = {};
 	myPauseTimer = {};
 	myAddedPauseTimer = {};
+	myZIndex = {};
 }
 
 ParticleEffect::~ParticleEffect() = default;
@@ -39,7 +40,7 @@ void ParticleEffect::Init(ParticleStats aStats, Player * aPlayer)
 		myActiveEffect = true;
 
 	SetPosition(GetPosition());
-	SetZIndex(100.f);
+	SetZIndex(myStats.myZIndex);
 	SetPivot({ 0.5f, 0.5f });
 	Activate();
 }
@@ -54,11 +55,6 @@ void ParticleEffect::Update(const float& aDeltaTime)
 			UpdateParticle(aDeltaTime);
 	}
 }
-
-//const void ParticleEffect::SetPosition(const v2f aPosition)
-//{
-//	myPosition = aPosition;
-//}
 
 const void ParticleEffect::SetIsActive(const bool aActiveState)
 {
@@ -129,16 +125,12 @@ const void ParticleEffect::SpawnSprite()
 	sprite->myPathString = myStats.mySpritePath;
 	sprite->myMinSpeed = myStats.myMinSpeed;
 	sprite->myMaxSpeed = myStats.myMaxSpeed;
-	sprite->mySpeedAcceleration = myStats.mySpeedAcceleration;
-	sprite->myGrowthAcceleration = myStats.myGrowthAcceleration;
 	sprite->myPauseTime = myStats.myPauseTimer;
 	sprite->myLifeTime = Utils::RandomFloat(myStats.myMinParticleLifeTime, myStats.myMaxParticleLifeTime);
 	sprite->myRotation = Utils::RandomFloat(myStats.myMinParticleAngularVel, myStats.myMaxParticleAngularVel);
 	sprite->myMinScale = myStats.myStartScale;
 	sprite->myMaxScale = myStats.myEndScale;
 	sprite->myEmitterAngle = myStats.myEmitterAngle;
-	sprite->myEmitterStartAngle = myStats.myMinEmitterAngularVelocity;
-	sprite->myEmitterEndAngle = myStats.myMaxEmitterAngularVelocity;
 	sprite->myEmitterWidth = myStats.myEmitterWidth;
 	sprite->myEmitterHeigth = myStats.myEmitterHeigth;
 	sprite->myStartColor = myStats.myStartColor;
@@ -146,7 +138,6 @@ const void ParticleEffect::SpawnSprite()
 	sprite->myIsLockedPos = myStats.myLockedPosition;
 	sprite->myEmitterAngular = myStats.myEmitterAngular;
 	sprite->myOffset = myStats.myOffset;
-	sprite->myPosition = GetPosition();
 
 	sprite->AddSprite(AddComponent<SpriteComponent>());
 

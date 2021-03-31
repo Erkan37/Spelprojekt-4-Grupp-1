@@ -1,8 +1,11 @@
 {
   "particle": [
     {
-      "EffectTypeIndex": 1,
       "EffectType": "FallEffect",
+
+      "ZIndex": 100,
+
+      "EffectTypeIndex": 1,
       "SpritePath": "Sprites/Particles/point.dds",
 
       "PauseTimer": 0.0,
@@ -12,14 +15,12 @@
 
       "StartScale": 0.01,
       "EndScale": 0.05,
-      "GrowthAcceleration": 0.0,
 
       "MinTimeBetweenSpawns": 0.05,
       "MaxTimeBetweenSpawns": 0.1,
 
       "MinSpeed": 100.0,
       "MaxSpeed": 500.0,
-      "SpeedAcceleration": 2.0,
 
       "MinParticleAngularVel": -1.0,
       "MaxParticleAngularVel": 1.0,
@@ -28,9 +29,6 @@
 
       "EmitterWidth": 0.0,
       "EmitterHeigth": 0.0,
-
-      "MinEmitterAngularVelocity": 0.0,
-      "MaxEmitterAngularVelocity": 165.0,
 
       "MinParticleLifeTime": 5.0,
       "MaxParticleLifeTime": 8.0,
@@ -54,15 +52,15 @@
       ],
 
       "StartColor": [
-        0.23972046375274659,
-        0.6414141654968262,
-        0.42230841517448428,
+        255.0,
+        255.0,
+        255.0,
         1.0
       ],
       "EndColor": [
-        0.8150427937507629,
-        0.8232322931289673,
-        0.5529792904853821,
+        255.0,
+        255.0,
+        255.0,
         1.0
       ],
       "BlendState": "Additive"

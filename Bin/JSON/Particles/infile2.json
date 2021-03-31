@@ -1,46 +1,44 @@
 {
   "particle": [
     {
+      "EffectName": "DeathEffect",
+
+      "ZIndex": 300,
+
       "EffectTypeIndex": 2,
-      "EffectType": "TestEffect",
-      "SpritePath": "Sprites/Particles/stretched.dds",
+      "SpritePath": "Sprites/Particles/point.dds",
 
       "PauseTimer": 0.0,
       "PauseSeconds": 0.0,
 
-      "EmitterLifeTime": 0.1,
+      "EmitterLifeTime": 0.2,
 
-      "StartScale": 0.05,
-      "EndScale": 0.00,
-      "GrowthAcceleration": 3.0,
+      "StartScale": 0.03,
+      "EndScale": 0.0,
 
-      "MinTimeBetweenSpawns": 0.001,
-      "MaxTimeBetweenSpawns": 0.001,
+      "MinTimeBetweenSpawns": 0.005,
+      "MaxTimeBetweenSpawns": 0.01,
 
-      "MinSpeed": 30.0,
-      "MaxSpeed": 10.0,
-      "SpeedAcceleration": 3.0,
+      "MinSpeed": 7.0,
+      "MaxSpeed": 5.0,
 
-      "MinParticleAngularVel": -100.0,
-      "MaxParticleAngularVel": 100.0,
+      "MinParticleAngularVel": -10.0,
+      "MaxParticleAngularVel": 10.0,
 
       "EmitterAngle": 90.0,
 
       "EmitterWidth": 5.0,
-      "EmitterHeigth": 5.0,
+      "EmitterHeigth": 0.0,
 
-      "MinEmitterAngularVelocity": 0.0,
-      "MaxEmitterAngularVelocity": 0.0,
-
-      "MinParticleLifeTime": 0.5,
-      "MaxParticleLifeTime": 0.7,
+      "MinParticleLifeTime": 1.2,
+      "MaxParticleLifeTime": 1.5,
 
       "Offset": [
         {
           "X": 0.0
         },
         {
-          "Y": 7.0
+          "Y": 6.0
         }
       ],
 
@@ -50,17 +48,17 @@
         -1.0,
         -1.0,
         1.0,
-        1.0
+        0.0
       ],
 
       "StartColor": [
+        153.0,
         0.0,
-        51.0,
         0.0,
         1.0
       ],
       "EndColor": [
-        255.0,
+        204.0,
         0.0,
         0.0,
         1.0

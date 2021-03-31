@@ -44,8 +44,8 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 		for (rapidjson::Value::ConstValueIterator particleStat = particleDocuments["particle"].Begin(); particleStat != particleDocuments["particle"].End(); ++particleStat)
 		{
 			ParticleStats stats;
+			stats.myZIndex = (*particleStat)["ZIndex"].GetInt();
 			stats.myEffectTypeIndex = (*particleStat)["EffectTypeIndex"].GetInt();
-			stats.myEffectType = (*particleStat)["EffectType"].GetString();
 			stats.mySpritePath = (*particleStat)["SpritePath"].GetString();
 			stats.myLockedPosition = (*particleStat)["LockPosition"].GetBool();
 			stats.myPauseTimer = (*particleStat)["PauseTimer"].GetFloat();
@@ -56,15 +56,11 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 			stats.myMaxBetweenSpawn = (*particleStat)["MaxTimeBetweenSpawns"].GetFloat();
 			stats.myMinSpeed = (*particleStat)["MinSpeed"].GetFloat();
 			stats.myMaxSpeed = (*particleStat)["MaxSpeed"].GetFloat();
-			stats.mySpeedAcceleration = (*particleStat)["SpeedAcceleration"].GetFloat();
-			stats.myGrowthAcceleration = (*particleStat)["GrowthAcceleration"].GetFloat();
 			stats.myMinParticleAngularVel = (*particleStat)["MinParticleAngularVel"].GetFloat();
 			stats.myMaxParticleAngularVel = (*particleStat)["MaxParticleAngularVel"].GetFloat();
 			stats.myEmitterAngle = (*particleStat)["EmitterAngle"].GetFloat();
 			stats.myEmitterWidth = (*particleStat)["EmitterWidth"].GetFloat();
 			stats.myEmitterHeigth = (*particleStat)["EmitterHeigth"].GetFloat();
-			stats.myMinEmitterAngularVelocity = (*particleStat)["MinEmitterAngularVelocity"].GetFloat();
-			stats.myMaxEmitterAngularVelocity = (*particleStat)["MaxEmitterAngularVelocity"].GetFloat();
 			stats.myMinParticleLifeTime = (*particleStat)["MinParticleLifeTime"].GetFloat();
 			stats.myMaxParticleLifeTime = (*particleStat)["MaxParticleLifeTime"].GetFloat();
 			stats.myEmitterLifeTime = (*particleStat)["EmitterLifeTime"].GetFloat();
@@ -114,6 +110,22 @@ void ParticleEffectFactory::SpawnEffect(v2f aPosition, const eParticleEffects aE
 		effect->SetPosition(aPosition);
 		effect->SetIsActive(true);
 		//myCreatedEffects.push_back(effect);
+		break;
+	}
+	case eParticleEffects::DeathEffect:
+	{
+		ParticleEffect* effect = new ParticleEffect(myScene);
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::DeathEffect)], myPlayer);
+		effect->SetPosition(aPosition);
+		effect->SetIsActive(true);
+		break;
+	}
+	case eParticleEffects::WindEffect:
+	{
+		ParticleEffect* effect = new ParticleEffect(myScene);
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::WindEffect)], myPlayer);
+		effect->SetPosition(aPosition);
+		effect->SetIsActive(true);
 		break;
 	}
 	case eParticleEffects::TestEffect:

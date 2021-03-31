@@ -14,9 +14,9 @@ private:
 	friend class ParticleEffect;
 	friend class ParticleEffectFactory;
 
-	std::string myEffectType = {};
 	std::string mySpritePath = {};
 	int myEffectTypeIndex = {};
+	int myZIndex = {};
 
 	bool myLockedPosition = {};
 	
@@ -32,18 +32,12 @@ private:
 	float myMinSpeed = {};
 	float myMaxSpeed = {};
 
-	float mySpeedAcceleration = {};
-	float myGrowthAcceleration = {};
-
 	float myMinParticleAngularVel = {};
 	float myMaxParticleAngularVel = {};
 
 	float myEmitterAngle = {};
 	float myEmitterWidth = {};
 	float myEmitterHeigth = {};
-
-	float myMinEmitterAngularVelocity = {};
-	float myMaxEmitterAngularVelocity = {};
 
 	float myMinParticleLifeTime = {};
 	float myMaxParticleLifeTime = {};

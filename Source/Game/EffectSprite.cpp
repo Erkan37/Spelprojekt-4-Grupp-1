@@ -20,8 +20,6 @@ void EffectSprite::Update(const float& aDeltatime)
 
 	v2f direction = { std::cosf(myEmitterAngle * myPI / 180.f), -std::sinf(myEmitterAngle * myPI / 180.f) };
 
-	
-
 	LerpSpeed(aDeltatime);
 	LerpScale(aDeltatime);
 	LerpColor(aDeltatime);
@@ -60,7 +58,7 @@ void EffectSprite::AddSprite(SpriteComponent* aSprite)
 	mySprite->SetSpritePath(myPathString);
 	myCurrentColor = myStartColor;
 
-	ResetColor();
+	SetNewColor();
 	
 	v2f size = mySprite->GetSize() * myMinScale;
 	myMaxVectorScale = mySprite->GetSize() * myMaxScale;
@@ -85,7 +83,6 @@ void EffectSprite::AddSprite(SpriteComponent* aSprite)
 	mySprite->SetRelativePosition(position);
 	mySprite->SetRelativeRotation(myRotation);
 	mySprite->Activate();
-
 }
 
 bool EffectSprite::IsAlive()
@@ -100,30 +97,33 @@ void EffectSprite::SetInactive()
 
 void EffectSprite::LerpSpeed(const float& aDeltatime)
 {
-	myMinSpeed = Utils::Lerp(myMinSpeed, myMaxSpeed, mySpeedAcceleration * aDeltatime);
+	const float timer = myLifeTime - myTotalTimer;
+
+	myMinSpeed = Utils::Lerp(myMinSpeed, myMaxSpeed, aDeltatime / timer);
 	mySpeedInterval = myMinSpeed;
 }
 
 void EffectSprite::LerpScale(const float& aDeltatime)
 {
-	myScale.x = Utils::Lerp(mySprite->GetSize().x, myMaxVectorScale.x, myGrowthAcceleration * aDeltatime);
-	myScale.y = Utils::Lerp(mySprite->GetSize().y, myMaxVectorScale.y, myGrowthAcceleration * aDeltatime);
+	const float timer = myLifeTime - myTotalTimer;
+
+	myScale.x = Utils::Lerp(mySprite->GetSize().x, myMaxVectorScale.x, aDeltatime / timer);
+	myScale.y = Utils::Lerp(mySprite->GetSize().y, myMaxVectorScale.y, aDeltatime / timer);
 
 }
 
 void EffectSprite::LerpColor(const float& aDeltaTime)
 {
-	float speed = 0.f;
-	const float timer = myTotalTimer / myLifeTime;
+	const float timer = myLifeTime - myTotalTimer;
 
-	myCurrentColor.myR = Utils::Lerp(myCurrentColor.myR, myEndColor.myR, speed * aDeltaTime);
+	myCurrentColor.myR = Utils::Lerp(myCurrentColor.myR, myEndColor.myR, aDeltaTime / timer);
 	myCurrentColor.myG = Utils::Lerp(myCurrentColor.myG, myEndColor.myG, aDeltaTime);
 	myCurrentColor.myB = Utils::Lerp(myCurrentColor.myB, myEndColor.myB, aDeltaTime);
 
-	ResetColor();
+	SetNewColor();
 }
 
-void EffectSprite::ResetColor()
+void EffectSprite::SetNewColor()
 {
 	mySprite->SetColor({ myCurrentColor.myR, myCurrentColor.myG, myCurrentColor.myB, myCurrentColor.myA});
 }

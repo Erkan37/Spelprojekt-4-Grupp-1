@@ -34,6 +34,8 @@ private:
 	float myTimer;
 	float myPauseTimer;
 
+	int myZIndex; 
+
 	bool myActiveEffect;
 	bool myCreatingSprites;
 	bool myAddedEmitter;

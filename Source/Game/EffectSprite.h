@@ -22,7 +22,6 @@ public:
 
 	std::string myPathString = {};
 	v2f myDirection = {};
-	v2f myPosition = {};
 	v2f myScale = {};
 	v2f myMaxVectorScale = {};
 	v2f myOffset = {};
@@ -39,8 +38,6 @@ public:
 	float myMinSpeed = {};
 	float myMaxSpeed = {};
 	float mySpeedInterval = {};
-	float myGrowthAcceleration = {};
-	float mySpeedAcceleration = {};
 	float myLifeTime = {};
 	float myRotation = {};
 	float myEmitterWidth = {};
@@ -64,6 +61,6 @@ private:
 	void LerpScale(const float& aDeltatime);
 	void LerpColor(const float& aDeltatime);
 
-	void ResetColor();
+	void SetNewColor();
 
 };
