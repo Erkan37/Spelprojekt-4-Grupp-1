@@ -305,7 +305,7 @@ void OptionsMenu::CheckIndexPress(const float& aDeltaTime)
 				myScreenMovingIndex = 0;
 		}
 	}
-	else if (mySoundSettingsActive == false && myScreenSettingsActive == false)
+	else if (mySoundSettingsActive == false && myScreenSettingsActive == false && myCreditsActive == false && myTutorialActtive == false)
 	{
 		if (myInput->GetInput()->GetKeyJustDown(Keys::UPARROWKey))
 		{
@@ -427,6 +427,10 @@ void OptionsMenu::CheckActiveAnimations()
 			else
 				myResolutionObj[i]->SetActive(false);
 		}
+	}
+	if (myCreditsActive == true || myTutorialActtive == true)
+	{
+		InactivateHighlight();
 	}
 }
 
