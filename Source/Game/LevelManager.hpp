@@ -8,6 +8,7 @@ class Scene;
 class LevelScene;
 
 class TiledLoader;
+class SpeedrunManager;
 
 class GameObject;
 
@@ -61,6 +62,7 @@ public:
 private:
 	std::map<eScenes, Scene*> myScenes;
 	std::shared_ptr<TiledLoader> myTiledLoader;
+	std::shared_ptr<SpeedrunManager> mySpeedrunManager;
 
 	int myLastDoorType;
 
