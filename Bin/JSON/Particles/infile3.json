@@ -20,12 +20,12 @@
       "MaxTimeBetweenSpawns": 0.1,
 
       "MinSpeed": 100.0,
-      "MaxSpeed": 100.0,
+      "MaxSpeed": 150.0,
 
-      "MinParticleAngularVel": 0.0,
-      "MaxParticleAngularVel": 0.0,
+      "MinParticleAngularVel": -10.0,
+      "MaxParticleAngularVel": 10.0,
 
-      "EmitterAngle": 200.0,
+      "EmitterAngle": 210.0,
 
       "EmitterWidth": 0.0,
       "EmitterHeigth": 200.0,
@@ -46,7 +46,7 @@
 
       "LockedAngular": [
         -1.0,
-        0.0,
+        -1.0,
         1.0,
         1.0
       ],

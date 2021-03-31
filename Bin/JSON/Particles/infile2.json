@@ -11,7 +11,7 @@
       "PauseTimer": 0.0,
       "PauseSeconds": 0.0,
 
-      "EmitterLifeTime": 0.2,
+      "EmitterLifeTime": 0.5,
 
       "StartScale": 0.03,
       "EndScale": 0.0,
@@ -27,7 +27,7 @@
 
       "EmitterAngle": 90.0,
 
-      "EmitterWidth": 5.0,
+      "EmitterWidth": 0.0,
       "EmitterHeigth": 0.0,
 
       "MinParticleLifeTime": 1.2,
@@ -48,7 +48,7 @@
         -1.0,
         -1.0,
         1.0,
-        0.0
+        1.0
       ],
 
       "StartColor": [
