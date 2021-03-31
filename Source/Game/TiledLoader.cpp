@@ -202,7 +202,6 @@ void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aSc
 		bonfire->SetPosition(someData[i].myPosition);
 	}
 }
-
 void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene* aScene, Player* aPlayer)
 {
 	const v2f roomSize = aScene->GetCamera().GetBoundSize();
@@ -251,7 +250,6 @@ void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene* aScene
 		door->SetPosition(someData[i].myPosition);
 	}
 }
-
 void TiledLoader::ParseEnemies(const std::vector<LoadData> someData, Scene* aScene)
 {
 	EnemyFactory enemyFactory;
@@ -269,7 +267,6 @@ void TiledLoader::ParseEnemies(const std::vector<LoadData> someData, Scene* aSce
 		}
 	}
 }
-
 void TiledLoader::ParseLedges(const std::vector<LoadData> someData, Scene* aScene)
 {
 	const v2f ledgeSize = v2f(2.0f, 1.0f);
@@ -279,7 +276,6 @@ void TiledLoader::ParseLedges(const std::vector<LoadData> someData, Scene* aScen
 		ledge->Init(someData[i].myPosition, ledgeSize);
 	}
 }
-
 void TiledLoader::ParseCollectables(const std::vector<LoadData> someData, Scene* aScene)
 {
 	for (int i = 0; i < someData.size(); ++i)
@@ -299,12 +295,10 @@ void TiledLoader::ParseCollectables(const std::vector<LoadData> someData, Scene*
 			break;
 		}
 
-		//Send in someData[i].myID and someData[i].myBonfireID when collectibles can handle them
-		Collectible* collectible = new Collectible(aScene);
+		Collectible* collectible = new Collectible(aScene, someData[i].myID, someData[i].myBonfireID);
 		collectible->Init(someData[i].myPosition, aType);
 	}
 }
-
 void TiledLoader::ParseGlide(const std::vector<LoadData> someData, Scene* aScene)
 {
 	for (int i = 0; i < someData.size(); ++i)
@@ -313,7 +307,6 @@ void TiledLoader::ParseGlide(const std::vector<LoadData> someData, Scene* aScene
 		glide->Init(someData[i].myPosition);
 	}
 }
-
 void TiledLoader::ParseAudioObjects(const std::vector<LoadData> someData, Scene* aScene)
 {
 	for (int i = 0; i < someData.size(); ++i)
@@ -321,7 +314,6 @@ void TiledLoader::ParseAudioObjects(const std::vector<LoadData> someData, Scene*
 		AudioObject* audioObj = new AudioObject(aScene, someData[i].myType);
 	}
 }
-
 void TiledLoader::ParsePlatforms(const std::vector<LoadData> someData, Scene* aScene)
 {
 	PlatformFactory platformFactory;
@@ -350,7 +342,6 @@ void TiledLoader::ParsePlatforms(const std::vector<LoadData> someData, Scene* aS
 		}
 	}
 }
-
 void TiledLoader::ParseHiddenRooms(const std::vector<LoadData> someData, Scene* aScene, std::vector<HiddenArea*>& aHiddenRoomsData)
 {
 	for (int i = 0; i < someData.size(); ++i)
@@ -359,7 +350,6 @@ void TiledLoader::ParseHiddenRooms(const std::vector<LoadData> someData, Scene* 
 		aHiddenRoomsData.push_back(hiddenArea);
 	}
 }
-
 void TiledLoader::ParseSprings(const std::vector<LoadData> someData, Scene* aScene)
 {
 	for (int i = 0; i < someData.size(); ++i)
@@ -368,7 +358,6 @@ void TiledLoader::ParseSprings(const std::vector<LoadData> someData, Scene* aSce
 		aSpring->Init(someData[i].myPosition);
 	}
 }
-
 void TiledLoader::ParseBashableObjects(const std::vector<LoadData> someData, Scene* aScene)
 {
 	constexpr float radius = 20.0f;
@@ -378,7 +367,6 @@ void TiledLoader::ParseBashableObjects(const std::vector<LoadData> someData, Sce
 		bashObj->Init(someData[i].myPosition, radius);
 	}
 }
-
 void TiledLoader::ParseButtons(const std::vector<LoadData> someData, Scene* aScene)
 {
 	PlatformFactory platformFactory;
@@ -412,7 +400,6 @@ void TiledLoader::ParseButtons(const std::vector<LoadData> someData, Scene* aSce
 		}
 	}
 }
-
 void TiledLoader::ParseJesus(const std::vector<LoadData> someData, Scene* aScene, GameObject* aPlayer)
 {
 	for (size_t jesusIndex = 0; jesusIndex < someData.size(); ++jesusIndex)
@@ -430,7 +417,6 @@ void TiledLoader::SetBatchForHiddenRooms(SpritebatchComponent* aBatch, std::vect
 		hiddenArea->SetBatch(aBatch);
 	}
 }
-
 std::vector<v2f> TiledLoader::GetWaypointPositions(const std::string somePositions, v2f aSpawnPos)
 {
 	std::vector<v2f> waypoints;

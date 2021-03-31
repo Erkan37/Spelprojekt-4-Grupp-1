@@ -108,6 +108,7 @@ public:
 	void SaveBonfireState(const unsigned int anIndex, const bool aState);
 	const bool GetBonfireState(const unsigned int anIndex) const;
 	void ResetBonfires();
+	void ResetCollectibles();
 
 private:
 	//Private Methods

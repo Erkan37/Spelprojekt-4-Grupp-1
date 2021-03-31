@@ -257,3 +257,7 @@ void DataManager::ResetBonfires()
 		mySaveFile["Bonfires"].GetArray()[i]["Bonfire"]["IsActive"].SetBool(false);
 	}
 }
+void DataManager::ResetCollectibles()
+{
+	//mySaveFile["Collectibles"].GetArray().PushBack(rapidjson::GenericObject);
+}
