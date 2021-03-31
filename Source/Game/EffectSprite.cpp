@@ -18,38 +18,13 @@ void EffectSprite::Update(const float& aDeltatime)
 {
 	myTotalTimer += aDeltatime;
 
-	v2f direction = { std::cosf(myEmitterAngle * myPI / 180.f), -std::sinf(myEmitterAngle * myPI / 180.f) };
-
 	LerpSpeed(aDeltatime);
 	LerpScale(aDeltatime);
 	LerpColor(aDeltatime);
 
-	v2f position = {};
+	MoveSprite(aDeltatime);
 
-	if (!myIsLockedPos)
-	{
-		position.x = mySprite->GetRelativePositionX() + direction.x * mySpeedInterval * aDeltatime;
-		position.y = mySprite->GetRelativePositionY() + direction.y * mySpeedInterval * aDeltatime;
-	}
-	else
-	{
-		float speedX = myDirection.x * mySpeedInterval * aDeltatime;
-		float speedY = myDirection.y * mySpeedInterval * aDeltatime;
-
-		position.x = mySprite->GetRelativePositionX() + speedX;
-		position.y = mySprite->GetRelativePositionY() + speedY;
-	}
-
-
-	mySprite->SetRelativePosition(position);
-	mySprite->SetRelativeRotation(mySprite->GetRelativeRotation() + myRotation * aDeltatime);
-	mySprite->SetSize(myScale);
-	
-	if (myTotalTimer > myLifeTime)
-	{
-		myIsAlive = false;
-	}
-
+	CheckIfSpriteAlive();
 }
 
 void EffectSprite::AddSprite(SpriteComponent* aSprite)
@@ -95,7 +70,30 @@ void EffectSprite::SetInactive()
 	myIsAlive = false;
 }
 
-void EffectSprite::LerpSpeed(const float& aDeltatime)
+const void EffectSprite::MoveSprite(const float& aDeltaTime)
+{
+	v2f direction = { std::cosf(myEmitterAngle * myPI / 180.f), -std::sinf(myEmitterAngle * myPI / 180.f) };
+	v2f position = {};
+
+	if (!myIsLockedPos)
+	{
+		position.x = mySprite->GetRelativePositionX() + direction.x * mySpeedInterval * aDeltaTime;
+		position.y = mySprite->GetRelativePositionY() + direction.y * mySpeedInterval * aDeltaTime;
+	}
+	else
+	{
+		float speedX = myDirection.x * mySpeedInterval * aDeltaTime;
+		float speedY = myDirection.y * mySpeedInterval * aDeltaTime;
+
+		position.x = mySprite->GetRelativePositionX() + speedX;
+		position.y = mySprite->GetRelativePositionY() + speedY;
+	}
+
+	mySprite->SetRelativePosition(position);
+	mySprite->SetRelativeRotation(mySprite->GetRelativeRotation() + myRotation * aDeltaTime);
+}
+
+const void EffectSprite::LerpSpeed(const float& aDeltatime)
 {
 	const float timer = myLifeTime - myTotalTimer;
 
@@ -103,16 +101,17 @@ void EffectSprite::LerpSpeed(const float& aDeltatime)
 	mySpeedInterval = myMinSpeed;
 }
 
-void EffectSprite::LerpScale(const float& aDeltatime)
+const void EffectSprite::LerpScale(const float& aDeltatime)
 {
 	const float timer = myLifeTime - myTotalTimer;
 
 	myScale.x = Utils::Lerp(mySprite->GetSize().x, myMaxVectorScale.x, aDeltatime / timer);
 	myScale.y = Utils::Lerp(mySprite->GetSize().y, myMaxVectorScale.y, aDeltatime / timer);
 
+	mySprite->SetSize(myScale);
 }
 
-void EffectSprite::LerpColor(const float& aDeltaTime)
+const void EffectSprite::LerpColor(const float& aDeltaTime)
 {
 	const float timer = myLifeTime - myTotalTimer;
 
@@ -123,7 +122,15 @@ void EffectSprite::LerpColor(const float& aDeltaTime)
 	SetNewColor();
 }
 
-void EffectSprite::SetNewColor()
+const void EffectSprite::SetNewColor()
 {
 	mySprite->SetColor({ myCurrentColor.myR, myCurrentColor.myG, myCurrentColor.myB, myCurrentColor.myA});
+}
+
+const void EffectSprite::CheckIfSpriteAlive()
+{
+	if (myTotalTimer > myLifeTime)
+	{
+		myIsAlive = false;
+	}
 }

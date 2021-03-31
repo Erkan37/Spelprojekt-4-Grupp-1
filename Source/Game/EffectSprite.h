@@ -57,10 +57,13 @@ public:
 	Tga2D::CColor myEndColor = {};
 
 private:
-	void LerpSpeed(const float& aDeltatime);
-	void LerpScale(const float& aDeltatime);
-	void LerpColor(const float& aDeltatime);
 
-	void SetNewColor();
+	const void MoveSprite(const float& aDeltaTime);
+	const void LerpSpeed(const float& aDeltatime);
+	const void LerpScale(const float& aDeltatime);
+	const void LerpColor(const float& aDeltatime);
+
+	const void SetNewColor();
+	const void CheckIfSpriteAlive();
 
 };
