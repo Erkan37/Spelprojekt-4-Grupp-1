@@ -42,6 +42,8 @@ void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelSelect, Scene* aLeve
 	//myScenes.insert({ eScenes::PauseMenu, aPauseMenuScene });
 	myScenes.insert({ eScenes::IntroLogos, anIntroLogosScene});
 	myScenes.insert({ eScenes::WinScene, aWinScene });
+
+	DataManager::GetInstance().ParseCollectableInfo();
 }
 
 void LevelManager::Update()
