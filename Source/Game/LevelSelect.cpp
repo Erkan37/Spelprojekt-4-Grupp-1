@@ -50,7 +50,7 @@ void LevelSelect::Load()
 	sprite->SetSpritePath("Sprites/UI/levelSelect/UI_levelSelect_Background_304x164px.dds");
 	background->SetZIndex(200);
 
-	background->SetPosition(v2f(0.0f, 0.0f));
+	background->SetPosition(v2f(8.0f, 8.0f));
 	background->SetPivot(v2f(0.0f, 0.0f));
 
 	Scene::Load();
@@ -175,15 +175,15 @@ void LevelSelect::InitiateButtons()
 	myLevelIndexes.clear();
 
 	myBackButton = new UIButton(this);
-	myBackButton->Init("Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Unmarked_64x16px.dds", v2f(64.0f, 16.0f), v2f(250.0f, 160.0f), "Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Marked_64x16px.dds", 64);
-	myBackButton->SetPosition(v2f(250.0f, 160.0f));
+	myBackButton->Init("Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Unmarked_64x16px.dds", v2f(64.0f, 16.0f), v2f(248.0f, 156.0f), "Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Marked_64x16px.dds", 64);
+	myBackButton->SetPosition(v2f(248.0f, 156.0f));
 	myBackButton->GetComponent<SpriteComponent>()->SetSize(v2f(64.0f, 16.0f));
 	myBackButton->SetPivot(v2f(0.0f, 0.0f));
 	myBackButton->SetActive(true);
 
 	myBackButtonFire = new UIObject(this);
-	myBackButtonFire->InitAnimation("Sprites/UI/levelSelect/UI_levelSelect_Flame_16x16px.dds", v2f(16.0f, 16.0f), v2f(232.0f, 156), 201);
-	myBackButtonFire->SetPosition(v2f(232.0f, 156.0f));
+	myBackButtonFire->InitAnimation("Sprites/UI/levelSelect/UI_levelSelect_Flame_16x16px.dds", v2f(16.0f, 16.0f), v2f(230.0f, 156), 201);
+	myBackButtonFire->SetPosition(v2f(230.0f, 152.0f));
 	myBackButtonFire->SetPivot(v2f(0.0f, 0.0f));
 
 	std::ifstream levelSelectFile("JSON/Menus/LevelSelect/LevelSelect.json");
@@ -199,11 +199,11 @@ void LevelSelect::InitiateButtons()
 		{
 			UIButton* levelButton = new UIButton(this);
 			levelButton->SetPosition(v2f((*iterator)["X"].GetFloat(), (*iterator)["Y"].GetFloat()));
-			levelButton->Init("Sprites/UI/levelSelect/UI_levelSelect_Stage_320x180px_Marked.dds", v2f(8.0f, 8.0f), v2f((*iterator)["X"].GetFloat(), (*iterator)["Y"].GetFloat()), "Sprites/UI/levelSelect/UI_levelSelect_Flame_16x16px.dds", 16);
+			levelButton->Init("Sprites/UI/levelSelect/UI_levelSelect_Stage_320x180px_Marked.dds", v2f(16.0f, 16.0f), v2f((*iterator)["X"].GetFloat(), (*iterator)["Y"].GetFloat()), "Sprites/UI/levelSelect/UI_levelSelect_Flame_16x16px.dds", 16);
 			levelButton->GetComponent<SpriteComponent>()->SetSize(v2f(8.0f, 8.0f));
 			levelButton->SetPivot(v2f(0.0f, 0.0f));
 			levelButton->SetActive(true);
-			levelButton->SetHighlightOffset(v2f(-2.0f, -3.0f));
+			levelButton->SetHighlightOffset(v2f(-7.0f, -8.0f));
 			myLevelButtons.push_back(levelButton);
 
 			myLevelIndexes.push_back((*iterator)["LevelIndex"].GetInt());
