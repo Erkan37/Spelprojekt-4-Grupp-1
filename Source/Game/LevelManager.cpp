@@ -42,6 +42,8 @@ void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelSelect, Scene* aLeve
 	//myScenes.insert({ eScenes::PauseMenu, aPauseMenuScene });
 	myScenes.insert({ eScenes::IntroLogos, anIntroLogosScene});
 	myScenes.insert({ eScenes::WinScene, aWinScene });
+
+	DataManager::GetInstance().ParseCollectableInfo();
 }
 
 void LevelManager::Update()
@@ -160,6 +162,11 @@ void LevelManager::LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, Ga
 void LevelManager::SetLevelIndex(const int& aLevelIndex)
 {
 	myLoadedLevel = aLevelIndex;
+}
+
+void LevelManager::UsedLevelSelect()
+{
+	myTiledLoader->UsedLevelSelect();
 }
 
 void LevelManager::SetIsSpeedrunMode(bool aIsSpeedrunMode)

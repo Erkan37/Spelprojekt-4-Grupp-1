@@ -242,23 +242,6 @@
                  "width":40,
                  "x":0,
                  "y":48
-                }, 
-                {
-                 "height":16,
-                 "id":130,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"Material",
-                         "type":"int",
-                         "value":0
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":32,
-                 "x":0,
-                 "y":32
                 }],
          "opacity":1,
          "type":"objectgroup",

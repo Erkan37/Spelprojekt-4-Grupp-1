@@ -6,7 +6,12 @@
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
 
+#include "GameWorld.h"
+#include "Timer.h"
+
 #include "Player.hpp"
+
+#include "../External/Headers/CU/Utilities.h"
 
 Ledge::Ledge(Scene* aLevelScene)
 	:
@@ -62,11 +67,13 @@ void Ledge::OnCollision(GameObject* aGameObject)
 		myPlayer = player;
 		if (!myPlayerEntered)
 		{
+			const float insensitivity = CGameWorld::GetInstance()->GetTimer()->GetDeltaTime() * player->GetComponent<PhysicsComponent>()->GetVelocityY();
+
 			const float playerBottomY = player->GetPositionY() + player->GetComponent<ColliderComponent>()->GetHeight() / 2.0f;
 			const float ledgeBottomY = myTransform.myPosition.y + GetComponent<ColliderComponent>()->GetHeight();
 			const float ledgeTopY = myTransform.myPosition.y;
 
-			if (playerBottomY <= ledgeBottomY && playerBottomY >= ledgeTopY && player->GetComponent<PhysicsComponent>()->GetVelocityY() > 0)
+			if (playerBottomY <= (ledgeBottomY + insensitivity) && playerBottomY >= (ledgeTopY - insensitivity) && player->GetComponent<PhysicsComponent>()->GetVelocityY() > 0)
 			{
 				v2f playerSnapPosition = v2f(myTransform.myPosition.x, myTransform.myPosition.y - player->GetComponent<ColliderComponent>()->GetHeight() / 2.0f);
 

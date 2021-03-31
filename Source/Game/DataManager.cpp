@@ -261,3 +261,45 @@ void DataManager::ResetCollectibles()
 {
 	//mySaveFile["Collectibles"].GetArray().PushBack(rapidjson::GenericObject);
 }
+
+void DataManager::ParseCollectableInfo()
+{
+	for (const auto& levelDoc : myLevelVector)
+	{
+		if (levelDoc.IsObject())
+		{
+			for (auto layer = levelDoc["layers"].Begin(); layer != levelDoc["layers"].End(); ++layer)
+			{
+				std::string name = (*layer)["name"].GetString();
+
+				if (name == "Collectables" && (*layer).HasMember("objects"))
+				{
+					for (auto object = (*layer)["objects"].Begin(); object != (*layer)["objects"].End(); ++object)
+					{
+						CollectableInfo info;
+						if ((*object).HasMember("properties"))
+						{
+							for (auto property = (*object)["properties"].Begin(); property != (*object)["properties"].End(); ++property)
+							{
+								if (std::string((*property)["name"].GetString()).compare("BonfireID") == 0)
+								{
+									info.myBonfireID = (*property)["value"].GetInt();
+								}
+								if (std::string((*property)["name"].GetString()).compare("ID") == 0)
+								{
+									info.myID = (*property)["value"].GetInt();
+								}
+							}
+							myCollectableInfo.push_back(info);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+std::vector<CollectableInfo> DataManager::GetCollectableInfo()
+{
+	return myCollectableInfo;
+}

@@ -103,7 +103,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer, cons
 				//Call functions
 				if (name == "Bonfire")
 				{
-					ParseBonfires(loadData, aScene);
+					ParseBonfires(loadData, aScene, dynamic_cast<Player*>(aPlayer));
 				}
 				else if (name == "Doors")
 				{
@@ -192,14 +192,27 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer, cons
 			}
 		}
 	}
+
+	myLoadsFromLevelSelect = false;
 }
 
-void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aScene)
+void TiledLoader::UsedLevelSelect()
+{
+	myLoadsFromLevelSelect = true;
+}
+
+void TiledLoader::ParseBonfires(const std::vector<LoadData> someData, Scene* aScene, Player* aPlayer)
 {
 	for (int i = 0; i < someData.size(); ++i)
 	{
 		Bonfire* bonfire = new Bonfire(aScene, someData[i].myID);
 		bonfire->SetPosition(someData[i].myPosition);
+
+		if (myLoadsFromLevelSelect)
+		{
+			aPlayer->SetSpawnPosition(someData[i].myPosition + v2f(0.0f, someData[i].mySize.y - 8.0f));
+			aPlayer->SetPosition(someData[i].myPosition + v2f(0.0f, someData[i].mySize.y - 8.0f));
+		}
 	}
 }
 void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene* aScene, Player* aPlayer)
@@ -215,29 +228,33 @@ void TiledLoader::ParseDoors(const std::vector<LoadData> someData, Scene* aScene
 		bool doorFound = false;
 
 		v2f doorOffset = v2f(0.0f, 0.0f);
-		if (someData[i].myPosition.x < 0.0f && lastDoorType == 1)
+
+		if (!myLoadsFromLevelSelect)
 		{
-			doorOffset.x = 24.0f + someData[i].mySize.x;
-			doorOffset.y = someData[i].mySize.y - 8.0f;
-			doorFound = true;
-		}
-		else if (someData[i].myPosition.x > roomSize.x && lastDoorType == 0)
-		{
-			doorOffset.x = -24.0f;
-			doorOffset.y = someData[i].mySize.y - 8.0f;
-			doorFound = true;
-		}
-		else if (someData[i].myPosition.y < 0.0f && lastDoorType == 3)
-		{
-			doorOffset.x = 24.0f;
-			doorOffset.y = 40.0f;
-			doorFound = true;
-		}
-		else if (someData[i].myPosition.y > roomSize.y && lastDoorType == 2)
-		{
-			doorOffset.x = 24.0f;
-			doorOffset.y = -48.0f;
-			doorFound = true;
+			if (someData[i].myPosition.x < 0.0f && lastDoorType == 1)
+			{
+				doorOffset.x = 24.0f + someData[i].mySize.x;
+				doorOffset.y = someData[i].mySize.y - 8.0f;
+				doorFound = true;
+			}
+			else if (someData[i].myPosition.x > roomSize.x && lastDoorType == 0)
+			{
+				doorOffset.x = -24.0f;
+				doorOffset.y = someData[i].mySize.y - 8.0f;
+				doorFound = true;
+			}
+			else if (someData[i].myPosition.y < 0.0f && lastDoorType == 3)
+			{
+				doorOffset.x = 24.0f;
+				doorOffset.y = 40.0f;
+				doorFound = true;
+			}
+			else if (someData[i].myPosition.y > roomSize.y && lastDoorType == 2)
+			{
+				doorOffset.x = 24.0f;
+				doorOffset.y = -48.0f;
+				doorFound = true;
+			}
 		}
 
 		if (doorFound)
