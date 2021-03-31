@@ -11,7 +11,7 @@ public:
 
 	void Move(const float& aDeltaTime);
 
-	void CheckReachedWayPoint();
+	void CheckReachedWayPoint(const float& aDeltaTime);
 
 	void SetNextWayPoint();
 

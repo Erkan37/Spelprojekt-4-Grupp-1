@@ -2,6 +2,26 @@
   "FilePathArray": [
     {
       "Id": 1,
+      "FilePath": "Levels/Level_29.json"
+    },
+    {
+      "Id": 1,
+      "FilePath": "Levels/Level_16.json"
+    },
+    {
+      "Id": 2,
+      "FilePath": "Levels/Level_20.json"
+    },
+    {
+      "Id": 3,
+      "FilePath": "Levels/Level_21.json"
+    },
+    {
+      "Id": 4,
+      "FilePath": "Levels/Level_22.json"
+    },
+    {
+      "Id": 1,
       "FilePath": "Levels/Level_00.json"
     },
     {
