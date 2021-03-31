@@ -3,6 +3,14 @@
     {
       "LevelIndex": 0,
       "FilePath": "Levels/HiddenRoom_03.json"
+    },
+    {
+      "LevelIndex": 1,
+      "FilePath": "Levels/HiddenRoom_03.json"
+    },
+    {
+      "LevelIndex": 2,
+      "FilePath": "Levels/HiddenRoom_03.json"
     }
   ]
 }
