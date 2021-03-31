@@ -22,21 +22,26 @@ LevelManager::LevelManager()
 	myLastDoorType = 1;
 
 	myLevelTransition = false;
+	myLoadingHiddenRoom = false;
+	myIsSpeedrunMode = false;
 
 	Subscribe(eMessageType::LoadNext);
 	Subscribe(eMessageType::LoadPrevious);
+	Subscribe(eMessageType::LoadHiddenRoom);
+	Subscribe(eMessageType::LoadMainRoom);
 }
 LevelManager::~LevelManager()
 {
-
 }
 
-void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelScene/*, Scene* aPauseMenuScene*/, Scene* anIntroLogosScene)
+void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelSelect, Scene* aLevelScene, Scene* anIntroLogosScene, Scene* aWinScene)
 {
 	myScenes.insert({ eScenes::MainMenu, aMainMenuScene });
+	myScenes.insert({ eScenes::LevelSelect, aLevelSelect });
 	myScenes.insert({ eScenes::LevelScene, aLevelScene });
 	//myScenes.insert({ eScenes::PauseMenu, aPauseMenuScene });
 	myScenes.insert({ eScenes::IntroLogos, anIntroLogosScene});
+	myScenes.insert({ eScenes::WinScene, aWinScene });
 }
 
 void LevelManager::Update()
@@ -45,12 +50,13 @@ void LevelManager::Update()
 	{
 		LevelScene* levelScene = dynamic_cast<LevelScene*>(myScenes[eScenes::LevelScene]);
 		levelScene->Transitioning();
-		levelScene->IncreaseBlackScreen();
+		levelScene->IncreaseBlackScreen(1.0f);
 
 		if (levelScene->GetReachedFullOpacity())
 		{
 			myLevelTransition = false;
 			SingleLoadScene(eScenes::LevelScene);
+			myLoadingHiddenRoom = false;
 		}
 	}
 
@@ -73,21 +79,22 @@ void LevelManager::ImGuiUpdate()
 		{
 			SingleLoadScene(eScenes::LevelScene);
 		}
-
 		if (ImGui::Button("MainMenu"))
 		{
 			SingleLoadScene(eScenes::MainMenu);
+		}
+		if (ImGui::Button("Reset Bonfires"))
+		{
+			DataManager::GetInstance().ResetBonfires();
 		}
 
 		ImGui::End();
 	}
 }
-
 void LevelManager::ToggleImGui()
 {
 	myImGuiIsActive = !myImGuiIsActive;
 }
-
 #endif //RETAIL
 
 void LevelManager::SingleLoadScene(eScenes aScene)
@@ -134,15 +141,30 @@ const bool LevelManager::GetIsActive(eScenes aScene)
 	return myScenes[aScene]->IsActive();
 }
 
+bool LevelManager::GetIsSpeedrunMode()
+{
+	return myIsSpeedrunMode;
+}
+
 void LevelManager::LoadLevel(LevelScene* aLevelScene, GameObject* aPlayer)
 {
-	myTiledLoader->Load(aLevelScene, myLoadedLevel, aPlayer);
+	myTiledLoader->Load(aLevelScene, myLoadedLevel, aPlayer, myLoadingHiddenRoom);
 }
 
 void LevelManager::LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, GameObject* aPlayer)
 {
 	myLoadedLevel = aLevelIndex;
-	myTiledLoader->Load(aLevelScene, aLevelIndex, aPlayer);
+	myTiledLoader->Load(aLevelScene, aLevelIndex, aPlayer, myLoadingHiddenRoom);
+}
+
+void LevelManager::SetLevelIndex(const int& aLevelIndex)
+{
+	myLoadedLevel = aLevelIndex;
+}
+
+void LevelManager::SetIsSpeedrunMode(bool aIsSpeedrunMode)
+{
+	myIsSpeedrunMode = aIsSpeedrunMode;
 }
 
 void LevelManager::Notify(const Message& aMessage)
@@ -153,6 +175,8 @@ void LevelManager::Notify(const Message& aMessage)
 		if (myLoadedLevel >= DataManager::GetInstance().GetLevelCount())
 		{
 			myLoadedLevel = DataManager::GetInstance().GetLevelCount() - 1;
+			SingleLoadScene(eScenes::WinScene);
+			return;
 		}
 
 		myLastDoorType = std::get<int>(aMessage.myData);
@@ -171,9 +195,25 @@ void LevelManager::Notify(const Message& aMessage)
 
 		myLevelTransition = true;
 	}
+	else if (aMessage.myMessageType == eMessageType::LoadHiddenRoom)
+	{
+		myLoadingHiddenRoom = true;
+
+		myLastDoorType = std::get<int>(aMessage.myData);
+
+		myLevelTransition = true;
+	}
+	else if (aMessage.myMessageType == eMessageType::LoadMainRoom)
+	{
+		myLoadingHiddenRoom = false;
+
+		myLastDoorType = std::get<int>(aMessage.myData);
+
+		myLevelTransition = true;
+	}
 }
 
-const int LevelManager::GetDoorType()
+const int& LevelManager::GetDoorType()
 {
 	return myLastDoorType;
 }

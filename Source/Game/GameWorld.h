@@ -1,7 +1,9 @@
 #pragma once
 #include "MainMenuScene.h"
+#include "LevelSelect.hpp"
 #include "LevelScene.h"
 #include "IntroLogosScene.h"
+#include "WinScene.hpp"
 #include "LevelManager.hpp"
 
 namespace Utils
@@ -70,7 +72,9 @@ private:
 	/*** Scenes ***/
 	IntroLogosScene myIntroLogosScene;
 	MainMenuScene myMainMenuScene;
+	LevelSelect myLevelSelect;
 	LevelScene myLevelScene;
+	WinScene myWinScene;
 
 	LevelManager myLevelManager;
 

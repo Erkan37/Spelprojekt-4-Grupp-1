@@ -44,7 +44,10 @@ void EnemyProjectile::OnCollision(GameObject* aGameObject)
 	Platform* platform = dynamic_cast<Platform*>(aGameObject);
 	if (player)
 	{
-		player->Kill();
+		if (!player->GetHasDied())
+		{
+			player->Kill();
+		}
 	}
 	if (platform || player)
 	{

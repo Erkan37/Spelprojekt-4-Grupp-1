@@ -2,12 +2,15 @@
 
 #include <string>
 #include <memory>
+#include <assert.h>
 #include "AudioLibrary.h"
 
 namespace Tga2D
 {
 	class AudioOut;
 }
+
+class AudioComponent;
 
 class AudioManager
 {
@@ -19,6 +22,7 @@ public:
 	const static std::unique_ptr<AudioManager>& GetInstance();
 
 	void Init();
+	void Update();
 
 	void SetMusicVolume(float aVolume);
 	void SetSFXVolume(float aVolume);
@@ -32,19 +36,25 @@ public:
 	float GetSFXVolume() const;
 
 	void PlayAudio(AudioList aSound);
+	void PlayIfAvailable(AudioList aSound);
 
 	void Stop(AudioList aSound);
 
 	//bool IsPlaying(const std::string& anAudioPath);
 
-	//void StopAll(bool anOnlyRepeating = false);
+	void StopAllSounds(bool anAndMusic = false);
 
 	void LockAudio(AudioList anAudio);
 	void UnLockAudio(AudioList anAudio);
 
-private:
+	void AddComponentToListen(AudioComponent* aComponent);
+	void RemoveomponentToListen(AudioComponent* aComponent);
 
+private:
+	void ComponentUpdate();
 	std::unique_ptr<Tga2D::AudioOut> myAudioOut;
+	std::vector<AudioComponent*> myPlatformComponents;
+	std::vector<AudioComponent*> myEnemyComponents;
 	float myMusicVolume = 1;
 	float mySFXVolume = 1;
 
@@ -53,4 +63,3 @@ private:
 	AudioLibrary myLibrary = AudioLibrary();
 
 };
-

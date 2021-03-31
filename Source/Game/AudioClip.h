@@ -1,5 +1,4 @@
 #pragma once
-#include "AudioLibrary.h"
 
 namespace Tga2D
 {
@@ -7,11 +6,13 @@ namespace Tga2D
 	class CAudio;
 }
 
+enum class AudioLayer;
+
 class AudioClip
 {
 public:
 	AudioClip() = default;
-	AudioClip(const char* anAudioPath, const bool aIsLooping, const float& aVolume, const float& aMinVol, const float& aMaxVol, AudioLayer aLayer);
+	AudioClip(const char* anAudioPath, const bool aIsLooping, const float& aVolume, const float& aMaxVol, AudioLayer aLayer);
 	~AudioClip();
 
 	void SetVolume(const float& aVolChange);
@@ -19,6 +20,7 @@ public:
 	void SetPosition(const VECTOR2F aPosition);
 
 	void Play();
+	void PlayIfAvailable();
 	void Stop();
 
 	void Mute();
@@ -30,10 +32,13 @@ public:
 	AudioLayer GetLayer();
 
 private:
+	float GetVolPercentage(const float& aVolume);
+
 	float myVolume = 0.0f;
-	const float myMinVolume;
 	const float myMaxVolume;
+	const float myVolProcent;
 	bool myCanPlay = true;
+	bool myIsPlaying = false;
 	AudioLayer myLayer;
 	Tga2D::CAudio* myAudio = nullptr;
 };

@@ -6,7 +6,9 @@
 #include "WaypointComponent.hpp"
 #include "SpriteComponent.h"
 #include "ColliderComponent.h"
-#include <iostream>
+
+#include "GameWorld.h"
+#include "Timer.h"
 
 #include "../External/Headers/CU/Utilities.h"
 
@@ -18,7 +20,7 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 {
 	SetZIndex(93);
 	myType = eMovingPlatformType::RegularPlatform;
-	myMaterial = 1;
+	myMaterial = 3;
 	myPercentageYValue = {};
 	myWaypointComponent = AddComponent<WaypointComponent>();
 	myWaypointComponent->SetOwner(this);
@@ -26,9 +28,7 @@ MovingPlatform::MovingPlatform(Scene* aLevelScene)
 	myRevertOn = {};
 	AudioComponent* audio = AddComponent<AudioComponent>();
 	audio->AddAudio(AudioList::MovingPlatform);
-	audio->SetRadius(200);
-	audio->PlayAudio();
-
+	audio->SetRadius(170);
 }
 
 MovingPlatform::~MovingPlatform()

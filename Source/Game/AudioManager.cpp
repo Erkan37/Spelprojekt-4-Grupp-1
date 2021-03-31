@@ -1,14 +1,30 @@
 #include "stdafx.h"
 #include "AudioManager.h"
+#include "AudioComponent.h"
 #include "Random.hpp"
 #include "tga2d/audio/audio_out.h"
 #include "AudioClip.h"
 #include <bass/bass.h>
 #include <algorithm>
+#include <assert.h>
 
 #pragma comment(lib,"bass.lib")
 
 static std::unique_ptr<AudioManager> ourInstance = std::make_unique<AudioManager>();
+
+bool CompareVolumes(AudioComponent* aComponent1, AudioComponent* aComponent2)
+{
+	//assert(aComponent1 != nullptr || aComponent2 != nullptr);
+	//if (aComponent2->myVolume > aComponent1->myVolume)
+	//{
+	//	return false;
+	//}
+	//else
+	//{
+	//	return true;
+	//}
+	return aComponent2->myVolume < aComponent1->myVolume;
+}
 
 const std::unique_ptr<AudioManager>& AudioManager::GetInstance()
 {
@@ -18,8 +34,10 @@ const std::unique_ptr<AudioManager>& AudioManager::GetInstance()
 AudioManager::AudioManager()
 {
 	myAudioOut = {};
-	mySFXVolume = {};
-	myMusicVolume = {};
+	mySFXVolume = 0.2f;
+	myMusicVolume = 0.5f;
+	SetMusicVolume(mySFXVolume);
+	SetSFXVolume(mySFXVolume);
 };
 
 AudioManager::~AudioManager() = default;
@@ -31,6 +49,11 @@ void AudioManager::Init()
 	//SetMusicVolume(0.5f);
 	//SetSFXVolume(0.5f);
 	//PlayMusic("Sounds/Music/04 - Pushing Onwards.mp3", 0.025f);
+}
+
+void AudioManager::Update()
+{
+	ComponentUpdate();
 }
 
 void AudioManager::SetMusicVolume(float aVolume)
@@ -140,6 +163,11 @@ void AudioManager::PlayAudio(AudioList aSound)
 	//}
 }
 
+void AudioManager::PlayIfAvailable(AudioList aSound)
+{
+	myLibrary.myAudioList[aSound]->PlayIfAvailable();
+}
+
 void AudioManager::Stop(AudioList aSound)
 {
 	myLibrary.myAudioList[aSound]->Stop();
@@ -161,6 +189,19 @@ void AudioManager::StopCurrentMusic()
 	myAudioOut->StopMusic(true);
 }
 
+void AudioManager::StopAllSounds(bool anAndMusic)
+{
+	if (anAndMusic)
+	{
+		StopCurrentMusic();
+	}
+
+	for (auto const& [key, val] : myLibrary.myAudioList)
+	{
+		val->Stop();
+	}
+}
+
 void AudioManager::LockAudio(AudioList anAudio)
 {
 	myLibrary.myAudioList[anAudio]->Lock();
@@ -169,4 +210,88 @@ void AudioManager::LockAudio(AudioList anAudio)
 void AudioManager::UnLockAudio(AudioList anAudio)
 {
 	myLibrary.myAudioList[anAudio]->UnLock();
+}
+
+void AudioManager::AddComponentToListen(AudioComponent* aComponent)
+{
+	switch (aComponent->myAudio)
+	{
+	case AudioList::MovingPlatform:
+		PlayIfAvailable(AudioList::MovingPlatform);
+		myPlatformComponents.push_back(aComponent);
+		break;
+	case AudioList::EnemyNormalIdle:
+		PlayIfAvailable(AudioList::EnemyNormalIdle);
+		myEnemyComponents.push_back(aComponent);
+		break;
+	}
+	//myComponentVolumes.Enqueue(aComponent->myVolume);
+}
+
+void AudioManager::ComponentUpdate()
+{
+	if (myPlatformComponents.size() > 1)
+	{
+		std::sort(myPlatformComponents.begin(), myPlatformComponents.end(), CompareVolumes);
+	}
+	if (myPlatformComponents.size() > 0)
+	{
+		SetSoundVolume(myPlatformComponents[0]->myAudio, myPlatformComponents[0]->myVolume);
+	}
+	if (myEnemyComponents.size() > 1)
+	{
+		std::sort(myEnemyComponents.begin(), myEnemyComponents.end(), CompareVolumes);
+	}
+	if (myEnemyComponents.size() > 0)
+	{
+		SetSoundVolume(myEnemyComponents[0]->myAudio, myEnemyComponents[0]->myVolume);
+	}
+}
+
+void AudioManager::RemoveomponentToListen(AudioComponent* aComponent)
+{
+	switch (aComponent->myAudio)
+	{
+	case AudioList::MovingPlatform:
+		for (int i = 0; i < myPlatformComponents.size(); ++i)
+		{
+			if (myPlatformComponents[i] == aComponent)
+			{
+				myPlatformComponents.erase(myPlatformComponents.begin() + i);
+				break;
+			}
+		}
+		if (myPlatformComponents.size() == 0)
+		{
+			Stop(AudioList::MovingPlatform);
+		}
+		break;
+	case AudioList::EnemyNormalIdle:
+		for (int i = 0; i < myEnemyComponents.size(); ++i)
+		{
+			if (myEnemyComponents[i] == aComponent)
+			{
+				myEnemyComponents.erase(myEnemyComponents.begin() + i);
+				break;
+			}
+		}
+		if (myEnemyComponents.size() == 0)
+		{
+			Stop(AudioList::EnemyNormalIdle);
+		}
+		break;
+	}
+	//CommonUtilities::MinHeap<AudioComponent*> tempHeap;
+	//while (myComponents.GetSize() > 0)
+	//{
+	//	if (myComponents.GetTop() != aComponent)
+	//	{
+	//		tempHeap.Enqueue(myComponents.GetTop());
+	//	}
+	//	myComponents.Dequeue();
+	//}
+	//while (tempHeap.GetSize() > 0)
+	//{
+	//	myComponents.Enqueue(tempHeap.Dequeue());
+	//}
 }

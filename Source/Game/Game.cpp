@@ -36,22 +36,12 @@ std::wstring BUILD_NAME = L"Release";
 std::wstring BUILD_NAME = L"Retail";
 #endif // DEBUG
 
-CGame::CGame() : myGameWorld(this), myThread(nullptr), myActive(true), myTimer(new Utils::Timer())
+CGame::CGame() : myGameWorld(this), myTimer(new Utils::Timer())
 {
 
 }
 CGame::~CGame()
 {
-	myActive = false;
-	if (myThread)
-	{
-		if (myThread->joinable())
-		{
-			myThread->join();
-		}
-		delete myThread;
-		myThread = nullptr;
-	}
 	if (myTimer)
 	{
 		delete myTimer;
@@ -77,15 +67,23 @@ LRESULT CGame::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		SetResolution(LOWORD(lParam), HIWORD(lParam));
 		return 0;
 	}
+	case WM_KILLFOCUS:
+	{
+		myTimer->SetTimeScale(0.0f);
+		break;
+	}
+
+	case WM_SETFOCUS:
+	{
+		myTimer->SetTimeScale(1.0f);
+		break;
+	}
 		// this message is read when the window is closed
 	case WM_DESTROY:
 	{
 		// close the application entirely
 		PostQuitMessage(0);
 		return 0;
-	}
-	case WM_KILLFOCUS:
-	{
 	}
 	}
 
@@ -131,7 +129,6 @@ bool CGame::Init(const std::wstring& aVersion, HWND aHWND)
 		system("pause");
 		return false;
 	}
-	myActive = false;
 
 	// End of program
 	return true;

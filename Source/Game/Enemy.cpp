@@ -8,6 +8,7 @@
 #include "EnemyProjectile.h"
 #include "Enemy.h"
 #include "WaypointComponent.hpp"
+#include "AudioComponent.h"
 #include "AudioManager.h"
 #ifdef _DEBUG
 #include "imgui.h"
@@ -19,6 +20,9 @@ Enemy::Enemy(Scene* aScene) : GameObject(aScene)
 {
 	myJsonData = dynamic_cast<EnemyData*>(&DataManager::GetInstance().GetDataStruct(DataEnum::enemy));
 	myWayPointComponent = nullptr;
+	AudioComponent* audio = AddComponent<AudioComponent>();
+	audio->AddAudio(AudioList::EnemyNormalIdle);
+	audio->SetRadius(100);
 }
 NormalEnemy::NormalEnemy(Scene* aScene) : Enemy(aScene)
 {
@@ -163,7 +167,10 @@ void Enemy::OnCollision(GameObject* aGameObject)
 	Player* player = dynamic_cast<Player*>(aGameObject);
 	if (player)
 	{
-		player->Kill();
+		if (!player->GetHasDied())
+		{
+			player->Kill();
+		}
 	}
 }
 

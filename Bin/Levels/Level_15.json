@@ -69,13 +69,13 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":32,
+                 "width":28,
                  "x":328,
                  "y":16
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -213,12 +213,12 @@
                  "rotation":0,
                  "type":"0",
                  "visible":true,
-                 "width":72,
+                 "width":56,
                  "x":608,
                  "y":64
                 }, 
                 {
-                 "height":56,
+                 "height":80,
                  "id":306,
                  "name":"",
                  "rotation":0,
@@ -226,7 +226,7 @@
                  "visible":true,
                  "width":48,
                  "x":496,
-                 "y":0
+                 "y":-24
                 }, 
                 {
                  "height":16,
@@ -350,7 +350,7 @@
                  "y":72
                 }, 
                 {
-                 "height":56,
+                 "height":80,
                  "id":323,
                  "name":"",
                  "rotation":0,
@@ -358,7 +358,7 @@
                  "visible":true,
                  "width":48,
                  "x":128,
-                 "y":0
+                 "y":-24
                 }, 
                 {
                  "height":16,
@@ -449,7 +449,7 @@
                  "y":16
                 }, 
                 {
-                 "height":16,
+                 "height":40,
                  "id":334,
                  "name":"",
                  "rotation":0,
@@ -457,7 +457,18 @@
                  "visible":true,
                  "width":48,
                  "x":312,
-                 "y":0
+                 "y":-24
+                }, 
+                {
+                 "height":8,
+                 "id":336,
+                 "name":"",
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":688,
+                 "x":-24,
+                 "y":-32
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -585,7 +596,7 @@
          "name":"Doors",
          "objects":[
                 {
-                 "height":88,
+                 "height":112,
                  "id":211,
                  "name":"",
                  "rotation":0,
@@ -593,10 +604,10 @@
                  "visible":true,
                  "width":8,
                  "x":-24,
-                 "y":0
+                 "y":-24
                 }, 
                 {
-                 "height":64,
+                 "height":88,
                  "id":212,
                  "name":"",
                  "rotation":0,
@@ -604,7 +615,7 @@
                  "visible":true,
                  "width":8,
                  "x":656,
-                 "y":0
+                 "y":-24
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -671,7 +682,7 @@
          "y":0
         }],
  "nextlayerid":18,
- "nextobjectid":336,
+ "nextobjectid":337,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

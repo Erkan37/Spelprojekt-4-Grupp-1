@@ -5,6 +5,7 @@
 #include "BackGround.h"
 #include "SpringObject.h"
 #include "PauseMenu.h"
+#include "Timer.h" 
 #include "ParticleEffectFactory.h"
 
 #include "Subscriber.hpp"
@@ -26,16 +27,18 @@ public:
 
     void AddBlackScreen();
     void DecreaseBlackScreen();
-    void IncreaseBlackScreen();
+    void IncreaseBlackScreen(const float& aOpacitySpeedFactor);
     const bool GetReachedFullOpacity();
     void Transitioning();
 
     GameObject* GetPlayer();
+
 private:
     GameObject* myBlackScreen;
     GameObject* myPlayer;
     Background* myBackground;
     PauseMenu* myPauseMenu;
+    Timer* myTimer;
     ParticleEffectFactory* myEffectFactory;
 
     float myBlackScreenOpacity;
@@ -43,6 +46,6 @@ private:
 
     bool myReachedFullOpacity;
     bool myIsTransitioning;
-
+    bool myIsSpeedrun;
 };
 
