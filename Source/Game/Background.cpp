@@ -7,6 +7,8 @@
 #include "AudioManager.h"
 #include "rapidjson/istreamwrapper.h"
 
+#include <iostream>
+
 #include "Game.h"
 
 
@@ -26,6 +28,8 @@ Background::Background(Scene* aLevelScene)
 	myAddedCameraPos = {};
 	myCloudSpeed = {};
 	myCloudDistance = {};
+	myStartingCameraPos.x = -1;
+	myStartingCameraPos.y = -1;
 
 	assert(&aLevelScene->GetCamera() != NULL);
 	myCamera = &aLevelScene->GetCamera();
@@ -46,8 +50,10 @@ const void Background::UpdateBackground(const float& aDeltaTime)
 {
 	if (myCamera->GetActive() && myAddedCameraPos == false)
 	{
-		myStartingCameraPos = { 0.f, myCamera->GetPosition().y };
-		myAddedCameraPos = true;
+		if (myStartingCameraPos.y == myCamera->GetPositionY())
+			myAddedCameraPos = true;
+
+		myStartingCameraPos = { 0.f, myCamera->GetPositionY() };
 	}
 
 	MoveBackground(aDeltaTime);
@@ -63,16 +69,16 @@ const void Background::ResizeBackground()
 const void Background::MoveBackground(const float& aDeltaTime)
 {
 	v2f backgroundSpeedOne;
-	backgroundSpeedOne = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedOneX,
+	backgroundSpeedOne = { ( myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedOneX,
 						   (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedOneY };
 
 	v2f backgroundSpeedThree;
 	backgroundSpeedThree = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedThreeX,
-						   (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedThreeY };
+							 (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedThreeY };
 
 	v2f backgroundSpeedFour;
 	backgroundSpeedFour = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedFourX,
-						   (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedFourY };
+							(myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedFourY };
 
 	v2f backgroundSpeedFive;
 	backgroundSpeedFive = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedFiveX,
@@ -91,12 +97,7 @@ const void Background::MoveBackground(const float& aDeltaTime)
 
 	myCloudDistance = myCloudDistance + (aDeltaTime * myCloudSpeed);
 
-	v2f backgroundSpeedTwo;
-	backgroundSpeedTwo = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedTwoX,
-						   (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedTwoX };
-
-	backgroundSpeedTwo.x = backgroundSpeedTwo.x + myCloudDistance;
-
+	v2f backgroundSpeedTwo = { myCloudDistance, 0.f };
 
 	myBackgroundSprite2->SetPosition(myCamera->GetPosition() + backgroundSpeedTwo + GetHalfImageSize(myBackgroundSprite2) + myOffsetBackground2);
 }
@@ -112,7 +113,7 @@ const void Background::LoadJson(Scene* aLevelScene)
 	backgroundDocuments.ParseStream(backgroundObjectStream);
 
 
-	std::ifstream backgroundPathObjectsFile(backgroundDocuments["BackgroundArray"][0]["FilePath"].GetString());
+	std::ifstream backgroundPathObjectsFile(backgroundDocuments["BackgroundArray"][1]["FilePath"].GetString());
 	rapidjson::IStreamWrapper backgroundPathObjectStream(backgroundPathObjectsFile);
 
 	rapidjson::Document backgroundPathDocuments;
