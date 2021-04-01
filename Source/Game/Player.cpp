@@ -639,16 +639,20 @@ void Player::EndLerp()
 	myIsLerpingToPosition = false;
 }
 
-void Player::ActivateSpringForce(float aSpringVelocity, const float aRetardation)
+void Player::ActivateSpringForce(float aSpringVelocity, const float aRetardation, const bool aShouldResetVelocity)
 {
 	ReactivateDoubleJump();
 	myHasLanded = false;
 	myActiveSpringJump = true;
 	myHasLandedOnSpring = true;
-	myBashAbility->ResetVelocity(false, true);
-	myCurrentVelocity.y = {};
-	mySpringVelocityRetardation = aRetardation;
 	mySpringVelocity.y = aSpringVelocity;
+	mySpringVelocityRetardation = aRetardation;
+
+	if (aShouldResetVelocity)
+	{
+		myCurrentVelocity.y = {};
+		myBashAbility->ResetVelocity(false, true);
+	}
 }
 void Player::BounceOnDestructibleWall()
 {

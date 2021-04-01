@@ -65,7 +65,7 @@ public:
 	void SetLerpPosition(const v2f& aPosition);
 	void EndLerp();
 
-	void ActivateSpringForce(float mySpringVelocity, const float aRetardation);
+	void ActivateSpringForce(float mySpringVelocity, const float aRetardation, const bool aShouldResetVelocity);
 
 	void BounceOnDestructibleWall();
 	const bool& GetIsBashing();
