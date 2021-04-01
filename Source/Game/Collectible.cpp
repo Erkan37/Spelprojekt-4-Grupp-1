@@ -16,7 +16,7 @@
 
 #include "Bonfire.hpp"
 
-Collectible::Collectible(Scene* aLevelScene)
+Collectible::Collectible(Scene* aLevelScene, const unsigned int anID, const unsigned int aBonfireID)
 	:
 	GameObject(aLevelScene),
 	myTarget(nullptr),
@@ -27,12 +27,13 @@ Collectible::Collectible(Scene* aLevelScene)
 	myTimeOffset(0.0f),
 	myType(eCollectibleType::Easy),
 	myWasCollected(false),
-	myWasTurnedIn(false)
+	myWasTurnedIn(false),
+	myID(anID),
+	myBonfireID(aBonfireID)
 {
 	Subscribe(eMessageType::PlayerSafeLanded);
 	Subscribe(eMessageType::PlayerDeath);
 }
-
 Collectible::~Collectible()
 {
 
