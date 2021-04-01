@@ -2,5 +2,6 @@
 
 namespace Distance
 {
+	static float myBackgroundDistanceX = {};
 	static float myCloudDistance = {};
 }

@@ -11,6 +11,7 @@ class Background : GameObject
 {
 public:
 	Background(Scene* aLevelScene);
+	~Background();
 
 	void Init(int someLevelIndex);
 
@@ -38,7 +39,11 @@ private:
 
 	float myOriginalSpeed;
 	float myCloudSpeed;
+
+	float myTotalDistanceX;
+
 	float* myCloudDistance;
+	float* myBackgroundDistanceX;
 
 	float myBackgroundSpeedOneX;
 	float myBackgroundSpeedTwoX;
@@ -57,7 +62,6 @@ private:
 	bool myAddedCameraPos;
 
 	const void UpdateBackground(const float& aDeltaTime);
-	const void ResizeBackground();
 	const void MoveBackground(const float& aDeltaTime);
 	const void LoadJson(Scene* aLevelScene);
 	const void LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDocuments);

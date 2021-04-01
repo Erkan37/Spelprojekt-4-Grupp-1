@@ -28,7 +28,9 @@ Background::Background(Scene* aLevelScene)
 	myBackgroundSpeedThreeY = {};
 	myAddedCameraPos = {};
 	myCloudSpeed = {};
+	myTotalDistanceX = {};
 	myCloudDistance = &Distance::myCloudDistance;
+	myBackgroundDistanceX = &Distance::myBackgroundDistanceX;
 	myStartingCameraPos.x = -1;
 	myStartingCameraPos.y = -1;
 
@@ -36,6 +38,11 @@ Background::Background(Scene* aLevelScene)
 	myCamera = &aLevelScene->GetCamera();
 	LoadJson(aLevelScene);
 
+}
+
+Background::~Background()
+{
+	Distance::myBackgroundDistanceX -= myTotalDistanceX;
 }
 
 void Background::Init(int /*someLevelIndex*/)
@@ -54,18 +61,12 @@ const void Background::UpdateBackground(const float& aDeltaTime)
 		if (myStartingCameraPos.y == myCamera->GetPositionY())
 			myAddedCameraPos = true;
 
-		myStartingCameraPos = { 0.f, myCamera->GetPositionY() };
+		myStartingCameraPos = { *myBackgroundDistanceX, myCamera->GetPositionY() };
 	}
 
 	MoveBackground(aDeltaTime);
 }
 
-const void Background::ResizeBackground()
-{
-	myCurrentRenderSize.x = myBackgroundSprite1->GetComponent<SpriteComponent>()->GetSize().x;
-	myCurrentRenderSize.y = Config::ourReferenceSize.y;
-
-}
 
 const void Background::MoveBackground(const float& aDeltaTime)
 {
@@ -101,6 +102,7 @@ const void Background::MoveBackground(const float& aDeltaTime)
 	v2f backgroundSpeedTwo = { *myCloudDistance, 0.f };
 
 	myBackgroundSprite2->SetPosition(myCamera->GetPosition() + backgroundSpeedTwo + GetHalfImageSize(myBackgroundSprite2) + myOffsetBackground2);
+	myTotalDistanceX = myCamera->GetPositionX();
 }
 
 const void Background::LoadJson(Scene* aLevelScene)
@@ -156,7 +158,6 @@ const void Background::LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& 
 		CreateBackgrounds(aLevelScene, someDocuments["BackgroundPaths"][i]["FilePath"].GetString(), i, offset);
 	}
 
-	ResizeBackground();
 }
 
 const void Background::CreateBackgrounds(Scene* aLevelScene, const std::string aPath, const int aIndex, const v2f anOffset)
