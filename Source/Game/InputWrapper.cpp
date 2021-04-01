@@ -199,7 +199,7 @@ void InputWrapper::CalculateMouseAxis()
 	const float timeScale = CGameWorld::GetInstance()->GetTimer()->GetTimeScale();
 
 	CGameWorld::GetInstance()->GetTimer()->SetTimeScale(1.0f);
-	const float deadZone = 0.005f * CGameWorld::GetInstance()->GetTimer()->GetDeltaTime();
+	const float deadZone = 0.001f * CGameWorld::GetInstance()->GetTimer()->GetDeltaTime();
 	CGameWorld::GetInstance()->GetTimer()->SetTimeScale(timeScale);
 
 	if (mouseDistance.LengthSqr() >= deadZone * deadZone)
