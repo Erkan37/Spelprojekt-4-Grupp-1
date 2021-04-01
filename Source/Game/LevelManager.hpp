@@ -46,14 +46,16 @@ public:
 	void UnloadAllScenes();
 
 	const bool GetIsActive(eScenes aScene);
-	bool GetIsSpeedrunMode();
+	inline std::shared_ptr<SpeedrunManager> GetSpeedrunManager()
+	{
+		return mySpeedrunManager;
+	}
 
 	void LoadLevel(LevelScene* aLevelScene, GameObject* aPlayer);
 	void LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, GameObject* aPlayer);
 
 	void SetLevelIndex(const int& aLevelIndex);
 	void UsedLevelSelect();
-	void SetIsSpeedrunMode(bool aIsSpeedrunMode);
 
 	void Notify(const Message& aMessage) override;
 
@@ -70,7 +72,7 @@ private:
 
 	bool myLoadingHiddenRoom;
 	bool myLevelTransition;
-	bool myIsSpeedrunMode;
+	//bool myIsSpeedrunMode;
 
 #ifndef _RETAIL
 	bool myImGuiIsActive;
