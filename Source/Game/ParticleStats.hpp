@@ -43,6 +43,8 @@ private:
 	float myMaxParticleLifeTime = {};
 	float myEmitterLifeTime = {};
 
+	float mySpriteRotation = {};
+
 	v4f myEmitterAngular = {};
 	v2f myOffset = {};
 

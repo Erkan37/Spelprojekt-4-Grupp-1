@@ -158,61 +158,55 @@ const void Background::CreateBackgrounds(Scene* aLevelScene, const std::string a
 		myBackgroundSprite1 = new GameObject(aLevelScene);
 		SpriteComponent* sprite = myBackgroundSprite1->AddComponent<SpriteComponent>();
 		sprite->SetSpritePath(aPath);
-		myBackgroundSprite1->SetZIndex(1);
+		myBackgroundSprite1->SetZIndex(0);
 		myOffsetBackground1 = anOffset;
 		break;
 	}
-
 	case 1:
 	{
 		myBackgroundSprite2 = new GameObject(aLevelScene);
 		SpriteComponent* sprite = myBackgroundSprite2->AddComponent<SpriteComponent>();
 		sprite->SetSpritePath(aPath);
-		myBackgroundSprite2->SetZIndex(2);
+		myBackgroundSprite2->SetZIndex(1);
 		myOffsetBackground2 = anOffset;
 		break;
 	}
-
 	case 2:
 	{
 		myBackgroundSprite3 = new GameObject(aLevelScene);
 		SpriteComponent* sprite = myBackgroundSprite3->AddComponent<SpriteComponent>();
    		sprite->SetSpritePath(aPath);
-		myBackgroundSprite3->SetZIndex(3);
+		myBackgroundSprite3->SetZIndex(2);
 		myOffsetBackground3 = anOffset;
 		break;
 	}
-
 	case 3:
 	{
 		myBackgroundSprite4 = new GameObject(aLevelScene);
 		SpriteComponent* sprite = myBackgroundSprite4->AddComponent<SpriteComponent>();
 		sprite->SetSpritePath(aPath);
-		myBackgroundSprite4->SetZIndex(4);
+		myBackgroundSprite4->SetZIndex(3);
 		myOffsetBackground4 = anOffset;
 		break;
 	}
-
 	case 4:
 	{
 		myBackgroundSprite5 = new GameObject(aLevelScene);
 		SpriteComponent* sprite = myBackgroundSprite5->AddComponent<SpriteComponent>();
 		sprite->SetSpritePath(aPath);
-		myBackgroundSprite5->SetZIndex(5);
+		myBackgroundSprite5->SetZIndex(4);
 		myOffsetBackground5 = anOffset;
 		break;
 	}
-
 	case 5:
 	{
 		myBackgroundSprite6 = new GameObject(aLevelScene);
 		SpriteComponent* sprite = myBackgroundSprite6->AddComponent<SpriteComponent>();
 		sprite->SetSpritePath(aPath);
-		myBackgroundSprite6->SetZIndex(6);
+		myBackgroundSprite6->SetZIndex(5);
 		myOffsetBackground6 = anOffset;
 		break;
 	}
-
 	default:
 	{
 		break;

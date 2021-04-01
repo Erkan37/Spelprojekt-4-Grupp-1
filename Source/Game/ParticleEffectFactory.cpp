@@ -64,6 +64,7 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 			stats.myMinParticleLifeTime = (*particleStat)["MinParticleLifeTime"].GetFloat();
 			stats.myMaxParticleLifeTime = (*particleStat)["MaxParticleLifeTime"].GetFloat();
 			stats.myEmitterLifeTime = (*particleStat)["EmitterLifeTime"].GetFloat();
+			stats.mySpriteRotation = (*particleStat)["RotateSprite"].GetFloat();
 			stats.myOffset = { (*particleStat)["Offset"][0]["X"].GetFloat(), (*particleStat)["Offset"][1]["Y"].GetFloat() };
 
 			stats.myEmitterAngular = { (*particleStat)["LockedAngular"][0].GetFloat(), (*particleStat)["LockedAngular"][1].GetFloat(), (*particleStat)["LockedAngular"][2].GetFloat(), (*particleStat)["LockedAngular"][3].GetFloat() };
@@ -120,10 +121,17 @@ void ParticleEffectFactory::SpawnEffect(v2f aPosition, const eParticleEffects aE
 		effect->SetIsActive(true);
 		break;
 	}
-	case eParticleEffects::SnowEffect:
+	case eParticleEffects::RainEffect:
 	{
 		ParticleEffect* effect = new ParticleEffect(myScene);
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::SnowEffect)], myPlayer);
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::RainEffect)], myPlayer);
+		effect->SetPosition(aPosition);
+		effect->SetIsActive(true);
+		break;
+	}case eParticleEffects::RainEffect2:
+	{
+		ParticleEffect* effect = new ParticleEffect(myScene);
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::RainEffect2)], myPlayer);
 		effect->SetPosition(aPosition);
 		effect->SetIsActive(true);
 		break;

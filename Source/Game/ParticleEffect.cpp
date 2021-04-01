@@ -140,6 +140,7 @@ const void ParticleEffect::SpawnSprite()
 	sprite->myIsLockedPos = myStats.myLockedPosition;
 	sprite->myEmitterAngular = myStats.myEmitterAngular;
 	sprite->myOffset = myStats.myOffset;
+	sprite->mySpriteRotation = myStats.mySpriteRotation;
 
 	sprite->AddSprite(AddComponent<SpriteComponent>());
 

@@ -56,7 +56,7 @@ void EffectSprite::AddSprite(SpriteComponent* aSprite)
 	
 	mySprite->SetSize(size);
 	mySprite->SetRelativePosition(position);
-	mySprite->SetRelativeRotation(myRotation);
+	mySprite->SetRelativeRotation(mySpriteRotation);
 	mySprite->Activate();
 }
 

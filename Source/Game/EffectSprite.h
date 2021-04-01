@@ -40,6 +40,7 @@ public:
 	float mySpeedInterval = {};
 	float myLifeTime = {};
 	float myRotation = {};
+	float mySpriteRotation = {};
 	float myEmitterWidth = {};
 	float myEmitterHeigth = {};
 	float mySpawnAngle = {};

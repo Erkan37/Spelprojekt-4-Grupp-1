@@ -6,6 +6,7 @@ enum class eParticleEffects
 	RunEffect,
 	FallEffect,
 	DeathEffect,
-	SnowEffect,
+	RainEffect,
+	RainEffect2,
 	TestEffect
 };

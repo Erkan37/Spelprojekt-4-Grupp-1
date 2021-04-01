@@ -16,6 +16,8 @@
       "StartScale": 0.02,
       "EndScale": 0.01,
 
+      "RotateSprite": 0.0,
+
       "MinTimeBetweenSpawns": 0.01,
       "MaxTimeBetweenSpawns": 0.01,
 
