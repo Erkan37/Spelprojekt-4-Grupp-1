@@ -13,7 +13,9 @@ TileSetLayerProperties::TileSetLayerProperties()
 	rapidjson::Document tileSet;
 	tileSet.ParseStream(tilesetFileStream);
 
-	mySpritePath = tileSet["image"].GetString();
+	mySpritePath[0] = tileSet["image"][0].GetString();
+	mySpritePath[1] = tileSet["image"][1].GetString();
+	mySpritePath[2] = tileSet["image"][2].GetString();
 
 	myQuadLengthX = tileSet["columns"].GetInt();
 	myQuadLengthY = tileSet["tilecount"].GetInt() / myQuadLengthX;

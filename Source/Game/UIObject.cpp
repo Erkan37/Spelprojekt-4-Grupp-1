@@ -18,7 +18,7 @@ void UIObject::Init(const std::string aPathString, const v2f aSize, const v2f aP
 {
 	SetZIndex(aZIndex);
 	SetPivot({0.f, 0.f});
-	myTransform.myPosition = aPosition;
+	myStartPosition = aPosition;
 	
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
 	sprite->SetSpritePath(aPathString);
@@ -31,7 +31,7 @@ void UIObject::InitAnimation(const std::string aPathString, const v2f aSize, con
 {
 	SetZIndex(aZIndex);
 	SetPivot({ 0.5f, 0.5f });
-	myTransform.myPosition = aPosition;
+	myStartPosition = aPosition;
 
 	SpriteComponent* sprite = AddComponent<SpriteComponent>();
 	sprite->SetSpritePath(aPathString);
@@ -47,7 +47,7 @@ void UIObject::InitAnimation(const std::string aPathString, const v2f aSize, con
 void UIObject::UpdateUIObjects(const float& aDeltaTime)
 {
 	
-	SetPosition(myCamera->GetPosition() + myTransform.myPosition);
+	SetPosition(myCamera->GetPosition() + myStartPosition);
 
 	GameObject::Update(aDeltaTime);
 }
