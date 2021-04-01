@@ -3,6 +3,8 @@
 #include "InputWrapper.h"
 #include <iostream>
 
+#include "GameWorld.h"
+
 #include "../External/Headers/CU/Utilities.h"
 
 InputWrapper::InputWrapper()
@@ -111,7 +113,7 @@ bool InputWrapper::IsJumping()
 
 bool InputWrapper::IsDashing()
 {
-	if (GetInput()->GetKeyDown(Keys::SHIFTKey) || GetController()->IsButtonHoldDown(Controller::Button::Square))
+	if (GetInput()->GetKeyDown(Keys::LeftMouseButton) || GetController()->IsButtonHoldDown(Controller::Button::Square))
 	{
 		if (!myHoldDash)
 		{
@@ -132,7 +134,7 @@ bool InputWrapper::IsDashing()
 
 bool InputWrapper::IsDashingReleased()
 {
-	if (GetInput()->GetKeyJustUp(Keys::SHIFTKey) || !GetController()->IsButtonHoldDown(Controller::Button::Square))
+	if (GetInput()->GetKeyJustUp(Keys::LeftMouseButton) || !GetController()->IsButtonHoldDown(Controller::Button::Square))
 	{
 		return true;
 	}
@@ -193,7 +195,17 @@ void InputWrapper::CalculateMouseAxis()
 	myNewMousePosition.y = static_cast<float>(myCursor.y);
 
 	v2f mouseDistance = myNewMousePosition - myPreviousMousePosition;
-	myNormalizedDirection = mouseDistance.GetNormalized();
+
+	const float timeScale = CGameWorld::GetInstance()->GetTimer()->GetTimeScale();
+
+	CGameWorld::GetInstance()->GetTimer()->SetTimeScale(1.0f);
+	const float deadZone = 0.001f * CGameWorld::GetInstance()->GetTimer()->GetDeltaTime();
+	CGameWorld::GetInstance()->GetTimer()->SetTimeScale(timeScale);
+
+	if (mouseDistance.LengthSqr() >= deadZone * deadZone)
+	{
+		myNormalizedDirection = mouseDistance.GetNormalized();
+	}
 
 	myNewMousePosition = {};
 }
