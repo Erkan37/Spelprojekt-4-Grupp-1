@@ -20,6 +20,13 @@ Glide::Glide(Scene* aScene)
 	sprite->SetSpritePath("Sprites/Objects/GlidePowerup.dds");
 	sprite->SetSize(v2f(16.0f, 16.0f));
 
+	AnimationComponent* animation = AddComponent<AnimationComponent>();
+	animation->SetSprite(sprite);
+
+	myAnimations[0] = Animation(false, false, false, 0, 17, 17, 0.125f, sprite, 16, 16);
+
+	animation->SetAnimation(&myAnimations[0]);
+
 	PhysicsComponent* physics = AddComponent<PhysicsComponent>();
 	physics->SetCanCollide(false);
 	physics->SetIsStatic(false);

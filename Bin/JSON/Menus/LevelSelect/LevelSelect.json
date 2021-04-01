@@ -2,50 +2,50 @@
   "Bonfires": [
     {
       "LevelIndex":  0,
-      "X": 20.0,
-      "Y": 113.0
+      "X": 28.0,
+      "Y": 121.0
     },
 
     {
-      "LevelIndex": 0,
-      "X": 60.0,
-      "Y": 129.0
+      "LevelIndex": 6,
+      "X": 68.0,
+      "Y": 137.0
     },
 
     {
-      "LevelIndex": 0,
-      "X": 97.0,
-      "Y": 129.0
+      "LevelIndex": 12,
+      "X": 105.0,
+      "Y": 137.0
     },
 
     {
-      "LevelIndex": 0,
-      "X": 132.0,
-      "Y": 113.0
+      "LevelIndex": 18,
+      "X": 140.0,
+      "Y": 121.0
     },
 
     {
-      "LevelIndex": 0,
-      "X": 163.0,
-      "Y": 98.0
+      "LevelIndex": 24,
+      "X": 171.0,
+      "Y": 106.0
     },
 
     {
-      "LevelIndex": 0,
-      "X": 201.0,
-      "Y": 98.0
+      "LevelIndex": 30,
+      "X": 209.0,
+      "Y": 106.0
     },
 
     {
-      "LevelIndex": 0,
-      "X": 239.0,
-      "Y": 98.0
+      "LevelIndex": 36,
+      "X": 247.0,
+      "Y": 106.0
     },
 
     {
-      "LevelIndex": 0,
-      "X": 278.0,
-      "Y": 79.0
+      "LevelIndex": 42,
+      "X": 286.0,
+      "Y": 87.0
     }
   ]
 }

@@ -155,7 +155,7 @@ void Player::InitAnimations()
 	spriteGlide->Deactivate();
 
 	myAnimations[0] = Animation(false, false, false, 0, 74, 74, 0.10f, spriteIdle, 16, 16);
-	myAnimations[1] = Animation(false, false, false, 0, 12, 12, 0.09f, spriteRun, 16, 16);
+	myAnimations[1] = Animation(false, false, false, 0, 12, 12, 0.075f, spriteRun, 16, 16);
 	myAnimations[2] = Animation(false, true, false, 0, 6, 6, 0.07f, spriteJump, 16, 16);
 	myAnimations[3] = Animation(false, true, false, 0, 5, 5, 0.09f, spriteDoubleJump, 16, 16);
 	myAnimations[4] = Animation(false, false, false, 0, 4, 4, 0.09f, spriteFall, 16, 16);
@@ -484,7 +484,8 @@ void Player::Landed(const int& aOverlapY)
 			Jump();
 		}
 	}
-	LandingSoundCheck();
+	//PlayLandingSounds(0);
+	//LandingSoundCheck();
 	myCurrentVelocity.y = 0.0f;
 	myBashAbility->ResetVelocity(false, true);
 	if (!myHasLandedOnSpring)
@@ -554,8 +555,6 @@ void Player::AnimationState()
 	{
 		animation.mySpriteComponent->SetSizeX(mySize.x * myDirectionX);
 	}
-
-	WalkingSoundCheck();
 }
 
 void Player::GrabLedge(const v2f& aLedgeLerpPosition, const v2f& aLedgePosition)
@@ -687,8 +686,6 @@ void Player::Kill()
 
 		Respawn();
 		PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerDeath, 0));
-		AudioManager::GetInstance()->UnLockAudio(AudioList::SpikeDeath);
-		AudioManager::GetInstance()->UnLockAudio(AudioList::SpikeHit);
 		CGameWorld::GetInstance()->GetLevelManager().ReloadScene(LevelManager::eScenes::LevelScene);
 	}
 }
@@ -782,18 +779,48 @@ void Player::SetNextAnimation(const int& aAnimationIndex)
 	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[aAnimationIndex]);
 }
 
-void Player::SetGroundIndex(const int& aGroundType)
+void Player::UnlockLandingSounds()
 {
-	myGroundIndex = aGroundType;
+	AudioManager::GetInstance()->UnLockAudio(AudioList::LandOnGrassEasy);
+	AudioManager::GetInstance()->UnLockAudio(AudioList::LandOnStoneLight);
+	AudioManager::GetInstance()->UnLockAudio(AudioList::LandBricksLight);
+	AudioManager::GetInstance()->UnLockAudio(AudioList::LandWoodLight);
+	AudioManager::GetInstance()->UnLockAudio(AudioList::LandGravelLight);
 }
 
-void Player::WalkingSoundCheck()
+void Player::SetSpawnPosition(const v2f& aSpawnPosition)
+{
+	mySpawnPosition = aSpawnPosition;
+}
+
+void Player::StartGliding() 
+{
+	myIsGliding = true;
+
+	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[11]);
+	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[12]);
+
+	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerHover);
+	AudioManager::GetInstance()->LockAudio(AudioList::PlayerHover);
+}
+
+const bool Player::GetIsGliding()
+{
+	return myIsGliding;
+}
+
+const bool Player::GetHasDied()
+{
+	return myHasDied;
+}
+
+void Player::PlayFootSteps(const int& aPlatformIndex)
 {
 	AnimationComponent* animation = GetComponent<AnimationComponent>();
 	if (myCurrentAnimationIndex == 1)
 	{
 		//If is running
-		switch (myGroundIndex)
+		switch (aPlatformIndex)
 		{
 		case 0: // Grass
 			switch (animation->GetCurrentIndex())
@@ -886,11 +913,11 @@ void Player::WalkingSoundCheck()
 	}
 }
 
-void Player::LandingSoundCheck()
+void Player::PlayLandingSounds(const int& aPlatformIndex)
 {
 	if (myCurrentVelocity.y > 200.0f)
 	{
-		switch (myGroundIndex)
+		switch (aPlatformIndex)
 		{
 		case 0:
 			AudioManager::GetInstance()->PlayAudio(AudioList::LandOnGrassHeavy);
@@ -900,11 +927,23 @@ void Player::LandingSoundCheck()
 			AudioManager::GetInstance()->PlayAudio(AudioList::LandOnStoneHeavy);
 			AudioManager::GetInstance()->LockAudio(AudioList::LandOnStoneLight);
 			break;
+		case 2:
+			AudioManager::GetInstance()->PlayAudio(AudioList::LandBricksHeavy);
+			AudioManager::GetInstance()->LockAudio(AudioList::LandBricksLight);
+			break;
+		case 3:
+			AudioManager::GetInstance()->PlayAudio(AudioList::LandWoodHeavy);
+			AudioManager::GetInstance()->LockAudio(AudioList::LandWoodLight);
+			break;
+		case 4:
+			AudioManager::GetInstance()->PlayAudio(AudioList::LandGravelHeavy);
+			AudioManager::GetInstance()->LockAudio(AudioList::LandGravelLight);
+			break;
 		}
 	}
 	else if (myCurrentVelocity.y != 0)
 	{
-		switch (myGroundIndex)
+		switch (aPlatformIndex)
 		{
 		case 0:
 			AudioManager::GetInstance()->PlayAudio(AudioList::LandOnGrassEasy);
@@ -914,40 +953,20 @@ void Player::LandingSoundCheck()
 			AudioManager::GetInstance()->PlayAudio(AudioList::LandOnStoneLight);
 			AudioManager::GetInstance()->LockAudio(AudioList::LandOnStoneLight);
 			break;
+		case 2:
+			AudioManager::GetInstance()->PlayAudio(AudioList::LandBricksLight);
+			AudioManager::GetInstance()->LockAudio(AudioList::LandBricksLight);
+			break;
+		case 3:
+			AudioManager::GetInstance()->PlayAudio(AudioList::LandWoodLight);
+			AudioManager::GetInstance()->LockAudio(AudioList::LandWoodLight);
+			break;
+		case 4:
+			AudioManager::GetInstance()->PlayAudio(AudioList::LandGravelLight);
+			AudioManager::GetInstance()->LockAudio(AudioList::LandGravelLight);
+			break;
 		}
 	}
-}
-
-void Player::UnlockLandingSounds()
-{
-	AudioManager::GetInstance()->UnLockAudio(AudioList::LandOnGrassEasy);
-	AudioManager::GetInstance()->UnLockAudio(AudioList::LandOnStoneLight);
-}
-
-void Player::SetSpawnPosition(const v2f& aSpawnPosition)
-{
-	mySpawnPosition = aSpawnPosition;
-}
-
-void Player::StartGliding() 
-{
-	myIsGliding = true;
-
-	GetComponent<AnimationComponent>()->SetAnimation(&myAnimations[11]);
-	GetComponent<AnimationComponent>()->SetNextAnimation(&myAnimations[12]);
-
-	AudioManager::GetInstance()->PlayAudio(AudioList::PlayerHover);
-	AudioManager::GetInstance()->LockAudio(AudioList::PlayerHover);
-}
-
-const bool Player::GetIsGliding()
-{
-	return myIsGliding;
-}
-
-const bool Player::GetHasDied()
-{
-	return myHasDied;
 }
 
 #ifdef _DEBUG

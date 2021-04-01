@@ -25,6 +25,7 @@ public:
 	virtual void Update(const float& aDeltaTime) override;
 
 	virtual void OnCollision(GameObject* aGameObject) override;
+	void Landed(const int& aOverlapY) override;
 
 	void ResetVelocity();
 protected:

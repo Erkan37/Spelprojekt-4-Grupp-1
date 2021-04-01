@@ -8,6 +8,7 @@ class Scene;
 class LevelScene;
 
 class TiledLoader;
+class SpeedrunManager;
 
 class GameObject;
 
@@ -51,6 +52,7 @@ public:
 	void LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, GameObject* aPlayer);
 
 	void SetLevelIndex(const int& aLevelIndex);
+	void UsedLevelSelect();
 	void SetIsSpeedrunMode(bool aIsSpeedrunMode);
 
 	void Notify(const Message& aMessage) override;
@@ -60,6 +62,7 @@ public:
 private:
 	std::map<eScenes, Scene*> myScenes;
 	std::shared_ptr<TiledLoader> myTiledLoader;
+	std::shared_ptr<SpeedrunManager> mySpeedrunManager;
 
 	int myLastDoorType;
 
