@@ -85,9 +85,6 @@
     <Filter Include="Scenes\MainMenu\Submenus">
       <UniqueIdentifier>{b1086777-92b6-46dc-96ee-512f47c33f79}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Particles">
-      <UniqueIdentifier>{97fe39b9-38a8-4e29-99c8-8dbf3bebf5c9}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -349,20 +346,8 @@
     <ClInclude Include="Timer.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="EffectSprite.h">
-      <Filter>Core\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleEffect.h">
-      <Filter>Core\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleEffectFactory.h">
-      <Filter>Core\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleEffectTypes.hpp">
-      <Filter>Core\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleStats.hpp">
-      <Filter>Core\Particles</Filter>
+    <ClInclude Include="SpeedrunManager.h">
+      <Filter>Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -592,14 +577,8 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="EffectSprite.cpp">
-      <Filter>Core\Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleEffect.cpp">
-      <Filter>Core\Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleEffectFactory.cpp">
-      <Filter>Core\Particles</Filter>
+    <ClCompile Include="SpeedrunManager.cpp">
+      <Filter>Managers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

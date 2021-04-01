@@ -26,12 +26,14 @@ TileSetLayer::~TileSetLayer()
 	
 }
 
-SpritebatchComponent* TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerProperties, const GenericArray& aLayerData, const int& aWidth, const int& aHeight, const int& aZIndex)
+SpritebatchComponent* TileSetLayer::LoadTileSetLayer(const TileSetLayerProperties& aTileSetLayerProperties, const GenericArray& aLayerData, const int& aWidth, const int& aHeight, const int& aZIndex, const int& aTilesetIndex)
 {
 	SetZIndex(aZIndex);
 
+	const int tilesetIndex = aTilesetIndex;
+
 	myBatch = AddComponent<SpritebatchComponent>();
-	myBatch->SetSpritePath(aTileSetLayerProperties.mySpritePath);
+	myBatch->SetSpritePath(aTileSetLayerProperties.mySpritePath[tilesetIndex]);
 	myBatch->SetSamplerFilter(ESamplerFilter_Point);
 
 	const GenericArray& data = aLayerData;
@@ -51,7 +53,7 @@ SpritebatchComponent* TileSetLayer::LoadTileSetLayer(const TileSetLayerPropertie
 
 		SpriteComponent* sprite = AddComponent<SpriteComponent>();
 
-		sprite->SetSpritePath(aTileSetLayerProperties.mySpritePath);
+		sprite->SetSpritePath(aTileSetLayerProperties.mySpritePath[tilesetIndex]);
 		sprite->SetSize({ aTileSetLayerProperties.mySpriteSizeX, aTileSetLayerProperties.mySpriteSizeY });
 
 		const int realQuad = data[dataIndex].GetInt() - 1;

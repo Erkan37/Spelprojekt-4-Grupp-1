@@ -153,7 +153,7 @@ EnemyData::EnemyData()
 	}
 }
 
-// Assign Methods
+// Assign Method
 void DataManager::AssignValues(const DataEnum anEnum, const rapidjson::Document &aDoc)
 {
 	switch (anEnum)
@@ -256,4 +256,80 @@ void DataManager::ResetBonfires()
 	{
 		mySaveFile["Bonfires"].GetArray()[i]["Bonfire"]["IsActive"].SetBool(false);
 	}
+	ResetCollectibles();
+}
+void DataManager::ResetCollectibles()
+{
+	// Clears Array
+	mySaveFile["Collectibles"].GetArray().Clear();
+
+	// Assigns Value and Pushes Objects.
+	for (size_t i = 0; i < myCollectableInfo.size(); i++)
+	{
+		rapidjson::Document::AllocatorType& allocator = mySaveFile.GetAllocator();
+		rapidjson::Value jsonObject(rapidjson::Type::kObjectType);
+
+		rapidjson::Value collectible(rapidjson::Type::kObjectType);
+		jsonObject.AddMember("Collectible", collectible, allocator);
+
+		rapidjson::Value ID(rapidjson::Type::kNumberType);
+		ID.SetInt(myCollectableInfo[i].myID);
+		jsonObject["Collectible"].AddMember("ID", ID, allocator);
+
+		rapidjson::Value bonfireID(rapidjson::Type::kNumberType);
+		bonfireID.SetInt(myCollectableInfo[i].myBonfireID);
+		jsonObject["Collectible"].AddMember("BonfireID", bonfireID, allocator);
+
+		rapidjson::Value state(rapidjson::Type::kFalseType);
+		jsonObject["Collectible"].AddMember("BeenCollected", state, allocator);
+
+		mySaveFile["Collectibles"].PushBack(jsonObject, allocator);
+	}
+
+	// Accepts Writer.
+	std::string dataPath = "JSON/SaveFile.json";
+	std::ofstream ofs{ dataPath };
+	rapidjson::OStreamWrapper osw{ ofs };
+	rapidjson::Writer<rapidjson::OStreamWrapper> writer{ osw };
+	mySaveFile.Accept(writer);
+}
+
+void DataManager::ParseCollectableInfo(){
+	for (const auto& levelDoc : myLevelVector)
+	{
+		if (levelDoc.IsObject())
+		{
+			for (auto layer = levelDoc["layers"].Begin(); layer != levelDoc["layers"].End(); ++layer)
+			{
+				std::string name = (*layer)["name"].GetString();
+
+				if (name == "Collectables" && (*layer).HasMember("objects"))
+				{
+					for (auto object = (*layer)["objects"].Begin(); object != (*layer)["objects"].End(); ++object)
+					{
+						CollectableInfo info;
+						if ((*object).HasMember("properties"))
+						{
+							for (auto property = (*object)["properties"].Begin(); property != (*object)["properties"].End(); ++property)
+							{
+								if (std::string((*property)["name"].GetString()).compare("BonfireID") == 0)
+								{
+									info.myBonfireID = (*property)["value"].GetInt();
+								}
+								if (std::string((*property)["name"].GetString()).compare("ID") == 0)
+								{
+									info.myID = (*property)["value"].GetInt();
+								}
+							}
+							myCollectableInfo.push_back(info);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+std::vector<CollectableInfo> DataManager::GetCollectableInfo()
+{
+	return myCollectableInfo;
 }

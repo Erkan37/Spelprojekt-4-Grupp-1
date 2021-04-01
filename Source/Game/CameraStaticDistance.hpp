@@ -2,5 +2,7 @@
 
 namespace Distance
 {
-	static float myDistance = {};
+	static float myStartingCameraPos = {};
+	static float myBackgroundDistanceX = {};
+	static float myCloudDistance = {};
 }

@@ -6,6 +6,7 @@
 #include "OptionsMenu.h"
 
 #include "LevelManager.hpp"
+#include "SpeedrunManager.h"
 #include "InputWrapper.h"
 
 #include "CutsceneManager.h"
@@ -25,7 +26,7 @@ void MainMenuScene::Load()
 	myButtons.clear();
 	myMovingIndex = {};
 
-	CGameWorld::GetInstance()->GetLevelManager().SetIsSpeedrunMode(false);
+	CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->SetIsSpeedrun(false);
 	myInput = CGameWorld::GetInstance()->Input();
 	AudioManager::GetInstance()->PlayAudio(AudioList::MenuAmbience);
 
@@ -170,6 +171,7 @@ void MainMenuScene::CheckButtonsPress()
 		}
 		else if (myMovingIndex == static_cast<int>(eMainMenuButton::SpeedrunMode))
 		{
+			CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->SetIsSpeedrun(true);
 			CGameWorld::GetInstance()->GetLevelManager().SetLevelIndex(0);
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
 

@@ -1,4 +1,11 @@
-{ "compressionlevel":-1,
+{
+ "properties":[
+        {
+         "name":"Area",
+         "type":"int",
+         "value":0
+        }],
+ "compressionlevel":-1,
  "editorsettings":
     {
      "export":
@@ -115,12 +122,12 @@
                         {
                          "name":"Material",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
-                 "width":352,
+                 "width":301,
                  "x":-8,
                  "y":168
                 }, 
@@ -137,7 +144,7 @@
                  "rotation":0,
                  "type":"0",
                  "visible":true,
-                 "width":192,
+                 "width":64,
                  "x":56,
                  "y":160
                 }, 
@@ -149,7 +156,7 @@
                         {
                          "name":"Material",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"0",
@@ -244,21 +251,38 @@
                  "y":48
                 }, 
                 {
-                 "height":16,
-                 "id":130,
+                 "height":8,
+                 "id":133,
                  "name":"",
                  "properties":[
                         {
                          "name":"Material",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
-                 "width":32,
-                 "x":0,
-                 "y":32
+                 "width":128,
+                 "x":120,
+                 "y":160
+                }, 
+                {
+                 "height":16,
+                 "id":134,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":51,
+                 "x":293,
+                 "y":168
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -374,7 +398,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":133,
+ "nextobjectid":135,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

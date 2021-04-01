@@ -19,6 +19,7 @@ public:
     LevelScene();
 
     void Load() override;
+    void Unload() override;
 
     void Activate() override;
     void Deactivate() override;
