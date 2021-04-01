@@ -1,4 +1,11 @@
-{ "compressionlevel":-1,
+{
+ "properties":[
+        {
+         "name":"Area",
+         "type":"int",
+         "value":0
+        }],
+ "compressionlevel":-1,
  "editorsettings":
     {
      "export":

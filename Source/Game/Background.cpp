@@ -6,11 +6,14 @@
 #include "Player.hpp"
 #include "AudioManager.h"
 #include "rapidjson/istreamwrapper.h"
+#include "CameraStaticDistance.hpp"
+
+#include <iostream>
 
 #include "Game.h"
 
 
-Background::Background(Scene* aLevelScene) 
+Background::Background(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene)
 {
@@ -25,83 +28,76 @@ Background::Background(Scene* aLevelScene)
 	myBackgroundSpeedThreeY = {};
 	myAddedCameraPos = {};
 	myCloudSpeed = {};
-	myCloudDistance = {};
+	myTotalCameraDistanceX = {};
+	myStartingPlayerPos = {};
+
+
+	myAddedCameraPosX = {};
+
+
+	myStartingCameraX = -1;
+
+	myCloudDistance = &Distance::myCloudDistance;
+	myBackgroundDistanceX = &Distance::myBackgroundDistanceX;
+	myStartingCameraPos.x = -1;
+	myStartingCameraPos.y = -1;
 
 	assert(&aLevelScene->GetCamera() != NULL);
+	LevelScene* levelScene = dynamic_cast<LevelScene*>(aLevelScene);
+	myPlayer = dynamic_cast<Player*>(levelScene->GetPlayer());
 	myCamera = &aLevelScene->GetCamera();
 	LoadJson(aLevelScene);
-		
+
 }
 
-void Background::Init(int /*someLevelIndex*/)
+Background::~Background()
 {
+	float currentPlayerPos = myPlayer->GetPositionX();
+	float calculatedPlayerPos = currentPlayerPos - myStartingPlayerPos;
+
+	if (calculatedPlayerPos > (myCamera->GetBoundSize().x / 2.f) && myTotalCameraDistanceX != 0)
+	{
+		Distance::myBackgroundDistanceX += myTotalCameraDistanceX;
+	}
+	else if (calculatedPlayerPos < -(myCamera->GetBoundSize().x / 2.f) && myTotalCameraDistanceX != 0)
+	{
+		Distance::myBackgroundDistanceX -= myTotalCameraDistanceX;
+	}
+
 }
+
 
 void Background::Update(const float& aDeltaTime)
 {
+	AddStartingCameraPos();
 	UpdateBackground(aDeltaTime);
 }
 
-void Background::UpdateBackground(const float& aDeltaTime)
+const void Background::UpdateBackground(const float& aDeltaTime)
 {
 	if (myCamera->GetActive() && myAddedCameraPos == false)
 	{
-		myStartingCameraPos = { 0.f, myCamera->GetPosition().y };
-		myAddedCameraPos = true;
+		if (myStartingCameraPos.y == myCamera->GetPositionY())
+		{
+			myStartingPlayerPos = myPlayer->GetPositionX();
+			myAddedCameraPos = true;
+		}
+
+		myStartingCameraPos = { *myBackgroundDistanceX, myCamera->GetPositionY() };
 	}
 
 	MoveBackground(aDeltaTime);
 }
 
-void Background::ResizeBackground()
-{
-	myCurrentRenderSize.x = myBackgroundSprite1->GetSizeX();
-	myCurrentRenderSize.y = Config::ourReferenceSize.y;
 
-	myBackground->SetPosition({ myCurrentRenderSize.x / 2.f, myCurrentRenderSize.y / 2.f });
+const void Background::MoveBackground(const float& aDeltaTime)
+{
+	CalculateCameraPositions(aDeltaTime);
+
+	myTotalCameraDistanceX = Distance::myStartingCameraPos + myCamera->GetPositionX();
 }
 
-void Background::MoveBackground(const float& aDeltaTime)
-{
-	v2f backgroundSpeedOne;
-	backgroundSpeedOne = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedOneX,
-						   (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedOneY };
-
-	v2f backgroundSpeedThree;
-	backgroundSpeedThree = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedThreeX,
-						   (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedThreeY };
-
-	v2f backgroundSpeedFour;
-	backgroundSpeedFour = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedFourX,
-						   (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedFourY };
-
-	v2f backgroundSpeedFive;
-	backgroundSpeedFive = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedFiveX,
-						   (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedFiveY };
-
-	v2f backgroundSpeedSix;
-	backgroundSpeedSix = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedSixX,
-						  (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedSixY };
-
-
-	myBackgroundSprite1->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedOne + myOffsetBackground1);
-	myBackgroundSprite3->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedThree + myOffsetBackground3);
-	myBackgroundSprite4->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedFour + myOffsetBackground4);
-	myBackgroundSprite5->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedFive + myOffsetBackground5);
-	myBackgroundSprite6->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedSix + myOffsetBackground6);
-
-	myCloudDistance = myCloudDistance + (aDeltaTime * myCloudSpeed);
-
-	v2f backgroundSpeedTwo;
-	backgroundSpeedTwo = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedTwoX,
-						   (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedTwoX };
-
-	backgroundSpeedTwo.x = backgroundSpeedTwo.x + myCloudDistance;
-
-	myBackgroundSprite2->SetRelativePosition(myCamera->GetPosition() + backgroundSpeedTwo + myOffsetBackground2);
-}
-
-void Background::LoadJson(Scene* aLevelScene)
+const void Background::LoadJson(Scene* aLevelScene)
 {
 	myOriginalSpeed = 0.2f;
 
@@ -112,14 +108,14 @@ void Background::LoadJson(Scene* aLevelScene)
 	backgroundDocuments.ParseStream(backgroundObjectStream);
 
 
-	std::ifstream backgroundPathObjectsFile(backgroundDocuments["BackgroundArray"][1]["FilePath"].GetString());
+	std::ifstream backgroundPathObjectsFile(backgroundDocuments["BackgroundArray"][0]["FilePath"].GetString());
 	rapidjson::IStreamWrapper backgroundPathObjectStream(backgroundPathObjectsFile);
 
 	rapidjson::Document backgroundPathDocuments;
 	backgroundPathDocuments.ParseStream(backgroundPathObjectStream);
 
 	LoadBackgrounds(aLevelScene, backgroundPathDocuments);
-	
+
 	myBackgroundSpeedOneX = backgroundDocuments["SpeedVariables"][0]["SpeedOneX"].GetFloat();
 	myBackgroundSpeedOneY = backgroundDocuments["SpeedVariables"][0]["SpeedOneY"].GetFloat();
 
@@ -144,10 +140,8 @@ void Background::LoadJson(Scene* aLevelScene)
 	backgroundObjectFile.close();
 }
 
-void Background::LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDocuments)
+const void Background::LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDocuments)
 {
-	myBackground = std::make_unique<GameObject>(aLevelScene);
-
 	int backgroundSizeArray = someDocuments["BackgroundPaths"].Size();
 
 	for (int i = 0; i < backgroundSizeArray; i++)
@@ -155,57 +149,140 @@ void Background::LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDo
 		v2f offset = { someDocuments["OffSets"][i]["PositionX"].GetFloat() , someDocuments["OffSets"][i]["PositionY"].GetFloat() };
 		CreateBackgrounds(aLevelScene, someDocuments["BackgroundPaths"][i]["FilePath"].GetString(), i, offset);
 	}
-
-	myBackground->Init();
-	ResizeBackground();
 }
 
-void Background::CreateBackgrounds(Scene* aLevelScene, const std::string aPath, const int aIndex, const v2f anOffset)
+const void Background::CreateBackgrounds(Scene* aLevelScene, const std::string aPath, const int aIndex, const v2f anOffset)
 {
 	switch (aIndex)
 	{
 	case 0:
-		myBackgroundSprite1 = myBackground->AddComponent<SpriteComponent>();
-		myBackgroundSprite1->SetSpritePath(aPath);
+	{
+		myBackgroundSprite1 = new GameObject(aLevelScene);
+		SpriteComponent* sprite = myBackgroundSprite1->AddComponent<SpriteComponent>();
+		sprite->SetSpritePath(aPath);
 		myBackgroundSprite1->SetZIndex(1);
 		myOffsetBackground1 = anOffset;
 		break;
+	}
+
 	case 1:
-		myBackgroundSprite2 = myBackground->AddComponent<SpriteComponent>();
-		myBackgroundSprite2->SetSpritePath(aPath);
+	{
+		myBackgroundSprite2 = new GameObject(aLevelScene);
+		SpriteComponent* sprite = myBackgroundSprite2->AddComponent<SpriteComponent>();
+		sprite->SetSpritePath(aPath);
 		myBackgroundSprite2->SetZIndex(2);
 		myOffsetBackground2 = anOffset;
 		break;
+	}
+
 	case 2:
-		myBackgroundSprite3 = myBackground->AddComponent<SpriteComponent>();
-		myBackgroundSprite3->SetSpritePath(aPath);
+	{
+		myBackgroundSprite3 = new GameObject(aLevelScene);
+		SpriteComponent* sprite = myBackgroundSprite3->AddComponent<SpriteComponent>();
+   		sprite->SetSpritePath(aPath);
 		myBackgroundSprite3->SetZIndex(3);
 		myOffsetBackground3 = anOffset;
 		break;
+	}
+
 	case 3:
-		myBackgroundSprite4 = myBackground->AddComponent<SpriteComponent>();
-		myBackgroundSprite4->SetSpritePath(aPath);
+	{
+		myBackgroundSprite4 = new GameObject(aLevelScene);
+		SpriteComponent* sprite = myBackgroundSprite4->AddComponent<SpriteComponent>();
+		sprite->SetSpritePath(aPath);
 		myBackgroundSprite4->SetZIndex(4);
 		myOffsetBackground4 = anOffset;
 		break;
+	}
+
 	case 4:
-		myBackgroundSprite5 = myBackground->AddComponent<SpriteComponent>();
-		myBackgroundSprite5->SetSpritePath(aPath);
+	{
+		myBackgroundSprite5 = new GameObject(aLevelScene);
+		SpriteComponent* sprite = myBackgroundSprite5->AddComponent<SpriteComponent>();
+		sprite->SetSpritePath(aPath);
 		myBackgroundSprite5->SetZIndex(5);
 		myOffsetBackground5 = anOffset;
 		break;
+	}
+
 	case 5:
-		myBackgroundSprite6 = myBackground->AddComponent<SpriteComponent>();
-		myBackgroundSprite6->SetSpritePath(aPath);
+	{
+		myBackgroundSprite6 = new GameObject(aLevelScene);
+		SpriteComponent* sprite = myBackgroundSprite6->AddComponent<SpriteComponent>();
+		sprite->SetSpritePath(aPath);
 		myBackgroundSprite6->SetZIndex(6);
 		myOffsetBackground6 = anOffset;
 		break;
+	}
+
 	default:
+	{
 		break;
 	}
-	
+	}
+
 }
 
-void Background::SetSpeedVariables(const std::string aPath)
+
+const void Background::AddStartingCameraPos()
 {
+	if (myStartingCameraX != myCamera->GetPosition().x && myAddedCameraPosX == false)
+	{
+		myStartingCameraX = myCamera->GetPosition().x;
+	}
+	else
+	{
+		myAddedCameraPosX = true;
+	}
+
+}
+
+const void Background::CalculateCameraPositions(const float& aDeltaTime)
+{
+	v2f cameraPos = myCamera->GetPosition();
+	cameraPos.x = cameraPos.x - myStartingCameraX + myStartingCameraPos.x;
+
+	v2f backgroundSpeedOne;
+	backgroundSpeedOne = { -(cameraPos.x) * myBackgroundSpeedOneX,
+						   (myCamera->GetPosition().y) * myBackgroundSpeedOneY };
+
+	v2f backgroundSpeedThree;
+	backgroundSpeedThree = { -(cameraPos.x) * myBackgroundSpeedThreeX,
+							 -(myCamera->GetPosition().y) * myBackgroundSpeedThreeY };
+
+	v2f backgroundSpeedFour;
+	backgroundSpeedFour = { -(cameraPos.x) * myBackgroundSpeedFourX,
+							-(myCamera->GetPosition().y) * myBackgroundSpeedFourY };
+
+	v2f backgroundSpeedFive;
+	backgroundSpeedFive = { -(cameraPos.x) * myBackgroundSpeedFiveX,
+						   -(myCamera->GetPosition().y) * myBackgroundSpeedFiveY };
+
+	v2f backgroundSpeedSix;
+	backgroundSpeedSix = { -(cameraPos.x) * myBackgroundSpeedSixX,
+						  -(myCamera->GetPosition().y) * myBackgroundSpeedSixY };
+
+
+	myBackgroundSprite1->SetPosition(myCamera->GetPosition() + backgroundSpeedOne + GetHalfImageSize(myBackgroundSprite1) + myOffsetBackground1);
+	myBackgroundSprite3->SetPosition(myCamera->GetPosition() + backgroundSpeedThree + GetHalfImageSize(myBackgroundSprite3) + myOffsetBackground3);
+	myBackgroundSprite4->SetPosition(myCamera->GetPosition() + backgroundSpeedFour + GetHalfImageSize(myBackgroundSprite4) + myOffsetBackground4);
+	myBackgroundSprite5->SetPosition(myCamera->GetPosition() + backgroundSpeedFive + GetHalfImageSize(myBackgroundSprite5) + myOffsetBackground5);
+	myBackgroundSprite6->SetPosition(myCamera->GetPosition() + backgroundSpeedSix + GetHalfImageSize(myBackgroundSprite6) + myOffsetBackground6);
+
+
+	*myCloudDistance = *myCloudDistance + (aDeltaTime * myCloudSpeed);
+
+	v2f backgroundSpeedTwo = { *myCloudDistance, 0.f };
+
+	myBackgroundSprite2->SetPosition(myCamera->GetPosition() + backgroundSpeedTwo + GetHalfImageSize(myBackgroundSprite2) + myOffsetBackground2);
+}
+
+
+const v2f Background::GetHalfImageSize(GameObject* aSprite)
+{
+	assert(aSprite->GetComponent<SpriteComponent>() != NULL);
+
+	v2f spriteSize = aSprite->GetComponent<SpriteComponent>()->GetImageSize() / 2.f;
+
+	return spriteSize;
 }
