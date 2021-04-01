@@ -79,7 +79,7 @@
          "name":"HR",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":60,
          "x":0,
          "y":0
@@ -627,6 +627,17 @@
                  "width":24,
                  "x":280,
                  "y":24
+                }, 
+                {
+                 "height":1,
+                 "id":746,
+                 "name":"",
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":382,
+                 "x":65,
+                 "y":239
                 }],
          "opacity":1,
          "properties":[
@@ -888,7 +899,7 @@
          "y":0
         }],
  "nextlayerid":18,
- "nextobjectid":746,
+ "nextobjectid":747,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
