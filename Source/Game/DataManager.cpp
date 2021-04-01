@@ -153,7 +153,7 @@ EnemyData::EnemyData()
 	}
 }
 
-// Assign Methods
+// Assign Method
 void DataManager::AssignValues(const DataEnum anEnum, const rapidjson::Document &aDoc)
 {
 	switch (anEnum)
@@ -256,14 +256,45 @@ void DataManager::ResetBonfires()
 	{
 		mySaveFile["Bonfires"].GetArray()[i]["Bonfire"]["IsActive"].SetBool(false);
 	}
+	ResetCollectibles();
 }
 void DataManager::ResetCollectibles()
 {
-	//mySaveFile["Collectibles"].GetArray().PushBack(rapidjson::GenericObject);
+	// Clears Array
+	mySaveFile["Collectibles"].GetArray().Clear();
+
+	// Assigns Value and Pushes Objects.
+	for (size_t i = 0; i < myCollectableInfo.size(); i++)
+	{
+		rapidjson::Document::AllocatorType& allocator = mySaveFile.GetAllocator();
+		rapidjson::Value jsonObject(rapidjson::Type::kObjectType);
+
+		rapidjson::Value collectible(rapidjson::Type::kObjectType);
+		jsonObject.AddMember("Collectible", collectible, allocator);
+
+		rapidjson::Value ID(rapidjson::Type::kNumberType);
+		ID.SetInt(myCollectableInfo[i].myID);
+		jsonObject["Collectible"].AddMember("ID", ID, allocator);
+
+		rapidjson::Value bonfireID(rapidjson::Type::kNumberType);
+		bonfireID.SetInt(myCollectableInfo[i].myBonfireID);
+		jsonObject["Collectible"].AddMember("BonfireID", bonfireID, allocator);
+
+		rapidjson::Value state(rapidjson::Type::kFalseType);
+		jsonObject["Collectible"].AddMember("BeenCollected", state, allocator);
+
+		mySaveFile["Collectibles"].PushBack(jsonObject, allocator);
+	}
+
+	// Accepts Writer.
+	std::string dataPath = "JSON/SaveFile.json";
+	std::ofstream ofs{ dataPath };
+	rapidjson::OStreamWrapper osw{ ofs };
+	rapidjson::Writer<rapidjson::OStreamWrapper> writer{ osw };
+	mySaveFile.Accept(writer);
 }
 
-void DataManager::ParseCollectableInfo()
-{
+void DataManager::ParseCollectableInfo(){
 	for (const auto& levelDoc : myLevelVector)
 	{
 		if (levelDoc.IsObject())
@@ -298,7 +329,6 @@ void DataManager::ParseCollectableInfo()
 		}
 	}
 }
-
 std::vector<CollectableInfo> DataManager::GetCollectableInfo()
 {
 	return myCollectableInfo;
