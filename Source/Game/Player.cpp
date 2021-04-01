@@ -645,12 +645,14 @@ void Player::ActivateSpringForce(float aSpringVelocity, const float aRetardation
 	myHasLanded = false;
 	myActiveSpringJump = true;
 	myHasLandedOnSpring = true;
-	myBashAbility->ResetVelocity(false, true);
 	mySpringVelocity.y = aSpringVelocity;
 	mySpringVelocityRetardation = aRetardation;
 
 	if (aShouldResetVelocity)
+	{
 		myCurrentVelocity.y = {};
+		myBashAbility->ResetVelocity(false, true);
+	}
 }
 void Player::BounceOnDestructibleWall()
 {
