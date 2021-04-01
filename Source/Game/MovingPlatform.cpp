@@ -104,7 +104,7 @@ void MovingPlatform::OnCollision(GameObject* aGameObject)
 	{
 		v2f velo = myWaypointComponent->GetVelocity();
 
-		player->SetGroundIndex(myMaterial);
+		player->PlayFootSteps(myMaterial);
 		player->SetPlatformVelocity(velo);
 
 		float insensitivity = CGameWorld::GetInstance()->GetTimer()->GetDeltaTime() * velo.y;

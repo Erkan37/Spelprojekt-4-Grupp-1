@@ -77,5 +77,5 @@ void EnemyProjectile::InitVisuals()
 	AnimationComponent* animation = AddComponent<AnimationComponent>();
 	animation->SetSprite(spriteIdle);
 	animation->SetAnimation(&myAnimation);
-	spriteIdle->SetSize(v2f(16.0f, 16.0f));
+	spriteIdle->SetSize(v2f(8.0f, 8.0f));
 }
