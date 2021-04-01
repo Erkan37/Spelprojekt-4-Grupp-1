@@ -9,6 +9,7 @@
 #include "Game.h"
 #include "rapidjson/istreamwrapper.h"
 #include "AudioManager.h"
+#include <iostream>
 
 SpringObject::SpringObject(Scene* aLevelScene) : GameObject(aLevelScene)
 {
@@ -51,13 +52,17 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 	{
 		v2f velo = player->GetComponent<PhysicsComponent>()->GetVelocity();
 
-		if (/*velo.y > 50.f &&*/ myTimer > mySpringTimerCooldown)
+		if (myTimer > mySpringTimerCooldown)
 		{
+			if (velo.y < 0.f)
+				player->ActivateSpringForce(-myVelocityForce, myRetardation, false);
+			else
+				player->ActivateSpringForce(-myVelocityForce, myRetardation, true);
+
 			AudioManager::GetInstance()->PlayAudio(AudioList::PlayerJumpPad);
 			mySpringActive = true;
 			myTimer = {};
 			GetComponent<AnimationComponent>()->SetAnimation(&myAnimation);
-			player->ActivateSpringForce(-myVelocityForce, myRetardation);
 		}
 	}
 }

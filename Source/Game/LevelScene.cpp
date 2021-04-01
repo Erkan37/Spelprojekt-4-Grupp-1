@@ -13,6 +13,7 @@
 #include "HiddenArea.hpp"
 
 #include "LevelManager.hpp"
+#include "SpeedrunManager.h"
 
 #include "Game.h"
 
@@ -32,7 +33,7 @@ LevelScene::LevelScene()
 
 void LevelScene::Load()
 {
-	myIsSpeedrun = CGameWorld::GetInstance()->GetLevelManager().GetIsSpeedrunMode();
+	myIsSpeedrun = CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->GetIsSpeedrun();
 	myBlackScreenOpacity = 1.0f;
 	myBlackScreenOpacitySpeed = 4.3f;
 
@@ -50,14 +51,25 @@ void LevelScene::Load()
 	myPauseMenu = new PauseMenu(this);
 	myPauseMenu->InitMenu();
 
-	if (CGameWorld::GetInstance()->GetLevelManager().GetIsSpeedrunMode())
+	if (myIsSpeedrun)
 	{
 		myTimer = new Timer(this);
 		myTimer->Init({ 10, 10 });
-		myTimer->Start();
+		myTimer->Start(CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->GetScore());
 	}
 
 	Scene::Load();
+}
+
+void LevelScene::Unload()
+{
+	if (CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->GetIsSpeedrun())
+	{
+		CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->SetScore(myTimer->GetTime());
+		myTimer->Stop();
+	}
+
+	Scene::Unload();
 }
 
 void LevelScene::Activate()

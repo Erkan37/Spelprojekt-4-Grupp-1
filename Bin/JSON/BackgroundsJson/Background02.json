@@ -18,7 +18,7 @@
     {
       "FilePath": "Sprites/LevelSprites/BG02/BackgroundForestBg21.dds"
     }
-    
+
   ],
   "OffSets": [
     {
@@ -27,23 +27,23 @@
     },
     {
       "PositionX": 0.0,
-      "PositionY": -20.0
+      "PositionY": -45.0
     },
     {
       "PositionX": 0.0,
-      "PositionY": 20.0
+      "PositionY": -10.0
     },
     {
       "PositionX": 0.0,
-      "PositionY": 30.0
+      "PositionY": 55.0
     },
     {
       "PositionX": 0.0,
-      "PositionY": 35.0
+      "PositionY": 55.0
     },
     {
       "PositionX": 0.0,
-      "PositionY": 50.0
+      "PositionY": 0.0
     }
   ]
 }

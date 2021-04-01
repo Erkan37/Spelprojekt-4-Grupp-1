@@ -2,23 +2,19 @@
   "FilePathArray": [
     {
       "Id": 0,
-      "FilePath": "Levels/Level_36.json"
-    },
-    {
-      "Id": 0,
-      "FilePath": "Levels/Level_37.json"
-    },
-    {
-      "Id": 0,
-      "FilePath": "Levels/Level_39.json"
-    },
-    {
-      "Id": 0,
-      "FilePath": "Levels/Level_27.json"
-    },
-    {
-      "Id": 0,
       "FilePath": "Levels/Level_20.json"
+    },
+    {
+      "Id": 0,
+      "FilePath": "Levels/Level_21.json"
+    },
+    {
+      "Id": 0,
+      "FilePath": "Levels/Level_00.json"
+    },
+    {
+      "Id": 0,
+      "FilePath": "Levels/Level_01.json"
     },
     {
       "Id": 0,
@@ -26,11 +22,11 @@
     },
     {
       "Id": 0,
-      "FilePath": "Levels/Level_26.json"
+      "FilePath": "Levels/Level_36.json"
     },
     {
       "Id": 0,
-      "FilePath": "Levels/Level_28.json"
+      "FilePath": "Levels/Level_00.json"
     },
     {
       "Id": 1,

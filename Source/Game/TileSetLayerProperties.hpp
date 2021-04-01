@@ -3,7 +3,7 @@ struct TileSetLayerProperties
 {
     TileSetLayerProperties();
 
-    std::string mySpritePath;
+    std::string mySpritePath[3];
 
     int myQuadLengthX;
     int myQuadLengthY;

@@ -33,6 +33,13 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer, cons
 	std::vector<LoadData> loadData;
 	std::vector<HiddenArea*> hiddenRoomsData;
 
+	int area = 0;
+
+	if (levelDoc.HasMember("properties"))
+	{
+		area = levelDoc["properties"][0]["value"].GetInt();
+	}
+
 	aScene->GetCamera().SetBounds(v2f(), v2f(levelDoc["width"].GetInt() * 8, levelDoc["height"].GetInt() * 8));
 
 	if (levelDoc.IsObject())
@@ -183,7 +190,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer, cons
 				}
 
 				TileSetLayer* tileSet = new TileSetLayer(aScene);
-				SpritebatchComponent* batch = tileSet->LoadTileSetLayer(myTileSetLayerProperties, (*layer)["data"].GetArray(), (*layer)["width"].GetInt(), (*layer)["height"].GetInt(), z);
+				SpritebatchComponent* batch = tileSet->LoadTileSetLayer(myTileSetLayerProperties, (*layer)["data"].GetArray(), (*layer)["width"].GetInt(), (*layer)["height"].GetInt(), z, area);
 
 				if (layerName == "HR")
 				{
