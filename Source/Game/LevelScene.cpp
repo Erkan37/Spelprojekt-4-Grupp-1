@@ -63,8 +63,12 @@ void LevelScene::Load()
 
 void LevelScene::Unload()
 {
-	CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->SetScore(myTimer->GetTime());
-	myTimer->Stop();
+	if (CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->GetIsSpeedrun())
+	{
+		CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->SetScore(myTimer->GetTime());
+		myTimer->Stop();
+	}
+
 	Scene::Unload();
 }
 
