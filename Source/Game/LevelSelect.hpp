@@ -25,6 +25,8 @@ private:
 	void InitCollectibles();
 	void InitTexts();
 
+	void UpdateLevelCollectibles();
+
 	std::vector<UIObject*> myAreaTexts;
 	std::vector<UIText*> myLevelCollectibles;
 	std::vector<UIButton*> myLevelButtons;
