@@ -202,9 +202,10 @@ void InputWrapper::CalculateMouseAxis()
 	const float deadZone = 0.005f * CGameWorld::GetInstance()->GetTimer()->GetDeltaTime();
 	CGameWorld::GetInstance()->GetTimer()->SetTimeScale(timeScale);
 
-	if(mouseDistance.LengthSqr() >= deadZone * deadZone)
-
-	myNormalizedDirection = mouseDistance.GetNormalized();
+	if (mouseDistance.LengthSqr() >= deadZone * deadZone)
+	{
+		myNormalizedDirection = mouseDistance.GetNormalized();
+	}
 
 	myNewMousePosition = {};
 }
