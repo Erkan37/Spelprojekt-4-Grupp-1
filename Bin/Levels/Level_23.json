@@ -115,7 +115,7 @@
                         {
                          "name":"Material",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"0",
@@ -128,6 +128,12 @@
                  "height":12,
                  "id":274,
                  "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
                  "rotation":0,
                  "type":"4",
                  "visible":true,
@@ -143,7 +149,7 @@
                         {
                          "name":"Material",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"0",
@@ -160,7 +166,7 @@
                         {
                          "name":"Material",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"0",
@@ -177,7 +183,7 @@
                         {
                          "name":"Material",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"0",
@@ -194,7 +200,7 @@
                         {
                          "name":"Material",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"0",
@@ -484,6 +490,12 @@
  "nextlayerid":19,
  "nextobjectid":385,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"Area",
+         "type":"int",
+         "value":0
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
  "tileheight":8,
