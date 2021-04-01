@@ -122,6 +122,7 @@ void LevelSelect::CheckButtonPress()
 			}
 
 			ShowArea(myAreaIndexes[myLevelIndex]);
+			UpdateLevelCollectibles();
 		}
 	}
 	
@@ -183,6 +184,8 @@ void LevelSelect::InitiateButtons()
 
 	myAreaIndexes.clear();
 	myLevelIndexes.clear();
+
+	myLevelCollectibles.clear();
 
 	myAreaTexts.push_back(new UIObject(this));
 	myAreaTexts.push_back(new UIObject(this));
@@ -330,7 +333,7 @@ void LevelSelect::InitTexts()
 	myLevelCollectibles.push_back(new UIText(this));
 	myLevelCollectibles.push_back(new UIText(this));
 
-	myLevelCollectibles[0]->Init("Level ?", "Text/Peepo.ttf", EFontSize_48);
+	myLevelCollectibles[0]->Init("Area 1", "Text/Peepo.ttf", EFontSize_48);
 	myLevelCollectibles[0]->SetPosition(v2f(16.0f, 46.0f));
 	myLevelCollectibles[0]->GetComponent<TextComponent>()->SetColor(Tga2D::CColor(0.0f, 0.5f, 1.0f, 1.0f));
 
@@ -345,4 +348,9 @@ void LevelSelect::InitTexts()
 	myLevelCollectibles[3]->Init("00/00", "Text/Peepo.ttf", EFontSize_48);
 	myLevelCollectibles[3]->SetPosition(v2f(264.0f, 46.0f));
 	myLevelCollectibles[3]->GetComponent<TextComponent>()->SetColor(Tga2D::CColor(0.0f, 0.5f, 1.0f, 1.0f));
+}
+
+void LevelSelect::UpdateLevelCollectibles()
+{
+	myLevelCollectibles[0]->GetComponent<TextComponent>()->SetText("Area " + std::to_string(myLevelIndex + 1));
 }
