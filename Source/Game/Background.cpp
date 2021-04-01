@@ -8,8 +8,6 @@
 #include "rapidjson/istreamwrapper.h"
 #include "CameraStaticDistance.hpp"
 
-#include <iostream>
-
 #include "Game.h"
 
 
