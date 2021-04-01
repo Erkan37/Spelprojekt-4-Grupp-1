@@ -13,12 +13,11 @@ public:
 	Background(Scene* aLevelScene);
 	~Background();
 
-	void Init(int someLevelIndex);
-
 	void Update(const float& aDeltaTime) override;
 
 private:
 	Camera* myCamera;
+	Player* myPlayer;
 
 	GameObject* myBackgroundSprite1;
 	GameObject* myBackgroundSprite2;
@@ -40,7 +39,7 @@ private:
 	float myOriginalSpeed;
 	float myCloudSpeed;
 
-	float myTotalDistanceX;
+	float myTotalCameraDistanceX;
 
 	float* myCloudDistance;
 	float* myBackgroundDistanceX;
@@ -59,6 +58,11 @@ private:
 	float myBackgroundSpeedFiveY;
 	float myBackgroundSpeedSixY;
 
+	float myStartingPlayerPos;
+
+	float myStartingCameraX;
+
+	bool myAddedCameraPosX;
 	bool myAddedCameraPos;
 
 	const void UpdateBackground(const float& aDeltaTime);
@@ -66,7 +70,9 @@ private:
 	const void LoadJson(Scene* aLevelScene);
 	const void LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDocuments);
 	const void CreateBackgrounds(Scene* aLevelScene, const std::string aPath, const int aIndex, const v2f anOffset);
-	const void SetSpeedVariables(const std::string aPath);
+	const void AddStartingCameraPos();
+	const void CalculateCameraPositions(const float& aDeltaTime);
+	
 	const v2f GetHalfImageSize(GameObject* aSprite);
 
 };
