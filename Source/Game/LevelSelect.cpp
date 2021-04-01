@@ -115,6 +115,8 @@ void LevelSelect::CheckButtonPress()
 				}
 				myLevelButtons[myLevelIndex]->SetIsHighlightActive(true);
 			}
+
+			ShowArea(myAreaIndexes[myLevelIndex]);
 		}
 	}
 	
@@ -171,8 +173,27 @@ void LevelSelect::CheckButtonPress()
 
 void LevelSelect::InitiateButtons()
 {
+	myAreaTexts.clear();
 	myLevelButtons.clear();
+
+	myAreaIndexes.clear();
 	myLevelIndexes.clear();
+
+	myAreaTexts.push_back(new UIObject(this));
+	myAreaTexts.push_back(new UIObject(this));
+	myAreaTexts.push_back(new UIObject(this));
+
+	myAreaTexts[0]->Init("Sprites/UI/levelSelect/UI_levelSelect_Title_TheForest_111x16px.dds", v2f(111.0f, 16.0f), v2f(16.0f, 16.0f), 201);
+	myAreaTexts[0]->SetPosition(v2f(16.0f, 16.0f));
+	myAreaTexts[0]->SetActive(true);
+
+	myAreaTexts[1]->Init("Sprites/UI/levelSelect/UI_levelSelect_Title_TheVillage_117x20px.dds", v2f(111.0f, 32.0f), v2f(16.0f, 16.0f), 201);
+	myAreaTexts[1]->SetPosition(v2f(16.0f, 16.0f));
+	myAreaTexts[1]->SetActive(false);
+
+	myAreaTexts[2]->Init("Sprites/UI/levelSelect/UI_levelSelect_Title_TheCastle_106x16px.dds", v2f(111.0f, 16.0f), v2f(16.0f, 16.0f), 201);
+	myAreaTexts[2]->SetPosition(v2f(16.0f, 16.0f));
+	myAreaTexts[2]->SetActive(false);
 
 	myBackButton = new UIButton(this);
 	myBackButton->Init("Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Unmarked_64x16px.dds", v2f(64.0f, 16.0f), v2f(248.0f, 156.0f), "Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Marked_64x16px.dds", 64);
@@ -206,6 +227,7 @@ void LevelSelect::InitiateButtons()
 			levelButton->SetHighlightOffset(v2f(-7.0f, -8.0f));
 			myLevelButtons.push_back(levelButton);
 
+			myAreaIndexes.push_back((*iterator)["Area"].GetInt());
 			myLevelIndexes.push_back((*iterator)["LevelIndex"].GetInt());
 		}
 
@@ -222,4 +244,13 @@ void LevelSelect::InitiateButtons()
 		myBackButtonFire->SetActive(true);
 		myIsSelectingLevel = false;
 	}
+}
+
+void LevelSelect::ShowArea(const int& aIndex)
+{
+	myAreaTexts[0]->SetActive(false);
+	myAreaTexts[1]->SetActive(false);
+	myAreaTexts[2]->SetActive(false);
+
+	myAreaTexts[aIndex]->SetActive(true);
 }

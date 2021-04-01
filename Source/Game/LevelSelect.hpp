@@ -19,7 +19,11 @@ private:
 	void CheckButtonPress();
 	void InitiateButtons();
 
+	void ShowArea(const int& aIndex);
+
+	std::vector<UIObject*> myAreaTexts;
 	std::vector<UIButton*> myLevelButtons;
+	std::vector<int> myAreaIndexes;
 	std::vector<int> myLevelIndexes;
 
 	UIButton* myBackButton;
