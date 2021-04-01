@@ -22,7 +22,7 @@ public:
 private:
 	Camera* myCamera;
 
-	//v2f myPosition;
+	v2f myStartPosition;
 
 	bool myIsActive;
 
