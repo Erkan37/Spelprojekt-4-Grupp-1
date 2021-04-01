@@ -2,5 +2,5 @@
 
 namespace Distance
 {
-	static float myDistance = {};
+	static float myCloudDistance = {};
 }

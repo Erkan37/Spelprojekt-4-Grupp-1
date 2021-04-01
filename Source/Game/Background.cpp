@@ -6,6 +6,7 @@
 #include "Player.hpp"
 #include "AudioManager.h"
 #include "rapidjson/istreamwrapper.h"
+#include "CameraStaticDistance.hpp"
 
 #include <iostream>
 
@@ -27,7 +28,7 @@ Background::Background(Scene* aLevelScene)
 	myBackgroundSpeedThreeY = {};
 	myAddedCameraPos = {};
 	myCloudSpeed = {};
-	myCloudDistance = {};
+	myCloudDistance = &Distance::myCloudDistance;
 	myStartingCameraPos.x = -1;
 	myStartingCameraPos.y = -1;
 
@@ -95,9 +96,9 @@ const void Background::MoveBackground(const float& aDeltaTime)
 	myBackgroundSprite5->SetPosition(myCamera->GetPosition() + backgroundSpeedFive + GetHalfImageSize(myBackgroundSprite5) + myOffsetBackground5);
 	myBackgroundSprite6->SetPosition(myCamera->GetPosition() + backgroundSpeedSix + GetHalfImageSize(myBackgroundSprite6) + myOffsetBackground6);
 
-	myCloudDistance = myCloudDistance + (aDeltaTime * myCloudSpeed);
+	*myCloudDistance = *myCloudDistance + (aDeltaTime * myCloudSpeed);
 
-	v2f backgroundSpeedTwo = { myCloudDistance, 0.f };
+	v2f backgroundSpeedTwo = { *myCloudDistance, 0.f };
 
 	myBackgroundSprite2->SetPosition(myCamera->GetPosition() + backgroundSpeedTwo + GetHalfImageSize(myBackgroundSprite2) + myOffsetBackground2);
 }
