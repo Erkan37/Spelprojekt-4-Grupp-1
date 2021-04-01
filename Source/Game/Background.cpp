@@ -42,7 +42,7 @@ void Background::Update(const float& aDeltaTime)
 	UpdateBackground(aDeltaTime);
 }
 
-void Background::UpdateBackground(const float& aDeltaTime)
+const void Background::UpdateBackground(const float& aDeltaTime)
 {
 	if (myCamera->GetActive() && myAddedCameraPos == false)
 	{
@@ -53,14 +53,14 @@ void Background::UpdateBackground(const float& aDeltaTime)
 	MoveBackground(aDeltaTime);
 }
 
-void Background::ResizeBackground()
+const void Background::ResizeBackground()
 {
 	myCurrentRenderSize.x = myBackgroundSprite1->GetComponent<SpriteComponent>()->GetSize().x;
 	myCurrentRenderSize.y = Config::ourReferenceSize.y;
 
 }
 
-void Background::MoveBackground(const float& aDeltaTime)
+const void Background::MoveBackground(const float& aDeltaTime)
 {
 	v2f backgroundSpeedOne;
 	backgroundSpeedOne = { (myStartingCameraPos.x - myCamera->GetPosition().x) * myBackgroundSpeedOneX,
@@ -83,14 +83,11 @@ void Background::MoveBackground(const float& aDeltaTime)
 						  (myStartingCameraPos.y - myCamera->GetPosition().y) * myBackgroundSpeedSixY };
 
 
-	v2f spriteSize = {};
-	spriteSize.x = myBackgroundSprite5->GetComponent<SpriteComponent>()->GetSize().x / 2.f;
-
-	myBackgroundSprite1->SetPosition(myCamera->GetPosition() + backgroundSpeedOne + spriteSize + myOffsetBackground1);
-	myBackgroundSprite3->SetPosition(myCamera->GetPosition() + backgroundSpeedThree + spriteSize + myOffsetBackground3);
-	myBackgroundSprite4->SetPosition(myCamera->GetPosition() + backgroundSpeedFour + spriteSize + myOffsetBackground4);
-	myBackgroundSprite5->SetPosition(myCamera->GetPosition() + backgroundSpeedFive + spriteSize + myOffsetBackground5);
-	myBackgroundSprite6->SetPosition(myCamera->GetPosition() + backgroundSpeedSix + spriteSize + myOffsetBackground6);
+	myBackgroundSprite1->SetPosition(myCamera->GetPosition() + backgroundSpeedOne + GetHalfImageSize(myBackgroundSprite1) + myOffsetBackground1);
+	myBackgroundSprite3->SetPosition(myCamera->GetPosition() + backgroundSpeedThree + GetHalfImageSize(myBackgroundSprite3) + myOffsetBackground3);
+	myBackgroundSprite4->SetPosition(myCamera->GetPosition() + backgroundSpeedFour + GetHalfImageSize(myBackgroundSprite4) + myOffsetBackground4);
+	myBackgroundSprite5->SetPosition(myCamera->GetPosition() + backgroundSpeedFive + GetHalfImageSize(myBackgroundSprite5) + myOffsetBackground5);
+	myBackgroundSprite6->SetPosition(myCamera->GetPosition() + backgroundSpeedSix + GetHalfImageSize(myBackgroundSprite6) + myOffsetBackground6);
 
 	myCloudDistance = myCloudDistance + (aDeltaTime * myCloudSpeed);
 
@@ -101,10 +98,10 @@ void Background::MoveBackground(const float& aDeltaTime)
 	backgroundSpeedTwo.x = backgroundSpeedTwo.x + myCloudDistance;
 
 
-	myBackgroundSprite2->SetPosition(myCamera->GetPosition() + backgroundSpeedTwo + spriteSize + myOffsetBackground2);
+	myBackgroundSprite2->SetPosition(myCamera->GetPosition() + backgroundSpeedTwo + GetHalfImageSize(myBackgroundSprite2) + myOffsetBackground2);
 }
 
-void Background::LoadJson(Scene* aLevelScene)
+const void Background::LoadJson(Scene* aLevelScene)
 {
 	myOriginalSpeed = 0.2f;
 
@@ -147,7 +144,7 @@ void Background::LoadJson(Scene* aLevelScene)
 	backgroundObjectFile.close();
 }
 
-void Background::LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDocuments)
+const void Background::LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDocuments)
 {
 	int backgroundSizeArray = someDocuments["BackgroundPaths"].Size();
 
@@ -160,7 +157,7 @@ void Background::LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDo
 	ResizeBackground();
 }
 
-void Background::CreateBackgrounds(Scene* aLevelScene, const std::string aPath, const int aIndex, const v2f anOffset)
+const void Background::CreateBackgrounds(Scene* aLevelScene, const std::string aPath, const int aIndex, const v2f anOffset)
 {
 	switch (aIndex)
 	{
@@ -233,6 +230,15 @@ void Background::CreateBackgrounds(Scene* aLevelScene, const std::string aPath, 
 
 }
 
-void Background::SetSpeedVariables(const std::string aPath)
+const void Background::SetSpeedVariables(const std::string aPath)
 {
+}
+
+const v2f Background::GetHalfImageSize(GameObject* aSprite)
+{
+	assert(aSprite->GetComponent<SpriteComponent>() != NULL);
+
+	v2f spriteSize = aSprite->GetComponent<SpriteComponent>()->GetImageSize() / 2.f;
+
+	return spriteSize;
 }

@@ -56,13 +56,14 @@ private:
 
 	bool myAddedCameraPos;
 
-	void UpdateBackground(const float& aDeltaTime);
-	void ResizeBackground();
-	void MoveBackground(const float& aDeltaTime);
-	void LoadJson(Scene* aLevelScene);
-	void LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDocuments);
-	void CreateBackgrounds(Scene* aLevelScene, const std::string aPath, const int aIndex, const v2f anOffset);
-	void SetSpeedVariables(const std::string aPath);
+	const void UpdateBackground(const float& aDeltaTime);
+	const void ResizeBackground();
+	const void MoveBackground(const float& aDeltaTime);
+	const void LoadJson(Scene* aLevelScene);
+	const void LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDocuments);
+	const void CreateBackgrounds(Scene* aLevelScene, const std::string aPath, const int aIndex, const v2f anOffset);
+	const void SetSpeedVariables(const std::string aPath);
+	const v2f GetHalfImageSize(GameObject* aSprite);
 
 };
 
