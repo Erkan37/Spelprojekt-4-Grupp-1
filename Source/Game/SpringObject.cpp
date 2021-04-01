@@ -54,7 +54,7 @@ void SpringObject::OnCollision(GameObject* aGameObject)
 
 		if (myTimer > mySpringTimerCooldown)
 		{
-			if (velo.y < 20.f)
+			if (velo.y < 0.f)
 				player->ActivateSpringForce(-myVelocityForce, myRetardation, false);
 			else
 				player->ActivateSpringForce(-myVelocityForce, myRetardation, true);
