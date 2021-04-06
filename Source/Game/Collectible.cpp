@@ -45,11 +45,12 @@ void Collectible::Init(const v2f& aPosition, eCollectibleType aType)
 
 	SetPosition(aPosition);
 	mySpawnPosition = aPosition;
-
 	myTargetPosition = aPosition;
 
-	myTimeOffset = Utils::RandomFloat(0.0f, 6.0f);
+	myWasCollected = DataManager::GetInstance().GetCollectableInfo(myID).myCollectedState;
+	myWasTurnedIn = DataManager::GetInstance().GetCollectableInfo(myID).myCollectedState;
 
+	myTimeOffset = Utils::RandomFloat(0.0f, 6.0f);
 	myType = aType;
 
 	std::string spritePath;
@@ -142,6 +143,7 @@ void Collectible::OnCollision(GameObject* aGameObject)
 		{
 			//SetAnimation;
 			myWasCollected = true;
+			DataManager::GetInstance().CollectCollectible(myID);
 			myTarget = aGameObject;
 			AudioManager::GetInstance()->PlayAudio(AudioList::CollectableV1);
 		}

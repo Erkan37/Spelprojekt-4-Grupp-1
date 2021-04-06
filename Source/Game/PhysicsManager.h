@@ -10,6 +10,7 @@ class CGameWorld;
 class GameObject;
 class ColliderComponent;
 class PhysicsComponent;
+class Player;
 
 class PhysicsManager
 {
@@ -30,13 +31,17 @@ public:
 
 	const void AlmostCollision(GameObject* aObject, const float& aYDistance);
 
-	bool PhysicsManager::OneWayCheck(const float& aInSensitivity, GameObject* aObj1, GameObject* aObj2, const v2f& aObj1Min, const v2f& aObj1Max, const v2f& aObj2Min, const v2f& aObj2Max);
+	bool OneWayCheck(const float& aInSensitivity, GameObject* aObj1, GameObject* aObj2, const v2f& aObj1Min, const v2f& aObj1Max, const v2f& aObj2Min, const v2f& aObj2Max);
 
 	void CheckBashCollision(GameObject* aObj1, GameObject* aObj2);
+
+	void OnlyPlayerCollision(GameObject* aPlayer, ColliderComponent* aPlayerCollider, PhysicsComponent* aPlayerPhysics);
 
 	void RemoveCollider(ColliderComponent* aColliderComponent);
 
 private:
 	std::vector<ColliderComponent*> myColliders;
+	std::vector<ColliderComponent*> myOnlyPlayerCollisionColliders;
+
 };
 
