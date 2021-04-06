@@ -87,7 +87,7 @@
          "objects":[],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -110,7 +110,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -1584,7 +1584,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -1595,7 +1595,7 @@
          "objects":[],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -1603,7 +1603,30 @@
          "draworder":"topdown",
          "id":6,
          "name":"Collectables",
-         "objects":[],
+         "objects":[
+                {
+                 "height":0,
+                 "id":453,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"BonfireID",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"ID",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":0,
+                 "x":288,
+                 "y":232
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -1617,7 +1640,7 @@
          "objects":[],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -1628,7 +1651,7 @@
          "objects":[],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -1672,7 +1695,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -1695,7 +1718,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -1706,12 +1729,12 @@
          "objects":[],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }],
  "nextlayerid":18,
- "nextobjectid":453,
+ "nextobjectid":454,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

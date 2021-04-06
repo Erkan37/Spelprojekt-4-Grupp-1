@@ -746,6 +746,17 @@
                  "id":479,
                  "name":"",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"BonfireID",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"ID",
+                         "type":"int",
+                         "value":14
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
@@ -758,6 +769,17 @@
                  "id":480,
                  "name":"",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"BonfireID",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"ID",
+                         "type":"int",
+                         "value":15
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
@@ -770,6 +792,17 @@
                  "id":484,
                  "name":"",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"BonfireID",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"ID",
+                         "type":"int",
+                         "value":13
+                        }],
                  "rotation":0,
                  "type":"1",
                  "visible":true,
@@ -779,7 +812,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
