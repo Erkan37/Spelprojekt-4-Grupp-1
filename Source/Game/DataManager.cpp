@@ -339,6 +339,11 @@ const CollectableInfo &DataManager::GetCollectableInfo(const int anID) const
 	assert((false) && "A Collectible ID not found in DataManager::GetCollectableInfo().");
 }
 
+const int DataManager::GetCollectableCount()
+{
+	return static_cast<int>(myCollectableInfo.size());
+}
+
 void DataManager::ParseCollectableInfo(){
 	for (const auto& levelDoc : myLevelVector)
 	{
