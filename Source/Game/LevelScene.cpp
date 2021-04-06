@@ -51,7 +51,7 @@ void LevelScene::Load()
 	myPauseMenu = new PauseMenu(this);
 	myPauseMenu->InitMenu();
 
-	myEffectFactory = new ParticleEffectFactory(this);
+	myEffectFactory = new ParticleEffectFactory();
 	myEffectFactory->ReadEffects(this);
 	myEffectFactory->Init();
 
@@ -105,7 +105,7 @@ void LevelScene::Update(const float& aDeltaTime)
 	{
 		v2f position = GetPlayer()->GetPosition();
 
-		myEffectFactory->SpawnEffect(position, eParticleEffects::TestEffect);
+		myEffectFactory->SpawnEffect(position, eParticleEffects::CollectibleEffect);
 	}
 
 	if (CGameWorld::GetInstance()->Input()->GetInput()->GetKeyJustDown(Keys::RightMouseButton))

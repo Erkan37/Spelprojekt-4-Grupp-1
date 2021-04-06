@@ -7,7 +7,7 @@ class Scene;
 class ParticleEffectFactory
 {
 public:
-	ParticleEffectFactory(Scene* aLevelScene);
+	ParticleEffectFactory();
 
 	void ReadEffects(Scene* aLevelScene);
 
@@ -20,10 +20,8 @@ private:
 	Scene* myScene;
 	Player* myPlayer;
 	std::vector<ParticleStats> myEffects;
-	//std::vector<ParticleEffect*> myCreatedEffects;
 
 	void SpawnCharacterEffects();
-	void SpawnCharacterEffects2();
 
 };
 

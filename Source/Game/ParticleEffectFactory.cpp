@@ -9,9 +9,11 @@
 #include "../External/Headers/rapidjson/istreamwrapper.h"
 #include <fstream>
 
-ParticleEffectFactory::ParticleEffectFactory(Scene* aLevelScene)
+ParticleEffectFactory::ParticleEffectFactory()
 {
-	//myCreatedEffects.clear();
+	myScene = {};
+	myPlayer = {};
+	myEffects = {};
 }
 
 void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
@@ -102,9 +104,9 @@ void ParticleEffectFactory::SpawnEffect(v2f aPosition, const eParticleEffects aE
 		effect->Init(myEffects[static_cast<int>(aEffectType)], myPlayer);
 		break;
 	}
-	case eParticleEffects::FallEffect:
+	case eParticleEffects::CollectibleEffect:
 	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::FallEffect)], myPlayer);
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::CollectibleEffect)], myPlayer);
 		break;
 	}
 	case eParticleEffects::DeathEffect:
@@ -125,9 +127,15 @@ void ParticleEffectFactory::SpawnEffect(v2f aPosition, const eParticleEffects aE
 	{
 		effect->Init(myEffects[static_cast<int>(eParticleEffects::BulletEffectTrail)], myPlayer);
 		break;
-	}case eParticleEffects::BulletEffectHit:
+	}
+	case eParticleEffects::BulletEffectHit:
 	{
 		effect->Init(myEffects[static_cast<int>(eParticleEffects::BulletEffectHit)], myPlayer);
+		break;
+	}
+	case eParticleEffects::FogEffect:
+	{
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::FogEffect)], myPlayer);
 		break;
 	}
 	case eParticleEffects::TestEffect:
@@ -153,9 +161,9 @@ void ParticleEffectFactory::SpawnEffectFollowObject(GameObject* aObject, const e
 		effect->Init(myEffects[static_cast<int>(aEffectType)], myPlayer);
 		break;
 	}
-	case eParticleEffects::FallEffect:
+	case eParticleEffects::CollectibleEffect:
 	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::FallEffect)], myPlayer);
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::CollectibleEffect)], myPlayer);
 		break;
 	}
 	case eParticleEffects::DeathEffect:
@@ -177,6 +185,16 @@ void ParticleEffectFactory::SpawnEffectFollowObject(GameObject* aObject, const e
 		effect->Init(myEffects[static_cast<int>(eParticleEffects::BulletEffectTrail)], myPlayer);
 		break;
 	}
+	case eParticleEffects::BulletEffectHit:
+	{
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::BulletEffectHit)], myPlayer);
+		break;
+	}
+	case eParticleEffects::FogEffect:
+	{
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::FogEffect)], myPlayer);
+		break;
+	}
 	case eParticleEffects::TestEffect:
 	{
 		effect->Init(myEffects[static_cast<int>(eParticleEffects::TestEffect)], myPlayer);
@@ -193,13 +211,4 @@ void ParticleEffectFactory::SpawnCharacterEffects()
 	ParticleEffect* effect = new ParticleEffect(myScene);
 	effect->Init(myEffects[static_cast<int>(eParticleEffects::RunEffect)], myPlayer);
 	effect->SetIsActive(true);
-	//myCreatedEffects.push_back(effect);
-}
-
-void ParticleEffectFactory::SpawnCharacterEffects2()
-{
-	ParticleEffect* effect = new ParticleEffect(myScene);
-	effect->Init(myEffects[static_cast<int>(eParticleEffects::FallEffect)], myPlayer);
-	effect->SetIsActive(true);
-	//myCreatedEffects.push_back(effect);
 }

@@ -1,39 +1,39 @@
 {
   "particle": [
     {
-      "EffectType": "TestEffect",
+      "EffectType": "FogEffect",
 
       "ZIndex": 30,
 
       "EffectTypeIndex": 7,
-      "SpritePath": "Sprites/Objects/Particle1.dds",
+      "SpritePath": "Sprites/Objects/ParticleFog.dds",
 
       "PauseTimer": 0.0,
       "PauseSeconds": 0.0,
 
-      "EmitterLifeTime": 0.1,
+      "EmitterLifeTime": 0.0,
 
-      "StartScale": 1.0,
-      "EndScale": 0.0,
+      "StartScale": 0.7,
+      "EndScale": 0.8,
 
       "RotateSprite": 0.0,
 
-      "MinTimeBetweenSpawns": 0.01,
-      "MaxTimeBetweenSpawns": 0.01,
+      "MinTimeBetweenSpawns": 0.1,
+      "MaxTimeBetweenSpawns": 0.2,
 
-      "MinSpeed": 20.0,
+      "MinSpeed": 5.0,
       "MaxSpeed": 5.0,
 
-      "MinParticleAngularVel": -5.0,
-      "MaxParticleAngularVel": 5.0,
+      "MinParticleAngularVel": 0.0,
+      "MaxParticleAngularVel": 0.0,
 
       "EmitterAngle": 0.0,
 
-      "EmitterWidth": 0.0,
+      "EmitterWidth": 200.0,
       "EmitterHeigth": 0.0,
 
-      "MinParticleLifeTime": 0.5,
-      "MaxParticleLifeTime": 1.0,
+      "MinParticleLifeTime": 8.0,
+      "MaxParticleLifeTime": 10.0,
 
       "Offset": [
         {

@@ -4,11 +4,12 @@
 enum class eParticleEffects
 {
 	RunEffect,
-	FallEffect,
+	CollectibleEffect,
 	DeathEffect,
 	RainEffectBackground,
 	RainEffectForeground,
 	BulletEffectTrail,
 	BulletEffectHit,
+	FogEffect,
 	TestEffect
 };
