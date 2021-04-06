@@ -14,6 +14,7 @@
 
 #include "LevelManager.hpp"
 #include "SpeedrunManager.h"
+#include "AudioManager.h"
 
 #include "Game.h"
 
@@ -33,6 +34,8 @@ LevelScene::LevelScene()
 
 void LevelScene::Load()
 {
+	AudioManager::GetInstance()->Stop(AudioList::MenuAmbience);
+	AudioManager::GetInstance()->FadeOut(AudioList::Main_Menu);
 	myIsSpeedrun = CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->GetIsSpeedrun();
 	myBlackScreenOpacity = 1.0f;
 	myBlackScreenOpacitySpeed = 4.3f;
@@ -50,6 +53,10 @@ void LevelScene::Load()
 
 	myPauseMenu = new PauseMenu(this);
 	myPauseMenu->InitMenu();
+
+	myEffectFactory = new ParticleEffectFactory();
+	myEffectFactory->ReadEffects(this);
+	myEffectFactory->Init();
 
 	if (myIsSpeedrun)
 	{
@@ -94,6 +101,7 @@ void LevelScene::Deactivate()
 
 void LevelScene::Update(const float& aDeltaTime)
 {
+
 	const float zoomX = CGameWorld::GetInstance()->Game()->GetZoomX();
 	const float zoomY = CGameWorld::GetInstance()->Game()->GetZoomY();
 
@@ -132,6 +140,8 @@ void LevelScene::Update(const float& aDeltaTime)
 
 	if (myPauseMenu->IsPauseActive() == false)
 		Scene::Update(aDeltaTime);
+	else if (myIsSpeedrun)
+		myTimer->Update(aDeltaTime);
 }
 
 void LevelScene::AddBlackScreen()
@@ -176,6 +186,11 @@ const bool LevelScene::GetReachedFullOpacity()
 GameObject* LevelScene::GetPlayer()
 {
 	return myPlayer;
+}
+
+ParticleEffectFactory& LevelScene::GetEffectFactory()
+{
+	return *myEffectFactory;
 }
 
 void LevelScene::Transitioning()

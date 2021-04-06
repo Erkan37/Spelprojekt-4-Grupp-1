@@ -8,13 +8,14 @@
 #include "Player.hpp"
 #include "GameObject.h"
 #include "Platform.h"
+#include "ParticleEffectFactory.h"
 
 typedef EnemyData::EnemyFloatEnum EEnum;
 
 EnemyProjectile::EnemyProjectile(Scene* aScene, const v2f& aPosition, const v2f& aTarget) : GameObject(aScene)
 {
 	myJsonData = dynamic_cast<EnemyData*>(&DataManager::GetInstance().GetDataStruct(DataEnum::enemy));
-
+	
 	this->Activate();
 	this->SetZIndex(141);
 
@@ -22,6 +23,10 @@ EnemyProjectile::EnemyProjectile(Scene* aScene, const v2f& aPosition, const v2f&
 	InitCollider();
 	SetDirection(aPosition, aTarget);
 	GameObject::Init();
+
+	LevelScene* levelScene = dynamic_cast<LevelScene*>(aScene);
+	myEffectFactory = &levelScene->GetEffectFactory();
+	myEffectFactory->SpawnEffectFollowObject(this, eParticleEffects::BulletEffectTrail);
 }
 
 void EnemyProjectile::SetDirection(const v2f& aPosition, const v2f& aTarget)
@@ -51,6 +56,7 @@ void EnemyProjectile::OnCollision(GameObject* aGameObject)
 	}
 	if (platform || player)
 	{
+		myEffectFactory->SpawnEffect(GetPosition(), eParticleEffects::BulletEffectHit);
 		this->Destroy();
 	}
 }

@@ -9,5 +9,5 @@ AudioObject::AudioObject(Scene* aScene, const int aType)
 	GameObject(aScene),
 	myType(static_cast<AudioList>(aType))
 {
-	AudioManager::GetInstance()->PlayAudio(myType);
+	AudioManager::GetInstance()->PlayIfAvailable(myType);
 }
