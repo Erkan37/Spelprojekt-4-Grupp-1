@@ -11,9 +11,12 @@
 #include "DataManager.h"
 
 #include "SpriteComponent.h"
+#include "AnimationComponent.hpp"
+#include "TextComponent.h"
 
 #include "UIButton.h"
 #include "UIObject.h"
+#include "UIText.h"
 
 #include <rapidjson/istreamwrapper.h>
 #include <rapidjson/writer.h>
@@ -43,6 +46,8 @@ void LevelSelect::Load()
 	myLevelIndex = 0;
 
 	InitiateButtons();
+	InitCollectibles();
+	InitTexts();
 
 	GameObject* background = new GameObject(this);
 
@@ -117,6 +122,7 @@ void LevelSelect::CheckButtonPress()
 			}
 
 			ShowArea(myAreaIndexes[myLevelIndex]);
+			UpdateLevelCollectibles();
 		}
 	}
 	
@@ -178,6 +184,8 @@ void LevelSelect::InitiateButtons()
 
 	myAreaIndexes.clear();
 	myLevelIndexes.clear();
+
+	myLevelCollectibles.clear();
 
 	myAreaTexts.push_back(new UIObject(this));
 	myAreaTexts.push_back(new UIObject(this));
@@ -253,4 +261,96 @@ void LevelSelect::ShowArea(const int& aIndex)
 	myAreaTexts[2]->SetActive(false);
 
 	myAreaTexts[aIndex]->SetActive(true);
+}
+
+void LevelSelect::InitCollectibles()
+{
+	GameObject* collectible1 = new GameObject(this);
+	GameObject* collectible2 = new GameObject(this);
+	GameObject* collectible3 = new GameObject(this);
+
+	SpriteComponent* collectibleSprite1 = collectible1->AddComponent<SpriteComponent>();
+	SpriteComponent* collectibleSprite2 = collectible2->AddComponent<SpriteComponent>();
+	SpriteComponent* collectibleSprite3 = collectible3->AddComponent<SpriteComponent>();
+
+	collectibleSprite1->SetSpritePath("Sprites/Objects/Collectible3.dds");
+	collectibleSprite2->SetSpritePath("Sprites/Objects/Collectible2.dds");
+	collectibleSprite3->SetSpritePath("Sprites/Objects/Collectible1.dds");
+
+	collectibleSprite1->SetSize(v2f(16.0f, 16.0f));
+	collectibleSprite2->SetSize(v2f(16.0f, 16.0f));
+	collectibleSprite3->SetSize(v2f(16.0f, 16.0f));
+
+	AnimationComponent* collectibleAnimationComponent1 = collectible1->AddComponent<AnimationComponent>();
+	AnimationComponent* collectibleAnimationComponent2 = collectible2->AddComponent<AnimationComponent>();
+	AnimationComponent* collectibleAnimationComponent3 = collectible3->AddComponent<AnimationComponent>();
+
+	collectibleAnimationComponent1->SetSprite(collectibleSprite1);
+	collectibleAnimationComponent2->SetSprite(collectibleSprite2);
+	collectibleAnimationComponent3->SetSprite(collectibleSprite3);
+
+	Animation collectibleAnimation1 = Animation(false, false, false, 0, 7, 7, 0.125f, collectibleSprite1, 16.0f, 16.0f);
+	Animation collectibleAnimation2 = Animation(false, false, false, 0, 7, 7, 0.125f, collectibleSprite2, 16.0f, 16.0f);
+	Animation collectibleAnimation3 = Animation(false, false, false, 0, 7, 7, 0.125f, collectibleSprite3, 16.0f, 16.0f);
+
+	collectibleAnimationComponent1->SetAnimation(&collectibleAnimation1);
+	collectibleAnimationComponent2->SetAnimation(&collectibleAnimation2);
+	collectibleAnimationComponent3->SetAnimation(&collectibleAnimation3);
+
+	collectible1->SetZIndex(201);
+	collectible2->SetZIndex(201);
+	collectible3->SetZIndex(201);
+
+	collectible1->SetPosition(v2f(166.0f, 17.0f));
+	collectible2->SetPosition(v2f(218.0f, 17.0f));
+	collectible3->SetPosition(v2f(270.0f, 17.0f));
+
+	collectible1->SetPivot(v2f(0.0f, 0.0f));
+	collectible2->SetPivot(v2f(0.0f, 0.0f));
+	collectible3->SetPivot(v2f(0.0f, 0.0f));
+}
+
+void LevelSelect::InitTexts()
+{
+	UIText* totalText = new UIText(this);
+	totalText->Init("Total", "Text/Peepo.ttf", EFontSize_48);
+	totalText->SetPosition(v2f(16.0f, 60.0f));
+
+	UIText* totalEasyText = new UIText(this);
+	totalEasyText->Init("00/00", "Text/Peepo.ttf", EFontSize_48);
+	totalEasyText->SetPosition(v2f(160.0f, 60.0f));
+
+	UIText* totalMediumText = new UIText(this);
+	totalMediumText->Init("00/00", "Text/Peepo.ttf", EFontSize_48);
+	totalMediumText->SetPosition(v2f(212.0f, 60.0f));
+
+	UIText* totalHardText = new UIText(this);
+	totalHardText->Init("00/00", "Text/Peepo.ttf", EFontSize_48);
+	totalHardText->SetPosition(v2f(264.0f, 60.0f));
+
+	myLevelCollectibles.push_back(new UIText(this));
+	myLevelCollectibles.push_back(new UIText(this));
+	myLevelCollectibles.push_back(new UIText(this));
+	myLevelCollectibles.push_back(new UIText(this));
+
+	myLevelCollectibles[0]->Init("Area 1", "Text/Peepo.ttf", EFontSize_48);
+	myLevelCollectibles[0]->SetPosition(v2f(16.0f, 46.0f));
+	myLevelCollectibles[0]->GetComponent<TextComponent>()->SetColor(Tga2D::CColor(0.0f, 0.5f, 1.0f, 1.0f));
+
+	myLevelCollectibles[1]->Init("00/00", "Text/Peepo.ttf", EFontSize_48);
+	myLevelCollectibles[1]->SetPosition(v2f(160.0f, 46.0f));
+	myLevelCollectibles[1]->GetComponent<TextComponent>()->SetColor(Tga2D::CColor(0.0f, 0.5f, 1.0f, 1.0f));
+
+	myLevelCollectibles[2]->Init("00/00", "Text/Peepo.ttf", EFontSize_48);
+	myLevelCollectibles[2]->SetPosition(v2f(212.0f, 46.0f));
+	myLevelCollectibles[2]->GetComponent<TextComponent>()->SetColor(Tga2D::CColor(0.0f, 0.5f, 1.0f, 1.0f));
+
+	myLevelCollectibles[3]->Init("00/00", "Text/Peepo.ttf", EFontSize_48);
+	myLevelCollectibles[3]->SetPosition(v2f(264.0f, 46.0f));
+	myLevelCollectibles[3]->GetComponent<TextComponent>()->SetColor(Tga2D::CColor(0.0f, 0.5f, 1.0f, 1.0f));
+}
+
+void LevelSelect::UpdateLevelCollectibles()
+{
+	myLevelCollectibles[0]->GetComponent<TextComponent>()->SetText("Area " + std::to_string(myLevelIndex + 1));
 }

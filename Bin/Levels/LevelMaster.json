@@ -2,6 +2,10 @@
   "FilePathArray": [
     {
       "Id": 0,
+      "FilePath": "Levels/Level_27.json"
+    },
+    {
+      "Id": 0,
       "FilePath": "Levels/Level_20.json"
     },
     {
@@ -10,19 +14,13 @@
     },
     {
       "Id": 0,
-      "FilePath": "Levels/Level_00.json"
-    },
-    {
+      "FilePath": "Levels/Level_Village2.json"
+    },    {
       "Id": 0,
-      "FilePath": "Levels/Level_01.json"
-    },
-    {
+      "FilePath": "Levels/Level_Village3.json"
+    },    {
       "Id": 0,
-      "FilePath": "Levels/Level_40.json"
-    },
-    {
-      "Id": 0,
-      "FilePath": "Levels/Level_36.json"
+      "FilePath": "Levels/Level_Village4.json"
     },
     {
       "Id": 0,

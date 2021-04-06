@@ -1,13 +1,13 @@
 {
   "Bonfires": [
-    { "Bonfire": { "IsActive": false } },
-    { "Bonfire": { "IsActive": false } },
-    { "Bonfire": { "IsActive": false } },
-    { "Bonfire": { "IsActive": false } },
-    { "Bonfire": { "IsActive": false } },
-    { "Bonfire": { "IsActive": false } },
-    { "Bonfire": { "IsActive": false } },
-    { "Bonfire": { "IsActive": false } }
+    { "Bonfire": { "IsActive": true } },
+    { "Bonfire": { "IsActive": true } },
+    { "Bonfire": { "IsActive": true } },
+    { "Bonfire": { "IsActive": true } },
+    { "Bonfire": { "IsActive": true } },
+    { "Bonfire": { "IsActive": true } },
+    { "Bonfire": { "IsActive": true } },
+    { "Bonfire": { "IsActive": true } }
   ],
   "Collectibles": [
     {

@@ -73,7 +73,7 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	myIsLerpingToPosition = false;
 	myIsGliding = false;
 
-	myGlideFactor = 0.1f;
+	myGlideFactor = 0.14f;
 
 	mySpringVelocity = {};
 	myPercentageLeftVelocity = {};
@@ -645,12 +645,14 @@ void Player::ActivateSpringForce(float aSpringVelocity, const float aRetardation
 	myHasLanded = false;
 	myActiveSpringJump = true;
 	myHasLandedOnSpring = true;
-	myBashAbility->ResetVelocity(false, true);
 	mySpringVelocity.y = aSpringVelocity;
 	mySpringVelocityRetardation = aRetardation;
 
 	if (aShouldResetVelocity)
+	{
 		myCurrentVelocity.y = {};
+		myBashAbility->ResetVelocity(false, true);
+	}
 }
 void Player::BounceOnDestructibleWall()
 {
