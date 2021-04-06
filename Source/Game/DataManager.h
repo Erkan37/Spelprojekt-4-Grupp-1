@@ -118,7 +118,8 @@ public:
 
 	// Get Collectable Info
 	void ParseCollectableInfo();
-	std::vector<CollectableInfo> GetCollectableInfo();
+	const std::vector<CollectableInfo> &GetCollectableInfo() const;
+
 
 private:
 	//Private Methods

@@ -1,11 +1,4 @@
 { "compressionlevel":-1,
- "editorsettings":
-    {
-     "export":
-        {
-         "target":"."
-        }
-    },
  "height":23,
  "infinite":false,
  "layers":[
@@ -130,7 +123,7 @@
                  "y":0
                 }, 
                 {
-                 "height":64,
+                 "height":56,
                  "id":347,
                  "name":"",
                  "rotation":0,
@@ -138,7 +131,7 @@
                  "visible":true,
                  "width":32,
                  "x":92,
-                 "y":52
+                 "y":56
                 }, 
                 {
                  "height":88,
@@ -169,8 +162,8 @@
                  "rotation":0,
                  "type":"4",
                  "visible":true,
-                 "width":56,
-                 "x":212,
+                 "width":48,
+                 "x":216,
                  "y":84
                 }, 
                 {
@@ -237,7 +230,7 @@
                  "visible":true,
                  "width":24,
                  "x":100,
-                 "y":116
+                 "y":112
                 }, 
                 {
                  "height":8,
@@ -248,7 +241,7 @@
                  "visible":true,
                  "width":24,
                  "x":100,
-                 "y":44
+                 "y":48
                 }, 
                 {
                  "height":8,
@@ -372,26 +365,70 @@
                  "y":24
                 }, 
                 {
-                 "height":8,
-                 "id":406,
+                 "height":16,
+                 "id":408,
                  "name":"",
                  "rotation":0,
-                 "type":"0",
+                 "type":"4",
                  "visible":true,
-                 "width":16,
-                 "x":216,
-                 "y":160
+                 "width":4,
+                 "x":212,
+                 "y":88
                 }, 
                 {
-                 "height":8,
-                 "id":407,
+                 "height":16,
+                 "id":409,
                  "name":"",
                  "rotation":0,
-                 "type":"0",
+                 "type":"4",
+                 "visible":true,
+                 "width":4,
+                 "x":264,
+                 "y":88
+                }, 
+                {
+                 "height":4,
+                 "id":410,
+                 "name":"",
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":4,
+                 "x":96,
+                 "y":112
+                }, 
+                {
+                 "height":4,
+                 "id":411,
+                 "name":"",
+                 "rotation":0,
+                 "type":"4",
                  "visible":true,
                  "width":16,
-                 "x":216,
-                 "y":80
+                 "x":104,
+                 "y":120
+                }, 
+                {
+                 "height":4,
+                 "id":412,
+                 "name":"",
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":4,
+                 "x":96,
+                 "y":52
+                }, 
+                {
+                 "height":4,
+                 "id":413,
+                 "name":"",
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":16,
+                 "x":104,
+                 "y":44
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -595,10 +632,10 @@
          "y":0
         }],
  "nextlayerid":18,
- "nextobjectid":408,
+ "nextobjectid":414,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.4.3",
+ "tiledversion":"1.5.0",
  "tileheight":8,
  "tilesets":[
         {
@@ -607,6 +644,6 @@
         }],
  "tilewidth":8,
  "type":"map",
- "version":1.4,
+ "version":1.5,
  "width":40
 }
