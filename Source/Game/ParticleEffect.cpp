@@ -14,7 +14,8 @@
 
 ParticleEffect::ParticleEffect(Scene* aLevelScene)
 	:
-	GameObject(aLevelScene)
+	GameObject(aLevelScene),
+	myBatch(nullptr)
 {
 	myFollowObject = nullptr;
 	myKilledEffect = {};
@@ -151,7 +152,6 @@ const void ParticleEffect::SpawnSprite()
 	sprite->mySpriteRotation = myStats.mySpriteRotation;
 
 	sprite->AddSprite(AddComponent<SpriteComponent>());
-
 	myBatch->AddSprite(sprite->GetSprite());
 	
 	mySprites.push_back(sprite);
@@ -196,6 +196,7 @@ const void ParticleEffect::CheckIfSpritesAreDead(const float& aDeltaTime)
 	for (int x = mySprites.size() - 1; x >= 0; x--)
 	{
 		mySprites[x]->Update(aDeltaTime);
+
 		if (mySprites[x]->IsAlive() == false)
 		{
 			myBatch->RemoveObject(mySprites[x]->GetSprite()->GetCSprite(), false);

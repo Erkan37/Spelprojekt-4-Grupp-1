@@ -51,6 +51,7 @@ public:
 	float myEmitterStartAngle = {};
 	float myEmitterEndAngle = {};
 
+	bool myHasActivated = {};
 	bool myIsAlive = true;
 	bool myIsLockedPos = false;
 

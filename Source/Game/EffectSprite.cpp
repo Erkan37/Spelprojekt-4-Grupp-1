@@ -57,7 +57,6 @@ void EffectSprite::AddSprite(SpriteComponent* aSprite)
 	mySprite->SetSize(size);
 	mySprite->SetRelativePosition(position);
 	mySprite->SetRelativeRotation(mySpriteRotation);
-	mySprite->Activate();
 }
 
 SpriteComponent* EffectSprite::GetSprite()
@@ -96,6 +95,12 @@ const void EffectSprite::MoveSprite(const float& aDeltaTime)
 
 	mySprite->SetRelativePosition(position);
 	mySprite->SetRelativeRotation(mySprite->GetRelativeRotation() + myRotation * aDeltaTime);
+
+	if (!myHasActivated)
+	{
+		myHasActivated = true;
+		//mySprite->Activate();
+	}
 }
 
 const void EffectSprite::LerpSpeed(const float& aDeltatime)
