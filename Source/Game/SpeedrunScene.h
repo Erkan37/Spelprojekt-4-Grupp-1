@@ -25,6 +25,7 @@ private:
 	std::shared_ptr<InputWrapper> myInput;
 
 	std::unique_ptr<UIObject> myTitle;
+	std::unique_ptr<UIObject> myBackground;
 	std::unique_ptr<UIObject> myBar;
 	std::unique_ptr<UIObject> myBestTime;
 
