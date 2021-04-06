@@ -55,9 +55,6 @@ void LevelScene::Load()
 	myEffectFactory->ReadEffects(this);
 	myEffectFactory->Init();
 
-	myTimer = new Timer(this);
-	myTimer->Init({ 10, 10 });
-	myTimer->Start();
 	if (myIsSpeedrun)
 	{
 		myTimer = new Timer(this);
@@ -140,7 +137,7 @@ void LevelScene::Update(const float& aDeltaTime)
 
 	if (myPauseMenu->IsPauseActive() == false)
 		Scene::Update(aDeltaTime);
-	else if (CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->GetIsSpeedrun())
+	else if (myIsSpeedrun)
 		myTimer->Update(aDeltaTime);
 }
 
