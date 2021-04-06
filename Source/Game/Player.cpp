@@ -465,7 +465,7 @@ void Player::Landed(const int& aOverlapY)
 			myJsonData->myFloatValueMap[PEnum::Land_Shake_DropOff]);
 	}
 
-	if (aOverlapY > 0)
+	if (aOverlapY < 0)
 	{
 		myAirCoyoteTimer = myJsonData->myFloatValueMap[PEnum::Coyote_Time];
 		if (!myActiveSpringJump)
