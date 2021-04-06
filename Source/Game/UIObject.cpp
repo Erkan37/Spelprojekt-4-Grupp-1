@@ -65,7 +65,7 @@ void UIObject::SetPositionY(const float& aPositionY)
 void UIObject::UpdateUIObjects(const float& aDeltaTime)
 {
 	
-	SetPosition(myCamera->GetPosition() + myStartPosition);
+	GameObject::SetPosition(myCamera->GetPosition() + myStartPosition);
 
 	GameObject::Update(aDeltaTime);
 }
