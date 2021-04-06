@@ -86,7 +86,7 @@ void Scene::Update(const float& aDeltaTime)
 
 		if (object->GetTransform().myShouldBeDestroyed)
 		{
-			delete object;
+ 			delete object;
 			--index;
 			continue;
 		}

@@ -7,7 +7,7 @@
       "FilePath": "JSON/BackgroundsJson/Background02.json"
     },
     {
-      "FilePath": "JSON/BackgroundsJson/Background01.json"
+      "FilePath": "JSON/BackgroundsJson/Background03.json"
     }
   ],
   "SpeedVariables": [
@@ -28,12 +28,16 @@
       "SpeedFourY": 0.02
     },
     {
-      "SpeedFiveX": 0.05,
-      "SpeedFiveY": 0.05
+      "SpeedFiveX": 0.02,
+      "SpeedFiveY": 0.02
     },
     {
-      "SpeedSixX": 0.1,
-      "SpeedSixY": 0.1
+      "SpeedSixX": 0.05,
+      "SpeedSixY": 0.05
+    },
+    {
+      "SpeedSevenX": 0.1,
+      "SpeedSevenY": 0.1
     }
   ],
   "Cloud": [

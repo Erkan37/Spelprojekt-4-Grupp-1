@@ -6140,6 +6140,17 @@
                  "id":1316,
                  "name":"",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"BonfireID",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"ID",
+                         "type":"int",
+                         "value":127
+                        }],
                  "rotation":0,
                  "type":"1",
                  "visible":true,
@@ -6152,6 +6163,17 @@
                  "id":1317,
                  "name":"",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"BonfireID",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"ID",
+                         "type":"int",
+                         "value":126
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,

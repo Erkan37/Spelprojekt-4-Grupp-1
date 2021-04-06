@@ -414,7 +414,7 @@
                  "visible":true,
                  "width":332,
                  "x":32,
-                 "y":239
+                 "y":240
                 }, 
                 {
                  "height":4,
@@ -465,8 +465,19 @@
                  "id":392,
                  "name":"",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"BonfireID",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"ID",
+                         "type":"int",
+                         "value":110
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"2",
                  "visible":true,
                  "width":0,
                  "x":232,
