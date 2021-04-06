@@ -10,6 +10,7 @@ class InputWrapper;
 class Scene;
 class SpriteComponent;
 class AudioManager;
+class TutorialMenu;
 
 
 class OptionsMenu
@@ -34,6 +35,7 @@ public:
 	void SetActive(const bool aStatement);
 	bool IsOptionsActive();
 
+	void DeactivateTutorial();
 
 private:
 	Scene* myScene;
@@ -66,7 +68,7 @@ private:
 	std::unique_ptr<UIObject> myCredits;
 
 	//Tutorial
-	std::unique_ptr<UIObject> myTutorial;
+	TutorialMenu* myTutorial;
 
 	std::unique_ptr<UIButton> myTutorialsBtn;
 	std::unique_ptr<UIButton> myScreenBtn;
