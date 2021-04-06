@@ -274,7 +274,30 @@
          "draworder":"topdown",
          "id":6,
          "name":"Collectables",
-         "objects":[],
+         "objects":[
+                {
+                 "height":0,
+                 "id":429,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"BonfireID",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"ID",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":0,
+                 "x":40,
+                 "y":32
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -359,7 +382,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":429,
+ "nextobjectid":430,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

@@ -349,6 +349,7 @@
     <ClInclude Include="SpeedrunManager.h">
       <Filter>Managers</Filter>
     </ClInclude>
+    <ClInclude Include="TutorialMenu.h" />
     <ClInclude Include="Timer.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
@@ -595,6 +596,7 @@
     <ClCompile Include="SpeedrunManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
+    <ClCompile Include="TutorialMenu.cpp" />
     <ClCompile Include="Timer.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
