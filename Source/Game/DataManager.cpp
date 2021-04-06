@@ -250,13 +250,18 @@ const bool DataManager::GetBonfireState(const unsigned int anIndex) const
 {
 	return mySaveFile["Bonfires"].GetArray()[anIndex]["Bonfire"]["IsActive"].GetBool();
 }
+
+void DataManager::ResetSaveFile()
+{
+	ResetCollectibles();
+	ResetBonfires();
+}
 void DataManager::ResetBonfires()
 {
 	for (size_t i = 0; i < mySaveFile["Bonfires"].GetArray().Size(); i++)
 	{
 		mySaveFile["Bonfires"].GetArray()[i]["Bonfire"]["IsActive"].SetBool(false);
 	}
-	ResetCollectibles();
 }
 void DataManager::ResetCollectibles()
 {
@@ -283,6 +288,10 @@ void DataManager::ResetCollectibles()
 		rapidjson::Value state(rapidjson::Type::kFalseType);
 		jsonObject["Collectible"].AddMember("BeenCollected", state, allocator);
 
+		rapidjson::Value difficulty(rapidjson::Type::kNumberType);
+		difficulty.SetInt(myCollectableInfo[i].myDifficulty);
+		jsonObject["Collectible"].AddMember("Difficulty", difficulty, allocator);
+
 		mySaveFile["Collectibles"].PushBack(jsonObject, allocator);
 	}
 
@@ -292,6 +301,42 @@ void DataManager::ResetCollectibles()
 	rapidjson::OStreamWrapper osw{ ofs };
 	rapidjson::Writer<rapidjson::OStreamWrapper> writer{ osw };
 	mySaveFile.Accept(writer);
+}
+
+void DataManager::CollectCollectible(const int anID)
+{
+	for (size_t i = 0; i < myCollectableInfo.size(); i++)
+	{
+		if (mySaveFile["Collectibles"].GetArray()[i]["Collectible"]["ID"].GetInt() == anID)
+		{
+			mySaveFile["Collectibles"].GetArray()[i]["Collectible"]["BeenCollected"].SetBool(true);
+		}
+	}
+
+	// Accepts Writer.
+	std::string dataPath = "JSON/SaveFile.json";
+	std::ofstream ofs{ dataPath };
+	rapidjson::OStreamWrapper osw{ ofs };
+	rapidjson::Writer<rapidjson::OStreamWrapper> writer{ osw };
+	mySaveFile.Accept(writer);
+}
+void DataManager::SetCollectedState()
+{
+	for (size_t i = 0; i < myCollectableInfo.size(); i++)
+	{
+		myCollectableInfo[i].myCollectedState = mySaveFile["Collectibles"].GetArray()[i]["Collectible"]["BeenCollected"].GetBool();
+	}
+}
+const CollectableInfo &DataManager::GetCollectableInfo(const int anID) const
+{
+	for (size_t i = 0; i < myCollectableInfo.size(); i++)
+	{
+		if (mySaveFile["Collectibles"].GetArray()[i]["Collectible"]["ID"].GetInt() == anID)
+		{
+			return myCollectableInfo[i];
+		}
+	}
+	assert((false) && "A Collectible ID not found in DataManager::GetCollectableInfo().");
 }
 
 void DataManager::ParseCollectableInfo(){
@@ -308,6 +353,10 @@ void DataManager::ParseCollectableInfo(){
 					for (auto object = (*layer)["objects"].Begin(); object != (*layer)["objects"].End(); ++object)
 					{
 						CollectableInfo info;
+						std::string type = (*object)["type"].GetString();
+						std::stringstream degree(type);
+						degree >> info.myDifficulty;
+						
 						if ((*object).HasMember("properties"))
 						{
 							for (auto property = (*object)["properties"].Begin(); property != (*object)["properties"].End(); ++property)
@@ -328,8 +377,9 @@ void DataManager::ParseCollectableInfo(){
 			}
 		}
 	}
-}
-const std::vector<CollectableInfo> &DataManager::GetCollectableInfo() const
-{
-	return myCollectableInfo;
+
+#ifndef _RETAIL
+	ResetSaveFile();
+#endif // !_RETAIL
+	SetCollectedState();
 }

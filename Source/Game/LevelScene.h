@@ -6,6 +6,7 @@
 #include "SpringObject.h"
 #include "PauseMenu.h"
 #include "Timer.h" 
+#include "ParticleEffectFactory.h"
 
 #include "Subscriber.hpp"
 
@@ -32,6 +33,7 @@ public:
     void Transitioning();
 
     GameObject* GetPlayer();
+    ParticleEffectFactory& GetEffectFactory();
 
 private:
     GameObject* myBlackScreen;
@@ -39,6 +41,7 @@ private:
     Background* myBackground;
     PauseMenu* myPauseMenu;
     Timer* myTimer;
+    ParticleEffectFactory* myEffectFactory;
 
     float myBlackScreenOpacity;
     float myBlackScreenOpacitySpeed;
