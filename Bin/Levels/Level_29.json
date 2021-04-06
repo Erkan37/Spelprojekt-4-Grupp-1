@@ -1,11 +1,4 @@
 { "compressionlevel":-1,
- "editorsettings":
-    {
-     "export":
-        {
-         "target":"."
-        }
-    },
  "height":23,
  "infinite":false,
  "layers":[
@@ -691,7 +684,7 @@
                  "visible":true,
                  "width":0,
                  "x":812,
-                 "y":128
+                 "y":144
                 }, 
                 {
                  "height":0,
@@ -714,53 +707,7 @@
                  "visible":true,
                  "width":0,
                  "x":812,
-                 "y":112
-                }, 
-                {
-                 "height":0,
-                 "id":483,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":49.91
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"6 -8 3 -12 0 -8 6 0 0 -8 3 -12 6 -8"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":812,
-                 "y":96
-                }, 
-                {
-                 "height":0,
-                 "id":484,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":49.91
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"6 -8 3 -12 0 -8 6 0 0 -8 3 -12 6 -8"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":812,
-                 "y":80
+                 "y":128
                 }, 
                 {
                  "height":0,
@@ -783,7 +730,7 @@
                  "visible":true,
                  "width":0,
                  "x":812,
-                 "y":64
+                 "y":80
                 }, 
                 {
                  "height":0,
@@ -806,76 +753,7 @@
                  "visible":true,
                  "width":0,
                  "x":812,
-                 "y":48
-                }, 
-                {
-                 "height":0,
-                 "id":487,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":49.91
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"6 -8 3 -12 0 -8 6 0 0 -8 3 -12 6 -8"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":812,
-                 "y":32
-                }, 
-                {
-                 "height":0,
-                 "id":488,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":49.91
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"6 -8 3 -12 0 -8 6 0 0 -8 3 -12 6 -8"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":812,
-                 "y":16
-                }, 
-                {
-                 "height":0,
-                 "id":489,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":49.91
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"6 -8 3 -12 0 -8 6 0 0 -8 3 -12 6 -8"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":812,
-                 "y":0
+                 "y":64
                 }, 
                 {
                  "height":0,
@@ -1056,7 +934,7 @@
  "nextobjectid":503,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.4.3",
+ "tiledversion":"1.5.0",
  "tileheight":8,
  "tilesets":[
         {
@@ -1065,6 +943,6 @@
         }],
  "tilewidth":8,
  "type":"map",
- "version":1.4,
+ "version":1.5,
  "width":120
 }

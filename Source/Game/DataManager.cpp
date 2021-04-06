@@ -329,7 +329,7 @@ void DataManager::ParseCollectableInfo(){
 		}
 	}
 }
-std::vector<CollectableInfo> DataManager::GetCollectableInfo()
+const std::vector<CollectableInfo> &DataManager::GetCollectableInfo() const
 {
 	return myCollectableInfo;
 }
