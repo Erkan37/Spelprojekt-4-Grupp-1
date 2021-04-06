@@ -90,7 +90,7 @@ void LevelManager::ImGuiUpdate()
 		}
 		if (ImGui::Button("Reset SaveFile"))
 		{
-			DataManager::GetInstance().ResetSavefile();
+			DataManager::GetInstance().ResetSaveFile();
 		}
 
 		ImGui::End();
