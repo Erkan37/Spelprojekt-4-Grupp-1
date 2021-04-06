@@ -211,6 +211,17 @@
                  "height":3,
                  "id":751,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"BonfireID",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"ID",
+                         "type":"int",
+                         "value":114
+                        }],
                  "rotation":0,
                  "type":"5",
                  "visible":true,
