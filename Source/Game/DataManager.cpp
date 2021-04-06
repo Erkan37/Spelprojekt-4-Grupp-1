@@ -349,6 +349,10 @@ void DataManager::ParseCollectableInfo(){
 					for (auto object = (*layer)["objects"].Begin(); object != (*layer)["objects"].End(); ++object)
 					{
 						CollectableInfo info;
+						std::string type = (*object)["type"].GetString();
+						std::stringstream degree(type);
+						degree >> info.myDifficulty;
+						
 						if ((*object).HasMember("properties"))
 						{
 							for (auto property = (*object)["properties"].Begin(); property != (*object)["properties"].End(); ++property)

@@ -90,6 +90,7 @@ struct CollectableInfo
 	int myID;
 	int myBonfireID;
 	bool myCollectedState;
+	int myDifficulty;
 };
 
 class DataManager
