@@ -7,6 +7,7 @@
 #include "AudioManager.h"
 #include "rapidjson/istreamwrapper.h"
 #include "CameraStaticDistance.hpp"
+#include <iostream>
 
 #include "Game.h"
 
@@ -233,26 +234,27 @@ const void Background::CalculateCameraPositions(const float& aDeltaTime)
 {
 	v2f cameraPos = myCamera->GetPosition();
 	cameraPos.x = cameraPos.x - myStartingCameraX + myStartingCameraPos.x;
+	cameraPos.y = cameraPos.y - myStartingCameraPos.y;
 
 	v2f backgroundSpeedOne;
 	backgroundSpeedOne = { -(cameraPos.x) * myBackgroundSpeedOneX,
-						   (myCamera->GetPosition().y) * myBackgroundSpeedOneY };
+						   (cameraPos.y) * myBackgroundSpeedOneY };
 
 	v2f backgroundSpeedThree;
 	backgroundSpeedThree = { -(cameraPos.x) * myBackgroundSpeedThreeX,
-							 -(myCamera->GetPosition().y) * myBackgroundSpeedThreeY };
+							 -(cameraPos.y) * myBackgroundSpeedThreeY };
 
 	v2f backgroundSpeedFour;
 	backgroundSpeedFour = { -(cameraPos.x) * myBackgroundSpeedFourX,
-							-(myCamera->GetPosition().y) * myBackgroundSpeedFourY };
+							-(cameraPos.y) * myBackgroundSpeedFourY };
 
 	v2f backgroundSpeedFive;
 	backgroundSpeedFive = { -(cameraPos.x) * myBackgroundSpeedFiveX,
-						   -(myCamera->GetPosition().y) * myBackgroundSpeedFiveY };
+						   -(cameraPos.y) * myBackgroundSpeedFiveY };
 
 	v2f backgroundSpeedSix;
 	backgroundSpeedSix = { -(cameraPos.x) * myBackgroundSpeedSixX,
-						  -(myCamera->GetPosition().y) * myBackgroundSpeedSixY };
+						  -(cameraPos.y) * myBackgroundSpeedSixY };
 
 
 	myBackgroundSprite1->SetPosition(myCamera->GetPosition() + backgroundSpeedOne + GetHalfImageSize(myBackgroundSprite1) + myOffsetBackground1);
@@ -260,7 +262,6 @@ const void Background::CalculateCameraPositions(const float& aDeltaTime)
 	myBackgroundSprite4->SetPosition(myCamera->GetPosition() + backgroundSpeedFour + GetHalfImageSize(myBackgroundSprite4) + myOffsetBackground4);
 	myBackgroundSprite5->SetPosition(myCamera->GetPosition() + backgroundSpeedFive + GetHalfImageSize(myBackgroundSprite5) + myOffsetBackground5);
 	myBackgroundSprite6->SetPosition(myCamera->GetPosition() + backgroundSpeedSix + GetHalfImageSize(myBackgroundSprite6) + myOffsetBackground6);
-
 
 	*myCloudDistance = *myCloudDistance + (aDeltaTime * myCloudSpeed);
 
