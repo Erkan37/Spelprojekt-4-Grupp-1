@@ -17,5 +17,8 @@ public:
 private:
 	bool myIsActive;
 	float myTime;
+	float myStartTime;
+	float myLastTime;
+	float myTotalTime;
 };
 

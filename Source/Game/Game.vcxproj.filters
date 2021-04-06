@@ -85,9 +85,6 @@
     <Filter Include="Scenes\MainMenu\Submenus">
       <UniqueIdentifier>{b1086777-92b6-46dc-96ee-512f47c33f79}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Particles">
-      <UniqueIdentifier>{9f2f0350-db82-4434-ab52-ba70628027c0}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -346,26 +343,11 @@
     <ClInclude Include="OptionsMenu.h">
       <Filter>Scenes\MainMenu\Submenus</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="SpeedrunManager.h">
       <Filter>Managers</Filter>
     </ClInclude>
-    <ClInclude Include="EffectSprite.h">
-      <Filter>Core\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleEffect.h">
-      <Filter>Core\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleEffectFactory.h">
-      <Filter>Core\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleEffectTypes.hpp">
-      <Filter>Core\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleStats.hpp">
-      <Filter>Core\Particles</Filter>
+    <ClInclude Include="Timer.h">
+      <Filter>Game Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -592,20 +574,11 @@
     <ClCompile Include="OptionsMenu.cpp">
       <Filter>Scenes\MainMenu\Submenus</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="SpeedrunManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
-    <ClCompile Include="EffectSprite.cpp">
-      <Filter>Core\Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleEffect.cpp">
-      <Filter>Core\Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleEffectFactory.cpp">
-      <Filter>Core\Particles</Filter>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Game Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
