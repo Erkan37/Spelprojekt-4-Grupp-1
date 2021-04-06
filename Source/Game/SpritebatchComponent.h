@@ -27,6 +27,7 @@ public:
     SpritebatchComponent& SetSpritePath(const std::string& aSpritePath);
     const std::string GetSpritePath() const;
     SpritebatchComponent& AddSprite(SpriteComponent* aSprite);
+    void RemoveObject(Tga2D::CSprite* aSpriteObject, bool aAlsoDelete);
 
     void SetBlendState(const EBlendState aBlendState);
     const EBlendState& GetBlendState() const;
@@ -35,6 +36,8 @@ public:
     const ESamplerFilter& GetSamplerFilter() const;
 
     void SetOpacity(const float& aOpacity);
+
+    void GetSize();
 
 private:
     void Reset();

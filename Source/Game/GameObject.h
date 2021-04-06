@@ -51,7 +51,8 @@ public:
 	virtual void OnBashed() {}
 
 	virtual GameObject& Destroy();
-	void DeleteInactiveComponents();
+	void DeleteInactiveSpriteComponents();
+	void DeleteComponents();
 
 	/* Other Setters & Getters */
 	inline const bool& IsActive() const

@@ -9,6 +9,7 @@
 #include "PhysicsComponent.h"
 #include "Random.hpp"
 #include "SpriteComponent.h"
+#include "SpritebatchComponent.h"
 
 
 ParticleEffect::ParticleEffect(Scene* aLevelScene)
@@ -25,6 +26,7 @@ ParticleEffect::ParticleEffect(Scene* aLevelScene)
 	myPauseTimer = {};
 	myAddedPauseTimer = {};
 	myZIndex = {};
+	myInitBatching = {};
 }
 
 ParticleEffect::~ParticleEffect() = default;
@@ -35,6 +37,10 @@ void ParticleEffect::Init(ParticleStats aStats, Player * aPlayer)
 	myPlayer = aPlayer;
 	myStats = aStats;
 	myCreatingSprites = true;
+	myBatch = AddComponent<SpritebatchComponent>();
+	myBatch->SetSpritePath(myStats.mySpritePath);
+	myBatch->SetSamplerFilter(ESamplerFilter_Point);
+	myBatch->Init();
 
 	if (static_cast<eParticleEffects>(myStats.myEffectTypeIndex) == eParticleEffects::RunEffect)
 		myActiveEffect = true;
@@ -73,8 +79,6 @@ const eParticleEffects ParticleEffect::GetType() const
 
 const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 {
-	std::cout << GetZIndex() << std::endl;
-
 	myTimer += aDeltaTime;
 	myLifeTime += aDeltaTime;
 	myPauseTimer += aDeltaTime;
@@ -144,6 +148,8 @@ const void ParticleEffect::SpawnSprite()
 
 	sprite->AddSprite(AddComponent<SpriteComponent>());
 
+	myBatch->AddSprite(sprite->GetSprite());
+	
 	mySprites.push_back(sprite);
 
 	mySpawnInterval = Utils::RandomFloat(myStats.myMinBetweenSpawn, myStats.myMaxBetweenSpawn);
@@ -172,6 +178,9 @@ const void ParticleEffect::CheckIfEffectIsDead()
 
 		if (!spritesAreMoving)
 		{
+			delete myBatch;
+			myBatch = nullptr;
+			DeleteComponents();
 			mySprites.clear();
 			delete this;
 		}
@@ -185,9 +194,10 @@ const void ParticleEffect::CheckIfSpritesAreDead(const float& aDeltaTime)
 		mySprites[x]->Update(aDeltaTime);
 		if (mySprites[x]->IsAlive() == false)
 		{
+			myBatch->RemoveObject(mySprites[x]->GetSprite()->GetCSprite(), false);
 			delete mySprites[x];
 			mySprites.erase(mySprites.begin() + x);
-			DeleteInactiveComponents();
+			DeleteInactiveSpriteComponents();
 		}
 	}
 }

@@ -13,6 +13,8 @@ public:
 	void Update(const float& aDeltatime);
 
 	void AddSprite(SpriteComponent* aSprite);
+	SpriteComponent* GetSprite();
+
 	bool IsAlive();
 
 	void SetInactive();

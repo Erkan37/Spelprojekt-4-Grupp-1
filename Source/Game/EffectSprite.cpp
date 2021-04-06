@@ -60,6 +60,11 @@ void EffectSprite::AddSprite(SpriteComponent* aSprite)
 	mySprite->Activate();
 }
 
+SpriteComponent* EffectSprite::GetSprite()
+{
+	return mySprite;
+}
+
 bool EffectSprite::IsAlive()
 {
 	return myIsAlive;

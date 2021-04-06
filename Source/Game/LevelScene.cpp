@@ -105,7 +105,7 @@ void LevelScene::Update(const float& aDeltaTime)
 	{
 		v2f position = GetPlayer()->GetPosition();
 
-		myEffectFactory->SpawnEffect(position, eParticleEffects::TestEffect);
+		myEffectFactory->SpawnEffect(position, eParticleEffects::RainEffect);
 	}
 
 	if (CGameWorld::GetInstance()->Input()->GetInput()->GetKeyJustDown(Keys::RightMouseButton))

@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "EffectSprite.h"
 
+class SpritebatchComponent;
 class SpriteComponent;
 class Player;
 class LevelScene;
@@ -27,6 +28,8 @@ public:
 
 private:
 	std::vector<EffectSprite*> mySprites;
+
+	SpritebatchComponent* myBatch;
 	ParticleStats myStats;
 
 	float mySpawnInterval;
@@ -36,6 +39,7 @@ private:
 
 	int myZIndex; 
 
+	bool myInitBatching;
 	bool myActiveEffect;
 	bool myCreatingSprites;
 	bool myAddedEmitter;

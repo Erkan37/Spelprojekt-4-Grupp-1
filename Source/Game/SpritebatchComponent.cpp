@@ -73,6 +73,12 @@ SpritebatchComponent& SpritebatchComponent::AddSprite(SpriteComponent* aSprite)
 	return *this;
 }
 
+void SpritebatchComponent::RemoveObject(Tga2D::CSprite* aSpriteObject, bool aAlsoDelete)
+{
+	myBatch->RemoveObject(aSpriteObject, aAlsoDelete);
+}
+
+
 void SpritebatchComponent::Reset()
 {
 	delete myBatch;

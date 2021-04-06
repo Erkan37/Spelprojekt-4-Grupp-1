@@ -150,7 +150,7 @@ GameObject& GameObject::Destroy()
 	return *this;
 }
 
-void GameObject::DeleteInactiveComponents()
+void GameObject::DeleteInactiveSpriteComponents()
 {
 	for (int i = 0; i < myComponents.size(); i++)
 	{
@@ -164,6 +164,14 @@ void GameObject::DeleteInactiveComponents()
 				break;
 			}
 		}
+	}
+}
+
+void GameObject::DeleteComponents()
+{
+	for (int i = myComponents.size() - 1; i >= 0; i--)
+	{
+		myComponents.erase(myComponents.begin() + i);
 	}
 }
 
