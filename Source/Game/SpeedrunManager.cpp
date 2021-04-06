@@ -4,6 +4,10 @@
 void SpeedrunManager::SetIsSpeedrun(const bool aIsSpeedrun)
 {
 	myIsSpeedrun = aIsSpeedrun;
+	if (myIsSpeedrun == false)
+	{
+		myCurrentScore = 0;
+	}
 }
 
 bool SpeedrunManager::GetIsSpeedrun()
