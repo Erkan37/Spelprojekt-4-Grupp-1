@@ -51,6 +51,13 @@ void LevelScene::Load()
 	myPauseMenu = new PauseMenu(this);
 	myPauseMenu->InitMenu();
 
+	myEffectFactory = new ParticleEffectFactory();
+	myEffectFactory->ReadEffects(this);
+	myEffectFactory->Init();
+
+	myTimer = new Timer(this);
+	myTimer->Init({ 10, 10 });
+	myTimer->Start();
 	if (myIsSpeedrun)
 	{
 		myTimer = new Timer(this);
@@ -94,6 +101,7 @@ void LevelScene::Deactivate()
 
 void LevelScene::Update(const float& aDeltaTime)
 {
+
 	const float zoomX = CGameWorld::GetInstance()->Game()->GetZoomX();
 	const float zoomY = CGameWorld::GetInstance()->Game()->GetZoomY();
 
@@ -176,6 +184,11 @@ const bool LevelScene::GetReachedFullOpacity()
 GameObject* LevelScene::GetPlayer()
 {
 	return myPlayer;
+}
+
+ParticleEffectFactory& LevelScene::GetEffectFactory()
+{
+	return *myEffectFactory;
 }
 
 void LevelScene::Transitioning()

@@ -75,6 +75,8 @@ void NormalEnemy::InitCollider()
 {
 	Enemy::InitCollider();
 	ColliderComponent* collider = this->AddComponent<ColliderComponent>();
+	collider->SetCollideOnlyWithPlayer(true);
+
 	Transform transform = this->GetTransform();
 	collider->SetSize({myJsonData->myFloatValueMap[EEnum::NE_CollisionSizeX], myJsonData->myFloatValueMap[EEnum::NE_CollisionSizeY]});
 }
@@ -82,6 +84,8 @@ void ShootingEnemy::InitCollider()
 {
 	Enemy::InitCollider();
 	ColliderComponent* collider = this->AddComponent<ColliderComponent>();
+	collider->SetCollideOnlyWithPlayer(true);
+
 	Transform transform = this->GetTransform();
 	collider->SetSize({ myJsonData->myFloatValueMap[EEnum::SE_CollisionSizeX], myJsonData->myFloatValueMap[EEnum::SE_CollisionSizeY] });
 }

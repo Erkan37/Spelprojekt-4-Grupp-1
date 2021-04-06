@@ -36,6 +36,7 @@ public:
     /* Sprite */
     SpriteComponent& SetSpritePath(const std::string& aSpritePath);
     const std::string& GetSpritePath() const;
+    Tga2D::CSprite* GetCSprite();
 
     /* Alpha */
     const float& GetAlpha() const;

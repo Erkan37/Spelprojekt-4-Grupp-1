@@ -25,6 +25,7 @@ private:
 	GameObject* myBackgroundSprite4;
 	GameObject* myBackgroundSprite5;
 	GameObject* myBackgroundSprite6;
+	GameObject* myBackgroundSprite7;
 
 	v2f myCurrentRenderSize;
 	v2f myStartingCameraPos;
@@ -35,8 +36,8 @@ private:
 	v2f myOffsetBackground4;
 	v2f myOffsetBackground5;
 	v2f myOffsetBackground6;
+	v2f myOffsetBackground7;
 
-	float myOriginalSpeed;
 	float myCloudSpeed;
 
 	float myTotalCameraDistanceX;
@@ -50,6 +51,7 @@ private:
 	float myBackgroundSpeedFourX;
 	float myBackgroundSpeedFiveX;
 	float myBackgroundSpeedSixX;
+	float myBackgroundSpeedSevenX;
 
 	float myBackgroundSpeedOneY;
 	float myBackgroundSpeedTwoY;
@@ -57,6 +59,7 @@ private:
 	float myBackgroundSpeedFourY;
 	float myBackgroundSpeedFiveY;
 	float myBackgroundSpeedSixY;
+	float myBackgroundSpeedSevenY;
 
 	float myStartingPlayerPos;
 
