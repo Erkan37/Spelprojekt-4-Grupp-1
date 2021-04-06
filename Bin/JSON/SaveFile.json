@@ -12,6 +12,34 @@
   "Collectibles": [
     {
       "Collectible": {
+        "ID": 113,
+        "BonfireID": 4,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 130,
+        "BonfireID": 1,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 129,
+        "BonfireID": 1,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 113,
+        "BonfireID": 4,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
         "ID": 1,
         "BonfireID": 0,
         "BeenCollected": false
@@ -21,6 +49,104 @@
       "Collectible": {
         "ID": 0,
         "BonfireID": 0,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 107,
+        "BonfireID": 1,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 108,
+        "BonfireID": 1,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 109,
+        "BonfireID": 1,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 110,
+        "BonfireID": 5,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 128,
+        "BonfireID": 1,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 131,
+        "BonfireID": 1,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 130,
+        "BonfireID": 1,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 129,
+        "BonfireID": 1,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 133,
+        "BonfireID": 1,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 116,
+        "BonfireID": 1,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 117,
+        "BonfireID": 6,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 111,
+        "BonfireID": 5,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 112,
+        "BonfireID": 6,
+        "BeenCollected": false
+      }
+    },
+    {
+      "Collectible": {
+        "ID": 132,
+        "BonfireID": 1,
         "BeenCollected": false
       }
     }

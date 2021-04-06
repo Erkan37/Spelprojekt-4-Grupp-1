@@ -369,5 +369,9 @@ void DataManager::ParseCollectableInfo(){
 			}
 		}
 	}
+
+#ifndef _RETAIL
+	ResetCollectibles();
+#endif // !_RETAIL
 	SetCollectedState();
 }
