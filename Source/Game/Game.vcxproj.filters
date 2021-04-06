@@ -85,6 +85,9 @@
     <Filter Include="Scenes\MainMenu\Submenus">
       <UniqueIdentifier>{b1086777-92b6-46dc-96ee-512f47c33f79}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Objects\Particles">
+      <UniqueIdentifier>{bba6ec4d-3472-4005-8061-5a196c65ffe9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -349,6 +352,21 @@
     <ClInclude Include="Timer.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleStats.hpp">
+      <Filter>Game Objects\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEffect.h">
+      <Filter>Game Objects\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEffectFactory.h">
+      <Filter>Game Objects\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEffectTypes.hpp">
+      <Filter>Game Objects\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectSprite.h">
+      <Filter>Game Objects\Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -579,6 +597,15 @@
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEffect.cpp">
+      <Filter>Game Objects\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEffectFactory.cpp">
+      <Filter>Game Objects\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectSprite.cpp">
+      <Filter>Game Objects\Particles</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
