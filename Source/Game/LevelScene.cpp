@@ -132,6 +132,8 @@ void LevelScene::Update(const float& aDeltaTime)
 
 	if (myPauseMenu->IsPauseActive() == false)
 		Scene::Update(aDeltaTime);
+	else if (CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->GetIsSpeedrun())
+		myTimer->Update(aDeltaTime);
 }
 
 void LevelScene::AddBlackScreen()
