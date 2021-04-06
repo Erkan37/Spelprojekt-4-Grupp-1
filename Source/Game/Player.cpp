@@ -73,7 +73,7 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	myIsLerpingToPosition = false;
 	myIsGliding = false;
 
-	myGlideFactor = 0.1f;
+	myGlideFactor = 0.14f;
 
 	mySpringVelocity = {};
 	myPercentageLeftVelocity = {};
