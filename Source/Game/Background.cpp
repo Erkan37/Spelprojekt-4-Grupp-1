@@ -24,6 +24,8 @@ Background::Background(Scene* aLevelScene)
 	myBackgroundSpeedOneY = {};
 	myBackgroundSpeedTwoY = {};
 	myBackgroundSpeedThreeY = {};
+	myBackgroundSpeedSevenX = {};
+	myBackgroundSpeedSevenY = {};
 	myAddedCameraPos = {};
 	myCloudSpeed = {};
 	myTotalCameraDistanceX = {};
@@ -130,6 +132,9 @@ const void Background::LoadJson(Scene* aLevelScene)
 	myBackgroundSpeedSixX = backgroundDocuments["SpeedVariables"][5]["SpeedSixX"].GetFloat();
 	myBackgroundSpeedSixY = backgroundDocuments["SpeedVariables"][5]["SpeedSixY"].GetFloat();
 
+	myBackgroundSpeedSevenX = backgroundDocuments["SpeedVariables"][6]["SpeedSevenX"].GetFloat();
+	myBackgroundSpeedSevenY = backgroundDocuments["SpeedVariables"][6]["SpeedSevenY"].GetFloat();
+
 	myCloudSpeed = backgroundDocuments["Cloud"][0]["SpeedX"].GetFloat();
 
 	backgroundPathObjectsFile.close();
@@ -205,6 +210,15 @@ const void Background::CreateBackgrounds(Scene* aLevelScene, const std::string a
 		myOffsetBackground6 = anOffset;
 		break;
 	}
+	case 6:
+	{
+		myBackgroundSprite7 = new GameObject(aLevelScene);
+		SpriteComponent* sprite = myBackgroundSprite7->AddComponent<SpriteComponent>();
+		sprite->SetSpritePath(aPath);
+		myBackgroundSprite7->SetZIndex(6);
+		myOffsetBackground7 = anOffset;
+		break;
+	}
 	default:
 	{
 		break;
@@ -252,12 +266,17 @@ const void Background::CalculateCameraPositions(const float& aDeltaTime)
 	backgroundSpeedSix = { -(cameraPos.x) * myBackgroundSpeedSixX,
 						  -(cameraPos.y) * myBackgroundSpeedSixY };
 
+	v2f backgroundSpeedSeven;
+	backgroundSpeedSeven = { -(cameraPos.x) * myBackgroundSpeedSevenX,
+						  -(cameraPos.y) * myBackgroundSpeedSevenY };
+
 
 	myBackgroundSprite1->SetPosition(myCamera->GetPosition() + backgroundSpeedOne + GetHalfImageSize(myBackgroundSprite1) + myOffsetBackground1);
 	myBackgroundSprite3->SetPosition(myCamera->GetPosition() + backgroundSpeedThree + GetHalfImageSize(myBackgroundSprite3) + myOffsetBackground3);
 	myBackgroundSprite4->SetPosition(myCamera->GetPosition() + backgroundSpeedFour + GetHalfImageSize(myBackgroundSprite4) + myOffsetBackground4);
 	myBackgroundSprite5->SetPosition(myCamera->GetPosition() + backgroundSpeedFive + GetHalfImageSize(myBackgroundSprite5) + myOffsetBackground5);
 	myBackgroundSprite6->SetPosition(myCamera->GetPosition() + backgroundSpeedSix + GetHalfImageSize(myBackgroundSprite6) + myOffsetBackground6);
+	myBackgroundSprite7->SetPosition(myCamera->GetPosition() + backgroundSpeedSeven + GetHalfImageSize(myBackgroundSprite7) + myOffsetBackground7);
 
 	*myCloudDistance = *myCloudDistance + (aDeltaTime * myCloudSpeed);
 
