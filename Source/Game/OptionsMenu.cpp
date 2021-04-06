@@ -374,6 +374,10 @@ void OptionsMenu::UpdateUIElements(const float& aDeltaTime)
 	myBGDot->UpdateUIObjects(aDeltaTime);
 	myVFXDot->UpdateUIObjects(aDeltaTime);
 	myResolutions->UpdateUIObjects(aDeltaTime);
+	myScreenSizeDot->UpdateUIObjects(aDeltaTime);
+
+	myCredits->UpdateUIObjects(aDeltaTime);
+	myTutorial->UpdateUIObjects(aDeltaTime);
 
 	for (auto button : myButtons)
 		button->UpdateButton(true);

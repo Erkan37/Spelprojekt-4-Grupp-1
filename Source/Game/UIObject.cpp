@@ -44,6 +44,24 @@ void UIObject::InitAnimation(const std::string aPathString, const v2f aSize, con
 	GameObject::Init();
 }
 
+void UIObject::SetPosition(const v2f& aPosition)
+{
+	myStartPosition = aPosition;
+	myTransform.myPosition = aPosition;
+}
+
+void UIObject::SetPositionX(const float& aPositionX)
+{
+	myStartPosition.x = aPositionX;
+	myTransform.myPosition.x = aPositionX;
+}
+
+void UIObject::SetPositionY(const float& aPositionY)
+{
+	myStartPosition.y = aPositionY;
+	myTransform.myPosition.y = aPositionY;
+}
+
 void UIObject::UpdateUIObjects(const float& aDeltaTime)
 {
 	
