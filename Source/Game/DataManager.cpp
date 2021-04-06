@@ -288,6 +288,10 @@ void DataManager::ResetCollectibles()
 		rapidjson::Value state(rapidjson::Type::kFalseType);
 		jsonObject["Collectible"].AddMember("BeenCollected", state, allocator);
 
+		rapidjson::Value difficulty(rapidjson::Type::kNumberType);
+		difficulty.SetInt(myCollectableInfo[i].myDifficulty);
+		jsonObject["Collectible"].AddMember("Difficulty", difficulty, allocator);
+
 		mySaveFile["Collectibles"].PushBack(jsonObject, allocator);
 	}
 
@@ -375,7 +379,7 @@ void DataManager::ParseCollectableInfo(){
 	}
 
 #ifndef _RETAIL
-	ResetCollectibles();
+	ResetSaveFile();
 #endif // !_RETAIL
 	SetCollectedState();
 }
