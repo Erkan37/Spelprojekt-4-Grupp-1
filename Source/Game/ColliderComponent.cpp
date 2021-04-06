@@ -16,6 +16,7 @@ ColliderComponent::ColliderComponent()
 	, myY(0.0f)
 	, myWidth(0.0f)
 	, myHeight(0.0f)
+	, myCollideOnlyWithPlayer(false)
 {}
 
 ColliderComponent::~ColliderComponent()
@@ -25,12 +26,26 @@ ColliderComponent::~ColliderComponent()
 	{
 		PhysicsManager& phys = scene->GetPhysics();
 
-		for (size_t index = 0Ui64; index < phys.myColliders.size(); ++index)
+		if (!myCollideOnlyWithPlayer)
 		{
-			if (phys.myColliders[index] == this)
+			for (size_t index = 0Ui64; index < phys.myColliders.size(); ++index)
 			{
-				phys.myColliders.erase(phys.myColliders.begin() + index);
-				break;
+				if (phys.myColliders[index] == this)
+				{
+					phys.myColliders.erase(phys.myColliders.begin() + index);
+					break;
+				}
+			}
+		}
+		else
+		{
+			for (size_t index = 0Ui64; index < phys.myOnlyPlayerCollisionColliders.size(); ++index)
+			{
+				if (phys.myOnlyPlayerCollisionColliders[index] == this)
+				{
+					phys.myOnlyPlayerCollisionColliders.erase(phys.myOnlyPlayerCollisionColliders.begin() + index);
+					break;
+				}
 			}
 		}
 	}
@@ -45,7 +60,14 @@ void ColliderComponent::Init(Transform & aTransform, GameObject & aGameObject)
 	Scene* scene = myGameObject->GetScene();
 	if (scene)
 	{
-		scene->GetPhysics().myColliders.push_back(this);
+		if (!myCollideOnlyWithPlayer)
+		{
+			scene->GetPhysics().myColliders.push_back(this);
+		}
+		else
+		{
+			scene->GetPhysics().myOnlyPlayerCollisionColliders.push_back(this);
+		}
 	}
 }
 
@@ -132,4 +154,14 @@ ColliderComponent& ColliderComponent::SetSize(const float& aWidth, const float& 
 	myHeight = aHeight;
 
 	return *this;
+}
+
+void ColliderComponent::SetCollideOnlyWithPlayer(const bool aCollideWithPlayer)
+{
+	myCollideOnlyWithPlayer = aCollideWithPlayer;
+}
+
+const bool ColliderComponent::GetCollideOnlywithPlayer()
+{
+	return myCollideOnlyWithPlayer;
 }

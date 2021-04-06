@@ -159,6 +159,11 @@ const std::string& SpriteComponent::GetSpritePath() const
 	return mySpritePath;
 }
 
+Tga2D::CSprite* SpriteComponent::GetCSprite()
+{
+	return mySprite;
+}
+
 /* Alpha */
 const float& SpriteComponent::GetAlpha() const
 {

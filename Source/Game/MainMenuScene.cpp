@@ -38,6 +38,8 @@ void MainMenuScene::Load()
 void MainMenuScene::Activate()
 {
 	Scene::Activate();
+
+	myOptions->DeactivateTutorial();
 }
 
 void MainMenuScene::Deactivate()

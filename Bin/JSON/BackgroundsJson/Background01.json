@@ -10,6 +10,9 @@
       "FilePath": "Sprites/LevelSprites/BG01/BackgroundMountain1.dds"
     },
     {
+      "FilePath": "Sprites/LevelSprites/BG01/BackgroundCastle1.dds"
+    },
+    {
       "FilePath": "Sprites/LevelSprites/BG01/BackgroundForest3.dds"
     },
     {
@@ -30,7 +33,11 @@
     },
     {
       "PositionX": 0.0,
-      "PositionY": -10.0
+      "PositionY": -15.0
+    },
+    {
+      "PositionX": 40.0,
+      "PositionY": 15.0
     },
     {
       "PositionX": 0.0,
