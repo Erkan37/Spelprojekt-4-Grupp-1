@@ -15,10 +15,10 @@ OptionsMenu::OptionsMenu(Scene* aLevelScene)
 	: myCamera(aLevelScene->GetCamera())
 {
 	myScene = aLevelScene;
-	myMovingIndex = {};
+	myMovingIndex = 0;
 	myMenuAcitve = {};
-	mySoundMovingIndex = {};
-	myScreenMovingIndex = {};
+	mySoundMovingIndex = 0;
+	myScreenMovingIndex = 0;
 	myMusicVol = 0;
 	myVFXVol = 0;
 	myMusicStep = 2.0f;
@@ -156,7 +156,7 @@ bool OptionsMenu::IsOptionsActive()
 void OptionsMenu::CheckIndexPress(const float& aDeltaTime)
 {
 
-	if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey) && myScreenSettingsActive == false)
+	if ((myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey) || myInput->GetController()->IsButtonPressed(Controller::Button::Cross)) && myScreenSettingsActive == false)
 	{
 		if (myMovingIndex == static_cast<int>(eOptionsMenu::Back))
 		{
@@ -212,19 +212,19 @@ void OptionsMenu::CheckIndexPress(const float& aDeltaTime)
 			}
 		}
 	}
-	else if (myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey) && myScreenSettingsActive == true)
+	else if ((myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey) || myInput->GetController()->IsButtonPressed(Controller::Button::Cross)) && myScreenSettingsActive == true)
 	{
 		if (myScreenMovingIndex == 0)
 		{
 			myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX());
 
-			Tga2D::CEngine::GetInstance()->SetResolution({ 1225, 720 }, true);
+			Tga2D::CEngine::GetInstance()->SetResolution({ 1280, 720 }, true);
 			Tga2D::CEngine::GetInstance()->SetTargetSize({ 1280, 720 });
 		}
 		else if (myScreenMovingIndex == 1)
 		{
 			myScreenSizeDot->SetPositionX(my720pHgh->GetPositionX() + 27.f);
-			Tga2D::CEngine::GetInstance()->SetResolution({ 1865, 1080 }, true);
+			Tga2D::CEngine::GetInstance()->SetResolution({ 1920, 1080 }, true);
 			Tga2D::CEngine::GetInstance()->SetTargetSize({ 1920, 1080 });
 		}
 		else if (myScreenMovingIndex == 2)
@@ -243,20 +243,20 @@ void OptionsMenu::CheckIndexPress(const float& aDeltaTime)
 
 	if (mySoundSettingsActive == true)
 	{
-		if (myInput->GetInput()->GetKeyJustDown(Keys::UPARROWKey))
+		if (myInput->GetInput()->GetKeyJustDown(Keys::UPARROWKey) || myInput->GetController()->IsButtonPressed(Controller::Button::DPadUp))
 		{
 			mySoundMovingIndex--;
 			if (mySoundMovingIndex < 0)
 				mySoundMovingIndex = mySoundObjects.size() - 1;
 		}
-		else if (myInput->GetInput()->GetKeyJustDown(Keys::DOWNARROWKey))
+		else if (myInput->GetInput()->GetKeyJustDown(Keys::DOWNARROWKey) || myInput->GetController()->IsButtonPressed(Controller::Button::DPadDown))
 		{
 			mySoundMovingIndex++;
 			if (mySoundMovingIndex > mySoundObjects.size() - 1)
 				mySoundMovingIndex = 0;
 		}
 
-		if (myInput->GetInput()->GetKeyJustDown(Keys::RIGHTARROWKey))
+		if (myInput->GetInput()->GetKeyJustDown(Keys::RIGHTARROWKey) || myInput->GetController()->IsButtonPressed(Controller::Button::DPadRight))
 		{
 
 			if (mySoundMovingIndex == 0 && myMusicVol < 1.0f)
@@ -272,7 +272,7 @@ void OptionsMenu::CheckIndexPress(const float& aDeltaTime)
 				myAudioManager->GetInstance()->SetSFXVolume(myVFXVol);
 			}
 		}
-		else if (myInput->GetInput()->GetKeyJustDown(Keys::LEFTARROWKey))
+		else if (myInput->GetInput()->GetKeyJustDown(Keys::LEFTARROWKey) || myInput->GetController()->IsButtonPressed(Controller::Button::DPadLeft))
 		{
 			if (mySoundMovingIndex == 0 && myMusicVol > 0.0f)
 			{
@@ -292,13 +292,13 @@ void OptionsMenu::CheckIndexPress(const float& aDeltaTime)
 
 	else if (myScreenSettingsActive == true)
 	{
-		if (myInput->GetInput()->GetKeyJustDown(Keys::LEFTARROWKey))
+		if (myInput->GetInput()->GetKeyJustDown(Keys::LEFTARROWKey) || myInput->GetController()->IsButtonPressed(Controller::Button::DPadLeft))
 		{
 			myScreenMovingIndex--;
 			if (myScreenMovingIndex < 0)
 				myScreenMovingIndex = myResolutionObj.size() - 1;
 		}
-		else if (myInput->GetInput()->GetKeyJustDown(Keys::RIGHTARROWKey))
+		else if (myInput->GetInput()->GetKeyJustDown(Keys::RIGHTARROWKey) || myInput->GetController()->IsButtonPressed(Controller::Button::DPadRight))
 		{
 			myScreenMovingIndex++;
 			if (myScreenMovingIndex > myResolutionObj.size() - 1)
@@ -307,13 +307,13 @@ void OptionsMenu::CheckIndexPress(const float& aDeltaTime)
 	}
 	else if (mySoundSettingsActive == false && myScreenSettingsActive == false && myCreditsActive == false && myTutorialActtive == false)
 	{
-		if (myInput->GetInput()->GetKeyJustDown(Keys::UPARROWKey))
+		if (myInput->GetInput()->GetKeyJustDown(Keys::UPARROWKey) || myInput->GetController()->IsButtonPressed(Controller::Button::DPadUp))
 		{
 			myMovingIndex--;
 			if (myMovingIndex < 0)
 				myMovingIndex = myButtons.size() - 1;
 		}
-		else if (myInput->GetInput()->GetKeyJustDown(Keys::DOWNARROWKey))
+		else if (myInput->GetInput()->GetKeyJustDown(Keys::DOWNARROWKey) || myInput->GetController()->IsButtonPressed(Controller::Button::DPadDown))
 		{
 			myMovingIndex++;
 			if (myMovingIndex > myButtons.size() - 1)
@@ -374,6 +374,10 @@ void OptionsMenu::UpdateUIElements(const float& aDeltaTime)
 	myBGDot->UpdateUIObjects(aDeltaTime);
 	myVFXDot->UpdateUIObjects(aDeltaTime);
 	myResolutions->UpdateUIObjects(aDeltaTime);
+	myScreenSizeDot->UpdateUIObjects(aDeltaTime);
+
+	myCredits->UpdateUIObjects(aDeltaTime);
+	myTutorial->UpdateUIObjects(aDeltaTime);
 
 	for (auto button : myButtons)
 		button->UpdateButton(true);

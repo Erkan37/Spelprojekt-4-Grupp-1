@@ -1,11 +1,4 @@
 { "compressionlevel":-1,
- "editorsettings":
-    {
-     "export":
-        {
-         "target":"."
-        }
-    },
  "height":23,
  "infinite":false,
  "layers":[
@@ -111,6 +104,12 @@
                  "height":80,
                  "id":260,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":1
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
@@ -119,20 +118,32 @@
                  "y":104
                 }, 
                 {
-                 "height":10,
+                 "height":12,
                  "id":274,
                  "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
                  "rotation":0,
                  "type":"4",
                  "visible":true,
                  "width":520,
                  "x":64,
-                 "y":174
+                 "y":172
                 }, 
                 {
                  "height":112,
                  "id":303,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":1
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
@@ -144,6 +155,12 @@
                  "height":80,
                  "id":344,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":1
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
@@ -155,6 +172,12 @@
                  "height":152,
                  "id":346,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":1
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
@@ -177,6 +200,12 @@
                  "height":80,
                  "id":352,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":1
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
@@ -221,6 +250,12 @@
                  "height":152,
                  "id":357,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":1
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
@@ -262,37 +297,66 @@
                  "y":144
                 }, 
                 {
-                 "height":2,
+                 "height":4,
                  "id":361,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
                  "rotation":0,
                  "type":"4",
                  "visible":true,
-                 "width":32,
-                 "x":376,
-                 "y":46
+                 "width":30,
+                 "x":377,
+                 "y":44
                 }, 
                 {
-                 "height":2,
+                 "height":4,
                  "id":362,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
                  "rotation":0,
                  "type":"4",
                  "visible":true,
-                 "width":32,
-                 "x":168,
-                 "y":46
+                 "width":30,
+                 "x":169,
+                 "y":44
                 }, 
                 {
                  "height":8,
                  "id":363,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":0
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":688,
                  "x":-24,
                  "y":-64
+                }, 
+                {
+                 "height":8,
+                 "id":364,
+                 "name":"",
+                 "rotation":0,
+                 "type":"2",
+                 "visible":true,
+                 "width":24,
+                 "x":432,
+                 "y":144
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -428,7 +492,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":536,
+                 "x":544,
                  "y":152
                 }],
          "opacity":1,
@@ -449,10 +513,16 @@
          "y":0
         }],
  "nextlayerid":18,
- "nextobjectid":364,
+ "nextobjectid":365,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"Area",
+         "type":"int",
+         "value":0
+        }],
  "renderorder":"right-down",
- "tiledversion":"1.4.3",
+ "tiledversion":"1.5.0",
  "tileheight":8,
  "tilesets":[
         {
@@ -461,6 +531,6 @@
         }],
  "tilewidth":8,
  "type":"map",
- "version":1.4,
+ "version":1.5,
  "width":80
 }

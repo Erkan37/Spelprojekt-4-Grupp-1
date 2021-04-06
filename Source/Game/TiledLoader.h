@@ -36,8 +36,10 @@ class TiledLoader
 public:
 	void Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer, const bool aIsHiddenRoom);
 
+	void UsedLevelSelect();
+
 private:
-	void ParseBonfires(const std::vector<LoadData> someData, Scene*);
+	void ParseBonfires(const std::vector<LoadData> someData, Scene*, Player* aPlayer);
 	void ParseDoors(const std::vector<LoadData> someData, Scene* aScene, Player* aPlayer);
 	void ParseEnemies(const std::vector<LoadData> someData, Scene*);
 	void ParseLedges(const std::vector<LoadData> someData, Scene*);
@@ -64,4 +66,6 @@ private:
 	int myFG1z = 110;
 	int myFG2z = 120;
 	int myHRz = 130;
+
+	bool myLoadsFromLevelSelect = false;
 };

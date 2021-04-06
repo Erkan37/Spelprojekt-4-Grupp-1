@@ -5,6 +5,8 @@
 
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
+#include "AudioManager.h"
+#include "LevelScene.h"
 
 #include "Player.hpp"
 
@@ -59,13 +61,18 @@ void Platform::OnCollision(GameObject* aGameObject)
 	Player* player = dynamic_cast<Player*>(aGameObject);
 	if (player)
 	{
+		player->PlayFootSteps(myMaterial);
 		player->SetPlatformVelocity(v2f(0.0f, 0.0f));
-		player->SetGroundIndex(myMaterial);
 		if (player->GetHasLanded())
 		{
 			PostMaster::GetInstance().ReceiveMessage(Message(eMessageType::PlayerSafeLanded, 0));
 		}
 	}
+}
+
+void Platform::Landed(const int& aOverlapY)
+{
+	dynamic_cast<Player*>(dynamic_cast<LevelScene*>(this->myScene)->GetPlayer())->PlayLandingSounds(myMaterial);
 }
 
 void Platform::ResetVelocity()

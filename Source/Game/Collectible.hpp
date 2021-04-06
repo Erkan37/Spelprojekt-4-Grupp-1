@@ -20,7 +20,7 @@ public:
 		Hard
 	};
 
-	Collectible(Scene* aLevelScene);
+	Collectible(Scene* aLevelScene, const unsigned int anID, const unsigned int aBonfireID);
 	~Collectible();
 
 	void Init(const v2f& aPosition, eCollectibleType aType);
@@ -53,5 +53,8 @@ private:
 	eCollectibleType myType;
 	bool myWasCollected;
 	bool myWasTurnedIn;
+
+	const unsigned int myID;
+	const unsigned int myBonfireID;
 };
 

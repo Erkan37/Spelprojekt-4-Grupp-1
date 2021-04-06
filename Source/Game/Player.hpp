@@ -65,7 +65,7 @@ public:
 	void SetLerpPosition(const v2f& aPosition);
 	void EndLerp();
 
-	void ActivateSpringForce(float mySpringVelocity, const float aRetardation);
+	void ActivateSpringForce(float mySpringVelocity, const float aRetardation, const bool aShouldResetVelocity);
 
 	void BounceOnDestructibleWall();
 	const bool& GetIsBashing();
@@ -85,10 +85,6 @@ public:
 	void SetAnimation(const int& aAnimationIndex);
 	void SetNextAnimation(const int& aAnimationIndex);
 
-	void SetGroundIndex(const int& aGroundType);
-	void WalkingSoundCheck();
-	void LandingSoundCheck();
-
 	void UnlockLandingSounds();
 
 	void SetSpawnPosition(const v2f& aSpawnPosition);
@@ -97,6 +93,8 @@ public:
 	const bool GetIsGliding();
 
 	const bool GetHasDied();
+	void PlayFootSteps(const int& aPlatformIndex);
+	void PlayLandingSounds(const int& aPlatformIndex);
 
 private:
 #ifdef _DEBUG
@@ -127,7 +125,6 @@ private:
 
 	int myCurrentAnimationIndex;
 	int myDirectionX;
-	int myGroundIndex;
 
 	int myLedgeSoundIndex;
 

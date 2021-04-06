@@ -9,11 +9,11 @@ enum class AudioList
 	MenuMove, MenuSelect, MenuAmbience,
 	GrabLedge, GrabLedge2, LeaveLedge,
 	ButtonPress,
-	SpikeDeath, SpikeHit,
+	SpikeDeath, SpikeHit, ThornDeath, FallDeath, EnemyDeath,
 	ProjectileFly, ProjectileHit,
 	WeakPlatform, MovingPlatform,
 	WalkGravelRight, WalkGravelLeft, WalkGrassRight, WalkGrassLeft, WalkStoneRight, WalkStoneLeft, WalkWoodLeft, WalkWoodRight, WalkBrickLeft, WalkBrickRight,
-	LandOnGrassHeavy, LandOnGrassEasy, LandOnStoneHeavy, LandOnStoneLight,
+	LandOnGrassHeavy, LandOnGrassEasy, LandOnStoneHeavy, LandOnStoneLight, LandBricksHeavy, LandBricksLight, LandWoodHeavy, LandWoodLight, LandGravelHeavy, LandGravelLight,
 	BashCharge, BashRelease,
 	CollectableV1,
 };

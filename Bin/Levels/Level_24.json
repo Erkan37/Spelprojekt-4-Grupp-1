@@ -111,6 +111,12 @@
                  "height":56,
                  "id":260,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":1
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
@@ -122,6 +128,12 @@
                  "height":120,
                  "id":303,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":1
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
@@ -218,17 +230,6 @@
                  "y":64
                 }, 
                 {
-                 "height":80,
-                 "id":343,
-                 "name":"D\u00f6dlig",
-                 "rotation":0,
-                 "type":"4",
-                 "visible":true,
-                 "width":32,
-                 "x":148,
-                 "y":44
-                }, 
-                {
                  "height":8,
                  "id":344,
                  "name":"",
@@ -315,17 +316,6 @@
                  "width":24,
                  "x":336,
                  "y":64
-                }, 
-                {
-                 "height":80,
-                 "id":348,
-                 "name":"D\u00f6dlig",
-                 "rotation":0,
-                 "type":"4",
-                 "visible":true,
-                 "width":32,
-                 "x":292,
-                 "y":76
                 }, 
                 {
                  "height":8,
@@ -504,31 +494,49 @@
                  "y":64
                 }, 
                 {
-                 "height":44,
+                 "height":36,
                  "id":357,
                  "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
                  "rotation":0,
                  "type":"4",
                  "visible":true,
                  "width":32,
                  "x":436,
-                 "y":124
+                 "y":128
                 }, 
                 {
-                 "height":40,
+                 "height":32,
                  "id":358,
                  "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
                  "rotation":0,
                  "type":"4",
                  "visible":true,
                  "width":32,
                  "x":436,
-                 "y":36
+                 "y":40
                 }, 
                 {
-                 "height":196,
+                 "height":192,
                  "id":368,
                  "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":6
+                        }],
                  "rotation":0,
                  "type":"4",
                  "visible":true,
@@ -537,48 +545,293 @@
                  "y":-72
                 }, 
                 {
-                 "height":32,
+                 "height":24,
                  "id":369,
                  "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
                  "rotation":0,
                  "type":"4",
                  "visible":true,
                  "width":32,
                  "x":620,
-                 "y":84
+                 "y":88
                 }, 
                 {
-                 "height":16,
+                 "height":20,
                  "id":371,
                  "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
                  "rotation":0,
                  "type":"4",
                  "visible":true,
                  "width":688,
                  "x":64,
-                 "y":168
+                 "y":164
                 }, 
                 {
-                 "height":8,
+                 "height":4,
                  "id":375,
                  "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
                  "rotation":0,
                  "type":"4",
                  "visible":true,
-                 "width":24,
-                 "x":620,
-                 "y":116
+                 "width":16,
+                 "x":624,
+                 "y":120
                 }, 
                 {
                  "height":8,
                  "id":376,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":848,
                  "x":-24,
                  "y":-80
+                }, 
+                {
+                 "height":4,
+                 "id":377,
+                 "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":6
+                        }],
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":8,
+                 "x":568,
+                 "y":120
+                }, 
+                {
+                 "height":4,
+                 "id":378,
+                 "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":24,
+                 "x":624,
+                 "y":84
+                }, 
+                {
+                 "height":8,
+                 "id":379,
+                 "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":24,
+                 "x":620,
+                 "y":112
+                }, 
+                {
+                 "height":4,
+                 "id":380,
+                 "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":4,
+                 "x":644,
+                 "y":112
+                }, 
+                {
+                 "height":4,
+                 "id":381,
+                 "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":24,
+                 "x":440,
+                 "y":124
+                }, 
+                {
+                 "height":4,
+                 "id":382,
+                 "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":24,
+                 "x":440,
+                 "y":72
+                }, 
+                {
+                 "height":4,
+                 "id":383,
+                 "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":24,
+                 "x":440,
+                 "y":36
+                }, 
+                {
+                 "height":4,
+                 "id":384,
+                 "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":24,
+                 "x":296,
+                 "y":152
+                }, 
+                {
+                 "height":72,
+                 "id":385,
+                 "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":32,
+                 "x":292,
+                 "y":80
+                }, 
+                {
+                 "height":4,
+                 "id":386,
+                 "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":24,
+                 "x":296,
+                 "y":76
+                }, 
+                {
+                 "height":4,
+                 "id":387,
+                 "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":24,
+                 "x":152,
+                 "y":120
+                }, 
+                {
+                 "height":72,
+                 "id":388,
+                 "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":32,
+                 "x":148,
+                 "y":48
+                }, 
+                {
+                 "height":4,
+                 "id":389,
+                 "name":"D\u00f6dlig",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"4",
+                 "visible":true,
+                 "width":24,
+                 "x":152,
+                 "y":44
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -723,8 +976,14 @@
          "y":0
         }],
  "nextlayerid":18,
- "nextobjectid":377,
+ "nextobjectid":390,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"Area",
+         "type":"int",
+         "value":0
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
  "tileheight":8,

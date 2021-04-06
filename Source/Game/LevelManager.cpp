@@ -6,6 +6,7 @@
 #include "MainMenuScene.h"
 
 #include "TiledLoader.h"
+#include "SpeedrunManager.h"
 
 #include "GameObject.h"
 
@@ -23,8 +24,7 @@ LevelManager::LevelManager()
 
 	myLevelTransition = false;
 	myLoadingHiddenRoom = false;
-	myIsSpeedrunMode = false;
-
+	
 	Subscribe(eMessageType::LoadNext);
 	Subscribe(eMessageType::LoadPrevious);
 	Subscribe(eMessageType::LoadHiddenRoom);
@@ -42,6 +42,11 @@ void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelSelect, Scene* aLeve
 	//myScenes.insert({ eScenes::PauseMenu, aPauseMenuScene });
 	myScenes.insert({ eScenes::IntroLogos, anIntroLogosScene});
 	myScenes.insert({ eScenes::WinScene, aWinScene });
+
+	mySpeedrunManager = std::make_shared<SpeedrunManager>();
+	mySpeedrunManager->SetIsSpeedrun(false);
+	
+	DataManager::GetInstance().ParseCollectableInfo();
 }
 
 void LevelManager::Update()
@@ -141,11 +146,6 @@ const bool LevelManager::GetIsActive(eScenes aScene)
 	return myScenes[aScene]->IsActive();
 }
 
-bool LevelManager::GetIsSpeedrunMode()
-{
-	return myIsSpeedrunMode;
-}
-
 void LevelManager::LoadLevel(LevelScene* aLevelScene, GameObject* aPlayer)
 {
 	myTiledLoader->Load(aLevelScene, myLoadedLevel, aPlayer, myLoadingHiddenRoom);
@@ -162,9 +162,9 @@ void LevelManager::SetLevelIndex(const int& aLevelIndex)
 	myLoadedLevel = aLevelIndex;
 }
 
-void LevelManager::SetIsSpeedrunMode(bool aIsSpeedrunMode)
+void LevelManager::UsedLevelSelect()
 {
-	myIsSpeedrunMode = aIsSpeedrunMode;
+	myTiledLoader->UsedLevelSelect();
 }
 
 void LevelManager::Notify(const Message& aMessage)

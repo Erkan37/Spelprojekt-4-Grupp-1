@@ -8,6 +8,7 @@ class Scene;
 class LevelScene;
 
 class TiledLoader;
+class SpeedrunManager;
 
 class GameObject;
 
@@ -45,13 +46,16 @@ public:
 	void UnloadAllScenes();
 
 	const bool GetIsActive(eScenes aScene);
-	bool GetIsSpeedrunMode();
+	inline std::shared_ptr<SpeedrunManager> GetSpeedrunManager()
+	{
+		return mySpeedrunManager;
+	}
 
 	void LoadLevel(LevelScene* aLevelScene, GameObject* aPlayer);
 	void LoadLevel(LevelScene* aLevelScene, const int& aLevelIndex, GameObject* aPlayer);
 
 	void SetLevelIndex(const int& aLevelIndex);
-	void SetIsSpeedrunMode(bool aIsSpeedrunMode);
+	void UsedLevelSelect();
 
 	void Notify(const Message& aMessage) override;
 
@@ -60,6 +64,7 @@ public:
 private:
 	std::map<eScenes, Scene*> myScenes;
 	std::shared_ptr<TiledLoader> myTiledLoader;
+	std::shared_ptr<SpeedrunManager> mySpeedrunManager;
 
 	int myLastDoorType;
 
@@ -67,7 +72,7 @@ private:
 
 	bool myLoadingHiddenRoom;
 	bool myLevelTransition;
-	bool myIsSpeedrunMode;
+	//bool myIsSpeedrunMode;
 
 #ifndef _RETAIL
 	bool myImGuiIsActive;

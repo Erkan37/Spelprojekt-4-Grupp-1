@@ -11,9 +11,12 @@
 #include "DataManager.h"
 
 #include "SpriteComponent.h"
+#include "AnimationComponent.hpp"
+#include "TextComponent.h"
 
 #include "UIButton.h"
 #include "UIObject.h"
+#include "UIText.h"
 
 #include <rapidjson/istreamwrapper.h>
 #include <rapidjson/writer.h>
@@ -43,6 +46,8 @@ void LevelSelect::Load()
 	myLevelIndex = 0;
 
 	InitiateButtons();
+	InitCollectibles();
+	InitTexts();
 
 	GameObject* background = new GameObject(this);
 
@@ -50,7 +55,7 @@ void LevelSelect::Load()
 	sprite->SetSpritePath("Sprites/UI/levelSelect/UI_levelSelect_Background_304x164px.dds");
 	background->SetZIndex(200);
 
-	background->SetPosition(v2f(0.0f, 0.0f));
+	background->SetPosition(v2f(8.0f, 8.0f));
 	background->SetPivot(v2f(0.0f, 0.0f));
 
 	Scene::Load();
@@ -115,6 +120,9 @@ void LevelSelect::CheckButtonPress()
 				}
 				myLevelButtons[myLevelIndex]->SetIsHighlightActive(true);
 			}
+
+			ShowArea(myAreaIndexes[myLevelIndex]);
+			UpdateLevelCollectibles();
 		}
 	}
 	
@@ -158,6 +166,7 @@ void LevelSelect::CheckButtonPress()
 				return;
 			}
 
+			CGameWorld::GetInstance()->GetLevelManager().UsedLevelSelect();
 			CGameWorld::GetInstance()->GetLevelManager().SetLevelIndex(myLevelIndexes[myLevelIndex]);
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
 		}
@@ -170,16 +179,40 @@ void LevelSelect::CheckButtonPress()
 
 void LevelSelect::InitiateButtons()
 {
+	myAreaTexts.clear();
+	myLevelButtons.clear();
+
+	myAreaIndexes.clear();
+	myLevelIndexes.clear();
+
+	myLevelCollectibles.clear();
+
+	myAreaTexts.push_back(new UIObject(this));
+	myAreaTexts.push_back(new UIObject(this));
+	myAreaTexts.push_back(new UIObject(this));
+
+	myAreaTexts[0]->Init("Sprites/UI/levelSelect/UI_levelSelect_Title_TheForest_111x16px.dds", v2f(111.0f, 16.0f), v2f(16.0f, 16.0f), 201);
+	myAreaTexts[0]->SetPosition(v2f(16.0f, 16.0f));
+	myAreaTexts[0]->SetActive(true);
+
+	myAreaTexts[1]->Init("Sprites/UI/levelSelect/UI_levelSelect_Title_TheVillage_117x20px.dds", v2f(111.0f, 32.0f), v2f(16.0f, 16.0f), 201);
+	myAreaTexts[1]->SetPosition(v2f(16.0f, 16.0f));
+	myAreaTexts[1]->SetActive(false);
+
+	myAreaTexts[2]->Init("Sprites/UI/levelSelect/UI_levelSelect_Title_TheCastle_106x16px.dds", v2f(111.0f, 16.0f), v2f(16.0f, 16.0f), 201);
+	myAreaTexts[2]->SetPosition(v2f(16.0f, 16.0f));
+	myAreaTexts[2]->SetActive(false);
+
 	myBackButton = new UIButton(this);
-	myBackButton->Init("Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Unmarked_64x16px.dds", v2f(64.0f, 16.0f), v2f(250.0f, 160.0f), "Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Marked_64x16px.dds", 64);
-	myBackButton->SetPosition(v2f(250.0f, 160.0f));
+	myBackButton->Init("Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Unmarked_64x16px.dds", v2f(64.0f, 16.0f), v2f(248.0f, 156.0f), "Sprites/UI/levelSelect/UI_levelSelect_Text_MainMenu_Marked_64x16px.dds", 64);
+	myBackButton->SetPosition(v2f(248.0f, 156.0f));
 	myBackButton->GetComponent<SpriteComponent>()->SetSize(v2f(64.0f, 16.0f));
 	myBackButton->SetPivot(v2f(0.0f, 0.0f));
 	myBackButton->SetActive(true);
 
 	myBackButtonFire = new UIObject(this);
-	myBackButtonFire->InitAnimation("Sprites/UI/levelSelect/UI_levelSelect_Flame_16x16px.dds", v2f(16.0f, 16.0f), v2f(232.0f, 156), 201);
-	myBackButtonFire->SetPosition(v2f(232.0f, 156.0f));
+	myBackButtonFire->InitAnimation("Sprites/UI/levelSelect/UI_levelSelect_Flame_16x16px.dds", v2f(16.0f, 16.0f), v2f(230.0f, 156), 201);
+	myBackButtonFire->SetPosition(v2f(230.0f, 152.0f));
 	myBackButtonFire->SetPivot(v2f(0.0f, 0.0f));
 
 	std::ifstream levelSelectFile("JSON/Menus/LevelSelect/LevelSelect.json");
@@ -195,13 +228,14 @@ void LevelSelect::InitiateButtons()
 		{
 			UIButton* levelButton = new UIButton(this);
 			levelButton->SetPosition(v2f((*iterator)["X"].GetFloat(), (*iterator)["Y"].GetFloat()));
-			levelButton->Init("Sprites/UI/levelSelect/UI_levelSelect_Stage_320x180px_Marked.dds", v2f(8.0f, 8.0f), v2f((*iterator)["X"].GetFloat(), (*iterator)["Y"].GetFloat()), "Sprites/UI/levelSelect/UI_levelSelect_Flame_16x16px.dds", 16);
+			levelButton->Init("Sprites/UI/levelSelect/UI_levelSelect_Stage_320x180px_Marked.dds", v2f(16.0f, 16.0f), v2f((*iterator)["X"].GetFloat(), (*iterator)["Y"].GetFloat()), "Sprites/UI/levelSelect/UI_levelSelect_Flame_16x16px.dds", 16);
 			levelButton->GetComponent<SpriteComponent>()->SetSize(v2f(8.0f, 8.0f));
 			levelButton->SetPivot(v2f(0.0f, 0.0f));
 			levelButton->SetActive(true);
-			levelButton->SetHighlightOffset(v2f(-2.0f, -3.0f));
+			levelButton->SetHighlightOffset(v2f(-7.0f, -8.0f));
 			myLevelButtons.push_back(levelButton);
 
+			myAreaIndexes.push_back((*iterator)["Area"].GetInt());
 			myLevelIndexes.push_back((*iterator)["LevelIndex"].GetInt());
 		}
 
@@ -218,4 +252,105 @@ void LevelSelect::InitiateButtons()
 		myBackButtonFire->SetActive(true);
 		myIsSelectingLevel = false;
 	}
+}
+
+void LevelSelect::ShowArea(const int& aIndex)
+{
+	myAreaTexts[0]->SetActive(false);
+	myAreaTexts[1]->SetActive(false);
+	myAreaTexts[2]->SetActive(false);
+
+	myAreaTexts[aIndex]->SetActive(true);
+}
+
+void LevelSelect::InitCollectibles()
+{
+	GameObject* collectible1 = new GameObject(this);
+	GameObject* collectible2 = new GameObject(this);
+	GameObject* collectible3 = new GameObject(this);
+
+	SpriteComponent* collectibleSprite1 = collectible1->AddComponent<SpriteComponent>();
+	SpriteComponent* collectibleSprite2 = collectible2->AddComponent<SpriteComponent>();
+	SpriteComponent* collectibleSprite3 = collectible3->AddComponent<SpriteComponent>();
+
+	collectibleSprite1->SetSpritePath("Sprites/Objects/Collectible3.dds");
+	collectibleSprite2->SetSpritePath("Sprites/Objects/Collectible2.dds");
+	collectibleSprite3->SetSpritePath("Sprites/Objects/Collectible1.dds");
+
+	collectibleSprite1->SetSize(v2f(16.0f, 16.0f));
+	collectibleSprite2->SetSize(v2f(16.0f, 16.0f));
+	collectibleSprite3->SetSize(v2f(16.0f, 16.0f));
+
+	AnimationComponent* collectibleAnimationComponent1 = collectible1->AddComponent<AnimationComponent>();
+	AnimationComponent* collectibleAnimationComponent2 = collectible2->AddComponent<AnimationComponent>();
+	AnimationComponent* collectibleAnimationComponent3 = collectible3->AddComponent<AnimationComponent>();
+
+	collectibleAnimationComponent1->SetSprite(collectibleSprite1);
+	collectibleAnimationComponent2->SetSprite(collectibleSprite2);
+	collectibleAnimationComponent3->SetSprite(collectibleSprite3);
+
+	Animation collectibleAnimation1 = Animation(false, false, false, 0, 7, 7, 0.125f, collectibleSprite1, 16.0f, 16.0f);
+	Animation collectibleAnimation2 = Animation(false, false, false, 0, 7, 7, 0.125f, collectibleSprite2, 16.0f, 16.0f);
+	Animation collectibleAnimation3 = Animation(false, false, false, 0, 7, 7, 0.125f, collectibleSprite3, 16.0f, 16.0f);
+
+	collectibleAnimationComponent1->SetAnimation(&collectibleAnimation1);
+	collectibleAnimationComponent2->SetAnimation(&collectibleAnimation2);
+	collectibleAnimationComponent3->SetAnimation(&collectibleAnimation3);
+
+	collectible1->SetZIndex(201);
+	collectible2->SetZIndex(201);
+	collectible3->SetZIndex(201);
+
+	collectible1->SetPosition(v2f(166.0f, 17.0f));
+	collectible2->SetPosition(v2f(218.0f, 17.0f));
+	collectible3->SetPosition(v2f(270.0f, 17.0f));
+
+	collectible1->SetPivot(v2f(0.0f, 0.0f));
+	collectible2->SetPivot(v2f(0.0f, 0.0f));
+	collectible3->SetPivot(v2f(0.0f, 0.0f));
+}
+
+void LevelSelect::InitTexts()
+{
+	UIText* totalText = new UIText(this);
+	totalText->Init("Total", "Text/Peepo.ttf", EFontSize_48);
+	totalText->SetPosition(v2f(16.0f, 60.0f));
+
+	UIText* totalEasyText = new UIText(this);
+	totalEasyText->Init("00/00", "Text/Peepo.ttf", EFontSize_48);
+	totalEasyText->SetPosition(v2f(160.0f, 60.0f));
+
+	UIText* totalMediumText = new UIText(this);
+	totalMediumText->Init("00/00", "Text/Peepo.ttf", EFontSize_48);
+	totalMediumText->SetPosition(v2f(212.0f, 60.0f));
+
+	UIText* totalHardText = new UIText(this);
+	totalHardText->Init("00/00", "Text/Peepo.ttf", EFontSize_48);
+	totalHardText->SetPosition(v2f(264.0f, 60.0f));
+
+	myLevelCollectibles.push_back(new UIText(this));
+	myLevelCollectibles.push_back(new UIText(this));
+	myLevelCollectibles.push_back(new UIText(this));
+	myLevelCollectibles.push_back(new UIText(this));
+
+	myLevelCollectibles[0]->Init("Area 1", "Text/Peepo.ttf", EFontSize_48);
+	myLevelCollectibles[0]->SetPosition(v2f(16.0f, 46.0f));
+	myLevelCollectibles[0]->GetComponent<TextComponent>()->SetColor(Tga2D::CColor(0.0f, 0.5f, 1.0f, 1.0f));
+
+	myLevelCollectibles[1]->Init("00/00", "Text/Peepo.ttf", EFontSize_48);
+	myLevelCollectibles[1]->SetPosition(v2f(160.0f, 46.0f));
+	myLevelCollectibles[1]->GetComponent<TextComponent>()->SetColor(Tga2D::CColor(0.0f, 0.5f, 1.0f, 1.0f));
+
+	myLevelCollectibles[2]->Init("00/00", "Text/Peepo.ttf", EFontSize_48);
+	myLevelCollectibles[2]->SetPosition(v2f(212.0f, 46.0f));
+	myLevelCollectibles[2]->GetComponent<TextComponent>()->SetColor(Tga2D::CColor(0.0f, 0.5f, 1.0f, 1.0f));
+
+	myLevelCollectibles[3]->Init("00/00", "Text/Peepo.ttf", EFontSize_48);
+	myLevelCollectibles[3]->SetPosition(v2f(264.0f, 46.0f));
+	myLevelCollectibles[3]->GetComponent<TextComponent>()->SetColor(Tga2D::CColor(0.0f, 0.5f, 1.0f, 1.0f));
+}
+
+void LevelSelect::UpdateLevelCollectibles()
+{
+	myLevelCollectibles[0]->GetComponent<TextComponent>()->SetText("Area " + std::to_string(myLevelIndex + 1));
 }

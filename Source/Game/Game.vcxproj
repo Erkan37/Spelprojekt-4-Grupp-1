@@ -184,6 +184,7 @@
     <ClInclude Include="OptionsMenu.h" />
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="CameraStaticDistance.hpp" />
+    <ClInclude Include="SpeedrunManager.h" />
     <ClInclude Include="SpeedrunScene.h" />
     <ClInclude Include="Subscriber.hpp" />
     <ClInclude Include="PhysicsComponent.h" />
@@ -270,6 +271,7 @@
     <ClCompile Include="PostMaster.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SpeedrunManager.cpp" />
     <ClCompile Include="SpeedrunScene.cpp" />
     <ClCompile Include="SpringObject.cpp" />
     <ClCompile Include="SpritebatchComponent.cpp" />

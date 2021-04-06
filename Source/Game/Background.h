@@ -11,22 +11,20 @@ class Background : GameObject
 {
 public:
 	Background(Scene* aLevelScene);
-
-	void Init(int someLevelIndex);
+	~Background();
 
 	void Update(const float& aDeltaTime) override;
 
 private:
 	Camera* myCamera;
+	Player* myPlayer;
 
-	std::unique_ptr<GameObject> myBackground;
-
-	SpriteComponent* myBackgroundSprite1;
-	SpriteComponent* myBackgroundSprite2;
-	SpriteComponent* myBackgroundSprite3;
-	SpriteComponent* myBackgroundSprite4;
-	SpriteComponent* myBackgroundSprite5;
-	SpriteComponent* myBackgroundSprite6;
+	GameObject* myBackgroundSprite1;
+	GameObject* myBackgroundSprite2;
+	GameObject* myBackgroundSprite3;
+	GameObject* myBackgroundSprite4;
+	GameObject* myBackgroundSprite5;
+	GameObject* myBackgroundSprite6;
 
 	v2f myCurrentRenderSize;
 	v2f myStartingCameraPos;
@@ -40,7 +38,11 @@ private:
 
 	float myOriginalSpeed;
 	float myCloudSpeed;
-	float myCloudDistance;
+
+	float myTotalCameraDistanceX;
+
+	float* myCloudDistance;
+	float* myBackgroundDistanceX;
 
 	float myBackgroundSpeedOneX;
 	float myBackgroundSpeedTwoX;
@@ -56,15 +58,22 @@ private:
 	float myBackgroundSpeedFiveY;
 	float myBackgroundSpeedSixY;
 
+	float myStartingPlayerPos;
+
+	float myStartingCameraX;
+
+	bool myAddedCameraPosX;
 	bool myAddedCameraPos;
 
-	void UpdateBackground(const float& aDeltaTime);
-	void ResizeBackground();
-	void MoveBackground(const float& aDeltaTime);
-	void LoadJson(Scene* aLevelScene);
-	void LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDocuments);
-	void CreateBackgrounds(Scene* aLevelScene, const std::string aPath, const int aIndex, const v2f anOffset);
-	void SetSpeedVariables(const std::string aPath);
+	const void UpdateBackground(const float& aDeltaTime);
+	const void MoveBackground(const float& aDeltaTime);
+	const void LoadJson(Scene* aLevelScene);
+	const void LoadBackgrounds(Scene* aLevelScene, rapidjson::Document& someDocuments);
+	const void CreateBackgrounds(Scene* aLevelScene, const std::string aPath, const int aIndex, const v2f anOffset);
+	const void AddStartingCameraPos();
+	const void CalculateCameraPositions(const float& aDeltaTime);
+	
+	const v2f GetHalfImageSize(GameObject* aSprite);
 
 };
 
