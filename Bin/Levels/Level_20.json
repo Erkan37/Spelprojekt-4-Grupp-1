@@ -1,11 +1,4 @@
 { "compressionlevel":-1,
- "editorsettings":
-    {
-     "export":
-        {
-         "target":"."
-        }
-    },
  "height":48,
  "infinite":false,
  "layers":[
@@ -552,6 +545,23 @@
                  "width":368,
                  "x":-24,
                  "y":-32
+                }, 
+                {
+                 "height":120,
+                 "id":465,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Material",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"0",
+                 "visible":true,
+                 "width":8,
+                 "x":-32,
+                 "y":-32
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -658,14 +668,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 16"
+                         "value":"0 18"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
                  "x":120,
-                 "y":24
+                 "y":16
                 }, 
                 {
                  "height":0,
@@ -681,14 +691,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -16"
+                         "value":"0 -18"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
                  "x":184,
-                 "y":152
+                 "y":160
                 }, 
                 {
                  "height":0,
@@ -704,7 +714,7 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 8 0 -8"
+                         "value":"0 9 0 -9"
                         }],
                  "rotation":0,
                  "type":"0",
@@ -727,7 +737,7 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -8 0 8"
+                         "value":"0 -9 0 9"
                         }],
                  "rotation":0,
                  "type":"0",
@@ -970,7 +980,7 @@
                  "y":-24
                 }, 
                 {
-                 "height":40,
+                 "height":8,
                  "id":458,
                  "name":"",
                  "rotation":0,
@@ -978,7 +988,7 @@
                  "visible":true,
                  "width":8,
                  "x":-24,
-                 "y":-24
+                 "y":8
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1033,10 +1043,10 @@
          "y":0
         }],
  "nextlayerid":21,
- "nextobjectid":465,
+ "nextobjectid":466,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.4.3",
+ "tiledversion":"1.5.0",
  "tileheight":8,
  "tilesets":[
         {
@@ -1045,6 +1055,6 @@
         }],
  "tilewidth":8,
  "type":"map",
- "version":1.4,
+ "version":1.5,
  "width":40
 }
