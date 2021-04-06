@@ -18,7 +18,6 @@ Background::Background(Scene* aLevelScene)
 {
 	SetZIndex(0);
 
-	myOriginalSpeed = {};
 	myBackgroundSpeedOneX = {};
 	myBackgroundSpeedTwoX = {};
 	myBackgroundSpeedThreeX = {};
@@ -98,8 +97,6 @@ const void Background::MoveBackground(const float& aDeltaTime)
 
 const void Background::LoadJson(Scene* aLevelScene)
 {
-	myOriginalSpeed = 0.2f;
-
 	std::ifstream backgroundObjectFile("JSON/Background.json");
 	rapidjson::IStreamWrapper backgroundObjectStream(backgroundObjectFile);
 
@@ -227,7 +224,6 @@ const void Background::AddStartingCameraPos()
 	{
 		myAddedCameraPosX = true;
 	}
-
 }
 
 const void Background::CalculateCameraPositions(const float& aDeltaTime)
@@ -265,9 +261,15 @@ const void Background::CalculateCameraPositions(const float& aDeltaTime)
 
 	*myCloudDistance = *myCloudDistance + (aDeltaTime * myCloudSpeed);
 
+	std::cout << *myCloudDistance << std::endl;
+
 	v2f backgroundSpeedTwo = { *myCloudDistance, 0.f };
+	v2f imagePos = {0.f, GetHalfImageSize(myBackgroundSprite2).y };
 
 	myBackgroundSprite2->SetPosition(myCamera->GetPosition() + backgroundSpeedTwo + GetHalfImageSize(myBackgroundSprite2) + myOffsetBackground2);
+
+	if (*myCloudDistance < -960)
+		*myCloudDistance = 220.f;
 }
 
 

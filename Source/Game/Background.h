@@ -36,7 +36,6 @@ private:
 	v2f myOffsetBackground5;
 	v2f myOffsetBackground6;
 
-	float myOriginalSpeed;
 	float myCloudSpeed;
 
 	float myTotalCameraDistanceX;
