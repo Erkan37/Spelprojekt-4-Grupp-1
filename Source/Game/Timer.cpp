@@ -52,7 +52,7 @@ void Timer::Update(const float& aDeltatime)
 
 	GetComponent<TextComponent>()->SetText(to_string(time));
 
-	myTime += CGameWorld::GetInstance()->GetTimer()->GetTotalTime() - myLastTime - myStartTime + myTotalTime; //Detta fixar att tiden startar på 0 men gör att tiden inte sparas mellan banor
+	myTime += CGameWorld::GetInstance()->GetTimer()->GetTotalTime() - myLastTime - myStartTime + myTotalTime;
 	myLastTime = myTime;
 
 	GameObject::Update(aDeltatime);

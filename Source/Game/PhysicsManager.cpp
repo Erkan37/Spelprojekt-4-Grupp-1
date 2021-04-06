@@ -14,6 +14,7 @@
 #include "../External/Headers/CU/Utilities.h"
 
 #include "Player.hpp"
+#include "EnemyProjectile.h"
 
 PhysicsManager::PhysicsManager()
 	: myColliders(std::vector<ColliderComponent*>())
@@ -22,6 +23,8 @@ PhysicsManager::PhysicsManager()
 void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObject*>& aGameObjects)
 {
 	UpdateObjectVelocity(aDeltaTime, aGameObjects);
+
+	bool playerCollisionOnly = false;
 
 	for (int index = 0U; index < static_cast<int>(myColliders.size()); ++index)
 	{
@@ -37,6 +40,16 @@ void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObje
 		if (physics == nullptr)
 		{
 			continue;
+		}
+
+		if ((dynamic_cast<Player*>(object1) && !playerCollisionOnly) || (dynamic_cast<EnemyProjectile*>(object1)))
+		{
+			OnlyPlayerCollision(object1, collider1, physics);
+
+			if (dynamic_cast<Player*>(object1))
+			{
+				playerCollisionOnly = true;
+			}
 		}
 
 		if (index < static_cast<int>(myColliders.size()) - 1)
@@ -60,6 +73,12 @@ void PhysicsManager::PhysicsUpdate(const float& aDeltaTime, std::vector<GameObje
 				if (physics->GetIsStatic() && object2Physics->GetIsStatic())
 				{
 					continue;
+				}
+
+				if (dynamic_cast<Player*>(object2) && !playerCollisionOnly)
+				{
+					OnlyPlayerCollision(object2, collider2, object2Physics);
+					playerCollisionOnly = true;
 				}
 
 				CheckOverlap(object1, object2, physics, object2Physics, collider1, collider2);
@@ -253,6 +272,14 @@ void PhysicsManager::CheckBashCollision(GameObject* aObj1, GameObject* aObj2)
 	}
 }
 
+void PhysicsManager::OnlyPlayerCollision(GameObject* aPlayer, ColliderComponent* aPlayerCollider, PhysicsComponent* aPlayerPhysics)
+{
+	for (int iterator = 0; iterator < static_cast<int>(myOnlyPlayerCollisionColliders.size()); ++iterator)
+	{
+		CheckOverlap(aPlayer, myOnlyPlayerCollisionColliders[iterator]->GetGameObject(), aPlayerPhysics, myOnlyPlayerCollisionColliders[iterator]->GetGameObject()->GetComponent<PhysicsComponent>(), aPlayerCollider, myOnlyPlayerCollisionColliders[iterator]);
+	}
+}
+
 void PhysicsManager::RemoveCollider(ColliderComponent* aColliderComponent)
 {
 	if (!aColliderComponent)
@@ -260,11 +287,24 @@ void PhysicsManager::RemoveCollider(ColliderComponent* aColliderComponent)
 		return;
 	}
 
-	for (int collider = 0; collider < myColliders.size(); ++collider)
+	if (!aColliderComponent->GetCollideOnlywithPlayer())
 	{
-		if (myColliders[collider] == aColliderComponent)
+		for (int collider = 0; collider < myColliders.size(); ++collider)
 		{
-			myColliders.erase(myColliders.begin() + collider);
+			if (myColliders[collider] == aColliderComponent)
+			{
+				myColliders.erase(myColliders.begin() + collider);
+			}
+		}
+	}
+	else
+	{
+		for (int collider = 0; collider < myOnlyPlayerCollisionColliders.size(); ++collider)
+		{
+			if (myOnlyPlayerCollisionColliders[collider] == aColliderComponent)
+			{
+				myOnlyPlayerCollisionColliders.erase(myOnlyPlayerCollisionColliders.begin() + collider);
+			}
 		}
 	}
 }
