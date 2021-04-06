@@ -33,6 +33,7 @@ public:
     void Transitioning();
 
     GameObject* GetPlayer();
+    ParticleEffectFactory& GetEffectFactory();
 
 private:
     GameObject* myBlackScreen;

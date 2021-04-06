@@ -16,6 +16,9 @@ ParticleEffect::ParticleEffect(Scene* aLevelScene)
 	:
 	GameObject(aLevelScene)
 {
+	myFollowObject = nullptr;
+	myKilledEffect = {};
+	myObjectIsFollowing = {};
 	mySpawnInterval = {};
 	myPlayer = {};
 	myActiveEffect = {};
@@ -85,7 +88,8 @@ const void ParticleEffect::UpdateParticle(const float& aDeltaTime)
 
 	CheckActiveStats();
 
-	CheckWhenToSpawnSprites();
+	if (!myKilledEffect)
+		CheckWhenToSpawnSprites();
 
 	CheckIfSpritesAreDead(aDeltaTime);
 	CheckIfEffectIsDead();
@@ -163,7 +167,7 @@ const void ParticleEffect::CheckIfEffectIsDead()
 			myCreatingSprites = false;
 	}
 
-	if (myCreatingSprites == false)
+	if (myCreatingSprites == false || myKilledEffect)
 	{
 		bool spritesAreMoving = false;
 
@@ -212,9 +216,29 @@ const void ParticleEffect::CheckActiveStats()
 	if (myStats.myPauseTimer > 0)
 		myAddedPauseTimer = true;
 
+	if (myObjectIsFollowing)
+	{
+		if (myFollowObject->IsActive())
+			SetPosition(myFollowObject->GetPosition());
+		else
+		{
+			for (auto sprite : mySprites)
+				sprite->SetInactive();
+
+			myKilledEffect = true;
+		}
+		
+	}
+
 }
 
 const void ParticleEffect::SetEffect(ParticleStats aEffect)
 {
 	myStats = aEffect;
+}
+
+const void ParticleEffect::SetFollowObject(GameObject& aFollowObject)
+{
+	myFollowObject = &aFollowObject;
+	myObjectIsFollowing = true;
 }

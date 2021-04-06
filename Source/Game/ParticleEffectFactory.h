@@ -14,7 +14,7 @@ public:
 	void Init();
 
 	void SpawnEffect(v2f aPosition, const eParticleEffects aEffectType);
-
+	void SpawnEffectFollowObject(GameObject* aObject, const eParticleEffects aEffectType);
 
 private:
 	Scene* myScene;

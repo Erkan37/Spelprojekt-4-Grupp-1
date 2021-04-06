@@ -93,58 +93,99 @@ void ParticleEffectFactory::Init()
 
 void ParticleEffectFactory::SpawnEffect(v2f aPosition, const eParticleEffects aEffectType)
 {
+	ParticleEffect* effect = new ParticleEffect(myScene);
+
 	switch (aEffectType)
 	{
 	case eParticleEffects::RunEffect:
 	{
-		ParticleEffect* effect = new ParticleEffect(myScene);
 		effect->Init(myEffects[static_cast<int>(aEffectType)], myPlayer);
-		effect->SetPosition(aPosition);
-		effect->SetIsActive(true);
-		//myCreatedEffects.push_back(effect);
 		break;
 	}
 	case eParticleEffects::FallEffect:
 	{
-		ParticleEffect* effect = new ParticleEffect(myScene);
 		effect->Init(myEffects[static_cast<int>(eParticleEffects::FallEffect)], myPlayer);
-		effect->SetPosition(aPosition);
-		effect->SetIsActive(true);
-		//myCreatedEffects.push_back(effect);
 		break;
 	}
 	case eParticleEffects::DeathEffect:
 	{
-		ParticleEffect* effect = new ParticleEffect(myScene);
 		effect->Init(myEffects[static_cast<int>(eParticleEffects::DeathEffect)], myPlayer);
-		effect->SetPosition(aPosition);
-		effect->SetIsActive(true);
 		break;
 	}
-	case eParticleEffects::RainEffect:
+	case eParticleEffects::RainEffectBackground:
 	{
-		ParticleEffect* effect = new ParticleEffect(myScene);
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::RainEffect)], myPlayer);
-		effect->SetPosition(aPosition);
-		effect->SetIsActive(true);
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::RainEffectBackground)], myPlayer);
 		break;
-	}case eParticleEffects::RainEffect2:
+	}case eParticleEffects::RainEffectForeground:
 	{
-		ParticleEffect* effect = new ParticleEffect(myScene);
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::RainEffect2)], myPlayer);
-		effect->SetPosition(aPosition);
-		effect->SetIsActive(true);
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::RainEffectForeground)], myPlayer);
+		break;
+	}
+	case eParticleEffects::BulletEffectTrail:
+	{
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::BulletEffectTrail)], myPlayer);
+		break;
+	}case eParticleEffects::BulletEffectHit:
+	{
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::BulletEffectHit)], myPlayer);
 		break;
 	}
 	case eParticleEffects::TestEffect:
 	{
-		ParticleEffect* effect = new ParticleEffect(myScene);
 		effect->Init(myEffects[static_cast<int>(eParticleEffects::TestEffect)], myPlayer);
-		effect->SetPosition(aPosition);
-		effect->SetIsActive(true);
 		break;
 	}
 	}
+
+	effect->SetPosition(aPosition);
+	effect->SetIsActive(true);
+
+}
+
+void ParticleEffectFactory::SpawnEffectFollowObject(GameObject* aObject, const eParticleEffects aEffectType)
+{
+	ParticleEffect* effect = new ParticleEffect(myScene);
+
+	switch (aEffectType)
+	{
+	case eParticleEffects::RunEffect:
+	{
+		effect->Init(myEffects[static_cast<int>(aEffectType)], myPlayer);
+		break;
+	}
+	case eParticleEffects::FallEffect:
+	{
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::FallEffect)], myPlayer);
+		break;
+	}
+	case eParticleEffects::DeathEffect:
+	{
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::DeathEffect)], myPlayer);
+		break;
+	}
+	case eParticleEffects::RainEffectBackground:
+	{
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::RainEffectBackground)], myPlayer);
+		break;
+	}case eParticleEffects::RainEffectForeground:
+	{
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::RainEffectForeground)], myPlayer);
+		break;
+	}
+	case eParticleEffects::BulletEffectTrail:
+	{
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::BulletEffectTrail)], myPlayer);
+		break;
+	}
+	case eParticleEffects::TestEffect:
+	{
+		effect->Init(myEffects[static_cast<int>(eParticleEffects::TestEffect)], myPlayer);
+		break;
+	}
+	}
+
+	effect->SetFollowObject(*aObject);
+	effect->SetIsActive(true);
 }
 
 void ParticleEffectFactory::SpawnCharacterEffects()

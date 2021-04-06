@@ -21,6 +21,7 @@ public:
 
 	const void SetIsActive(const bool aActiveState);
 	const void SetEffect(ParticleStats aEffect);
+	const void SetFollowObject(GameObject& aFollowObject);
 	
 	const bool GetIsActive();
 	const eParticleEffects GetType() const;
@@ -29,6 +30,7 @@ public:
 private:
 	std::vector<EffectSprite*> mySprites;
 
+	GameObject* myFollowObject;
 	SpritebatchComponent* myBatch;
 	ParticleStats myStats;
 
@@ -39,6 +41,8 @@ private:
 
 	int myZIndex; 
 
+	bool myKilledEffect;
+	bool myObjectIsFollowing;
 	bool myInitBatching;
 	bool myActiveEffect;
 	bool myCreatingSprites;

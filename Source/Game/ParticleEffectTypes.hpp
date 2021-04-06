@@ -6,7 +6,9 @@ enum class eParticleEffects
 	RunEffect,
 	FallEffect,
 	DeathEffect,
-	RainEffect,
-	RainEffect2,
+	RainEffectBackground,
+	RainEffectForeground,
+	BulletEffectTrail,
+	BulletEffectHit,
 	TestEffect
 };
