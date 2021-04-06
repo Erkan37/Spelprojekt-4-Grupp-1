@@ -89,6 +89,7 @@ struct CollectableInfo
 {
 	int myID;
 	int myBonfireID;
+	bool myCollectedState;
 };
 
 class DataManager
@@ -118,8 +119,11 @@ public:
 
 	// Get Collectable Info
 	void ParseCollectableInfo();
-	const std::vector<CollectableInfo> &GetCollectableInfo() const;
+	void SetCollectedState();
+	const CollectableInfo &GetCollectableInfo(const int anID) const;
 
+	void CollectCollectible(const int anID);
+	void ResetSaveFile();
 
 private:
 	//Private Methods

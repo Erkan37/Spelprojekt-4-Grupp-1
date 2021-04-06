@@ -250,13 +250,18 @@ const bool DataManager::GetBonfireState(const unsigned int anIndex) const
 {
 	return mySaveFile["Bonfires"].GetArray()[anIndex]["Bonfire"]["IsActive"].GetBool();
 }
+
+void DataManager::ResetSaveFile()
+{
+	ResetCollectibles();
+	ResetBonfires();
+}
 void DataManager::ResetBonfires()
 {
 	for (size_t i = 0; i < mySaveFile["Bonfires"].GetArray().Size(); i++)
 	{
 		mySaveFile["Bonfires"].GetArray()[i]["Bonfire"]["IsActive"].SetBool(false);
 	}
-	ResetCollectibles();
 }
 void DataManager::ResetCollectibles()
 {
@@ -294,6 +299,42 @@ void DataManager::ResetCollectibles()
 	mySaveFile.Accept(writer);
 }
 
+void DataManager::CollectCollectible(const int anID)
+{
+	for (size_t i = 0; i < myCollectableInfo.size(); i++)
+	{
+		if (mySaveFile["Collectibles"].GetArray()[i]["Collectible"]["ID"].GetInt() == anID)
+		{
+			mySaveFile["Collectibles"].GetArray()[i]["Collectible"]["BeenCollected"].SetBool(true);
+		}
+	}
+
+	// Accepts Writer.
+	std::string dataPath = "JSON/SaveFile.json";
+	std::ofstream ofs{ dataPath };
+	rapidjson::OStreamWrapper osw{ ofs };
+	rapidjson::Writer<rapidjson::OStreamWrapper> writer{ osw };
+	mySaveFile.Accept(writer);
+}
+void DataManager::SetCollectedState()
+{
+	for (size_t i = 0; i < myCollectableInfo.size(); i++)
+	{
+		myCollectableInfo[i].myCollectedState = mySaveFile["Collectibles"].GetArray()[i]["Collectible"]["BeenCollected"].GetBool();
+	}
+}
+const CollectableInfo &DataManager::GetCollectableInfo(const int anID) const
+{
+	for (size_t i = 0; i < myCollectableInfo.size(); i++)
+	{
+		if (mySaveFile["Collectibles"].GetArray()[i]["Collectible"]["ID"].GetInt() == anID)
+		{
+			return myCollectableInfo[i];
+		}
+	}
+	assert((false) && "A Collectible ID not found in DataManager::GetCollectableInfo().");
+}
+
 void DataManager::ParseCollectableInfo(){
 	for (const auto& levelDoc : myLevelVector)
 	{
@@ -328,8 +369,5 @@ void DataManager::ParseCollectableInfo(){
 			}
 		}
 	}
-}
-const std::vector<CollectableInfo> &DataManager::GetCollectableInfo() const
-{
-	return myCollectableInfo;
+	SetCollectedState();
 }

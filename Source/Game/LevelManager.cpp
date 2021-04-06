@@ -88,9 +88,9 @@ void LevelManager::ImGuiUpdate()
 		{
 			SingleLoadScene(eScenes::MainMenu);
 		}
-		if (ImGui::Button("Reset Bonfires"))
+		if (ImGui::Button("Reset SaveFile"))
 		{
-			DataManager::GetInstance().ResetBonfires();
+			DataManager::GetInstance().ResetSavefile();
 		}
 
 		ImGui::End();
