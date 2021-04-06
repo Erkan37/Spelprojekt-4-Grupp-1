@@ -15,7 +15,9 @@ enum class AudioList
 	WalkGravelRight, WalkGravelLeft, WalkGrassRight, WalkGrassLeft, WalkStoneRight, WalkStoneLeft, WalkWoodLeft, WalkWoodRight, WalkBrickLeft, WalkBrickRight,
 	LandOnGrassHeavy, LandOnGrassEasy, LandOnStoneHeavy, LandOnStoneLight, LandBricksHeavy, LandBricksLight, LandWoodHeavy, LandWoodLight, LandGravelHeavy, LandGravelLight,
 	BashCharge, BashRelease,
-	CollectableV1,
+	CollectableV1, BonfireActivated,
+
+	Main_Menu, Forest_Theme, Village_Theme, Castle_Theme 
 };
 
 enum class AudioLayer

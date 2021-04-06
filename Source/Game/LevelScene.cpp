@@ -14,6 +14,7 @@
 
 #include "LevelManager.hpp"
 #include "SpeedrunManager.h"
+#include "AudioManager.h"
 
 #include "Game.h"
 
@@ -33,6 +34,8 @@ LevelScene::LevelScene()
 
 void LevelScene::Load()
 {
+	AudioManager::GetInstance()->Stop(AudioList::MenuAmbience);
+	AudioManager::GetInstance()->FadeOut(AudioList::Main_Menu);
 	myIsSpeedrun = CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->GetIsSpeedrun();
 	myBlackScreenOpacity = 1.0f;
 	myBlackScreenOpacitySpeed = 4.3f;
