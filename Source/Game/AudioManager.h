@@ -22,7 +22,7 @@ public:
 	const static std::unique_ptr<AudioManager>& GetInstance();
 
 	void Init();
-	void Update();
+	void Update(const float& aDeltaTime);
 
 	void SetMusicVolume(float aVolume);
 	void SetSFXVolume(float aVolume);
@@ -31,6 +31,11 @@ public:
 
 	void SetSoundVolume(AudioList aSound, const float& aVolume);
 	void SetSoundPosition(AudioList aSound, const VECTOR2F& aPosition);
+
+	void Fade(const float& aDeltaTime);
+
+	void FadeOut(AudioList aSound);
+	void FadeIn(AudioList aSound);
 
 	float GetMusicVolume() const;
 	float GetSFXVolume() const;
@@ -55,11 +60,11 @@ private:
 	std::unique_ptr<Tga2D::AudioOut> myAudioOut;
 	std::vector<AudioComponent*> myPlatformComponents;
 	std::vector<AudioComponent*> myEnemyComponents;
+	std::vector<AudioList> myFades;
 	float myMusicVolume = 1;
 	float mySFXVolume = 1;
 
 	void StopCurrentMusic();
 
 	AudioLibrary myLibrary = AudioLibrary();
-
 };

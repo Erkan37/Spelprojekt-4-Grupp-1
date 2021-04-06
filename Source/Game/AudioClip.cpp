@@ -4,6 +4,7 @@
 #include "tga2d/audio/audio_out.h"
 #include "AudioLibrary.h"
 #include "AudioManager.h"
+#include <iostream>
 
 AudioClip::AudioClip(const char* anAudioPath, const bool aIsLooping, const float& aVolume, const float& aMaxVol, AudioLayer aLayer) :
 	myMaxVolume(aMaxVol), myVolProcent(aMaxVol / 100.0f)
@@ -99,6 +100,44 @@ void AudioClip::Lock()
 void AudioClip::UnLock()
 {
 	myCanPlay = true;
+}
+
+bool AudioClip::Fade(const float& aDeltaTime)
+{
+	if (myIsFadingOut)
+	{
+		if (myVolume > 0)
+		{
+			myVolume -= aDeltaTime / 20.0f;
+			myAudio->SetVolume(myVolume);
+		}
+		else
+		{
+			myIsFading = false;
+			Stop();
+			return true;
+		}
+	}
+	else
+	{
+		if (myVolume < GetVolPercentage(AudioManager::GetInstance()->GetMusicVolume()))
+		{
+			myVolume += aDeltaTime / 2.0f;
+			myAudio->SetVolume(myVolume);
+		}
+		else
+		{
+			myIsFading = false;
+			return true;
+		}
+	}
+	return false;
+}
+
+void AudioClip::SetFade(const bool& aFade, const bool& aOut)
+{
+	myIsFading = aFade;
+	myIsFadingOut = aOut;
 }
 
 AudioLayer AudioClip::GetLayer()
