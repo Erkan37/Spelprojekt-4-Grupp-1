@@ -6,7 +6,7 @@
       "ZIndex": 30,
 
       "EffectTypeIndex": 7,
-      "SpritePath": "Sprites/Objects/ParticleFog.dds",
+      "SpritePath": "Sprites/Particles/ParticleFog.dds",
 
       "PauseTimer": 0.0,
       "PauseSeconds": 0.0,

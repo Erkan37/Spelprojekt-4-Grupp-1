@@ -6,7 +6,7 @@
       "ZIndex": 50,
 
       "EffectTypeIndex": 3,
-      "SpritePath": "Sprites/Objects/ParticleRain.dds",
+      "SpritePath": "Sprites/Particles/ParticleRain.dds",
 
       "PauseTimer": 0.0,
       "PauseSeconds": 0.0,

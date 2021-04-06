@@ -6,7 +6,7 @@
       "ZIndex": 100,
 
       "EffectTypeIndex": 0,
-      "SpritePath": "Sprites/Particles/point.dds",
+      "SpritePath": "Sprites/Particles/ParticleGlowCollectible2.dds",
 
       "PauseTimer": 0.0,
       "PauseSeconds": 0.0,
