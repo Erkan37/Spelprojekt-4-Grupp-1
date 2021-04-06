@@ -11,6 +11,8 @@
 #include "AudioManager.h"
 #include "AnimationComponent.hpp"
 
+#include "TutorialMenu.h"
+
 OptionsMenu::OptionsMenu(Scene* aLevelScene)
 	: myCamera(aLevelScene->GetCamera())
 {
@@ -51,7 +53,7 @@ void OptionsMenu::Init()
 	myVFXDot = std::make_unique<UIObject>(myScene);
 
 	myCredits = std::make_unique<UIObject>(myScene);
-	myTutorial = std::make_unique<UIObject>(myScene);
+	myTutorial = new TutorialMenu(myScene);
 
 	myResolutions = std::make_unique<UIObject>(myScene);
 	my720pHgh = std::make_unique<UIObject>(myScene);
@@ -99,7 +101,8 @@ void OptionsMenu::Init()
 	myCredits->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Background.dds", { 100.f, 100.f }, creditScreenPos, 205);
 
 	//Tutorial
-	myTutorial->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Background.dds", { 100.f, 100.f }, creditScreenPos, 205);
+	myTutorial->SetPosition(v2f(8.0f, 8.0f));
+	myTutorial->SetZIndex(205);
 
 	//Screen
 	myResolutions->Init("Sprites/UI/optionsMenu/UI_OptionsMenu_Text_Screensize_Resolutions_All_73x7px_Unmarked.dds", { 73.f, 7.f }, resolutionPos, 202);
@@ -127,6 +130,15 @@ void OptionsMenu::Init()
 
 void OptionsMenu::Update(const float& aDeltaTime)
 {
+	if (myTutorialActtive)
+	{
+		myTutorial->Activate();
+	}
+	else
+	{
+		myTutorial->Deactivate();
+	}
+
 	if (myMenuAcitve)
 	{
 		ActivateMenu();
@@ -155,7 +167,6 @@ bool OptionsMenu::IsOptionsActive()
 
 void OptionsMenu::CheckIndexPress(const float& aDeltaTime)
 {
-
 	if ((myInput->GetInput()->GetKeyJustDown(Keys::ENTERKey) || myInput->GetController()->IsButtonPressed(Controller::Button::Cross)) && myScreenSettingsActive == false)
 	{
 		if (myMovingIndex == static_cast<int>(eOptionsMenu::Back))
@@ -203,12 +214,14 @@ void OptionsMenu::CheckIndexPress(const float& aDeltaTime)
 			if (!myTutorialActtive)
 			{
 				myTutorialActtive = true;
-				myTutorial->SetActive(true);
+				DeactivateMenu();
+				myTutorial->Activate();
 			}
 			else
 			{
 				myTutorialActtive = false;
-				myTutorial->SetActive(false);
+				ActivateMenu();
+				myTutorial->Deactivate();
 			}
 		}
 	}
@@ -325,6 +338,11 @@ void OptionsMenu::CheckIndexPress(const float& aDeltaTime)
 
 void OptionsMenu::ActivateMenu()
 {
+	if (myTutorialActtive)
+	{
+		return;
+	}
+
 	for (auto button : myButtons)
 		button->SetActive(true);
 
@@ -351,13 +369,14 @@ void OptionsMenu::DeactivateMenu()
 		res->SetActive(false);
 
 	myBackground->SetActive(false);
-	myTitle->SetActive(true);
+	myTitle->SetActive(false);
 	myBackBtn->SetActive(false);
 	myBar->SetActive(false);
 	mySoundSettings->SetActive(false);
 	myBGDot->SetActive(false);
 	myVFXDot->SetActive(false);
 	myResolutions->SetActive(false);
+	myScreenSizeDot->SetActive(false);
 }
 
 void OptionsMenu::InitTexts()
@@ -377,7 +396,6 @@ void OptionsMenu::UpdateUIElements(const float& aDeltaTime)
 	myScreenSizeDot->UpdateUIObjects(aDeltaTime);
 
 	myCredits->UpdateUIObjects(aDeltaTime);
-	myTutorial->UpdateUIObjects(aDeltaTime);
 
 	for (auto button : myButtons)
 		button->UpdateButton(true);
@@ -457,4 +475,7 @@ void OptionsMenu::InactivateHighlight()
 	}
 }
 
-
+void OptionsMenu::DeactivateTutorial()
+{
+	myTutorial->Deactivate();
+}

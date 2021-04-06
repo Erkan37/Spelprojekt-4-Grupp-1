@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":48,
  "infinite":false,
  "layers":[
@@ -773,6 +780,17 @@
                  "id":456,
                  "name":"",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"BonfireID",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"ID",
+                         "type":"int",
+                         "value":130
+                        }],
                  "rotation":0,
                  "type":"1",
                  "visible":true,
@@ -785,6 +803,17 @@
                  "id":463,
                  "name":"",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"BonfireID",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"ID",
+                         "type":"int",
+                         "value":129
+                        }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
@@ -1046,7 +1075,7 @@
  "nextobjectid":466,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.5.0",
+ "tiledversion":"1.4.3",
  "tileheight":8,
  "tilesets":[
         {
@@ -1055,6 +1084,6 @@
         }],
  "tilewidth":8,
  "type":"map",
- "version":1.5,
+ "version":1.4,
  "width":40
 }
