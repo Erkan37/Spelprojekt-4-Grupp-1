@@ -105,6 +105,10 @@ void LevelScene::Update(const float& aDeltaTime)
 
 		myEffectFactory->TestEffect(position);
 	}
+	else if (CGameWorld::GetInstance()->Input()->GetInput()->GetKeyJustDown(Keys::RightMouseButton))
+	{
+		myEffectFactory->TestEffectFollowObject();
+	}
 
 	const float zoomX = CGameWorld::GetInstance()->Game()->GetZoomX();
 	const float zoomY = CGameWorld::GetInstance()->Game()->GetZoomY();

@@ -106,6 +106,16 @@ void ParticleEffectFactory::TestEffect(const v2f aPosition)
 	effect->SetIsActive(true);
 }
 
+void ParticleEffectFactory::TestEffectFollowObject()
+{
+	ParticleEffect* effect = new ParticleEffect(myScene);
+
+	SetEffect(*effect, static_cast<eParticleEffects>(myTestIndex));
+
+	effect->SetFollowObject(*myPlayer);
+	effect->SetIsActive(true);
+}
+
 void ParticleEffectFactory::SpawnEffect(v2f aPosition, const eParticleEffects aEffectType)
 {
 	ParticleEffect* effect = new ParticleEffect(myScene);
@@ -167,6 +177,11 @@ void ParticleEffectFactory::SetEffect(ParticleEffect& aEffect, const eParticleEf
 	case eParticleEffects::FogEffect:
 	{
 		aEffect.Init(myEffects[static_cast<int>(eParticleEffects::FogEffect)], myPlayer);
+		break;
+	}
+	case eParticleEffects::FallEffect:
+	{
+		aEffect.Init(myEffects[static_cast<int>(eParticleEffects::FallEffect)], myPlayer);
 		break;
 	}
 	case eParticleEffects::TestEffect:
