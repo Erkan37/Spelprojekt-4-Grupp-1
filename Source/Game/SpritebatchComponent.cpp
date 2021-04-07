@@ -73,9 +73,20 @@ SpritebatchComponent& SpritebatchComponent::AddSprite(SpriteComponent* aSprite)
 	return *this;
 }
 
-void SpritebatchComponent::RemoveObject(Tga2D::CSprite* aSpriteObject, bool aAlsoDelete)
+void SpritebatchComponent::RemoveObject(SpriteComponent* aSprite, Tga2D::CSprite* aSpriteObject, bool aAlsoDelete)
 {
 	myBatch->RemoveObject(aSpriteObject, aAlsoDelete);
+
+	for (int i = mySprites.size() - 1; i >= 0; i--)
+	{
+		if (mySprites[i] == aSprite)
+		{
+			mySprites.erase(mySprites.begin() + i);
+			break;
+		}
+	}
+
+
 }
 
 

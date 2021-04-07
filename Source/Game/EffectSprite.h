@@ -27,6 +27,7 @@ public:
 	v2f myScale = {};
 	v2f myMaxVectorScale = {};
 	v2f myOffset = {};
+	v2f mySize = {};
 
 	v4f myEmitterAngular = {};
 
@@ -51,6 +52,7 @@ public:
 	float myEmitterStartAngle = {};
 	float myEmitterEndAngle = {};
 
+	bool myHasActivated = {};
 	bool myIsAlive = true;
 	bool myIsLockedPos = false;
 

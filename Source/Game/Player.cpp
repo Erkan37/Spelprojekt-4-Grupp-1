@@ -81,6 +81,8 @@ Player::Player(LevelScene* aLevelScene) : GameObject(aLevelScene)
 	mySpringTimer = {};
 
 	myLedgeSoundIndex = {};
+
+	myIsInRangeOfBash = false;
 }
 
 Player::~Player()
@@ -192,6 +194,7 @@ void Player::Update(const float& aDeltaTime)
 	if (myHasDied)
 	{
 		Kill();
+		CGameWorld::GetInstance()->GetTimer()->SetTimeScale(1.0f);
 		GetComponent<PhysicsComponent>()->SetVelocity(v2f(0.0f, 0.0f));
 		return;
 	}
@@ -213,9 +216,16 @@ void Player::Update(const float& aDeltaTime)
 		{
 			LerpToPosition(myLerpPosition);
 		}
+
+		if (!myIsInRangeOfBash)
+		{
+			CGameWorld::GetInstance()->GetTimer()->SetTimeScale(1.0f);
+		}
+
+		myIsInRangeOfBash = false;
 	}
 
-	if (CGameWorld::GetInstance()->GetTimer()->GetTimeScale() <= 0)
+	if (CGameWorld::GetInstance()->GetTimer()->GetTimeScale() <= 0.05f)
 	{
 		CGameWorld::GetInstance()->GetTimer()->SetTimeScale(1.0f);
 		GetComponent<AnimationComponent>()->Update(myTransform, *this);
@@ -740,6 +750,13 @@ void Player::BashCollision(GameObject* aGameObject, BashComponent* aBashComponen
 
 	if (aBashComponent->GetRadius() * aBashComponent->GetRadius() >= (aGameObject->GetPosition() - GetPosition()).LengthSqr())
 	{
+		myIsInRangeOfBash = true;
+
+		if (!myInputHandler->IsDashing() && !myBashAbility->GetIsBashing())
+		{
+			CGameWorld::GetInstance()->GetTimer()->SetTimeScale(0.8f);
+		}
+
 		if (myInputHandler->IsDashing() && !myBashAbility->GetIsBashing())
 		{
 			aGameObject->OnStartBashed();

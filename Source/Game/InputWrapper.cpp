@@ -80,7 +80,7 @@ bool InputWrapper::IsMovingUp()
 
 bool InputWrapper::IsMovingLeft()
 {
-	if (myInput->GetKeyDown(Keys::AKey) || GetController()->GetLeftThumbStick().x < 0 || GetController()->IsButtonHoldDown(Controller::Button::DPadLeft))
+	if (myInput->GetKeyDown(Keys::AKey) || GetController()->GetLeftThumbStick().x < -0.35f || GetController()->IsButtonHoldDown(Controller::Button::DPadLeft))
 		return true;
 	else
 		return false;
@@ -96,7 +96,7 @@ bool InputWrapper::IsMovingDown()
 
 bool InputWrapper::IsMovingRight()
 {
-	if (myInput->GetKeyDown(Keys::DKey) || GetController()->GetLeftThumbStick().x > 0 || GetController()->IsButtonHoldDown(Controller::Button::DPadRight))
+	if (myInput->GetKeyDown(Keys::DKey) || GetController()->GetLeftThumbStick().x > 0.35f || GetController()->IsButtonHoldDown(Controller::Button::DPadRight))
 		return true;
 	else
 		return false;

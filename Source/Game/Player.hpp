@@ -140,6 +140,7 @@ private:
 	bool myHasDied;
 	bool myIsOnPlatform;
 	bool myIsGliding;
+	bool myIsInRangeOfBash;
 
 	PlayerData* myJsonData = new PlayerData();
 };

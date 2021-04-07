@@ -34,11 +34,12 @@ LevelScene::LevelScene()
 
 void LevelScene::Load()
 {
-	AudioManager::GetInstance()->Stop(AudioList::MenuAmbience);
-	AudioManager::GetInstance()->FadeOut(AudioList::Main_Menu);
 	myIsSpeedrun = CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->GetIsSpeedrun();
 	myBlackScreenOpacity = 1.0f;
 	myBlackScreenOpacitySpeed = 4.3f;
+
+	AudioManager::GetInstance()->FadeOut(AudioList::Main_Menu);
+	AudioManager::GetInstance()->Stop(AudioList::MenuAmbience);
 
 	myReachedFullOpacity = true;
 	myIsTransitioning = false;
@@ -70,6 +71,10 @@ void LevelScene::Load()
 
 void LevelScene::Unload()
 {
+	AudioManager::GetInstance()->FadeOut(AudioList::Forest_Theme);
+	AudioManager::GetInstance()->FadeOut(AudioList::Village_Theme);
+	AudioManager::GetInstance()->FadeOut(AudioList::Castle_Theme);
+
 	if (CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->GetIsSpeedrun())
 	{
 		CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->SetScore(myTimer->GetTime());
@@ -101,6 +106,17 @@ void LevelScene::Deactivate()
 
 void LevelScene::Update(const float& aDeltaTime)
 {
+
+	if (CGameWorld::GetInstance()->Input()->GetInput()->GetKeyJustDown(Keys::LeftMouseButton))
+	{
+		v2f position = GetPlayer()->GetPosition();
+
+		myEffectFactory->TestEffect(position);
+	}
+	else if (CGameWorld::GetInstance()->Input()->GetInput()->GetKeyJustDown(Keys::RightMouseButton))
+	{
+		myEffectFactory->TestEffectFollowObject();
+	}
 
 	const float zoomX = CGameWorld::GetInstance()->Game()->GetZoomX();
 	const float zoomY = CGameWorld::GetInstance()->Game()->GetZoomY();

@@ -15,8 +15,9 @@ public:
 	ParticleEffect(Scene* aLevelScene);
 	~ParticleEffect();
 
-	void Init(ParticleStats aStats, Player* aPlayer);
+	void Init(ParticleStats aStats);
 
+	void Render() override;
 	void Update(const float& aDeltaTime) override;
 
 	const void SetIsActive(const bool aActiveState);
@@ -41,6 +42,7 @@ private:
 
 	int myZIndex; 
 
+	bool mySpawningInLocalSpace;
 	bool myKilledEffect;
 	bool myObjectIsFollowing;
 	bool myInitBatching;
@@ -48,16 +50,15 @@ private:
 	bool myCreatingSprites;
 	bool myAddedEmitter;
 	bool myAddedPauseTimer;
+	bool myEffectIsDestroyed;
 
-	Player* myPlayer;
-	
 	const void UpdateParticle(const float& aDeltaTime);
-	const void UpdatePlayerEffect(const float& aDeltaTime);
 	const void CheckWhenToSpawnSprites();
 	const void SpawnSprite();
 	const void CheckIfEffectIsDead();
 	const void CheckIfSpritesAreDead(const float& aDeltaTime);
 	const void CheckActiveStats();
+	const void DeleteSprites();
 
 };
 
