@@ -123,6 +123,8 @@ public:
 	void SetCollectedState();
 	const CollectableInfo &GetCollectableInfo(const int anID) const;
 
+	const int GetCollectableCount();
+
 	void CollectCollectible(const int anID);
 	void ResetSaveFile();
 

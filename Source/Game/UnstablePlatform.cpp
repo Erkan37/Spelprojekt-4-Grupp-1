@@ -67,13 +67,14 @@ void UnstablePlatform::OnCollision(GameObject* aGameObject)
 
 		if (!myCollidedWithPlayer && !myIsDeactivated && aGameObject->GetPositionY() < myTransform.myPosition.y)
 		{
+			player->PlayFootSteps(myMaterial);
+			player->SetPlatformVelocity(v2f(0.0f, 0.0f));
+
 			AudioManager::GetInstance()->PlayAudio(AudioList::WeakPlatform);
 			myCollidedWithPlayer = true;
 			myTimer = myDestroyTime;
 		}
 	}
-
-	Platform::OnCollision(aGameObject);
 }
 
 void UnstablePlatform::Landed(const int& aOverlapY)

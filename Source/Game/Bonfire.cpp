@@ -5,6 +5,7 @@
 #include "AnimationComponent.hpp"
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
+#include "AudioManager.h"
 
 #include "Player.hpp"
 
@@ -71,6 +72,7 @@ void Bonfire::OnCollision(GameObject* aGameObject)
 		if (!myHasBeenActivated)
 		{
 			myHasBeenActivated = true;
+			AudioManager::GetInstance()->PlayAudio(AudioList::BonfireActivated);
 			DataManager::GetInstance().SaveBonfireState(myBonfireIndex, myHasBeenActivated);
 		}
 	}

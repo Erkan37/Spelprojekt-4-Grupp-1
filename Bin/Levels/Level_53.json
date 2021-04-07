@@ -75,7 +75,7 @@
          "name":"HR",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":40,
          "x":0,
          "y":0
@@ -119,7 +119,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -2412,7 +2412,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -2435,7 +2435,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -2464,7 +2464,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":72,
+                 "x":76,
                  "y":4632
                 }, 
                 {
@@ -2510,7 +2510,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":104,
+                 "x":100,
                  "y":4632
                 }, 
                 {
@@ -2533,7 +2533,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":280,
+                 "x":276,
                  "y":4800
                 }, 
                 {
@@ -2556,7 +2556,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":248,
+                 "x":252,
                  "y":4800
                 }, 
                 {
@@ -2602,7 +2602,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":176,
+                 "x":172,
                  "y":4984
                 }, 
                 {
@@ -2625,7 +2625,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":144,
+                 "x":148,
                  "y":4984
                 }, 
                 {
@@ -2671,7 +2671,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":280,
+                 "x":276,
                  "y":5176
                 }, 
                 {
@@ -2694,7 +2694,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":248,
+                 "x":252,
                  "y":5176
                 }, 
                 {
@@ -2740,7 +2740,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":88,
+                 "x":92,
                  "y":5288
                 }, 
                 {
@@ -2763,7 +2763,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":120,
+                 "x":116,
                  "y":5288
                 }, 
                 {
@@ -2809,7 +2809,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":240,
+                 "x":236,
                  "y":5416
                 }, 
                 {
@@ -2832,7 +2832,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":208,
+                 "x":212,
                  "y":5416
                 }, 
                 {
@@ -2878,7 +2878,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":88,
+                 "x":84,
                  "y":5528
                 }, 
                 {
@@ -2901,7 +2901,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":56,
+                 "x":60,
                  "y":5528
                 }, 
                 {
@@ -2947,7 +2947,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":256,
+                 "x":260,
                  "y":5592
                 }, 
                 {
@@ -2970,7 +2970,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":288,
+                 "x":284,
                  "y":5592
                 }, 
                 {
@@ -3039,7 +3039,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":200,
+                 "x":204,
                  "y":5840
                 }, 
                 {
@@ -3062,7 +3062,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":232,
+                 "x":228,
                  "y":5840
                 }, 
                 {
@@ -3108,7 +3108,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":112,
+                 "x":108,
                  "y":5712
                 }, 
                 {
@@ -3131,7 +3131,7 @@
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":80,
+                 "x":84,
                  "y":5712
                 }, 
                 {
@@ -3401,14 +3401,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":47.3645569620253,
-                 "y":711.455696202532
+                 "x":49.9999999999999,
+                 "y":3295
                 }, 
                 {
                  "height":0,
@@ -3424,14 +3424,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":63.3645569620253,
-                 "y":693.455696202532
+                 "x":65.9999999999999,
+                 "y":3277
                 }, 
                 {
                  "height":0,
@@ -3447,14 +3447,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":77.3645569620253,
-                 "y":718.455696202532
+                 "x":79.9999999999999,
+                 "y":3302
                 }, 
                 {
                  "height":0,
@@ -3470,14 +3470,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":89.3645569620253,
-                 "y":695.455696202532
+                 "x":91.9999999999999,
+                 "y":3279
                 }, 
                 {
                  "height":0,
@@ -3493,14 +3493,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":110.364556962025,
-                 "y":702.455696202532
+                 "x":113,
+                 "y":3286
                 }, 
                 {
                  "height":0,
@@ -3516,14 +3516,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":127.364556962025,
-                 "y":688.455696202532
+                 "x":130,
+                 "y":3272
                 }, 
                 {
                  "height":0,
@@ -3539,14 +3539,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":146.364556962025,
-                 "y":699.455696202532
+                 "x":149,
+                 "y":3283
                 }, 
                 {
                  "height":0,
@@ -3562,14 +3562,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":164.364556962025,
-                 "y":709.455696202532
+                 "x":167,
+                 "y":3293
                 }, 
                 {
                  "height":0,
@@ -3585,14 +3585,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":179.364556962025,
-                 "y":696.455696202532
+                 "x":182,
+                 "y":3280
                 }, 
                 {
                  "height":0,
@@ -3608,14 +3608,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":198.364556962025,
-                 "y":701.455696202532
+                 "x":201,
+                 "y":3285
                 }, 
                 {
                  "height":0,
@@ -3631,14 +3631,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":221.364556962025,
-                 "y":684.455696202532
+                 "x":224,
+                 "y":3268
                 }, 
                 {
                  "height":0,
@@ -3654,14 +3654,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":226.364556962025,
-                 "y":710.455696202532
+                 "x":229,
+                 "y":3294
                 }, 
                 {
                  "height":0,
@@ -3677,14 +3677,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":247.364556962025,
-                 "y":702.455696202532
+                 "x":250,
+                 "y":3286
                 }, 
                 {
                  "height":0,
@@ -3700,14 +3700,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":246.364556962025,
-                 "y":670.455696202532
+                 "x":249,
+                 "y":3254
                 }, 
                 {
                  "height":0,
@@ -3723,14 +3723,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":264.364556962025,
-                 "y":695.455696202532
+                 "x":267,
+                 "y":3279
                 }, 
                 {
                  "height":0,
@@ -3746,14 +3746,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":285.364556962025,
-                 "y":693.455696202532
+                 "x":288,
+                 "y":3277
                 }, 
                 {
                  "height":0,
@@ -3769,14 +3769,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":48.3645569620253,
-                 "y":558.455696202532
+                 "x":50.9999999999999,
+                 "y":3142
                 }, 
                 {
                  "height":0,
@@ -3792,14 +3792,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":87.3645569620253,
-                 "y":575.455696202532
+                 "x":89.9999999999999,
+                 "y":3159
                 }, 
                 {
                  "height":0,
@@ -3815,14 +3815,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":142.364556962025,
-                 "y":560.455696202532
+                 "x":145,
+                 "y":3144
                 }, 
                 {
                  "height":0,
@@ -3838,14 +3838,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":116.364556962025,
-                 "y":648.455696202532
+                 "x":119,
+                 "y":3232
                 }, 
                 {
                  "height":0,
@@ -3861,14 +3861,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":183.364556962025,
-                 "y":552.455696202532
+                 "x":186,
+                 "y":3136
                 }, 
                 {
                  "height":0,
@@ -3884,14 +3884,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":224.364556962025,
-                 "y":575.455696202532
+                 "x":227,
+                 "y":3159
                 }, 
                 {
                  "height":0,
@@ -3907,14 +3907,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":258.364556962025,
-                 "y":597.455696202532
+                 "x":261,
+                 "y":3181
                 }, 
                 {
                  "height":0,
@@ -3930,14 +3930,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":260.364556962025,
-                 "y":548.455696202532
+                 "x":263,
+                 "y":3132
                 }, 
                 {
                  "height":0,
@@ -3953,14 +3953,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":298.364556962025,
-                 "y":567.455696202532
+                 "x":301,
+                 "y":3151
                 }, 
                 {
                  "height":0,
@@ -3976,14 +3976,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":285.364556962025,
-                 "y":618.455696202532
+                 "x":288,
+                 "y":3202
                 }, 
                 {
                  "height":0,
@@ -3999,14 +3999,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":216.364556962025,
-                 "y":611.455696202532
+                 "x":219,
+                 "y":3195
                 }, 
                 {
                  "height":0,
@@ -4022,14 +4022,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":137.364556962025,
-                 "y":633.455696202532
+                 "x":140,
+                 "y":3217
                 }, 
                 {
                  "height":0,
@@ -4045,14 +4045,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":114.364556962025,
-                 "y":607.455696202532
+                 "x":117,
+                 "y":3191
                 }, 
                 {
                  "height":0,
@@ -4068,14 +4068,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":44.3645569620253,
-                 "y":633.455696202532
+                 "x":46.9999999999999,
+                 "y":3217
                 }, 
                 {
                  "height":0,
@@ -4091,14 +4091,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":27.3645569620253,
-                 "y":652.455696202532
+                 "x":29.9999999999999,
+                 "y":3236
                 }, 
                 {
                  "height":0,
@@ -4114,14 +4114,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":142.364556962025,
-                 "y":666.455696202532
+                 "x":145,
+                 "y":3250
                 }, 
                 {
                  "height":0,
@@ -4137,14 +4137,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":180.364556962025,
-                 "y":637.455696202532
+                 "x":183,
+                 "y":3221
                 }, 
                 {
                  "height":0,
@@ -4160,14 +4160,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":228.364556962025,
-                 "y":647.455696202532
+                 "x":231,
+                 "y":3231
                 }, 
                 {
                  "height":0,
@@ -4183,14 +4183,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":259.364556962025,
-                 "y":639.455696202532
+                 "x":262,
+                 "y":3223
                 }, 
                 {
                  "height":0,
@@ -4206,14 +4206,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":311.364556962025,
-                 "y":603.455696202532
+                 "x":314,
+                 "y":3187
                 }, 
                 {
                  "height":0,
@@ -4229,14 +4229,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":274.364556962025,
-                 "y":664.455696202532
+                 "x":277,
+                 "y":3248
                 }, 
                 {
                  "height":0,
@@ -4252,14 +4252,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":199.364556962025,
-                 "y":662.455696202532
+                 "x":202,
+                 "y":3246
                 }, 
                 {
                  "height":0,
@@ -4275,14 +4275,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":67.3645569620253,
-                 "y":663.455696202532
+                 "x":69.9999999999999,
+                 "y":3247
                 }, 
                 {
                  "height":0,
@@ -4298,14 +4298,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":61.3645569620253,
-                 "y":607.455696202532
+                 "x":63.9999999999999,
+                 "y":3191
                 }, 
                 {
                  "height":0,
@@ -4321,14 +4321,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":30.3645569620253,
-                 "y":585.455696202532
+                 "x":32.9999999999999,
+                 "y":3169
                 }, 
                 {
                  "height":0,
@@ -4344,14 +4344,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":11.3645569620253,
-                 "y":616.455696202532
+                 "x":13.9999999999999,
+                 "y":3200
                 }, 
                 {
                  "height":0,
@@ -4367,14 +4367,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":3.36455696202535,
-                 "y":577.455696202532
+                 "x":6,
+                 "y":3161
                 }, 
                 {
                  "height":0,
@@ -4390,14 +4390,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":190.364556962025,
-                 "y":590.455696202532
+                 "x":193,
+                 "y":3174
                 }, 
                 {
                  "height":0,
@@ -4413,14 +4413,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":172.364556962025,
-                 "y":673.455696202532
+                 "x":175,
+                 "y":3257
                 }, 
                 {
                  "height":0,
@@ -4436,14 +4436,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":39.3645569620253,
-                 "y":680.455696202532
+                 "x":41.9999999999999,
+                 "y":3264
                 }, 
                 {
                  "height":0,
@@ -4459,14 +4459,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":23.3645569620253,
-                 "y":696.455696202532
+                 "x":25.9999999999999,
+                 "y":3280
                 }, 
                 {
                  "height":0,
@@ -4482,14 +4482,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":0.364556962025347,
-                 "y":702.455696202532
+                 "x":3,
+                 "y":3286
                 }, 
                 {
                  "height":0,
@@ -4505,14 +4505,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":304.364556962025,
-                 "y":703.455696202532
+                 "x":307,
+                 "y":3287
                 }, 
                 {
                  "height":0,
@@ -4528,14 +4528,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":322.364556962025,
-                 "y":679.455696202532
+                 "x":325,
+                 "y":3263
                 }, 
                 {
                  "height":0,
@@ -4551,14 +4551,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":2.36455696202535,
-                 "y":662.455696202532
+                 "x":5,
+                 "y":3246
                 }, 
                 {
                  "height":0,
@@ -4574,14 +4574,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":303.364556962025,
-                 "y":657.455696202532
+                 "x":306,
+                 "y":3241
                 }, 
                 {
                  "height":0,
@@ -4597,14 +4597,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":96.3645569620253,
-                 "y":661.455696202532
+                 "x":98.9999999999999,
+                 "y":3245
                 }, 
                 {
                  "height":0,
@@ -4620,14 +4620,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":323.364556962025,
-                 "y":637.455696202532
+                 "x":326,
+                 "y":3221
                 }, 
                 {
                  "height":0,
@@ -4643,14 +4643,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":156.364556962025,
-                 "y":603.455696202532
+                 "x":159,
+                 "y":3187
                 }, 
                 {
                  "height":0,
@@ -4666,14 +4666,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":84.3645569620253,
-                 "y":630.455696202532
+                 "x":86.9999999999999,
+                 "y":3214
                 }, 
                 {
                  "height":0,
@@ -4689,14 +4689,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":183.364556962025,
-                 "y":765.455696202532
+                 "x":186,
+                 "y":3349
                 }, 
                 {
                  "height":0,
@@ -4712,14 +4712,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":217.364556962025,
-                 "y":755.455696202532
+                 "x":220,
+                 "y":3339
                 }, 
                 {
                  "height":0,
@@ -4735,14 +4735,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":214.364556962025,
-                 "y":782.455696202532
+                 "x":217,
+                 "y":3366
                 }, 
                 {
                  "height":0,
@@ -4758,14 +4758,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":130.364556962025,
-                 "y":765.455696202532
+                 "x":133,
+                 "y":3349
                 }, 
                 {
                  "height":0,
@@ -4781,14 +4781,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":131.364556962025,
-                 "y":736.455696202532
+                 "x":134,
+                 "y":3320
                 }, 
                 {
                  "height":0,
@@ -4804,14 +4804,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":278.364556962025,
-                 "y":754.455696202532
+                 "x":281,
+                 "y":3338
                 }, 
                 {
                  "height":0,
@@ -4827,14 +4827,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":79.3645569620253,
-                 "y":748.455696202532
+                 "x":81.9999999999999,
+                 "y":3332
                 }, 
                 {
                  "height":0,
@@ -4850,14 +4850,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":154.364556962025,
-                 "y":782.455696202532
+                 "x":157,
+                 "y":3366
                 }, 
                 {
                  "height":0,
@@ -4873,14 +4873,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":163.364556962025,
-                 "y":750.455696202532
+                 "x":166,
+                 "y":3334
                 }, 
                 {
                  "height":0,
@@ -4896,14 +4896,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":22.3645569620253,
-                 "y":767.455696202532
+                 "x":24.9999999999999,
+                 "y":3351
                 }, 
                 {
                  "height":0,
@@ -4919,14 +4919,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":61.3645569620253,
-                 "y":773.455696202532
+                 "x":63.9999999999999,
+                 "y":3357
                 }, 
                 {
                  "height":0,
@@ -4942,14 +4942,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":56.3645569620253,
-                 "y":741.455696202532
+                 "x":58.9999999999999,
+                 "y":3325
                 }, 
                 {
                  "height":0,
@@ -4965,14 +4965,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":33.3645569620253,
-                 "y":737.455696202532
+                 "x":35.9999999999999,
+                 "y":3321
                 }, 
                 {
                  "height":0,
@@ -4988,14 +4988,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":320.364556962025,
-                 "y":757.455696202532
+                 "x":323,
+                 "y":3341
                 }, 
                 {
                  "height":0,
@@ -5011,14 +5011,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":323.364556962025,
-                 "y":720.455696202532
+                 "x":326,
+                 "y":3304
                 }, 
                 {
                  "height":0,
@@ -5034,14 +5034,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":1.36455696202535,
-                 "y":739.455696202532
+                 "x":4,
+                 "y":3323
                 }, 
                 {
                  "height":0,
@@ -5057,14 +5057,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":15.3645569620253,
-                 "y":722.455696202532
+                 "x":17.9999999999999,
+                 "y":3306
                 }, 
                 {
                  "height":0,
@@ -5080,14 +5080,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":236.364556962025,
-                 "y":745.455696202532
+                 "x":239,
+                 "y":3329
                 }, 
                 {
                  "height":0,
@@ -5103,14 +5103,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":260.364556962025,
-                 "y":731.455696202532
+                 "x":263,
+                 "y":3315
                 }, 
                 {
                  "height":0,
@@ -5126,14 +5126,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":186.364556962025,
-                 "y":729.455696202532
+                 "x":189,
+                 "y":3313
                 }, 
                 {
                  "height":0,
@@ -5149,14 +5149,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":102.364556962025,
-                 "y":768.455696202532
+                 "x":105,
+                 "y":3352
                 }, 
                 {
                  "height":0,
@@ -5172,14 +5172,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":146.364556962025,
-                 "y":743.455696202532
+                 "x":149,
+                 "y":3327
                 }, 
                 {
                  "height":0,
@@ -5195,14 +5195,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":135.364556962025,
-                 "y":715.455696202532
+                 "x":138,
+                 "y":3299
                 }, 
                 {
                  "height":0,
@@ -5218,14 +5218,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":299.364556962025,
-                 "y":738.455696202532
+                 "x":302,
+                 "y":3322
                 }, 
                 {
                  "height":0,
@@ -5241,14 +5241,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":108.364556962025,
-                 "y":735.455696202532
+                 "x":111,
+                 "y":3319
                 }, 
                 {
                  "height":0,
@@ -5264,14 +5264,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":211.364556962025,
-                 "y":729.455696202532
+                 "x":214,
+                 "y":3313
                 }, 
                 {
                  "height":0,
@@ -5287,14 +5287,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":255.364556962025,
-                 "y":769.455696202532
+                 "x":258,
+                 "y":3353
                 }, 
                 {
                  "height":0,
@@ -5310,14 +5310,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":92.3645569620253,
-                 "y":729.455696202532
+                 "x":94.9999999999999,
+                 "y":3313
                 }, 
                 {
                  "height":0,
@@ -5333,14 +5333,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":282.364556962025,
-                 "y":719.455696202532
+                 "x":285,
+                 "y":3303
                 }, 
                 {
                  "height":0,
@@ -5356,14 +5356,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":300.364556962025,
-                 "y":779.455696202532
+                 "x":303,
+                 "y":3363
                 }, 
                 {
                  "height":0,
@@ -5379,14 +5379,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":33.3645569620253,
-                 "y":715.455696202532
+                 "x":35.9999999999999,
+                 "y":3299
                 }, 
                 {
                  "height":0,
@@ -5402,14 +5402,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":62.3645569620253,
-                 "y":721.455696202532
+                 "x":64.9999999999999,
+                 "y":3305
                 }, 
                 {
                  "height":0,
@@ -5425,14 +5425,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":102.364556962025,
-                 "y":720.455696202532
+                 "x":105,
+                 "y":3304
                 }, 
                 {
                  "height":0,
@@ -5448,14 +5448,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":119.364556962025,
-                 "y":728.455696202532
+                 "x":122,
+                 "y":3312
                 }, 
                 {
                  "height":0,
@@ -5471,14 +5471,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":153.364556962025,
-                 "y":722.455696202532
+                 "x":156,
+                 "y":3306
                 }, 
                 {
                  "height":0,
@@ -5494,14 +5494,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 -100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":172.364556962025,
-                 "y":729.455696202532
+                 "x":175,
+                 "y":3313
                 }, 
                 {
                  "height":0,
@@ -5517,14 +5517,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":199.364556962025,
-                 "y":740.455696202532
+                 "x":202,
+                 "y":3324
                 }, 
                 {
                  "height":0,
@@ -5540,14 +5540,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":227.364556962025,
-                 "y":724.455696202532
+                 "x":230,
+                 "y":3308
                 }, 
                 {
                  "height":0,
@@ -5563,14 +5563,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":245.364556962025,
-                 "y":724.455696202532
+                 "x":248,
+                 "y":3308
                 }, 
                 {
                  "height":0,
@@ -5586,14 +5586,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":269.364556962025,
-                 "y":715.455696202532
+                 "x":272,
+                 "y":3299
                 }, 
                 {
                  "height":0,
@@ -5609,497 +5609,14 @@
                         {
                          "name":"Waypoints",
                          "type":"string",
-                         "value":"0 -250"
+                         "value":"0 -350 100 -450"
                         }],
                  "rotation":0,
                  "type":"0",
                  "visible":true,
                  "width":0,
-                 "x":292.364556962025,
-                 "y":721.455696202532
-                }, 
-                {
-                 "height":0,
-                 "id":1571,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":80.3645569620253,
-                 "y":2036.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1572,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":96.3645569620253,
-                 "y":2020.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1573,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":112.364556962025,
-                 "y":2036.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1574,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":288.364556962025,
-                 "y":2204.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1575,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":256.364556962025,
-                 "y":2204.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1576,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":272.364556962025,
-                 "y":2188.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1577,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":184.364556962025,
-                 "y":2388.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1578,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":152.364556962025,
-                 "y":2388.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1579,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":168.364556962025,
-                 "y":2372.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1580,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":288.364556962025,
-                 "y":2580.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1581,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":256.364556962025,
-                 "y":2580.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1582,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":272.364556962025,
-                 "y":2564.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1583,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":96.3645569620253,
-                 "y":2692.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1584,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":128.364556962025,
-                 "y":2692.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1585,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":112.364556962025,
-                 "y":2676.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1586,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":248.364556962025,
-                 "y":2820.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1587,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":216.364556962025,
-                 "y":2820.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1588,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":232.364556962025,
-                 "y":2804.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1589,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":96.3645569620253,
-                 "y":2932.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1590,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":64.3645569620253,
-                 "y":2932.45569620253
-                }, 
-                {
-                 "height":0,
-                 "id":1591,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Speed",
-                         "type":"float",
-                         "value":160
-                        }, 
-                        {
-                         "name":"Waypoints",
-                         "type":"string",
-                         "value":"0 -2000"
-                        }],
-                 "rotation":0,
-                 "type":"0",
-                 "visible":true,
-                 "width":0,
-                 "x":80.3645569620253,
-                 "y":2916.45569620253
+                 "x":295,
+                 "y":3305
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -6126,7 +5643,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -6179,7 +5696,7 @@
                  "visible":true,
                  "width":0,
                  "x":76,
-                 "y":2333
+                 "y":2315
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -6629,7 +6146,7 @@
                  "visible":true,
                  "width":0,
                  "x":160,
-                 "y":1240
+                 "y":1216
                 }, 
                 {
                  "height":0,
@@ -6870,6 +6387,18 @@
                  "width":0,
                  "x":160,
                  "y":1976
+                }, 
+                {
+                 "height":0,
+                 "id":1594,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":108,
+                 "y":1252
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -6884,12 +6413,12 @@
          "objects":[],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],
  "nextlayerid":21,
- "nextobjectid":1592,
+ "nextobjectid":1595,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

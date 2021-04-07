@@ -28,7 +28,10 @@ void MainMenuScene::Load()
 
 	CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->SetIsSpeedrun(false);
 	myInput = CGameWorld::GetInstance()->Input();
-	AudioManager::GetInstance()->PlayAudio(AudioList::MenuAmbience);
+	AudioManager::GetInstance()->StopAllSounds();
+	AudioManager::GetInstance()->PlayIfAvailable(AudioList::MenuAmbience);
+	AudioManager::GetInstance()->PlayIfAvailable(AudioList::Main_Menu);
+	AudioManager::GetInstance()->FadeIn(AudioList::Main_Menu);
 
 	InitObjects();
 
@@ -154,7 +157,6 @@ void MainMenuScene::CheckButtonsPress()
 		if (myMovingIndex == static_cast<int>(eMainMenuButton::StartGame))
 		{
 			//CutsceneManager::GetInstance().PlayVideo(CutsceneType::Intro);
-			AudioManager::GetInstance()->Stop(AudioList::MenuAmbience);
 			CGameWorld::GetInstance()->GetLevelManager().SingleLoadScene(LevelManager::eScenes::LevelScene);
 		}
 		else if (myMovingIndex == static_cast<int>(eMainMenuButton::Options))
