@@ -54,7 +54,6 @@ private:
 	Player* myPlayer;
 	
 	const void UpdateParticle(const float& aDeltaTime);
-	const void UpdatePlayerEffect(const float& aDeltaTime);
 	const void CheckWhenToSpawnSprites();
 	const void SpawnSprite();
 	const void CheckIfEffectIsDead();

@@ -6,15 +6,15 @@
       "ZIndex": 100,
 
       "EffectTypeIndex": 0,
-      "SpritePath": "Sprites/Particles/ParticleGlowCollectible2.dds",
+      "SpritePath": "Sprites/Particles/Particle1.dds",
 
       "PauseTimer": 0.0,
       "PauseSeconds": 0.0,
 
-      "EmitterLifeTime": 0.1,
+      "EmitterLifeTime": 0.5,
 
-      "StartScale": 0.02,
-      "EndScale": 0.01,
+      "StartScale": 1.0,
+      "EndScale": 1.0,
 
       "RotateSprite": 0.0,
 
@@ -24,16 +24,16 @@
       "MinSpeed": 30.0,
       "MaxSpeed": 10.0,
 
-      "MinParticleAngularVel": -10.0,
-      "MaxParticleAngularVel": 10.0,
+      "MinParticleAngularVel": -3.0,
+      "MaxParticleAngularVel": 3.0,
 
-      "EmitterAngle": 270.0,
+      "EmitterAngle": 90.0,
 
-      "EmitterWidth": 2.0,
+      "EmitterWidth": 20.0,
       "EmitterHeigth": 0.0,
 
-      "MinParticleLifeTime": 0.1,
-      "MaxParticleLifeTime": 0.2,
+      "MinParticleLifeTime": 0.5,
+      "MaxParticleLifeTime": 0.5,
 
       "Offset": [
         {
@@ -44,7 +44,7 @@
         }
       ],
 
-      "LockPosition": true,
+      "LockPosition": false,
 
       "LockedAngular": [
         -1.0,
@@ -63,7 +63,7 @@
         255.0,
         255.0,
         255.0,
-        1.0
+        0.0
       ],
       "BlendState": "Additive"
     }
