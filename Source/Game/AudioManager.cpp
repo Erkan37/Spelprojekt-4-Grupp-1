@@ -51,9 +51,10 @@ void AudioManager::Init()
 	//PlayMusic("Sounds/Music/04 - Pushing Onwards.mp3", 0.025f);
 }
 
-void AudioManager::Update()
+void AudioManager::Update(const float& aDeltaTime)
 {
 	ComponentUpdate();
+	Fade(aDeltaTime);
 }
 
 void AudioManager::SetMusicVolume(float aVolume)
@@ -108,6 +109,32 @@ void AudioManager::SetSoundVolume(AudioList aSound, const float& aVolume)
 void AudioManager::SetSoundPosition(AudioList aSound, const VECTOR2F& aPosition)
 {
 	myLibrary.myAudioList[aSound]->SetPosition(aPosition);
+}
+
+void AudioManager::Fade(const float& aDeltaTime)
+{
+	if (myFades.size() > 0)
+	{
+		for (int i = 0; i < myFades.size(); ++i)
+		{
+			if (myLibrary.myAudioList[myFades[i]]->Fade(aDeltaTime))
+			{
+				myFades.erase(myFades.begin() + i);
+			}
+		}
+	}
+}
+
+void AudioManager::FadeOut(AudioList aSound)
+{
+	myLibrary.myAudioList[aSound]->SetFade(true, true);
+	myFades.push_back(aSound);
+}
+
+void AudioManager::FadeIn(AudioList aSound)
+{
+	myLibrary.myAudioList[aSound]->SetFade(true, false);
+	myFades.push_back(aSound);
 }
 
 float AudioManager::GetMusicVolume() const

@@ -22,6 +22,7 @@
 #include "Glide.hpp"
 #include "Door.h"
 #include "AudioObject.h"
+#include "SpeedrunManager.h"
 
 #include "GameWorld.h"
 
@@ -108,7 +109,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer, cons
 				std::string name = (*layer)["name"].GetString();
 
 				//Call functions
-				if (name == "Bonfire")
+				if (name == "Bonfire" && CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->GetIsSpeedrun() == false)
 				{
 					ParseBonfires(loadData, aScene, dynamic_cast<Player*>(aPlayer));
 				}
@@ -124,7 +125,7 @@ void TiledLoader::Load(Scene* aScene, int aLevelIndex, GameObject* aPlayer, cons
 				{
 					ParseLedges(loadData, aScene);
 				}
-				else if (name == "Collectables")
+				else if (name == "Collectables" && CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->GetIsSpeedrun() == false)
 				{
 					ParseCollectables(loadData, aScene);
 				}

@@ -36,6 +36,10 @@ public:
     ColliderComponent& SetSize(const v2f& aSize);
     ColliderComponent& SetSize(const float& aWidth, const float& aHeight);
 
+    void SetCollideOnlyWithPlayer(const bool aCollideWithPlayer);
+
+    const bool GetCollideOnlywithPlayer();
+
 private:
     GameObject* myGameObject;
 
@@ -43,5 +47,7 @@ private:
     float myY;
     float myWidth;
     float myHeight;
+
+    bool myCollideOnlyWithPlayer;
 };
 

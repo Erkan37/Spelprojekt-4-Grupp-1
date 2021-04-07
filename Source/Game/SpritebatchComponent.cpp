@@ -13,8 +13,8 @@ SpritebatchComponent::SpritebatchComponent()
 	: myBatch(nullptr)
 	, mySprites(std::vector<SpriteComponent*>())
 	, mySpritePath(std::string())
-	, myBlendState(EBlendState_Alphablend)
-	, mySamplerFilter(ESamplerFilter_Bilinear)
+	, myBlendState(EBlendState::EBlendState_Alphablend)
+	, mySamplerFilter(ESamplerFilter::ESamplerFilter_Bilinear)
 {}
 
 SpritebatchComponent::~SpritebatchComponent()
@@ -72,6 +72,23 @@ SpritebatchComponent& SpritebatchComponent::AddSprite(SpriteComponent* aSprite)
 
 	return *this;
 }
+
+void SpritebatchComponent::RemoveObject(SpriteComponent* aSprite, Tga2D::CSprite* aSpriteObject, bool aAlsoDelete)
+{
+	myBatch->RemoveObject(aSpriteObject, aAlsoDelete);
+
+	for (int i = mySprites.size() - 1; i >= 0; i--)
+	{
+		if (mySprites[i] == aSprite)
+		{
+			mySprites.erase(mySprites.begin() + i);
+			break;
+		}
+	}
+
+
+}
+
 
 void SpritebatchComponent::Reset()
 {

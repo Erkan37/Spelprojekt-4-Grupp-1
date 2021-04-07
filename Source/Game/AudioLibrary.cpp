@@ -5,6 +5,7 @@
 AudioLibrary::AudioLibrary()
 {
 	myAudioList.insert_or_assign(AudioList::BashRelease,     new AudioClip("Sounds/Effects/Bash.wav",             false, 0.4f, 1,    AudioLayer::SoundEffect));
+	myAudioList.insert_or_assign(AudioList::BonfireActivated,new AudioClip("Sounds/Effects/BonfireActivated.wav", false, 0.2f, 1,    AudioLayer::SoundEffect));
 	myAudioList.insert_or_assign(AudioList::CollectableV1,   new AudioClip("Sounds/Effects/Collectible_V1.wav",   false, 0.2f, 1,    AudioLayer::SoundEffect));
 	myAudioList.insert_or_assign(AudioList::PlayerRespawn,   new AudioClip("Sounds/Effects/Respawn.wav",          false, 0.07, 1,    AudioLayer::SoundEffect));
 	myAudioList.insert_or_assign(AudioList::PlayerHover,     new AudioClip("Sounds/Effects/HoverAbility.wav",     true,  0.2f, 1,    AudioLayer::SoundEffect));
@@ -55,6 +56,6 @@ AudioLibrary::AudioLibrary()
 	myAudioList.insert_or_assign(AudioList::PlayerDeath,     new AudioClip("Sounds/Effects/death.wav",            false, 0.3f, 1,    AudioLayer::SoundEffect));
 	myAudioList.insert_or_assign(AudioList::ButtonPress,     new AudioClip("Sounds/Effects/ButtonPress.wav",      false, 0.4f, 1,    AudioLayer::SoundEffect));
 
-	myAudioList.insert_or_assign(AudioList::MenuAmbience,    new AudioClip("Sounds/Effects/MenuAmbience.wav",     true,  0.1f, 0.5f,    AudioLayer::SoundEffect));
-
+	myAudioList.insert_or_assign(AudioList::MenuAmbience,    new AudioClip("Sounds/Effects/MenuAmbience.wav",     true,  0.1f, 0.3f, AudioLayer::SoundEffect));
+	myAudioList.insert_or_assign(AudioList::Main_Menu,       new AudioClip("Sounds/Music/Main_Menu.wav",          true,  0.1f, 0.5f, AudioLayer::Music));
 }

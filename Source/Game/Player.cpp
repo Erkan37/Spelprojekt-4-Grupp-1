@@ -164,7 +164,7 @@ void Player::InitAnimations()
 	myAnimations[7] = Animation(false, false, false, 0, 9, 9, 0.10f, spriteBashLoop, 16, 16);
 	myAnimations[8] = Animation(false, false, false, 0, 4, 4, 0.10f, spriteBashFlying, 16, 16);
 	myAnimations[9] = Animation(false, true, false, 0, 4, 4, 0.10f, spriteBashFlyingTransition, 16, 16);
-	myAnimations[10] = Animation(false, true, false, 0, 22, 22, 0.07f, spriteDeath, 16, 16);
+	myAnimations[10] = Animation(false, true, false, 0, 20, 20, 0.09f, spriteDeath, 16, 16);
 	myAnimations[11] = Animation(false, true, false, 0, 4, 4, 0.07f, spriteGlideTransition, 16, 16);
 	myAnimations[12] = Animation(false, false, false, 0, 4, 4, 0.085f, spriteGlide, 16, 16);
 
@@ -465,7 +465,7 @@ void Player::Landed(const int& aOverlapY)
 			myJsonData->myFloatValueMap[PEnum::Land_Shake_DropOff]);
 	}
 
-	if (aOverlapY > 0)
+	if (aOverlapY < 0)
 	{
 		myAirCoyoteTimer = myJsonData->myFloatValueMap[PEnum::Coyote_Time];
 		if (!myActiveSpringJump)

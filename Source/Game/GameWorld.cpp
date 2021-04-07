@@ -59,7 +59,7 @@ void CGameWorld::Update()
 	myTimer->Update();
 	myDeltaTime = myTimer->GetDeltaTime();
 	myInput->Update(myDeltaTime);
-	AudioManager::GetInstance()->Update();
+	AudioManager::GetInstance()->Update(myDeltaTime);
 
 	if (!CutsceneManager::GetInstance().IsPlaying())
 	{
