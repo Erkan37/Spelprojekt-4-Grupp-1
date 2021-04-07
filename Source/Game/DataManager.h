@@ -113,6 +113,7 @@ public:
 	const int DataManager::GetLevelCount() const;
 
 	// Save Methods
+	void SaveHighScores(const std::array<unsigned int, 10> &someHighscores);
 	void SaveBonfireState(const unsigned int anIndex, const bool aState);
 	const bool GetBonfireState(const unsigned int anIndex) const;
 	void ResetBonfires();
@@ -133,6 +134,8 @@ private:
 	DataManager();
 	void ReadFileIntoDocument(std::string aFilePath, rapidjson::Document& anOutDoc);
 	void AssignValues(const DataEnum anEnum, const rapidjson::Document& aDoc);
+
+	void AcceptJsonWriter(const std::string aDataPath) const;
 
 	//Master Documents
 	rapidjson::Document myMasterDoc;
