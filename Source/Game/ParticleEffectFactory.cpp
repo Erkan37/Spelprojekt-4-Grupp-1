@@ -97,114 +97,73 @@ void ParticleEffectFactory::SpawnEffect(v2f aPosition, const eParticleEffects aE
 {
 	ParticleEffect* effect = new ParticleEffect(myScene);
 
-	switch (aEffectType)
-	{
-	case eParticleEffects::RunEffect:
-	{
-		effect->Init(myEffects[static_cast<int>(aEffectType)], myPlayer);
-		break;
-	}
-	case eParticleEffects::CollectibleEffect:
-	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::CollectibleEffect)], myPlayer);
-		break;
-	}
-	case eParticleEffects::DeathEffect:
-	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::DeathEffect)], myPlayer);
-		break;
-	}
-	case eParticleEffects::RainEffectBackground:
-	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::RainEffectBackground)], myPlayer);
-		break;
-	}case eParticleEffects::RainEffectForeground:
-	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::RainEffectForeground)], myPlayer);
-		break;
-	}
-	case eParticleEffects::BulletEffectTrail:
-	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::BulletEffectTrail)], myPlayer);
-		break;
-	}
-	case eParticleEffects::BulletEffectHit:
-	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::BulletEffectHit)], myPlayer);
-		break;
-	}
-	case eParticleEffects::FogEffect:
-	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::FogEffect)], myPlayer);
-		break;
-	}
-	case eParticleEffects::TestEffect:
-	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::TestEffect)], myPlayer);
-		break;
-	}
-	}
+	SetEffect(*effect, aEffectType);
 
 	effect->SetPosition(aPosition);
 	effect->SetIsActive(true);
-
 }
 
 void ParticleEffectFactory::SpawnEffectFollowObject(GameObject* aObject, const eParticleEffects aEffectType)
 {
 	ParticleEffect* effect = new ParticleEffect(myScene);
 
-	switch (aEffectType)
-	{
-	case eParticleEffects::RunEffect:
-	{
-		effect->Init(myEffects[static_cast<int>(aEffectType)], myPlayer);
-		break;
-	}
-	case eParticleEffects::CollectibleEffect:
-	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::CollectibleEffect)], myPlayer);
-		break;
-	}
-	case eParticleEffects::DeathEffect:
-	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::DeathEffect)], myPlayer);
-		break;
-	}
-	case eParticleEffects::RainEffectBackground:
-	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::RainEffectBackground)], myPlayer);
-		break;
-	}case eParticleEffects::RainEffectForeground:
-	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::RainEffectForeground)], myPlayer);
-		break;
-	}
-	case eParticleEffects::BulletEffectTrail:
-	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::BulletEffectTrail)], myPlayer);
-		break;
-	}
-	case eParticleEffects::BulletEffectHit:
-	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::BulletEffectHit)], myPlayer);
-		break;
-	}
-	case eParticleEffects::FogEffect:
-	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::FogEffect)], myPlayer);
-		break;
-	}
-	case eParticleEffects::TestEffect:
-	{
-		effect->Init(myEffects[static_cast<int>(eParticleEffects::TestEffect)], myPlayer);
-		break;
-	}
-	}
+	SetEffect(*effect, aEffectType);
 
 	effect->SetFollowObject(*aObject);
 	effect->SetIsActive(true);
 }
+
+void ParticleEffectFactory::SetEffect(ParticleEffect& aEffect, const eParticleEffects aEffectType)
+{
+	switch (aEffectType)
+	{
+	case eParticleEffects::RunEffect:
+	{
+		aEffect.Init(myEffects[static_cast<int>(aEffectType)], myPlayer);
+		break;
+	}
+	case eParticleEffects::CollectibleEffect:
+	{
+		aEffect.Init(myEffects[static_cast<int>(eParticleEffects::CollectibleEffect)], myPlayer);
+		break;
+	}
+	case eParticleEffects::DeathEffect:
+	{
+		aEffect.Init(myEffects[static_cast<int>(eParticleEffects::DeathEffect)], myPlayer);
+		break;
+	}
+	case eParticleEffects::RainEffectBackground:
+	{
+		aEffect.Init(myEffects[static_cast<int>(eParticleEffects::RainEffectBackground)], myPlayer);
+		break;
+	}case eParticleEffects::RainEffectForeground:
+	{
+		aEffect.Init(myEffects[static_cast<int>(eParticleEffects::RainEffectForeground)], myPlayer);
+		break;
+	}
+	case eParticleEffects::BulletEffectTrail:
+	{
+		aEffect.Init(myEffects[static_cast<int>(eParticleEffects::BulletEffectTrail)], myPlayer);
+		break;
+	}
+	case eParticleEffects::BulletEffectHit:
+	{
+		aEffect.Init(myEffects[static_cast<int>(eParticleEffects::BulletEffectHit)], myPlayer);
+		break;
+	}
+	case eParticleEffects::FogEffect:
+	{
+		aEffect.Init(myEffects[static_cast<int>(eParticleEffects::FogEffect)], myPlayer);
+		break;
+	}
+	case eParticleEffects::TestEffect:
+	{
+		aEffect.Init(myEffects[static_cast<int>(eParticleEffects::TestEffect)], myPlayer);
+		break;
+	}
+	}
+}
+
 
 void ParticleEffectFactory::SpawnCharacterEffects()
 {
