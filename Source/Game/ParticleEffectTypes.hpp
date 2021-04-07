@@ -12,5 +12,9 @@ enum class eParticleEffects
 	BulletEffectHit,
 	FogEffect,
 	FallEffect,
-	TestEffect
+	TestEffect1,
+	TestEffect2,
+	TestEffect3,
+	TestEffect4,
+	TestEffect5
 };

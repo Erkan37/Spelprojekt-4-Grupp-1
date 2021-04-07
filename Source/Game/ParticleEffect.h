@@ -15,7 +15,7 @@ public:
 	ParticleEffect(Scene* aLevelScene);
 	~ParticleEffect();
 
-	void Init(ParticleStats aStats, Player* aPlayer);
+	void Init(ParticleStats aStats);
 
 	void Render() override;
 	void Update(const float& aDeltaTime) override;
@@ -51,8 +51,6 @@ private:
 	bool myAddedPauseTimer;
 	bool myEffectIsDestroyed;
 
-	Player* myPlayer;
-	
 	const void UpdateParticle(const float& aDeltaTime);
 	const void CheckWhenToSpawnSprites();
 	const void SpawnSprite();

@@ -22,7 +22,6 @@ ParticleEffect::ParticleEffect(Scene* aLevelScene)
 	myKilledEffect = {};
 	myObjectIsFollowing = {};
 	mySpawnInterval = {};
-	myPlayer = {};
 	myActiveEffect = {};
 	myTimer = {};
 	myLifeTime = {};
@@ -42,10 +41,8 @@ ParticleEffect::~ParticleEffect()
 	GameObject::~GameObject();
 }
 
-void ParticleEffect::Init(ParticleStats aStats, Player* aPlayer)
+void ParticleEffect::Init(ParticleStats aStats)
 {
-	assert(aPlayer != NULL);
-	myPlayer = aPlayer;
 	myStats = aStats;
 	myCreatingSprites = true;
 	myBatch = AddComponent<SpritebatchComponent>();
