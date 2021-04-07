@@ -307,6 +307,29 @@
         }, 
         {
          "draworder":"topdown",
+         "id":17,
+         "name":"AudioObjects",
+         "objects":[
+                {
+                 "height":0,
+                 "id":176,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"52",
+                 "visible":true,
+                 "width":0,
+                 "x":176,
+                 "y":64
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":13,
          "name":"CollectableZones",
          "objects":[],
@@ -452,8 +475,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":17,
- "nextobjectid":176,
+ "nextlayerid":18,
+ "nextobjectid":177,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

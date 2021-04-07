@@ -14,7 +14,6 @@
 
 #include "LevelManager.hpp"
 #include "SpeedrunManager.h"
-#include "AudioManager.h"
 
 #include "Game.h"
 
@@ -34,8 +33,6 @@ LevelScene::LevelScene()
 
 void LevelScene::Load()
 {
-	AudioManager::GetInstance()->Stop(AudioList::MenuAmbience);
-	AudioManager::GetInstance()->FadeOut(AudioList::Main_Menu);
 	myIsSpeedrun = CGameWorld::GetInstance()->GetLevelManager().GetSpeedrunManager()->GetIsSpeedrun();
 	myBlackScreenOpacity = 1.0f;
 	myBlackScreenOpacitySpeed = 4.3f;
@@ -101,7 +98,6 @@ void LevelScene::Deactivate()
 
 void LevelScene::Update(const float& aDeltaTime)
 {
-
 	const float zoomX = CGameWorld::GetInstance()->Game()->GetZoomX();
 	const float zoomY = CGameWorld::GetInstance()->Game()->GetZoomY();
 

@@ -34,6 +34,7 @@ public:
 
 	float myTotalTimer = {};
 
+	v2f mySize = {};
 	float myPauseTime = {};
 	float myMinScale = {};
 	float myMaxScale = {};
@@ -51,6 +52,7 @@ public:
 	float myEmitterStartAngle = {};
 	float myEmitterEndAngle = {};
 
+	bool myHasActivated = {};
 	bool myIsAlive = true;
 	bool myIsLockedPos = false;
 
