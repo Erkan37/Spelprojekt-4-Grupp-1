@@ -113,7 +113,7 @@ public:
 	const int DataManager::GetLevelCount() const;
 
 	// Save Methods
-	void SaveHighScores(const std::array<unsigned int, 10> &someHighscores);
+	void SaveHighScores(const std::array<float, 10> &someHighscores);
 	void SaveBonfireState(const unsigned int anIndex, const bool aState);
 	const bool GetBonfireState(const unsigned int anIndex) const;
 	void ResetBonfires();
