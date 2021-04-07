@@ -6,6 +6,7 @@
 
 EffectSprite::EffectSprite()
 {
+	mySprite = {};
 }
 
 EffectSprite::~EffectSprite()
@@ -129,6 +130,7 @@ const void EffectSprite::LerpColor(const float& aDeltaTime)
 	myCurrentColor.myR = Utils::Lerp(myCurrentColor.myR, myEndColor.myR, aDeltaTime / timer);
 	myCurrentColor.myG = Utils::Lerp(myCurrentColor.myG, myEndColor.myG, aDeltaTime);
 	myCurrentColor.myB = Utils::Lerp(myCurrentColor.myB, myEndColor.myB, aDeltaTime);
+	myCurrentColor.myA = Utils::Lerp(myCurrentColor.myA, myEndColor.myA, aDeltaTime);
 
 	SetNewColor();
 }
