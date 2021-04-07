@@ -127,14 +127,20 @@ void AudioManager::Fade(const float& aDeltaTime)
 
 void AudioManager::FadeOut(AudioList aSound)
 {
+	if (!myLibrary.myAudioList[aSound]->GetIsFading())
+	{
+		myFades.push_back(aSound);
+	}
 	myLibrary.myAudioList[aSound]->SetFade(true, true);
-	myFades.push_back(aSound);
 }
 
 void AudioManager::FadeIn(AudioList aSound)
 {
+	if (!myLibrary.myAudioList[aSound]->GetIsFading())
+	{
+		myFades.push_back(aSound);
+	}
 	myLibrary.myAudioList[aSound]->SetFade(true, false);
-	myFades.push_back(aSound);
 }
 
 float AudioManager::GetMusicVolume() const
@@ -218,14 +224,17 @@ void AudioManager::StopCurrentMusic()
 
 void AudioManager::StopAllSounds(bool anAndMusic)
 {
-	if (anAndMusic)
-	{
-		StopCurrentMusic();
-	}
+	//if (anAndMusic)
+	//{
+	//	StopCurrentMusic();
+	//}
 
 	for (auto const& [key, val] : myLibrary.myAudioList)
 	{
-		val->Stop();
+		if (myLibrary.myAudioList[key]->GetLayer() == AudioLayer::SoundEffect)
+		{
+			val->Stop();
+		}
 	}
 }
 
