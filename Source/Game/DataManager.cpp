@@ -233,11 +233,11 @@ const int DataManager::GetLevelCount() const
 	return static_cast<int>(myLevelVector.size());
 }
 
-void DataManager::SaveHighScores(const std::array<unsigned int, 10> &someHighscores)
+void DataManager::SaveHighScores(const std::array<float, 10> &someHighscores)
 {
 	for (size_t i = 0; i < someHighscores.size(); i++)
 	{
-		mySaveFile["HighScore"].GetArray()[i]["Score"]["Value"].SetInt(someHighscores[i]);
+		mySaveFile["HighScore"].GetArray()[i]["Score"]["Value"].SetFloat(someHighscores[i]);
 	}
 
 	std::string dataPath = "JSON/SaveFile.json";
@@ -307,12 +307,7 @@ void DataManager::ResetCollectibles()
 		mySaveFile["Collectibles"].PushBack(jsonObject, allocator);
 	}
 
-	// Accepts Writer.
-	std::string dataPath = "JSON/SaveFile.json";
-	std::ofstream ofs{ dataPath };
-	rapidjson::OStreamWrapper osw{ ofs };
-	rapidjson::Writer<rapidjson::OStreamWrapper> writer{ osw };
-	mySaveFile.Accept(writer);
+	AcceptJsonWriter("JSON/SaveFile.json");
 }
 
 void DataManager::CollectCollectible(const int anID)
@@ -325,12 +320,7 @@ void DataManager::CollectCollectible(const int anID)
 		}
 	}
 
-	// Accepts Writer.
-	std::string dataPath = "JSON/SaveFile.json";
-	std::ofstream ofs{ dataPath };
-	rapidjson::OStreamWrapper osw{ ofs };
-	rapidjson::Writer<rapidjson::OStreamWrapper> writer{ osw };
-	mySaveFile.Accept(writer);
+	AcceptJsonWriter("JSON/SaveFile.json");
 }
 void DataManager::SetCollectedState()
 {
