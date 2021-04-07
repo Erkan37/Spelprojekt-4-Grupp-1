@@ -6,6 +6,8 @@
 #include <rapidjson/ostreamwrapper.h>
 #include <rapidjson/writer.h>
 
+#include <array>
+
 DataManager::DataManager()
 {
 	//Assign MasterDoc & SaveFile
@@ -231,6 +233,16 @@ const int DataManager::GetLevelCount() const
 	return static_cast<int>(myLevelVector.size());
 }
 
+void DataManager::SaveHighScores(const std::array<float, 10> &someHighscores)
+{
+	for (size_t i = 0; i < someHighscores.size(); i++)
+	{
+		mySaveFile["HighScore"].GetArray()[i]["Score"]["Value"].SetFloat(someHighscores[i]);
+	}
+
+	std::string dataPath = "JSON/SaveFile.json";
+	AcceptJsonWriter(dataPath);
+}
 void DataManager::SaveBonfireState(const unsigned int anIndex, const bool aState)
 {
 	assert((mySaveFile["Bonfires"].IsArray()) && "Bonfires is not Array.");
@@ -295,12 +307,7 @@ void DataManager::ResetCollectibles()
 		mySaveFile["Collectibles"].PushBack(jsonObject, allocator);
 	}
 
-	// Accepts Writer.
-	std::string dataPath = "JSON/SaveFile.json";
-	std::ofstream ofs{ dataPath };
-	rapidjson::OStreamWrapper osw{ ofs };
-	rapidjson::Writer<rapidjson::OStreamWrapper> writer{ osw };
-	mySaveFile.Accept(writer);
+	AcceptJsonWriter("JSON/SaveFile.json");
 }
 
 void DataManager::CollectCollectible(const int anID)
@@ -313,12 +320,7 @@ void DataManager::CollectCollectible(const int anID)
 		}
 	}
 
-	// Accepts Writer.
-	std::string dataPath = "JSON/SaveFile.json";
-	std::ofstream ofs{ dataPath };
-	rapidjson::OStreamWrapper osw{ ofs };
-	rapidjson::Writer<rapidjson::OStreamWrapper> writer{ osw };
-	mySaveFile.Accept(writer);
+	AcceptJsonWriter("JSON/SaveFile.json");
 }
 void DataManager::SetCollectedState()
 {
@@ -387,4 +389,12 @@ void DataManager::ParseCollectableInfo(){
 	ResetSaveFile();
 #endif // !_RETAIL
 	SetCollectedState();
+}
+
+void DataManager::AcceptJsonWriter(const std::string aDataPath) const
+{
+	std::ofstream ofs{ aDataPath };
+	rapidjson::OStreamWrapper osw{ ofs };
+	rapidjson::Writer<rapidjson::OStreamWrapper> writer{ osw };
+	mySaveFile.Accept(writer);
 }
