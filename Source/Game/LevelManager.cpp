@@ -34,11 +34,12 @@ LevelManager::~LevelManager()
 {
 }
 
-void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelSelect, Scene* aLevelScene, Scene* anIntroLogosScene, Scene* aWinScene)
+void LevelManager::Init(Scene* aMainMenuScene, Scene* aLevelSelect, Scene* aLevelScene, Scene* anIntroLogosScene, Scene* aWinScene, Scene* aSpeedrunScene)
 {
 	myScenes.insert({ eScenes::MainMenu, aMainMenuScene });
 	myScenes.insert({ eScenes::LevelSelect, aLevelSelect });
 	myScenes.insert({ eScenes::LevelScene, aLevelScene });
+	myScenes.insert({ eScenes::SpeedrunScene, aSpeedrunScene });
 	//myScenes.insert({ eScenes::PauseMenu, aPauseMenuScene });
 	myScenes.insert({ eScenes::IntroLogos, anIntroLogosScene});
 	myScenes.insert({ eScenes::WinScene, aWinScene });
@@ -88,9 +89,9 @@ void LevelManager::ImGuiUpdate()
 		{
 			SingleLoadScene(eScenes::MainMenu);
 		}
-		if (ImGui::Button("Reset Bonfires"))
+		if (ImGui::Button("Reset SaveFile"))
 		{
-			DataManager::GetInstance().ResetBonfires();
+			DataManager::GetInstance().ResetSaveFile();
 		}
 
 		ImGui::End();

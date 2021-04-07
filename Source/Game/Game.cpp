@@ -145,7 +145,7 @@ void CGame::InitCallBack()
 
 void CGame::UpdateCallBack()
 {
-	ShowCursor(false);
+	ShowCursor(true);
 
 	myTimer->Update();
 	myGameWorld.Update();

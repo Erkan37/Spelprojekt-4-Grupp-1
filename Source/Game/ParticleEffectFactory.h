@@ -21,6 +21,7 @@ private:
 	Player* myPlayer;
 	std::vector<ParticleStats> myEffects;
 
+	void SetEffect(ParticleEffect& aEffect, const eParticleEffects aEffectType);
 	void SpawnCharacterEffects();
 
 };

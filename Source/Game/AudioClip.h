@@ -29,6 +29,10 @@ public:
 	void Lock();
 	void UnLock();
 
+	bool Fade(const float& aDeltaTime);
+
+	void SetFade(const bool& aFade, const bool& aOut);
+
 	AudioLayer GetLayer();
 
 private:
@@ -39,6 +43,8 @@ private:
 	const float myVolProcent;
 	bool myCanPlay = true;
 	bool myIsPlaying = false;
+	bool myIsFadingOut = false;
+	bool myIsFading = false;
 	AudioLayer myLayer;
 	Tga2D::CAudio* myAudio = nullptr;
 };
