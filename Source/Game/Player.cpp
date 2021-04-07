@@ -754,7 +754,7 @@ void Player::BashCollision(GameObject* aGameObject, BashComponent* aBashComponen
 
 		if (!myInputHandler->IsDashing() && !myBashAbility->GetIsBashing())
 		{
-			CGameWorld::GetInstance()->GetTimer()->SetTimeScale(0.5f);
+			CGameWorld::GetInstance()->GetTimer()->SetTimeScale(0.8f);
 		}
 
 		if (myInputHandler->IsDashing() && !myBashAbility->GetIsBashing())
