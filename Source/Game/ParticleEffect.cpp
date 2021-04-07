@@ -235,15 +235,15 @@ const void ParticleEffect::CheckActiveStats()
 
 	if (myObjectIsFollowing)
 	{
-		if (myFollowObject->IsActive())
-			SetPosition(myFollowObject->GetPosition());
-		else
+		if (!myFollowObject->IsActive() || myFollowObject == NULL)
 		{
 			for (auto sprite : mySprites)
 				sprite->SetInactive();
 
 			myKilledEffect = true;
 		}
+		else
+			SetPosition(myFollowObject->GetPosition());
 	}
 }
 
