@@ -16,6 +16,6 @@ public:
 private:
 	bool myIsSpeedrun;
 	float myCurrentScore;
-	std::array<int, 10> myHighScores;
+	std::array<float, 10> myHighScores;
 };
 

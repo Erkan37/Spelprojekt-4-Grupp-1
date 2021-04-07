@@ -32,7 +32,15 @@ void SpeedrunManager::AddToScore(const float aScore)
 
 void SpeedrunManager::ReportScoreToHighscores()
 {
-	//Check if score is a highscore
-	//If it is, add it to list (show to player)
-	//reset current score
+	//Should the player be able to get their name in the list too?
+	for (int i = 0; i < myHighScores.size(); ++i)
+	{
+		if (myCurrentScore > myHighScores[i])
+		{
+			float temp = myHighScores[i];
+			myHighScores[i] = myCurrentScore;
+			myCurrentScore = temp;
+		}
+	}
+	myCurrentScore = 0;
 }
