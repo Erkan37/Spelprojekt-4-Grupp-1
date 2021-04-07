@@ -33,7 +33,7 @@
       "EmitterHeigth": 0.0,
 
       "MinParticleLifeTime": 10.0,
-      "MaxParticleLifeTime": 40.0,
+      "MaxParticleLifeTime": 30.0,
 
       "Offset": [
         {
