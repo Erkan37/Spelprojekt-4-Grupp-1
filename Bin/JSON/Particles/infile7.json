@@ -13,8 +13,8 @@
 
       "EmitterLifeTime": 0.0,
 
-      "StartScale": 1.0,
-      "EndScale": 0.9,
+      "StartScale": 0.8,
+      "EndScale": 1.0,
 
       "RotateSprite": 0.0,
 
@@ -22,7 +22,7 @@
       "MaxTimeBetweenSpawns": 0.01,
 
       "MinSpeed": 3.0,
-      "MaxSpeed": 0.0,
+      "MaxSpeed": 0.5,
 
       "MinParticleAngularVel": 0.0,
       "MaxParticleAngularVel": 0.0,
@@ -40,7 +40,7 @@
           "X": 0.0
         },
         {
-          "Y": 70.0
+          "Y": 100.0
         }
       ],
 
@@ -57,13 +57,13 @@
         255.0,
         255.0,
         255.0,
-        0.0
+        0.05
       ],
       "EndColor": [
         255.0,
         255.0,
         255.0,
-        0.05
+        0.0
       ],
       "BlendState": "Additive"
     }
