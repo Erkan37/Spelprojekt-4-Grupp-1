@@ -267,6 +267,29 @@
         }, 
         {
          "draworder":"topdown",
+         "id":17,
+         "name":"AudioObjects",
+         "objects":[
+                {
+                 "height":0,
+                 "id":138,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"51",
+                 "visible":true,
+                 "width":0,
+                 "x":160,
+                 "y":88
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":6,
          "name":"Collectables",
          "objects":[
@@ -412,8 +435,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":17,
- "nextobjectid":138,
+ "nextlayerid":18,
+ "nextobjectid":139,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",
