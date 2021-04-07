@@ -34,6 +34,7 @@ public:
 
 	float myTotalTimer = {};
 
+	v2f mySize = {};
 	float myPauseTime = {};
 	float myMinScale = {};
 	float myMaxScale = {};

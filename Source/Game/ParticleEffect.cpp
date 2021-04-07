@@ -18,6 +18,7 @@ ParticleEffect::ParticleEffect(Scene* aLevelScene)
 	myBatch(nullptr)
 {
 	myFollowObject = nullptr;
+	myEffectIsDestroyed = {};
 	myKilledEffect = {};
 	myObjectIsFollowing = {};
 	mySpawnInterval = {};
@@ -33,7 +34,13 @@ ParticleEffect::ParticleEffect(Scene* aLevelScene)
 	myInitBatching = {};
 }
 
-ParticleEffect::~ParticleEffect() = default;
+ParticleEffect::~ParticleEffect()
+{
+	if (!myEffectIsDestroyed)
+		DeleteSprites();
+
+	GameObject::~GameObject();
+}
 
 void ParticleEffect::Init(ParticleStats aStats, Player * aPlayer)
 {
@@ -53,6 +60,14 @@ void ParticleEffect::Init(ParticleStats aStats, Player * aPlayer)
 	SetZIndex(myStats.myZIndex);
 	SetPivot({ 0.5f, 0.5f });
 	Activate();
+}
+
+void ParticleEffect::Render()
+{
+	for (auto sprite : mySprites)
+		sprite->GetSprite()->Render(myTransform, *this);
+
+	myBatch->Render(myTransform, *this);
 }
 
 void ParticleEffect::Update(const float& aDeltaTime)
@@ -186,6 +201,7 @@ const void ParticleEffect::CheckIfEffectIsDead()
 			myBatch = nullptr;
 			DeleteComponents();
 			mySprites.clear();
+			myEffectIsDestroyed = true;
 			delete this;
 		}
 	}
@@ -199,7 +215,7 @@ const void ParticleEffect::CheckIfSpritesAreDead(const float& aDeltaTime)
 
 		if (mySprites[x]->IsAlive() == false)
 		{
-			myBatch->RemoveObject(mySprites[x]->GetSprite()->GetCSprite(), false);
+			myBatch->RemoveObject(mySprites[x]->GetSprite(), mySprites[x]->GetSprite()->GetCSprite(), false);
 			delete mySprites[x];
 			mySprites.erase(mySprites.begin() + x);
 			DeleteInactiveSpriteComponents();
@@ -228,9 +244,22 @@ const void ParticleEffect::CheckActiveStats()
 
 			myKilledEffect = true;
 		}
-		
+	}
+}
+
+const void ParticleEffect::DeleteSprites()
+{
+	for (int x = mySprites.size() - 1; x >= 0; x--)
+	{
+		myBatch->RemoveObject(mySprites[x]->GetSprite(), mySprites[x]->GetSprite()->GetCSprite(), false);
+		delete mySprites[x];
+		mySprites.erase(mySprites.begin() + x);
 	}
 
+	delete myBatch;
+	myBatch = nullptr;
+	DeleteComponents();
+	mySprites.clear();
 }
 
 const void ParticleEffect::SetEffect(ParticleStats aEffect)

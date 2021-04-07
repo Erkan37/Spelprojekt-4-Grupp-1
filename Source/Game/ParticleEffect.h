@@ -17,6 +17,7 @@ public:
 
 	void Init(ParticleStats aStats, Player* aPlayer);
 
+	void Render() override;
 	void Update(const float& aDeltaTime) override;
 
 	const void SetIsActive(const bool aActiveState);
@@ -48,6 +49,7 @@ private:
 	bool myCreatingSprites;
 	bool myAddedEmitter;
 	bool myAddedPauseTimer;
+	bool myEffectIsDestroyed;
 
 	Player* myPlayer;
 	
@@ -58,6 +60,7 @@ private:
 	const void CheckIfEffectIsDead();
 	const void CheckIfSpritesAreDead(const float& aDeltaTime);
 	const void CheckActiveStats();
+	const void DeleteSprites();
 
 };
 

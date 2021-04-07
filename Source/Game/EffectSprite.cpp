@@ -35,7 +35,7 @@ void EffectSprite::AddSprite(SpriteComponent* aSprite)
 
 	SetNewColor();
 	
-	v2f size = mySprite->GetSize() * myMinScale;
+	mySize = mySprite->GetSize() * myMinScale;
 	myMaxVectorScale = mySprite->GetSize() * myMaxScale;
 
 	v2f position = {};
@@ -54,7 +54,7 @@ void EffectSprite::AddSprite(SpriteComponent* aSprite)
 
 	position = mySprite->GetRelativePosition() + position + myOffset;
 	
-	mySprite->SetSize(size);
+	mySprite->SetSize({0.f,0.f});
 	mySprite->SetRelativePosition(position);
 	mySprite->SetRelativeRotation(mySpriteRotation);
 }
@@ -99,7 +99,8 @@ const void EffectSprite::MoveSprite(const float& aDeltaTime)
 	if (!myHasActivated)
 	{
 		myHasActivated = true;
-		//mySprite->Activate();
+		mySprite->SetSize(mySize);
+		mySprite->Activate();
 	}
 }
 

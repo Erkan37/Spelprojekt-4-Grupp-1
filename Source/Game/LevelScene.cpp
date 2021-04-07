@@ -103,7 +103,7 @@ void LevelScene::Update(const float& aDeltaTime)
 	{
 		v2f position = GetPlayer()->GetPosition();
 
-		myEffectFactory->SpawnEffect(position, eParticleEffects::FogEffect);
+		myEffectFactory->SpawnEffect(position, eParticleEffects::BulletEffectTrail);
 	}
 
 	const float zoomX = CGameWorld::GetInstance()->Game()->GetZoomX();
