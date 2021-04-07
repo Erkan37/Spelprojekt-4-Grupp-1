@@ -14,6 +14,7 @@ ParticleEffectFactory::ParticleEffectFactory()
 	myScene = {};
 	myPlayer = {};
 	myEffects = {};
+	myTestIndex = {};
 }
 
 void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
@@ -31,6 +32,8 @@ void ParticleEffectFactory::ReadEffects(Scene* aLevelScene)
 
 	rapidjson::Document effectDocuments;
 	effectDocuments.ParseStream(effectObjectStream);
+
+	myTestIndex = effectDocuments["TestEffect"]["File"].GetInt64();
 
 	for (rapidjson::Value::ConstValueIterator effectPaths = effectDocuments["particlesPath"].Begin(); effectPaths != effectDocuments["particlesPath"].End(); ++effectPaths)
 	{
@@ -92,6 +95,16 @@ void ParticleEffectFactory::Init()
 	//SpawnCharacterEffects();
 }
 
+
+void ParticleEffectFactory::TestEffect(const v2f aPosition)
+{
+	ParticleEffect* effect = new ParticleEffect(myScene);
+
+	SetEffect(*effect, static_cast<eParticleEffects>(myTestIndex));
+
+	effect->SetPosition(aPosition);
+	effect->SetIsActive(true);
+}
 
 void ParticleEffectFactory::SpawnEffect(v2f aPosition, const eParticleEffects aEffectType)
 {
