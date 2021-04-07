@@ -184,9 +184,9 @@ void ParticleEffectFactory::SetEffect(ParticleEffect& aEffect, const eParticleEf
 		aEffect.Init(myEffects[static_cast<int>(eParticleEffects::FallEffect)]);
 		break;
 	}
-	case eParticleEffects::TestEffect1:
+	case eParticleEffects::TrailEffect2:
 	{
-		aEffect.Init(myEffects[static_cast<int>(eParticleEffects::TestEffect1)]);
+		aEffect.Init(myEffects[static_cast<int>(eParticleEffects::TrailEffect2)]);
 		break;
 	}
 	case eParticleEffects::TestEffect2:

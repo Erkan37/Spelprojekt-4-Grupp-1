@@ -17,6 +17,7 @@ ParticleEffect::ParticleEffect(Scene* aLevelScene)
 	GameObject(aLevelScene),
 	myBatch(nullptr)
 {
+	mySpawningInLocalSpace = {};
 	myFollowObject = nullptr;
 	myEffectIsDestroyed = {};
 	myKilledEffect = {};
